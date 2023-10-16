@@ -19,6 +19,8 @@
 		3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEF2ADD50FB001FE371 /* Member.swift */; };
 		3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF12ADD5500001FE371 /* Preset.swift */; };
 		3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF32ADD59CB001FE371 /* Formation.swift */; };
+		3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */; };
+		3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF72ADD6705001FE371 /* Performance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		3AE0CCEF2ADD50FB001FE371 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		3AE0CCF12ADD5500001FE371 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		3AE0CCF32ADD59CB001FE371 /* Formation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formation.swift; sourceTree = "<group>"; };
+		3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationTransition.swift; sourceTree = "<group>"; };
+		3AE0CCF72ADD6705001FE371 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,8 @@
 				3AE0CCEF2ADD50FB001FE371 /* Member.swift */,
 				3AE0CCF12ADD5500001FE371 /* Preset.swift */,
 				3AE0CCF32ADD59CB001FE371 /* Formation.swift */,
+				3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */,
+				3AE0CCF72ADD6705001FE371 /* Performance.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -294,6 +300,8 @@
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
+				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
+				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
