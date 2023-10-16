@@ -25,6 +25,7 @@
 		3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */; };
 		3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD002ADD8EFB001FE371 /* HexString.swift */; };
 		3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */; };
+		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMax.swift; sourceTree = "<group>"; };
 		3AE0CD002ADD8EFB001FE371 /* HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
 		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
+		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */,
+				3AE0CD082ADD9676001FE371 /* HexStringTests.swift */,
 			);
 			path = PropertyWrappers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			files = (
 				3AE0CCD12ADD0CE4001FE371 /* QEDTests.swift in Sources */,
 				3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */,
+				3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
