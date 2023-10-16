@@ -3,10 +3,10 @@
 import Foundation
 
 class Member {
-    @MinMax(minValue: 0, maxValue: 1000)
+    @MinMax(minValue: MemberConstants.minX, maxValue: MemberConstants.maxX)
     var x: Int
     
-    @MinMax(minValue: 0, maxValue: 1000)
+    @MinMax(minValue: MemberConstants.minY, maxValue: MemberConstants.maxY)
     var y: Int
     
     var info: Info?
