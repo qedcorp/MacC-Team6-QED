@@ -17,7 +17,7 @@ class Member {
         self.info = info
     }
     
-    class Info {
+    class Info: Hashable, Equatable {
         var name: String
         
         // TODO: propertyWrapper hexString
@@ -26,6 +26,14 @@ class Member {
         init(name: String, color: String) {
             self.name = name
             self.color = color
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(ObjectIdentifier(self))
+        }
+        
+        static func == (lhs: Member.Info, rhs: Member.Info) -> Bool {
+            lhs === rhs
         }
     }
 }
