@@ -15,6 +15,7 @@
 		3AE0CCDB2ADD0CE4001FE371 /* QEDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCDA2ADD0CE4001FE371 /* QEDUITests.swift */; };
 		3AE0CCDD2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCDC2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift */; };
 		3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEB2ADD4BB0001FE371 /* User.swift */; };
+		3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCED2ADD4D0B001FE371 /* Music.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		3AE0CCDA2ADD0CE4001FE371 /* QEDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDUITests.swift; sourceTree = "<group>"; };
 		3AE0CCDC2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3AE0CCEB2ADD4BB0001FE371 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3AE0CCED2ADD4D0B001FE371 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CCEB2ADD4BB0001FE371 /* User.swift */,
+				3AE0CCED2ADD4D0B001FE371 /* Music.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			files = (
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
+				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
