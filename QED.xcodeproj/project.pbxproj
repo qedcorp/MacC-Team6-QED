@@ -22,6 +22,8 @@
 		3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */; };
 		3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF72ADD6705001FE371 /* Performance.swift */; };
 		3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFA2ADD696B001FE371 /* Playable.swift */; };
+		3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */; };
+		3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD002ADD8EFB001FE371 /* HexString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationTransition.swift; sourceTree = "<group>"; };
 		3AE0CCF72ADD6705001FE371 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		3AE0CCFA2ADD696B001FE371 /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
+		3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMax.swift; sourceTree = "<group>"; };
+		3AE0CD002ADD8EFB001FE371 /* HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
+				3AE0CCFC2ADD8B5B001FE371 /* Utilities */,
 				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
 				3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */,
 				3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */,
@@ -173,6 +178,23 @@
 				3AE0CCFA2ADD696B001FE371 /* Playable.swift */,
 			);
 			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		3AE0CCFC2ADD8B5B001FE371 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3AE0CCFD2ADD8B6D001FE371 /* PropertyWrappers */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		3AE0CCFD2ADD8B6D001FE371 /* PropertyWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */,
+				3AE0CD002ADD8EFB001FE371 /* HexString.swift */,
+			);
+			path = PropertyWrappers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,10 +328,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
+				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
+				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,

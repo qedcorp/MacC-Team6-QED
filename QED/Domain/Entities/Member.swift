@@ -3,10 +3,10 @@
 import Foundation
 
 class Member {
-    // TODO: propertyWrapper 0 ~ 1000
+    @MinMax(minValue: 0, maxValue: 1000)
     var x: Int
     
-    // TODO: propertyWrapper 0 ~ 1000
+    @MinMax(minValue: 0, maxValue: 1000)
     var y: Int
     
     var info: Info?
@@ -20,7 +20,7 @@ class Member {
     class Info: Hashable, Equatable {
         var name: String
         
-        // TODO: propertyWrapper hexString
+        @HexString
         var color: String
         
         init(name: String, color: String) {
