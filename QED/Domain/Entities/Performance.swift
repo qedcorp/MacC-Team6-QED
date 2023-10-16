@@ -4,7 +4,7 @@ import Foundation
 
 class Performance {
     let author: User
-    let music: Music
+    let playable: Playable
     let headcount: Int
     var title: String?
     var formations: [Formation]
@@ -12,16 +12,16 @@ class Performance {
     
     init(
         author: User,
-        music: Music,
+        playable: Playable,
         headcount: Int,
         title: String? = nil,
         formations: [Formation] = [],
         transitions: [FormationTransition] = []
     ) {
         self.author = author
-        self.music = music
+        self.playable = playable
         self.headcount = headcount
-        self.title = title ?? music.title
+        self.title = title ?? playable.title
         self.formations = formations
         self.transitions = transitions
     }

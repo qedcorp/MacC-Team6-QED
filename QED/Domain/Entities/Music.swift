@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Music: Identifiable {
+class Music: Identifiable, Playable {
     let id: String
     let title: String
     let artistName: String
@@ -24,6 +24,14 @@ class Music: Identifiable {
         self.albumCoverURL = albumCoverURL
         self.durationMs = durationMs
         self.lyrics = lyrics
+    }
+    
+    var creator: String {
+        artistName
+    }
+    
+    var thumbnailURL: URL? {
+        albumCoverURL
     }
     
     struct Lyric {
