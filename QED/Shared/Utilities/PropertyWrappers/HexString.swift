@@ -6,9 +6,9 @@ import Foundation
 struct HexString {
     private static let hexCharacters = CharacterSet(charactersIn: "0123456789ABCDEFabcdef")
     private static let defaultValue = "000000"
-    
+
     private var value = defaultValue
-    
+
     var wrappedValue: String {
         get { value }
         set {
@@ -18,7 +18,7 @@ struct HexString {
             value = newValue
         }
     }
-    
+
     private static func isValidHexString(_ value: String) -> Bool {
         guard (6 ... 8).contains(value.count) else {
             return false

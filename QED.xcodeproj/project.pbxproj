@@ -11,9 +11,6 @@
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
 		3AE0CCC72ADD0CE4001FE371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC62ADD0CE4001FE371 /* Preview Assets.xcassets */; };
-		3AE0CCD12ADD0CE4001FE371 /* QEDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCD02ADD0CE4001FE371 /* QEDTests.swift */; };
-		3AE0CCDB2ADD0CE4001FE371 /* QEDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCDA2ADD0CE4001FE371 /* QEDUITests.swift */; };
-		3AE0CCDD2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCDC2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift */; };
 		3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEB2ADD4BB0001FE371 /* User.swift */; };
 		3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCED2ADD4D0B001FE371 /* Music.swift */; };
 		3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEF2ADD50FB001FE371 /* Member.swift */; };
@@ -47,16 +44,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = QED.xctestplan; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AE0CCC62ADD0CE4001FE371 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AE0CCD02ADD0CE4001FE371 /* QEDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDTests.swift; sourceTree = "<group>"; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AE0CCDA2ADD0CE4001FE371 /* QEDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDUITests.swift; sourceTree = "<group>"; };
-		3AE0CCDC2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3AE0CCEB2ADD4BB0001FE371 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3AE0CCED2ADD4D0B001FE371 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		3AE0CCEF2ADD50FB001FE371 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
@@ -97,12 +92,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A47F43C2ADE5F7B000E3272 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3AE0CD022ADD9293001FE371 /* Utilities */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3AE0CCB32ADD0CE1001FE371 = {
 			isa = PBXGroup;
 			children = (
+				3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */,
 				3AE0CCBE2ADD0CE1001FE371 /* QED */,
 				3AE0CCCF2ADD0CE4001FE371 /* QEDTests */,
-				3AE0CCD92ADD0CE4001FE371 /* QEDUITests */,
 				3AE0CCBD2ADD0CE1001FE371 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -141,19 +144,9 @@
 		3AE0CCCF2ADD0CE4001FE371 /* QEDTests */ = {
 			isa = PBXGroup;
 			children = (
-				3AE0CD022ADD9293001FE371 /* Utilities */,
-				3AE0CCD02ADD0CE4001FE371 /* QEDTests.swift */,
+				3A47F43C2ADE5F7B000E3272 /* Shared */,
 			);
 			path = QEDTests;
-			sourceTree = "<group>";
-		};
-		3AE0CCD92ADD0CE4001FE371 /* QEDUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3AE0CCDA2ADD0CE4001FE371 /* QEDUITests.swift */,
-				3AE0CCDC2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift */,
-			);
-			path = QEDUITests;
 			sourceTree = "<group>";
 		};
 		3AE0CCE92ADD4B90001FE371 /* Domain */ = {
@@ -248,6 +241,7 @@
 				3AE0CCB82ADD0CE1001FE371 /* Sources */,
 				3AE0CCB92ADD0CE1001FE371 /* Frameworks */,
 				3AE0CCBA2ADD0CE1001FE371 /* Resources */,
+				3A4F0B232ADDA0E100C0CD8B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -363,6 +357,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3A4F0B232ADDA0E100C0CD8B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3AE0CCB82ADD0CE1001FE371 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -388,7 +403,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE0CCD12ADD0CE4001FE371 /* QEDTests.swift in Sources */,
 				3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */,
 				3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */,
 			);
@@ -398,8 +412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE0CCDB2ADD0CE4001FE371 /* QEDUITests.swift in Sources */,
-				3AE0CCDD2ADD0CE4001FE371 /* QEDUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
