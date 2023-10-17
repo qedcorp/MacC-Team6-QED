@@ -92,13 +92,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A47F43C2ADE5F7B000E3272 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3AE0CD022ADD9293001FE371 /* Utilities */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3AE0CCB32ADD0CE1001FE371 = {
 			isa = PBXGroup;
 			children = (
 				3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */,
 				3AE0CCBE2ADD0CE1001FE371 /* QED */,
 				3AE0CCCF2ADD0CE4001FE371 /* QEDTests */,
-				3AE0CCD92ADD0CE4001FE371 /* QEDUITests */,
 				3AE0CCBD2ADD0CE1001FE371 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -137,16 +144,9 @@
 		3AE0CCCF2ADD0CE4001FE371 /* QEDTests */ = {
 			isa = PBXGroup;
 			children = (
-				3AE0CD022ADD9293001FE371 /* Utilities */,
+				3A47F43C2ADE5F7B000E3272 /* Shared */,
 			);
 			path = QEDTests;
-			sourceTree = "<group>";
-		};
-		3AE0CCD92ADD0CE4001FE371 /* QEDUITests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = QEDUITests;
 			sourceTree = "<group>";
 		};
 		3AE0CCE92ADD4B90001FE371 /* Domain */ = {
