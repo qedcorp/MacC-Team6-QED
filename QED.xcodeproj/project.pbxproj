@@ -29,6 +29,7 @@
 		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
 		D413335A2ADDA26400BDE1BB /* SearchMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333592ADDA26400BDE1BB /* SearchMusicRepository.swift */; };
 		D413335E2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */; };
+		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
 		D41333592ADDA26400BDE1BB /* SearchMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepository.swift; sourceTree = "<group>"; };
 		D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryMockUp.swift; sourceTree = "<group>"; };
+		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 		D41333602ADE4E8100BDE1BB /* SearchMusicRepositoryTest */ = {
 			isa = PBXGroup;
 			children = (
+				D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */,
 			);
 			path = SearchMusicRepositoryTest;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 			files = (
 				3AE0CCD12ADD0CE4001FE371 /* QEDTests.swift in Sources */,
 				3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */,
+				D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */,
 				3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
