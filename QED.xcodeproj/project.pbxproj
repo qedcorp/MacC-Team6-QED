@@ -25,6 +25,9 @@
 		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
 		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
+		D41333732ADE826100BDE1BB /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333722ADE826100BDE1BB /* AuthRepository.swift */; };
+		D41333762ADE84FF00BDE1BB /* AuthManagerImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */; };
+		D413337B2ADE867800BDE1BB /* FinishLaunching.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413337A2ADE867800BDE1BB /* FinishLaunching.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
+		D41333722ADE826100BDE1BB /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManagerImplement.swift; sourceTree = "<group>"; };
+		D413337A2ADE867800BDE1BB /* FinishLaunching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishLaunching.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CCEA2ADD4B96001FE371 /* Entities */,
+				D41333702ADE7FE800BDE1BB /* Repositories */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -220,6 +227,7 @@
 		3AE0CD0A2ADD9889001FE371 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D41333792ADE866700BDE1BB /* LifeCycle */,
 				3AE0CD0B2ADD98A5001FE371 /* Static */,
 				3AE0CCFC2ADD8B5B001FE371 /* Utilities */,
 			);
@@ -237,7 +245,7 @@
 		D413336F2ADE7FDD00BDE1BB /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				D41333702ADE7FE800BDE1BB /* Repositories */,
+				D41333742ADE84E200BDE1BB /* RepositoryImplements */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -245,8 +253,25 @@
 		D41333702ADE7FE800BDE1BB /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				D41333722ADE826100BDE1BB /* AuthRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		D41333742ADE84E200BDE1BB /* RepositoryImplements */ = {
+			isa = PBXGroup;
+			children = (
+				D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */,
+			);
+			path = RepositoryImplements;
+			sourceTree = "<group>";
+		};
+		D41333792ADE866700BDE1BB /* LifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				D413337A2ADE867800BDE1BB /* FinishLaunching.swift */,
+			);
+			path = LifeCycle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,7 +442,10 @@
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
+				D413337B2ADE867800BDE1BB /* FinishLaunching.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
+				D41333732ADE826100BDE1BB /* AuthRepository.swift in Sources */,
+				D41333762ADE84FF00BDE1BB /* AuthManagerImplement.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
 			);
