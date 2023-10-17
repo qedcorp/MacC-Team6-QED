@@ -11,6 +11,9 @@ import AuthenticationServices
 import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class AuthViewController: UIViewController {
     override func viewDidLoad() {
@@ -94,7 +97,19 @@ class AuthViewController: UIViewController {
 
     @objc
     func tapKakaoSignInView(_ sender: Any) {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                guard let error = error else { return }
 
+                _ = oauthToken
+            }
+        } else {
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                guard let error = error else { return }
+
+                _ = oauthToken
+            }
+        }
     }
 
     @objc
