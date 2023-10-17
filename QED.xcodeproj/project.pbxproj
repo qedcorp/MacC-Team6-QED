@@ -25,12 +25,12 @@
 		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
 		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
-		D41333732ADE826100BDE1BB /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333722ADE826100BDE1BB /* AuthRepository.swift */; };
-		D41333762ADE84FF00BDE1BB /* AuthManagerImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */; };
-		D413337B2ADE867800BDE1BB /* FinishLaunching.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413337A2ADE867800BDE1BB /* FinishLaunching.swift */; };
 		D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D413337D2ADE8CA800BDE1BB /* GoogleSignIn */; };
 		D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D413337F2ADE8CA800BDE1BB /* GoogleSignInSwift */; };
 		D41333852ADE91B300BDE1BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333842ADE91B300BDE1BB /* AppDelegate.swift */; };
+		D41333882ADEA64A00BDE1BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D41333872ADEA64A00BDE1BB /* GoogleService-Info.plist */; };
+		D41333A62ADEB3AA00BDE1BB /* AuthViewController.swift .swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333A52ADEB3AA00BDE1BB /* AuthViewController.swift .swift */; };
+		D460EE172ADEB6A500A5966A /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE162ADEB6A500A5966A /* AuthView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,10 +72,11 @@
 		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
-		D41333722ADE826100BDE1BB /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManagerImplement.swift; sourceTree = "<group>"; };
-		D413337A2ADE867800BDE1BB /* FinishLaunching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishLaunching.swift; sourceTree = "<group>"; };
 		D41333842ADE91B300BDE1BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D41333872ADEA64A00BDE1BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "QED/GoogleService/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D41333A52ADEB3AA00BDE1BB /* AuthViewController.swift .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthViewController.swift .swift"; sourceTree = "<group>"; };
+		D460EE162ADEB6A500A5966A /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +138,10 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
-				D413336F2ADE7FDD00BDE1BB /* Data */,
+				D413338A2ADEA66300BDE1BB /* Info.plist */,
+				D41333892ADEA65000BDE1BB /* GoogleService */,
+				D41333922ADEA8F400BDE1BB /* Presentation */,
+				D413338B2ADEA68500BDE1BB /* Data */,
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
 				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
@@ -168,7 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CCEA2ADD4B96001FE371 /* Entities */,
-				D41333702ADE7FE800BDE1BB /* Repositories */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -248,37 +251,44 @@
 			path = Static;
 			sourceTree = "<group>";
 		};
-		D413336F2ADE7FDD00BDE1BB /* Data */ = {
+		D41333792ADE866700BDE1BB /* LifeCycle */ = {
 			isa = PBXGroup;
 			children = (
-				D41333742ADE84E200BDE1BB /* RepositoryImplements */,
+				D41333842ADE91B300BDE1BB /* AppDelegate.swift */,
+			);
+			path = LifeCycle;
+			sourceTree = "<group>";
+		};
+		D41333892ADEA65000BDE1BB /* GoogleService */ = {
+			isa = PBXGroup;
+			children = (
+				D41333872ADEA64A00BDE1BB /* GoogleService-Info.plist */,
+			);
+			path = GoogleService;
+			sourceTree = "<group>";
+		};
+		D413338B2ADEA68500BDE1BB /* Data */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		D41333702ADE7FE800BDE1BB /* Repositories */ = {
+		D41333922ADEA8F400BDE1BB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D41333722ADE826100BDE1BB /* AuthRepository.swift */,
+				D41333932ADEA90600BDE1BB /* Auth */,
 			);
-			path = Repositories;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
-		D41333742ADE84E200BDE1BB /* RepositoryImplements */ = {
+		D41333932ADEA90600BDE1BB /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */,
+				D41333A52ADEB3AA00BDE1BB /* AuthViewController.swift .swift */,
+				D460EE162ADEB6A500A5966A /* AuthView.swift */,
 			);
-			path = RepositoryImplements;
-			sourceTree = "<group>";
-		};
-		D41333792ADE866700BDE1BB /* LifeCycle */ = {
-			isa = PBXGroup;
-			children = (
-				D413337A2ADE867800BDE1BB /* FinishLaunching.swift */,
-				D41333842ADE91B300BDE1BB /* AppDelegate.swift */,
-			);
-			path = LifeCycle;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,7 +361,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					3AE0CCBB2ADD0CE1001FE371 = {
 						CreatedOnToolsVersion = 14.3;
@@ -397,6 +407,7 @@
 			files = (
 				3AE0CCC72ADD0CE4001FE371 /* Preview Assets.xcassets in Resources */,
 				3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */,
+				D41333882ADEA64A00BDE1BB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,14 +461,13 @@
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
+				D460EE172ADEB6A500A5966A /* AuthView.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
-				D413337B2ADE867800BDE1BB /* FinishLaunching.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
-				D41333732ADE826100BDE1BB /* AuthRepository.swift in Sources */,
-				D41333762ADE84FF00BDE1BB /* AuthManagerImplement.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				D41333852ADE91B300BDE1BB /* AppDelegate.swift in Sources */,
+				D41333A62ADEB3AA00BDE1BB /* AuthViewController.swift .swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +540,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -590,6 +601,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -616,9 +628,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
+				DEVELOPMENT_TEAM = VT6KC94KM7;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = QED/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -645,9 +659,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
+				DEVELOPMENT_TEAM = VT6KC94KM7;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = QED/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
