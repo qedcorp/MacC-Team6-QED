@@ -56,6 +56,7 @@
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
 		D460EE222ADFA41300A5966A /* SearchMusicRepositoryImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE212ADFA41300A5966A /* SearchMusicRepositoryImplement.swift */; };
 		A92A04572ADE7D8900198BC5 /* PerformanceSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92A04562ADE7D8900198BC5 /* PerformanceSettingModel.swift */; };
+		A92A045B2ADEC36E00198BC5 /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92A045A2ADEC36E00198BC5 /* PerformanceSettingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		D460EE212ADFA41300A5966A /* SearchMusicRepositoryImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryImplement.swift; sourceTree = "<group>"; };
 		D460EE262ADFC4FF00A5966A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A92A04562ADE7D8900198BC5 /* PerformanceSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingModel.swift; sourceTree = "<group>"; };
+		A92A045A2ADEC36E00198BC5 /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,6 +486,7 @@
 		A92A04532ADE7D6B00198BC5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A92A045A2ADEC36E00198BC5 /* PerformanceSettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */,
 				A92A04572ADE7D8900198BC5 /* PerformanceSettingModel.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
+				A92A045B2ADEC36E00198BC5 /* PerformanceSettingViewModel.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
 				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
 				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
@@ -857,6 +861,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
 				DEVELOPMENT_TEAM = 69F5355JYF;
+				DEVELOPMENT_TEAM = ULM4SQD73B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QED/Info.plist;
@@ -888,6 +893,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
 				DEVELOPMENT_TEAM = 69F5355JYF;
+				DEVELOPMENT_TEAM = ULM4SQD73B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QED/Info.plist;

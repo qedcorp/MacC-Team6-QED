@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct PerformanceSettingViewModel {
+    
+    var search = ""
+
+}

@@ -8,14 +8,9 @@
 import Foundation
 
 struct PerformanceSettingModel {
-    let headcount: Int
+    var author: String
+    var music: String
+    var artist: String
+    var headcount: Int
     var title: String
 }
-
-
-class PerformanceMusicModel {
-    let title: String = ""
-    let artist: String = ""
-    let albumCoverURL: URL? = nil
-}
-
