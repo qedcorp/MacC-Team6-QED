@@ -7,7 +7,7 @@ struct DefaultPerformanceUseCase: PerformanceUseCase {
     let userStore: UserStore
 
     func createPerformance(playable: Playable, headcount: Int) async throws -> Performance {
-        guard let author = userStore.me else {
+        guard let author = userStore.myUser else {
             fatalError("Cannot find an author.")
         }
         let performance = Performance(author: author, playable: playable, headcount: headcount)

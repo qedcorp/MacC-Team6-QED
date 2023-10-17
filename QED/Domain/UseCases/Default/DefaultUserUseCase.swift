@@ -11,16 +11,16 @@ struct DefaultUserUseCase: UserUseCase {
     }
 
     func login(user: User) async throws -> User {
-        let me = try await userRepository.readUser(email: user.email)
-        userStore.me = me
-        return me
+        let user = try await userRepository.readUser(email: user.email)
+        userStore.myUser = user
+        return user
     }
 
     func getMe() async throws -> User {
-        guard let me = userStore.me else {
+        guard let user = userStore.myUser else {
             fatalError("Cannot find me.")
         }
-        return me
+        return user
     }
 
     func getUser(email: String) async throws -> User {
@@ -28,7 +28,7 @@ struct DefaultUserUseCase: UserUseCase {
     }
 
     func updateMe(user: User) async throws -> User {
-        guard user == userStore.me else {
+        guard user == userStore.myUser else {
             fatalError("It is not me.")
         }
         return try await userRepository.updateUser(user)

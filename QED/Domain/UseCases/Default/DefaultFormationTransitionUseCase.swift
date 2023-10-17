@@ -10,7 +10,11 @@ struct DefaultFormationTransitionUseCase: FormationTransitionUseCase {
             .map { _ in FormationTransition() }
     }
 
-    func updateMovement(_ movement: FormationTransition.Movement, memberInfo: Member.Info, in formationTransition: FormationTransition) async throws {
+    func updateMovement(
+        _ movement: FormationTransition.Movement,
+        memberInfo: Member.Info,
+        in formationTransition: FormationTransition
+    ) async throws {
         formationTransition.memberMovements[memberInfo] = movement
     }
 

@@ -3,5 +3,5 @@
 import Foundation
 
 protocol UserStore: AnyObject {
-    var me: User? { get set }
+    var myUser: User? { get set }
 }
