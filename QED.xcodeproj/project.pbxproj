@@ -30,6 +30,7 @@
 		D413337B2ADE867800BDE1BB /* FinishLaunching.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413337A2ADE867800BDE1BB /* FinishLaunching.swift */; };
 		D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D413337D2ADE8CA800BDE1BB /* GoogleSignIn */; };
 		D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D413337F2ADE8CA800BDE1BB /* GoogleSignInSwift */; };
+		D41333852ADE91B300BDE1BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333842ADE91B300BDE1BB /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		D41333722ADE826100BDE1BB /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		D41333752ADE84FF00BDE1BB /* AuthManagerImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManagerImplement.swift; sourceTree = "<group>"; };
 		D413337A2ADE867800BDE1BB /* FinishLaunching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishLaunching.swift; sourceTree = "<group>"; };
+		D41333842ADE91B300BDE1BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				D413337A2ADE867800BDE1BB /* FinishLaunching.swift */,
+				D41333842ADE91B300BDE1BB /* AppDelegate.swift */,
 			);
 			path = LifeCycle;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				D41333732ADE826100BDE1BB /* AuthRepository.swift in Sources */,
 				D41333762ADE84FF00BDE1BB /* AuthManagerImplement.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
+				D41333852ADE91B300BDE1BB /* AppDelegate.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
