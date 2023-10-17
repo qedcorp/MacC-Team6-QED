@@ -28,6 +28,7 @@
 		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
 		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
 		D413335A2ADDA26400BDE1BB /* SearchMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333592ADDA26400BDE1BB /* SearchMusicRepository.swift */; };
+		D413335E2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
 		D41333592ADDA26400BDE1BB /* SearchMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepository.swift; sourceTree = "<group>"; };
+		D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryMockUp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				D413335B2ADDA2DA00BDE1BB /* Data */,
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
 				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
@@ -143,6 +146,7 @@
 		3AE0CCCF2ADD0CE4001FE371 /* QEDTests */ = {
 			isa = PBXGroup;
 			children = (
+				D413335F2ADE4E7600BDE1BB /* DataTest */,
 				3AE0CD022ADD9293001FE371 /* Utilities */,
 				3AE0CCD02ADD0CE4001FE371 /* QEDTests.swift */,
 			);
@@ -247,6 +251,37 @@
 				D41333592ADDA26400BDE1BB /* SearchMusicRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		D413335B2ADDA2DA00BDE1BB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D413335C2ADDA2E600BDE1BB /* RepositoryImplements */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D413335C2ADDA2E600BDE1BB /* RepositoryImplements */ = {
+			isa = PBXGroup;
+			children = (
+				D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */,
+			);
+			path = RepositoryImplements;
+			sourceTree = "<group>";
+		};
+		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
+			isa = PBXGroup;
+			children = (
+				D41333602ADE4E8100BDE1BB /* SearchMusicRepositoryTest */,
+			);
+			path = DataTest;
+			sourceTree = "<group>";
+		};
+		D41333602ADE4E8100BDE1BB /* SearchMusicRepositoryTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchMusicRepositoryTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,6 +428,7 @@
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
+				D413335E2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
