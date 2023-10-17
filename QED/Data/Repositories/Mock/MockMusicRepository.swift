@@ -3,7 +3,7 @@
 import Foundation
 
 class MockMusicRepository: MusicRepository {
-    private var musics: [Music]
+    var musics: [Music]
 
     init(musics: [Music] = []) {
         self.musics = musics

@@ -12,4 +12,11 @@ struct DefaultMusicUseCase: MusicUseCase {
     func searchMusics(keyword: String) async throws -> [Music] {
         try await musicRepository.readMusics(keyword: keyword)
     }
+
+    func getLyric(at targetMs: Int, of music: Music) async throws -> Music.Lyric? {
+        guard let lyrics = music.lyrics else {
+            return nil
+        }
+        return lyrics.first(where: { $0.msRange.contains(targetMs) })
+    }
 }
