@@ -9,7 +9,7 @@ class Performance {
     var title: String?
     var formations: [Formation]
     var transitions: [FormationTransition]
-    
+
     init(
         author: User,
         playable: Playable,
