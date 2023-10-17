@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F43E2ADE6DA9000E3272 /* UserUseCase.swift */; };
+		3A47F4412ADE6E3C000E3272 /* MusicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4402ADE6E3C000E3272 /* MusicUseCase.swift */; };
+		3A47F4432ADE7077000E3272 /* MemberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4422ADE7077000E3272 /* MemberUseCase.swift */; };
+		3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4442ADE71AA000E3272 /* PresetUseCase.swift */; };
+		3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4462ADE72C1000E3272 /* FormationUseCase.swift */; };
+		3A47F4492ADE7310000E3272 /* FormationTransitionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4482ADE7310000E3272 /* FormationTransitionUseCase.swift */; };
+		3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F44A2ADE7320000E3272 /* PerformanceUseCase.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -45,6 +52,13 @@
 
 /* Begin PBXFileReference section */
 		3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = QED.xctestplan; sourceTree = "<group>"; };
+		3A47F43E2ADE6DA9000E3272 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
+		3A47F4402ADE6E3C000E3272 /* MusicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUseCase.swift; sourceTree = "<group>"; };
+		3A47F4422ADE7077000E3272 /* MemberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberUseCase.swift; sourceTree = "<group>"; };
+		3A47F4442ADE71AA000E3272 /* PresetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetUseCase.swift; sourceTree = "<group>"; };
+		3A47F4462ADE72C1000E3272 /* FormationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationUseCase.swift; sourceTree = "<group>"; };
+		3A47F4482ADE7310000E3272 /* FormationTransitionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationTransitionUseCase.swift; sourceTree = "<group>"; };
+		3A47F44A2ADE7320000E3272 /* PerformanceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceUseCase.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +114,20 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		3A47F43D2ADE6D18000E3272 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F43E2ADE6DA9000E3272 /* UserUseCase.swift */,
+				3A47F4402ADE6E3C000E3272 /* MusicUseCase.swift */,
+				3A47F4422ADE7077000E3272 /* MemberUseCase.swift */,
+				3A47F4442ADE71AA000E3272 /* PresetUseCase.swift */,
+				3A47F4462ADE72C1000E3272 /* FormationUseCase.swift */,
+				3A47F4482ADE7310000E3272 /* FormationTransitionUseCase.swift */,
+				3A47F44A2ADE7320000E3272 /* PerformanceUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 		3AE0CCB32ADD0CE1001FE371 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CCEA2ADD4B96001FE371 /* Entities */,
+				3A47F43D2ADE6D18000E3272 /* UseCases */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -390,12 +419,19 @@
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
+				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
+				3A47F4492ADE7310000E3272 /* FormationTransitionUseCase.swift in Sources */,
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
+				3A47F4412ADE6E3C000E3272 /* MusicUseCase.swift in Sources */,
+				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
+				3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */,
+				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
+				3A47F4432ADE7077000E3272 /* MemberUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
