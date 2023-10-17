@@ -125,6 +125,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				D413336F2ADE7FDD00BDE1BB /* Data */,
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
 				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
@@ -231,6 +232,21 @@
 				3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */,
 			);
 			path = Static;
+			sourceTree = "<group>";
+		};
+		D413336F2ADE7FDD00BDE1BB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D41333702ADE7FE800BDE1BB /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D41333702ADE7FE800BDE1BB /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
