@@ -21,6 +21,12 @@
 		3A47F4602ADE80B0000E3272 /* DefaultUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F45F2ADE80B0000E3272 /* DefaultUserUseCase.swift */; };
 		3A47F4662ADE8449000E3272 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4652ADE8449000E3272 /* UserStore.swift */; };
 		3A47F4692ADE8657000E3272 /* DefaultUserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4682ADE8657000E3272 /* DefaultUserStore.swift */; };
+		3A47F46B2ADE87BD000E3272 /* DefaultMusicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F46A2ADE87BD000E3272 /* DefaultMusicUseCase.swift */; };
+		3A47F46D2ADE8B34000E3272 /* DefaultMemberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F46C2ADE8B34000E3272 /* DefaultMemberUseCase.swift */; };
+		3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F46E2ADE8C8F000E3272 /* DefaultPresetUseCase.swift */; };
+		3A47F4712ADE8CD8000E3272 /* DefaultFormationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4702ADE8CD8000E3272 /* DefaultFormationUseCase.swift */; };
+		3A47F4732ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4722ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift */; };
+		3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4742ADE8E48000E3272 /* DefaultPerformanceUseCase.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -73,6 +79,12 @@
 		3A47F45F2ADE80B0000E3272 /* DefaultUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserUseCase.swift; sourceTree = "<group>"; };
 		3A47F4652ADE8449000E3272 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		3A47F4682ADE8657000E3272 /* DefaultUserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserStore.swift; sourceTree = "<group>"; };
+		3A47F46A2ADE87BD000E3272 /* DefaultMusicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCase.swift; sourceTree = "<group>"; };
+		3A47F46C2ADE8B34000E3272 /* DefaultMemberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMemberUseCase.swift; sourceTree = "<group>"; };
+		3A47F46E2ADE8C8F000E3272 /* DefaultPresetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetUseCase.swift; sourceTree = "<group>"; };
+		3A47F4702ADE8CD8000E3272 /* DefaultFormationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFormationUseCase.swift; sourceTree = "<group>"; };
+		3A47F4722ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFormationTransitionUseCase.swift; sourceTree = "<group>"; };
+		3A47F4742ADE8E48000E3272 /* DefaultPerformanceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPerformanceUseCase.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -158,6 +170,12 @@
 			isa = PBXGroup;
 			children = (
 				3A47F45F2ADE80B0000E3272 /* DefaultUserUseCase.swift */,
+				3A47F46A2ADE87BD000E3272 /* DefaultMusicUseCase.swift */,
+				3A47F46C2ADE8B34000E3272 /* DefaultMemberUseCase.swift */,
+				3A47F46E2ADE8C8F000E3272 /* DefaultPresetUseCase.swift */,
+				3A47F4702ADE8CD8000E3272 /* DefaultFormationUseCase.swift */,
+				3A47F4722ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift */,
+				3A47F4742ADE8E48000E3272 /* DefaultPerformanceUseCase.swift */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -467,6 +485,7 @@
 			files = (
 				3A47F4692ADE8657000E3272 /* DefaultUserStore.swift in Sources */,
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
+				3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
 				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
@@ -474,17 +493,22 @@
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
+				3A47F4732ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift in Sources */,
 				3A47F4492ADE7310000E3272 /* FormationTransitionUseCase.swift in Sources */,
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
 				3A47F4412ADE6E3C000E3272 /* MusicUseCase.swift in Sources */,
 				3A47F4602ADE80B0000E3272 /* DefaultUserUseCase.swift in Sources */,
 				3A47F4662ADE8449000E3272 /* UserStore.swift in Sources */,
 				3A47F4572ADE7DF1000E3272 /* MusicRepository.swift in Sources */,
+				3A47F4712ADE8CD8000E3272 /* DefaultFormationUseCase.swift in Sources */,
+				3A47F46D2ADE8B34000E3272 /* DefaultMemberUseCase.swift in Sources */,
+				3A47F46B2ADE87BD000E3272 /* DefaultMusicUseCase.swift in Sources */,
 				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
 				3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */,
 				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
+				3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
 				3A47F45D2ADE7EF5000E3272 /* PerformanceRepository.swift in Sources */,
 				3A47F4552ADE7D73000E3272 /* UserRepository.swift in Sources */,
