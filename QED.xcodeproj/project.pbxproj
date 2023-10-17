@@ -27,6 +27,10 @@
 		3A47F4712ADE8CD8000E3272 /* DefaultFormationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4702ADE8CD8000E3272 /* DefaultFormationUseCase.swift */; };
 		3A47F4732ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4722ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift */; };
 		3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4742ADE8E48000E3272 /* DefaultPerformanceUseCase.swift */; };
+		3A47F4782ADE9019000E3272 /* MockUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4772ADE9019000E3272 /* MockUserRepository.swift */; };
+		3A47F47A2ADE9047000E3272 /* MockMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4792ADE9047000E3272 /* MockMusicRepository.swift */; };
+		3A47F47C2ADE916B000E3272 /* MockPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F47B2ADE916B000E3272 /* MockPresetRepository.swift */; };
+		3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -85,6 +89,10 @@
 		3A47F4702ADE8CD8000E3272 /* DefaultFormationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFormationUseCase.swift; sourceTree = "<group>"; };
 		3A47F4722ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFormationTransitionUseCase.swift; sourceTree = "<group>"; };
 		3A47F4742ADE8E48000E3272 /* DefaultPerformanceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPerformanceUseCase.swift; sourceTree = "<group>"; };
+		3A47F4772ADE9019000E3272 /* MockUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserRepository.swift; sourceTree = "<group>"; };
+		3A47F4792ADE9047000E3272 /* MockMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMusicRepository.swift; sourceTree = "<group>"; };
+		3A47F47B2ADE916B000E3272 /* MockPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPresetRepository.swift; sourceTree = "<group>"; };
+		3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPerformanceRepository.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -197,6 +205,33 @@
 			path = Default;
 			sourceTree = "<group>";
 		};
+		3A47F4762ADE900F000E3272 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F4772ADE9019000E3272 /* MockUserRepository.swift */,
+				3A47F4792ADE9047000E3272 /* MockMusicRepository.swift */,
+				3A47F47B2ADE916B000E3272 /* MockPresetRepository.swift */,
+				3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		3A47F47F2ADE935A000E3272 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F4802ADE9364000E3272 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3A47F4802ADE9364000E3272 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F4762ADE900F000E3272 /* Mock */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		3AE0CCB32ADD0CE1001FE371 = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
+				3A47F47F2ADE935A000E3272 /* Data */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
 				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
 				3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */,
@@ -485,6 +521,7 @@
 			files = (
 				3A47F4692ADE8657000E3272 /* DefaultUserStore.swift in Sources */,
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
+				3A47F47C2ADE916B000E3272 /* MockPresetRepository.swift in Sources */,
 				3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
@@ -503,6 +540,7 @@
 				3A47F4712ADE8CD8000E3272 /* DefaultFormationUseCase.swift in Sources */,
 				3A47F46D2ADE8B34000E3272 /* DefaultMemberUseCase.swift in Sources */,
 				3A47F46B2ADE87BD000E3272 /* DefaultMusicUseCase.swift in Sources */,
+				3A47F4782ADE9019000E3272 /* MockUserRepository.swift in Sources */,
 				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
@@ -510,10 +548,12 @@
 				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
 				3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
+				3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */,
 				3A47F45D2ADE7EF5000E3272 /* PerformanceRepository.swift in Sources */,
 				3A47F4552ADE7D73000E3272 /* UserRepository.swift in Sources */,
 				3A47F45B2ADE7E96000E3272 /* PresetRepository.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
+				3A47F47A2ADE9047000E3272 /* MockMusicRepository.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
 				3A47F4432ADE7077000E3272 /* MemberUseCase.swift in Sources */,
 			);
