@@ -32,6 +32,7 @@
 		3A47F47C2ADE916B000E3272 /* MockPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F47B2ADE916B000E3272 /* MockPresetRepository.swift */; };
 		3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */; };
 		3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4822ADE93A2000E3272 /* DescribableError.swift */; };
+		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		3A47F47B2ADE916B000E3272 /* MockPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPresetRepository.swift; sourceTree = "<group>"; };
 		3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPerformanceRepository.swift; sourceTree = "<group>"; };
 		3A47F4822ADE93A2000E3272 /* DescribableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescribableError.swift; sourceTree = "<group>"; };
+		3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCaseTests.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,22 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		3A47F4842ADEA67E000E3272 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F4852ADEA683000E3272 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		3A47F4852ADEA683000E3272 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 		3AE0CCB32ADD0CE1001FE371 = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +305,7 @@
 		3AE0CCCF2ADD0CE4001FE371 /* QEDTests */ = {
 			isa = PBXGroup;
 			children = (
+				3A47F4842ADEA67E000E3272 /* Domain */,
 				3A47F43C2ADE5F7B000E3272 /* Shared */,
 			);
 			path = QEDTests;
@@ -575,6 +594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */,
 				3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */,
 				3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */,
 			);
