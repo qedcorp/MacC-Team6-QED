@@ -79,6 +79,19 @@ class AuthViewController: UIViewController {
 
     @objc
     func tapGoogleSignInView(_ sender: Any) {
+        guard let clientID = self.clientID else { return }
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        Task {
+            guard let result = try? await GIDSignIn.sharedInstance.signIn(withPresenting: self),
+                  let idToken = result.user.idToken?.tokenString else { return }
+
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: result.user.accessToken.tokenString)
+
+            guard let authDataResult = try? await Auth.auth().signIn(with: credential) else { return }
+        }
     }
 
     @objc
