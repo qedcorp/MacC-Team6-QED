@@ -7,12 +7,12 @@
 
 import SwiftUI
 
+import AuthenticationServices
 import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 
 class AuthViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
@@ -39,14 +39,12 @@ class AuthViewController: UIViewController {
         return view
     }()
 
-    lazy var appleSignInView: UIView = {
-        let view = UIView()
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapAppleSignInView(_:)))
+    lazy var appleSignInView: ASAuthorizationAppleIDButton = {
+        let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .black)
 
-        view.backgroundColor = .green
-        view.addGestureRecognizer(gesture)
+        authorizationButton.addTarget(self, action: #selector(tapAppleSignInView(_:)), for: .touchUpInside)
 
-        return view
+        return authorizationButton
     }()
 
     // MARK: AutoConstraint
@@ -101,6 +99,59 @@ class AuthViewController: UIViewController {
 
     @objc
     func tapAppleSignInView(_ sender: Any) {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
 
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+
+}
+
+extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        // 로그인 성공
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+
+            if let authorizationCode = appleIDCredential.authorizationCode,
+               let identityToken = appleIDCredential.identityToken,
+               let authCodeString = String(data: authorizationCode, encoding: .utf8),
+               let identifyTokenString = String(data: identityToken, encoding: .utf8) {
+                print("authorizationCode: \(authorizationCode)")
+                print("identityToken: \(identityToken)")
+                print("authCodeString: \(authCodeString)")
+                print("identifyTokenString: \(identifyTokenString)")
+            }
+
+            print("useridentifier: \(userIdentifier)")
+            print("fullName: \(fullName)")
+            print("email: \(email)")
+
+        case let passwordCredential as ASPasswordCredential:
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+
+            print("username: \(username)")
+            print("password: \(password)")
+
+        default:
+            break
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+
+        print("login failed - \(error.localizedDescription)")
     }
 }
