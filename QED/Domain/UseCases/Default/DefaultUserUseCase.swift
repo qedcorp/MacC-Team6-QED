@@ -18,7 +18,7 @@ struct DefaultUserUseCase: UserUseCase {
 
     func getMe() async throws -> User {
         guard let user = userStore.myUser else {
-            fatalError("Cannot find me.")
+            throw DescribableError(description: "Cannot find me.")
         }
         return user
     }
@@ -29,7 +29,7 @@ struct DefaultUserUseCase: UserUseCase {
 
     func updateMe(user: User) async throws -> User {
         guard user == userStore.myUser else {
-            fatalError("It is not me.")
+            throw DescribableError(description: "It is not me.")
         }
         return try await userRepository.updateUser(user)
     }

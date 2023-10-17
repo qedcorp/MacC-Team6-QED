@@ -8,7 +8,7 @@ struct DefaultPerformanceUseCase: PerformanceUseCase {
 
     func createPerformance(playable: Playable, headcount: Int) async throws -> Performance {
         guard let author = userStore.myUser else {
-            fatalError("Cannot find an author.")
+            throw DescribableError(description: "Cannot find an author.")
         }
         let performance = Performance(author: author, playable: playable, headcount: headcount)
         return try await performanceRepository.createPerformance(performance)
