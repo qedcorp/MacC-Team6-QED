@@ -10,9 +10,13 @@ import SwiftUI
 struct HeadcountView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
+    @FocusState var isFocused: Bool
+
+//    let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(searchMusicRepository: SearchMusicRepositoryMockUp())
 
     var body: some View {
         VStack {
+            Spacer()
             HStack {
                 Text("선택한 음악을\n추는 팀원의 수는?")
                     .font(.system(size: 30))
@@ -21,12 +25,14 @@ struct HeadcountView: View {
             }
             .padding()
             Spacer()
-
+                .frame(height: 50)
             ZStack {
-                Text("\(performancesettingVM.headcount)")
+                TextField("\(performancesettingVM.headcount)", text: $performancesettingVM.textFieldNum)
+                    .keyboardType(.numberPad)
+                    .multilineTextAlignment(.center)
                     .font(.system(size: 30))
                     .bold()
-                    .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                    .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                     .background(
                         Rectangle()
                             .foregroundColor(.clear)
@@ -34,7 +40,7 @@ struct HeadcountView: View {
                             .cornerRadius(50)
                             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
                     )
-                    .padding()
+                    .padding(3)
 
                 HStack {
                     Button(action: {
@@ -49,7 +55,6 @@ struct HeadcountView: View {
                                     .font(.system(size: 40))
                             )
                     })
-
                     Spacer()
 
                     Button(action: {
@@ -65,7 +70,7 @@ struct HeadcountView: View {
                             )
                     })
                 }
-                .padding(.horizontal, 23)
+                .padding(.horizontal, 15)
             }
 
             Spacer()
@@ -73,6 +78,12 @@ struct HeadcountView: View {
 
             }label: {
                 nextbutton
+            }
+        }
+        .padding()
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isFocused = true
             }
         }
     }
@@ -91,5 +102,5 @@ struct HeadcountView: View {
 }
 
 #Preview {
-    HeadcountView()
+    HeadcountView(performancesettingVM: PerformanceSettingViewModel())
 }
