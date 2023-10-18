@@ -50,6 +50,7 @@
 		3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */; };
 		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
 		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
+		5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
+		5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingFormationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				5136BFB92ADFCA1400882B6B /* Presentation */,
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3A47F47F2ADE935A000E3272 /* Data */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
@@ -395,6 +398,30 @@
 				3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */,
 			);
 			path = Static;
+			sourceTree = "<group>";
+		};
+		5136BFB92ADFCA1400882B6B /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFBA2ADFCA2A00882B6B /* WatchingFormation */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5136BFBA2ADFCA2A00882B6B /* WatchingFormation */ = {
+			isa = PBXGroup;
+			children = (
+				51E3E01B2AE04E6F00E97019 /* View */,
+			);
+			path = WatchingFormation;
+			sourceTree = "<group>";
+		};
+		51E3E01B2AE04E6F00E97019 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -558,6 +585,7 @@
 				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
 				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
+				5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */,
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
