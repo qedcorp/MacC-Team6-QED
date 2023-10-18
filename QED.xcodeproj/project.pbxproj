@@ -33,6 +33,9 @@
 		3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */; };
 		3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4822ADE93A2000E3272 /* DescribableError.swift */; };
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
+		3A47F48F2ADFA08F000E3272 /* MemberCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F48E2ADFA08F000E3272 /* MemberCanvasView.swift */; };
+		3A47F4912ADFA485000E3272 /* MemberCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4902ADFA485000E3272 /* MemberCanvasViewController.swift */; };
+		3A47F4942ADFB2FF000E3272 /* CenterLinesRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4932ADFB2FF000E3272 /* CenterLinesRenderer.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -97,6 +100,9 @@
 		3A47F47D2ADE918F000E3272 /* MockPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPerformanceRepository.swift; sourceTree = "<group>"; };
 		3A47F4822ADE93A2000E3272 /* DescribableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescribableError.swift; sourceTree = "<group>"; };
 		3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCaseTests.swift; sourceTree = "<group>"; };
+		3A47F48E2ADFA08F000E3272 /* MemberCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCanvasView.swift; sourceTree = "<group>"; };
+		3A47F4902ADFA485000E3272 /* MemberCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCanvasViewController.swift; sourceTree = "<group>"; };
+		3A47F4932ADFB2FF000E3272 /* CenterLinesRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLinesRenderer.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -260,6 +266,32 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
+		3A47F48C2ADFA05C000E3272 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F48D2ADFA064000E3272 /* MemberCanvas */,
+				3A47F4922ADFB2EE000E3272 /* Utilities */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3A47F48D2ADFA064000E3272 /* MemberCanvas */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F48E2ADFA08F000E3272 /* MemberCanvasView.swift */,
+				3A47F4902ADFA485000E3272 /* MemberCanvasViewController.swift */,
+			);
+			path = MemberCanvas;
+			sourceTree = "<group>";
+		};
+		3A47F4922ADFB2EE000E3272 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3A47F4932ADFB2FF000E3272 /* CenterLinesRenderer.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		3AE0CCB32ADD0CE1001FE371 = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +315,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				3A47F48C2ADFA05C000E3272 /* Presentation */,
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3A47F47F2ADE935A000E3272 /* Data */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
@@ -561,7 +594,9 @@
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
+				3A47F48F2ADFA08F000E3272 /* MemberCanvasView.swift in Sources */,
 				3A47F4732ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift in Sources */,
+				3A47F4942ADFB2FF000E3272 /* CenterLinesRenderer.swift in Sources */,
 				3A47F4492ADE7310000E3272 /* FormationTransitionUseCase.swift in Sources */,
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
 				3A47F4412ADE6E3C000E3272 /* MusicUseCase.swift in Sources */,
@@ -572,6 +607,7 @@
 				3A47F46D2ADE8B34000E3272 /* DefaultMemberUseCase.swift in Sources */,
 				3A47F46B2ADE87BD000E3272 /* DefaultMusicUseCase.swift in Sources */,
 				3A47F4782ADE9019000E3272 /* MockUserRepository.swift in Sources */,
+				3A47F4912ADFA485000E3272 /* MemberCanvasViewController.swift in Sources */,
 				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
