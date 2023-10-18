@@ -9,6 +9,8 @@ import Foundation
 
 class PerformanceSettingViewModel: ObservableObject {
     @Published var headcount = 2
+    @Published var textFieldText: String = ""
+    @Published var textFieldNum: String = ""
 
     func decrementHeadcount() {
         if headcount > 2 {
