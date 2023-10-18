@@ -3,45 +3,36 @@
 import XCTest
 @testable import QED
 
-final class MinMaxTests: XCTestCase {
+final class HexStringTests: XCTestCase {
     class MockData {
-        @MinMax(minValue: 0, maxValue: 100)
-        var value: Int
-        
-        init(value: Int) {
+        @HexString
+        var value: String
+
+        init(value: String) {
             self.value = value
         }
     }
-    
+
     var sut: MockData!
-    
+
     override func tearDownWithError() throws {
         sut = nil
     }
-    
+
     func testValidValue() {
         // given
-        let value = 50
+        let value = "123456"
         sut = MockData(value: value)
-        
+
         // then
         XCTAssertEqual(sut.value, value)
     }
-    
-    func testInvalidIfLessThenMinValue() {
+
+    func testInvalidValue() {
         // given
-        let value = -1
+        let value = "QWERTY"
         sut = MockData(value: value)
-        
-        // then
-        XCTAssertNotEqual(sut.value, value)
-    }
-    
-    func testInvalidIfGreaterThenMaxValue() {
-        // given
-        let value = 101
-        sut = MockData(value: value)
-        
+
         // then
         XCTAssertNotEqual(sut.value, value)
     }

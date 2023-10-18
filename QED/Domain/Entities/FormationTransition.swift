@@ -2,8 +2,12 @@
 
 import Foundation
 
-struct FormationTransition {
+class FormationTransition {
     typealias Movement = Data
-    
-    let memberMovements: [Member.Info: Movement]
+
+    var memberMovements: [Member.Info: Movement]
+
+    init(memberMovements: [Member.Info: Movement] = [:]) {
+        self.memberMovements = memberMovements
+    }
 }
