@@ -10,10 +10,11 @@ import SwiftUI
 struct TitleSettingView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
-    @State var textFieldText: String = ""
+    @FocusState var isFocused: Bool
 
     var body: some View {
         VStack {
+            Spacer()
             HStack {
                 Text("프로젝트 이름")
                     .font(.system(size: 30))
@@ -22,13 +23,12 @@ struct TitleSettingView: View {
             }
             .padding()
 
-            Spacer()
-
-            TextField("입력하세요", text: $textFieldText)
+            TextField("입력하세요", text: $performancesettingVM.textFieldText)
+                .focused($isFocused)
+                .multilineTextAlignment(.center)
                 .font(.system(size: 30))
                 .bold()
-                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
-                .padding(EdgeInsets(top: 15, leading: 100, bottom: 15, trailing: 0))
+                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .background(
                     Rectangle()
                         .foregroundColor(.clear)
@@ -36,19 +36,25 @@ struct TitleSettingView: View {
                         .cornerRadius(50)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
                 )
-                .padding()
+                .padding(3)
 
             Spacer()
+
             NavigationLink {
                 HeadcountView(performancesettingVM: performancesettingVM)
                     .navigationTitle("인원수 선택")
                     .navigationBarTitleDisplayMode(.inline)
-                //                        .navigationBarBackButtonHidden(true)
             }label: {
                 nextbutton
             }
         }
         .padding()
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isFocused = true
+            }
+        }
+
     }
 
     var nextbutton: some View {
@@ -65,5 +71,5 @@ struct TitleSettingView: View {
 }
 
 #Preview {
-        TitleSettingView()
+    TitleSettingView(performancesettingVM: PerformanceSettingViewModel())
 }
