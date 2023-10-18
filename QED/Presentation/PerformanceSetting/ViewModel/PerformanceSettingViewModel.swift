@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct PerformanceSettingViewModel {
-    var headcount = 2
+class PerformanceSettingViewModel: ObservableObject {
+    @Published var headcount = 2
 
-    mutating func decreaseHeadcount() {
+   func decreaseHeadcount() {
         if headcount > 2 {
             headcount -= 1
         }
     }
 
-    mutating func increaseHeadcount() {
+    func increaseHeadcount() {
         if headcount < 13 {
             headcount += 1
         }
