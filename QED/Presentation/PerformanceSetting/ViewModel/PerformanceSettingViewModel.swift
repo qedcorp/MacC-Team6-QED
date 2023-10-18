@@ -10,13 +10,13 @@ import Foundation
 class PerformanceSettingViewModel: ObservableObject {
     @Published var headcount = 2
 
-   func decreaseHeadcount() {
+    func decrementHeadcount() {
         if headcount > 2 {
             headcount -= 1
         }
     }
 
-    func increaseHeadcount() {
+    func incrementHeadcount() {
         if headcount < 13 {
             headcount += 1
         }
