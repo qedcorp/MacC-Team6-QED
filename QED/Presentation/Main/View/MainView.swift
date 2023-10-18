@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var nickname = "어쩌구 저쩌구"
+
     var body: some View {
-        VStack {
-            VStack(spacing: 25) {
-                BannerView()
-                myRecentFormationHeader
+        NavigationStack {
+            VStack {
+                VStack(spacing: 25) {
+                    BannerView(nickname: nickname)
+                    myRecentFormationHeader
+                }
+                .padding(.horizontal, 20)
+                MyRecentFormationScrollView()
             }
-            .padding(.horizontal, 20)
-            MyRecentFormationScrollView()
+            .toolbar {
+                leftItem
+                rightItem
+            }
         }
     }
 
@@ -23,9 +31,7 @@ struct MainView: View {
         HStack {
             Text("최근 나의 자리표")
             Spacer()
-            Button {
-                // TODO: 최근 나의 자리표 리스트 페이지로 이동
-            } label: {
+            NavigationLink(destination: MyRecentFormationView()) {
                 Image(systemName: "chevron.right")
                     .font(.title2)
                     .foregroundColor(.green)
@@ -34,16 +40,34 @@ struct MainView: View {
         .font(.title)
         .bold()
     }
+
+    private var leftItem: ToolbarItem<(), some View> {
+        ToolbarItem(placement: .topBarLeading) {
+            Text("Formy")
+                .fontWeight(.heavy)
+                .kerning(0.4)
+        }
+    }
+
+    private var rightItem: ToolbarItem<(), some View> {
+        ToolbarItem(placement: .topBarTrailing) {
+            NavigationLink(destination: MyPageView()) {
+                Image(systemName: "person.circle")
+                    .foregroundColor(Color.green)
+            }
+        }
+    }
 }
 
 struct BannerView: View {
-    var nickname = "어찌구 저찌구"
+    let nickname: String
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             bannerBackground
             bannerInfo
         }
+        .padding(.top, 10)
     }
 
     private var bannerBackground: some View {
@@ -64,22 +88,20 @@ struct BannerView: View {
     }
 
     private var makeFormationButton: some View {
-        Button {
-            // TODO: 자리표따기로 이동
-        } label: {
-            HStack {
-                Text("자리표 만들기")
-                Image(systemName: "chevron.right")
-                    .font(.footnote)
-            }
-            .font(.subheadline)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 20)
-            .foregroundStyle(.green)
-            .background(Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-
+        //        TODO: 자리표 만들기 페이지로 이동
+        //        NavigationLink(destination: ) {
+        HStack {
+            Text("자리표 만들기")
+            Image(systemName: "chevron.right")
+                .font(.footnote)
         }
+        .font(.subheadline)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 20)
+        .foregroundStyle(.green)
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        //        }
     }
 }
 
@@ -87,31 +109,40 @@ struct MyRecentFormationScrollView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(0..<10) {_ in
-                    RecentFormationCardView()
+                ForEach(0..<10) { x in
+                    NavigationLink(value: x) {
+                        RecentFormationCardView(performance: x)
+                    }
+                    .navigationDestination(for: Int.self) { performance in
+                        WatchingFormationView(performance: performance)
+                    }
                 }
+
             }
         }
         .padding(.leading, 20)
     }
 }
 
-struct RecentFormationCardView: View {
+private struct RecentFormationCardView: View {
+    var performance: Int
     var title = "pink venom"
-    var artistName = "black pink"
+    var creator = "black pink"
 
     var body: some View {
         VStack {
             Spacer()
             HStack {
-                Text("\(title)-\n\(artistName)")
+                Text("\(performance)\n\(title)-\n\(creator)")
                     .bold()
+                    .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                 Spacer()
             }
         }
         .padding()
         .frame(width: 160, height: 120)
         .background(Color(.systemGray6))
+        .foregroundStyle(.black)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

@@ -28,6 +28,9 @@
 		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
 		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
 		5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA02ADE7F5C00882B6B /* MainView.swift */; };
+		5136BFA72ADF9CDB00882B6B /* WatchingFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */; };
+		5136BFA92ADF9D0600882B6B /* MyRecentFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA82ADF9D0600882B6B /* MyRecentFormationView.swift */; };
+		5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFAC2ADFB0B100882B6B /* MyPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,9 @@
 		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
 		5136BFA02ADE7F5C00882B6B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingFormationView.swift; sourceTree = "<group>"; };
+		5136BFA82ADF9D0600882B6B /* MyRecentFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecentFormationView.swift; sourceTree = "<group>"; };
+		5136BFAC2ADFB0B100882B6B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +250,9 @@
 		5136BF9B2ADE7ED200882B6B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				5136BFB22ADFB83400882B6B /* WatchingFormation */,
+				5136BFB02ADFB1B700882B6B /* MyRecentFormation */,
+				5136BFAE2ADFB15800882B6B /* MyPage */,
 				5136BF9C2ADE7F2700882B6B /* Main */,
 			);
 			path = Presentation;
@@ -263,6 +272,46 @@
 				5136BFA02ADE7F5C00882B6B /* MainView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5136BFAE2ADFB15800882B6B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFAF2ADFB16200882B6B /* View */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		5136BFAF2ADFB16200882B6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFAC2ADFB0B100882B6B /* MyPageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5136BFB02ADFB1B700882B6B /* MyRecentFormation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFB12ADFB1CC00882B6B /* View */,
+			);
+			path = MyRecentFormation;
+			sourceTree = "<group>";
+		};
+		5136BFB12ADFB1CC00882B6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFA82ADF9D0600882B6B /* MyRecentFormationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5136BFB22ADFB83400882B6B /* WatchingFormation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */,
+			);
+			path = WatchingFormation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,10 +446,13 @@
 			files = (
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
 				5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */,
+				5136BFA72ADF9CDB00882B6B /* WatchingFormationView.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
+				5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
 				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
+				5136BFA92ADF9D0600882B6B /* MyRecentFormationView.swift in Sources */,
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
