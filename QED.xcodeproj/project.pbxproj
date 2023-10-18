@@ -100,6 +100,24 @@
 		D460F01E2AE18DF700A5966A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD02AE18DF700A5966A /* Playable.swift */; };
 		D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */; };
 		D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */; };
+		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
+		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
+		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
+		3AE0CCC72ADD0CE4001FE371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC62ADD0CE4001FE371 /* Preview Assets.xcassets */; };
+		3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEB2ADD4BB0001FE371 /* User.swift */; };
+		3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCED2ADD4D0B001FE371 /* Music.swift */; };
+		3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEF2ADD50FB001FE371 /* Member.swift */; };
+		3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF12ADD5500001FE371 /* Preset.swift */; };
+		3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF32ADD59CB001FE371 /* Formation.swift */; };
+		3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */; };
+		3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF72ADD6705001FE371 /* Performance.swift */; };
+		3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFA2ADD696B001FE371 /* Playable.swift */; };
+		3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */; };
+		3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD002ADD8EFB001FE371 /* HexString.swift */; };
+		3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */; };
+		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
+		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
+		5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +229,20 @@
 		D460EFD02AE18DF700A5966A /* Playable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 		D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUIProtocol.swift; sourceTree = "<group>"; };
 		D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3AE0CCEB2ADD4BB0001FE371 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3AE0CCED2ADD4D0B001FE371 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		3AE0CCEF2ADD50FB001FE371 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
+		3AE0CCF12ADD5500001FE371 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
+		3AE0CCF32ADD59CB001FE371 /* Formation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formation.swift; sourceTree = "<group>"; };
+		3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationTransition.swift; sourceTree = "<group>"; };
+		3AE0CCF72ADD6705001FE371 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
+		3AE0CCFA2ADD696B001FE371 /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
+		3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMax.swift; sourceTree = "<group>"; };
+		3AE0CD002ADD8EFB001FE371 /* HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
+		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
+		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
+		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
+		5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingFormationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +331,14 @@
 				D460EF992AE18DF700A5966A /* Shared */,
 				D460EE192ADEC39700A5966A /* QED.entitlements */,
 				D413338A2ADEA66300BDE1BB /* Info.plist */,
+				5136BFB92ADFCA1400882B6B /* Presentation */,
+				3AE0CCE92ADD4B90001FE371 /* Domain */,
+				3A47F47F2ADE935A000E3272 /* Data */,
+				3AE0CD0A2ADD9889001FE371 /* Shared */,
+				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
+				3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */,
+				3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */,
+				3AE0CCC52ADD0CE4001FE371 /* Preview Content */,
 			);
 			path = QED;
 			sourceTree = "<group>";
@@ -797,6 +837,30 @@
 			path = GoogleService;
 			sourceTree = "<group>";
 		};
+		5136BFB92ADFCA1400882B6B /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFBA2ADFCA2A00882B6B /* WatchingFormation */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5136BFBA2ADFCA2A00882B6B /* WatchingFormation */ = {
+			isa = PBXGroup;
+			children = (
+				51E3E01B2AE04E6F00E97019 /* View */,
+			);
+			path = WatchingFormation;
+			sourceTree = "<group>";
+		};
+		51E3E01B2AE04E6F00E97019 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1044,6 +1108,45 @@
 				D460EFF12AE18DF700A5966A /* CenterLinesRenderer.swift in Sources */,
 				D460EFF22AE18DF700A5966A /* HistoryManagable.swift in Sources */,
 				D460F00E2AE18DF700A5966A /* DefaultPresetUseCase.swift in Sources */,
+				3A47F4692ADE8657000E3272 /* DefaultUserStore.swift in Sources */,
+				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
+				3A47F47C2ADE916B000E3272 /* MockPresetRepository.swift in Sources */,
+				3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */,
+				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
+				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
+				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
+				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
+				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
+				5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */,
+				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
+				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
+				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
+				3A47F4732ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift in Sources */,
+				3A47F4492ADE7310000E3272 /* FormationTransitionUseCase.swift in Sources */,
+				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
+				3A47F4412ADE6E3C000E3272 /* MusicUseCase.swift in Sources */,
+				3A47F4602ADE80B0000E3272 /* DefaultUserUseCase.swift in Sources */,
+				3A47F4662ADE8449000E3272 /* UserStore.swift in Sources */,
+				3A47F4572ADE7DF1000E3272 /* MusicRepository.swift in Sources */,
+				3A47F4712ADE8CD8000E3272 /* DefaultFormationUseCase.swift in Sources */,
+				3A47F46D2ADE8B34000E3272 /* DefaultMemberUseCase.swift in Sources */,
+				3A47F46B2ADE87BD000E3272 /* DefaultMusicUseCase.swift in Sources */,
+				3A47F4782ADE9019000E3272 /* MockUserRepository.swift in Sources */,
+				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
+				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
+				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
+				3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */,
+				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
+				3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */,
+				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
+				3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */,
+				3A47F45D2ADE7EF5000E3272 /* PerformanceRepository.swift in Sources */,
+				3A47F4552ADE7D73000E3272 /* UserRepository.swift in Sources */,
+				3A47F45B2ADE7E96000E3272 /* PresetRepository.swift in Sources */,
+				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
+				3A47F47A2ADE9047000E3272 /* MockMusicRepository.swift in Sources */,
+				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
+				3A47F4432ADE7077000E3272 /* MemberUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
