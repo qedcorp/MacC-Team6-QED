@@ -9,6 +9,8 @@ class ObjectView: UIView {
         }
     }
 
+    private var lastPosition: CGPoint?
+
     init(color: UIColor = .black) {
         self.color = color
         super.init(frame: .zero)
@@ -24,5 +26,19 @@ class ObjectView: UIView {
         frame.size = .init(width: radius * 2, height: radius * 2)
         backgroundColor = color
         layer.cornerRadius = radius
+    }
+
+    func refreshLastPosition() {
+        lastPosition = frame.origin
+    }
+
+    func applyPositionDiff(_ diff: CGPoint) {
+        guard let last = lastPosition else {
+            return
+        }
+        frame.origin = .init(
+            x: last.x + diff.x,
+            y: last.y + diff.y
+        )
     }
 }

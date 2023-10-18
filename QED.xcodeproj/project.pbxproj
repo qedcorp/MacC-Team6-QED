@@ -39,6 +39,8 @@
 		3A8608D72ADFBE7600578535 /* TouchPositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */; };
 		3A8608DA2ADFC4BB00578535 /* TouchedViewDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608D92ADFC4BB00578535 /* TouchedViewDetector.swift */; };
 		3A8608DC2ADFCCDC00578535 /* ObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DB2ADFCCDC00578535 /* ObjectView.swift */; };
+		3A8608DE2ADFEB2F00578535 /* Dragging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DD2ADFEB2F00578535 /* Dragging.swift */; };
+		3A8608E02ADFEC0200578535 /* DraggingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -109,6 +111,8 @@
 		3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPositionConverter.swift; sourceTree = "<group>"; };
 		3A8608D92ADFC4BB00578535 /* TouchedViewDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchedViewDetector.swift; sourceTree = "<group>"; };
 		3A8608DB2ADFCCDC00578535 /* ObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectView.swift; sourceTree = "<group>"; };
+		3A8608DD2ADFEB2F00578535 /* Dragging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragging.swift; sourceTree = "<group>"; };
+		3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingHandler.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				3A47F48D2ADFA064000E3272 /* ObjectCanvas */,
+				3A8608E12ADFED8200578535 /* Models */,
 				3A47F4922ADFB2EE000E3272 /* Utilities */,
 			);
 			path = Presentation;
@@ -297,8 +302,17 @@
 				3A8608D32ADFBE7600578535 /* CenterLinesRenderer.swift */,
 				3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */,
 				3A8608D92ADFC4BB00578535 /* TouchedViewDetector.swift */,
+				3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		3A8608E12ADFED8200578535 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3A8608DD2ADFEB2F00578535 /* Dragging.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3AE0CCB32ADD0CE1001FE371 = {
@@ -623,6 +637,7 @@
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
 				3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */,
 				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
+				3A8608E02ADFEC0200578535 /* DraggingHandler.swift in Sources */,
 				3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */,
 				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
 				3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */,
@@ -630,6 +645,7 @@
 				3A47F4552ADE7D73000E3272 /* UserRepository.swift in Sources */,
 				3A47F45B2ADE7E96000E3272 /* PresetRepository.swift in Sources */,
 				3A8608DA2ADFC4BB00578535 /* TouchedViewDetector.swift in Sources */,
+				3A8608DE2ADFEB2F00578535 /* Dragging.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				3A47F47A2ADE9047000E3272 /* MockMusicRepository.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,

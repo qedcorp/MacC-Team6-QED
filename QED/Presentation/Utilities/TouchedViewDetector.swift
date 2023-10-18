@@ -2,10 +2,18 @@
 
 import UIKit
 
-struct TouchedViewDetector {
+class TouchedViewDetector {
     let container: UIView
     let allowedTypes: [UIView.Type]
-    let touchPositionConverter: TouchPositionConverter
+
+    private lazy var touchPositionConverter = {
+        TouchPositionConverter(container: container)
+    }()
+
+    init(container: UIView, allowedTypes: [UIView.Type]) {
+        self.container = container
+        self.allowedTypes = allowedTypes
+    }
 
     func detectView(touch: UITouch) -> UIView? {
         let position = touchPositionConverter.getAbsolutePosition(touch: touch)
