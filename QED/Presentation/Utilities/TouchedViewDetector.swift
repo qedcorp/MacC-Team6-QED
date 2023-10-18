@@ -15,8 +15,7 @@ class TouchedViewDetector {
         self.allowedTypes = allowedTypes
     }
 
-    func detectView(touch: UITouch) -> UIView? {
-        let position = touchPositionConverter.getAbsolutePosition(touch: touch)
+    func detectView(position: CGPoint) -> UIView? {
         guard let view = container.hitTest(position, with: nil) else {
             return nil
         }

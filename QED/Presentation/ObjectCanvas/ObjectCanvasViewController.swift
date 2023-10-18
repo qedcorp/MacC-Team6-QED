@@ -12,10 +12,7 @@ class ObjectCanvasViewController: UIViewController {
         TouchedViewDetector(container: view, allowedTypes: [ObjectView.self])
     }()
 
-    private lazy var draggingHandler = {
-        DraggingHandler(touchPositionConverter: touchPositionConverter)
-    }()
-
+    private let draggingHandler = DraggingHandler()
     private var cancellables = Set<AnyCancellable>()
 
     private var selectedObjectView: ObjectView? {
@@ -50,70 +47,70 @@ class ObjectCanvasViewController: UIViewController {
 
     private func subscribeDragging() {
         draggingHandler.$dragging
+            .compactMap { $0 }
             .sink { _ in
             } receiveValue: { [weak self] in
-                self?.updateSelectedObjectView(dragging: $0)
+                self?.selectedObjectView?.applyPositionDiff($0.positionDiff)
             }
             .store(in: &cancellables)
     }
 
-    private func updateSelectedObjectView(dragging: Dragging?) {
-        guard let dragging = dragging else {
-            selectedObjectView?.refreshLastPosition()
-            return
-        }
-        selectedObjectView?.applyPositionDiff(dragging.positionDiff)
-    }
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        guard let touch = touches.first else {
+        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
             return
         }
-        if let touchedView = touchedViewDetector.detectView(touch: touch) {
-            switch touchedView {
-            case let objectView as ObjectView:
+        if let touchedView = touchedViewDetector.detectView(position: position) {
+            if let objectView = touchedView as? ObjectView {
                 selectedObjectView = objectView
-            default:
-                break
             }
         } else if selectedObjectView == nil {
-            placeObjectView(touch: touch)
+            placeObjectView(position: position)
         }
-        draggingHandler.beginDragging(touch: touch)
+        draggingHandler.beginDragging(position: position)
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-        guard let touch = touches.first else {
+        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
             return
         }
-        draggingHandler.moveDragging(touch: touch)
+        draggingHandler.moveDragging(position: position)
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        guard let touch = touches.first else {
+        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
             return
         }
-        if isObjectViewUnselectNeeded(touch: touch) {
+        replaceSelectedObjectView()
+        if isObjectViewUnselectNeeded(position: position) {
             selectedObjectView = nil
         }
         draggingHandler.endDragging()
     }
 
-    private func placeObjectView(touch: UITouch) {
-        let position = touchPositionConverter.getAbsolutePosition(touch: touch)
+    private func placeObjectView(position: CGPoint) {
         let objectView = ObjectView()
-        objectView.frame.origin = position
+        objectView.applyPosition(position)
+        replaceSelectedObjectView()
         view.addSubview(objectView)
     }
 
-    private func isObjectViewUnselectNeeded(touch: UITouch) -> Bool {
+    private func replaceSelectedObjectView() {
+        guard let view = selectedObjectView else {
+            return
+        }
+        let relativePosition = touchPositionConverter.getRelativePosition(absolute: view.frame.origin)
+        let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
+        selectedObjectView?.applyPosition(absolutePosition)
+    }
+
+    private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {
         guard draggingHandler.dragging?.isDragged == false else {
             return false
         }
-        let touchedView = touchedViewDetector.detectView(touch: touch)
+        let touchedView = touchedViewDetector.detectView(position: position)
         return touchedView == nil
     }
 }

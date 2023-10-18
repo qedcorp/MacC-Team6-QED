@@ -41,6 +41,7 @@
 		3A8608DC2ADFCCDC00578535 /* ObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DB2ADFCCDC00578535 /* ObjectView.swift */; };
 		3A8608DE2ADFEB2F00578535 /* Dragging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DD2ADFEB2F00578535 /* Dragging.swift */; };
 		3A8608E02ADFEC0200578535 /* DraggingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */; };
+		3A8608E32AE00CE900578535 /* RelativePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608E22AE00CE900578535 /* RelativePosition.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -57,7 +58,6 @@
 		3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD002ADD8EFB001FE371 /* HexString.swift */; };
 		3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */; };
 		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
-		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +113,7 @@
 		3A8608DB2ADFCCDC00578535 /* ObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectView.swift; sourceTree = "<group>"; };
 		3A8608DD2ADFEB2F00578535 /* Dragging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragging.swift; sourceTree = "<group>"; };
 		3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingHandler.swift; sourceTree = "<group>"; };
+		3A8608E22AE00CE900578535 /* RelativePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePosition.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		3AE0CD002ADD8EFB001FE371 /* HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
 		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
-		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,8 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				3A8608D32ADFBE7600578535 /* CenterLinesRenderer.swift */,
-				3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */,
 				3A8608D92ADFC4BB00578535 /* TouchedViewDetector.swift */,
+				3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */,
 				3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */,
 			);
 			path = Utilities;
@@ -389,6 +389,7 @@
 				3AE0CCF32ADD59CB001FE371 /* Formation.swift */,
 				3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */,
 				3AE0CCF72ADD6705001FE371 /* Performance.swift */,
+				3A8608E22AE00CE900578535 /* RelativePosition.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -439,18 +440,9 @@
 		3AE0CD0A2ADD9889001FE371 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3AE0CD0B2ADD98A5001FE371 /* Static */,
 				3AE0CCFC2ADD8B5B001FE371 /* Utilities */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		3AE0CD0B2ADD98A5001FE371 /* Static */ = {
-			isa = PBXGroup;
-			children = (
-				3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */,
-			);
-			path = Static;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -612,7 +604,6 @@
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
 				3A8608DC2ADFCCDC00578535 /* ObjectView.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
-				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
 				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
@@ -635,6 +626,7 @@
 				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
+				3A8608E32AE00CE900578535 /* RelativePosition.swift in Sources */,
 				3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */,
 				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
 				3A8608E02ADFEC0200578535 /* DraggingHandler.swift in Sources */,

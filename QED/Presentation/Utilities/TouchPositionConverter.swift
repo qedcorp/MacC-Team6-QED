@@ -5,15 +5,24 @@ import UIKit
 struct TouchPositionConverter {
     let container: UIView
 
-    func getRelativePosition(touch: UITouch) -> (Float, Float) {
-        let position = getAbsolutePosition(touch: touch)
-        return (
-            Float(position.x / container.bounds.width),
-            Float(position.y / container.bounds.height)
+    func getRelativePosition(absolute position: CGPoint) -> RelativePosition {
+        RelativePosition(
+            x: Int(position.x / container.bounds.width * CGFloat(RelativePosition.maxX)),
+            y: Int(position.y / container.bounds.height * CGFloat(RelativePosition.maxY))
         )
     }
 
-    func getAbsolutePosition(touch: UITouch) -> CGPoint {
-        touch.location(in: container)
+    func getAbsolutePosition(relative position: RelativePosition) -> CGPoint {
+        CGPoint(
+            x: CGFloat(position.relativeX) / CGFloat(RelativePosition.maxX) * container.bounds.width,
+            y: CGFloat(position.relativeY) / CGFloat(RelativePosition.maxY) * container.bounds.height
+        )
+    }
+
+    func getAbsolutePosition(touches: Set<UITouch>) -> CGPoint? {
+        guard let touch = touches.first else {
+            return nil
+        }
+        return touch.location(in: container)
     }
 }

@@ -3,20 +3,13 @@
 import UIKit
 
 class DraggingHandler: ObservableObject {
-    let touchPositionConverter: TouchPositionConverter
     @Published var dragging: Dragging?
 
-    init(touchPositionConverter: TouchPositionConverter) {
-        self.touchPositionConverter = touchPositionConverter
-    }
-
-    func beginDragging(touch: UITouch) {
-        let position = touchPositionConverter.getAbsolutePosition(touch: touch)
+    func beginDragging(position: CGPoint) {
         dragging = Dragging(startPosition: position)
     }
 
-    func moveDragging(touch: UITouch) {
-        let position = touchPositionConverter.getAbsolutePosition(touch: touch)
+    func moveDragging(position: CGPoint) {
         dragging?.currentPosition = position
         if dragging?.isDragged == false {
             dragging?.isDragged = true

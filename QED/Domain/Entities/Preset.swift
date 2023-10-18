@@ -4,34 +4,17 @@ import Foundation
 
 class Preset {
     let headcount: Int
-    let members: [PresetMember]
+    let relativePositions: [RelativePosition]
 
-    init(headcount: Int, members: [PresetMember]) {
+    init(headcount: Int, relativePositions: [RelativePosition]) {
         self.headcount = headcount
-        self.members = members
+        self.relativePositions = relativePositions
     }
 
     var formation: Formation {
         Formation(
-            members: members
-                .map { $0.member }
+            members: relativePositions
+                .map { Member(relativePosition: $0) }
         )
-    }
-
-    struct PresetMember {
-        @MinMax(minValue: MemberConstants.minX, maxValue: MemberConstants.maxX)
-        var relativeX: Int
-
-        @MinMax(minValue: MemberConstants.minY, maxValue: MemberConstants.maxY)
-        var relativeY: Int
-
-        init(relativeX: Int, relativeY: Int) {
-            self.relativeX = relativeX
-            self.relativeY = relativeY
-        }
-
-        var member: Member {
-            Member(relativeX: relativeX, relativeY: relativeY)
-        }
     }
 }
