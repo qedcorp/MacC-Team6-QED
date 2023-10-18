@@ -25,7 +25,7 @@ final class SearchMusicRepositoryTests: XCTestCase {
         sut = SearchMusicRepositoryMockUp()
         
         // when
-        let returnValue = try await sut.searchMusic(term: "")
+        let returnValue = try await sut.searchMusic(term: "", countPerPage: 0, page: 0)
         
         // then
         XCTAssertEqual(predictedValue, returnValue)

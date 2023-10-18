@@ -31,6 +31,7 @@
 		D413335E2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
+		D460EE222ADFA41300A5966A /* SearchMusicRepositoryImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE212ADFA41300A5966A /* SearchMusicRepositoryImplement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		D41333592ADDA26400BDE1BB /* SearchMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepository.swift; sourceTree = "<group>"; };
 		D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryMockUp.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
+		D460EE212ADFA41300A5966A /* SearchMusicRepositoryImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryImplement.swift; sourceTree = "<group>"; };
+		D460EE262ADFC4FF00A5966A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				D460EE262ADFC4FF00A5966A /* Info.plist */,
 				D413335B2ADDA2DA00BDE1BB /* Data */,
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
@@ -268,6 +272,7 @@
 		D413335C2ADDA2E600BDE1BB /* RepositoryImplements */ = {
 			isa = PBXGroup;
 			children = (
+				D460EE212ADFA41300A5966A /* SearchMusicRepositoryImplement.swift */,
 				D413335D2ADE4E0400BDE1BB /* SearchMusicRepositoryMockUp.swift */,
 			);
 			path = RepositoryImplements;
@@ -426,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
+				D460EE222ADFA41300A5966A /* SearchMusicRepositoryImplement.swift in Sources */,
 				D413335A2ADDA26400BDE1BB /* SearchMusicRepository.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
@@ -601,9 +607,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
+				DEVELOPMENT_TEAM = 69F5355JYF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = QED/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = yes;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -614,7 +622,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = qed.QED;
+				PRODUCT_BUNDLE_IDENTIFIER = qed.QED.forma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -630,9 +638,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
+				DEVELOPMENT_TEAM = 69F5355JYF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = QED/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = yes;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -643,7 +653,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = qed.QED;
+				PRODUCT_BUNDLE_IDENTIFIER = qed.QED.forma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

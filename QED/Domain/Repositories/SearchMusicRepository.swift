@@ -8,6 +8,6 @@
 import Foundation
 
 protocol SearchMusicRepository {
-    func searchMusic(term: String) async throws -> [Music]
+    func searchMusic(term: String, countPerPage: Int, page: Int) async throws -> [Music]
 }
 
