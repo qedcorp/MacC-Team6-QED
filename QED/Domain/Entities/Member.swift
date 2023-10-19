@@ -3,17 +3,11 @@
 import Foundation
 
 class Member {
-    @MinMax(minValue: MemberConstants.minX, maxValue: MemberConstants.maxX)
-    var relativeX: Int
-
-    @MinMax(minValue: MemberConstants.minY, maxValue: MemberConstants.maxY)
-    var relativeY: Int
-
+    var relativePosition: RelativePosition
     var info: Info?
 
-    init(relativeX: Int, relativeY: Int, info: Info? = nil) {
-        self.relativeX = relativeX
-        self.relativeY = relativeY
+    init(relativePosition: RelativePosition, info: Info? = nil) {
+        self.relativePosition = relativePosition
         self.info = info
     }
 

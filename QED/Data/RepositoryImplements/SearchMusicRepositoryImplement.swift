@@ -10,28 +10,28 @@ import Foundation
 import MusicKit
 
 class SearchMusicRepositoryImplement: SearchMusicRepository {
-    
+
     private var recentTerm: String = ""
     private var songCache: [Music] = []
-    
+
     func searchMusic(term: String, countPerPage: Int = 10, page: Int = 0) async throws -> [Music] {
         if MusicAuthorization.currentStatus != .authorized {
             let newStatus = await MusicAuthorization.request()
-            
+
             if newStatus != .authorized {
                 return []
             }
         }
-        
+
         var request = MusicCatalogSearchRequest(term: term, types: [Song.self])
         request.limit = countPerPage
         request.offset = countPerPage * page
-        
+
         if recentTerm != term {
             recentTerm = term
             songCache = []
         }
-        
+
         guard let reponse = try? await request.response() else {
             print("can't search term : (\(term)")
             return []
@@ -42,7 +42,7 @@ class SearchMusicRepositoryImplement: SearchMusicRepository {
                 $0.music
             }
         )
-        
+
         return songCache
     }
 }
@@ -59,5 +59,3 @@ fileprivate extension Song {
         )
     }
 }
-
-
