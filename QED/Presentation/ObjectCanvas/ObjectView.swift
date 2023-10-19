@@ -3,7 +3,15 @@
 import UIKit
 
 class ObjectView: UIView {
-    static let radius: CGFloat = 8
+    var radius: CGFloat? {
+        didSet {
+            guard let radius = radius else {
+                return
+            }
+            frame.size = .init(width: radius * 2, height: radius * 2)
+            layer.cornerRadius = radius
+        }
+    }
 
     var color: UIColor? {
         didSet {
@@ -13,20 +21,12 @@ class ObjectView: UIView {
 
     private var lastCenter: CGPoint?
 
-    init(color: UIColor = .black) {
-        self.color = color
+    init() {
         super.init(frame: .zero)
-        setupStyle()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupStyle() {
-        frame.size = .init(width: Self.radius * 2, height: Self.radius * 2)
-        backgroundColor = color
-        layer.cornerRadius = Self.radius
     }
 
     func applyPosition(_ position: CGPoint) {
@@ -39,8 +39,8 @@ class ObjectView: UIView {
             return
         }
         center = .init(
-            x: last.x + diff.x + Self.radius,
-            y: last.y + diff.y + Self.radius
+            x: last.x + diff.x,
+            y: last.y + diff.y
         )
     }
 }

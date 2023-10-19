@@ -3,11 +3,7 @@
 import UIKit
 import Combine
 
-class ObjectCanvasViewController: UIViewController {
-    private lazy var touchPositionConverter = {
-        TouchPositionConverter(container: view)
-    }()
-
+class ObjectCanvasViewController: ObjectStageViewController {
     private lazy var touchedViewDetector = {
         TouchedViewDetector(container: view, allowedTypes: [ObjectView.self])
     }()
@@ -21,17 +17,12 @@ class ObjectCanvasViewController: UIViewController {
         }
     }
 
-    private var objectViews: [ObjectView] {
-        view.subviews.compactMap { $0 as? ObjectView }
+    override var objectViewRadius: CGFloat {
+        6
     }
 
     override func loadView() {
         super.loadView()
-        setupViews()
-    }
-
-    private func setupViews() {
-        view.backgroundColor = .lightGray
         setupCenterLines()
     }
 
@@ -90,11 +81,9 @@ class ObjectCanvasViewController: UIViewController {
         draggingHandler.endDragging()
     }
 
-    private func placeObjectView(position: CGPoint) {
-        let objectView = ObjectView()
-        objectView.applyPosition(position)
+    override func placeObjectView(position: CGPoint) {
+        super.placeObjectView(position: position)
         replaceSelectedObjectView()
-        view.addSubview(objectView)
     }
 
     private func replaceSelectedObjectView() {
@@ -114,17 +103,6 @@ class ObjectCanvasViewController: UIViewController {
         )
         objectViews.forEach { $0.removeFromSuperview() }
         return preset
-    }
-
-    func copyPreset(_ preset: Preset) {
-        objectViews.forEach { $0.removeFromSuperview() }
-        preset.relativePositions
-            .map {
-                let view = ObjectView()
-                view.frame.origin = touchPositionConverter.getAbsolutePosition(relative: $0)
-                return view
-            }
-            .forEach { view.addSubview($0) }
     }
 
     private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {

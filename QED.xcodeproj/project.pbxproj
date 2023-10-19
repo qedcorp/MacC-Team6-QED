@@ -44,6 +44,8 @@
 		3A8608E32AE00CE900578535 /* RelativePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608E22AE00CE900578535 /* RelativePosition.swift */; };
 		3A8608EC2AE02A5400578535 /* PresetManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608EB2AE02A5400578535 /* PresetManageView.swift */; };
 		3A8608F02AE02BD500578535 /* PresetManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608EF2AE02BD500578535 /* PresetManageViewModel.swift */; };
+		3A8608F62AE0B6A000578535 /* ObjectStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608F52AE0B6A000578535 /* ObjectStageView.swift */; };
+		3A8608F82AE0B6A900578535 /* ObjectStageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608F72AE0B6A900578535 /* ObjectStageViewController.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
 		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
 		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
@@ -118,6 +120,8 @@
 		3A8608E22AE00CE900578535 /* RelativePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePosition.swift; sourceTree = "<group>"; };
 		3A8608EB2AE02A5400578535 /* PresetManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetManageView.swift; sourceTree = "<group>"; };
 		3A8608EF2AE02BD500578535 /* PresetManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetManageViewModel.swift; sourceTree = "<group>"; };
+		3A8608F52AE0B6A000578535 /* ObjectStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectStageView.swift; sourceTree = "<group>"; };
+		3A8608F72AE0B6A900578535 /* ObjectStageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectStageViewController.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEDApp.swift; sourceTree = "<group>"; };
 		3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8608EA2AE02A4500578535 /* PresetManage */,
+				3A8608F42AE0B68D00578535 /* ObjectStage */,
 				3A47F48D2ADFA064000E3272 /* ObjectCanvas */,
 				3A8608E12ADFED8200578535 /* Models */,
 				3A47F4922ADFB2EE000E3272 /* Utilities */,
@@ -327,6 +332,15 @@
 				3A8608EF2AE02BD500578535 /* PresetManageViewModel.swift */,
 			);
 			path = PresetManage;
+			sourceTree = "<group>";
+		};
+		3A8608F42AE0B68D00578535 /* ObjectStage */ = {
+			isa = PBXGroup;
+			children = (
+				3A8608F52AE0B6A000578535 /* ObjectStageView.swift */,
+				3A8608F72AE0B6A900578535 /* ObjectStageViewController.swift */,
+			);
+			path = ObjectStage;
 			sourceTree = "<group>";
 		};
 		3AE0CCB32ADD0CE1001FE371 = {
@@ -622,6 +636,7 @@
 				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
 				3A8608EC2AE02A5400578535 /* PresetManageView.swift in Sources */,
 				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
+				3A8608F62AE0B6A000578535 /* ObjectStageView.swift in Sources */,
 				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
@@ -640,6 +655,7 @@
 				3A47F4912ADFA485000E3272 /* ObjectCanvasViewController.swift in Sources */,
 				3A8608D72ADFBE7600578535 /* TouchPositionConverter.swift in Sources */,
 				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
+				3A8608F82AE0B6A900578535 /* ObjectStageViewController.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
 				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
 				3A8608E32AE00CE900578535 /* RelativePosition.swift in Sources */,
