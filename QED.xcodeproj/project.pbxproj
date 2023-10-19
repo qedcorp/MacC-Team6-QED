@@ -94,8 +94,7 @@
 		D460F01E2AE18DF700A5966A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD02AE18DF700A5966A /* Playable.swift */; };
 		D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */; };
 		D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */; };
-		D460F0222AE18E5900A5966A /* Preview Content.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D460F0212AE18E5900A5966A /* Preview Content.xcassets */; };
-
+		D460F0262AE191B900A5966A /* Preivew Content.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D460F0252AE191B900A5966A /* Preivew Content.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,7 +202,7 @@
 		D460EFD02AE18DF700A5966A /* Playable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 		D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUIProtocol.swift; sourceTree = "<group>"; };
 		D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D460F0212AE18E5900A5966A /* Preview Content.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Content.xcassets"; sourceTree = "<group>"; };
+		D460F0252AE191B900A5966A /* Preivew Content.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preivew Content.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +282,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				D460F0242AE1919800A5966A /* Preview Content */,
 				D460EF602AE18DF700A5966A /* Data */,
 				D460EFA22AE18DF700A5966A /* Domain */,
 				D460EFD22AE18DF700A5966A /* GoogleService */,
@@ -290,7 +290,6 @@
 				D460EF992AE18DF700A5966A /* Shared */,
 				D460EE192ADEC39700A5966A /* QED.entitlements */,
 				D413338A2ADEA66300BDE1BB /* Info.plist */,
-				D460F0232AE18ED900A5966A /* Preview Content */,
 			);
 			path = QED;
 			sourceTree = "<group>";
@@ -723,10 +722,10 @@
 			path = GoogleService;
 			sourceTree = "<group>";
 		};
-		D460F0232AE18ED900A5966A /* Preview Content */ = {
+		D460F0242AE1919800A5966A /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				D460F0212AE18E5900A5966A /* Preview Content.xcassets */,
+				D460F0252AE191B900A5966A /* Preivew Content.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -851,7 +850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D460EFEC2AE18DF700A5966A /* Preview Assets.xcassets in Resources */,
-				D460F0222AE18E5900A5966A /* Preview Content.xcassets in Resources */,
+				D460F0262AE191B900A5966A /* Preivew Content.xcassets in Resources */,
 				D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */,
 				D460EFE92AE18DF700A5966A /* Assets.xcassets in Resources */,
 			);
