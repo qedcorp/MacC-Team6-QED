@@ -15,7 +15,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-class AuthViewController: UIViewController {
+class AuthViewController: UIViewController, AuthUIProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
@@ -43,7 +43,10 @@ class AuthViewController: UIViewController {
     }()
 
     lazy var appleSignInView: ASAuthorizationAppleIDButton = {
-        let authorizationButton = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .black)
+        let authorizationButton = ASAuthorizationAppleIDButton(
+            authorizationButtonType: .signIn,
+            authorizationButtonStyle: .black
+        )
 
         authorizationButton.addTarget(self, action: #selector(tapAppleSignInView(_:)), for: .touchUpInside)
 
@@ -75,98 +78,18 @@ class AuthViewController: UIViewController {
         appleSignInView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
 
-    // MARK: Auth Logic
-    private let clientID = FirebaseApp.app()?.options.clientID
+    // MARK: Auth Manager
 
     @objc
     func tapGoogleSignInView(_ sender: Any) {
-        guard let clientID = self.clientID else { return }
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
-
-        Task {
-            guard let result = try? await GIDSignIn.sharedInstance.signIn(withPresenting: self),
-                  let idToken = result.user.idToken?.tokenString else { return }
-
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                           accessToken: result.user.accessToken.tokenString)
-
-            guard let authDataResult = try? await Auth.auth().signIn(with: credential) else { return }
-        }
     }
 
     @objc
     func tapKakaoSignInView(_ sender: Any) {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                guard let error = error else { return }
-
-                _ = oauthToken
-            }
-        } else {
-            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                guard let error = error else { return }
-
-                _ = oauthToken
-            }
-        }
     }
 
     @objc
     func tapAppleSignInView(_ sender: Any) {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
     }
 
-}
-
-extension AuthViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        // 로그인 성공
-        switch authorization.credential {
-        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-
-            if let authorizationCode = appleIDCredential.authorizationCode,
-               let identityToken = appleIDCredential.identityToken,
-               let authCodeString = String(data: authorizationCode, encoding: .utf8),
-               let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)")
-                print("identityToken: \(identityToken)")
-                print("authCodeString: \(authCodeString)")
-                print("identifyTokenString: \(identifyTokenString)")
-            }
-
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(fullName)")
-            print("email: \(email)")
-
-        case let passwordCredential as ASPasswordCredential:
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-
-            print("username: \(username)")
-            print("password: \(password)")
-
-        default:
-            break
-        }
-    }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-
-        print("login failed - \(error.localizedDescription)")
-    }
 }
