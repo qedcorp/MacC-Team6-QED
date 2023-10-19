@@ -4,15 +4,11 @@ import Foundation
 
 struct DefaultMemberUseCase: MemberUseCase {
     func placeMember(relativeX: Int, relativeY: Int) async throws -> Member {
-        Member(
-            relativeX: relativeX,
-            relativeY: relativeY
-        )
+        Member(relativePosition: .init(x: relativeX, y: relativeY))
     }
 
     func moveMember(_ member: Member, relativeX: Int, relativeY: Int) async throws {
-        member.relativeX = relativeX
-        member.relativeY = relativeY
+        member.relativePosition = .init(x: relativeX, y: relativeY)
     }
 
     func applyMemberInfo(_ memberInfo: Member.Info, to member: Member) async throws {
