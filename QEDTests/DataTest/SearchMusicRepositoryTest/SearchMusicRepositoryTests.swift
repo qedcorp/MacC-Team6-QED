@@ -11,7 +11,7 @@ import XCTest
 final class SearchMusicRepositoryTests: XCTestCase {
 
     var sut: SearchMusicRepository!
-    
+
     override func setUpWithError() throws {
     }
 
@@ -19,14 +19,14 @@ final class SearchMusicRepositoryTests: XCTestCase {
         sut = nil
     }
 
-    func testSearchMusicRepository_모든기본데이터가0인더미배열배출() async throws{
+    func testSearchMusicRepository_모든기본데이터가0인더미배열배출() async throws {
         // given
         let predictedValue = [Music(id: "0", title: "0", artistName: "0")]
         sut = SearchMusicRepositoryMockUp()
-        
+
         // when
         let returnValue = try await sut.searchMusic(term: "", countPerPage: 0, page: 0)
-        
+
         // then
         XCTAssertEqual(predictedValue, returnValue)
     }
