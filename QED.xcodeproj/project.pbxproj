@@ -8,28 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
-		3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */; };
-		3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */; };
-		3AE0CCC42ADD0CE4001FE371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */; };
-		3AE0CCC72ADD0CE4001FE371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE0CCC62ADD0CE4001FE371 /* Preview Assets.xcassets */; };
-		3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEB2ADD4BB0001FE371 /* User.swift */; };
-		3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCED2ADD4D0B001FE371 /* Music.swift */; };
-		3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCEF2ADD50FB001FE371 /* Member.swift */; };
-		3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF12ADD5500001FE371 /* Preset.swift */; };
-		3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF32ADD59CB001FE371 /* Formation.swift */; };
-		3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */; };
-		3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCF72ADD6705001FE371 /* Performance.swift */; };
-		3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFA2ADD696B001FE371 /* Playable.swift */; };
-		3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */; };
-		3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD002ADD8EFB001FE371 /* HexString.swift */; };
-		3AE0CD072ADD92C2001FE371 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */; };
-		3AE0CD092ADD9676001FE371 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD082ADD9676001FE371 /* HexStringTests.swift */; };
-		3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */; };
-		512671732AE1267D00C839A9 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512671722AE1267D00C839A9 /* Color+.swift */; };
-		512A9B102AE18E4E004490FD /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512A9B0F2AE18E4E004490FD /* Int+.swift */; };
-		5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */; };
+		3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
+		5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */; };
+		516493BF2AE1A8A400BA6E1D /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516493BE2AE1A8A400BA6E1D /* Int+.swift */; };
+		516493C12AE1AA0200BA6E1D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516493C02AE1AA0200BA6E1D /* Color+.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
@@ -139,24 +124,11 @@
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AE0CCEB2ADD4BB0001FE371 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		3AE0CCED2ADD4D0B001FE371 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
-		3AE0CCEF2ADD50FB001FE371 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		3AE0CCF12ADD5500001FE371 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
-		3AE0CCF32ADD59CB001FE371 /* Formation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formation.swift; sourceTree = "<group>"; };
-		3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationTransition.swift; sourceTree = "<group>"; };
-		3AE0CCF72ADD6705001FE371 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
-		3AE0CCFA2ADD696B001FE371 /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
-		3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMax.swift; sourceTree = "<group>"; };
-		3AE0CD002ADD8EFB001FE371 /* HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
-		3AE0CD062ADD92C2001FE371 /* MinMaxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
-		3AE0CD082ADD9676001FE371 /* HexStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
-		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
-		512671722AE1267D00C839A9 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
-		512A9B0F2AE18E4E004490FD /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
-		5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingFormationView.swift; sourceTree = "<group>"; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
+		5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingFormationView.swift; sourceTree = "<group>"; };
+		516493BE2AE1A8A400BA6E1D /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		516493C02AE1AA0200BA6E1D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
@@ -317,14 +289,6 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
-				5136BFB92ADFCA1400882B6B /* Presentation */,
-				3AE0CCE92ADD4B90001FE371 /* Domain */,
-				3A47F47F2ADE935A000E3272 /* Data */,
-				3AE0CD0A2ADD9889001FE371 /* Shared */,
-				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
-				3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */,
-				3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */,
-				3AE0CCC52ADD0CE4001FE371 /* Preview Content */,
 				D460EF602AE18DF700A5966A /* Data */,
 				D460EFA22AE18DF700A5966A /* Domain */,
 				D460EFD22AE18DF700A5966A /* GoogleService */,
@@ -349,11 +313,6 @@
 		3AF617C82AE191BB0052FC90 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				512671712AE1266700C839A9 /* Extension */,
-				3AE0CCEA2ADD4B96001FE371 /* Entities */,
-				3A47F43D2ADE6D18000E3272 /* UseCases */,
-				3A47F4532ADE7D5E000E3272 /* Repositories */,
-				3A47F4642ADE8441000E3272 /* Stores */,
 				3AF617C92AE191BB0052FC90 /* PropertyWrappers */,
 			);
 			path = Utilities;
@@ -366,6 +325,31 @@
 				3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */,
 			);
 			path = PropertyWrappers;
+			sourceTree = "<group>";
+		};
+		5136BFBA2ADFCA2A00882B6B /* WatchingFormation */ = {
+			isa = PBXGroup;
+			children = (
+				51E3E01B2AE04E6F00E97019 /* View */,
+			);
+			path = WatchingFormation;
+			sourceTree = "<group>";
+		};
+		516493BD2AE1A88A00BA6E1D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				516493BE2AE1A8A400BA6E1D /* Int+.swift */,
+				516493C02AE1AA0200BA6E1D /* Color+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		51E3E01B2AE04E6F00E97019 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
@@ -488,6 +472,7 @@
 		D460EF792AE18DF700A5966A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				5136BFBA2ADFCA2A00882B6B /* WatchingFormation */,
 				D460EF802AE18DF700A5966A /* Auth */,
 				D460EF7A2AE18DF700A5966A /* DotObject */,
 				D460EF852AE18DF700A5966A /* HistoryControls */,
@@ -596,6 +581,7 @@
 		D460EF992AE18DF700A5966A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				516493BD2AE1A88A00BA6E1D /* Extension */,
 				D460EF9A2AE18DF700A5966A /* LifeCycle */,
 				D460EF9C2AE18DF700A5966A /* Utilities */,
 			);
@@ -768,39 +754,6 @@
 			path = GoogleService;
 			sourceTree = "<group>";
 		};
-		512671712AE1266700C839A9 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				512671722AE1267D00C839A9 /* Color+.swift */,
-				512A9B0F2AE18E4E004490FD /* Int+.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		5136BFB92ADFCA1400882B6B /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				5136BFBA2ADFCA2A00882B6B /* WatchingFormation */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		5136BFBA2ADFCA2A00882B6B /* WatchingFormation */ = {
-			isa = PBXGroup;
-			children = (
-				51E3E01B2AE04E6F00E97019 /* View */,
-			);
-			path = WatchingFormation;
-			sourceTree = "<group>";
-		};
-		51E3E01B2AE04E6F00E97019 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5136BFBB2ADFCA4F00882B6B /* WatchingFormationView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -968,52 +921,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A47F4692ADE8657000E3272 /* DefaultUserStore.swift in Sources */,
-				512671732AE1267D00C839A9 /* Color+.swift in Sources */,
-				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
-				3A47F47C2ADE916B000E3272 /* MockPresetRepository.swift in Sources */,
-				3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */,
-				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
-				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
-				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
-				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
-				3AE0CCC02ADD0CE1001FE371 /* QEDApp.swift in Sources */,
+				3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */,
+				3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */,
 				5136BFBC2ADFCA4F00882B6B /* WatchingFormationView.swift in Sources */,
-				3AE0CCF42ADD59CB001FE371 /* Formation.swift in Sources */,
-				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
-				3A47F4472ADE72C1000E3272 /* FormationUseCase.swift in Sources */,
-				3A47F4732ADE8D67000E3272 /* DefaultFormationTransitionUseCase.swift in Sources */,
-				3A47F4492ADE7310000E3272 /* FormationTransitionUseCase.swift in Sources */,
-				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
-				3A47F4412ADE6E3C000E3272 /* MusicUseCase.swift in Sources */,
-				3A47F4602ADE80B0000E3272 /* DefaultUserUseCase.swift in Sources */,
-				3A47F4662ADE8449000E3272 /* UserStore.swift in Sources */,
-				3A47F4572ADE7DF1000E3272 /* MusicRepository.swift in Sources */,
-				3A47F4712ADE8CD8000E3272 /* DefaultFormationUseCase.swift in Sources */,
-				3A47F46D2ADE8B34000E3272 /* DefaultMemberUseCase.swift in Sources */,
-				3A47F46B2ADE87BD000E3272 /* DefaultMusicUseCase.swift in Sources */,
-				3A47F4782ADE9019000E3272 /* MockUserRepository.swift in Sources */,
-				3A47F43F2ADE6DA9000E3272 /* UserUseCase.swift in Sources */,
-				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,
-				3AE0CCF82ADD6705001FE371 /* Performance.swift in Sources */,
-				3A47F44B2ADE7320000E3272 /* PerformanceUseCase.swift in Sources */,
-				3A47F4452ADE71AA000E3272 /* PresetUseCase.swift in Sources */,
-				3A47F4752ADE8E48000E3272 /* DefaultPerformanceUseCase.swift in Sources */,
-				3AE0CCFB2ADD696B001FE371 /* Playable.swift in Sources */,
-				3A47F47E2ADE918F000E3272 /* MockPerformanceRepository.swift in Sources */,
-				3A47F45D2ADE7EF5000E3272 /* PerformanceRepository.swift in Sources */,
-				3A47F4552ADE7D73000E3272 /* UserRepository.swift in Sources */,
-				3A47F45B2ADE7E96000E3272 /* PresetRepository.swift in Sources */,
-				512A9B102AE18E4E004490FD /* Int+.swift in Sources */,
-				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
-				3A47F47A2ADE9047000E3272 /* MockMusicRepository.swift in Sources */,
-				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,
-				3A47F4432ADE7077000E3272 /* MemberUseCase.swift in Sources */,
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManageViewModel.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* KakaoAuthRepositoryImplement.swift in Sources */,
 				D460EFD52AE18DF700A5966A /* SearchMusicRepositoryImplement.swift in Sources */,
+				516493C12AE1AA0200BA6E1D /* Color+.swift in Sources */,
 				D460F00D2AE18DF700A5966A /* DefaultMemberUseCase.swift in Sources */,
 				D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */,
 				D460F0132AE18DF700A5966A /* FormationTransitionUseCase.swift in Sources */,
@@ -1047,6 +963,7 @@
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
+				516493BF2AE1A8A400BA6E1D /* Int+.swift in Sources */,
 				D460EFF62AE18DF700A5966A /* ContentView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
