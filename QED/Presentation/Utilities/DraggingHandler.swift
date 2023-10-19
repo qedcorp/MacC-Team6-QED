@@ -3,10 +3,10 @@
 import UIKit
 
 class DraggingHandler: ObservableObject {
-    @Published var dragging: Dragging?
+    @Published var dragging: DraggingModel?
 
     func beginDragging(position: CGPoint) {
-        dragging = Dragging(startPosition: position)
+        dragging = DraggingModel(startPosition: position)
     }
 
     func moveDragging(position: CGPoint) {

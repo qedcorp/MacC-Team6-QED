@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Dragging {
+struct DraggingModel {
     let startPosition: CGPoint
     var currentPosition: CGPoint
     var isDragged: Bool = false

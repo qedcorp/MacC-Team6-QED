@@ -38,8 +38,8 @@
 		3A8608D62ADFBE7600578535 /* CenterLinesRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608D32ADFBE7600578535 /* CenterLinesRenderer.swift */; };
 		3A8608D72ADFBE7600578535 /* TouchPositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */; };
 		3A8608DA2ADFC4BB00578535 /* TouchedViewDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608D92ADFC4BB00578535 /* TouchedViewDetector.swift */; };
-		3A8608DC2ADFCCDC00578535 /* ObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DB2ADFCCDC00578535 /* ObjectView.swift */; };
-		3A8608DE2ADFEB2F00578535 /* Dragging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DD2ADFEB2F00578535 /* Dragging.swift */; };
+		3A8608DC2ADFCCDC00578535 /* DotObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DB2ADFCCDC00578535 /* DotObjectView.swift */; };
+		3A8608DE2ADFEB2F00578535 /* DraggingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DD2ADFEB2F00578535 /* DraggingModel.swift */; };
 		3A8608E02ADFEC0200578535 /* DraggingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */; };
 		3A8608E32AE00CE900578535 /* RelativePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608E22AE00CE900578535 /* RelativePosition.swift */; };
 		3A8608EC2AE02A5400578535 /* PresetManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8608EB2AE02A5400578535 /* PresetManageView.swift */; };
@@ -116,8 +116,8 @@
 		3A8608D32ADFBE7600578535 /* CenterLinesRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterLinesRenderer.swift; sourceTree = "<group>"; };
 		3A8608D42ADFBE7600578535 /* TouchPositionConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPositionConverter.swift; sourceTree = "<group>"; };
 		3A8608D92ADFC4BB00578535 /* TouchedViewDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchedViewDetector.swift; sourceTree = "<group>"; };
-		3A8608DB2ADFCCDC00578535 /* ObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectView.swift; sourceTree = "<group>"; };
-		3A8608DD2ADFEB2F00578535 /* Dragging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragging.swift; sourceTree = "<group>"; };
+		3A8608DB2ADFCCDC00578535 /* DotObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotObjectView.swift; sourceTree = "<group>"; };
+		3A8608DD2ADFEB2F00578535 /* DraggingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingModel.swift; sourceTree = "<group>"; };
 		3A8608DF2ADFEC0200578535 /* DraggingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingHandler.swift; sourceTree = "<group>"; };
 		3A8608E22AE00CE900578535 /* RelativePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePosition.swift; sourceTree = "<group>"; };
 		3A8608EB2AE02A5400578535 /* PresetManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetManageView.swift; sourceTree = "<group>"; };
@@ -293,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8608EA2AE02A4500578535 /* PresetManage */,
+				3A4AC7A92AE14D9D0089194B /* DotObject */,
 				3A8608F42AE0B68D00578535 /* ObjectStage */,
 				3A47F48D2ADFA064000E3272 /* ObjectCanvas */,
 				3A8608E12ADFED8200578535 /* Models */,
@@ -306,7 +307,6 @@
 			children = (
 				3A47F4992ADFBB17000E3272 /* ObjectCanvasView.swift */,
 				3A47F4902ADFA485000E3272 /* ObjectCanvasViewController.swift */,
-				3A8608DB2ADFCCDC00578535 /* ObjectView.swift */,
 			);
 			path = ObjectCanvas;
 			sourceTree = "<group>";
@@ -322,10 +322,18 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		3A4AC7A92AE14D9D0089194B /* DotObject */ = {
+			isa = PBXGroup;
+			children = (
+				3A8608DB2ADFCCDC00578535 /* DotObjectView.swift */,
+			);
+			path = DotObject;
+			sourceTree = "<group>";
+		};
 		3A8608E12ADFED8200578535 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3A8608DD2ADFEB2F00578535 /* Dragging.swift */,
+				3A8608DD2ADFEB2F00578535 /* DraggingModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -653,7 +661,7 @@
 				3A47F46F2ADE8C8F000E3272 /* DefaultPresetUseCase.swift in Sources */,
 				3A8608F02AE02BD500578535 /* PresetManageViewModel.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
-				3A8608DC2ADFCCDC00578535 /* ObjectView.swift in Sources */,
+				3A8608DC2ADFCCDC00578535 /* DotObjectView.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
 				3A47F4832ADE93A2000E3272 /* DescribableError.swift in Sources */,
 				3A8608EC2AE02A5400578535 /* PresetManageView.swift in Sources */,
@@ -693,7 +701,7 @@
 				3A47F4552ADE7D73000E3272 /* UserRepository.swift in Sources */,
 				3A47F45B2ADE7E96000E3272 /* PresetRepository.swift in Sources */,
 				3A8608DA2ADFC4BB00578535 /* TouchedViewDetector.swift in Sources */,
-				3A8608DE2ADFEB2F00578535 /* Dragging.swift in Sources */,
+				3A8608DE2ADFEB2F00578535 /* DraggingModel.swift in Sources */,
 				3AE0CCF62ADD5A70001FE371 /* FormationTransition.swift in Sources */,
 				3A47F47A2ADE9047000E3272 /* MockMusicRepository.swift in Sources */,
 				3AE0CCEC2ADD4BB0001FE371 /* User.swift in Sources */,

@@ -5,13 +5,13 @@ import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
     private lazy var touchedViewDetector = {
-        TouchedViewDetector(container: view, allowedTypes: [ObjectView.self])
+        TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
     private let draggingHandler = DraggingHandler()
     private var cancellables = Set<AnyCancellable>()
 
-    private var selectedObjectView: ObjectView? {
+    private var selectedObjectView: DotObjectView? {
         didSet {
             objectViews.forEach { $0.color = $0 === selectedObjectView ? .red : .black }
         }
@@ -52,7 +52,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             return
         }
         if let touchedView = touchedViewDetector.detectView(position: position) {
-            if let objectView = touchedView as? ObjectView {
+            if let objectView = touchedView as? DotObjectView {
                 selectedObjectView = objectView
             }
         } else if selectedObjectView == nil {

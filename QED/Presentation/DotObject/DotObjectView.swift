@@ -2,7 +2,7 @@
 
 import UIKit
 
-class ObjectView: UIView {
+class DotObjectView: UIView {
     var radius: CGFloat? {
         didSet {
             guard let radius = radius else {

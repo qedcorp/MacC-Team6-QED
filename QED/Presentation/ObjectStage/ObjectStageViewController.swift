@@ -14,8 +14,8 @@ class ObjectStageViewController: UIViewController {
         2
     }
 
-    var objectViews: [ObjectView] {
-        view.subviews.compactMap { $0 as? ObjectView }
+    var objectViews: [DotObjectView] {
+        view.subviews.compactMap { $0 as? DotObjectView }
     }
 
     override func loadView() {
@@ -32,7 +32,7 @@ class ObjectStageViewController: UIViewController {
     }
 
     func placeObjectView(position: CGPoint) {
-        let objectView = ObjectView()
+        let objectView = DotObjectView()
         objectView.radius = objectViewRadius
         objectView.color = .black
         objectView.applyPosition(position)
