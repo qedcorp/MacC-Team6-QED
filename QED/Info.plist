@@ -23,5 +23,9 @@
 	</array>
 	<key>GIDClinetID</key>
 	<string>993731843797-i1utbjqnfk0301e8pj5b921305qu85t7.apps.googleusercontent.com</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ko</string>
+	</array>
 </dict>
 </plist>
