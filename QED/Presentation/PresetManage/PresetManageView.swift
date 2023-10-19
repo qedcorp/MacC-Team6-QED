@@ -11,16 +11,23 @@ struct PresetManageView: View {
 
     var body: some View {
         VStack {
-            ObjectCanvasView(controller: objectCanvasViewController)
-                .frame(width: 320, height: 240)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.gray.opacity(0.3))
-                )
-                .clipped()
-            Button("Generate") {
-                viewModel.generatePreset()
+            VStack {
+                ObjectCanvasView(controller: objectCanvasViewController)
+                    .frame(height: 240)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.gray.opacity(0.3))
+                    )
+                    .clipped()
+                HStack {
+                    HistoryControlsView(historyManagable: objectCanvasViewController.historyManager)
+                    Spacer()
+                    Button("Generate") {
+                        viewModel.generatePreset()
+                    }
+                }
             }
+            .frame(width: 320)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(Array(viewModel.getPresets().enumerated()), id: \.offset) { _, preset in
