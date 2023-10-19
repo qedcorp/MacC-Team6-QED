@@ -2,7 +2,7 @@
 
 import UIKit
 
-class TouchedViewDetector {
+struct TouchedViewDetector {
     let container: UIView
     let allowedTypes: [UIView.Type]
 

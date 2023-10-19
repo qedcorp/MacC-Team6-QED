@@ -4,8 +4,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ObjectCanvasView()
-            .frame(width: 300, height: 200)
+        PresetManageView()
     }
 }
 

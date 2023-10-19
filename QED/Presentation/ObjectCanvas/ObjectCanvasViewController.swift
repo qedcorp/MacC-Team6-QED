@@ -106,6 +106,27 @@ class ObjectCanvasViewController: UIViewController {
         selectedObjectView?.applyPosition(absolutePosition)
     }
 
+    func generatePreset() -> Preset {
+        let preset = Preset(
+            headcount: objectViews.count,
+            relativePositions: objectViews
+                .map { touchPositionConverter.getRelativePosition(absolute: $0.frame.origin) }
+        )
+        objectViews.forEach { $0.removeFromSuperview() }
+        return preset
+    }
+
+    func copyPreset(_ preset: Preset) {
+        objectViews.forEach { $0.removeFromSuperview() }
+        preset.relativePositions
+            .map {
+                let view = ObjectView()
+                view.frame.origin = touchPositionConverter.getAbsolutePosition(relative: $0)
+                return view
+            }
+            .forEach { view.addSubview($0) }
+    }
+
     private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {
         guard draggingHandler.dragging?.isDragged == false else {
             return false

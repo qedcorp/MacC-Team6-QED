@@ -3,9 +3,10 @@
 import SwiftUI
 
 struct ObjectCanvasView: UIViewControllerRepresentable {
+    let controller: ObjectCanvasViewController
+
     func makeUIViewController(context: Context) -> ObjectCanvasViewController {
-        let controller = ObjectCanvasViewController()
-        return controller
+        controller
     }
 
     func updateUIViewController(_ uiViewController: ObjectCanvasViewController, context: Context) {
@@ -14,6 +15,7 @@ struct ObjectCanvasView: UIViewControllerRepresentable {
 
 struct ObjectCanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectCanvasView()
+        let controller = ObjectCanvasViewController()
+        return ObjectCanvasView(controller: controller)
     }
 }
