@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol AppleAuthRepository: AuthRepository {
-    
-}
+protocol AppleAuthRepository: AuthRepository { }

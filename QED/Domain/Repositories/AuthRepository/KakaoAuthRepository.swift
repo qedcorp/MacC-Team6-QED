@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol KakaoAuthRepository: AuthRepository {
-    
-}
+protocol KakaoAuthRepository: AuthRepository { }

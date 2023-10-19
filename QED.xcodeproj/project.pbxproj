@@ -34,18 +34,18 @@
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EE322AE01D7000A5966A /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE312AE01D7000A5966A /* AuthRepository.swift */; };
-		D460EE382AE01F7600A5966A /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE372AE01F7600A5966A /* KakaoAuthRepository.swift */; };
+		D460EE382AE01F7600A5966A /* KakaoAuthRepositoryImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE372AE01F7600A5966A /* KakaoAuthRepositoryImplement.swift */; };
 		D460EE3A2AE022CC00A5966A /* AuthUIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE392AE022CC00A5966A /* AuthUIProtocol.swift */; };
 		D460EE3D2AE0237F00A5966A /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE3C2AE0237F00A5966A /* KeyChainManager.swift */; };
 		D460EE3F2AE023AC00A5966A /* KeyChainAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE3E2AE023AC00A5966A /* KeyChainAccount.swift */; };
 		D460EE412AE023BE00A5966A /* KeyChainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE402AE023BE00A5966A /* KeyChainError.swift */; };
-		D460EE442AE1088300A5966A /* GoogleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE432AE1088300A5966A /* GoogleAuthRepository.swift */; };
-		D460EE462AE10D5500A5966A /* AppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE452AE10D5500A5966A /* AppleAuthRepository.swift */; };
+		D460EE442AE1088300A5966A /* GoogleAuthRepositoryImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE432AE1088300A5966A /* GoogleAuthRepositoryImplement.swift */; };
+		D460EE462AE10D5500A5966A /* AppleAuthRepositoryImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE452AE10D5500A5966A /* AppleAuthRepositoryImplement.swift */; };
 		D460EE4C2AE14A4B00A5966A /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE4B2AE14A4B00A5966A /* KakaoAuthRepository.swift */; };
 		D460EE4E2AE14A5500A5966A /* GoogleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE4D2AE14A5500A5966A /* GoogleAuthRepository.swift */; };
 		D460EE502AE14A6000A5966A /* AppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE4F2AE14A6000A5966A /* AppleAuthRepository.swift */; };
-		D460EE522AE14B5D00A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE512AE14B5D00A5966A /* AuthRepository+.swift */; };
 		D460EE562AE1514400A5966A /* AuthProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE552AE1514400A5966A /* AuthProviderType.swift */; };
+		D460EE602AE1563A00A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EE5F2AE1563A00A5966A /* AuthRepository+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,18 +94,18 @@
 		D460EE162ADEB6A500A5966A /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EE312AE01D7000A5966A /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		D460EE372AE01F7600A5966A /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepository.swift; sourceTree = "<group>"; };
+		D460EE372AE01F7600A5966A /* KakaoAuthRepositoryImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepositoryImplement.swift; sourceTree = "<group>"; };
 		D460EE392AE022CC00A5966A /* AuthUIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUIProtocol.swift; sourceTree = "<group>"; };
 		D460EE3C2AE0237F00A5966A /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		D460EE3E2AE023AC00A5966A /* KeyChainAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAccount.swift; sourceTree = "<group>"; };
 		D460EE402AE023BE00A5966A /* KeyChainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainError.swift; sourceTree = "<group>"; };
-		D460EE432AE1088300A5966A /* GoogleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthRepository.swift; sourceTree = "<group>"; };
-		D460EE452AE10D5500A5966A /* AppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepository.swift; sourceTree = "<group>"; };
+		D460EE432AE1088300A5966A /* GoogleAuthRepositoryImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthRepositoryImplement.swift; sourceTree = "<group>"; };
+		D460EE452AE10D5500A5966A /* AppleAuthRepositoryImplement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepositoryImplement.swift; sourceTree = "<group>"; };
 		D460EE4B2AE14A4B00A5966A /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepository.swift; sourceTree = "<group>"; };
 		D460EE4D2AE14A5500A5966A /* GoogleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthRepository.swift; sourceTree = "<group>"; };
 		D460EE4F2AE14A6000A5966A /* AppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepository.swift; sourceTree = "<group>"; };
-		D460EE512AE14B5D00A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EE552AE1514400A5966A /* AuthProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProviderType.swift; sourceTree = "<group>"; };
+		D460EE5F2AE1563A00A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,10 +347,10 @@
 		D460EE362AE01F6700A5966A /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				D460EE5F2AE1563A00A5966A /* AuthRepository+.swift */,
 				D460EE472AE11E9600A5966A /* KakaoAuthRepository */,
 				D460EE482AE11EA000A5966A /* GoogleauthRepository */,
 				D460EE492AE11EA700A5966A /* AppleAuthRepository */,
-				D460EE512AE14B5D00A5966A /* AuthRepository+.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 		D460EE472AE11E9600A5966A /* KakaoAuthRepository */ = {
 			isa = PBXGroup;
 			children = (
-				D460EE372AE01F7600A5966A /* KakaoAuthRepository.swift */,
+				D460EE372AE01F7600A5966A /* KakaoAuthRepositoryImplement.swift */,
 			);
 			path = KakaoAuthRepository;
 			sourceTree = "<group>";
@@ -384,7 +384,7 @@
 		D460EE482AE11EA000A5966A /* GoogleauthRepository */ = {
 			isa = PBXGroup;
 			children = (
-				D460EE432AE1088300A5966A /* GoogleAuthRepository.swift */,
+				D460EE432AE1088300A5966A /* GoogleAuthRepositoryImplement.swift */,
 			);
 			path = GoogleauthRepository;
 			sourceTree = "<group>";
@@ -392,7 +392,7 @@
 		D460EE492AE11EA700A5966A /* AppleAuthRepository */ = {
 			isa = PBXGroup;
 			children = (
-				D460EE452AE10D5500A5966A /* AppleAuthRepository.swift */,
+				D460EE452AE10D5500A5966A /* AppleAuthRepositoryImplement.swift */,
 			);
 			path = AppleAuthRepository;
 			sourceTree = "<group>";
@@ -583,8 +583,8 @@
 			files = (
 				3AE0CCC22ADD0CE1001FE371 /* ContentView.swift in Sources */,
 				3AE0CCFF2ADD8B86001FE371 /* MinMax.swift in Sources */,
-				D460EE522AE14B5D00A5966A /* AuthRepository+.swift in Sources */,
-				D460EE442AE1088300A5966A /* GoogleAuthRepository.swift in Sources */,
+				D460EE602AE1563A00A5966A /* AuthRepository+.swift in Sources */,
+				D460EE442AE1088300A5966A /* GoogleAuthRepositoryImplement.swift in Sources */,
 				D460EE4E2AE14A5500A5966A /* GoogleAuthRepository.swift in Sources */,
 				3AE0CCF02ADD50FB001FE371 /* Member.swift in Sources */,
 				3AE0CD0D2ADD98EF001FE371 /* MemberConstants.swift in Sources */,
@@ -595,9 +595,9 @@
 				3AE0CCEE2ADD4D0B001FE371 /* Music.swift in Sources */,
 				D460EE3F2AE023AC00A5966A /* KeyChainAccount.swift in Sources */,
 				3AE0CD012ADD8EFB001FE371 /* HexString.swift in Sources */,
-				D460EE382AE01F7600A5966A /* KakaoAuthRepository.swift in Sources */,
+				D460EE382AE01F7600A5966A /* KakaoAuthRepositoryImplement.swift in Sources */,
 				D460EE4C2AE14A4B00A5966A /* KakaoAuthRepository.swift in Sources */,
-				D460EE462AE10D5500A5966A /* AppleAuthRepository.swift in Sources */,
+				D460EE462AE10D5500A5966A /* AppleAuthRepositoryImplement.swift in Sources */,
 				D460EE502AE14A6000A5966A /* AppleAuthRepository.swift in Sources */,
 				D460EE172ADEB6A500A5966A /* AuthView.swift in Sources */,
 				3AE0CCF22ADD5500001FE371 /* Preset.swift in Sources */,

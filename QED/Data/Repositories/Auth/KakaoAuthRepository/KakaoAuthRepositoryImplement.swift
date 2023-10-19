@@ -1,5 +1,5 @@
 //
-//  KakaoAuthRepository.swift
+//  KakaoAuthRepositoryImplement.swift
 //  QED
 //
 //  Created by changgyo seo on 10/18/23.
@@ -27,10 +27,9 @@ final class KakaoAuthRepositoryImplement: KakaoAuthRepository {
 
         if firebaseAuthResult != nil {
             do {
-                try registerKeyChain(authDataResult: firebaseAuthResult!)
+                try registerKeyChain(with: firebaseAuthResult!)
                 return true
-            }
-            catch {
+            } catch {
                 return false
             }
         }
@@ -38,7 +37,7 @@ final class KakaoAuthRepositoryImplement: KakaoAuthRepository {
     }
 
     func logout() async throws {
-
+        try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
     }
 }
 

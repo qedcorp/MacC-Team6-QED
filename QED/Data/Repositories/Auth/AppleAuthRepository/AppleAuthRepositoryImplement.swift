@@ -1,5 +1,5 @@
 //
-//  AppleAuthRepository.swift
+//  AppleAuthRepositoryImplement.swift
 //  QED
 //
 //  Created by changgyo seo on 10/19/23.
@@ -38,7 +38,13 @@ final class AppleAuthRepositoryImplement: NSObject, AppleAuthRepository {
     }
 
     func logout() async throws {
-
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
 }
 
@@ -55,10 +61,9 @@ extension AppleAuthRepositoryImplement: ASAuthorizationControllerDelegate {
             Task {
                 do {
                     let firebaseAuthResult = try await Auth.auth().signIn(with: credential)
-                    try registerKeyChain(authDataResult: firebaseAuthResult)
+                    try registerKeyChain(with: firebaseAuthResult)
                     authcontinuation?.resume(returning: true)
-                }
-                catch {
+                } catch {
                     authcontinuation?.resume(returning: false)
                 }
             }

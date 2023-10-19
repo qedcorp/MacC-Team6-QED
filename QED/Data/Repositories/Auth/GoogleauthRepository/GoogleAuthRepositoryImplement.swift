@@ -1,5 +1,5 @@
 //
-//  GoogleAuthRepository.swift
+//  GoogleAuthRepositoryImplement.swift
 //  QED
 //
 //  Created by changgyo seo on 10/19/23.
@@ -36,21 +36,20 @@ final class GoogleAuthRepositoryImplement: GoogleAuthRepository {
 
         guard let firebaseAuthResult = try? await Auth.auth().signIn(with: credential) else { return false }
         // TODO: 여기서 keychain 연결하고 true반환
-        
+
         do {
-            try registerKeyChain(authDataResult: firebaseAuthResult)
+            try registerKeyChain(with: firebaseAuthResult)
             return true
-        }
-        catch {
+        } catch {
             return false
         }
-        return false
     }
 
     func logout() async throws {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

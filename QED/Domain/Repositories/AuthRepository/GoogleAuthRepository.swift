@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol GoogleAuthRepository: AuthRepository {
-    
-}
+protocol GoogleAuthRepository: AuthRepository { }
