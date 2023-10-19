@@ -7,10 +7,12 @@
 
 import Foundation
 
-struct PerformanceSettingModel {
+struct PerformanceSettingModel: Hashable {
     var author: String
-    var music: String
-    var artist: String
     var headcount: Int
-    var title: String
+    var performanceTitle: String
+    var musicTitle: String
+    var music: String
+    var artistName: String
+    var albumCoverURL: URL?
 }

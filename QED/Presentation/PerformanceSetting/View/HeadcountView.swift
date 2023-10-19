@@ -7,16 +7,18 @@
 
 import SwiftUI
 
+import Combine
+
 struct HeadcountView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
-    @FocusState var isFocused: Bool
-
-//    let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(searchMusicRepository: SearchMusicRepositoryMockUp())
+    @Environment(\.presentationMode) var presentationMode: Binding
+    @FocusState private var isFocusedSearchTextField: Bool
 
     var body: some View {
         VStack {
             Spacer()
+
             HStack {
                 Text("선택한 음악을\n추는 팀원의 수는?")
                     .font(.system(size: 30))
@@ -24,10 +26,13 @@ struct HeadcountView: View {
                 Spacer()
             }
             .padding()
+
             Spacer()
                 .frame(height: 50)
+
             ZStack {
-                TextField("\(performancesettingVM.headcount)", text: $performancesettingVM.textFieldNum)
+                TextField(performancesettingVM.inputHeadcount, text: $performancesettingVM.inputHeadcount)
+                    .focused($isFocusedSearchTextField)
                     .keyboardType(.numberPad)
                     .multilineTextAlignment(.center)
                     .font(.system(size: 30))
@@ -55,6 +60,7 @@ struct HeadcountView: View {
                                     .font(.system(size: 40))
                             )
                     })
+
                     Spacer()
 
                     Button(action: {
@@ -68,24 +74,28 @@ struct HeadcountView: View {
                                     .foregroundColor(.black)
                                     .font(.system(size: 40))
                             )
-                    })
+                    }
+                    )
                 }
                 .padding(.horizontal, 15)
             }
 
             Spacer()
-            NavigationLink {
 
-            }label: {
+            NavigationLink {
+                MusicSettingView(performanceSettingVM: PerformanceSettingViewModel())
+                    .navigationTitle("노래 선택")
+                    .navigationBarTitleDisplayMode(.inline)
+            } label: {
                 nextbutton
             }
         }
         .padding()
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                isFocused = true
-            }
+        .onTapGesture {
+            isFocusedSearchTextField = false
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btnBack)
     }
 
     var nextbutton: some View {
@@ -98,6 +108,18 @@ struct HeadcountView: View {
             .foregroundColor(.white)
             .background(Color.black)
             .cornerRadius(14)
+    }
+
+    var btnBack: some View {
+        Button {
+            self.presentationMode.wrappedValue.dismiss()
+        } label: {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .aspectRatio(contentMode: .fit)
+            }
+            .foregroundStyle(.green)
+        }
     }
 }
 

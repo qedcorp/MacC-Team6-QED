@@ -23,7 +23,7 @@ struct TitleSettingView: View {
             }
             .padding()
 
-            TextField("입력하세요", text: $performancesettingVM.textFieldText)
+            TextField("입력하세요", text: $performancesettingVM.inputTitle)
                 .focused($isFocused)
                 .multilineTextAlignment(.center)
                 .font(.system(size: 30))
@@ -47,6 +47,8 @@ struct TitleSettingView: View {
             }label: {
                 nextbutton
             }
+            .disabled(performancesettingVM.inputTitle.isEmpty)
+            .foregroundColor(performancesettingVM.inputTitle.isEmpty ? Color.black.opacity(0.01) : Color.white)
         }
         .padding()
         .onAppear {
@@ -65,8 +67,9 @@ struct TitleSettingView: View {
                     .weight(.bold)
             )
             .foregroundColor(.white)
-            .background(Color.black)
+            .background(performancesettingVM.inputTitle.isEmpty ? Color.black.opacity(0.3) : Color.black)
             .cornerRadius(14)
+            .padding()
     }
 }
 
