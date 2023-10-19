@@ -12,13 +12,37 @@ struct WatchingFormationView: View {
     @State var title = "PINK VENOM"
     @State var headcount = 4
     @State var isNameVisiable = false
+    @State var isAddVisible = false
+    var members1 = [Member(relativeX: 100, relativeY: 500,
+                           info: Member.Info(name: "쥬쥬", color: "F06292")),
+                    Member(relativeX: 300, relativeY: 500,
+                           info: Member.Info(name: "웅", color: "85C1E9")),
+                    Member(relativeX: 500, relativeY: 500,
+                           info: Member.Info(name: "키오오", color: "C39BD3")),
+                    Member(relativeX: 700, relativeY: 500,
+                           info: Member.Info(name: "올링링링", color: "F7DC6F"))]
+    var members2 = [Member(relativeX: 500, relativeY: 200,
+                           info: Member.Info(name: "쥬쥬", color: "F06292")),
+                    Member(relativeX: 500, relativeY: 500,
+                           info: Member.Info(name: "웅", color: "85C1E9")),
+                    Member(relativeX: 500, relativeY: 700,
+                           info: Member.Info(name: "키오오", color: "C39BD3")),
+                    Member(relativeX: 500, relativeY: 900,
+                           info: Member.Info(name: "올링링링", color: "F7DC6F"))]
+    var formations: [Formation]
 
-    var performance: Int
+    init() {
+        formations = [Formation(members: members1, startMs: 0, memo: "킥인더도어"),
+                      Formation(members: members2, startMs: 130000, memo: "눈 감고 팝팝")]
+    }
+
     var body: some View {
         VStack(spacing: 15) {
             titleAndHeadcount
             togglingMemberName
-            FormationScrollView()
+            FormationScrollView(isNameVisiable: isNameVisiable,
+                                formations: formations,
+                                isAddVisible: isAddVisible)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
@@ -62,7 +86,7 @@ struct WatchingFormationView: View {
 
     private var toggleButton: some View {
         Button {
-            isNameVisiable = !isNameVisiable
+            isNameVisiable.toggle()
         } label: {
             Text(isNameVisiable ? "off" : "on")
                 .foregroundStyle(.green)
@@ -87,9 +111,11 @@ struct WatchingFormationView: View {
     private var rightItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
-
+                withAnimation(.easeIn(duration: 0.3)) {
+                    isAddVisible.toggle()
+                }
             } label: {
-                Text("선택")
+                Text(isAddVisible ? "완료" : "추가")
                     .foregroundStyle(.green)
             }
         }
@@ -97,30 +123,76 @@ struct WatchingFormationView: View {
 }
 
 struct FormationScrollView: View {
+    var isNameVisiable: Bool
+    var formations: [Formation]
+    var isAddVisible: Bool
+
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                ForEach(0..<10) { _ in
-                    FormationPreview()
+                ForEach(formations, id: \.self) { formation in
+                    VStack {
+                        FormationPreview(isNameVisiable: isNameVisiable,
+                                         formation: formation)
+                        if isAddVisible {
+                            addButton
+                        }
+                    }
                 }
             }.padding(.horizontal, 20)
+        }
+    }
+
+    var addButton: some View {
+        Button {
+//            TODO: 자리표 찍기(수정)로 이동
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(.green)
+                    .frame(width: 40, height: 40)
+                Image(systemName: "plus")
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .bold()
+            }
         }
     }
 }
 
 struct FormationPreview: View {
+    var isNameVisiable: Bool
+    var formation: Formation
+    @State var isSelected = false
+
     var body: some View {
         VStack(spacing: 0) {
             danceFormation
-            TimeAndLyric()
+            TimeAndLyric(formation: formation)
         }
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .strokeBorder(.green, lineWidth: isSelected ? 2 : 0)
+        )
     }
 
     private var danceFormation: some View {
         ZStack {
             danceFormationBackground
             centerline
-            MemberCircle()
+            GeometryReader { geometry in
+                ForEach(formation.members, id: \.info.self) { member in
+                    MemberCircle(isNameVisiable: isNameVisiable,
+                                 member: member)
+                    .position(CGPoint(x: CGFloat(member.relativeX)*geometry.size.width*0.001, y: CGFloat(member.relativeY)*geometry.size.height*0.001))
+                }
+            }
+        }
+        .onTapGesture {
+            withAnimation(.easeIn(duration: 0.1)) {
+                isSelected.toggle()
+    //           TODO: 상세화면으로 이동
+            }
         }
     }
 
@@ -146,23 +218,28 @@ struct FormationPreview: View {
 }
 
 struct MemberCircle: View {
-    var name = "쥬쥬"
-    var color: Color = .pink
+    var isNameVisiable: Bool
+    var member: Member
 
     var body: some View {
-        Text(name)
-            .foregroundStyle(.white)
-            .font(.caption2)
-            .bold()
-            .padding(8)
-            .background(color)
-            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+        ZStack {
+            if let color = member.info?.color {
+                Circle()
+                    .fill(Color(hex: color))
+                    .frame(width: 25, height: 25)
+            }
+            if let name = member.info?.name {
+                Text(isNameVisiable ? name.prefix(2) : "")
+                    .foregroundStyle(.white)
+                    .font(.caption2)
+                    .bold()
+            }
+        }
     }
 }
 
 struct TimeAndLyric: View {
-    var time = "0:13"
-    var lyric = "Pop pop"
+    var formation: Formation
 
     var body: some View {
         ZStack {
@@ -172,15 +249,32 @@ struct TimeAndLyric: View {
                     .rect(bottomLeadingRadius: 12,
                           bottomTrailingRadius: 12))
                 .frame(height: 30)
-            Text("\(time)  \(lyric)")
-                .padding(.horizontal)
-                .lineLimit(1)
-                .foregroundStyle(.white)
-                .bold()
+            HStack {
+                if let startMs = formation.startMs {
+                    Text(startMs.msToTimeString)
+                }
+                if let memo = formation.memo {
+                    Text(memo)
+                }
+            }
+            .padding(.horizontal)
+            .lineLimit(1)
+            .foregroundStyle(.white)
+            .bold()
         }
     }
 }
 
+extension Formation: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+
+    static func == (lhs: Formation, rhs: Formation) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+}
+
 #Preview {
-    WatchingFormationView(performance: 1)
+    WatchingFormationView()
 }
