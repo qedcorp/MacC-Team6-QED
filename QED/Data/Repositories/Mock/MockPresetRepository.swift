@@ -10,7 +10,7 @@ class MockPresetRepository: PresetRepository {
         return preset
     }
 
-    func readPresets(headcount: Int) async throws -> [Preset] {
+    func readPresets(headcount: Int?) async throws -> [Preset] {
         presets
     }
 }

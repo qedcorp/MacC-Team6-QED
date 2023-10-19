@@ -2,20 +2,37 @@
 
 import Foundation
 
+@MainActor
 class PresetManageViewModel: ObservableObject {
-    let objectCanvasViewController = ObjectCanvasViewController()
-    @Published private(set) var presets: [Preset]
+    let presetUseCase: PresetUseCase
+    weak var objectCanvasViewController: ObjectCanvasViewController?
+    @Published private var presets: [Preset] = []
 
-    init(presets: [Preset] = []) {
-        self.presets = presets
+    init(presetUseCase: PresetUseCase) {
+        self.presetUseCase = presetUseCase
+    }
+
+    func fetchPresets() {
+        Task {
+            presets = try await presetUseCase.getPresets(headcount: nil)
+        }
     }
 
     func generatePreset() {
-        let preset = objectCanvasViewController.generatePreset()
-        presets.append(preset)
+        guard let preset = objectCanvasViewController?.generatePreset() else {
+            return
+        }
+        presets.insert(preset, at: 0)
+        Task {
+            try await presetUseCase.createPreset(preset)
+        }
     }
 
     func copyPreset(_ preset: Preset) {
-        objectCanvasViewController.copyPreset(preset)
+        objectCanvasViewController?.copyPreset(preset)
+    }
+
+    func getPresets() -> [Preset] {
+        [.empty] + presets
     }
 }

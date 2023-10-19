@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Preset {
+class Preset: Codable {
     let headcount: Int
     let relativePositions: [RelativePosition]
 

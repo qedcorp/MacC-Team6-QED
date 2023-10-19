@@ -3,11 +3,15 @@
 import SwiftUI
 
 struct PresetManageView: View {
-    @StateObject private var viewModel = PresetManageViewModel()
+    @StateObject private var viewModel = PresetManageViewModel(
+        presetUseCase: DefaultPresetUseCase(presetRepository: LocalPresetRepository())
+    )
+
+    private let objectCanvasViewController = ObjectCanvasViewController()
 
     var body: some View {
         VStack {
-            ObjectCanvasView(controller: viewModel.objectCanvasViewController)
+            ObjectCanvasView(controller: objectCanvasViewController)
                 .frame(width: 320, height: 240)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
@@ -19,7 +23,7 @@ struct PresetManageView: View {
             }
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
+                    ForEach(Array(viewModel.getPresets().enumerated()), id: \.offset) { _, preset in
                         ObjectStageView(preset: preset)
                             .frame(width: 80, height: 60)
                             .background(
@@ -34,6 +38,12 @@ struct PresetManageView: View {
                 }
             }
             .padding()
+            .onAppear {
+                viewModel.fetchPresets()
+            }
+        }
+        .onAppear {
+            viewModel.objectCanvasViewController = objectCanvasViewController
         }
     }
 }
