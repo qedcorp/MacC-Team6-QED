@@ -13,21 +13,21 @@ struct WatchingFormationView: View {
     @State var headcount = 4
     @State var isNameVisiable = false
     @State var isAddVisible = false
-    var members1 = [Member(relativeX: 100, relativeY: 500,
+    var members1 = [Member(relativePosition: RelativePosition(x: 100, y: 500),
                            info: Member.Info(name: "쥬쥬", color: "F06292")),
-                    Member(relativeX: 300, relativeY: 500,
+                    Member(relativePosition: RelativePosition(x: 300, y: 500),
                            info: Member.Info(name: "웅", color: "85C1E9")),
-                    Member(relativeX: 500, relativeY: 500,
+                    Member(relativePosition: RelativePosition(x: 500, y: 500),
                            info: Member.Info(name: "키오오", color: "C39BD3")),
-                    Member(relativeX: 700, relativeY: 500,
+                    Member(relativePosition: RelativePosition(x: 700, y: 500),
                            info: Member.Info(name: "올링링링", color: "F7DC6F"))]
-    var members2 = [Member(relativeX: 500, relativeY: 200,
+    var members2 = [Member(relativePosition: RelativePosition(x: 500, y: 200),
                            info: Member.Info(name: "쥬쥬", color: "F06292")),
-                    Member(relativeX: 500, relativeY: 500,
+                    Member(relativePosition: RelativePosition(x: 500, y: 500),
                            info: Member.Info(name: "웅", color: "85C1E9")),
-                    Member(relativeX: 500, relativeY: 700,
+                    Member(relativePosition: RelativePosition(x: 500, y: 700),
                            info: Member.Info(name: "키오오", color: "C39BD3")),
-                    Member(relativeX: 500, relativeY: 900,
+                    Member(relativePosition: RelativePosition(x: 500, y: 900),
                            info: Member.Info(name: "올링링링", color: "F7DC6F"))]
     var formations: [Formation]
 
@@ -145,7 +145,7 @@ struct FormationScrollView: View {
 
     var addButton: some View {
         Button {
-//            TODO: 자리표 찍기(수정)로 이동
+            // TODO: 자리표 찍기(수정)로 이동
         } label: {
             ZStack {
                 Circle()
@@ -184,14 +184,14 @@ struct FormationPreview: View {
                 ForEach(formation.members, id: \.info.self) { member in
                     MemberCircle(isNameVisiable: isNameVisiable,
                                  member: member)
-                    .position(CGPoint(x: CGFloat(member.relativeX)*geometry.size.width*0.001, y: CGFloat(member.relativeY)*geometry.size.height*0.001))
+                    .position(CGPoint(x: CGFloat(member.relativePosition.x)*geometry.size.width*0.001, y: CGFloat(member.relativePosition.y)*geometry.size.height*0.001))
                 }
             }
         }
         .onTapGesture {
             withAnimation(.easeIn(duration: 0.1)) {
                 isSelected.toggle()
-    //           TODO: 상세화면으로 이동
+                //           TODO: 상세화면으로 이동
             }
         }
     }
