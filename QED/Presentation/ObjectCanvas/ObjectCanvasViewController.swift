@@ -90,7 +90,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         guard let view = selectedObjectView else {
             return
         }
-        let relativePosition = touchPositionConverter.getRelativePosition(absolute: view.frame.origin)
+        let relativePosition = touchPositionConverter.getRelativePosition(absolute: view.center)
         let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
         selectedObjectView?.applyPosition(absolutePosition)
     }
@@ -99,7 +99,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         let preset = Preset(
             headcount: objectViews.count,
             relativePositions: objectViews
-                .map { touchPositionConverter.getRelativePosition(absolute: $0.frame.origin) }
+                .map { touchPositionConverter.getRelativePosition(absolute: $0.center) }
         )
         objectViews.forEach { $0.removeFromSuperview() }
         return preset

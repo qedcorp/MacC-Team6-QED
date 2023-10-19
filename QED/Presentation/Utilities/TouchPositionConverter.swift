@@ -7,8 +7,8 @@ struct TouchPositionConverter {
 
     func getRelativePosition(absolute position: CGPoint) -> RelativePosition {
         RelativePosition(
-            x: Int(position.x / container.bounds.width * CGFloat(RelativePosition.maxX)),
-            y: Int(position.y / container.bounds.height * CGFloat(RelativePosition.maxY))
+            x: Int(round(position.x / container.bounds.width * CGFloat(RelativePosition.maxX))),
+            y: Int(round(position.y / container.bounds.height * CGFloat(RelativePosition.maxY)))
         )
     }
 

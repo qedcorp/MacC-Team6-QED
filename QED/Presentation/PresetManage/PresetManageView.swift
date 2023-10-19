@@ -13,6 +13,7 @@ struct PresetManageView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(.gray.opacity(0.3))
                 )
+                .clipped()
             Button("Generate") {
                 viewModel.generatePreset()
             }
@@ -25,6 +26,7 @@ struct PresetManageView: View {
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(.gray.opacity(0.1))
                             )
+                            .clipped()
                             .onTapGesture {
                                 viewModel.copyPreset(preset)
                             }
