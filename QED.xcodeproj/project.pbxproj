@@ -95,6 +95,7 @@
 		D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */; };
 		D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */; };
 		D460F0222AE18E5900A5966A /* Preview Content.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D460F0212AE18E5900A5966A /* Preview Content.xcassets */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
