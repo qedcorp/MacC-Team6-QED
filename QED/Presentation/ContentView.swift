@@ -4,13 +4,17 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                NavigationLink("자리표 짜기") {
+                    FormationManageView()
+                }
+                NavigationLink("프리셋 만들기") {
+                    PresetManageView()
+                }
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
