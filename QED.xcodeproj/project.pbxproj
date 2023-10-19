@@ -305,6 +305,10 @@
 				3A4AC7AA2AE14F690089194B /* HistoryControls */,
 				3A8608E12ADFED8200578535 /* Models */,
 				3A47F4922ADFB2EE000E3272 /* Utilities */,
+				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
+				3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */,
+				3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */,
+				3AE0CCC52ADD0CE4001FE371 /* Preview Content */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -424,10 +428,6 @@
 				3AE0CCE92ADD4B90001FE371 /* Domain */,
 				3A47F47F2ADE935A000E3272 /* Data */,
 				3AE0CD0A2ADD9889001FE371 /* Shared */,
-				3AE0CCBF2ADD0CE1001FE371 /* QEDApp.swift */,
-				3AE0CCC12ADD0CE1001FE371 /* ContentView.swift */,
-				3AE0CCC32ADD0CE4001FE371 /* Assets.xcassets */,
-				3AE0CCC52ADD0CE4001FE371 /* Preview Content */,
 			);
 			path = QED;
 			sourceTree = "<group>";
@@ -892,7 +892,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"QED/Presentation/Preview Content\"";
 				DEVELOPMENT_TEAM = 3BWEDXDT2H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -921,7 +921,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"QED/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"QED/Presentation/Preview Content\"";
 				DEVELOPMENT_TEAM = 3BWEDXDT2H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
