@@ -100,33 +100,12 @@ struct FormationManageView: View {
     }
 
     private func buildPresetContainerView() -> some View {
-        let padding: CGFloat = 22
-        let rows: [GridItem] = Array(repeating: .init(.fixed(82)), count: 2)
-        return VStack {
-            HStack {
-                Text("동선 프리셋")
-                    .font(.headline)
-                Spacer()
-                Button("Toggle") {
-                }
-            }
-            .padding(.horizontal, padding)
-            ScrollView(.horizontal) {
-                LazyHGrid(rows: rows) {
-                    ForEach(0 ..< 10) { _ in
-                        buildPresetItemView()
-                    }
-                }
-                .padding(.horizontal, padding)
-                .padding(.bottom, 12)
-            }
-        }
-    }
-
-    private func buildPresetItemView() -> some View {
-        RoundedRectangle(cornerRadius: 4)
-            .fill(.gray.opacity(0.1))
-            .aspectRatio(73 / 48, contentMode: .fit)
+        PresetContainerView(
+            presetUseCase: DefaultPresetUseCase(
+                presetRepository: LocalPresetRepository()
+            ),
+            objectCanvasViewController: objectCanvasViewController
+        )
     }
 
     private func buildFormationContainerView() -> some View {
