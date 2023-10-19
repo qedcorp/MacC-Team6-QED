@@ -8,10 +8,10 @@
 import Foundation
 
 enum KeyChainAccount {
-    case accessToken
-    case accesstokenExpiredTime
+    case id
+    case name
+    case email
     case refreshToken
-    case refreshTokenExpiredTime
 
     // 더 필요한 Account 추가
 
@@ -21,13 +21,13 @@ enum KeyChainAccount {
 
     var keyChainClass: CFString {
         switch self {
-        case .accessToken:
+        case .id:
             return kSecClassGenericPassword
-        case .accesstokenExpiredTime:
+        case .name:
+            return kSecClassGenericPassword
+        case .email:
             return kSecClassGenericPassword
         case .refreshToken:
-            return kSecClassGenericPassword
-        case .refreshTokenExpiredTime:
             return kSecClassGenericPassword
         }
     }
