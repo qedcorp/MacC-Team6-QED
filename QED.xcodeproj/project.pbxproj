@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A021EE32AE254290099C008 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3A021EE22AE254290099C008 /* ComposableArchitecture */; };
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -232,6 +233,7 @@
 			files = (
 				D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */,
 				D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */,
+				3A021EE32AE254290099C008 /* ComposableArchitecture in Frameworks */,
 				D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */,
 				D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */,
 				D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */,
@@ -861,6 +863,7 @@
 				D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */,
 				D460EE1D2ADED59F00A5966A /* KakaoSDKUser */,
 				D41333682ADE619700BDE1BB /* Alamofire */,
+				3A021EE22AE254290099C008 /* ComposableArchitecture */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -939,6 +942,7 @@
 				D413337C2ADE8CA800BDE1BB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */,
+				3A021EE12AE254290099C008 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -1426,6 +1430,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3A021EE12AE254290099C008 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1461,6 +1473,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3A021EE22AE254290099C008 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A021EE12AE254290099C008 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
 		D41333682ADE619700BDE1BB /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */;
