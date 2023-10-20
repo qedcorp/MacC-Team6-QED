@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var nickname = "어쩌구 저쩌구"
+    var nickname = "어쩌구 저쩌구"
 
     var body: some View {
         NavigationStack {
@@ -42,7 +42,7 @@ struct MainView: View {
     }
 
     private var leftItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .navigationBarLeading) {
             Text("Formy")
                 .fontWeight(.heavy)
                 .kerning(0.4)
@@ -50,7 +50,7 @@ struct MainView: View {
     }
 
     private var rightItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .navigationBarTrailing) {
             NavigationLink(destination: MyPageView()) {
                 Image(systemName: "person.circle")
                     .foregroundColor(Color.green)

@@ -125,17 +125,6 @@
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AE0CCEB2ADD4BB0001FE371 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		3AE0CCED2ADD4D0B001FE371 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
-		3AE0CCEF2ADD50FB001FE371 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		3AE0CCF12ADD5500001FE371 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
-		3AE0CCF32ADD59CB001FE371 /* Formation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formation.swift; sourceTree = "<group>"; };
-		3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationTransition.swift; sourceTree = "<group>"; };
-		3AE0CCF72ADD6705001FE371 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
-		3AE0CCFA2ADD696B001FE371 /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
-		3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMax.swift; sourceTree = "<group>"; };
-		3AE0CD002ADD8EFB001FE371 /* HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
-		3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberConstants.swift; sourceTree = "<group>"; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		5136BFA02ADE7F5C00882B6B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -286,7 +275,6 @@
 				3AE0CCBE2ADD0CE1001FE371 /* QED */,
 				3AE0CCCF2ADD0CE4001FE371 /* QEDTests */,
 				3AE0CCBD2ADD0CE1001FE371 /* Products */,
-				5186C6942AE25E41002E4D3E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -407,24 +395,6 @@
 				5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */,
 			);
 			path = WatchingFormation;
-			sourceTree = "<group>";
-		};
-		5186C6942AE25E41002E4D3E /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				3AE0CCFE2ADD8B86001FE371 /* MinMax.swift */,
-				3AE0CCEF2ADD50FB001FE371 /* Member.swift */,
-				3AE0CD0C2ADD98EF001FE371 /* MemberConstants.swift */,
-				3AE0CCF32ADD59CB001FE371 /* Formation.swift */,
-				3AE0CCED2ADD4D0B001FE371 /* Music.swift */,
-				3AE0CD002ADD8EFB001FE371 /* HexString.swift */,
-				3AE0CCF12ADD5500001FE371 /* Preset.swift */,
-				3AE0CCF72ADD6705001FE371 /* Performance.swift */,
-				3AE0CCFA2ADD696B001FE371 /* Playable.swift */,
-				3AE0CCF52ADD5A70001FE371 /* FormationTransition.swift */,
-				3AE0CCEB2ADD4BB0001FE371 /* User.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
