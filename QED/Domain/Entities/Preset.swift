@@ -2,36 +2,19 @@
 
 import Foundation
 
-class Preset {
+class Preset: Codable {
     let headcount: Int
-    let members: [PresetMember]
-    
-    init(headcount: Int, members: [PresetMember]) {
+    let relativePositions: [RelativePosition]
+
+    init(headcount: Int, relativePositions: [RelativePosition]) {
         self.headcount = headcount
-        self.members = members
+        self.relativePositions = relativePositions
     }
-    
+
     var formation: Formation {
         Formation(
-            members: members
-                .map { $0.member }
+            members: relativePositions
+                .map { Member(relativePosition: $0) }
         )
-    }
-    
-    struct PresetMember {
-        @MinMax(minValue: MemberConstants.minX, maxValue: MemberConstants.maxX)
-        var x: Int
-        
-        @MinMax(minValue: MemberConstants.minY, maxValue: MemberConstants.maxY)
-        var y: Int
-        
-        init(x: Int, y: Int) {
-            self.x = x
-            self.y = y
-        }
-        
-        var member: Member {
-            Member(x: x, y: y)
-        }
     }
 }

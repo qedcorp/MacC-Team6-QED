@@ -109,9 +109,9 @@ struct MyRecentFormationScrollView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(0..<10) { x in
-                    NavigationLink(value: x) {
-                        RecentFormationCardView(performance: x)
+                ForEach(0..<10) { performance in
+                    NavigationLink(value: performance) {
+                        RecentFormationCardView(performance: performance)
                     }
                     .navigationDestination(for: Int.self) { performance in
                         WatchingFormationView(performance: performance)

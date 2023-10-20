@@ -7,7 +7,7 @@ class Formation {
     var startMs: Int?
     var endMs: Int?
     var memo: String?
-    
+
     init(
         members: [Member] = [],
         startMs: Int? = nil,

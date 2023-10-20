@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "DA2CBD2B-96B5-4D63-B55F-9F487646B9F5",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:QED.xcodeproj",
+      "identifier" : "3AE0CCBB2ADD0CE1001FE371",
+      "name" : "QED"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:QED.xcodeproj",
+        "identifier" : "3AE0CCCB2ADD0CE4001FE371",
+        "name" : "QEDTests"
+      }
+    }
+  ],
+  "version" : 1
+}
