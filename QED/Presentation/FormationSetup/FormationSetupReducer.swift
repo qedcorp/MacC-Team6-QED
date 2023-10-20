@@ -10,6 +10,10 @@ struct FormationSetupReducer: Reducer {
         var formations: [FormationModel] = []
         var currentFormationIndex: Int = -1
 
+        var isEnabled: Bool {
+            currentFormationIndex >= 0
+        }
+
         var currentFormation: FormationModel? {
             guard (0 ..< formations.count).contains(currentFormationIndex) else {
                 return nil

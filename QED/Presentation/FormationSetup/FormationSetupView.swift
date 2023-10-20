@@ -17,8 +17,16 @@ struct FormationSetupView: View {
                         buildMusicHeadcountView(viewStore: viewStore)
                             .padding(.bottom, 16)
                         buildLyricView(viewStore: viewStore)
+                            .modifier(DisabledOpacityModifier(
+                                isDisabled: !viewStore.isEnabled,
+                                disabledOpacity: 0.3
+                            ))
                         Spacer(minLength: 18)
                         buildObjectCanvasView(width: geometry.size.width)
+                            .modifier(DisabledOpacityModifier(
+                                isDisabled: !viewStore.isEnabled,
+                                disabledOpacity: 0.3
+                            ))
                         Spacer()
                     }
                 }
