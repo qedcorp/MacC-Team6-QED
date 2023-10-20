@@ -10,16 +10,17 @@ struct FormationSetupReducer: Reducer {
         var formations: [FormationModel] = []
         var currentFormationIndex: Int = -1
 
-        var currentMemo: String? {
+        var currentFormation: FormationModel? {
             guard (0 ..< formations.count).contains(currentFormationIndex) else {
                 return nil
             }
-            return formations[currentFormationIndex].memo
+            return formations[currentFormationIndex]
         }
     }
 
     enum Action: Equatable {
         case viewAppeared
+        case formationChanged([RelativePosition])
         case formationAddButtonTapped
         case formationTapped(Int)
         case setFormations([FormationModel])
@@ -30,6 +31,16 @@ struct FormationSetupReducer: Reducer {
         switch action {
         case .viewAppeared:
             return .none
+
+        case let .formationChanged(relativePositions):
+            var formations = state.formations
+            let formation = FormationModel(
+                memo: state.currentFormation?.memo,
+                relativePositions: relativePositions
+            )
+            formations[state.currentFormationIndex] = formation
+            return .send(.setFormations(formations))
+
         case .formationAddButtonTapped:
             let tempFormation = FormationModel(memo: UUID().uuidString)
             let formations = state.formations + [tempFormation]
@@ -37,11 +48,14 @@ struct FormationSetupReducer: Reducer {
                 .send(.setFormations(formations)),
                 .send(.setCurrentFormationIndex(formations.count - 1))
             ])
+
         case let .formationTapped(index):
             return .send(.setCurrentFormationIndex(index))
+
         case let .setFormations(formations):
             state.formations = formations
             return .none
+
         case let .setCurrentFormationIndex(index):
             state.currentFormationIndex = index
             return .none

@@ -40,7 +40,16 @@ struct FormationSetupView: View {
                     }
                 }
             }
+            .onChange(of: viewStore.currentFormation) {
+                guard let formable = $0 else {
+                    return
+                }
+                objectCanvasViewController.copyFormable(formable)
+            }
             .onAppear {
+                objectCanvasViewController.onChange = {
+                    viewStore.send(.formationChanged($0))
+                }
                 viewStore.send(.viewAppeared)
             }
         }
@@ -82,7 +91,7 @@ struct FormationSetupView: View {
     private func buildLyricView(viewStore: ViewStore) -> some View {
         HStack(alignment: .center) {
             Spacer()
-            Text(viewStore.currentMemo ?? "클릭해서 가사 입력")
+            Text(viewStore.currentFormation?.memo ?? "클릭해서 가사 입력")
                 .lineLimit(1)
             Spacer()
         }
@@ -169,14 +178,18 @@ struct FormationSetupView: View {
         formation: FormationModel
     ) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(.gray.opacity(0.1))
+            ObjectStageView(formable: formation)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(.gray.opacity(0.1))
+                )
                 .overlay(
                     index == viewStore.currentFormationIndex ?
                     RoundedRectangle(cornerRadius: 4)
                         .strokeBorder(.green, lineWidth: 1)
                     : nil
                 )
+                .clipped()
             Text(formation.memo ?? "대형 \(index + 1)")
                 .font(.caption)
                 .lineLimit(1)

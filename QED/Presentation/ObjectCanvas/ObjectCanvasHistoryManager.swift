@@ -5,7 +5,7 @@ import Foundation
 @MainActor
 class ObjectCanvasHistoryManager: ObservableObject, HistoryManagable {
     weak var objectCanvasViewController: ObjectCanvasViewController?
-    @Published private var histories: [Preset] = []
+    @Published private var histories: [Formable] = []
     @Published private var historyIndex = -1
 
     func undo() {
@@ -32,11 +32,11 @@ class ObjectCanvasHistoryManager: ObservableObject, HistoryManagable {
         historyIndex >= 0 && historyIndex < histories.count - 1
     }
 
-    func addHistory(_ preset: Preset) {
+    func addHistory(_ formable: Formable) {
         if historyIndex == histories.count - 1 {
-            histories.append(preset)
+            histories.append(formable)
         } else {
-            histories = Array(histories.prefix(historyIndex + 1)) + [preset]
+            histories = Array(histories.prefix(historyIndex + 1)) + [formable]
         }
         historyIndex = histories.count - 1
     }
@@ -45,6 +45,6 @@ class ObjectCanvasHistoryManager: ObservableObject, HistoryManagable {
         guard (0 ..< histories.count).contains(historyIndex) else {
             return
         }
-        objectCanvasViewController?.copyPresetWithoutHistory(histories[historyIndex])
+        objectCanvasViewController?.copyFormableFromHistory(histories[historyIndex])
     }
 }

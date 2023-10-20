@@ -31,7 +31,7 @@ struct PresetManageView: View {
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(Array(viewModel.getPresets().enumerated()), id: \.offset) { _, preset in
-                        ObjectStageView(preset: preset)
+                        ObjectStageView(formable: preset)
                             .frame(width: 80, height: 60)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
@@ -39,7 +39,7 @@ struct PresetManageView: View {
                             )
                             .clipped()
                             .onTapGesture {
-                                viewModel.copyPreset(preset)
+                                viewModel.copyFormable(preset)
                             }
                     }
                 }

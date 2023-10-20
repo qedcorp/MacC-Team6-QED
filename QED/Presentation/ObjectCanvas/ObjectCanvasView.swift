@@ -12,10 +12,3 @@ struct ObjectCanvasView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: ObjectCanvasViewController, context: Context) {
     }
 }
-
-struct ObjectCanvasView_Previews: PreviewProvider {
-    static var previews: some View {
-        let controller = ObjectCanvasViewController()
-        return ObjectCanvasView(controller: controller)
-    }
-}

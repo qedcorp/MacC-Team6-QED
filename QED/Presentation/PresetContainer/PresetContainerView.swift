@@ -32,7 +32,7 @@ struct PresetContainerView: View {
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: rows) {
                         ForEach(Array(viewModel.getPresets().enumerated()), id: \.offset) { _, preset in
-                            ObjectStageView(preset: preset)
+                            ObjectStageView(formable: preset)
                                 .aspectRatio(73 / 48, contentMode: .fit)
                                 .background(
                                     RoundedRectangle(cornerRadius: 4)
@@ -40,7 +40,7 @@ struct PresetContainerView: View {
                                 )
                                 .clipped()
                                 .onTapGesture {
-                                    viewModel.copyPreset(preset)
+                                    viewModel.copyFormable(preset)
                                 }
                         }
                     }

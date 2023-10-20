@@ -19,8 +19,8 @@ class PresetContainerViewModel: ObservableObject {
         }
     }
 
-    func copyPreset(_ preset: Preset) {
-        objectCanvasViewController?.copyPreset(preset)
+    func copyFormable(_ preset: Preset) {
+        objectCanvasViewController?.copyFormable(preset)
     }
 
     func getPresets() -> [Preset] {

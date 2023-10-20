@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct FormationModel: Equatable {
+struct FormationModel: Equatable, Formable {
     var memo: String?
     var relativePositions: [RelativePosition] = []
 }

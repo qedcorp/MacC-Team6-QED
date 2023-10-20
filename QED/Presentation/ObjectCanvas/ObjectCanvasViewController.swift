@@ -4,6 +4,8 @@ import UIKit
 import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
+    var onChange: (([RelativePosition]) -> Void)?
+
     private(set) lazy var historyManager = {
         let manager = ObjectCanvasHistoryManager()
         manager.objectCanvasViewController = self
@@ -50,7 +52,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
                 if let dragging = $0 {
                     self?.selectedObjectView?.applyPositionDiff(dragging.positionDiff)
                 } else {
-                    self?.addHistory()
+                    self?.didChange()
                 }
             }
             .store(in: &cancellables)
@@ -105,33 +107,30 @@ class ObjectCanvasViewController: ObjectStageViewController {
         selectedObjectView?.applyPosition(absolutePosition)
     }
 
-    override func copyPreset(_ preset: Preset) {
-        super.copyPreset(preset)
-        addHistory()
+    override func copyFormable(_ formable: Formable) {
+        super.copyFormable(formable)
+        didChange()
     }
 
-    func copyPresetWithoutHistory(_ preset: Preset) {
-        super.copyPreset(preset)
+    func copyFormableFromHistory(_ formable: Formable) {
+        super.copyFormable(formable)
     }
 
     func generatePreset() -> Preset {
         defer {
             objectViews.forEach { $0.removeFromSuperview() }
         }
-        return buildCurrentPreset()
-    }
-
-    private func addHistory() {
-        let preset = buildCurrentPreset()
-        historyManager.addHistory(preset)
-    }
-
-    private func buildCurrentPreset() -> Preset {
-        Preset(
+        return Preset(
             headcount: objectViews.count,
-            relativePositions: objectViews
-                .map { touchPositionConverter.getRelativePosition(absolute: $0.center) }
+            relativePositions: getRelativePositions()
         )
+    }
+
+    private func didChange() {
+        let positions = getRelativePositions()
+        let history = History(relativePositions: positions)
+        onChange?(positions)
+        historyManager.addHistory(history)
     }
 
     private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {
@@ -140,5 +139,14 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
         let touchedView = touchedViewDetector.detectView(position: position)
         return touchedView == nil
+    }
+
+    private func getRelativePositions() -> [RelativePosition] {
+        objectViews
+            .map { touchPositionConverter.getRelativePosition(absolute: $0.center) }
+    }
+
+    private struct History: Formable {
+        let relativePositions: [RelativePosition]
     }
 }
