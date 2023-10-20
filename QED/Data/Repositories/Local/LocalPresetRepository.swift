@@ -10,8 +10,7 @@ struct LocalPresetRepository: PresetRepository {
 
     func createPreset(_ preset: Preset) async throws -> Preset {
         var presets = try getPresets()
-        presets.insert(preset, at: 0)
-        let data = try encoder.encode(presets)
+        let data = try encoder.encode([preset] + presets)
         userDefaults.set(data, forKey: key)
         return preset
     }

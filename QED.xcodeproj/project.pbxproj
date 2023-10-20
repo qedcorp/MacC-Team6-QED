@@ -14,6 +14,7 @@
 		3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FC92AE2CF4E0031E6BE /* Formable.swift */; };
+		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
@@ -136,6 +137,7 @@
 		3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = QED.xctestplan; sourceTree = "<group>"; };
 		3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCaseTests.swift; sourceTree = "<group>"; };
 		3A897FC92AE2CF4E0031E6BE /* Formable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formable.swift; sourceTree = "<group>"; };
+		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A927F192AE2640A002ED7E8 /* FormationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -830,6 +832,7 @@
 			children = (
 				3A021EE62AE25B860099C008 /* Music+Stub.swift */,
 				D460EFCE2AE18DF700A5966A /* Preset+Stub.swift */,
+				3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */,
 			);
 			path = Stub;
 			sourceTree = "<group>";
@@ -1082,6 +1085,7 @@
 				D460EFED2AE18DF700A5966A /* PresetManageView.swift in Sources */,
 				D460EFEA2AE18DF700A5966A /* HistoryControlsView.swift in Sources */,
 				3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */,
+				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
