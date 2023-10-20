@@ -113,8 +113,8 @@ struct MyRecentFormationScrollView: View {
                     NavigationLink(value: performance) {
                         RecentFormationCardView(performance: performance)
                     }
-                    .navigationDestination(for: Int.self) { performance in
-                        WatchingFormationView(performance: performance)
+                    .navigationDestination(for: Int.self) { _ in
+                        WatchingFormationView()
                     }
                 }
 
