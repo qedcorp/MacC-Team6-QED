@@ -52,6 +52,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
                 if let dragging = $0 {
                     self?.selectedObjectView?.applyPositionDiff(dragging.positionDiff)
                 } else {
+                    self?.addHistory()
                     self?.didChange()
                 }
             }
@@ -109,11 +110,13 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func copyFormable(_ formable: Formable) {
         super.copyFormable(formable)
+        addHistory()
         didChange()
     }
 
     func copyFormableFromHistory(_ formable: Formable) {
         super.copyFormable(formable)
+        didChange()
     }
 
     func generatePreset() -> Preset {
@@ -126,11 +129,15 @@ class ObjectCanvasViewController: ObjectStageViewController {
         )
     }
 
-    private func didChange() {
+    private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        onChange?(positions)
         historyManager.addHistory(history)
+    }
+
+    private func didChange() {
+        let positions = getRelativePositions()
+        onChange?(positions)
     }
 
     private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {
