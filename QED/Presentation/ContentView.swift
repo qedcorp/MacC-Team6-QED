@@ -7,7 +7,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 NavigationLink("자리표 짜기") {
-                    FormationManageView()
+                    FormationSetupView()
                 }
                 NavigationLink("프리셋 만들기") {
                     PresetManageView()

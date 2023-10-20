@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct FormationManageView: View {
+struct FormationSetupView: View {
     let objectCanvasViewController = ObjectCanvasViewController()
 
     var body: some View {
@@ -160,10 +160,10 @@ struct FormationManageView: View {
     }
 }
 
-struct FormationManageView_Previews: PreviewProvider {
+struct FormationSetupView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            FormationManageView()
+            FormationSetupView()
         }
     }
 }
