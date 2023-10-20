@@ -10,7 +10,7 @@ import SwiftUI
 struct PerformanceSettingView: View {
     @State var textFieldText: String = ""
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TitleSettingView(performancesettingVM: PerformanceSettingViewModel())
                 .navigationTitle("이름 설정")
                 .navigationBarTitleDisplayMode(.inline)

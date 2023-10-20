@@ -47,6 +47,14 @@ struct MusicSettingView: View {
                 if performanceSettingVM.isSearchingMusic {
                     ProgressView()
                     Spacer()
+                } else if performanceSettingVM.searchText == "" {
+                    Text("노래를 검색하세요")
+                        .font(
+                        Font.custom("Apple SD Gothic Neo", size: 30)
+                        .weight(.bold)
+                        )
+                        .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
+                    Spacer()
                 } else {
                     ScrollView {
                         VStack {
@@ -56,6 +64,12 @@ struct MusicSettingView: View {
                         }
                     }
                 }
+                NavigationLink {
+                    settingFinishView
+                } label: {
+                    nextbutton
+                }
+                .disabled(performanceSettingVM.selectedMusic == nil)
             }
         }
         .onTapGesture {
@@ -63,6 +77,27 @@ struct MusicSettingView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
+    }
+
+    var settingFinishView: some View {
+            Text("팀 생성 완료")
+                .font(.largeTitle)
+                .bold()
+    }
+
+    var nextbutton: some View {
+        Text("다음")
+            .frame(width: 360, height: 54)
+            .font(
+                Font.custom("Apple SD Gothic Neo", size: 16)
+                    .weight(.bold)
+            )
+            .foregroundColor(.white)
+            .background(performanceSettingVM.selectedMusic == nil
+                        ? Color.black.opacity(0.2)
+                        : Color.black
+            )
+            .cornerRadius(14)
     }
 
     var btnBack: some View {
@@ -99,7 +134,7 @@ struct MusicSettingView: View {
                 .stroke(
                     performanceSettingVM.selectedMusic?.id ?? "-1" == music.id
                     ? Color.green
-                    : Color.gray, lineWidth: 1.5
+                    : Color.gray, lineWidth: 2
                 )
                 .foregroundStyle(Color.gray
                     .opacity(0.1))

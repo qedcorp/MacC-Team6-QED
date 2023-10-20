@@ -18,7 +18,6 @@ struct HeadcountView: View {
     var body: some View {
         VStack {
             Spacer()
-
             HStack {
                 Text("선택한 음악을\n추는 팀원의 수는?")
                     .font(.system(size: 30))
