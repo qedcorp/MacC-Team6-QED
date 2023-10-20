@@ -8,8 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
+		3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
+		5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA02ADE7F5C00882B6B /* MainView.swift */; };
+		5136BFA72ADF9CDB00882B6B /* WatchingFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */; };
+		5136BFA92ADF9D0600882B6B /* MyRecentFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA82ADF9D0600882B6B /* MyRecentFormationView.swift */; };
+		5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFAC2ADFB0B100882B6B /* MyPageView.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
@@ -121,6 +127,10 @@
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
+		5136BFA02ADE7F5C00882B6B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingFormationView.swift; sourceTree = "<group>"; };
+		5136BFA82ADF9D0600882B6B /* MyRecentFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecentFormationView.swift; sourceTree = "<group>"; };
+		5136BFAC2ADFB0B100882B6B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
@@ -281,6 +291,7 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				5136BF9B2ADE7ED200882B6B /* Presentation */,
 				D460EF602AE18DF700A5966A /* Data */,
 				D460EFA22AE18DF700A5966A /* Domain */,
 				D460EFD22AE18DF700A5966A /* GoogleService */,
@@ -317,6 +328,73 @@
 				3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */,
 			);
 			path = PropertyWrappers;
+			sourceTree = "<group>";
+		};
+		5136BF9B2ADE7ED200882B6B /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFB22ADFB83400882B6B /* WatchingFormation */,
+				5136BFB02ADFB1B700882B6B /* MyRecentFormation */,
+				5136BFAE2ADFB15800882B6B /* MyPage */,
+				5136BF9C2ADE7F2700882B6B /* Main */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5136BF9C2ADE7F2700882B6B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5136BF9D2ADE7F3C00882B6B /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		5136BF9D2ADE7F3C00882B6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFA02ADE7F5C00882B6B /* MainView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5136BFAE2ADFB15800882B6B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFAF2ADFB16200882B6B /* View */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		5136BFAF2ADFB16200882B6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFAC2ADFB0B100882B6B /* MyPageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5136BFB02ADFB1B700882B6B /* MyRecentFormation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFB12ADFB1CC00882B6B /* View */,
+			);
+			path = MyRecentFormation;
+			sourceTree = "<group>";
+		};
+		5136BFB12ADFB1CC00882B6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFA82ADF9D0600882B6B /* MyRecentFormationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5136BFB22ADFB83400882B6B /* WatchingFormation */ = {
+			isa = PBXGroup;
+			children = (
+				5136BFA62ADF9CDB00882B6B /* WatchingFormationView.swift */,
+			);
+			path = WatchingFormation;
 			sourceTree = "<group>";
 		};
 		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
@@ -886,6 +964,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */,
+				5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */,
+				5136BFA72ADF9CDB00882B6B /* WatchingFormationView.swift in Sources */,
+				5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */,
+				3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */,
+				5136BFA92ADF9D0600882B6B /* MyRecentFormationView.swift in Sources */,
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManageViewModel.swift in Sources */,
