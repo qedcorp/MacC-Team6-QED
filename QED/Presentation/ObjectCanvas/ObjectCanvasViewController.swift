@@ -4,7 +4,7 @@ import UIKit
 import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
-    lazy var historyManager = {
+    private(set) lazy var historyManager = {
         let manager = ObjectCanvasHistoryManager()
         manager.objectCanvasViewController = self
         return manager

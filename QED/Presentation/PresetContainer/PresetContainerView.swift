@@ -3,16 +3,15 @@
 import SwiftUI
 
 struct PresetContainerView: View {
-    @ObservedObject private var viewModel: PresetContainerViewModel
+    @StateObject private var viewModel = PresetContainerViewModel(
+        presetUseCase: DefaultPresetUseCase(presetRepository: LocalPresetRepository())
+    )
+
     private let objectCanvasViewController: ObjectCanvasViewController
     private let padding: CGFloat = 22
     private let rows: [GridItem] = .init(repeating: .init(.fixed(82)), count: 2)
 
-    init(
-        presetUseCase: PresetUseCase,
-        objectCanvasViewController: ObjectCanvasViewController
-    ) {
-        self.viewModel = PresetContainerViewModel(presetUseCase: presetUseCase)
+    init(objectCanvasViewController: ObjectCanvasViewController) {
         self.objectCanvasViewController = objectCanvasViewController
     }
 
@@ -54,18 +53,5 @@ struct PresetContainerView: View {
             viewModel.objectCanvasViewController = objectCanvasViewController
             viewModel.fetchPresets()
         }
-    }
-}
-
-struct PresetContainerView_Previews: PreviewProvider {
-    static var previews: some View {
-        let presetUseCase = DefaultPresetUseCase(
-            presetRepository: MockPresetRepository()
-        )
-        let objectCanvasViewController = ObjectCanvasViewController()
-        return PresetContainerView(
-            presetUseCase: presetUseCase,
-            objectCanvasViewController: objectCanvasViewController
-        )
     }
 }

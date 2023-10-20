@@ -3,7 +3,7 @@
 
 import Foundation
 
-struct RelativePosition: Codable {
+struct RelativePosition: Codable, Equatable {
     static let maxX = 100
     static let maxY = 100
     

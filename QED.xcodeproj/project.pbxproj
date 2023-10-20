@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		3A021EE32AE254290099C008 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3A021EE22AE254290099C008 /* ComposableArchitecture */; };
+		3A021EE52AE2545F0099C008 /* FormationSetupReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE42AE2545F0099C008 /* FormationSetupReducer.swift */; };
+		3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE62AE25B860099C008 /* Music+Stub.swift */; };
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
 		3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
 		5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA02ADE7F5C00882B6B /* MainView.swift */; };
@@ -127,8 +130,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A021EE42AE2545F0099C008 /* FormationSetupReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationSetupReducer.swift; sourceTree = "<group>"; };
+		3A021EE62AE25B860099C008 /* Music+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Music+Stub.swift"; sourceTree = "<group>"; };
 		3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = QED.xctestplan; sourceTree = "<group>"; };
 		3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCaseTests.swift; sourceTree = "<group>"; };
+		3A927F192AE2640A002ED7E8 /* FormationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */,
+				3A021EE42AE2545F0099C008 /* FormationSetupReducer.swift */,
 			);
 			path = FormationSetup;
 			sourceTree = "<group>";
@@ -613,6 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				D460EF882AE18DF700A5966A /* DraggingModel.swift */,
+				3A927F192AE2640A002ED7E8 /* FormationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -818,6 +826,7 @@
 		D460EFCD2AE18DF700A5966A /* Stub */ = {
 			isa = PBXGroup;
 			children = (
+				3A021EE62AE25B860099C008 /* Music+Stub.swift */,
 				D460EFCE2AE18DF700A5966A /* Preset+Stub.swift */,
 			);
 			path = Stub;
@@ -1029,12 +1038,14 @@
 				D460EFFA2AE18DF700A5966A /* DescribableError.swift in Sources */,
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
+				3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */,
 				D460EFF92AE18DF700A5966A /* HexString.swift in Sources */,
 				D460F0192AE18DF700A5966A /* User.swift in Sources */,
 				D460EFFB2AE18DF700A5966A /* AuthProviderType.swift in Sources */,
 				D460EFDD2AE18DF700A5966A /* MockMusicRepository.swift in Sources */,
 				D460EFDF2AE18DF700A5966A /* KeyChainError.swift in Sources */,
 				D460F0182AE18DF700A5966A /* Preset.swift in Sources */,
+				3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */,
 				3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */,
 				D460EFDC2AE18DF700A5966A /* MockPerformanceRepository.swift in Sources */,
 				D460EFE32AE18DF700A5966A /* ObjectCanvasHistoryManager.swift in Sources */,
@@ -1084,6 +1095,7 @@
 				D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */,
 				D460F0142AE18DF700A5966A /* MusicUseCase.swift in Sources */,
 				D460F0022AE18DF700A5966A /* KakaoAuthRepository.swift in Sources */,
+				3A021EE52AE2545F0099C008 /* FormationSetupReducer.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* AppleAuthRepositoryImplement.swift in Sources */,
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,

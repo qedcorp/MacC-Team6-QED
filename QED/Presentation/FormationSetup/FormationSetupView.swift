@@ -1,38 +1,47 @@
 // Created by byo.
 
+import ComposableArchitecture
 import SwiftUI
 
 struct FormationSetupView: View {
-    let objectCanvasViewController = ObjectCanvasViewController()
+    private typealias ViewStore = ViewStoreOf<FormationSetupReducer>
+
+    let store: StoreOf<FormationSetupReducer>
+    private let objectCanvasViewController = ObjectCanvasViewController()
 
     var body: some View {
-        VStack(spacing: 26) {
-            GeometryReader { geometry in
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            VStack(spacing: 26) {
+                GeometryReader { geometry in
+                    VStack(spacing: 0) {
+                        buildMusicHeadcountView(viewStore: viewStore)
+                            .padding(.bottom, 16)
+                        buildLyricView(viewStore: viewStore)
+                        Spacer(minLength: 18)
+                        buildObjectCanvasView(width: geometry.size.width)
+                        Spacer()
+                    }
+                }
+                .padding(.horizontal, 22)
                 VStack(spacing: 0) {
-                    buildMusicHeadcountView()
-                        .padding(.bottom, 16)
-                    buildLyricView()
-                    Spacer(minLength: 18)
-                    buildObjectCanvasView(width: geometry.size.width)
-                    Spacer()
+                    buildPresetContainerView()
+                    buildFormationContainerView(viewStore: viewStore)
                 }
             }
-            .padding(.horizontal, 22)
-            VStack(spacing: 28) {
-                buildPresetContainerView()
-                buildFormationContainerView()
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                buildTitleView()
-            }
-            ToolbarTitleMenu {
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("다음") {
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    buildTitleView()
                 }
+                ToolbarTitleMenu {
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("다음") {
+                    }
+                }
+            }
+            .onAppear {
+                viewStore.send(.viewAppeared)
             }
         }
     }
@@ -53,12 +62,12 @@ struct FormationSetupView: View {
         }
     }
 
-    private func buildMusicHeadcountView() -> some View {
+    private func buildMusicHeadcountView(viewStore: ViewStore) -> some View {
         HStack(spacing: 6) {
-            Text("PINK VENOM")
+            Text(viewStore.music.title)
                 .foregroundColor(.gray)
                 .font(.caption2.weight(.semibold))
-            Text("4인")
+            Text("\(viewStore.headcount)인")
                 .foregroundColor(.gray)
                 .font(.caption2)
                 .frame(height: 20)
@@ -70,10 +79,11 @@ struct FormationSetupView: View {
         }
     }
 
-    private func buildLyricView() -> some View {
+    private func buildLyricView(viewStore: ViewStore) -> some View {
         HStack(alignment: .center) {
             Spacer()
-            Text("가사 어쩌구")
+            Text(viewStore.currentMemo ?? "클릭해서 가사 입력")
+                .lineLimit(1)
             Spacer()
         }
         .frame(height: 46)
@@ -100,37 +110,42 @@ struct FormationSetupView: View {
     }
 
     private func buildPresetContainerView() -> some View {
-        PresetContainerView(
-            presetUseCase: DefaultPresetUseCase(
-                presetRepository: LocalPresetRepository()
-            ),
-            objectCanvasViewController: objectCanvasViewController
-        )
+        PresetContainerView(objectCanvasViewController: objectCanvasViewController)
     }
 
-    private func buildFormationContainerView() -> some View {
-        let buttonLength: CGFloat = 52
-        return ZStack(alignment: .top) {
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(1 ..< 10) { index in
-                        buildFormationItemView(index: index)
+    private func buildFormationContainerView(viewStore: ViewStore) -> some View {
+        ZStack(alignment: .bottom) {
+            Rectangle()
+                .fill(.white)
+                .frame(height: 106)
+            VStack(spacing: 0) {
+                buildFormationAddButton(viewStore: viewStore, buttonLength: 52)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
+                            buildFormationItemView(
+                                viewStore: viewStore,
+                                index: formationOffset,
+                                formation: formation
+                            )
+                        }
+                        Spacer()
                     }
-                    Spacer()
+                    .frame(height: 64)
+                    .padding(.horizontal, 14)
+                    .padding(.bottom, 14)
                 }
-                .padding(.horizontal, 14)
-                .padding(.bottom, 14)
             }
-            .padding(.top, buttonLength / 2)
-            buildCirclePlusButton(buttonLength: buttonLength)
         }
-        .frame(height: 106)
-        .background(.white)
         .shadow(color: .black.opacity(0.1), radius: 2, y: -2)
     }
 
-    private func buildCirclePlusButton(buttonLength: CGFloat) -> some View {
+    private func buildFormationAddButton(
+        viewStore: ViewStore,
+        buttonLength: CGFloat
+    ) -> some View {
         Button {
+            viewStore.send(.formationAddButtonTapped)
         } label: {
             Circle()
                 .foregroundColor(.green)
@@ -145,25 +160,30 @@ struct FormationSetupView: View {
                         .foregroundColor(.white)
                         .font(.system(size: buttonLength / 2, weight: .bold))
                 )
-                .offset(y: -buttonLength / 2)
         }
     }
 
-    private func buildFormationItemView(index: Int) -> some View {
+    private func buildFormationItemView(
+        viewStore: ViewStore,
+        index: Int,
+        formation: FormationModel
+    ) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             RoundedRectangle(cornerRadius: 4)
                 .fill(.gray.opacity(0.1))
-                .frame(width: 82, height: 52)
-            Text("대형 \(index)")
+                .overlay(
+                    index == viewStore.currentFormationIndex ?
+                    RoundedRectangle(cornerRadius: 4)
+                        .strokeBorder(.green, lineWidth: 1)
+                    : nil
+                )
+            Text(formation.memo ?? "대형 \(index + 1)")
                 .font(.caption)
+                .lineLimit(1)
         }
-    }
-}
-
-struct FormationSetupView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            FormationSetupView()
+        .aspectRatio(41 / 32, contentMode: .fit)
+        .onTapGesture {
+            viewStore.send(.formationTapped(index))
         }
     }
 }
