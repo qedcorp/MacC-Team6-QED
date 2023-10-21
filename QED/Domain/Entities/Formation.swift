@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Formation {
+class Formation: Codable {
     var members: [Member]
     var startMs: Int?
     var endMs: Int?

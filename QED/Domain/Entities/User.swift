@@ -2,7 +2,7 @@
 
 import Foundation
 
-class User: Equatable {
+class User: Equatable, Codable {
     let id: String
     let email: String?
     var nickname: String?

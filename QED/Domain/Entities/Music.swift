@@ -34,7 +34,7 @@ class Music: Identifiable, Playable {
         albumCoverURL
     }
 
-    struct Lyric {
+    struct Lyric: Codable {
         let startMs: Int
         let endMs: Int
         let words: String
