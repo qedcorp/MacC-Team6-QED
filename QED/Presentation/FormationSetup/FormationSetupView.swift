@@ -22,7 +22,7 @@ struct FormationSetupView: View {
                                 disabledOpacity: 0.3
                             ))
                         Spacer(minLength: 18)
-                        buildObjectCanvasView(width: geometry.size.width)
+                        buildObjectCanvasView(viewStore: viewStore, width: geometry.size.width)
                             .modifier(DisabledOpacityModifier(
                                 isDisabled: !viewStore.isEnabled,
                                 disabledOpacity: 0.3
@@ -32,7 +32,7 @@ struct FormationSetupView: View {
                 }
                 .padding(.horizontal, 22)
                 VStack(spacing: 0) {
-                    buildPresetContainerView()
+                    buildPresetContainerView(viewStore: viewStore)
                     buildFormationContainerView(viewStore: viewStore)
                 }
             }
@@ -110,15 +110,18 @@ struct FormationSetupView: View {
         )
     }
 
-    private func buildObjectCanvasView(width: CGFloat) -> some View {
+    private func buildObjectCanvasView(viewStore: ViewStore, width: CGFloat) -> some View {
         let height = width * CGFloat(22 / Float(35))
         return VStack(spacing: 6) {
-            ObjectCanvasView(controller: objectCanvasViewController)
-                .frame(width: width, height: height)
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(.gray.opacity(0.1))
-                )
+            ObjectCanvasView(
+                controller: objectCanvasViewController,
+                headcount: viewStore.headcount
+            )
+            .frame(width: width, height: height)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(.gray.opacity(0.1))
+            )
             HStack {
                 HistoryControlsView(historyManagable: objectCanvasViewController.historyManager)
                 Spacer()
@@ -126,8 +129,11 @@ struct FormationSetupView: View {
         }
     }
 
-    private func buildPresetContainerView() -> some View {
-        PresetContainerView(objectCanvasViewController: objectCanvasViewController)
+    private func buildPresetContainerView(viewStore: ViewStore) -> some View {
+        PresetContainerView(
+            objectCanvasViewController: objectCanvasViewController,
+            headcount: viewStore.headcount
+        )
     }
 
     private func buildFormationContainerView(viewStore: ViewStore) -> some View {

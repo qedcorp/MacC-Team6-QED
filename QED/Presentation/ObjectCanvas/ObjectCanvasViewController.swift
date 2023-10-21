@@ -4,6 +4,7 @@ import UIKit
 import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
+    var maxObjectsCount: Int?
     var onChange: (([RelativePosition]) -> Void)?
 
     private(set) lazy var historyManager = {
@@ -27,7 +28,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     override var objectViewRadius: CGFloat {
-        6
+        8
     }
 
     override func loadView() {
@@ -95,6 +96,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     override func placeObjectView(position: CGPoint) {
+        guard objectViews.count < maxObjectsCount ?? .max else {
+            return
+        }
         super.placeObjectView(position: position)
         replaceSelectedObjectView()
     }

@@ -8,11 +8,13 @@ struct PresetContainerView: View {
     )
 
     private let objectCanvasViewController: ObjectCanvasViewController
+    private let headcount: Int?
     private let padding: CGFloat = 22
-    private let rows: [GridItem] = .init(repeating: .init(.fixed(82)), count: 2)
+    private let rows: [GridItem] = .init(repeating: .init(.fixed(80)), count: 2)
 
-    init(objectCanvasViewController: ObjectCanvasViewController) {
+    init(objectCanvasViewController: ObjectCanvasViewController, headcount: Int? = nil) {
         self.objectCanvasViewController = objectCanvasViewController
+        self.headcount = headcount
     }
 
     var body: some View {
@@ -51,6 +53,7 @@ struct PresetContainerView: View {
         }
         .onAppear {
             viewModel.objectCanvasViewController = objectCanvasViewController
+            viewModel.headcount = headcount
             viewModel.fetchPresets()
         }
     }

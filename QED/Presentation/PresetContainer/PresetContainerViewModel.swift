@@ -6,6 +6,7 @@ import Foundation
 class PresetContainerViewModel: ObservableObject {
     let presetUseCase: PresetUseCase
     weak var objectCanvasViewController: ObjectCanvasViewController?
+    var headcount: Int?
     @Published var isGridPresented = false
     @Published private var presets: [Preset] = []
 
@@ -15,7 +16,7 @@ class PresetContainerViewModel: ObservableObject {
 
     func fetchPresets() {
         Task {
-            presets = try await presetUseCase.getPresets(headcount: nil)
+            presets = try await presetUseCase.getPresets(headcount: headcount)
         }
     }
 
