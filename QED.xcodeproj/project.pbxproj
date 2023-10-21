@@ -69,7 +69,6 @@
 		D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */; };
 		D460EFF42AE18DF700A5966A /* ObjectStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF962AE18DF700A5966A /* ObjectStageView.swift */; };
 		D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF972AE18DF700A5966A /* ObjectStageViewController.swift */; };
-		D460EFF62AE18DF700A5966A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF982AE18DF700A5966A /* ContentView.swift */; };
 		D460EFF72AE18DF700A5966A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF9B2AE18DF700A5966A /* AppDelegate.swift */; };
 		D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF9E2AE18DF700A5966A /* MinMax.swift */; };
 		D460EFF92AE18DF700A5966A /* HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF9F2AE18DF700A5966A /* HexString.swift */; };
@@ -191,7 +190,6 @@
 		D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPositionConverter.swift; sourceTree = "<group>"; };
 		D460EF962AE18DF700A5966A /* ObjectStageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectStageView.swift; sourceTree = "<group>"; };
 		D460EF972AE18DF700A5966A /* ObjectStageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectStageViewController.swift; sourceTree = "<group>"; };
-		D460EF982AE18DF700A5966A /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D460EF9B2AE18DF700A5966A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D460EF9E2AE18DF700A5966A /* MinMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMax.swift; sourceTree = "<group>"; };
 		D460EF9F2AE18DF700A5966A /* HexString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexString.swift; sourceTree = "<group>"; };
@@ -587,7 +585,6 @@
 				D460EF872AE18DF700A5966A /* Models */,
 				D460EF8E2AE18DF700A5966A /* Utilities */,
 				D460EF832AE18DF700A5966A /* QEDApp.swift */,
-				D460EF982AE18DF700A5966A /* ContentView.swift */,
 				D460EF842AE18DF700A5966A /* Assets.xcassets */,
 				D460EF892AE18DF700A5966A /* Preview Content */,
 			);
@@ -1081,7 +1078,6 @@
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
-				D460EFF62AE18DF700A5966A /* ContentView.swift in Sources */,
 				3AE701A92AE4450A00C48403 /* Color+.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,

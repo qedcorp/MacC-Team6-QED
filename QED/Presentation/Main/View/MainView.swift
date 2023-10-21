@@ -88,20 +88,26 @@ struct BannerView: View {
     }
 
     private var makeFormationButton: some View {
-        //        TODO: 자리표 만들기 페이지로 이동
-        //        NavigationLink(destination: ) {
-        HStack {
-            Text("자리표 만들기")
-            Image(systemName: "chevron.right")
-                .font(.footnote)
+        NavigationLink {
+            FormationSetupView(store: .init(initialState: FormationSetupReducer.State(
+                music: .newJeans,
+                headcount: 4
+            )) {
+                FormationSetupReducer()
+            })
+        } label: {
+            HStack {
+                Text("자리표 만들기")
+                Image(systemName: "chevron.right")
+                    .font(.footnote)
+            }
+            .font(.subheadline)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 20)
+            .foregroundStyle(.green)
+            .background(Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
-        .font(.subheadline)
-        .padding(.vertical, 10)
-        .padding(.horizontal, 20)
-        .foregroundStyle(.green)
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        //        }
     }
 }
 
