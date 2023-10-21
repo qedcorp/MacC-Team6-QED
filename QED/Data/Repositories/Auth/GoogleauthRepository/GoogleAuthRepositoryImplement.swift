@@ -35,7 +35,6 @@ final class GoogleAuthRepositoryImplement: GoogleAuthRepository {
                                                        accessToken: result.user.accessToken.tokenString)
 
         guard let firebaseAuthResult = try? await Auth.auth().signIn(with: credential) else { return false }
-        // TODO: 여기서 keychain 연결하고 true반환
 
         do {
             try registerKeyChain(with: firebaseAuthResult)

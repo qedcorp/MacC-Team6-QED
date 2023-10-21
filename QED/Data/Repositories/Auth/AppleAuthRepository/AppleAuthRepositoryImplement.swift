@@ -49,7 +49,10 @@ final class AppleAuthRepositoryImplement: NSObject, AppleAuthRepository {
 }
 
 extension AppleAuthRepositoryImplement: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let nonce = currentNonce else { return }
             guard let appleIDToken = appleIDCredential.identityToken else { return }
