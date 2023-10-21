@@ -11,7 +11,7 @@ import XCTest
 final class SearchMusicRepositoryTests: XCTestCase {
 
     var sut: SearchMusicRepository!
-    
+
     override func setUpWithError() throws {
     }
 

@@ -9,7 +9,7 @@ struct DefaultPresetUseCase: PresetUseCase {
         try await presetRepository.createPreset(preset)
     }
 
-    func getPresets(headcount: Int) async throws -> [Preset] {
+    func getPresets(headcount: Int?) async throws -> [Preset] {
         try await presetRepository.readPresets(headcount: headcount)
     }
 }
