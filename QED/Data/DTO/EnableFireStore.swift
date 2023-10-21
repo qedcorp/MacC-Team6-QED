@@ -7,13 +7,14 @@
 
 import Foundation
 
-protocol EnableFirestore: NSObject, Codable {
+protocol FireStoreEntity: NSObject, Codable {
     var collectionName: String { get }
     var ID: String { get set }
 }
 
-extension EnableFirestore {
+extension FireStoreEntity {
     func fetchValue(id: String, data: [String: Any]) {
+
         setValue(id, forKey: "ID")
         Mirror(reflecting: self).children.forEach { child in
             guard let label = child.label,

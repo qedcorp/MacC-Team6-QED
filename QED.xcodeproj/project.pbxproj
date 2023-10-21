@@ -103,6 +103,8 @@
 		D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */; };
 		D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */; };
 		D460F0412AE4035400A5966A /* EnableFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0402AE4035400A5966A /* EnableFireStore.swift */; };
+		D460F0452AE41A0F00A5966A /* FireStoreDTO+Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0442AE41A0F00A5966A /* FireStoreDTO+Performance.swift */; };
+		D460F0492AE429A900A5966A /* Performance+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0482AE429A900A5966A /* Performance+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +218,8 @@
 		D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+NameSpace.swift"; sourceTree = "<group>"; };
 		D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+User.swift"; sourceTree = "<group>"; };
 		D460F0402AE4035400A5966A /* EnableFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableFireStore.swift; sourceTree = "<group>"; };
+		D460F0442AE41A0F00A5966A /* FireStoreDTO+Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Performance.swift"; sourceTree = "<group>"; };
+		D460F0482AE429A900A5966A /* Performance+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Performance+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,9 +303,9 @@
 		3AE0CCBE2ADD0CE1001FE371 /* QED */ = {
 			isa = PBXGroup;
 			children = (
+				D460EFD22AE18DF700A5966A /* GoogleService */,
 				D460EF602AE18DF700A5966A /* Data */,
 				D460EFA22AE18DF700A5966A /* Domain */,
-				D460EFD22AE18DF700A5966A /* GoogleService */,
 				D460EF792AE18DF700A5966A /* Presentation */,
 				D460EF992AE18DF700A5966A /* Shared */,
 				D460EE192ADEC39700A5966A /* QED.entitlements */,
@@ -747,6 +751,7 @@
 				D460F0402AE4035400A5966A /* EnableFireStore.swift */,
 				D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */,
 				D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */,
+				D460F0442AE41A0F00A5966A /* FireStoreDTO+Performance.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -755,6 +760,7 @@
 			isa = PBXGroup;
 			children = (
 				D460F0372AE2579800A5966A /* FireStoreManager.swift */,
+				D460F0482AE429A900A5966A /* Performance+.swift */,
 			);
 			path = FireStoreManager;
 			sourceTree = "<group>";
@@ -946,6 +952,7 @@
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				D460EFF92AE18DF700A5966A /* HexString.swift in Sources */,
+				D460F0452AE41A0F00A5966A /* FireStoreDTO+Performance.swift in Sources */,
 				D460F0192AE18DF700A5966A /* User.swift in Sources */,
 				D460EFFB2AE18DF700A5966A /* AuthProviderType.swift in Sources */,
 				D460EFDD2AE18DF700A5966A /* MockMusicRepository.swift in Sources */,
@@ -960,6 +967,7 @@
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
+				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
 				D460EFE82AE18DF700A5966A /* QEDApp.swift in Sources */,
 				D460F00C2AE18DF700A5966A /* DefaultUserUseCase.swift in Sources */,

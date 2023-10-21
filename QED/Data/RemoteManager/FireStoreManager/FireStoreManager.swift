@@ -11,16 +11,13 @@ import FirebaseFirestore
 
 final class FireStoreManager: RemoteManager {
 
-    static var shared: FireStoreManager = FireStoreManager()
-    var fireStroeDB: Firestore = Firestore.firestore()
-
-    private init() { }
+    private var fireStroeDB: Firestore = Firestore.firestore()
 
     func create<T>(
         _ data: T
     ) async throws -> Result<T, Error>
     where T: Decodable, T: Encodable {
-        guard let fireStoreData = data as? EnableFirestore else {
+        guard let fireStoreData = data as? FireStoreEntity else {
             return .failure(FireStoreError.disableFireStoreType)
         }
         var dataDic: [String: Any] = [:]
@@ -38,16 +35,17 @@ final class FireStoreManager: RemoteManager {
     }
 
     func read<T, K, U>(
-        at endPoint: K,
+        at endPoint: K = "",
         mockData: T,
         pk key: U
     ) async throws -> Result<T, Error>
     where T: Decodable, T: Encodable {
-        guard let returnValue = mockData as? EnableFirestore,
-              let key = key as? String,
-              let collectionName = endPoint as? String else {
+        guard let returnValue = mockData as? FireStoreEntity,
+              let key = key as? String else {
             return .failure(FireStoreError.keyTypeError)
         }
+
+        let collectionName = returnValue.collectionName
 
         guard let result = try? await fireStroeDB.collection(collectionName).document(key).getDocument().data() else {
             return .failure(FireStoreError.didntFindDoucument)
