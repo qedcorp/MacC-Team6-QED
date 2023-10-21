@@ -97,6 +97,12 @@
 		D460F02C2AE24EC300A5966A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D460F02B2AE24EC300A5966A /* FirebaseFirestore */; };
 		D460F02E2AE24EC300A5966A /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D460F02D2AE24EC300A5966A /* FirebaseFirestoreCombine-Community */; };
 		D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D460F02F2AE24EC300A5966A /* FirebaseFirestoreSwift */; };
+		D460F0342AE2573800A5966A /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0332AE2573800A5966A /* DefaultUserRepository.swift */; };
+		D460F0382AE2579800A5966A /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0372AE2579800A5966A /* FireStoreManager.swift */; };
+		D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0392AE25B2000A5966A /* RemoteManager.swift */; };
+		D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */; };
+		D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */; };
+		D460F0412AE4035400A5966A /* EnableFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0402AE4035400A5966A /* EnableFireStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +210,12 @@
 		D460EFD02AE18DF700A5966A /* Playable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 		D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUIProtocol.swift; sourceTree = "<group>"; };
 		D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D460F0332AE2573800A5966A /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
+		D460F0372AE2579800A5966A /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
+		D460F0392AE25B2000A5966A /* RemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteManager.swift; sourceTree = "<group>"; };
+		D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+NameSpace.swift"; sourceTree = "<group>"; };
+		D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+User.swift"; sourceTree = "<group>"; };
+		D460F0402AE4035400A5966A /* EnableFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableFireStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +356,9 @@
 		D460EF602AE18DF700A5966A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D460F03B2AE3FC6300A5966A /* DTO */,
+				D460EF752AE18DF700A5966A /* KeyChain */,
+				D460F0362AE2578600A5966A /* RemoteManager */,
 				D460EF642AE18DF700A5966A /* Repositories */,
 			);
 			path = Data;
@@ -410,7 +425,6 @@
 		D460EF722AE18DF700A5966A /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				D460EF752AE18DF700A5966A /* KeyChain */,
 				D460EF732AE18DF700A5966A /* LocalPresetRepository.swift */,
 			);
 			path = Local;
@@ -713,8 +727,36 @@
 			isa = PBXGroup;
 			children = (
 				D460EF632AE18DF700A5966A /* DefaultSearchMusicRepository.swift */,
+				D460F0332AE2573800A5966A /* DefaultUserRepository.swift */,
 			);
 			path = Default;
+			sourceTree = "<group>";
+		};
+		D460F0362AE2578600A5966A /* RemoteManager */ = {
+			isa = PBXGroup;
+			children = (
+				D460F0392AE25B2000A5966A /* RemoteManager.swift */,
+				D460F0422AE40E1700A5966A /* FireStoreManager */,
+			);
+			path = RemoteManager;
+			sourceTree = "<group>";
+		};
+		D460F03B2AE3FC6300A5966A /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D460F0402AE4035400A5966A /* EnableFireStore.swift */,
+				D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */,
+				D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D460F0422AE40E1700A5966A /* FireStoreManager */ = {
+			isa = PBXGroup;
+			children = (
+				D460F0372AE2579800A5966A /* FireStoreManager.swift */,
+			);
+			path = FireStoreManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -900,6 +942,7 @@
 				D460F0042AE18DF700A5966A /* AppleAuthRepository.swift in Sources */,
 				D460F0072AE18DF700A5966A /* PresetUseCase.swift in Sources */,
 				D460EFFA2AE18DF700A5966A /* DescribableError.swift in Sources */,
+				D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */,
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				D460EFF92AE18DF700A5966A /* HexString.swift in Sources */,
@@ -925,6 +968,7 @@
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
+				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				D460EFF62AE18DF700A5966A /* ContentView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
@@ -940,6 +984,7 @@
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
 				D460F00A2AE18DF700A5966A /* DefaultFormationTransitionUseCase.swift in Sources */,
 				D460F0162AE18DF700A5966A /* RelativePosition.swift in Sources */,
+				D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */,
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
@@ -958,9 +1003,12 @@
 				D460EFD42AE18DF700A5966A /* MockSearchMusicRepository.swift in Sources */,
 				D460EFF42AE18DF700A5966A /* ObjectStageView.swift in Sources */,
 				D460F0092AE18DF700A5966A /* DefaultMusicUseCase.swift in Sources */,
+				D460F0412AE4035400A5966A /* EnableFireStore.swift in Sources */,
 				D460EFF12AE18DF700A5966A /* CenterLinesRenderer.swift in Sources */,
 				D460EFF22AE18DF700A5966A /* HistoryManagable.swift in Sources */,
 				D460F00E2AE18DF700A5966A /* DefaultPresetUseCase.swift in Sources */,
+				D460F0342AE2573800A5966A /* DefaultUserRepository.swift in Sources */,
+				D460F0382AE2579800A5966A /* FireStoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
