@@ -16,7 +16,7 @@ struct FormationSetupView: View {
                     VStack(spacing: 0) {
                         buildMusicHeadcountView(viewStore: viewStore)
                             .padding(.bottom, 16)
-                        buildLyricView(viewStore: viewStore)
+                        buildMemoView(viewStore: viewStore)
                             .modifier(DisabledOpacityModifier(
                                 isDisabled: !viewStore.isEnabled,
                                 disabledOpacity: 0.3
@@ -36,6 +36,11 @@ struct FormationSetupView: View {
                     buildFormationContainerView(viewStore: viewStore)
                 }
             }
+            .overlay(
+                viewStore.isMemoFormPresented ?
+                buildMemoFormView(viewStore: viewStore)
+                : nil
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -96,17 +101,19 @@ struct FormationSetupView: View {
         }
     }
 
-    private func buildLyricView(viewStore: ViewStore) -> some View {
-        HStack(alignment: .center) {
-            Spacer()
-            Text(viewStore.currentFormation?.memo ?? "클릭해서 가사 입력")
-                .lineLimit(1)
-            Spacer()
-        }
-        .frame(height: 46)
-        .background(
-            RoundedRectangle(cornerRadius: 4)
-                .fill(.gray.opacity(0.1))
+    private func buildMemoView(viewStore: ViewStore) -> some View {
+        FormationMemoView(memo: viewStore.currentFormation?.memo)
+            .onTapGesture {
+                viewStore.send(.memoTapped)
+            }
+    }
+
+    private func buildMemoFormView(viewStore: ViewStore) -> some View {
+        MemoFormView(
+            memo: viewStore.currentFormation?.memo ?? "",
+            onSubmit: {
+                viewStore.send(.currentMemoChanged($0))
+            }
         )
     }
 
