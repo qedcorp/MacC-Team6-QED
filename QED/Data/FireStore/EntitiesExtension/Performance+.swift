@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Performance {
+extension Performance: FireStoreEntityConvertable {
     var jsonString: String {
         guard let jsonData = try? JSONEncoder().encode(self) else { return "Encoding Fail" }
         return String(data: jsonData, encoding: .utf8) ?? "Encoding Fail"
@@ -27,6 +27,16 @@ extension Performance {
             title: performance.title,
             formations: performance.formations,
             transitions: performance.transitions
+        )
+    }
+
+    var fireStoreEntity: FireStoreEntity {
+        guard let id = try? KeyChainManager.shared.read(account: .id) else {
+            return FireStoreDTO.Performance()
+        }
+        return FireStoreDTO.Performance(
+            OWNERID: id,
+            DATA: jsonString
         )
     }
 }
