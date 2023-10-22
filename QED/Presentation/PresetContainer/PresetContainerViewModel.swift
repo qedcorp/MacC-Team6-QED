@@ -3,9 +3,11 @@
 import Foundation
 
 @MainActor
-class PresetManageViewModel: ObservableObject {
+class PresetContainerViewModel: ObservableObject {
     let presetUseCase: PresetUseCase
     weak var objectCanvasViewController: ObjectCanvasViewController?
+    var headcount: Int?
+    @Published var isGridPresented = false
     @Published private var presets: [Preset] = []
 
     init(presetUseCase: PresetUseCase) {
@@ -14,17 +16,7 @@ class PresetManageViewModel: ObservableObject {
 
     func fetchPresets() {
         Task {
-            presets = try await presetUseCase.getPresets(headcount: nil)
-        }
-    }
-
-    func generatePreset() {
-        guard let preset = objectCanvasViewController?.generatePreset() else {
-            return
-        }
-        presets.insert(preset, at: 0)
-        Task {
-            try await presetUseCase.createPreset(preset)
+            presets = try await presetUseCase.getPresets(headcount: headcount)
         }
     }
 

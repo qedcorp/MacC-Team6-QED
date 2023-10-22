@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Formation {
+class Formation: Formable {
     var members: [Member]
     var startMs: Int?
     var endMs: Int?
@@ -18,5 +18,9 @@ class Formation {
         self.startMs = startMs
         self.endMs = endMs
         self.memo = memo
+    }
+
+    var relativePositions: [RelativePosition] {
+        members.map { $0.relativePosition }
     }
 }
