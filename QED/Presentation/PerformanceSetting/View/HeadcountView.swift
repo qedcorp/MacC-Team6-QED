@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-import Combine
+// import Combine
 
 struct HeadcountView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
     @Environment(\.presentationMode) var presentationMode: Binding
-    @FocusState private var isFocusedSearchTextField: Bool
 
     var body: some View {
         VStack {
@@ -81,7 +80,7 @@ struct HeadcountView: View {
 
             Slider(value: $performancesettingVM.inputHeadcount, in: 2...13)
                 .tint(.green)
-                .frame(width: 300)
+                .frame(width: 320)
                 .padding()
 
             Spacer()
@@ -95,9 +94,6 @@ struct HeadcountView: View {
             }
         }
         .padding()
-        .onTapGesture {
-            isFocusedSearchTextField = false
-        }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
     }

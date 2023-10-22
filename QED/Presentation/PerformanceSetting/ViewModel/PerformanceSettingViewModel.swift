@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-import Combine
+// import Combine
 
 @MainActor
 class PerformanceSettingViewModel: ObservableObject {
-
-    let bag = Set<AnyCancellable>()
 
     var headcount: Int? { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
