@@ -102,9 +102,12 @@
 		D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0392AE25B2000A5966A /* RemoteManager.swift */; };
 		D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */; };
 		D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */; };
-		D460F0412AE4035400A5966A /* EnableFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0402AE4035400A5966A /* EnableFireStore.swift */; };
+		D460F0412AE4035400A5966A /* FireStoreEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0402AE4035400A5966A /* FireStoreEntity.swift */; };
 		D460F0452AE41A0F00A5966A /* FireStoreDTO+Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0442AE41A0F00A5966A /* FireStoreDTO+Performance.swift */; };
 		D460F0492AE429A900A5966A /* Performance+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F0482AE429A900A5966A /* Performance+.swift */; };
+		D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */; };
+		D460F04D2AE432BA00A5966A /* User+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04C2AE432BA00A5966A /* User+.swift */; };
+		D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,9 +220,12 @@
 		D460F0392AE25B2000A5966A /* RemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteManager.swift; sourceTree = "<group>"; };
 		D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+NameSpace.swift"; sourceTree = "<group>"; };
 		D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+User.swift"; sourceTree = "<group>"; };
-		D460F0402AE4035400A5966A /* EnableFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableFireStore.swift; sourceTree = "<group>"; };
+		D460F0402AE4035400A5966A /* FireStoreEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntity.swift; sourceTree = "<group>"; };
 		D460F0442AE41A0F00A5966A /* FireStoreDTO+Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Performance.swift"; sourceTree = "<group>"; };
 		D460F0482AE429A900A5966A /* Performance+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Performance+.swift"; sourceTree = "<group>"; };
+		D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPerformanceRepository.swift; sourceTree = "<group>"; };
+		D460F04C2AE432BA00A5966A /* User+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+.swift"; sourceTree = "<group>"; };
+		D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntityConvertable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,7 +366,7 @@
 		D460EF602AE18DF700A5966A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				D460F03B2AE3FC6300A5966A /* DTO */,
+				D460F0522AE58B3B00A5966A /* FireStore */,
 				D460EF752AE18DF700A5966A /* KeyChain */,
 				D460F0362AE2578600A5966A /* RemoteManager */,
 				D460EF642AE18DF700A5966A /* Repositories */,
@@ -660,9 +666,9 @@
 		D460EFB42AE18DF700A5966A /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				D460EFB72AE18DF700A5966A /* Default */,
 				D460EFB52AE18DF700A5966A /* PresetUseCase.swift */,
 				D460EFB62AE18DF700A5966A /* MemberUseCase.swift */,
-				D460EFB72AE18DF700A5966A /* Default */,
 				D460EFBF2AE18DF700A5966A /* PerformanceUseCase.swift */,
 				D460EFC02AE18DF700A5966A /* UserUseCase.swift */,
 				D460EFC12AE18DF700A5966A /* FormationUseCase.swift */,
@@ -732,6 +738,7 @@
 			children = (
 				D460EF632AE18DF700A5966A /* DefaultSearchMusicRepository.swift */,
 				D460F0332AE2573800A5966A /* DefaultUserRepository.swift */,
+				D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -740,7 +747,6 @@
 			isa = PBXGroup;
 			children = (
 				D460F0392AE25B2000A5966A /* RemoteManager.swift */,
-				D460F0422AE40E1700A5966A /* FireStoreManager */,
 			);
 			path = RemoteManager;
 			sourceTree = "<group>";
@@ -748,7 +754,6 @@
 		D460F03B2AE3FC6300A5966A /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				D460F0402AE4035400A5966A /* EnableFireStore.swift */,
 				D460F03C2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift */,
 				D460F03E2AE3FC8300A5966A /* FireStoreDTO+User.swift */,
 				D460F0442AE41A0F00A5966A /* FireStoreDTO+Performance.swift */,
@@ -760,9 +765,37 @@
 			isa = PBXGroup;
 			children = (
 				D460F0372AE2579800A5966A /* FireStoreManager.swift */,
-				D460F0482AE429A900A5966A /* Performance+.swift */,
 			);
 			path = FireStoreManager;
+			sourceTree = "<group>";
+		};
+		D460F0502AE50F3F00A5966A /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */,
+				D460F0402AE4035400A5966A /* FireStoreEntity.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		D460F0512AE50FC900A5966A /* EntitiesExtension */ = {
+			isa = PBXGroup;
+			children = (
+				D460F0482AE429A900A5966A /* Performance+.swift */,
+				D460F04C2AE432BA00A5966A /* User+.swift */,
+			);
+			path = EntitiesExtension;
+			sourceTree = "<group>";
+		};
+		D460F0522AE58B3B00A5966A /* FireStore */ = {
+			isa = PBXGroup;
+			children = (
+				D460F0422AE40E1700A5966A /* FireStoreManager */,
+				D460F03B2AE3FC6300A5966A /* DTO */,
+				D460F0502AE50F3F00A5966A /* Interface */,
+				D460F0512AE50FC900A5966A /* EntitiesExtension */,
+			);
+			path = FireStore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -935,6 +968,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D460F04D2AE432BA00A5966A /* User+.swift in Sources */,
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManageViewModel.swift in Sources */,
@@ -983,6 +1017,7 @@
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
+				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
 				D460F0012AE18DF700A5966A /* AuthRepository.swift in Sources */,
 				D460F0052AE18DF700A5966A /* SearchMusicRepository.swift in Sources */,
 				D460EFED2AE18DF700A5966A /* PresetManageView.swift in Sources */,
@@ -996,6 +1031,7 @@
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
+				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
 				D460F00F2AE18DF700A5966A /* DefaultPerformanceUseCase.swift in Sources */,
 				D460EFEB2AE18DF700A5966A /* DraggingModel.swift in Sources */,
@@ -1011,7 +1047,7 @@
 				D460EFD42AE18DF700A5966A /* MockSearchMusicRepository.swift in Sources */,
 				D460EFF42AE18DF700A5966A /* ObjectStageView.swift in Sources */,
 				D460F0092AE18DF700A5966A /* DefaultMusicUseCase.swift in Sources */,
-				D460F0412AE4035400A5966A /* EnableFireStore.swift in Sources */,
+				D460F0412AE4035400A5966A /* FireStoreEntity.swift in Sources */,
 				D460EFF12AE18DF700A5966A /* CenterLinesRenderer.swift in Sources */,
 				D460EFF22AE18DF700A5966A /* HistoryManagable.swift in Sources */,
 				D460F00E2AE18DF700A5966A /* DefaultPresetUseCase.swift in Sources */,

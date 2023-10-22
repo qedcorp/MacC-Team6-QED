@@ -46,6 +46,17 @@ final class DefaultUserRepository: UserRepository {
     }
 
     func updateUser(_ user: User) async throws -> User {
-        User(id: "")
+        do {
+            let readResult = try await remoteManager.create(user)
+            switch readResult {
+            case .success(let success):
+                return success
+            case .failure:
+                print("Update Error")
+            }
+        } catch {
+            print("Update Error")
+        }
+        return User(id: "Update Error")
     }
 }
