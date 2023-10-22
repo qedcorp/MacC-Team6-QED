@@ -21,6 +21,8 @@
 		3AE701A92AE4450A00C48403 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A72AE4450A00C48403 /* Color+.swift */; };
 		3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* FormationMemoView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
+		3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */; };
+		3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B42AE5D07600C48403 /* Rect+Contains.swift */; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
 		3AF617D02AE1961D0052FC90 /* FormationSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */; };
@@ -154,6 +156,8 @@
 		3AE701A72AE4450A00C48403 /* Color+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		3AE701AB2AE58F7400C48403 /* FormationMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationMemoView.swift; sourceTree = "<group>"; };
 		3AE701AE2AE59DE100C48403 /* MemoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoFormView.swift; sourceTree = "<group>"; };
+		3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectBoxView.swift; sourceTree = "<group>"; };
+		3AE701B42AE5D07600C48403 /* Rect+Contains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rect+Contains.swift"; sourceTree = "<group>"; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormationSetupView.swift; sourceTree = "<group>"; };
@@ -389,6 +393,14 @@
 				3AE701AE2AE59DE100C48403 /* MemoFormView.swift */,
 			);
 			path = MemoForm;
+			sourceTree = "<group>";
+		};
+		3AE701B32AE5D06D00C48403 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3AE701B42AE5D07600C48403 /* Rect+Contains.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3AF617C82AE191BB0052FC90 /* Utilities */ = {
@@ -713,7 +725,6 @@
 			isa = PBXGroup;
 			children = (
 				D460EF802AE18DF700A5966A /* Auth */,
-				D460EF7A2AE18DF700A5966A /* DotObject */,
 				3AF617CE2AE1961D0052FC90 /* FormationSetup */,
 				3AE701AA2AE58F6600C48403 /* FormationMemo */,
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
@@ -731,20 +742,13 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		D460EF7A2AE18DF700A5966A /* DotObject */ = {
-			isa = PBXGroup;
-			children = (
-				D460EF7B2AE18DF700A5966A /* DotObjectView.swift */,
-			);
-			path = DotObject;
-			sourceTree = "<group>";
-		};
 		D460EF7C2AE18DF700A5966A /* ObjectCanvas */ = {
 			isa = PBXGroup;
 			children = (
-				D460EF7D2AE18DF700A5966A /* ObjectCanvasHistoryManager.swift */,
 				D460EF7E2AE18DF700A5966A /* ObjectCanvasView.swift */,
 				D460EF7F2AE18DF700A5966A /* ObjectCanvasViewController.swift */,
+				3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */,
+				D460EF7D2AE18DF700A5966A /* ObjectCanvasHistoryManager.swift */,
 			);
 			path = ObjectCanvas;
 			sourceTree = "<group>";
@@ -795,6 +799,7 @@
 		D460EF8E2AE18DF700A5966A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3AE701B32AE5D06D00C48403 /* Extensions */,
 				3A897FCF2AE2E7150031E6BE /* ViewModifiers */,
 				D460EF8F2AE18DF700A5966A /* DraggingHandler.swift */,
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
@@ -818,6 +823,7 @@
 			children = (
 				D460EF962AE18DF700A5966A /* ObjectStageView.swift */,
 				D460EF972AE18DF700A5966A /* ObjectStageViewController.swift */,
+				D460EF7B2AE18DF700A5966A /* DotObjectView.swift */,
 			);
 			path = ObjectStage;
 			sourceTree = "<group>";
@@ -1213,6 +1219,7 @@
 				D460EFD72AE18DF700A5966A /* GoogleAuthRepositoryImplement.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
 				D460F00B2AE18DF700A5966A /* DefaultFormationUseCase.swift in Sources */,
+				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
@@ -1258,6 +1265,7 @@
 				D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */,
 				A974EA1F2AE440C600302C9D /* PerformanceSettingModel.swift in Sources */,
 				D460F0142AE18DF700A5966A /* MusicUseCase.swift in Sources */,
+				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,
 				3AE701A82AE4450A00C48403 /* Int+.swift in Sources */,
 				D460F0022AE18DF700A5966A /* KakaoAuthRepository.swift in Sources */,
 				3A021EE52AE2545F0099C008 /* FormationSetupReducer.swift in Sources */,

@@ -53,8 +53,8 @@ struct FormationSetupView: View {
                     }
                 }
             }
-            .onChange(of: viewStore.currentFormation) {
-                guard let formable = $0 else {
+            .onChange(of: viewStore.currentFormationIndex) { _ in
+                guard let formable = viewStore.currentFormation else {
                     return
                 }
                 objectCanvasViewController.copyFormable(formable)
