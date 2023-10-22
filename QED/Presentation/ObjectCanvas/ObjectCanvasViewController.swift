@@ -20,10 +20,10 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private let draggingHandler = DraggingHandler()
     private var cancellables = Set<AnyCancellable>()
 
-    private var selectedObjectView: DotObjectView? {
+    private var selectedObjectViews: [DotObjectView] = [] {
         didSet {
             objectViews
-                .forEach { $0.color = $0 === selectedObjectView ? .green : .black }
+                .forEach { $0.color = selectedObjectViews.contains($0) ? .green : .black }
         }
     }
 
@@ -51,7 +51,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
             .sink { _ in
             } receiveValue: { [weak self] in
                 if let dragging = $0 {
-                    self?.selectedObjectView?.applyPositionDiff(dragging.positionDiff)
+                    self?.selectedObjectViews
+                        .forEach { $0.applyPositionDiff(dragging.positionDiff) }
                 } else {
                     self?.addHistory()
                     self?.didChange()
@@ -67,9 +68,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
         if let touchedView = touchedViewDetector.detectView(position: position) {
             if let objectView = touchedView as? DotObjectView {
-                selectedObjectView = objectView
+                selectedObjectViews = [objectView]
             }
-        } else if selectedObjectView == nil {
+        } else if selectedObjectViews.isEmpty {
             placeObjectView(position: position)
         }
         draggingHandler.beginDragging(position: position)
@@ -90,7 +91,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
         replaceSelectedObjectView()
         if isObjectViewUnselectNeeded(position: position) {
-            selectedObjectView = nil
+            selectedObjectViews = []
         }
         draggingHandler.endDragging()
     }
@@ -104,12 +105,11 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private func replaceSelectedObjectView() {
-        guard let view = selectedObjectView else {
-            return
+        selectedObjectViews.forEach {
+            let relativePosition = touchPositionConverter.getRelativePosition(absolute: $0.center)
+            let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
+            $0.applyPosition(absolutePosition)
         }
-        let relativePosition = touchPositionConverter.getRelativePosition(absolute: view.center)
-        let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
-        selectedObjectView?.applyPosition(absolutePosition)
     }
 
     override func copyFormable(_ formable: Formable) {
