@@ -8,22 +8,29 @@
 import SwiftUI
 
 struct MainView: View {
-    var nickname = "어쩌구 저쩌구"
+    @StateObject private var viewModel = MainViewModel(
+        performancesUseCase: DefaultPerformanceUseCase(
+            performanceRepository: MockPerformanceRepository(),
+            userStore: DefaultUserStore.shared))
 
     var body: some View {
         NavigationStack {
             VStack {
                 VStack(spacing: 25) {
-                    BannerView(nickname: nickname)
+                    BannerView(nickname: viewModel.nickname)
                     myRecentFormationHeader
                 }
                 .padding(.horizontal, 20)
-                MyRecentFormationScrollView()
+                MyRecentFormationScrollView(viewModel: viewModel)
             }
             .toolbar {
                 leftItem
                 rightItem
             }
+        }
+        .onAppear {
+            viewModel.fetchUser()
+            viewModel.fetchMyRecentPerformances()
         }
     }
 
@@ -106,34 +113,42 @@ struct BannerView: View {
 }
 
 struct MyRecentFormationScrollView: View {
+    @StateObject var viewModel: MainViewModel
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(0..<10) { performance in
+                ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
                     NavigationLink(value: performance) {
                         RecentFormationCardView(performance: performance)
                     }
-                    .navigationDestination(for: Int.self) { _ in
-                        WatchingFormationView()
+                    .navigationDestination(for: Performance.self) { performance in
+                        WatchingFormationView(performance: performance)
                     }
                 }
-
             }
         }
+
         .padding(.leading, 20)
     }
 }
 
 private struct RecentFormationCardView: View {
-    var performance: Int
-    var title = "pink venom"
-    var creator = "black pink"
+    let performance: Performance
+    var title: String
+    var creator: String
+
+    init(performance: Performance) {
+        self.performance = performance
+        title = performance.title ?? ""
+        creator = performance.playable.creator
+    }
 
     var body: some View {
         VStack {
             Spacer()
             HStack {
-                Text("\(performance)\n\(title)-\n\(creator)")
+                Text("\(title)-\n\(creator)")
                     .bold()
                     .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                 Spacer()
@@ -144,6 +159,16 @@ private struct RecentFormationCardView: View {
         .background(Color(.systemGray6))
         .foregroundStyle(.black)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+}
+
+extension Performance: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+
+    static func == (lhs: Performance, rhs: Performance) -> Bool {
+        lhs.hashValue == rhs.hashValue
     }
 }
 
