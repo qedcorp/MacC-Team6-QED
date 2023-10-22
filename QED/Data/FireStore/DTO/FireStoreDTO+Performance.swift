@@ -8,13 +8,13 @@
 import Foundation
 
 extension FireStoreDTO {
-    class Performance: NSObject, FireStoreEntity {
+    final class Performance: NSObject, FireStoreEntity {
         let collectionName: String = "PERFORMANCE"
         @objc var ID: String
         @objc var OWNERID: String?
         @objc var DATA: String?
 
-        init(OWNERID: String? = nil, DATA: String? = nil) {
+        init(ID: String = "", OWNERID: String? = nil, DATA: String? = nil) {
             self.ID = ""
             self.OWNERID = OWNERID
             self.DATA = DATA
@@ -22,6 +22,10 @@ extension FireStoreDTO {
 
         convenience override init() {
             self.init(OWNERID: "", DATA: "")
+        }
+
+        func copy() -> Performance {
+            Performance(ID: ID, OWNERID: OWNERID, DATA: DATA)
         }
     }
 }

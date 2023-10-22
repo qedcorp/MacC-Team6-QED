@@ -8,13 +8,13 @@
 import Foundation
 
 extension FireStoreDTO {
-    class User: NSObject, FireStoreEntity {
+    final class User: NSObject, FireStoreEntity {
         let collectionName: String = "USER"
         @objc var ID: String
         @objc var EMAIL: String?
         @objc var NAME: String?
 
-        init(EMAIL: String? = nil, NAME: String? = nil) {
+        init(ID: String = "", EMAIL: String? = nil, NAME: String? = nil) {
             self.ID = ""
             self.EMAIL = EMAIL
             self.NAME = NAME
@@ -22,6 +22,10 @@ extension FireStoreDTO {
 
         convenience override init() {
             self.init(EMAIL: "", NAME: "")
+        }
+
+        func copy() -> User {
+            User(ID: ID, EMAIL: EMAIL, NAME: NAME)
         }
     }
 }
