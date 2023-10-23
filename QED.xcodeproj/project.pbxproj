@@ -108,6 +108,10 @@
 		D460F01E2AE18DF700A5966A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD02AE18DF700A5966A /* Playable.swift */; };
 		D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */; };
 		D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */; };
+		D4AF10012AE653DB00A97CC2 /* DanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* DanceFormationView.swift */; };
+		D4AF10042AE65A8F00A97CC2 /* DanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* DanceFormationScene.swift */; };
+		D4AF10062AE6623E00A97CC2 /* DanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* DanceFormationManager.swift */; };
+		D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +231,10 @@
 		D460EFD02AE18DF700A5966A /* Playable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 		D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUIProtocol.swift; sourceTree = "<group>"; };
 		D460EFD32AE18DF700A5966A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D4AF10002AE653DB00A97CC2 /* DanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanceFormationView.swift; sourceTree = "<group>"; };
+		D4AF10032AE65A8F00A97CC2 /* DanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanceFormationScene.swift; sourceTree = "<group>"; };
+		D4AF10052AE6623E00A97CC2 /* DanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanceFormationManager.swift; sourceTree = "<group>"; };
+		D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +409,7 @@
 		5136BFB22ADFB83400882B6B /* WatchingFormation */ = {
 			isa = PBXGroup;
 			children = (
+				D4AF10022AE65A6900A97CC2 /* DanceForamtion */,
 				51BB29932AE5AFC6002CAFAA /* ViewModel */,
 				5149AFB62AE58505006F0C4A /* View */,
 			);
@@ -432,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				51BB29942AE5AFE0002CAFAA /* DetailFormationViewModel.swift */,
+				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -837,6 +847,16 @@
 			path = GoogleService;
 			sourceTree = "<group>";
 		};
+		D4AF10022AE65A6900A97CC2 /* DanceForamtion */ = {
+			isa = PBXGroup;
+			children = (
+				D4AF10002AE653DB00A97CC2 /* DanceFormationView.swift */,
+				D4AF10032AE65A8F00A97CC2 /* DanceFormationScene.swift */,
+				D4AF10052AE6623E00A97CC2 /* DanceFormationManager.swift */,
+			);
+			path = DanceForamtion;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1010,6 +1030,7 @@
 				3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */,
 				5136BFA92ADF9D0600882B6B /* MyRecentFormationView.swift in Sources */,
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
+				D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManageViewModel.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* KakaoAuthRepositoryImplement.swift in Sources */,
@@ -1037,12 +1058,14 @@
 				D460EFF02AE18DF700A5966A /* TouchedViewDetector.swift in Sources */,
 				D460EFD72AE18DF700A5966A /* GoogleAuthRepositoryImplement.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
+				D4AF10012AE653DB00A97CC2 /* DanceFormationView.swift in Sources */,
 				5186C6A32AE286D1002E4D3E /* Int+.swift in Sources */,
 				D460F00B2AE18DF700A5966A /* DefaultFormationUseCase.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
 				514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */,
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
+				D4AF10042AE65A8F00A97CC2 /* DanceFormationScene.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
 				D460EFE82AE18DF700A5966A /* QEDApp.swift in Sources */,
@@ -1060,6 +1083,7 @@
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
 				5149AFBC2AE58DD4006F0C4A /* DetailFormationView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
+				D4AF10062AE6623E00A97CC2 /* DanceFormationManager.swift in Sources */,
 				D460F0012AE18DF700A5966A /* AuthRepository.swift in Sources */,
 				D460F0052AE18DF700A5966A /* SearchMusicRepository.swift in Sources */,
 				5186C6A42AE286D1002E4D3E /* Color+.swift in Sources */,

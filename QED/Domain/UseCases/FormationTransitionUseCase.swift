@@ -5,7 +5,7 @@ import Foundation
 protocol FormationTransitionUseCase {
     var performance: Performance { get }
 
-    func createFormationTransitions() async throws -> [FormationTransition]
+    func createFormationTransitions() async throws -> [FormationTransition?]
 
     func updateMovement(
         _ movement: FormationTransition.Movement,

@@ -7,6 +7,7 @@ class Formation {
     var startMs: Int?
     var endMs: Int?
     var memo: String?
+    var notes: [String]?
 
     init(
         members: [Member] = [],
