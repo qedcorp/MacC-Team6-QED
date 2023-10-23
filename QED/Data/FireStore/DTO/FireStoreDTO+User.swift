@@ -8,7 +8,7 @@
 import Foundation
 
 extension FireStoreDTO {
-    final class User: NSObject, FireStoreEntity {
+    final class UserDTO: NSObject, FireStoreEntity {
         let collectionName: String = "USER"
         @objc var ID: String
         @objc var EMAIL: String?
@@ -24,18 +24,12 @@ extension FireStoreDTO {
             self.init(EMAIL: "", NAME: "")
         }
 
-        func copy() -> User {
-            User(ID: ID, EMAIL: EMAIL, NAME: NAME)
+        var entity: FireStoreEntityConvertable {
+            User(id: ID, email: EMAIL, nickname: NAME)
         }
-    }
-}
 
-extension FireStoreDTO.User {
-    var entity: User {
-        User(
-            id: ID,
-            email: EMAIL,
-            nickname: NAME
-        )
+        func copys() -> UserDTO {
+            UserDTO(ID: ID, EMAIL: EMAIL, NAME: NAME)
+        }
     }
 }

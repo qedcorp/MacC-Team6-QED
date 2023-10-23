@@ -9,7 +9,7 @@ import Foundation
 
 extension User: FireStoreEntityConvertable {
     var fireStoreEntity: FireStoreEntity {
-        FireStoreDTO.User(
+        FireStoreDTO.UserDTO(
             EMAIL: email,
             NAME: nickname
         )

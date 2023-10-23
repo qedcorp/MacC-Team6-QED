@@ -1,6 +1,7 @@
 // Created by byo.
 
 import SwiftUI
+import FirebaseFirestore
 
 @main
 struct QEDApp: App {
@@ -8,7 +9,24 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            ContentView()
         }
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, World")
+            .onTapGesture {
+                let repo = DefaultPerformanceRepository(remoteManager: FireStoreManager())
+
+                Task {
+                    let temp = try await repo.readPerformances()
+                    print(temp.count)
+                    for iii in temp {
+                        print(iii.headcount)
+                    }
+                }
+            }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 extension FireStoreDTO {
-    final class Performance: NSObject, FireStoreEntity {
+    final class PerformanceDTO: NSObject, FireStoreEntity {
         let collectionName: String = "PERFORMANCE"
         @objc var ID: String
         @objc var OWNERID: String?
@@ -24,8 +24,12 @@ extension FireStoreDTO {
             self.init(OWNERID: "", DATA: "")
         }
 
-        func copy() -> Performance {
-            Performance(ID: ID, OWNERID: OWNERID, DATA: DATA)
+        var entity: FireStoreEntityConvertable {
+            Performance(jsonString: DATA ?? "")
+        }
+
+        func copys() -> PerformanceDTO {
+            PerformanceDTO(ID: ID, OWNERID: OWNERID, DATA: DATA)
         }
     }
 }
