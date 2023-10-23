@@ -36,6 +36,7 @@ struct MainView: View {
             viewModel.fetchUser()
             viewModel.fetchMyRecentPerformances()
         }
+        .navigationBarBackButtonHidden()
     }
 
     private var makeFormation: some View {
@@ -167,7 +168,7 @@ struct RecentFormationCardView: View {
 
             Spacer()
         }
-        .frame(width: 152, height: 198)
+        .frame(width: 160, height: 198)
         .background(Color(.systemGray6))
         .foregroundStyle(.black)
         .clipShape(RoundedRectangle(cornerRadius: 20))
