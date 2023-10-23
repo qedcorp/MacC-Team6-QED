@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>993731843797-i1utbjqnfk0301e8pj5b921305qu85t7.apps.googleusercontent.com</string>
+	<string>993731843797-h1lnr1k4qv30upbji6f4g5m5iu70s4a9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.993731843797-i1utbjqnfk0301e8pj5b921305qu85t7</string>
+	<string>com.googleusercontent.apps.993731843797-h1lnr1k4qv30upbji6f4g5m5iu70s4a9</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCmpGTaJ2SYVD5goVX8N47eVgzPA8UecRM</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>qed.QED</string>
+	<string>qed.QED.forma</string>
 	<key>PROJECT_ID</key>
 	<string>macc-qed</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:993731843797:ios:65b7120afd7aae497c345c</string>
+	<string>1:993731843797:ios:9b54bb0b8f04380e7c345c</string>
 </dict>
 </plist>

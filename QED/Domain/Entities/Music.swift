@@ -33,12 +33,12 @@ class Music: Identifiable, Equatable, Playable {
     var thumbnailURL: URL? {
         albumCoverURL
     }
-
+  
     static func == (lhs: Music, rhs: Music) -> Bool {
         lhs.id == rhs.id
     }
 
-    struct Lyric {
+    struct Lyric: Codable {
         let startMs: Int
         let endMs: Int
         let words: String

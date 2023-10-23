@@ -1,5 +1,5 @@
 //
-//  SearchMusicRepositoryImplement.swift
+//  DefaultSearchMusicRepository.swift
 //  QED
 //
 //  Created by changgyo seo on 10/18/23.
@@ -9,7 +9,7 @@ import Foundation
 
 import MusicKit
 
-class SearchMusicRepositoryImplement: SearchMusicRepository {
+class DefaultSearchMusicRepository: SearchMusicRepository {
 
     private var recentTerm: String = ""
     private var songCache: [Music] = []

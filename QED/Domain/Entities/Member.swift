@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Member {
+class Member: Codable {
     var relativePosition: RelativePosition
     var info: Info?
 
@@ -11,7 +11,7 @@ class Member {
         self.info = info
     }
 
-    class Info: Hashable, Equatable {
+    class Info: Hashable, Equatable, Codable {
         var name: String
 
         @HexString

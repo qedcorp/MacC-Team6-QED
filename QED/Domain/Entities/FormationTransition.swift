@@ -2,7 +2,7 @@
 
 import Foundation
 
-class FormationTransition {
+class FormationTransition: Codable {
     typealias Movement = Data
 
     var memberMovements: [Member.Info: Movement]
