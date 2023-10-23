@@ -24,7 +24,7 @@ extension FireStoreDTO {
             self.init(EMAIL: "", NAME: "")
         }
 
-        func copy() -> User {
+        func copys() -> User {
             User(ID: ID, EMAIL: EMAIL, NAME: NAME)
         }
     }

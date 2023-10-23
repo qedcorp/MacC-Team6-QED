@@ -11,7 +11,7 @@ protocol FireStoreEntity: NSObject, Codable {
     var collectionName: String { get }
     var ID: String { get set }
 
-    func copy() -> Self
+    func copys() -> Self
 }
 
 extension FireStoreEntity {
@@ -24,7 +24,8 @@ extension FireStoreEntity {
             else { return }
             setValue(value, forKey: label)
         }
-
-        return self.copy()
+        let returnV = self.copys()
+        print(returnV)
+        return returnV
     }
 }

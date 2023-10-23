@@ -33,7 +33,7 @@ class Music: Identifiable, Equatable, Playable {
     var thumbnailURL: URL? {
         albumCoverURL
     }
-  
+
     static func == (lhs: Music, rhs: Music) -> Bool {
         lhs.id == rhs.id
     }

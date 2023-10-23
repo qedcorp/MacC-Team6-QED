@@ -60,38 +60,49 @@ final class FireStoreManager: RemoteManager {
         return .success(result)
     }
 
-    func reads<T, K>(at endPoint: K, readType: ReadType, mockData: T) async throws -> Result<T, Error> where T: Decodable, T: Encodable {
+    func reads<T, K, KeyType>(
+        at endPoint: K,
+        readType: ReadType,
+        mockData: T,
+        valueType: KeyType.Type) async throws -> Result<[T], Error> where T: Decodable, T: Encodable {
+
         guard let collectionName = endPoint as? String,
               let entity = mockData as? FireStoreEntityConvertable else {
             return .failure(FireStoreError.keyTypeError)
         }
 
-        var tempResults: [FireStoreEntity] = []
+        var tempResults: [T] = []
         do {
             switch readType {
             case .all:
-                var data = try await fireStroeDB.collection(collectionName).getDocuments().documents
+                let data = try await fireStroeDB.collection(collectionName).getDocuments().documents
                 tempResults = data.map { snapshot in
-                    entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data())
+                    guard let temp = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()) as? T else {
+                        return mockData
+                    }
+                    return temp
                 }
             case .key(let field, let value):
-                guard let strValue = value as? String,
+                guard let strValue = value as? KeyType,
                       let strfield = field as? String else { return .failure(FireStoreError.keyTypeError) }
-                var data = try await fireStroeDB.collection(collectionName)
-                    .whereField(strfield, arrayContains: strValue)
+                let data = try await fireStroeDB.collection(collectionName)
+                    .whereField(strfield, isEqualTo: strValue)
                     .getDocuments()
                     .documents
+
                 tempResults = data.map { snapshot in
-                    entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data())
+                    guard let temp = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()) as? T else {
+                        return mockData
+                    }
+                    print("--------------------------------------------")
+                    return temp
                 }
             }
         } catch {
             return .failure(FireStoreError.disableFireStoreType)
         }
 
-        guard let result = tempResults as? T else { return .failure(FireStoreError.cantReadCollection) }
-
-        return .success(result)
+        return .success(tempResults)
     }
 
     func update<T>(_ data: T) async throws -> Result<T, Error> where T: Decodable, T: Encodable {
