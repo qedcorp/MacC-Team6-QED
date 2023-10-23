@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DirectorNoteView: View {
-    private static let fraction = PresentationDetent.fraction(0.15)
+    private static let fraction = PresentationDetent.fraction(0.17)
     private static let medium = PresentationDetent.medium
 
     @StateObject var viewModel: DetailFormationViewModel
@@ -18,7 +18,7 @@ struct DirectorNoteView: View {
     @FocusState private var isFoused: Bool?
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
             HStack {
                 Text("디렉터 노트")
                     .bold()
@@ -27,6 +27,7 @@ struct DirectorNoteView: View {
                     isMemoEditMode.toggle()
                     if isMemoEditMode {
                         viewModel.saveNote()
+                        viewModel.currentNote = note
                         settingsDetent = Self.fraction
                         isFoused = false
                     } else {
@@ -44,7 +45,7 @@ struct DirectorNoteView: View {
                 }
             }
             if isMemoEditMode {
-                TextEditor(text: $viewModel.currentNote)
+                TextEditor(text: $note)
                     .disableAutocorrection(true)
                     .scrollContentBackground(.hidden)
                     .background(Color(.systemGray6))
@@ -54,12 +55,8 @@ struct DirectorNoteView: View {
                     .tint(.green)
 
             } else {
-                Text(note == "" ?
-                     "메모를 입력하세요" :
-                        note)
-                .foregroundStyle(note == "" ?
-                    .gray :
-                        .black)
+                Text(note == "" ? "메모를 입력하세요" : note)
+                .foregroundStyle(note == "" ? .gray : .black)
             }
             Spacer()
         }

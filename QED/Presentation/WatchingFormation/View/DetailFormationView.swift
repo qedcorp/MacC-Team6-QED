@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DetailFormationView: View {
-
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel = DetailFormationViewModel()
     @State var isNameVisiable = false
@@ -16,6 +15,7 @@ struct DetailFormationView: View {
     @State var isPlaying = false
     @State var isMemoEditMode = false
     @State var note = ""
+    @State var isFirst: Bool = false
 
     var body: some View {
         VStack(spacing: 10) {
@@ -32,6 +32,20 @@ struct DetailFormationView: View {
                              isMemoEditMode: $isMemoEditMode,
                              note: $note)
         }
+        .onAppear {
+            if viewModel.selectedIndex == 0 {
+                isFirst = true
+            }
+        }
+        .onChange(of: viewModel.selectedIndex,
+                  perform: { selectedIndex in
+            if selectedIndex == 0 {
+                isFirst = true
+                isBeforeVisible = false
+            } else {
+                isFirst = false
+            }
+        })
         .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
@@ -45,22 +59,23 @@ struct DetailFormationView: View {
         HStack {
             HStack {
                 Text("이전 동선 미리보기")
-                    .foregroundStyle(isBeforeVisible ? .gray : .black)
+                    .foregroundStyle(isFirst || isBeforeVisible ? .gray : .black)
                     .padding(.vertical, 5)
                     .padding(.horizontal, 12)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
-                    isBeforeVisible.toggle()
-                    viewModel.beforeFormationShowingToggle()
+                        isBeforeVisible.toggle()
+                        viewModel.beforeFormationShowingToggle()
                 } label: {
                     Text(isBeforeVisible ? "off" : "on")
-                        .foregroundStyle(.green)
+                        .foregroundStyle(isFirst ? .gray : .green)
                         .padding(.vertical, 5)
                         .padding(.horizontal, 8)
                         .background(Color(.systemGray6))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
+                .disabled(isFirst ? true : false)
             }
             .bold()
             Spacer()

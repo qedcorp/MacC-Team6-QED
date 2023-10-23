@@ -33,7 +33,7 @@ class DetailFormationViewModel: ObservableObject {
         showingFormation = performance.formations.first!
         beforeFormation = nil
         selectedIndex = 0
-        playTimer = PlayTimer(timeInterval: 7)
+        playTimer = PlayTimer(timeInterval: 5)
 
         let danceFormationManager = DanceFormationManager(scene: scene, formation: mockFormations.first!)
         self.scene.manager = danceFormationManager

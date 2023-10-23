@@ -57,7 +57,6 @@ class DanceFormationManager: ObservableObject {
         var group: [SKAction] = []
         var isFirst = true
         let completionAction = SKAction.run {
-            print("FUCK")
             self.fetchNew(formation: afterFormation)
             completion()
         }
@@ -80,7 +79,8 @@ class DanceFormationManager: ObservableObject {
     }
 
     func applyPostion(isPreivew: Bool) {
-        scene!.removeAllChildren()
+
+        scene!.removeChildren(in: nodes.map { $0.value })
         nodes.removeAll()
         for member in formation.members {
             let node = SKShapeNode(circleOfRadius: 10)
