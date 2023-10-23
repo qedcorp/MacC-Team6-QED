@@ -3,6 +3,7 @@
 import Foundation
 
 class Member {
+
     var relativePosition: RelativePosition
     var info: Info?
 

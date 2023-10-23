@@ -14,14 +14,12 @@ struct WatchingFormationView: View {
     @State var isAddVisible = false
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 15) {
-                titleAndHeadcount
-                togglingMemberName
-                FormationScrollView(isNameVisiable: isNameVisiable,
-                                    performance: performance,
-                                    isAddVisible: isAddVisible)
-            }
+        VStack(spacing: 15) {
+            titleAndHeadcount
+            togglingMemberName
+            FormationScrollView(isNameVisiable: isNameVisiable,
+                                performance: performance,
+                                isAddVisible: isAddVisible)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
@@ -112,27 +110,24 @@ struct FormationScrollView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 30) {
-                ForEach(performance.formations, id: \.self) { formation in
-                    VStack {
-                        NavigationLink(value: formation) {
+                VStack(spacing: 30) {
+                    ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
+                        VStack {
+                            NavigationLink(destination: DetailFormationView()) {
                                 FormationPreview(
-                                    performance: performance,
                                     formation: formation,
+                                    index: index,
                                     isNameVisiable: isNameVisiable
                                 )
-                        }.navigationDestination(for: Formation.self) { formation in
-                            DetailFormationView(
-                                performance: performance,
-                                formation: formation)
-                        }
-                        if isAddVisible {
-                            addButton
+                                .frame(height: 250)
+                            }
+                            if isAddVisible {
+                                addButton
+                            }
                         }
                     }
                 }
-            }
-            .padding(.horizontal, 20)
+                .padding(.horizontal, 20)
         }
     }
 
