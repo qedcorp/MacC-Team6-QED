@@ -63,6 +63,13 @@ var mockFormations = [Formation(members: members1, startMs: 0, memo: "킥인더�
                       Formation(members: members2, startMs: 130000, memo: "눈 감고 팝팝"),
                       Formation(members: members3, startMs: 135000, memo: "눈 팝팝")]
 
+var mockPerformance = Performance(id: "1231231",
+                                  author: User(email: "", nickname: ""),
+                                  playable: .newJeans,
+                                  headcount: 5,
+                                  title: "",
+                                  formations: mockFormations)
+
 private struct Youtube: Playable {
     let title: String
     let creator: String
@@ -123,8 +130,3 @@ private struct Youtube: Playable {
 //                                         title: youtube4.title,
 //                                         formations: mockFormations)
 //
-// var mockPerformance5 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube5,
-//                                         headcount: 5,
-//                                         title: youtube5.title,
-//                                         formations: mockFormations)

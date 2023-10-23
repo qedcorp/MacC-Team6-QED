@@ -16,11 +16,12 @@ extension Performance: FireStoreEntityConvertable {
     convenience init(jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8),
               let performance = try? JSONDecoder().decode(Performance.self, from: jsonData) else {
-            self.init(author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: -1)
+            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: -1)
             return
         }
 
         self.init(
+            id: performance.id,
             author: performance.author,
             playable: performance.playable,
             headcount: performance.headcount,
@@ -31,11 +32,9 @@ extension Performance: FireStoreEntityConvertable {
     }
 
     var fireStoreEntity: FireStoreEntity {
-        guard let id = try? KeyChainManager.shared.read(account: .id) else {
-            return FireStoreDTO.PerformanceDTO()
-        }
         return FireStoreDTO.PerformanceDTO(
-            OWNERID: id,
+            ID: id,
+            OWNERID: "",
             DATA: jsonString
         )
     }

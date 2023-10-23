@@ -9,7 +9,7 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            ContentView()
         }
     }
 }
@@ -18,14 +18,11 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, World")
             .onTapGesture {
-                let repo = DefaultPresetRepository(remoteManager: FireStoreManager())
+                let repo = DefaultPerformanceRepository(remoteManager: FireStoreManager())
 
                 Task {
-                    let temp = try await repo.readPresets(headcount: 5)
-                    print(temp.count)
-                    for iii in temp {
-                        print(iii.headcount)
-                    }
+                    let temp = try await repo.createPerformance(mockPerformance)
+
                 }
             }
     }

@@ -120,7 +120,7 @@ final class FireStoreManager: RemoteManager {
             }
         }
 
-        try await fireStroeDB.collection(fireStoreData.collectionName).document().setData(dataDic, merge: true)
+        try await fireStroeDB.collection(fireStoreData.collectionName).document(dataDTO.fireStoreEntity.ID).setData(dataDic, merge: true)
 
         return .success(data)
     }

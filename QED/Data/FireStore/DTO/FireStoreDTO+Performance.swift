@@ -14,14 +14,14 @@ extension FireStoreDTO {
         @objc var OWNERID: String?
         @objc var DATA: String?
 
-        init(ID: String = "", OWNERID: String? = nil, DATA: String? = nil) {
-            self.ID = ""
+        init(ID: String, OWNERID: String? = nil, DATA: String? = nil) {
+            self.ID = ID
             self.OWNERID = OWNERID
             self.DATA = DATA
         }
 
         convenience override init() {
-            self.init(OWNERID: "", DATA: "")
+            self.init(ID: "", OWNERID: "", DATA: "")
         }
 
         var entity: FireStoreEntityConvertable {

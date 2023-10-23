@@ -3,6 +3,7 @@
 import Foundation
 
 class Performance: Codable {
+    var id: String
     let author: User
     // TODO: 이 부분 다 DTO로 만드러서 codable문제 해결하기 ㅠㅠㅠㅠㅠㅠㅠㅠㅠ
     // 이 부분 DTO 다 만들기 뭐해서 일단 이렇게 처리하고 나중에 DTO 만들겠슴다!!!!
@@ -14,6 +15,7 @@ class Performance: Codable {
     var transitions: [FormationTransition?]
 
     init(
+        id: String,
         author: User,
         playable: Music,
         headcount: Int,
@@ -21,6 +23,7 @@ class Performance: Codable {
         formations: [Formation] = [],
         transitions: [FormationTransition?] = []
     ) {
+        self.id = id
         self.author = author
         self.playable = playable
         self.headcount = headcount

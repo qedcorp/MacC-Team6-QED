@@ -55,7 +55,6 @@ final class DefaultPerformanceRepository: PerformanceRepository {
 
     func updatePerformance(_ performance: Performance) async throws -> Performance {
         do {
-            let myID = try KeyChainManager.shared.read(account: .id)
             let updateResult = try await remoteManager.update(performance)
             switch updateResult {
             case .success(let success):
