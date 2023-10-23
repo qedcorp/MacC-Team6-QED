@@ -4,9 +4,21 @@ import ComposableArchitecture
 import SwiftUI
 
 struct MemberSetupView: View {
-    private typealias ViewStore = ViewStoreOf<MemberSetupReducer>
+    private typealias Reducer = MemberSetupReducer
+    private typealias ViewStore = ViewStoreOf<Reducer>
 
-    let store: StoreOf<MemberSetupReducer>
+    private let performanceUseCase: PerformanceUseCase
+    private let performance: Performance
+    private let store: StoreOf<Reducer>
+    @State private var yame = 0
+
+    init(performanceUseCase: PerformanceUseCase, performance: Performance) {
+        self.performanceUseCase = performanceUseCase
+        self.performance = performance
+        self.store = .init(initialState: Reducer.State(performance: performance)) {
+            Reducer()
+        }
+    }
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -15,7 +27,11 @@ struct MemberSetupView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(Array(viewStore.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
-                            buildMemberInfoButton(viewStore: viewStore, index: infoOffset, memberInfo: info)
+                            buildMemberInfoButton(
+                                viewStore: viewStore,
+                                index: infoOffset,
+                                memberInfo: info
+                            )
                         }
                     }
                     .padding(.vertical, 16)
@@ -24,11 +40,7 @@ struct MemberSetupView: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 14) {
                         ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
-                            MemberSetupFormationView(
-                                index: formationOffset,
-                                formation: formation,
-                                colorHex: viewStore.selectedMemberInfo?.color
-                            )
+                            buildFormationItemView(viewStore: viewStore, index: formationOffset, formation: formation)
                         }
                     }
                     .padding(.horizontal, 22)
@@ -36,10 +48,17 @@ struct MemberSetupView: View {
                 }
             }
             .overlay(
-                viewStore.presentedMemberNameChangeIndex != nil ?
-                MemberNameChangeView(onDismiss: {
-                    viewStore.send(.setPresentedMemberNameChangeIndex(nil))
-                })
+                viewStore.presentedMemberInfoChangeIndex != nil ?
+                MemberInfoChangeView(
+                    name: viewStore.binding(
+                        get: { $0.changingMemberInfo?.name ?? "" },
+                        send: { .memberNameChanged($0) }
+                    ),
+                    color: viewStore.changingMemberInfo?.color ?? "",
+                    onDismiss: {
+                        viewStore.send(.setPresentedMemberInfoChangeIndex(nil))
+                    }
+                )
                 : nil
             )
             .navigationBarTitleDisplayMode(.inline)
@@ -51,7 +70,16 @@ struct MemberSetupView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("완료") {
+                        print(performance.formations.map { FormationModel.build(entity: $0) })
                     }
+                    .tag(yame)
+                }
+            }
+            .onChange(of: viewStore.formations) {
+                performance.formations = $0.map { $0.buildEntity(memberInfos: performance.memberInfos) }
+                yame += 1
+                Task {
+                    try await performanceUseCase.updatePerformance(performance)
                 }
             }
         }
@@ -81,16 +109,45 @@ struct MemberSetupView: View {
         .contextMenu {
             ControlGroup {
                 Button("이름변경") {
-                    viewStore.send(.memberNameChangeButtonTapped(index))
-                }
-                Button("색상변경") {
-                    viewStore.send(.memberColorChangeButtonTapped(index))
+                    viewStore.send(.memberInfoChangeButtonTapped(index))
                 }
             }
             .controlGroupStyle(.compactMenu)
         }
         .onTapGesture {
             viewStore.send(.memberInfoButtonTapped(index))
+        }
+    }
+
+    private func buildFormationItemView(viewStore: ViewStore, index: Int, formation: FormationModel) -> some View {
+        VStack(spacing: 10) {
+            ObjectSelectionView(
+                formable: formation,
+                colorHexToApply: viewStore.selectedMemberInfo?.color,
+                onChange: {
+                    var formation = formation
+                    $0.enumerated().forEach {
+                        formation.members[$0.offset].color = $0.element
+                    }
+                    viewStore.send(.formationChanged(index, formation))
+                }
+            )
+            .aspectRatio(35 / 22, contentMode: .fit)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(.gray.opacity(0.1))
+            )
+            Text(formation.memo ?? "대형 \(index + 1)")
+                .foregroundStyle(.green)
+                .bold()
+                .multilineTextAlignment(.center)
+                .lineLimit(1)
+                .frame(height: 46)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(.gray.opacity(0.1))
+                )
         }
     }
 }

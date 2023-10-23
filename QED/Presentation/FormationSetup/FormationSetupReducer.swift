@@ -11,11 +11,17 @@ struct FormationSetupReducer: Reducer {
         var formations: [FormationModel] = []
         var currentFormationIndex: Int = -1
 
-        var canEditFormation: Bool {
+        init(performance: Performance) {
+            // swiftlint:disable:next force_cast
+            self.music = performance.playable as! Music
+            self.headcount = performance.headcount
+        }
+
+        var isAvailableToEdit: Bool {
             currentFormationIndex >= 0
         }
 
-        var canGotoNextStep: Bool {
+        var isAvailableToSave: Bool {
             !formations.isEmpty &&
             formations.allSatisfy { $0.relativePositions.count == headcount }
         }
@@ -26,26 +32,9 @@ struct FormationSetupReducer: Reducer {
             }
             return formations[currentFormationIndex]
         }
-
-        var performance: Performance {
-            Performance(
-                author: .sample,
-                playable: music,
-                headcount: headcount,
-                formations: formations
-                    .map {
-                        Formation(
-                            members: $0.relativePositions
-                                .map { Member(relativePosition: $0) },
-                            memo: $0.memo
-                        )
-                    }
-            )
-        }
     }
 
     enum Action: Equatable {
-        case viewAppeared
         case memoTapped
         case currentMemoChanged(String?)
         case formationChanged([RelativePosition])
@@ -60,9 +49,6 @@ struct FormationSetupReducer: Reducer {
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
-        case .viewAppeared:
-            return .none
-
         case .memoTapped:
             return .send(.setMemoFormPresented(true))
 
@@ -83,7 +69,8 @@ struct FormationSetupReducer: Reducer {
             var formations = state.formations
             let formation = FormationModel(
                 memo: state.currentFormation?.memo,
-                relativePositions: relativePositions
+                members: relativePositions
+                    .map { .init(relativePosition: $0) }
             )
             formations[state.currentFormationIndex] = formation
             return .send(.setFormations(formations))

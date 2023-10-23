@@ -2,9 +2,10 @@
 
 import SwiftUI
 
-struct MemberNameChangeView: View {
+struct MemberInfoChangeView: View {
+    @Binding var name: String
+    let color: String
     let onDismiss: () -> Void
-    @State private var name: String = ""
 
     var body: some View {
         ZStack {
@@ -25,7 +26,7 @@ struct MemberNameChangeView: View {
                 }
                 HStack(spacing: 14) {
                     Circle()
-                        .fill(.blue)
+                        .fill(Color(hex: color))
                         .frame(maxHeight: .infinity)
                         .aspectRatio(contentMode: .fit)
                     TextField("", text: $name)

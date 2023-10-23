@@ -4,7 +4,11 @@ import SwiftUI
 
 struct PresetManageView: View {
     @StateObject private var viewModel = PresetManageViewModel(
-        presetUseCase: DefaultPresetUseCase(presetRepository: LocalPresetRepository())
+        presetUseCase: DefaultPresetUseCase(
+            presetRepository: DefaultPresetRepository(
+                remoteManager: FireStoreManager()
+            )
+        )
     )
 
     private let objectCanvasViewController = ObjectCanvasViewController()
@@ -12,7 +16,7 @@ struct PresetManageView: View {
     var body: some View {
         VStack {
             VStack {
-                ObjectCanvasView(controller: objectCanvasViewController)
+                ObjectCanvasView(controller: objectCanvasViewController, headcount: 5)
                     .frame(height: 240)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
