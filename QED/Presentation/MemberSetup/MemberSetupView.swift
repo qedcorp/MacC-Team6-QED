@@ -23,8 +23,9 @@ struct MemberSetupView: View {
                 }
                 ScrollView(.vertical) {
                     VStack(spacing: 14) {
-                        ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { _, formation in
+                        ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
                             MemberSetupFormationView(
+                                index: formationOffset,
                                 formation: formation,
                                 colorHex: viewStore.selectedMemberInfo?.color
                             )

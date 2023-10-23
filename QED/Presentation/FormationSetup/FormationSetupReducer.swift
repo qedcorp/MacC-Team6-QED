@@ -11,8 +11,13 @@ struct FormationSetupReducer: Reducer {
         var formations: [FormationModel] = []
         var currentFormationIndex: Int = -1
 
-        var isEnabled: Bool {
+        var canEditFormation: Bool {
             currentFormationIndex >= 0
+        }
+
+        var canGotoNextStep: Bool {
+            !formations.isEmpty &&
+            formations.allSatisfy { $0.relativePositions.count == headcount }
         }
 
         var currentFormation: FormationModel? {

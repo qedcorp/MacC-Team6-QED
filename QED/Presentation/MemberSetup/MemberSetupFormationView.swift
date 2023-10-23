@@ -3,6 +3,7 @@
 import SwiftUI
 
 struct MemberSetupFormationView: View {
+    let index: Int
     let formation: FormationModel
     let colorHex: String?
     @State private var objectSelectionViewController = ObjectSelectionViewController()
@@ -15,7 +16,7 @@ struct MemberSetupFormationView: View {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(.gray.opacity(0.1))
                 )
-            Text(formation.memo ?? "")
+            Text(formation.memo ?? "대형 \(index + 1)")
                 .foregroundStyle(.green)
                 .bold()
                 .multilineTextAlignment(.center)
