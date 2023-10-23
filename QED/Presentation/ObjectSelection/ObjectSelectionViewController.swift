@@ -32,7 +32,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
             updateObjectViewsColor(touchedObjectView: objectView)
         }
     }
-    
+
     private func updateObjectViewsColor(touchedObjectView: DotObjectView) {
         guard let colorHex = colorHex else {
             return

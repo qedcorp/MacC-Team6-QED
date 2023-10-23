@@ -8,22 +8,23 @@ struct MemberSetupFormationView: View {
     @State private var objectSelectionViewController = ObjectSelectionViewController()
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        VStack(spacing: 10) {
             ObjectSelectionView(controller: objectSelectionViewController)
                 .aspectRatio(35 / 22, contentMode: .fit)
                 .background(
-                    RoundedRectangle(cornerRadius: 16)
+                    RoundedRectangle(cornerRadius: 4)
                         .fill(.gray.opacity(0.1))
                 )
             Text(formation.memo ?? "")
-                .foregroundStyle(.white)
+                .foregroundStyle(.green)
                 .bold()
                 .multilineTextAlignment(.center)
                 .lineLimit(1)
-                .frame(maxWidth: .infinity, maxHeight: 36)
+                .frame(height: 46)
+                .frame(maxWidth: .infinity)
                 .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.green)
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(.gray.opacity(0.1))
                 )
         }
         .onChange(of: formation) {

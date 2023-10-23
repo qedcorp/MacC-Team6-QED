@@ -18,10 +18,11 @@ struct MemberSetupView: View {
                             buildMemberInfoButton(viewStore: viewStore, index: infoOffset, memberInfo: info)
                         }
                     }
-                    .padding(22)
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 22)
                 }
                 ScrollView(.vertical) {
-                    VStack(spacing: 30) {
+                    VStack(spacing: 14) {
                         ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { _, formation in
                             MemberSetupFormationView(formation: formation, colorHex: viewStore.selectedMemberInfo?.color)
                         }
@@ -60,11 +61,11 @@ struct MemberSetupView: View {
             .frame(height: 38)
             .padding(.horizontal, 8)
             .background(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 4)
                     .fill(.gray.opacity(0.1))
                     .overlay(
                         index == viewStore.selectedMemberInfoIndex ?
-                        RoundedRectangle(cornerRadius: 16)
+                        RoundedRectangle(cornerRadius: 4)
                             .strokeBorder(.green, lineWidth: 2)
                         : nil
                     )
