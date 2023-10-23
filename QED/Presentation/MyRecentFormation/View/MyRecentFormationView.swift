@@ -22,11 +22,8 @@ struct MyRecentFormationView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(value: performance) {
+                    NavigationLink(destination: WatchingFormationView(performance: performance)) {
                         RecentFormationCardView(performance: performance)
-                    }
-                    .navigationDestination(for: Performance.self) { performance in
-                        WatchingFormationView(performance: performance)
                     }
                 }
             }
