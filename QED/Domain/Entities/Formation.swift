@@ -3,7 +3,7 @@
 import Foundation
 
 class Formation: Codable, Formable {
-  
+
     var members: [Member]
     var startMs: Int?
     var endMs: Int?

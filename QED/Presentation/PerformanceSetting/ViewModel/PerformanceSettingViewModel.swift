@@ -23,7 +23,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var selectedMusic: Music?
 
     let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
-        searchMusicRepository: SearchMusicRepositoryImplement()
+        searchMusicRepository: MockSearchMusicRepository()
     )
 
     func search() {
