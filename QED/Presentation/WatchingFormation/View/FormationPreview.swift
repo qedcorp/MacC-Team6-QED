@@ -18,14 +18,7 @@ struct FormationPreview: View {
             danceFormation
             TimeAndLyric(formation: formation)
         }
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 12)
-//                .strokeBorder(.green, lineWidth: isSelected ? 2 : 0)
-//        )
-        //                .onTapGesture {
-        //                    withAnimation(.easeIn(duration: 0.1)) {
-        //                        isSelected.toggle()            }
-        //                }
+
     }
 
     private var danceFormation: some View {
