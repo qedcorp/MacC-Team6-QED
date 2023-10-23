@@ -16,6 +16,6 @@ struct ObjectCanvasView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: ObjectCanvasViewController, context: Context) {
-        controller.maxObjectsCount = headcount
+        uiViewController.maxObjectsCount = headcount
     }
 }

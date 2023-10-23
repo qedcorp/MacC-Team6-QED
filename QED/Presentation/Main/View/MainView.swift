@@ -89,12 +89,11 @@ struct BannerView: View {
 
     private var makeFormationButton: some View {
         NavigationLink {
-            FormationSetupView(store: .init(initialState: FormationSetupReducer.State(
-                music: .newJeans,
+            FormationSetupView(performance: Performance(
+                author: .sample,
+                playable: Music.newJeans,
                 headcount: 4
-            )) {
-                FormationSetupReducer()
-            })
+            ))
         } label: {
             HStack {
                 Text("자리표 만들기")

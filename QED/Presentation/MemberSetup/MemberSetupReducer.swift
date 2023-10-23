@@ -11,15 +11,14 @@ struct MemberSetupReducer: Reducer {
         var formations: [FormationModel]
         var selectedMemberInfoIndex: Int?
         var presentedMemberNameChangeIndex: Int?
-        var presentedMemberColorChangeIndex: Int?
 
         init(performance: Performance) {
             // TODO: Playable 대응
             // swiftlint:disable:next force_cast
             self.music = performance.playable as! Music
             self.headcount = performance.headcount
-            self.memberInfos = (1 ... performance.headcount)
-                .map { MemberInfoModel(color: .randomHex(), name: "인물 \($0)") }
+            self.memberInfos = performance.memberInfos
+                .map { .build(entity: $0) }
             self.formations = performance.formations
                 .map { .build(entity: $0) }
         }
@@ -36,10 +35,10 @@ struct MemberSetupReducer: Reducer {
     enum Action: Equatable {
         case memberInfoButtonTapped(Int)
         case memberNameChangeButtonTapped(Int)
-        case memberColorChangeButtonTapped(Int)
+        case formationChanged(Int, FormationModel)
+        case setFormations([FormationModel])
         case setSelectedMemberInfoIndex(Int?)
         case setPresentedMemberNameChangeIndex(Int?)
-        case setPresentedMemberColorChangeIndex(Int?)
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -50,8 +49,14 @@ struct MemberSetupReducer: Reducer {
         case let .memberNameChangeButtonTapped(index):
             return .send(.setPresentedMemberNameChangeIndex(index))
 
-        case let .memberColorChangeButtonTapped(index):
-            return .send(.setPresentedMemberColorChangeIndex(index))
+        case let .formationChanged(index, formation):
+            var formations = state.formations
+            formations[index] = formation
+            return .send(.setFormations(formations))
+
+        case let .setFormations(formations):
+            state.formations = formations
+            return .none
 
         case let .setSelectedMemberInfoIndex(index):
             state.selectedMemberInfoIndex = index
@@ -59,10 +64,6 @@ struct MemberSetupReducer: Reducer {
 
         case let .setPresentedMemberNameChangeIndex(index):
             state.presentedMemberNameChangeIndex = index
-            return .none
-
-        case let .setPresentedMemberColorChangeIndex(index):
-            state.presentedMemberColorChangeIndex = index
             return .none
         }
     }

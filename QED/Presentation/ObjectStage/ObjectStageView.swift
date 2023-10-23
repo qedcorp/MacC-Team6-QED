@@ -11,6 +11,8 @@ struct ObjectStageView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: ObjectStageViewController, context: Context) {
-        uiViewController.copyFormable(formable)
+        DispatchQueue.main.async {
+            uiViewController.copyFormable(formable)
+        }
     }
 }

@@ -4,10 +4,19 @@ import ComposableArchitecture
 import SwiftUI
 
 struct FormationSetupView: View {
-    private typealias ViewStore = ViewStoreOf<FormationSetupReducer>
+    private typealias Reducer = FormationSetupReducer
+    private typealias ViewStore = ViewStoreOf<Reducer>
 
-    let store: StoreOf<FormationSetupReducer>
+    let performance: Performance
+    private let store: StoreOf<Reducer>
     private let objectCanvasViewController = ObjectCanvasViewController()
+
+    init(performance: Performance) {
+        self.performance = performance
+        self.store = .init(initialState: Reducer.State(performance: performance)) {
+            Reducer()
+        }
+    }
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -18,13 +27,13 @@ struct FormationSetupView: View {
                             .padding(.bottom, 16)
                         buildMemoView(viewStore: viewStore)
                             .modifier(DisabledOpacityModifier(
-                                isDisabled: !viewStore.canEditFormation,
+                                isDisabled: !viewStore.isAvailableToEdit,
                                 disabledOpacity: 0.3
                             ))
                         Spacer(minLength: 18)
                         buildObjectCanvasView(viewStore: viewStore, width: geometry.size.width)
                             .modifier(DisabledOpacityModifier(
-                                isDisabled: !viewStore.canEditFormation,
+                                isDisabled: !viewStore.isAvailableToEdit,
                                 disabledOpacity: 0.3
                             ))
                         Spacer()
@@ -51,14 +60,16 @@ struct FormationSetupView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink("다음") {
-                        MemberSetupView(store: .init(initialState: MemberSetupReducer.State(
-                            performance: viewStore.performance
-                        )) {
-                            MemberSetupReducer()
-                        })
+                        MemberSetupView(performance: performance)
                     }
-                    .disabled(!viewStore.canGotoNextStep)
+                    .disabled(!viewStore.isAvailableToSave)
                 }
+            }
+            .onChange(of: viewStore.formations) {
+                guard viewStore.isAvailableToSave else {
+                    return
+                }
+                performance.formations = $0.map { $0.buildEntity() }
             }
             .onChange(of: viewStore.currentFormationIndex) { _ in
                 guard let formable = viewStore.currentFormation else {
@@ -70,7 +81,6 @@ struct FormationSetupView: View {
                 objectCanvasViewController.onChange = {
                     viewStore.send(.formationChanged($0))
                 }
-                viewStore.send(.viewAppeared)
             }
         }
     }
@@ -120,7 +130,7 @@ struct FormationSetupView: View {
             headcount: viewStore.headcount
         )
         .modifier(DisabledOpacityModifier(
-            isDisabled: !viewStore.canEditFormation,
+            isDisabled: !viewStore.isAvailableToEdit,
             disabledOpacity: 0.3
         ))
     }
