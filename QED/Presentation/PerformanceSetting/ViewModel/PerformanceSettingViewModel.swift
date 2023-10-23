@@ -15,12 +15,12 @@ class PerformanceSettingViewModel: ObservableObject {
     var headcount: Int? { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
     @Published var inputHeadcount: Double = 2
+    @Published var selectedMusic: Music?
 
     @Published var searchText: String = ""
     @Published var allMusics: [Music] = []
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
-    @Published var selectedMusic: Music?
 
     let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
         searchMusicRepository: MockSearchMusicRepository()
@@ -44,5 +44,15 @@ class PerformanceSettingViewModel: ObservableObject {
         if inputHeadcount < 13.0 {
             inputHeadcount += 1.0
         }
+    }
+
+    func generatePerformance() -> Performance {
+        guard let music = selectedMusic else { return Performance(jsonString: "Error") }
+        return Performance(author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
+                    playable: music,
+                    headcount: Int(inputHeadcount),
+                    title: inputTitle,
+                    formations: [],
+                    transitions: [])
     }
 }

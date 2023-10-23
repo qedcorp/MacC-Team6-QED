@@ -66,6 +66,8 @@ struct MusicSettingView: View {
                     }
                 }
                 NavigationLink {
+                    // TODO: 여기서 다음 view로 넘어감!
+                    let performance = performanceSettingVM.generatePerformance()
                     settingFinishView
                 } label: {
                     nextbutton

@@ -92,7 +92,6 @@ final class FireStoreManager: RemoteManager {
                 
 
                 tempResults = data.map { snapshot in
-                    print(snapshot.data())
                     guard let value = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()).entity as? T else {
                         return mockData
                     }

@@ -18,10 +18,10 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, World")
             .onTapGesture {
-                let repo = DefaultPerformanceRepository(remoteManager: FireStoreManager())
+                let repo = DefaultPresetRepository(remoteManager: FireStoreManager())
 
                 Task {
-                    let temp = try await repo.readPerformances()
+                    let temp = try await repo.readPresets(headcount: 5)
                     print(temp.count)
                     for iii in temp {
                         print(iii.headcount)
