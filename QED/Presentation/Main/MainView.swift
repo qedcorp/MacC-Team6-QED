@@ -16,8 +16,12 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             VStack {
-                VStack(spacing: 25) {
-                    BannerView(nickname: viewModel.nickname)
+                VStack {
+                    Image("MockMain")
+                        .ignoresSafeArea()
+                        .scaleEffect(1.01)
+                        .frame(height: 310)
+                    makeFormation
                     myRecentFormationHeader
                 }
                 .padding(.horizontal, 20)
@@ -32,11 +36,51 @@ struct MainView: View {
             viewModel.fetchUser()
             viewModel.fetchMyRecentPerformances()
         }
+        .navigationBarBackButtonHidden()
+    }
+
+    private var makeFormation: some View {
+        HStack {
+            Text("동선 만들기")
+                .font(.title)
+                .bold()
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
+
+            Spacer()
+
+            Button {
+                    // TitleSettingView
+            } label: {
+                Text("Go")
+                    .frame(width: 86, height: 56)
+                    .font(.title)
+                    .bold()
+                    .kerning(0.38)
+                    .foregroundColor(.white)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color(red: 0, green: 0.97, blue: 0.04))
+                    )
+            }
+        }
     }
 
     private var myRecentFormationHeader: some View {
         HStack {
-            Text("최근 나의 자리표")
+            VStack(alignment: .leading, spacing: 2) {
+                Text("최근 제작한 동선")
+                    .font(
+                    Font.custom("Apple SD Gothic Neo", size: 20)
+                    .weight(.bold)
+                    )
+                    .kerning(0.38)
+
+                Text("동선 만들기를 완료한 후 디렉팅하세요")
+                    .font(Font.custom("Apple SD Gothic Neo", size: 11))
+                    .kerning(0.07)
+
+            }
             Spacer()
             NavigationLink(destination: MyRecentFormationView()) {
                 Image(systemName: "chevron.right")
@@ -46,6 +90,7 @@ struct MainView: View {
         }
         .font(.title)
         .bold()
+        .padding(.vertical)
     }
 
     private var leftItem: ToolbarItem<(), some View> {
@@ -63,52 +108,6 @@ struct MainView: View {
                     .foregroundColor(Color.green)
             }
         }
-    }
-}
-
-struct BannerView: View {
-    let nickname: String
-
-    var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            bannerBackground
-            bannerInfo
-        }
-        .padding(.top, 10)
-    }
-
-    private var bannerBackground: some View {
-        RoundedRectangle(cornerRadius: 20)
-            .fill(.white)
-            .shadow(radius: 5)
-    }
-
-    private var bannerInfo: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            Text("안녕하세요\n\(nickname) 님")
-            makeFormationButton
-        }
-        .font(.title)
-        .bold()
-        .padding(.horizontal, 20)
-        .padding(.bottom, 30)
-    }
-
-    private var makeFormationButton: some View {
-        //        TODO: 자리표 만들기 페이지로 이동
-        //        NavigationLink(destination: ) {
-        HStack {
-            Text("자리표 만들기")
-            Image(systemName: "chevron.right")
-                .font(.footnote)
-        }
-        .font(.subheadline)
-        .padding(.vertical, 10)
-        .padding(.horizontal, 20)
-        .foregroundStyle(.green)
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        //        }
     }
 }
 
@@ -130,29 +129,44 @@ struct MyRecentFormationScrollView: View {
     }
 }
 
-private struct RecentFormationCardView: View {
+struct RecentFormationCardView: View {
     let performance: Performance
     var title: String
     var creator: String
+    var thumbnailURL: URL?
+    var image: UIImage?
 
     init(performance: Performance) {
         self.performance = performance
         title = performance.title ?? ""
         creator = performance.playable.creator
+        thumbnailURL = performance.playable.thumbnailURL
     }
 
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Text("\(title)-\n\(creator)")
-                    .bold()
-                    .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
-                Spacer()
+        VStack(alignment: .leading) {
+            AsyncImage(url: performance.playable.thumbnailURL) { image in
+                image
+                    .image?.resizable()
+                    .scaledToFill()
             }
+            VStack(alignment: .leading) {
+                Text("\(title)")
+                    .font(.system(size: 13))
+                    .bold()
+                    .foregroundColor(Color.black)
+                    .opacity(0.8)
+
+                Text("\(creator)")
+                    .font(.system(size: 11))
+                    .foregroundColor(Color.black)
+                    .opacity(0.6)
+            }
+            .padding(.horizontal)
+
+            Spacer()
         }
-        .padding()
-        .frame(width: 160, height: 120)
+        .frame(width: 160, height: 198)
         .background(Color(.systemGray6))
         .foregroundStyle(.black)
         .clipShape(RoundedRectangle(cornerRadius: 20))
