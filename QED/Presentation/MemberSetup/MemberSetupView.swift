@@ -14,8 +14,8 @@ struct MemberSetupView: View {
                 MusicHeadcountView(title: viewStore.music.title, headcount: viewStore.headcount)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(0 ..< viewStore.headcount, id: \.self) { index in
-                            buildMemberInfoButton(index: index)
+                        ForEach(Array(viewStore.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
+                            buildMemberInfoButton(viewStore: viewStore, index: infoOffset, memberInfo: info)
                         }
                     }
                     .padding(22)
@@ -23,7 +23,7 @@ struct MemberSetupView: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 30) {
                         ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { _, formation in
-                            MemberSetupFormationView(formation: formation)
+                            MemberSetupFormationView(formation: formation, colorHex: viewStore.selectedMemberInfo?.color)
                         }
                     }
                     .padding(.horizontal, 22)
@@ -45,15 +45,16 @@ struct MemberSetupView: View {
         }
     }
 
-    private func buildMemberInfoButton(index: Int) -> some View {
+    private func buildMemberInfoButton(viewStore: ViewStore, index: Int, memberInfo: MemberInfoModel) -> some View {
         Button {
+            viewStore.send(.memberInfoButtonTapped(index))
         } label: {
             HStack(spacing: 10) {
                 Circle()
-                    .fill(.gray)
+                    .fill(Color(hex: memberInfo.color))
                     .frame(height: 22)
                     .aspectRatio(contentMode: .fit)
-                Text("인물 \(index + 1)")
+                Text(memberInfo.name)
                     .foregroundStyle(.gray)
             }
             .frame(height: 38)
@@ -61,6 +62,12 @@ struct MemberSetupView: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(.gray.opacity(0.1))
+                    .overlay(
+                        index == viewStore.selectedMemberInfoIndex ?
+                        RoundedRectangle(cornerRadius: 16)
+                            .strokeBorder(.green, lineWidth: 2)
+                        : nil
+                    )
             )
         }
     }

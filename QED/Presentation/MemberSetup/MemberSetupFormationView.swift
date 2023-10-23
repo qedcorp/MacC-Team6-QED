@@ -4,11 +4,12 @@ import SwiftUI
 
 struct MemberSetupFormationView: View {
     let formation: FormationModel
-    @State private var objectCanvasViewController = ObjectCanvasViewController()
+    let colorHex: String?
+    @State private var objectSelectionViewController = ObjectSelectionViewController()
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ObjectCanvasView(controller: objectCanvasViewController)
+            ObjectSelectionView(controller: objectSelectionViewController)
                 .aspectRatio(35 / 22, contentMode: .fit)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
@@ -25,11 +26,14 @@ struct MemberSetupFormationView: View {
                         .fill(.green)
                 )
         }
-        .onAppear {
-            objectCanvasViewController.copyFormable(formation)
-        }
         .onChange(of: formation) {
-            objectCanvasViewController.copyFormable($0)
+            objectSelectionViewController.copyFormable($0)
+        }
+        .onChange(of: colorHex) {
+            objectSelectionViewController.colorHex = $0
+        }
+        .onAppear {
+            objectSelectionViewController.copyFormable(formation)
         }
     }
 }
