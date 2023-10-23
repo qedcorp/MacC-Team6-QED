@@ -36,6 +36,7 @@ struct FormationSetupView: View {
                     buildFormationContainerView(viewStore: viewStore)
                 }
             }
+            .ignoresSafeArea(.keyboard)
             .overlay(
                 viewStore.isMemoFormPresented ?
                 buildMemoFormView(viewStore: viewStore)
