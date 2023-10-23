@@ -20,7 +20,7 @@ class MockPerformanceRepository: PerformanceRepository {
 
     func readPerformances() async throws -> [Performance] {
 //        performances
-        return [mockPerformance]
+        return [mockPerformance, mockPerformance1, mockPerformance2, mockPerformance3, mockPerformance4]
     }
 
     func updatePerformance(_ performance: Performance) async throws -> Performance {
@@ -54,12 +54,52 @@ private struct Youtube: Playable {
     let thumbnailURL: URL?
 }
 
-private var youtube = Youtube(title: "Pink Venom",
+ private var youtube = Youtube(title: "Pink Venom",
                               creator: "Black Pink",
-                              thumbnailURL: nil)
+                               thumbnailURL: URL(string: "https://i.ibb.co/Xy7WvmH/images.jpg"))
 
-var mockPerformance = Performance(author: User(email: "", nickname: ""),
+private var youtube1 = Youtube(title: "Super Shy",
+                             creator: "뉴진스",
+                             thumbnailURL: URL(string: "https://i.ibb.co/DK9q87m/image.jpg"))
+
+private var youtube2 = Youtube(title: "UNFORGIVEN",
+                             creator: "Le SSERAFIM",
+                             thumbnailURL: URL(string: "https://i.ibb.co/YXvvQWX/images.jpg"))
+
+private var youtube3 = Youtube(title: "Ditto",
+                             creator: "뉴진스",
+                             thumbnailURL: URL(string: "https://i.ibb.co/NrSCkW4/ditto.jpg"))
+
+private var youtube4 = Youtube(title: "Butter",
+                             creator: "BTS",
+                             thumbnailURL: URL(string: "https://i.ibb.co/Px7S5hf/butter-2-cover.jpg"))
+
+ var mockPerformance = Performance(author: User(email: "", nickname: ""),
                                           playable: youtube,
                                           headcount: 4,
                                           title: youtube.title,
                                           formations: mockFormations)
+
+var mockPerformance1 = Performance(author: User(email: "", nickname: ""),
+                                         playable: youtube1,
+                                         headcount: 5,
+                                         title: youtube1.title,
+                                         formations: mockFormations)
+
+var mockPerformance2 = Performance(author: User(email: "", nickname: ""),
+                                         playable: youtube2,
+                                         headcount: 5,
+                                         title: youtube2.title,
+                                         formations: mockFormations)
+
+var mockPerformance3 = Performance(author: User(email: "", nickname: ""),
+                                         playable: youtube3,
+                                         headcount: 5,
+                                         title: youtube3.title,
+                                         formations: mockFormations)
+
+var mockPerformance4 = Performance(author: User(email: "", nickname: ""),
+                                         playable: youtube4,
+                                         headcount: 5,
+                                         title: youtube4.title,
+                                         formations: mockFormations)
