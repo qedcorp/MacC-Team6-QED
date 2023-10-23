@@ -25,6 +25,9 @@
 		3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B42AE5D07600C48403 /* Rect+Contains.swift */; };
 		3AE701B82AE6594300C48403 /* PerformanceSetupTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B72AE6594300C48403 /* PerformanceSetupTitleView.swift */; };
 		3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */; };
+		3AE701BD2AE65F4F00C48403 /* MemberSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */; };
+		3AE701BF2AE65FAD00C48403 /* MemberSetupReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */; };
+		3AE701C12AE667E600C48403 /* MemberSetupFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
 		3AF617D02AE1961D0052FC90 /* FormationSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */; };
@@ -176,6 +179,9 @@
 		3AE701B42AE5D07600C48403 /* Rect+Contains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rect+Contains.swift"; sourceTree = "<group>"; };
 		3AE701B72AE6594300C48403 /* PerformanceSetupTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSetupTitleView.swift; sourceTree = "<group>"; };
 		3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHeadcountView.swift; sourceTree = "<group>"; };
+		3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSetupView.swift; sourceTree = "<group>"; };
+		3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSetupReducer.swift; sourceTree = "<group>"; };
+		3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSetupFormationView.swift; sourceTree = "<group>"; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormationSetupView.swift; sourceTree = "<group>"; };
@@ -444,6 +450,16 @@
 			path = PerformanceSetup;
 			sourceTree = "<group>";
 		};
+		3AE701BB2AE65F3500C48403 /* MemberSetup */ = {
+			isa = PBXGroup;
+			children = (
+				3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */,
+				3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */,
+				3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */,
+			);
+			path = MemberSetup;
+			sourceTree = "<group>";
+		};
 		3AF617C82AE191BB0052FC90 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,15 +561,6 @@
 				5186C6A52AE28798002E4D3E /* WatchingFormationView.swift */,
 			);
 			path = WatchingFormation;
-			sourceTree = "<group>";
-		};
-		5186C6A02AE286D1002E4D3E /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				5186C6A12AE286D1002E4D3E /* Int+.swift */,
-				5186C6A22AE286D1002E4D3E /* Color+.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		A94F9C782ADFE69C00164F8D /* Presentation */ = {
@@ -756,6 +763,7 @@
 				3AF617CE2AE1961D0052FC90 /* FormationSetup */,
 				3AE701AA2AE58F6600C48403 /* FormationMemo */,
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
+				3AE701BB2AE65F3500C48403 /* MemberSetup */,
 				D460EF852AE18DF700A5966A /* HistoryControls */,
 				D460EF7C2AE18DF700A5966A /* ObjectCanvas */,
 				D460EF952AE18DF700A5966A /* ObjectStage */,
@@ -1317,6 +1325,7 @@
 				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
+				3AE701C12AE667E600C48403 /* MemberSetupFormationView.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
@@ -1325,15 +1334,16 @@
 				D460EFF72AE18DF700A5966A /* AppDelegate.swift in Sources */,
 				D460F01E2AE18DF700A5966A /* Playable.swift in Sources */,
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
+				3AE701BD2AE65F4F00C48403 /* MemberSetupView.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
 				3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				3AE701A92AE4450A00C48403 /* Color+.swift in Sources */,
-				D460EFF62AE18DF700A5966A /* ContentView.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
+				3AE701BF2AE65FAD00C48403 /* MemberSetupReducer.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSetupView.swift in Sources */,

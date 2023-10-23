@@ -49,7 +49,12 @@ struct FormationSetupView: View {
                 ToolbarTitleMenu {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("다음") {
+                    NavigationLink("다음") {
+                        MemberSetupView(store: .init(initialState: MemberSetupReducer.State(
+                            performance: viewStore.performance
+                        )) {
+                            MemberSetupReducer()
+                        })
                     }
                 }
             }

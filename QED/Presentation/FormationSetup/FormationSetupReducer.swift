@@ -21,6 +21,22 @@ struct FormationSetupReducer: Reducer {
             }
             return formations[currentFormationIndex]
         }
+
+        var performance: Performance {
+            Performance(
+                author: .sample,
+                playable: music,
+                headcount: headcount,
+                formations: formations
+                    .map {
+                        Formation(
+                            members: $0.relativePositions
+                                .map { Member(relativePosition: $0) },
+                            memo: $0.memo
+                        )
+                    }
+            )
+        }
     }
 
     enum Action: Equatable {
