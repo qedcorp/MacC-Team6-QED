@@ -7,6 +7,7 @@ struct MemoFormView: View {
     let onSubmit: (String) -> Void
     let onDismiss: () -> Void
     @State private var animation: AnimationType = .appear
+    @FocusState private var focusedField: FocusType?
 
     var body: some View {
         ZStack {
@@ -18,6 +19,7 @@ struct MemoFormView: View {
                 }
             VStack(spacing: 124) {
                 TextField("클릭해서 가사 입력", text: $memo)
+                    .focused($focusedField, equals: .memoField)
                     .font(.system(size: 26).bold())
                     .multilineTextAlignment(.center)
                     .frame(height: 66)
@@ -48,6 +50,7 @@ struct MemoFormView: View {
         .animation(.easeInOut, value: animation)
         .onAppear {
             animation = .appeared
+            focusedField = .memoField
         }
     }
 
@@ -55,5 +58,9 @@ struct MemoFormView: View {
         case appear
         case appeared
         case disappear
+    }
+
+    private enum FocusType {
+        case memoField
     }
 }

@@ -11,8 +11,13 @@ struct FormationSetupReducer: Reducer {
         var formations: [FormationModel] = []
         var currentFormationIndex: Int = -1
 
-        var isEnabled: Bool {
+        var canEditFormation: Bool {
             currentFormationIndex >= 0
+        }
+
+        var canGotoNextStep: Bool {
+            !formations.isEmpty &&
+            formations.allSatisfy { $0.relativePositions.count == headcount }
         }
 
         var currentFormation: FormationModel? {
@@ -20,6 +25,22 @@ struct FormationSetupReducer: Reducer {
                 return nil
             }
             return formations[currentFormationIndex]
+        }
+
+        var performance: Performance {
+            Performance(
+                author: .sample,
+                playable: music,
+                headcount: headcount,
+                formations: formations
+                    .map {
+                        Formation(
+                            members: $0.relativePositions
+                                .map { Member(relativePosition: $0) },
+                            memo: $0.memo
+                        )
+                    }
+            )
         }
     }
 

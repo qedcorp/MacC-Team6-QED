@@ -18,13 +18,13 @@ struct FormationSetupView: View {
                             .padding(.bottom, 16)
                         buildMemoView(viewStore: viewStore)
                             .modifier(DisabledOpacityModifier(
-                                isDisabled: !viewStore.isEnabled,
+                                isDisabled: !viewStore.canEditFormation,
                                 disabledOpacity: 0.3
                             ))
                         Spacer(minLength: 18)
                         buildObjectCanvasView(viewStore: viewStore, width: geometry.size.width)
                             .modifier(DisabledOpacityModifier(
-                                isDisabled: !viewStore.isEnabled,
+                                isDisabled: !viewStore.canEditFormation,
                                 disabledOpacity: 0.3
                             ))
                         Spacer()
@@ -36,6 +36,7 @@ struct FormationSetupView: View {
                     buildFormationContainerView(viewStore: viewStore)
                 }
             }
+            .ignoresSafeArea(.keyboard)
             .overlay(
                 viewStore.isMemoFormPresented ?
                 buildMemoFormView(viewStore: viewStore)
@@ -49,8 +50,14 @@ struct FormationSetupView: View {
                 ToolbarTitleMenu {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("다음") {
+                    NavigationLink("다음") {
+                        MemberSetupView(store: .init(initialState: MemberSetupReducer.State(
+                            performance: viewStore.performance
+                        )) {
+                            MemberSetupReducer()
+                        })
                     }
+                    .disabled(!viewStore.canGotoNextStep)
                 }
             }
             .onChange(of: viewStore.currentFormationIndex) { _ in
@@ -112,6 +119,10 @@ struct FormationSetupView: View {
             objectCanvasViewController: objectCanvasViewController,
             headcount: viewStore.headcount
         )
+        .modifier(DisabledOpacityModifier(
+            isDisabled: !viewStore.canEditFormation,
+            disabledOpacity: 0.3
+        ))
     }
 
     private func buildFormationContainerView(viewStore: ViewStore) -> some View {
@@ -128,7 +139,10 @@ struct FormationSetupView: View {
                     }
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
+                            ForEach(
+                                Array(viewStore.formations.enumerated()),
+                                id: \.offset
+                            ) { formationOffset, formation in
                                 buildFormationItemView(
                                     viewStore: viewStore,
                                     index: formationOffset,

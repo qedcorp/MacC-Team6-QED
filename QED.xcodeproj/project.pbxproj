@@ -15,8 +15,6 @@
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
-		3AE0CCC02ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		3AE0CCC22ADD0CE1001FE371 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701A92AE4450A00C48403 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A72AE4450A00C48403 /* Color+.swift */; };
 		3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* FormationMemoView.swift */; };
@@ -25,6 +23,16 @@
 		3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B42AE5D07600C48403 /* Rect+Contains.swift */; };
 		3AE701B82AE6594300C48403 /* PerformanceSetupTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B72AE6594300C48403 /* PerformanceSetupTitleView.swift */; };
 		3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */; };
+		3AE701BD2AE65F4F00C48403 /* MemberSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */; };
+		3AE701BF2AE65FAD00C48403 /* MemberSetupReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */; };
+		3AE701C12AE667E600C48403 /* MemberSetupFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */; };
+		3AE701C42AE66AAA00C48403 /* ObjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C32AE66AAA00C48403 /* ObjectSelectionView.swift */; };
+		3AE701C62AE66AB800C48403 /* ObjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C52AE66AB800C48403 /* ObjectSelectionViewController.swift */; };
+		3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */; };
+		3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C92AE6906200C48403 /* String+Hex.swift */; };
+		3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */; };
+		3AE701D02AE6989200C48403 /* MemberNameChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CF2AE6989200C48403 /* MemberNameChangeView.swift */; };
+		3AE701D22AE698A000C48403 /* MemberColorChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701D12AE698A000C48403 /* MemberColorChangeView.swift */; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
 		3AF617D02AE1961D0052FC90 /* FormationSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */; };
@@ -176,6 +184,16 @@
 		3AE701B42AE5D07600C48403 /* Rect+Contains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rect+Contains.swift"; sourceTree = "<group>"; };
 		3AE701B72AE6594300C48403 /* PerformanceSetupTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSetupTitleView.swift; sourceTree = "<group>"; };
 		3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHeadcountView.swift; sourceTree = "<group>"; };
+		3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSetupView.swift; sourceTree = "<group>"; };
+		3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSetupReducer.swift; sourceTree = "<group>"; };
+		3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSetupFormationView.swift; sourceTree = "<group>"; };
+		3AE701C32AE66AAA00C48403 /* ObjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSelectionView.swift; sourceTree = "<group>"; };
+		3AE701C52AE66AB800C48403 /* ObjectSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSelectionViewController.swift; sourceTree = "<group>"; };
+		3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModel.swift; sourceTree = "<group>"; };
+		3AE701C92AE6906200C48403 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
+		3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		3AE701CF2AE6989200C48403 /* MemberNameChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberNameChangeView.swift; sourceTree = "<group>"; };
+		3AE701D12AE698A000C48403 /* MemberColorChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberColorChangeView.swift; sourceTree = "<group>"; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormationSetupView.swift; sourceTree = "<group>"; };
@@ -190,7 +208,6 @@
 		A94F9C7D2ADFE69C00164F8D /* HeadcountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadcountView.swift; sourceTree = "<group>"; };
 		A94F9C802ADFE69C00164F8D /* PerformanceSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingModel.swift; sourceTree = "<group>"; };
 		A956AD832AE44E360006B693 /* MockSearchMusicUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockSearchMusicUseCase.swift; path = QED/Domain/UseCases/MockUp/MockSearchMusicUseCase.swift; sourceTree = SOURCE_ROOT; };
-		A961F2F02ADFEF8600F6F757 /* MockSearchMusicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchMusicUseCase.swift; sourceTree = "<group>"; };
 		A961F2F22AE0160000F6F757 /* MusicSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSettingView.swift; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
 		A974EA172AE440C600302C9D /* PerformanceSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingModel.swift; sourceTree = "<group>"; };
@@ -343,7 +360,6 @@
 		3A47F4852ADEA683000E3272 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				A961F2EF2ADFEF7200F6F757 /* MockUp */,
 				3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */,
 			);
 			path = UseCases;
@@ -431,6 +447,8 @@
 			isa = PBXGroup;
 			children = (
 				3AE701B42AE5D07600C48403 /* Rect+Contains.swift */,
+				3AE701C92AE6906200C48403 /* String+Hex.swift */,
+				3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -442,6 +460,27 @@
 				3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */,
 			);
 			path = PerformanceSetup;
+			sourceTree = "<group>";
+		};
+		3AE701BB2AE65F3500C48403 /* MemberSetup */ = {
+			isa = PBXGroup;
+			children = (
+				3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */,
+				3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */,
+				3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */,
+				3AE701CF2AE6989200C48403 /* MemberNameChangeView.swift */,
+				3AE701D12AE698A000C48403 /* MemberColorChangeView.swift */,
+			);
+			path = MemberSetup;
+			sourceTree = "<group>";
+		};
+		3AE701C22AE66A9B00C48403 /* ObjectSelection */ = {
+			isa = PBXGroup;
+			children = (
+				3AE701C32AE66AAA00C48403 /* ObjectSelectionView.swift */,
+				3AE701C52AE66AB800C48403 /* ObjectSelectionViewController.swift */,
+			);
+			path = ObjectSelection;
 			sourceTree = "<group>";
 		};
 		3AF617C82AE191BB0052FC90 /* Utilities */ = {
@@ -547,15 +586,6 @@
 			path = WatchingFormation;
 			sourceTree = "<group>";
 		};
-		5186C6A02AE286D1002E4D3E /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				5186C6A12AE286D1002E4D3E /* Int+.swift */,
-				5186C6A22AE286D1002E4D3E /* Color+.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
 		A94F9C782ADFE69C00164F8D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,14 +628,6 @@
 				A961F2F22AE0160000F6F757 /* MusicSettingView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		A961F2EF2ADFEF7200F6F757 /* MockUp */ = {
-			isa = PBXGroup;
-			children = (
-				A961F2F02ADFEF8600F6F757 /* MockSearchMusicUseCase.swift */,
-			);
-			path = MockUp;
 			sourceTree = "<group>";
 		};
 		A974EA122AE440C600302C9D /* PerformanceSetting */ = {
@@ -756,8 +778,10 @@
 				3AF617CE2AE1961D0052FC90 /* FormationSetup */,
 				3AE701AA2AE58F6600C48403 /* FormationMemo */,
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
+				3AE701BB2AE65F3500C48403 /* MemberSetup */,
 				D460EF852AE18DF700A5966A /* HistoryControls */,
 				D460EF7C2AE18DF700A5966A /* ObjectCanvas */,
+				3AE701C22AE66A9B00C48403 /* ObjectSelection */,
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				D460EF8B2AE18DF700A5966A /* PresetManage */,
@@ -803,6 +827,7 @@
 			children = (
 				D460EF882AE18DF700A5966A /* DraggingModel.swift */,
 				3A927F192AE2640A002ED7E8 /* FormationModel.swift */,
+				3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1291,6 +1316,7 @@
 				D460EFDB2AE18DF700A5966A /* MockPresetRepository.swift in Sources */,
 				D460F0042AE18DF700A5966A /* AppleAuthRepository.swift in Sources */,
 				D460F0072AE18DF700A5966A /* PresetUseCase.swift in Sources */,
+				3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */,
 				5186C6A62AE28798002E4D3E /* WatchingFormationView.swift in Sources */,
 				D460EFFA2AE18DF700A5966A /* DescribableError.swift in Sources */,
 				D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */,
@@ -1317,6 +1343,7 @@
 				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
+				3AE701C12AE667E600C48403 /* MemberSetupFormationView.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
@@ -1325,17 +1352,20 @@
 				D460EFF72AE18DF700A5966A /* AppDelegate.swift in Sources */,
 				D460F01E2AE18DF700A5966A /* Playable.swift in Sources */,
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
+				3AE701BD2AE65F4F00C48403 /* MemberSetupView.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
+				3AE701D22AE698A000C48403 /* MemberColorChangeView.swift in Sources */,
 				3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				3AE701A92AE4450A00C48403 /* Color+.swift in Sources */,
-				D460EFF62AE18DF700A5966A /* ContentView.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
+				3AE701BF2AE65FAD00C48403 /* MemberSetupReducer.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
+				3AE701C42AE66AAA00C48403 /* ObjectSelectionView.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSetupView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
@@ -1343,6 +1373,7 @@
 				D460F0052AE18DF700A5966A /* SearchMusicRepository.swift in Sources */,
 				D460EFED2AE18DF700A5966A /* PresetManageView.swift in Sources */,
 				D460EFEA2AE18DF700A5966A /* HistoryControlsView.swift in Sources */,
+				3AE701D02AE6989200C48403 /* MemberNameChangeView.swift in Sources */,
 				3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
@@ -1359,11 +1390,13 @@
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
 				3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */,
 				D460F00F2AE18DF700A5966A /* DefaultPerformanceUseCase.swift in Sources */,
+				3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */,
 				A974EA232AE440C600302C9D /* MusicSettingView.swift in Sources */,
 				D460EFEB2AE18DF700A5966A /* DraggingModel.swift in Sources */,
 				D460F01D2AE18DF700A5966A /* Preset+Stub.swift in Sources */,
 				D460F0112AE18DF700A5966A /* UserUseCase.swift in Sources */,
 				D460F01C2AE18DF700A5966A /* FormationTransition.swift in Sources */,
+				3AE701C62AE66AB800C48403 /* ObjectSelectionViewController.swift in Sources */,
 				D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */,
 				A974EA1F2AE440C600302C9D /* PerformanceSettingModel.swift in Sources */,
 				D460F0142AE18DF700A5966A /* MusicUseCase.swift in Sources */,
@@ -1376,6 +1409,8 @@
 				D460EFD82AE18DF700A5966A /* AppleAuthRepositoryImplement.swift in Sources */,
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,
+				D460EFD42AE18DF700A5966A /* MockSearchMusicRepository.swift in Sources */,
+				3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */,
 				D460EFD42AE18DF700A5966A /* MockSearchMusicRepository.swift in Sources */,
 				D460EFF42AE18DF700A5966A /* ObjectStageView.swift in Sources */,
 				D460F0092AE18DF700A5966A /* DefaultMusicUseCase.swift in Sources */,
