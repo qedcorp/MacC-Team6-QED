@@ -7,11 +7,13 @@ struct FormationSetupView: View {
     private typealias Reducer = FormationSetupReducer
     private typealias ViewStore = ViewStoreOf<Reducer>
 
-    let performance: Performance
+    private let performanceUseCase: PerformanceUseCase
+    private let performance: Performance
     private let store: StoreOf<Reducer>
     private let objectCanvasViewController = ObjectCanvasViewController()
 
-    init(performance: Performance) {
+    init(performanceUseCase: PerformanceUseCase, performance: Performance) {
+        self.performanceUseCase = performanceUseCase
         self.performance = performance
         self.store = .init(initialState: Reducer.State(performance: performance)) {
             Reducer()
@@ -60,7 +62,10 @@ struct FormationSetupView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink("다음") {
-                        MemberSetupView(performance: performance)
+                        MemberSetupView(
+                            performanceUseCase: performanceUseCase,
+                            performance: performance
+                        )
                     }
                     .disabled(!viewStore.isAvailableToSave)
                 }
@@ -70,6 +75,9 @@ struct FormationSetupView: View {
                     return
                 }
                 performance.formations = $0.map { $0.buildEntity() }
+                Task {
+                    try await performanceUseCase.updatePerformance(performance)
+                }
             }
             .onChange(of: viewStore.currentFormationIndex) { _ in
                 guard let formable = viewStore.currentFormation else {

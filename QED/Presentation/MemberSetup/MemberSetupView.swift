@@ -7,10 +7,12 @@ struct MemberSetupView: View {
     private typealias Reducer = MemberSetupReducer
     private typealias ViewStore = ViewStoreOf<Reducer>
 
-    let performance: Performance
+    private let performanceUseCase: PerformanceUseCase
+    private let performance: Performance
     private let store: StoreOf<Reducer>
 
-    init(performance: Performance) {
+    init(performanceUseCase: PerformanceUseCase, performance: Performance) {
+        self.performanceUseCase = performanceUseCase
         self.performance = performance
         self.store = .init(initialState: Reducer.State(performance: performance)) {
             Reducer()
@@ -72,6 +74,9 @@ struct MemberSetupView: View {
             }
             .onChange(of: viewStore.formations) {
                 performance.formations = $0.map { $0.buildEntity() }
+                Task {
+                    try await performanceUseCase.updatePerformance(performance)
+                }
             }
         }
     }

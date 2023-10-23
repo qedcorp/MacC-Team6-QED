@@ -4,7 +4,11 @@ import SwiftUI
 
 struct PresetContainerView: View {
     @StateObject private var viewModel = PresetContainerViewModel(
-        presetUseCase: DefaultPresetUseCase(presetRepository: LocalPresetRepository())
+        presetUseCase: DefaultPresetUseCase(
+            presetRepository: DefaultPresetRepository(
+                remoteManager: FireStoreManager()
+            )
+        )
     )
 
     private let objectCanvasViewController: ObjectCanvasViewController
