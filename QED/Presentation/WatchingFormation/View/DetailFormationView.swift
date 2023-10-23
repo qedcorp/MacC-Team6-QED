@@ -51,7 +51,7 @@ struct DetailFormationView: View {
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
             leftItem
-            rightItem
+//            rightItem
         }
     }
 
@@ -79,15 +79,15 @@ struct DetailFormationView: View {
             }
             .bold()
             Spacer()
-            Button {
-                //  TODO: 확대 기능
-            } label: {
-                Image(systemName: "arrow.up.left.and.arrow.down.right")
-                    .padding(5)
-                    .background(Color(.systemGray5))
-                    .foregroundStyle(.gray)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-            }
+//            Button {
+//                //  TODO: 확대 기능
+//            } label: {
+//                Image(systemName: "arrow.up.left.and.arrow.down.right")
+//                    .padding(5)
+//                    .background(Color(.systemGray5))
+//                    .foregroundStyle(.gray)
+//                    .clipShape(RoundedRectangle(cornerRadius: 5))
+//            }
         }
         .font(.subheadline)
         .padding(.bottom, 10)
