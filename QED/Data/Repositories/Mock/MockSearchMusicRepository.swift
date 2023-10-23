@@ -1,5 +1,5 @@
 //
-//  SearchMusicRepositoryMockUp.swift
+//  MockSearchMusicRepository.swift
 //  QED
 //
 //  Created by changgyo seo on 10/17/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchMusicRepositoryMockUp: SearchMusicRepository {
+class MockSearchMusicRepository: SearchMusicRepository {
 
     private let dummyMusicArray = Array(repeating: Music(id: "0", title: "0", artistName: "0"), count: 10)
 

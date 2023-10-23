@@ -10,10 +10,21 @@ import FirebaseCore
 
 extension AuthRepository {
     func registerKeyChain(with authDataResult: AuthDataResult) throws {
-        try KeyChainManager.shared.create(account: .id, data: authDataResult.user.uid)
-        try KeyChainManager.shared.create(account: .name, data: authDataResult.user.displayName ?? "anonymous")
-        try KeyChainManager.shared.create(account: .email, data: authDataResult.user.email ?? "no-email")
-        try KeyChainManager.shared.create(account: .refreshToken, data: authDataResult.user.refreshToken ?? "no-refreshToken")
+        let accounts: [KeyChainAccount] = KeyChainAccount.allCases
+        let results: [String] = [
+            authDataResult.user.uid,
+            authDataResult.user.displayName ?? "anonymous",
+            authDataResult.user.email ?? "no-email",
+            authDataResult.user.refreshToken ?? "no-refreshToken"
+        ]
+        let zip = zip(accounts, results)
+        for (account, data) in zip {
+            try KeyChainManager.shared.create(account: account, data: data)
+        }
+    }
+
+    func unregisterKeyChain(account: KeyChainAccount) throws {
+        try KeyChainManager.shared.delete(account: account)
     }
 
     func unregisterKeyChain(accounts: [KeyChainAccount]) throws {

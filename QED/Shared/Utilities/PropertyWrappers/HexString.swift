@@ -3,7 +3,7 @@
 import Foundation
 
 @propertyWrapper
-struct HexString {
+struct HexString: Codable {
     private static let hexCharacters = CharacterSet(charactersIn: "0123456789ABCDEFabcdef")
     private static let defaultValue = "000000"
 

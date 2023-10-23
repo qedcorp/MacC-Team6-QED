@@ -25,11 +25,11 @@ class DetailFormationViewModel: ObservableObject {
     @Published var currentStatus: Status = .pause
     @Published var currentNote: String = ""
 
-    init() {
+    init(performance: Performance) {
         self.scene = DanceFormationScene()
         scene.size = CGSize(width: 350, height: 220)
 
-        performance = mockPerformance
+        self.performance = performance
         showingFormation = performance.formations.first!
         beforeFormation = nil
         selectedIndex = 0

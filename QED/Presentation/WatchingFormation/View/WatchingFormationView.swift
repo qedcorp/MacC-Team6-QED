@@ -113,7 +113,7 @@ struct FormationScrollView: View {
                 VStack(spacing: 30) {
                     ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
                         VStack {
-                            NavigationLink(destination: DetailFormationView()) {
+                            NavigationLink(destination: DetailFormationView(viewModel: DetailFormationViewModel(performance: performance))) {
                                 FormationPreview(
                                     formation: formation,
                                     index: index,
@@ -156,8 +156,4 @@ extension Formation: Hashable {
     static func == (lhs: Formation, rhs: Formation) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
-}
-
-#Preview {
-    WatchingFormationView(performance: mockPerformance)
 }

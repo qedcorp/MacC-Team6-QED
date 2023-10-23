@@ -11,7 +11,7 @@ struct DefaultUserUseCase: UserUseCase {
     }
 
     func login(user: User) async throws -> User {
-        let user = try await userRepository.readUser(email: user.email)
+        let user = try await userRepository.readUser(id: user.id)
         userStore.myUser = user
         return user
     }
@@ -23,8 +23,8 @@ struct DefaultUserUseCase: UserUseCase {
         return user
     }
 
-    func getUser(email: String) async throws -> User {
-        try await userRepository.readUser(email: email)
+    func getUser(id: String) async throws -> User {
+        try await userRepository.readUser(id: id)
     }
 
     func updateMe(user: User) async throws -> User {

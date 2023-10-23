@@ -12,16 +12,14 @@ struct HistoryControlsView: View {
 
     var body: some View {
         HStack {
-            if historyManagable.isUndoable() {
-                Button("Undo") {
-                    historyManagable.undo()
-                }
+            Button("Undo") {
+                historyManagable.undo()
             }
-            if historyManagable.isRedoable() {
-                Button("Redo") {
-                    historyManagable.redo()
-                }
+            .disabled(!historyManagable.isUndoable())
+            Button("Redo") {
+                historyManagable.redo()
             }
+            .disabled(!historyManagable.isRedoable())
         }
     }
 }

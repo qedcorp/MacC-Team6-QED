@@ -72,9 +72,3 @@ struct DirectorNoteView: View {
         }
     }
 }
-
-#Preview {
-    DirectorNoteView(viewModel: DetailFormationViewModel(),
-                     isMemoEditMode: .constant(false),
-                     note: .constant("메모메모"))
-}

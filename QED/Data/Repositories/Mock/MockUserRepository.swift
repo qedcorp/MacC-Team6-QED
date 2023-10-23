@@ -14,8 +14,8 @@ class MockUserRepository: UserRepository {
         return user
     }
 
-    func readUser(email: String) async throws -> User {
-        User(email: email)
+    func readUser(id: String) async throws -> User {
+        User(id: id)
     }
 
     func updateUser(_ user: User) async throws -> User {

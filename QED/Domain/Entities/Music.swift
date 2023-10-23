@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Music: Identifiable, Playable {
+class Music: Identifiable, Equatable, Playable {
     let id: String
     let title: String
     let artistName: String
@@ -34,7 +34,11 @@ class Music: Identifiable, Playable {
         albumCoverURL
     }
 
-    struct Lyric {
+    static func == (lhs: Music, rhs: Music) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    struct Lyric: Codable {
         let startMs: Int
         let endMs: Int
         let words: String

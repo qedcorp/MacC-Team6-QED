@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FormationPreview: View {
-    @StateObject var viewModel = DetailFormationViewModel()
     var formation: Formation
     var index: Int
     var isNameVisiable: Bool = false

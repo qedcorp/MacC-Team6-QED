@@ -45,7 +45,7 @@ fileprivate extension KakaoAuthRepositoryImplement {
     private func kakaoLoginInApp() async throws -> AuthDataResult {
         return await withCheckedContinuation { continuation in
             UserApi.shared.loginWithKakaoTalk { oauthToken, _ in
-                if let token = oauthToken {
+                if oauthToken != nil {
                     Task {
                         guard let result = try? await self.getAuthorizationFromFirebase() else { return }
                         continuation.resume(returning: result)
@@ -58,7 +58,7 @@ fileprivate extension KakaoAuthRepositoryImplement {
     private func kakaoLoginInWeb() async throws -> AuthDataResult {
         return await withCheckedContinuation { continuation in
             UserApi.shared.loginWithKakaoAccount { oauthToken, _ in
-                if let token = oauthToken {
+                if oauthToken != nil {
                     Task {
                         guard let result = try? await self.getAuthorizationFromFirebase() else { return }
                         continuation.resume(returning: result)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeyChainAccount {
+enum KeyChainAccount: CaseIterable {
     case id
     case name
     case email

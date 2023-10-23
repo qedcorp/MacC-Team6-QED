@@ -3,20 +3,16 @@
 import SwiftUI
 
 struct ObjectStageView: UIViewControllerRepresentable {
-    let preset: Preset
+    let formable: Formable
+    @State private var controller = ObjectStageViewController()
 
     func makeUIViewController(context: Context) -> ObjectStageViewController {
-        let controller = ObjectStageViewController()
-        return controller
+        controller
     }
 
     func updateUIViewController(_ uiViewController: ObjectStageViewController, context: Context) {
-        uiViewController.copyPreset(preset)
-    }
-}
-
-struct ObjectStageView_Previews: PreviewProvider {
-    static var previews: some View {
-        ObjectStageView(preset: .init(headcount: 0, relativePositions: []))
+        DispatchQueue.main.async {
+            uiViewController.copyFormable(formable)
+        }
     }
 }

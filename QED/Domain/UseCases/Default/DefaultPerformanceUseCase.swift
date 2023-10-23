@@ -10,7 +10,9 @@ struct DefaultPerformanceUseCase: PerformanceUseCase {
         guard let author = userStore.myUser else {
             throw DescribableError(description: "Cannot find an author.")
         }
-        let performance = Performance(author: author, playable: playable, headcount: headcount)
+        // TODO: 이 부분도 Playable로 바꿀수 있도록 해야해!!!!
+        guard let tempPlayalbe = playable as? Music else { return Performance.init(jsonString: "") }
+        let performance = Performance(author: author, playable: tempPlayalbe, headcount: headcount)
         return try await performanceRepository.createPerformance(performance)
     }
 

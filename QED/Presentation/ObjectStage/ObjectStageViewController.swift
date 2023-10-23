@@ -8,7 +8,7 @@ class ObjectStageViewController: UIViewController {
     }()
 
     private var isViewAppeared: Bool = false
-    private var copiedPreset: Preset?
+    private var copiedFormable: Formable?
 
     var objectViewRadius: CGFloat {
         2
@@ -26,26 +26,28 @@ class ObjectStageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isViewAppeared = true
-        if let preset = copiedPreset {
-            copyPreset(preset)
+        if let preset = copiedFormable {
+            copyFormable(preset)
         }
     }
 
     func placeObjectView(position: CGPoint) {
         let objectView = DotObjectView()
+        let relativePosition = touchPositionConverter.getRelativePosition(absolute: position)
+        let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
         objectView.radius = objectViewRadius
         objectView.color = .black
-        objectView.applyPosition(position)
+        objectView.applyPosition(absolutePosition)
         view.addSubview(objectView)
     }
 
-    func copyPreset(_ preset: Preset) {
+    func copyFormable(_ formable: Formable) {
         guard isViewAppeared else {
-            copiedPreset = preset
+            copiedFormable = formable
             return
         }
         objectViews.forEach { $0.removeFromSuperview() }
-        preset.relativePositions
+        formable.relativePositions
             .map { touchPositionConverter.getAbsolutePosition(relative: $0) }
             .forEach { placeObjectView(position: $0) }
     }

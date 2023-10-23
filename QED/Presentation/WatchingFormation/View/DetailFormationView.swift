@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailFormationView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel = DetailFormationViewModel()
+    @ObservedObject var viewModel: DetailFormationViewModel
     @State var isNameVisiable = false
     @State var isBeforeVisible = false
     @State var isPlaying = false
@@ -215,8 +215,4 @@ struct PreviewCardView: View {
                 }
             }
     }
-}
-
-#Preview {
-    DetailFormationView(viewModel: DetailFormationViewModel())
 }
