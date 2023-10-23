@@ -8,19 +8,24 @@
 import SwiftUI
 
 struct FormationPreview: View {
-    var isNameVisiable: Bool
+    var performance: Performance
     var formation: Formation
-    @State var isSelected = false
+    var isNameVisiable: Bool
+//        @State var isSelected = false
 
     var body: some View {
         VStack(spacing: 0) {
             danceFormation
             TimeAndLyric(formation: formation)
         }
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .strokeBorder(.green, lineWidth: isSelected ? 2 : 0)
-        )
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 12)
+//                .strokeBorder(.green, lineWidth: isSelected ? 2 : 0)
+//        )
+        //                .onTapGesture {
+        //                    withAnimation(.easeIn(duration: 0.1)) {
+        //                        isSelected.toggle()            }
+        //                }
     }
 
     private var danceFormation: some View {
@@ -30,15 +35,9 @@ struct FormationPreview: View {
             GeometryReader { geometry in
                 ForEach(formation.members, id: \.info.self) { member in
                     MemberCircleView(isNameVisiable: isNameVisiable,
-                                 member: member)
+                                     member: member)
                     .position(CGPoint(x: CGFloat(member.relativePosition.x)*geometry.size.width*0.001, y: CGFloat(member.relativePosition.y)*geometry.size.height*0.001))
                 }
-            }
-        }
-        .onTapGesture {
-            withAnimation(.easeIn(duration: 0.1)) {
-                isSelected.toggle()
-                //           TODO: 상세화면으로 이동
             }
         }
     }
@@ -92,5 +91,7 @@ private struct TimeAndLyric: View {
 }
 
 #Preview {
-    FormationPreview(isNameVisiable: false, formation: mockFormations[0])
+    FormationPreview(performance: mockPerformance,
+                     formation: mockFormations[0],
+                     isNameVisiable: false)
 }

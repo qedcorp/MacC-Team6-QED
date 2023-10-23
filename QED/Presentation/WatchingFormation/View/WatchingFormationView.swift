@@ -14,12 +14,14 @@ struct WatchingFormationView: View {
     @State var isAddVisible = false
 
     var body: some View {
-        VStack(spacing: 15) {
-            titleAndHeadcount
-            togglingMemberName
-            FormationScrollView(isNameVisiable: isNameVisiable,
-                                formations: performance.formations,
-                                isAddVisible: isAddVisible)
+        NavigationStack {
+            VStack(spacing: 15) {
+                titleAndHeadcount
+                togglingMemberName
+                FormationScrollView(isNameVisiable: isNameVisiable,
+                                    performance: performance,
+                                    isAddVisible: isAddVisible)
+            }
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
@@ -105,17 +107,24 @@ struct WatchingFormationView: View {
 
 struct FormationScrollView: View {
     var isNameVisiable: Bool
-    var formations: [Formation]
+    var performance: Performance
     var isAddVisible: Bool
 
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                ForEach(formations, id: \.self) { formation in
+                ForEach(performance.formations, id: \.self) { formation in
                     VStack {
-                        ZStack {
-                            FormationPreview(isNameVisiable: isNameVisiable,
-                                             formation: formation)
+                        NavigationLink(value: formation) {
+                                FormationPreview(
+                                    performance: performance,
+                                    formation: formation,
+                                    isNameVisiable: isNameVisiable
+                                )
+                        }.navigationDestination(for: Formation.self) { formation in
+                            DetailFormationView(
+                                performance: performance,
+                                formation: formation)
                         }
                         if isAddVisible {
                             addButton
