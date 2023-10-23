@@ -12,7 +12,7 @@ struct DetailFormationView: View {
     var formation: Formation
 //    @State var currentFormation: Formation
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel = DetailFormationViewMoel()
+    @StateObject var viewModel = DetailFormationViewModel()
     @State var isNameVisiable = false
     @State var isPlaying = false
 

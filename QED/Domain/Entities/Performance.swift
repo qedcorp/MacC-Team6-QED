@@ -8,7 +8,7 @@ class Performance {
     let headcount: Int
     var title: String?
     var formations: [Formation]
-    var transitions: [FormationTransition]
+    var transitions: [FormationTransition?]
 
     init(
         author: User,
