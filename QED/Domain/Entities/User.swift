@@ -7,7 +7,7 @@ class User: Equatable, Codable {
     let email: String?
     var nickname: String?
 
-    init(id: String, email: String? = nil, nickname: String? = nil) {
+    init(id: String = "", email: String? = nil, nickname: String? = nil) {
         self.id = id
         self.email = email
         self.nickname = nickname

@@ -11,7 +11,7 @@ class Performance: Codable {
     var title: String?
     var memberInfos: [Member.Info]
     var formations: [Formation]
-    var transitions: [FormationTransition]
+    var transitions: [FormationTransition?]
 
     init(
         author: User,
@@ -19,7 +19,7 @@ class Performance: Codable {
         headcount: Int,
         title: String? = nil,
         formations: [Formation] = [],
-        transitions: [FormationTransition] = []
+        transitions: [FormationTransition?] = []
     ) {
         self.author = author
         self.playable = playable

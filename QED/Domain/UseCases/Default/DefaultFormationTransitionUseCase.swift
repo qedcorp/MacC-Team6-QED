@@ -5,9 +5,9 @@ import Foundation
 struct DefaultFormationTransitionUseCase: FormationTransitionUseCase {
     let performance: Performance
 
-    func createFormationTransitions() async throws -> [FormationTransition] {
+    func createFormationTransitions() async throws -> [FormationTransition?] {
         (0 ..< performance.formations.count)
-            .map { _ in FormationTransition() }
+            .map { _ in nil }
     }
 
     func updateMovement(

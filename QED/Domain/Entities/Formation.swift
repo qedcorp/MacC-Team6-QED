@@ -8,6 +8,7 @@ class Formation: Codable, Formable {
     var startMs: Int?
     var endMs: Int?
     var memo: String?
+    var notes: [String]?
 
     init(
         members: [Member] = [],
