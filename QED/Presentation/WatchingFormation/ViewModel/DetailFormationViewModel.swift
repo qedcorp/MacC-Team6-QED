@@ -45,10 +45,12 @@ class DetailFormationViewModel: ObservableObject {
     }
 
     func play() {
+        currentStatus = .play
         playTimer.startTimer(completion: timingAction)
     }
 
     func pause() {
+        currentStatus = .pause
         playTimer.resetTimer()
         scene.manager?.fetchNew(formation: showingFormation)
         if isShowingBeforeFormation {
@@ -96,11 +98,18 @@ extension DetailFormationViewModel {
                 guard let self = self else { return }
 
                 self.showingFormation = self.performance.formations[index]
-                print(self.showingFormation)
-                self.scene.manager?.fetchNew(formation: self.showingFormation)
+                if index == performance.formations.count - 1 {
+                    currentStatus = .pause
+                }
                 if self.isShowingBeforeFormation && index - 1 >= 0 {
                     self.beforeFormation = self.performance.formations[index - 1]
+                    if currentStatus == .play {
+                        self.scene.manager?.fetchNew(formation: self.showingFormation, isPreview: true)
+                    } else {
+                        self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
+                    }
                 }
+                self.scene.manager?.fetchNew(formation: self.showingFormation)
                 self.currentStatus = .pause
                 self.currentNote = ""
             }
@@ -116,6 +125,8 @@ extension DetailFormationViewModel {
                     }
                 } else {
                     self.beforeFormation = nil
+                    self.scene.manager?.fetchNew(formation: Formation(), isPreview: true)
+
                 }
             }
             .store(in: &bag)
@@ -127,7 +138,8 @@ extension DetailFormationViewModel {
                 scene.manager?.playPerformance(transion: transitions,
                                                afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
                     guard let self = self else { return }
-                    selectedIndex += 1
+                    print("@LOG ssssss")
+                    self.selectedIndex += 1
 
                 }
             } else {
@@ -138,7 +150,8 @@ extension DetailFormationViewModel {
                 scene.manager?.playPerformance(transion: transitions,
                                                afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
                     guard let self = self else { return }
-                    selectedIndex += 1
+                    print("@LOG ssssss")
+                    self.selectedIndex += 1
                 }
             }
         }

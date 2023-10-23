@@ -15,6 +15,7 @@ class DanceFormationManager: ObservableObject {
     weak var scene: DanceFormationScene?
     var formation: Formation
     var nodes: [Member: SKShapeNode] = [:]
+    var previewBag: [SKShapeNode] = []
     var isPlaying: Bool = false
     var shapeSize: CGRect = .zero
 
@@ -49,15 +50,16 @@ class DanceFormationManager: ObservableObject {
     }
 
     func fetchNew(formation: Formation, isPreview: Bool = false) {
-        self.formation = formation
-        applyPostion(isPreivew: isPreview)
+        if !isPreview {
+            self.formation = formation
+        }
+        applyPostion(formation: formation, isPreivew: isPreview)
     }
 
     func playPerformance(transion: FormationTransition, afterFormation: Formation, completion: @escaping () -> Void ) {
         var group: [SKAction] = []
         var isFirst = true
         let completionAction = SKAction.run {
-            self.fetchNew(formation: afterFormation)
             completion()
         }
 
@@ -78,16 +80,21 @@ class DanceFormationManager: ObservableObject {
         }
     }
 
-    func applyPostion(isPreivew: Bool) {
-
-        scene!.removeChildren(in: nodes.map { $0.value })
-        nodes.removeAll()
+    func applyPostion(formation: Formation, isPreivew: Bool) {
+        if !isPreivew {
+            scene!.removeChildren(in: nodes.map { $0.value })
+            nodes.removeAll()
+        } else {
+            scene!.removeChildren(in: previewBag)
+            previewBag = []
+        }
         for member in formation.members {
             let node = SKShapeNode(circleOfRadius: 10)
             if !isPreivew {
                 node.fillColor = UIColor(Color(hex: member.info?.color ?? "#FFFFFF"))
                 nodes[member] = node
             } else {
+                previewBag.append(node)
                 node.fillColor = UIColor(Color(hex: member.info?.color ?? "#FFFFFF").opacity(0.3))
             }
             shapeSize = node.frame
