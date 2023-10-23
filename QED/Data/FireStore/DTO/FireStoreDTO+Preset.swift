@@ -8,7 +8,8 @@
 import Foundation
 
 extension FireStoreDTO {
-    final class Preset: NSObject, FireStoreEntity {
+    final class PresetDTO: NSObject, FireStoreEntity {
+
         let collectionName: String = "PRESET"
         @objc var ID: String
         @objc var HEADCOUNT: String?
@@ -23,9 +24,12 @@ extension FireStoreDTO {
         convenience override init() {
             self.init(HEADCOUNT: "", DATA: "")
         }
+        var entity: FireStoreEntityConvertable {
+            Preset(jsonString: DATA ?? "")
+        }
 
-        func copys() -> Preset {
-            Preset(ID: ID, HEADCOUNT: HEADCOUNT, DATA: DATA)
+        func copys() -> PresetDTO {
+            PresetDTO(ID: ID, HEADCOUNT: HEADCOUNT, DATA: DATA)
         }
     }
 }

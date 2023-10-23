@@ -32,9 +32,9 @@ extension Performance: FireStoreEntityConvertable {
 
     var fireStoreEntity: FireStoreEntity {
         guard let id = try? KeyChainManager.shared.read(account: .id) else {
-            return FireStoreDTO.Performance()
+            return FireStoreDTO.PerformanceDTO()
         }
-        return FireStoreDTO.Performance(
+        return FireStoreDTO.PerformanceDTO(
             OWNERID: id,
             DATA: jsonString
         )

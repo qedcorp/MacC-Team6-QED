@@ -32,24 +32,28 @@ final class DefaultPresetRepository: PresetRepository {
     }
 
     func readPresets(headcount: Int?) async throws -> [Preset] {
-//        do {
-//            let db = Firestore.firestore()
-//            if headcount == nil {
-//                let readResult = try await db.collection("PRESET").getDocuments().documents
-//            }
-//            else {
-//                let readResult = try await db.collection("PRESET").whereField("HEADCOUNT", isEqualTo: headcount!).getDocuments().documents
-//                readResult.first?.data()
-//            }
-//            switch readResult {
-//            case .success(let success):
-//                return success
-//            default:
-//                print("1")
-//            }
-//        } catch {
-//            print("2")
-//        }
+        do {
+            var readResult: Result<[Preset], Error>!
+            if headcount == nil {
+                readResult = try await remoteManager.reads(at: "PRESET",
+                                                           readType: .all,
+                                                           mockData: Preset(jsonString: ""),
+                                                           valueType: String.self)
+            } else {
+                readResult = try await remoteManager.reads(at: "PRESET",
+                                                           readType: .key(field: "HEADCOUNT", value: "\(headcount!)"),
+                                                           mockData: Preset(jsonString: ""),
+                                                           valueType: String.self)
+            }
+            switch readResult {
+            case .success(let success):
+                return success
+            default:
+                print("1")
+            }
+        } catch {
+            print("2")
+        }
         return [Preset(jsonString: "3")]
     }
 }

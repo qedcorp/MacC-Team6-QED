@@ -32,10 +32,10 @@ final class DefaultUserRepository: UserRepository {
 
     func readUser(id: String) async throws -> User {
         do {
-            let readResult = try await remoteManager.read(at: "", mockData: FireStoreDTO.User(), pk: id)
+            let readResult = try await remoteManager.read(at: "", mockData: User(id: ""), pk: id)
             switch readResult {
             case .success(let success):
-                return success.entity
+                return success
             case .failure:
                 print("Read Error")
             }

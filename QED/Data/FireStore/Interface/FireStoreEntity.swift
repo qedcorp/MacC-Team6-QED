@@ -10,6 +10,7 @@ import Foundation
 protocol FireStoreEntity: NSObject, Codable {
     var collectionName: String { get }
     var ID: String { get set }
+    var entity: FireStoreEntityConvertable { get }
 
     func copys() -> Self
 }
@@ -24,8 +25,7 @@ extension FireStoreEntity {
             else { return }
             setValue(value, forKey: label)
         }
-        let returnV = self.copys()
-        print(returnV)
-        return returnV
+
+        return self.copys()
     }
 }

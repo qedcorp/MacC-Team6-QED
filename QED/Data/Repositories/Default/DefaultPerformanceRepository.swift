@@ -31,26 +31,26 @@ final class DefaultPerformanceRepository: PerformanceRepository {
     }
 
     func readPerformance() async throws -> Performance {
-//        do {
-//            let myID = try KeyChainManager.shared.read(account: .id)
-//            let readResult = try await remoteManager.reads(at: "PERFORMANCE",
-//                                                           readType: .key(field: "ID", value: myID),
-//                                                           mockData: Performance(jsonString: ""),
-//                                                           returnType: [Performance].self)
-//            switch readResult {
-//            case .success(let success):
-//                return success
-//            case .failure:
-//                print("Create Error")
-//            }
-//        } catch {
-//            print("Create Error")
-//        }
-        return Performance(jsonString: "Create Error")
+        Performance(jsonString: "")
     }
 
     func readPerformances() async throws -> [Performance] {
-        return []
+        do {
+            let myID = try KeyChainManager.shared.read(account: .id)
+            let readResult = try await remoteManager.reads(at: "PERFORMANCE",
+                                                           readType: .key(field: "ID", value: myID),
+                                                           mockData: Performance(jsonString: ""),
+                                                           valueType: String.self)
+            switch readResult {
+            case .success(let success):
+                return success
+            case .failure:
+                print("Create Error")
+            }
+        } catch {
+            print("Create Error")
+        }
+        return [Performance(jsonString: "Create Error")]
     }
 
     func updatePerformance(_ performance: Performance) async throws -> Performance {

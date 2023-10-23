@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  FireStoreManager.swift
 //  QED
 //
@@ -54,8 +54,8 @@ final class FireStoreManager: RemoteManager {
             return .failure(FireStoreError.didntFindDoucument)
         }
 
-        dataDTO.fireStoreEntity.fetchValue(id: key, data: result)
-        guard let result = dataDTO.fireStoreEntity as? T else { return . failure(FireStoreError.keyTypeError)}
+        let dataResult = dataDTO.fireStoreEntity.fetchValue(id: key, data: result).entity
+        guard let result = dataResult as? T else { return . failure(FireStoreError.keyTypeError)}
 
         return .success(result)
     }
@@ -77,25 +77,26 @@ final class FireStoreManager: RemoteManager {
             case .all:
                 let data = try await fireStroeDB.collection(collectionName).getDocuments().documents
                 tempResults = data.map { snapshot in
-                    guard let temp = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()) as? T else {
+                    guard let value = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()).entity as? T else {
                         return mockData
                     }
-                    return temp
+                    return value
                 }
             case .key(let field, let value):
-                guard let strValue = value as? KeyType,
+                guard let strValue = value as? String,
                       let strfield = field as? String else { return .failure(FireStoreError.keyTypeError) }
                 let data = try await fireStroeDB.collection(collectionName)
                     .whereField(strfield, isEqualTo: strValue)
                     .getDocuments()
                     .documents
+                
 
                 tempResults = data.map { snapshot in
-                    guard let temp = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()) as? T else {
+                    print(snapshot.data())
+                    guard let value = entity.fireStoreEntity.fetchValue(id: snapshot.documentID, data: snapshot.data()).entity as? T else {
                         return mockData
                     }
-                    print("--------------------------------------------")
-                    return temp
+                    return value
                 }
             }
         } catch {
