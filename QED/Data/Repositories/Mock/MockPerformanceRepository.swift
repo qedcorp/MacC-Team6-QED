@@ -21,8 +21,6 @@ class MockPerformanceRepository: PerformanceRepository {
     func readPerformances() async throws -> [Performance] {
 //        performances
         return [mockPerformance, mockPerformance1, mockPerformance2, mockPerformance3, mockPerformance4]
-        //        performances
-        return [mockPerformance]
     }
 
     func updatePerformance(_ performance: Performance) async throws -> Performance {
@@ -130,8 +128,3 @@ var mockPerformance5 = Performance(author: User(email: "", nickname: ""),
                                          headcount: 5,
                                          title: youtube5.title,
                                          formations: mockFormations)
-var mockPerformance = Performance(author: User(email: "", nickname: ""),
-                                  playable: youtube,
-                                  headcount: 4,
-                                  title: youtube.title,
-                                  formations: mockFormations)
