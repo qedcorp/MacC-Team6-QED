@@ -7,16 +7,6 @@ struct MemberModel: Equatable {
     var name: String?
     var color: String?
 
-    func buildEntity() -> Member {
-        Member(
-            relativePosition: relativePosition,
-            info: .init(
-                name: name ?? "",
-                color: color ?? ""
-            )
-        )
-    }
-
     static func build(entity: Member) -> Self {
         MemberModel(
             relativePosition: entity.relativePosition,

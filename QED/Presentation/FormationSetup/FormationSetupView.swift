@@ -11,6 +11,7 @@ struct FormationSetupView: View {
     private let performance: Performance
     private let store: StoreOf<Reducer>
     private let objectCanvasViewController = ObjectCanvasViewController()
+    @State private var yame = 0
 
     init(performanceUseCase: PerformanceUseCase, performance: Performance) {
         self.performanceUseCase = performanceUseCase
@@ -66,6 +67,7 @@ struct FormationSetupView: View {
                             performanceUseCase: performanceUseCase,
                             performance: performance
                         )
+                        .tag(yame)
                     }
                     .disabled(!viewStore.isAvailableToSave)
                 }
@@ -74,7 +76,8 @@ struct FormationSetupView: View {
                 guard viewStore.isAvailableToSave else {
                     return
                 }
-                performance.formations = $0.map { $0.buildEntity() }
+                performance.formations = $0.map { $0.buildEntity(memberInfos: performance.memberInfos) }
+                yame += 1
                 Task {
                     try await performanceUseCase.updatePerformance(performance)
                 }

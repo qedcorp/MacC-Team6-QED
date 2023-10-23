@@ -19,9 +19,15 @@ struct FormationModel: Equatable, Formable, ColorArrayable {
         members.map { $0.color }
     }
 
-    func buildEntity() -> Formation {
+    func buildEntity(memberInfos: [Member.Info]) -> Formation {
         Formation(
-            members: members.map { $0.buildEntity() },
+            members: members
+                .map { model in
+                    Member(
+                        relativePosition: model.relativePosition,
+                        info: memberInfos.first(where: { $0.color == model.color })
+                    )
+                },
             memo: memo
         )
     }
