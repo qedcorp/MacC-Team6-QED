@@ -64,7 +64,7 @@ struct TitleSettingView: View {
 
     var nextbutton: some View {
         Text("다음")
-            .frame(width: 360, height: 54)
+            .frame(width: 340, height: 54)
             .font(
                 Font.custom("Apple SD Gothic Neo", size: 16)
                     .weight(.bold)
