@@ -3,7 +3,7 @@
 import Foundation
 
 @propertyWrapper
-struct MinMax<T: Comparable> {
+struct MinMax<T: Comparable & Codable>: Codable {
     private var value: T?
     private let minValue: T
     private let maxValue: T

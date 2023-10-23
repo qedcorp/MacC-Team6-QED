@@ -113,6 +113,9 @@ struct FormationSetupView: View {
             memo: viewStore.currentFormation?.memo ?? "",
             onSubmit: {
                 viewStore.send(.currentMemoChanged($0))
+            },
+            onDismiss: {
+                viewStore.send(.setMemoFormPresented(false))
             }
         )
     }
@@ -129,6 +132,7 @@ struct FormationSetupView: View {
                 RoundedRectangle(cornerRadius: 4)
                     .fill(.gray.opacity(0.1))
             )
+            .clipped()
             HStack {
                 HistoryControlsView(historyManagable: objectCanvasViewController.historyManager)
                 Spacer()

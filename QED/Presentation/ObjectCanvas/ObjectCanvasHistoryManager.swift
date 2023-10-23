@@ -33,13 +33,15 @@ class ObjectCanvasHistoryManager: ObservableObject, HistoryManagable {
     }
 
     func addHistory(_ formable: any Formable) {
-        if historyIndex < histories.count - 1 {
-            histories = Array(histories.prefix(historyIndex + 1))
+        DispatchQueue.main.async { [unowned self] in
+            if historyIndex < histories.count - 1 {
+                histories = Array(histories.prefix(historyIndex + 1))
+            }
+            if histories.last?.relativePositions != formable.relativePositions {
+                histories.append(formable)
+            }
+            historyIndex = histories.count - 1
         }
-        if histories.last?.relativePositions != formable.relativePositions {
-            histories.append(formable)
-        }
-        historyIndex = histories.count - 1
     }
 
     private func copyHistory() {
