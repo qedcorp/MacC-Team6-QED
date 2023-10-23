@@ -10,13 +10,15 @@ import SwiftUI
 struct MemberCircleView: View {
     var isNameVisiable: Bool
     var member: Member
+    var geometry: GeometryProxy
 
     var body: some View {
         ZStack {
             if let color = member.info?.color {
                 Circle()
                     .fill(Color(hex: color))
-                    .frame(width: 25, height: 25)
+                    .frame(width: geometry.size.width * 0.11,
+                           height: geometry.size.height * 0.11)
             }
             if let name = member.info?.name {
                 Text(isNameVisiable ? name.prefix(2) : "")
@@ -26,9 +28,4 @@ struct MemberCircleView: View {
             }
         }
     }
-}
-
-#Preview {
-    MemberCircleView(isNameVisiable: false,
-                     member: members1[0])
 }

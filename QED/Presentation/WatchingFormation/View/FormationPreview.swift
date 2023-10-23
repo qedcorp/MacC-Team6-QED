@@ -8,28 +8,33 @@
 import SwiftUI
 
 struct FormationPreview: View {
-    var performance: Performance
+    @StateObject var viewModel = DetailFormationViewModel()
     var formation: Formation
-    var isNameVisiable: Bool
-//        @State var isSelected = false
+    var index: Int
+    var isNameVisiable: Bool = false
+    var hideLine: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
             danceFormation
             TimeAndLyric(formation: formation)
         }
-
     }
 
     private var danceFormation: some View {
         ZStack {
             danceFormationBackground
-            centerline
+            if !self.hideLine {
+                centerline
+            }
             GeometryReader { geometry in
                 ForEach(formation.members, id: \.info.self) { member in
                     MemberCircleView(isNameVisiable: isNameVisiable,
-                                     member: member)
-                    .position(CGPoint(x: CGFloat(member.relativePosition.x)*geometry.size.width*0.001, y: CGFloat(member.relativePosition.y)*geometry.size.height*0.001))
+                                     member: member,
+                                     geometry: geometry)
+                    .position(CGPoint(
+                        x: CGFloat(member.relativePosition.x) * geometry.size.width * 0.001,
+                        y: CGFloat(member.relativePosition.y) * geometry.size.height * 0.001))
                 }
             }
         }
@@ -38,7 +43,6 @@ struct FormationPreview: View {
     private var danceFormationBackground: some View {
         Rectangle()
             .fill(Color(.systemGray6))
-            .aspectRatio(35/22, contentMode: .fit)
             .clipShape(
                 .rect(topLeadingRadius: 12,
                       topTrailingRadius: 12))
@@ -84,7 +88,5 @@ private struct TimeAndLyric: View {
 }
 
 #Preview {
-    FormationPreview(performance: mockPerformance,
-                     formation: mockFormations[0],
-                     isNameVisiable: false)
+    FormationPreview(formation: mockFormations[0], index: 0)
 }

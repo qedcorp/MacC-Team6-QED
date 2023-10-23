@@ -110,23 +110,24 @@ struct FormationScrollView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 30) {
-                ForEach(performance.formations, id: \.self) { formation in
-                    VStack {
-                        NavigationLink(destination: DetailFormationView()) {
-                            FormationPreview(
-                                performance: performance,
-                                formation: formation,
-                                isNameVisiable: isNameVisiable
-                            )
-                        }
-                        if isAddVisible {
-                            addButton
+                VStack(spacing: 30) {
+                    ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
+                        VStack {
+                            NavigationLink(destination: DetailFormationView()) {
+                                FormationPreview(
+                                    formation: formation,
+                                    index: index,
+                                    isNameVisiable: isNameVisiable
+                                )
+                                .frame(height: 250)
+                            }
+                            if isAddVisible {
+                                addButton
+                            }
                         }
                     }
                 }
-            }
-            .padding(.horizontal, 20)
+                .padding(.horizontal, 20)
         }
     }
 

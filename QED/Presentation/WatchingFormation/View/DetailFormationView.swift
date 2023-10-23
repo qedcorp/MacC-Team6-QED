@@ -21,12 +21,13 @@ struct DetailFormationView: View {
         VStack(spacing: 10) {
             DanceFormationView(viewmodel: viewModel)
             detailControlButtons
-            PreviewScrollView(viewModel: viewModel)
+            PreviewScrollView(viewModel: viewModel,
+                              isPlaying: $isPlaying)
             Spacer()
             playButtons
             Spacer()
         }
-        .sheet(isPresented: .constant(true), onDismiss: didDismiss) {
+        .sheet(isPresented: .constant(true)) {
             DirectorNoteView(viewModel: viewModel,
                              isMemoEditMode: $isMemoEditMode,
                              note: $note)
@@ -131,7 +132,7 @@ struct DetailFormationView: View {
     private var rightItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                //                TODO: 상세 동선 수정 기능
+                //  TODO: 상세 동선 수정 기능
             } label: {
                 Text("동선수정")
                     .foregroundStyle(.green)
@@ -141,15 +142,39 @@ struct DetailFormationView: View {
 }
 
 struct PreviewScrollView: View {
-    var viewModel: DetailFormationViewModel
+    @StateObject var viewModel: DetailFormationViewModel
+    @Binding var isPlaying: Bool
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
-                ForEach(viewModel.performance.formations.indices, id: \.self) { index in
-                    PreviewCardView(viewModel: viewModel,
-                                    index: index)
+            ScrollViewReader { proxy in
+                HStack(spacing: 15) {
+                    ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performance.formations)), id: \.0) { (index, formation) in
+                        FormationPreview(
+                            formation: formation,
+                            index: index,
+                            hideLine: true
+                        )
+                        .frame(width: 150, height: 100)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .strokeBorder(
+                                    viewModel.selectedIndex == index ? .green: .clear,
+                                    lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                viewModel.selectFormation(selectedIndex: index)
+                            }
+                        }
+                    }
                 }
+                .onChange(of: viewModel.selectedIndex, perform: { value in
+                    proxy.scrollTo(value, anchor: .center)
+                    if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
+                        isPlaying = false
+                    }
+                })
             }
         }
     }

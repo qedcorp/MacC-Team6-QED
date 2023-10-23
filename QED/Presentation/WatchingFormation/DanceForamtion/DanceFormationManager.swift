@@ -83,7 +83,7 @@ class DanceFormationManager: ObservableObject {
         scene!.removeAllChildren()
         nodes.removeAll()
         for member in formation.members {
-            let node = SKShapeNode(circleOfRadius: 5)
+            let node = SKShapeNode(circleOfRadius: 10)
             if !isPreivew {
                 node.fillColor = UIColor(Color(hex: member.info?.color ?? "#FFFFFF"))
                 nodes[member] = node

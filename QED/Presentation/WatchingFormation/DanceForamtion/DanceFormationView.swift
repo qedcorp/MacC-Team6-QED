@@ -9,7 +9,6 @@ import SwiftUI
 import SpriteKit
 
 struct DanceFormationView: View {
-
     @ObservedObject var viewmodel: DetailFormationViewModel
 
     var body: some View {
@@ -17,9 +16,6 @@ struct DanceFormationView: View {
             SpriteView(scene: self.viewmodel.scene)
                 .frame(width: 350, height: 220)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
-                .onTapGesture {
-                    viewmodel.play()
-                }
         }
     }
 
