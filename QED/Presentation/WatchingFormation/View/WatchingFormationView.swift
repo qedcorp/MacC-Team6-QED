@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct WatchingFormationView: View {
-
     var performance: Performance
     @Environment(\.dismiss) private var dismiss
     @State var isNameVisiable = false
     @State var isAddVisible = false
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 15) {
-                titleAndHeadcount
-                togglingMemberName
-                FormationScrollView(isNameVisiable: isNameVisiable,
-                                    performance: performance,
-                                    isAddVisible: isAddVisible)
-            }
+        VStack(spacing: 15) {
+            titleAndHeadcount
+            togglingMemberName
+            FormationScrollView(isNameVisiable: isNameVisiable,
+                                performance: performance,
+                                isAddVisible: isAddVisible)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
@@ -116,14 +113,12 @@ struct FormationScrollView: View {
             VStack(spacing: 30) {
                 ForEach(performance.formations, id: \.self) { formation in
                     VStack {
-                        NavigationLink(value: formation) {
-                                FormationPreview(
-                                    performance: performance,
-                                    formation: formation,
-                                    isNameVisiable: isNameVisiable
-                                )
-                        }.navigationDestination(for: Formation.self) { _ in
-                            DetailFormationView()
+                        NavigationLink(destination: DetailFormationView()) {
+                            FormationPreview(
+                                performance: performance,
+                                formation: formation,
+                                isNameVisiable: isNameVisiable
+                            )
                         }
                         if isAddVisible {
                             addButton

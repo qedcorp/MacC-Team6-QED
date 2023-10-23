@@ -13,8 +13,8 @@ struct DetailFormationView: View {
     @ObservedObject var viewModel = DetailFormationViewModel()
     @State var isNameVisiable = false
     @State var isBeforeVisible = false
-    @State var isMemoEditMode = false
     @State var isPlaying = false
+    @State var isMemoEditMode = false
     @State var note = ""
 
     var body: some View {
@@ -26,10 +26,10 @@ struct DetailFormationView: View {
             playButtons
             Spacer()
         }
-        .sheet(isPresented: .constant(true)) {
+        .sheet(isPresented: .constant(true), onDismiss: didDismiss) {
             DirectorNoteView(viewModel: viewModel,
-                             note: $note,
-                             isMemoEditMode: $isMemoEditMode, isFocused: false)
+                             isMemoEditMode: $isMemoEditMode,
+                             note: $note)
         }
         .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
@@ -79,30 +79,42 @@ struct DetailFormationView: View {
 
     private var playButtons: some View {
         HStack(spacing: 20) {
-            Button {
-                viewModel.backward()
-            } label: {
-                Image(systemName: "chevron.left")
-            }
-            Button {
-                isPlaying.toggle()
-                if isPlaying {
-                    viewModel.play()
-                } else {
-                    viewModel.pause()
-                }
-            } label: {
-                Image(systemName: isPlaying ? "pause.fill" : "play.fill")
-                    .font(.title)
-            }
-            Button {
-                viewModel.forward()
-            } label: {
-                Image(systemName: "chevron.right")
-            }
+            backwardButton
+            playButton
+            forwardButton
         }
         .foregroundColor(.green)
         .font(.title2)
+    }
+
+    private var backwardButton: some View {
+        Button {
+            viewModel.backward()
+        } label: {
+            Image(systemName: "chevron.left")
+        }
+    }
+
+    private var playButton: some View {
+        Button {
+            isPlaying.toggle()
+            if isPlaying {
+                viewModel.play()
+            } else {
+                viewModel.pause()
+            }
+        } label: {
+            Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                .font(.title)
+        }
+    }
+
+    private var forwardButton: some View {
+        Button {
+            viewModel.forward()
+        } label: {
+            Image(systemName: "chevron.right")
+        }
     }
 
     private var leftItem: ToolbarItem<(), some View> {
@@ -121,7 +133,7 @@ struct DetailFormationView: View {
             Button {
                 //                TODO: 상세 동선 수정 기능
             } label: {
-                Text("상세/수정")
+                Text("동선수정")
                     .foregroundStyle(.green)
             }
         }
@@ -163,4 +175,8 @@ struct PreviewCardView: View {
                 }
             }
     }
+}
+
+#Preview {
+    DetailFormationView(viewModel: DetailFormationViewModel())
 }

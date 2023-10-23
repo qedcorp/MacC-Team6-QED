@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct DirectorNoteView: View {
+    private static let fraction = PresentationDetent.fraction(0.15)
+    private static let medium = PresentationDetent.medium
+
     @StateObject var viewModel: DetailFormationViewModel
-    @Binding var note: String
     @Binding var isMemoEditMode: Bool
-    @State private var settingsDetent = PresentationDetent.fraction(0.15)
+    @Binding var note: String
+    @State private var settingsDetent = fraction
     @FocusState private var isFoused: Bool?
 
-    var isFocused: Bool
     var body: some View {
         VStack(spacing: 20) {
             HStack {
@@ -22,15 +24,15 @@ struct DirectorNoteView: View {
                     .bold()
                 Spacer()
                 Button {
+                    isMemoEditMode.toggle()
                     if isMemoEditMode {
                         viewModel.saveNote()
-                        settingsDetent = PresentationDetent.fraction(0.15)
+                        settingsDetent = Self.fraction
                         isFoused = false
                     } else {
-                        settingsDetent = PresentationDetent.medium
+                        settingsDetent = Self.medium
                         isFoused = true
                     }
-                    isMemoEditMode.toggle()
                 } label: {
                     if isMemoEditMode {
                         Text("완료")
@@ -48,6 +50,8 @@ struct DirectorNoteView: View {
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .focused($isFoused, equals: true)
+                    .frame(height: 50)
+                    .tint(.green)
 
             } else {
                 Text(note == "" ?
@@ -62,14 +66,18 @@ struct DirectorNoteView: View {
         .padding([.horizontal, .top], 20)
         .interactiveDismissDisabled()
         .presentationBackgroundInteraction(.enabled)
-        .presentationDetents([.fraction(0.15), .medium], selection: $settingsDetent)
+        .presentationDetents([Self.fraction, Self.medium], selection: $settingsDetent)
         .ignoresSafeArea()
+        .onChange(of: settingsDetent) {
+            if $0 == Self.fraction && isMemoEditMode {
+                isMemoEditMode = false
+            }
+        }
     }
 }
 
 #Preview {
     DirectorNoteView(viewModel: DetailFormationViewModel(),
-                     note: .constant("메모메모"),
-                     isMemoEditMode: .constant(true),
-                     isFocused: false)
+                     isMemoEditMode: .constant(false),
+                     note: .constant("메모메모"))
 }

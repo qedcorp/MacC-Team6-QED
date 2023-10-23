@@ -16,6 +16,7 @@ struct DanceFormationView: View {
         VStack {
             SpriteView(scene: self.viewmodel.scene)
                 .frame(width: 350, height: 220)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
                 .onTapGesture {
                     viewmodel.play()
                 }

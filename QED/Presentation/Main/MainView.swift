@@ -14,7 +14,7 @@ struct MainView: View {
             userStore: DefaultUserStore.shared))
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 VStack(spacing: 25) {
                     BannerView(nickname: viewModel.nickname)
@@ -114,21 +114,18 @@ struct BannerView: View {
 
 struct MyRecentFormationScrollView: View {
     @StateObject var viewModel: MainViewModel
+    @State var selctePerformance: Performance?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(value: performance) {
+                    NavigationLink(destination: WatchingFormationView(performance: performance)) {
                         RecentFormationCardView(performance: performance)
-                    }
-                    .navigationDestination(for: Performance.self) { performance in
-                        WatchingFormationView(performance: performance)
                     }
                 }
             }
         }
-
         .padding(.leading, 20)
     }
 }
