@@ -12,6 +12,16 @@ struct DraggingModel {
         self.currentPosition = startPosition
     }
 
+    var rect: CGRect {
+        CGRect(
+            origin: startPosition,
+            size: .init(
+                width: currentPosition.x - startPosition.x,
+                height: currentPosition.y - startPosition.y
+            )
+        )
+    }
+
     var positionDiff: CGPoint {
         CGPoint(
             x: currentPosition.x - startPosition.x,

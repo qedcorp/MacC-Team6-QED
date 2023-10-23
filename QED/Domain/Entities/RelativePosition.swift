@@ -7,6 +7,18 @@ struct RelativePosition: Codable, Equatable {
     static let maxX = 100
     static let maxY = 100
     
-    let x: Int
-    let y: Int
+    @MinMax(minValue: 0, maxValue: maxX)
+    var x: Int
+    
+    @MinMax(minValue: 0, maxValue: maxY)
+    var y: Int
+    
+    init(x: Int, y: Int) {
+        self.x = x
+        self.y = y
+    }
+    
+    static func == (lhs: RelativePosition, rhs: RelativePosition) -> Bool {
+        lhs.x == rhs.x && lhs.y == rhs.y
+    }
 }

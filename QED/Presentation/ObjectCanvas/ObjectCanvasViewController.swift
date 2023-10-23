@@ -17,13 +17,19 @@ class ObjectCanvasViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
-    private let draggingHandler = DraggingHandler()
-    private var cancellables = Set<AnyCancellable>()
+    private lazy var draggingHandler = DraggingHandler()
+    private lazy var multiSelectBoxView = MultiSelectBoxView()
 
-    private var selectedObjectView: DotObjectView? {
+    private var cancellables = Set<AnyCancellable>()
+    private var isMultiSelectDragging = false
+
+    private var selectedObjectViews: Set<DotObjectView> = [] {
         didSet {
+            guard selectedObjectViews != oldValue else {
+                return
+            }
             objectViews
-                .forEach { $0.color = $0 === selectedObjectView ? .green : .black }
+                .forEach { $0.color = selectedObjectViews.contains($0) ? .green : .black }
         }
     }
 
@@ -33,6 +39,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
+        view.addSubview(multiSelectBoxView)
         setupCenterLines()
     }
 
@@ -50,8 +57,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
         draggingHandler.$dragging
             .sink { _ in
             } receiveValue: { [weak self] in
+                self?.updateMultiSelectBoxViewFrame(dragging: $0)
                 if let dragging = $0 {
-                    self?.selectedObjectView?.applyPositionDiff(dragging.positionDiff)
+                    self?.handleDragging(dragging)
                 } else {
                     self?.addHistory()
                     self?.didChange()
@@ -60,17 +68,46 @@ class ObjectCanvasViewController: ObjectStageViewController {
             .store(in: &cancellables)
     }
 
+    private func handleDragging(_ dragging: DraggingModel) {
+        if isMultiSelectDragging {
+            multiSelectByDragging(dragging)
+        } else if !selectedObjectViews.isEmpty {
+            selectedObjectViews
+                .forEach { $0.applyPositionDiff(dragging.positionDiff) }
+        }
+    }
+
+    private func multiSelectByDragging(_ dragging: DraggingModel) {
+        guard dragging.rect != .zero else {
+            return
+        }
+        objectViews
+            .forEach {
+                if dragging.rect.contains($0.center) {
+                    selectedObjectViews.insert($0)
+                } else {
+                    selectedObjectViews.remove($0)
+                }
+            }
+    }
+
+    private func updateMultiSelectBoxViewFrame(dragging: DraggingModel?) {
+        multiSelectBoxView.frame = (isMultiSelectDragging ? dragging?.rect : nil) ?? .zero
+    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
             return
         }
-        if let touchedView = touchedViewDetector.detectView(position: position) {
-            if let objectView = touchedView as? DotObjectView {
-                selectedObjectView = objectView
+        if let objectView = touchedViewDetector.detectView(position: position) as? DotObjectView {
+            selectedObjectViews = [objectView]
+        } else {
+            if objectViews.count < maxObjectsCount ?? .max {
+                placeObjectView(position: position)
+            } else if selectedObjectViews.isEmpty {
+                isMultiSelectDragging = true
             }
-        } else if selectedObjectView == nil {
-            placeObjectView(position: position)
         }
         draggingHandler.beginDragging(position: position)
     }
@@ -88,38 +125,37 @@ class ObjectCanvasViewController: ObjectStageViewController {
         guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
             return
         }
-        replaceSelectedObjectView()
+        isMultiSelectDragging = false
+        replaceSelectedObjectViews()
         if isObjectViewUnselectNeeded(position: position) {
-            selectedObjectView = nil
+            selectedObjectViews = []
         }
         draggingHandler.endDragging()
     }
 
     override func placeObjectView(position: CGPoint) {
-        guard objectViews.count < maxObjectsCount ?? .max else {
-            return
-        }
         super.placeObjectView(position: position)
-        replaceSelectedObjectView()
+        replaceSelectedObjectViews()
     }
 
-    private func replaceSelectedObjectView() {
-        guard let view = selectedObjectView else {
-            return
+    private func replaceSelectedObjectViews() {
+        selectedObjectViews.forEach {
+            let relativePosition = touchPositionConverter.getRelativePosition(absolute: $0.center)
+            let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
+            $0.applyPosition(absolutePosition)
         }
-        let relativePosition = touchPositionConverter.getRelativePosition(absolute: view.center)
-        let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
-        selectedObjectView?.applyPosition(absolutePosition)
     }
 
     override func copyFormable(_ formable: Formable) {
         super.copyFormable(formable)
+        selectedObjectViews = []
         addHistory()
         didChange()
     }
 
     func copyFormableFromHistory(_ formable: Formable) {
         super.copyFormable(formable)
+        selectedObjectViews = []
         didChange()
     }
 
