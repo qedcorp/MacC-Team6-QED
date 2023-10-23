@@ -30,6 +30,8 @@ struct FormationSetupReducer: Reducer {
         case formationChanged([RelativePosition])
         case formationAddButtonTapped
         case formationTapped(Int)
+        case formationDeleteButtonTapped(Int)
+        case formationDuplicateButtonTapped(Int)
         case setMemoFormPresented(Bool)
         case setFormations([FormationModel])
         case setCurrentFormationIndex(Int)
@@ -75,6 +77,23 @@ struct FormationSetupReducer: Reducer {
 
         case let .formationTapped(index):
             return .send(.setCurrentFormationIndex(index))
+
+        case let .formationDeleteButtonTapped(index):
+            var formations = state.formations
+            formations.remove(at: index)
+            return .concatenate([
+                .send(.setFormations(formations)),
+                .send(.setCurrentFormationIndex(index == state.currentFormationIndex ? index - 1 : index))
+            ])
+
+        case let .formationDuplicateButtonTapped(index):
+            var formations = state.formations
+            let formation = formations[index]
+            formations.insert(formation, at: index + 1)
+            return .concatenate([
+                .send(.setFormations(formations)),
+                .send(.setCurrentFormationIndex(index + 1))
+            ])
 
         case let .setMemoFormPresented(isPresented):
             state.isMemoFormPresented = isPresented

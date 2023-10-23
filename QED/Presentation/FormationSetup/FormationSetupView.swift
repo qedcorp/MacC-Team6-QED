@@ -154,20 +154,26 @@ struct FormationSetupView: View {
                 .frame(height: 106)
             VStack(spacing: 0) {
                 buildFormationAddButton(viewStore: viewStore, buttonLength: 52)
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
-                            buildFormationItemView(
-                                viewStore: viewStore,
-                                index: formationOffset,
-                                formation: formation
-                            )
-                        }
-                        Spacer()
+                ZStack {
+                    if viewStore.formations.isEmpty {
+                        Text("프레임을 추가한 후 가사와 대형을 설정하세요.")
+                            .foregroundStyle(.green)
                     }
-                    .frame(height: 64)
-                    .padding(.horizontal, 14)
-                    .padding(.bottom, 14)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
+                                buildFormationItemView(
+                                    viewStore: viewStore,
+                                    index: formationOffset,
+                                    formation: formation
+                                )
+                            }
+                            Spacer()
+                        }
+                        .frame(height: 64)
+                        .padding(.horizontal, 14)
+                        .padding(.bottom, 14)
+                    }
                 }
             }
         }
@@ -220,6 +226,17 @@ struct FormationSetupView: View {
                 .lineLimit(1)
         }
         .aspectRatio(41 / 32, contentMode: .fit)
+        .contextMenu {
+            ControlGroup {
+                Button("삭제") {
+                    viewStore.send(.formationDeleteButtonTapped(index))
+                }
+                Button("복제") {
+                    viewStore.send(.formationDuplicateButtonTapped(index))
+                }
+            }
+            .controlGroupStyle(.compactMenu)
+        }
         .onTapGesture {
             viewStore.send(.formationTapped(index))
         }
