@@ -14,7 +14,7 @@ struct FormationSetupView: View {
             VStack(spacing: 26) {
                 GeometryReader { geometry in
                     VStack(spacing: 0) {
-                        buildMusicHeadcountView(viewStore: viewStore)
+                        MusicHeadcountView(title: viewStore.music.title, headcount: viewStore.headcount)
                             .padding(.bottom, 16)
                         buildMemoView(viewStore: viewStore)
                             .modifier(DisabledOpacityModifier(
@@ -44,7 +44,7 @@ struct FormationSetupView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    buildTitleView()
+                    PerformanceSetupTitleView(step: 1, title: "대형짜기")
                 }
                 ToolbarTitleMenu {
                 }
@@ -65,39 +65,6 @@ struct FormationSetupView: View {
                 }
                 viewStore.send(.viewAppeared)
             }
-        }
-    }
-
-    private func buildTitleView() -> some View {
-        HStack(spacing: 6) {
-            Text("STEP 1")
-                .foregroundColor(.white)
-                .font(.caption2.weight(.heavy))
-                .frame(height: 20)
-                .padding(.horizontal, 4)
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(.green)
-                )
-            Text("대형짜기")
-                .font(.headline)
-        }
-    }
-
-    private func buildMusicHeadcountView(viewStore: ViewStore) -> some View {
-        HStack(spacing: 6) {
-            Text(viewStore.music.title)
-                .foregroundColor(.gray)
-                .font(.caption2.weight(.semibold))
-            Text("\(viewStore.headcount)인")
-                .foregroundColor(.gray)
-                .font(.caption2)
-                .frame(height: 20)
-                .padding(.horizontal, 4)
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(.gray.opacity(0.1))
-                )
         }
     }
 
