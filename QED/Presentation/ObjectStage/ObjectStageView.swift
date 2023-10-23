@@ -4,10 +4,10 @@ import SwiftUI
 
 struct ObjectStageView: UIViewControllerRepresentable {
     let formable: Formable
+    @State private var controller = ObjectStageViewController()
 
     func makeUIViewController(context: Context) -> ObjectStageViewController {
-        let controller = ObjectStageViewController()
-        return controller
+        controller
     }
 
     func updateUIViewController(_ uiViewController: ObjectStageViewController, context: Context) {

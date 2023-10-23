@@ -14,17 +14,17 @@ struct FormationSetupView: View {
             VStack(spacing: 26) {
                 GeometryReader { geometry in
                     VStack(spacing: 0) {
-                        buildMusicHeadcountView(viewStore: viewStore)
+                        MusicHeadcountView(title: viewStore.music.title, headcount: viewStore.headcount)
                             .padding(.bottom, 16)
-                        buildLyricView(viewStore: viewStore)
+                        buildMemoView(viewStore: viewStore)
                             .modifier(DisabledOpacityModifier(
-                                isDisabled: !viewStore.isEnabled,
+                                isDisabled: !viewStore.canEditFormation,
                                 disabledOpacity: 0.3
                             ))
                         Spacer(minLength: 18)
                         buildObjectCanvasView(viewStore: viewStore, width: geometry.size.width)
                             .modifier(DisabledOpacityModifier(
-                                isDisabled: !viewStore.isEnabled,
+                                isDisabled: !viewStore.canEditFormation,
                                 disabledOpacity: 0.3
                             ))
                         Spacer()
@@ -36,20 +36,32 @@ struct FormationSetupView: View {
                     buildFormationContainerView(viewStore: viewStore)
                 }
             }
+            .ignoresSafeArea(.keyboard)
+            .overlay(
+                viewStore.isMemoFormPresented ?
+                buildMemoFormView(viewStore: viewStore)
+                : nil
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    buildTitleView()
+                    PerformanceSetupTitleView(step: 1, title: "대형짜기")
                 }
                 ToolbarTitleMenu {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("다음") {
+                    NavigationLink("다음") {
+                        MemberSetupView(store: .init(initialState: MemberSetupReducer.State(
+                            performance: viewStore.performance
+                        )) {
+                            MemberSetupReducer()
+                        })
                     }
+                    .disabled(!viewStore.canGotoNextStep)
                 }
             }
-            .onChange(of: viewStore.currentFormation) {
-                guard let formable = $0 else {
+            .onChange(of: viewStore.currentFormationIndex) { _ in
+                guard let formable = viewStore.currentFormation else {
                     return
                 }
                 objectCanvasViewController.copyFormable(formable)
@@ -63,50 +75,22 @@ struct FormationSetupView: View {
         }
     }
 
-    private func buildTitleView() -> some View {
-        HStack(spacing: 6) {
-            Text("STEP 1")
-                .foregroundColor(.white)
-                .font(.caption2.weight(.heavy))
-                .frame(height: 20)
-                .padding(.horizontal, 4)
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(.green)
-                )
-            Text("대형짜기")
-                .font(.headline)
-        }
+    private func buildMemoView(viewStore: ViewStore) -> some View {
+        FormationMemoView(memo: viewStore.currentFormation?.memo)
+            .onTapGesture {
+                viewStore.send(.memoTapped)
+            }
     }
 
-    private func buildMusicHeadcountView(viewStore: ViewStore) -> some View {
-        HStack(spacing: 6) {
-            Text(viewStore.music.title)
-                .foregroundColor(.gray)
-                .font(.caption2.weight(.semibold))
-            Text("\(viewStore.headcount)인")
-                .foregroundColor(.gray)
-                .font(.caption2)
-                .frame(height: 20)
-                .padding(.horizontal, 4)
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(.gray.opacity(0.1))
-                )
-        }
-    }
-
-    private func buildLyricView(viewStore: ViewStore) -> some View {
-        HStack(alignment: .center) {
-            Spacer()
-            Text(viewStore.currentFormation?.memo ?? "클릭해서 가사 입력")
-                .lineLimit(1)
-            Spacer()
-        }
-        .frame(height: 46)
-        .background(
-            RoundedRectangle(cornerRadius: 4)
-                .fill(.gray.opacity(0.1))
+    private func buildMemoFormView(viewStore: ViewStore) -> some View {
+        MemoFormView(
+            memo: viewStore.currentFormation?.memo ?? "",
+            onSubmit: {
+                viewStore.send(.currentMemoChanged($0))
+            },
+            onDismiss: {
+                viewStore.send(.setMemoFormPresented(false))
+            }
         )
     }
 
@@ -122,6 +106,7 @@ struct FormationSetupView: View {
                 RoundedRectangle(cornerRadius: 4)
                     .fill(.gray.opacity(0.1))
             )
+            .clipped()
             HStack {
                 HistoryControlsView(historyManagable: objectCanvasViewController.historyManager)
                 Spacer()
@@ -134,6 +119,10 @@ struct FormationSetupView: View {
             objectCanvasViewController: objectCanvasViewController,
             headcount: viewStore.headcount
         )
+        .modifier(DisabledOpacityModifier(
+            isDisabled: !viewStore.canEditFormation,
+            disabledOpacity: 0.3
+        ))
     }
 
     private func buildFormationContainerView(viewStore: ViewStore) -> some View {
@@ -143,20 +132,29 @@ struct FormationSetupView: View {
                 .frame(height: 106)
             VStack(spacing: 0) {
                 buildFormationAddButton(viewStore: viewStore, buttonLength: 52)
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
-                            buildFormationItemView(
-                                viewStore: viewStore,
-                                index: formationOffset,
-                                formation: formation
-                            )
-                        }
-                        Spacer()
+                ZStack {
+                    if viewStore.formations.isEmpty {
+                        Text("프레임을 추가한 후 가사와 대형을 설정하세요.")
+                            .foregroundStyle(.green)
                     }
-                    .frame(height: 64)
-                    .padding(.horizontal, 14)
-                    .padding(.bottom, 14)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(
+                                Array(viewStore.formations.enumerated()),
+                                id: \.offset
+                            ) { formationOffset, formation in
+                                buildFormationItemView(
+                                    viewStore: viewStore,
+                                    index: formationOffset,
+                                    formation: formation
+                                )
+                            }
+                            Spacer()
+                        }
+                        .frame(height: 64)
+                        .padding(.horizontal, 14)
+                        .padding(.bottom, 14)
+                    }
                 }
             }
         }
@@ -209,6 +207,17 @@ struct FormationSetupView: View {
                 .lineLimit(1)
         }
         .aspectRatio(41 / 32, contentMode: .fit)
+        .contextMenu {
+            ControlGroup {
+                Button("삭제") {
+                    viewStore.send(.formationDeleteButtonTapped(index))
+                }
+                Button("복제") {
+                    viewStore.send(.formationDuplicateButtonTapped(index))
+                }
+            }
+            .controlGroupStyle(.compactMenu)
+        }
         .onTapGesture {
             viewStore.send(.formationTapped(index))
         }
