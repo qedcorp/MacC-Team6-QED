@@ -11,7 +11,6 @@ struct MemberSetupView: View {
     private let store: StoreOf<Reducer>
 
     init(performance: Performance) {
-        print(performance.formations.map { FormationModel.build(entity: $0) })
         self.performance = performance
         self.store = .init(initialState: Reducer.State(performance: performance)) {
             Reducer()
@@ -46,10 +45,17 @@ struct MemberSetupView: View {
                 }
             }
             .overlay(
-                viewStore.presentedMemberNameChangeIndex != nil ?
-                MemberNameChangeView(onDismiss: {
-                    viewStore.send(.setPresentedMemberNameChangeIndex(nil))
-                })
+                viewStore.presentedMemberInfoChangeIndex != nil ?
+                MemberInfoChangeView(
+                    name: viewStore.binding(
+                        get: { $0.changingMemberInfo?.name ?? "" },
+                        send: { .memberNameChanged($0) }
+                    ),
+                    color: viewStore.changingMemberInfo?.color ?? "",
+                    onDismiss: {
+                        viewStore.send(.setPresentedMemberInfoChangeIndex(nil))
+                    }
+                )
                 : nil
             )
             .navigationBarTitleDisplayMode(.inline)
@@ -94,7 +100,7 @@ struct MemberSetupView: View {
         .contextMenu {
             ControlGroup {
                 Button("이름변경") {
-                    viewStore.send(.memberNameChangeButtonTapped(index))
+                    viewStore.send(.memberInfoChangeButtonTapped(index))
                 }
             }
             .controlGroupStyle(.compactMenu)

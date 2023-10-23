@@ -10,7 +10,7 @@ struct MemberSetupReducer: Reducer {
         var memberInfos: [MemberInfoModel]
         var formations: [FormationModel]
         var selectedMemberInfoIndex: Int?
-        var presentedMemberNameChangeIndex: Int?
+        var presentedMemberInfoChangeIndex: Int?
 
         init(performance: Performance) {
             // TODO: Playable 대응
@@ -30,15 +30,25 @@ struct MemberSetupReducer: Reducer {
             }
             return memberInfos[index]
         }
+
+        var changingMemberInfo: MemberInfoModel? {
+            guard let index = presentedMemberInfoChangeIndex,
+                  (0 ..< memberInfos.count).contains(index) else {
+                return nil
+            }
+            return memberInfos[index]
+        }
     }
 
     enum Action: Equatable {
         case memberInfoButtonTapped(Int)
-        case memberNameChangeButtonTapped(Int)
+        case memberInfoChangeButtonTapped(Int)
+        case memberNameChanged(String)
         case formationChanged(Int, FormationModel)
+        case setMemberInfos([MemberInfoModel])
         case setFormations([FormationModel])
         case setSelectedMemberInfoIndex(Int?)
-        case setPresentedMemberNameChangeIndex(Int?)
+        case setPresentedMemberInfoChangeIndex(Int?)
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -46,13 +56,23 @@ struct MemberSetupReducer: Reducer {
         case let .memberInfoButtonTapped(index):
             return .send(.setSelectedMemberInfoIndex(index == state.selectedMemberInfoIndex ? nil : index))
 
-        case let .memberNameChangeButtonTapped(index):
-            return .send(.setPresentedMemberNameChangeIndex(index))
+        case let .memberInfoChangeButtonTapped(index):
+            return .send(.setPresentedMemberInfoChangeIndex(index))
+
+        case let .memberNameChanged(name):
+            var memberInfos = state.memberInfos
+            // TODO: optional 관리
+            memberInfos[state.presentedMemberInfoChangeIndex!].name = name
+            return .send(.setMemberInfos(memberInfos))
 
         case let .formationChanged(index, formation):
             var formations = state.formations
             formations[index] = formation
             return .send(.setFormations(formations))
+
+        case let .setMemberInfos(memberInfos):
+            state.memberInfos = memberInfos
+            return .none
 
         case let .setFormations(formations):
             state.formations = formations
@@ -62,8 +82,8 @@ struct MemberSetupReducer: Reducer {
             state.selectedMemberInfoIndex = index
             return .none
 
-        case let .setPresentedMemberNameChangeIndex(index):
-            state.presentedMemberNameChangeIndex = index
+        case let .setPresentedMemberInfoChangeIndex(index):
+            state.presentedMemberInfoChangeIndex = index
             return .none
         }
     }
