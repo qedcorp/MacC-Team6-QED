@@ -24,13 +24,23 @@ struct MemberSetupView: View {
                 ScrollView(.vertical) {
                     VStack(spacing: 14) {
                         ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { _, formation in
-                            MemberSetupFormationView(formation: formation, colorHex: viewStore.selectedMemberInfo?.color)
+                            MemberSetupFormationView(
+                                formation: formation,
+                                colorHex: viewStore.selectedMemberInfo?.color
+                            )
                         }
                     }
                     .padding(.horizontal, 22)
                     .padding(.bottom, 22)
                 }
             }
+            .overlay(
+                viewStore.presentedMemberNameChangeIndex != nil ?
+                MemberNameChangeView(onDismiss: {
+                    viewStore.send(.setPresentedMemberNameChangeIndex(nil))
+                })
+                : nil
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -47,29 +57,39 @@ struct MemberSetupView: View {
     }
 
     private func buildMemberInfoButton(viewStore: ViewStore, index: Int, memberInfo: MemberInfoModel) -> some View {
-        Button {
-            viewStore.send(.memberInfoButtonTapped(index))
-        } label: {
-            HStack(spacing: 10) {
-                Circle()
-                    .fill(Color(hex: memberInfo.color))
-                    .frame(height: 22)
-                    .aspectRatio(contentMode: .fit)
-                Text(memberInfo.name)
-                    .foregroundStyle(.gray)
+        HStack(spacing: 10) {
+            Circle()
+                .fill(Color(hex: memberInfo.color))
+                .frame(height: 22)
+                .aspectRatio(contentMode: .fit)
+            Text(memberInfo.name)
+                .foregroundStyle(.gray)
+        }
+        .frame(height: 38)
+        .padding(.horizontal, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(.gray.opacity(0.1))
+                .overlay(
+                    index == viewStore.selectedMemberInfoIndex ?
+                    RoundedRectangle(cornerRadius: 4)
+                        .strokeBorder(.green, lineWidth: 2)
+                    : nil
+                )
+        )
+        .contextMenu {
+            ControlGroup {
+                Button("이름변경") {
+                    viewStore.send(.memberNameChangeButtonTapped(index))
+                }
+                Button("색상변경") {
+                    viewStore.send(.memberColorChangeButtonTapped(index))
+                }
             }
-            .frame(height: 38)
-            .padding(.horizontal, 8)
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(.gray.opacity(0.1))
-                    .overlay(
-                        index == viewStore.selectedMemberInfoIndex ?
-                        RoundedRectangle(cornerRadius: 4)
-                            .strokeBorder(.green, lineWidth: 2)
-                        : nil
-                    )
-            )
+            .controlGroupStyle(.compactMenu)
+        }
+        .onTapGesture {
+            viewStore.send(.memberInfoButtonTapped(index))
         }
     }
 }

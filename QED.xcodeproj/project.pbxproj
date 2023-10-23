@@ -33,6 +33,8 @@
 		3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */; };
 		3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C92AE6906200C48403 /* String+Hex.swift */; };
 		3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */; };
+		3AE701D02AE6989200C48403 /* MemberNameChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CF2AE6989200C48403 /* MemberNameChangeView.swift */; };
+		3AE701D22AE698A000C48403 /* MemberColorChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701D12AE698A000C48403 /* MemberColorChangeView.swift */; };
 		3AF617CC2AE191BB0052FC90 /* MinMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */; };
 		3AF617CD2AE191BB0052FC90 /* HexStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */; };
 		3AF617D02AE1961D0052FC90 /* FormationSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */; };
@@ -192,6 +194,8 @@
 		3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModel.swift; sourceTree = "<group>"; };
 		3AE701C92AE6906200C48403 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		3AE701CF2AE6989200C48403 /* MemberNameChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberNameChangeView.swift; sourceTree = "<group>"; };
+		3AE701D12AE698A000C48403 /* MemberColorChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberColorChangeView.swift; sourceTree = "<group>"; };
 		3AF617CA2AE191BB0052FC90 /* MinMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTests.swift; sourceTree = "<group>"; };
 		3AF617CB2AE191BB0052FC90 /* HexStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexStringTests.swift; sourceTree = "<group>"; };
 		3AF617CF2AE1961D0052FC90 /* FormationSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormationSetupView.swift; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 				3AE701BC2AE65F4F00C48403 /* MemberSetupView.swift */,
 				3AE701BE2AE65FAD00C48403 /* MemberSetupReducer.swift */,
 				3AE701C02AE667E600C48403 /* MemberSetupFormationView.swift */,
+				3AE701CF2AE6989200C48403 /* MemberNameChangeView.swift */,
+				3AE701D12AE698A000C48403 /* MemberColorChangeView.swift */,
 			);
 			path = MemberSetup;
 			sourceTree = "<group>";
@@ -1360,6 +1366,7 @@
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
 				3AE701BD2AE65F4F00C48403 /* MemberSetupView.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
+				3AE701D22AE698A000C48403 /* MemberColorChangeView.swift in Sources */,
 				3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
@@ -1378,6 +1385,7 @@
 				D460F0052AE18DF700A5966A /* SearchMusicRepository.swift in Sources */,
 				D460EFED2AE18DF700A5966A /* PresetManageView.swift in Sources */,
 				D460EFEA2AE18DF700A5966A /* HistoryControlsView.swift in Sources */,
+				3AE701D02AE6989200C48403 /* MemberNameChangeView.swift in Sources */,
 				3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,

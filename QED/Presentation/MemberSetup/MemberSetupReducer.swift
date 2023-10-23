@@ -10,6 +10,8 @@ struct MemberSetupReducer: Reducer {
         var memberInfos: [MemberInfoModel]
         var formations: [FormationModel]
         var selectedMemberInfoIndex: Int?
+        var presentedMemberNameChangeIndex: Int?
+        var presentedMemberColorChangeIndex: Int?
 
         init(performance: Performance) {
             // TODO: Playable 대응
@@ -33,7 +35,11 @@ struct MemberSetupReducer: Reducer {
 
     enum Action: Equatable {
         case memberInfoButtonTapped(Int)
+        case memberNameChangeButtonTapped(Int)
+        case memberColorChangeButtonTapped(Int)
         case setSelectedMemberInfoIndex(Int?)
+        case setPresentedMemberNameChangeIndex(Int?)
+        case setPresentedMemberColorChangeIndex(Int?)
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -41,8 +47,22 @@ struct MemberSetupReducer: Reducer {
         case let .memberInfoButtonTapped(index):
             return .send(.setSelectedMemberInfoIndex(index == state.selectedMemberInfoIndex ? nil : index))
 
+        case let .memberNameChangeButtonTapped(index):
+            return .send(.setPresentedMemberNameChangeIndex(index))
+
+        case let .memberColorChangeButtonTapped(index):
+            return .send(.setPresentedMemberColorChangeIndex(index))
+
         case let .setSelectedMemberInfoIndex(index):
             state.selectedMemberInfoIndex = index
+            return .none
+
+        case let .setPresentedMemberNameChangeIndex(index):
+            state.presentedMemberNameChangeIndex = index
+            return .none
+
+        case let .setPresentedMemberColorChangeIndex(index):
+            state.presentedMemberColorChangeIndex = index
             return .none
         }
     }
