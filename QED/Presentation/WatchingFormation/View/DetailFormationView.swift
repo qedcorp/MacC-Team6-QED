@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct DetailFormationView: View {
-    var performance: Performance
-    var formation: Formation
+
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel = DetailFormationViewModel()
+    @ObservedObject var viewModel = DetailFormationViewModel()
     @State var isNameVisiable = false
     @State var isBeforeVisible = false
     @State var isMemoEditMode = false
@@ -20,26 +19,12 @@ struct DetailFormationView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            if let selcetedFormation = viewModel.selcetedFormation {
-                FormationPreview(
-                    performance: performance,
-                    formation: selcetedFormation,
-                    isNameVisiable: isNameVisiable
-                )
-                .frame(height: 280)
-            }
+            DanceFormationView(viewmodel: viewModel)
             detailControlButtons
-            PreviewScrollView(viewModel: viewModel,
-                              performance: performance)
+            PreviewScrollView(viewModel: viewModel)
             Spacer()
             playButtons
             Spacer()
-        }
-        .onAppear {
-            viewModel.getCurrentFormation(formation: formation)
-            if let memo = viewModel.memo {
-                note = memo
-            }
         }
         .sheet(isPresented: .constant(true)) {
             DirectorNoteView(viewModel: viewModel,
@@ -48,7 +33,7 @@ struct DetailFormationView: View {
         }
         .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
-        .navigationTitle(performance.title ?? "")
+        .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
             leftItem
             rightItem
@@ -66,6 +51,7 @@ struct DetailFormationView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
                     isBeforeVisible.toggle()
+                    viewModel.beforeFormationShowingToggle()
                 } label: {
                     Text(isBeforeVisible ? "off" : "on")
                         .foregroundStyle(.green)
@@ -94,18 +80,23 @@ struct DetailFormationView: View {
     private var playButtons: some View {
         HStack(spacing: 20) {
             Button {
-                viewModel.backward(performance: performance)
+                viewModel.backward()
             } label: {
                 Image(systemName: "chevron.left")
             }
             Button {
                 isPlaying.toggle()
+                if isPlaying {
+                    viewModel.play()
+                } else {
+                    viewModel.pause()
+                }
             } label: {
                 Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                     .font(.title)
             }
             Button {
-                viewModel.forward(performance: performance)
+                viewModel.forward()
             } label: {
                 Image(systemName: "chevron.right")
             }
@@ -139,14 +130,13 @@ struct DetailFormationView: View {
 
 struct PreviewScrollView: View {
     var viewModel: DetailFormationViewModel
-    var performance: Performance
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(performance.formations, id: \.self) { formation in
+                ForEach(viewModel.performance.formations.indices, id: \.self) { index in
                     PreviewCardView(viewModel: viewModel,
-                                    formation: formation)
+                                    index: index)
                 }
             }
         }
@@ -155,7 +145,7 @@ struct PreviewScrollView: View {
 
 struct PreviewCardView: View {
     @StateObject var viewModel: DetailFormationViewModel
-    var formation: Formation
+    var index: Int
 
     var body: some View {
         RoundedRectangle(cornerRadius: 12)
@@ -164,18 +154,13 @@ struct PreviewCardView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(
-                        viewModel.selcetedFormation == formation ? .green: .clear,
+                        viewModel.selectedIndex == index ? .green: .clear,
                         lineWidth: 2)
             )
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.1)) {
-                    viewModel.selcetedFormation = formation
+                    viewModel.selectFormation(selectedIndex: index)
                 }
             }
     }
-}
-
-#Preview {
-    DetailFormationView(performance: mockPerformance,
-                        formation: mockFormations[0])
 }

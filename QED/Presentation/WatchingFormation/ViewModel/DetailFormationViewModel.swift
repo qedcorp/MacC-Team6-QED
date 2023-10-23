@@ -96,6 +96,7 @@ extension DetailFormationViewModel {
                 guard let self = self else { return }
 
                 self.showingFormation = self.performance.formations[index]
+                print(self.showingFormation)
                 self.scene.manager?.fetchNew(formation: self.showingFormation)
                 if self.isShowingBeforeFormation && index - 1 >= 0 {
                     self.beforeFormation = self.performance.formations[index - 1]

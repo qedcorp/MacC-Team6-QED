@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WatchingFormationView: View {
+
     var performance: Performance
     @Environment(\.dismiss) private var dismiss
     @State var isNameVisiable = false
@@ -121,10 +122,8 @@ struct FormationScrollView: View {
                                     formation: formation,
                                     isNameVisiable: isNameVisiable
                                 )
-                        }.navigationDestination(for: Formation.self) { formation in
-                            DetailFormationView(
-                                performance: performance,
-                                formation: formation)
+                        }.navigationDestination(for: Formation.self) { _ in
+                            DetailFormationView()
                         }
                         if isAddVisible {
                             addButton

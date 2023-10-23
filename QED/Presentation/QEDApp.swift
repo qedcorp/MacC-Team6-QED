@@ -9,7 +9,7 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DanceFormationView()
+            WatchingFormationView(performance: mockPerformance)
         }
     }
 }

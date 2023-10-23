@@ -10,7 +10,7 @@ import SpriteKit
 
 struct DanceFormationView: View {
 
-    @ObservedObject var viewmodel = DetailFormationViewModel()
+    @ObservedObject var viewmodel: DetailFormationViewModel
 
     var body: some View {
         VStack {
@@ -18,27 +18,6 @@ struct DanceFormationView: View {
                 .frame(width: 350, height: 220)
                 .onTapGesture {
                     viewmodel.play()
-                }
-
-            Rectangle()
-                .frame(width: 100, height: 100)
-                .foregroundStyle(.red)
-                .onTapGesture {
-                    viewmodel.forward()
-                }
-
-            Rectangle()
-                .frame(width: 100, height: 100)
-                .foregroundStyle(.green)
-                .onTapGesture {
-                    viewmodel.pause()
-                }
-
-            Rectangle()
-                .frame(width: 100, height: 100)
-                .foregroundStyle(.green)
-                .onTapGesture {
-                    viewmodel.backward()
                 }
         }
     }
@@ -57,8 +36,4 @@ struct DanceFormationView: View {
                 .frame(width: width, height: 1)
         }
     }
-}
-
-#Preview {
-    DanceFormationView()
 }

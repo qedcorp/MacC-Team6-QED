@@ -23,9 +23,9 @@ struct DirectorNoteView: View {
                 Spacer()
                 Button {
                     if isMemoEditMode {
-                        viewModel.memo = note
-                       settingsDetent = PresentationDetent.fraction(0.15)
-                            isFoused = false
+                        viewModel.saveNote()
+                        settingsDetent = PresentationDetent.fraction(0.15)
+                        isFoused = false
                     } else {
                         settingsDetent = PresentationDetent.medium
                         isFoused = true
@@ -42,7 +42,7 @@ struct DirectorNoteView: View {
                 }
             }
             if isMemoEditMode {
-                TextEditor(text: $note)
+                TextEditor(text: $viewModel.currentNote)
                     .disableAutocorrection(true)
                     .scrollContentBackground(.hidden)
                     .background(Color(.systemGray6))
@@ -67,9 +67,9 @@ struct DirectorNoteView: View {
     }
 }
 
- #Preview {
+#Preview {
     DirectorNoteView(viewModel: DetailFormationViewModel(),
                      note: .constant("메모메모"),
                      isMemoEditMode: .constant(true),
                      isFocused: false)
- }
+}
