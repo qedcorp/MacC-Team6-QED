@@ -4,7 +4,10 @@ import UIKit
 import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
-    lazy var historyManager = {
+    var maxObjectsCount: Int?
+    var onChange: (([RelativePosition]) -> Void)?
+
+    private(set) lazy var historyManager = {
         let manager = ObjectCanvasHistoryManager()
         manager.objectCanvasViewController = self
         return manager
@@ -25,7 +28,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     override var objectViewRadius: CGFloat {
-        6
+        8
     }
 
     override func loadView() {
@@ -51,6 +54,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
                     self?.selectedObjectView?.applyPositionDiff(dragging.positionDiff)
                 } else {
                     self?.addHistory()
+                    self?.didChange()
                 }
             }
             .store(in: &cancellables)
@@ -92,6 +96,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     override func placeObjectView(position: CGPoint) {
+        guard objectViews.count < maxObjectsCount ?? .max else {
+            return
+        }
         super.placeObjectView(position: position)
         replaceSelectedObjectView()
     }
@@ -105,33 +112,36 @@ class ObjectCanvasViewController: ObjectStageViewController {
         selectedObjectView?.applyPosition(absolutePosition)
     }
 
-    override func copyPreset(_ preset: Preset) {
-        super.copyPreset(preset)
+    override func copyFormable(_ formable: Formable) {
+        super.copyFormable(formable)
         addHistory()
+        didChange()
     }
 
-    func copyPresetWithoutHistory(_ preset: Preset) {
-        super.copyPreset(preset)
+    func copyFormableFromHistory(_ formable: Formable) {
+        super.copyFormable(formable)
+        didChange()
     }
 
     func generatePreset() -> Preset {
         defer {
             objectViews.forEach { $0.removeFromSuperview() }
         }
-        return buildCurrentPreset()
+        return Preset(
+            headcount: objectViews.count,
+            relativePositions: getRelativePositions()
+        )
     }
 
     private func addHistory() {
-        let preset = buildCurrentPreset()
-        historyManager.addHistory(preset)
+        let positions = getRelativePositions()
+        let history = History(relativePositions: positions)
+        historyManager.addHistory(history)
     }
 
-    private func buildCurrentPreset() -> Preset {
-        Preset(
-            headcount: objectViews.count,
-            relativePositions: objectViews
-                .map { touchPositionConverter.getRelativePosition(absolute: $0.center) }
-        )
+    private func didChange() {
+        let positions = getRelativePositions()
+        onChange?(positions)
     }
 
     private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {
@@ -140,5 +150,14 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
         let touchedView = touchedViewDetector.detectView(position: position)
         return touchedView == nil
+    }
+
+    private func getRelativePositions() -> [RelativePosition] {
+        objectViews
+            .map { touchPositionConverter.getRelativePosition(absolute: $0.center) }
+    }
+
+    private struct History: Formable {
+        let relativePositions: [RelativePosition]
     }
 }
