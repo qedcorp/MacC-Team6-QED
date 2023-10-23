@@ -50,8 +50,8 @@ struct MusicSettingView: View {
                 } else if performanceSettingVM.searchText == "" {
                     Text("노래를 검색하세요")
                         .font(
-                        Font.custom("Apple SD Gothic Neo", size: 30)
-                        .weight(.bold)
+                            Font.custom("Apple SD Gothic Neo", size: 30)
+                                .weight(.bold)
                         )
                         .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
                     Spacer()
@@ -62,6 +62,7 @@ struct MusicSettingView: View {
                                 cell(music: music)
                             }
                         }
+                        .padding(.vertical)
                     }
                 }
                 NavigationLink {
@@ -70,6 +71,7 @@ struct MusicSettingView: View {
                     nextbutton
                 }
                 .disabled(performanceSettingVM.selectedMusic == nil)
+                .padding()
             }
         }
         .onTapGesture {
@@ -80,14 +82,14 @@ struct MusicSettingView: View {
     }
 
     var settingFinishView: some View {
-            Text("팀 생성 완료")
-                .font(.largeTitle)
-                .bold()
+        Text("팀 생성 완료")
+            .font(.largeTitle)
+            .bold()
     }
 
     var nextbutton: some View {
         Text("다음")
-            .frame(width: 360, height: 54)
+            .frame(width: 340, height: 54)
             .font(
                 Font.custom("Apple SD Gothic Neo", size: 16)
                     .weight(.bold)
@@ -124,8 +126,11 @@ struct MusicSettingView: View {
             Spacer()
 
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.gray)
-                .opacity(0.2)
+                .foregroundColor(
+                    performanceSettingVM.selectedMusic?.id ?? "-1" == music.id
+                    ? Color.green
+                    : Color.gray.opacity(0.2)
+                )
                 .font(.title2)
         }
         .padding()

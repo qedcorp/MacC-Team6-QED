@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-import Combine
+// import Combine
 
+@MainActor
 class PerformanceSettingViewModel: ObservableObject {
-
-    let bag = Set<AnyCancellable>()
 
     var headcount: Int? { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
-    @Published var inputHeadcount: String = "2"
+    @Published var inputHeadcount: Double = 2
 
     @Published var searchText: String = ""
     @Published var allMusics: [Music] = []
@@ -24,7 +23,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var selectedMusic: Music?
 
     let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
-        searchMusicRepository: SearchMusicRepositoryMockUp()
+        searchMusicRepository: SearchMusicRepositoryImplement()
     )
 
     func search() {
@@ -36,16 +35,14 @@ class PerformanceSettingViewModel: ObservableObject {
     }
 
     func decrementHeadcount() {
-        if Int(inputHeadcount)! > 2 {
-            let currentNumber = Int(inputHeadcount)!
-            inputHeadcount = "\(currentNumber - 1)"
+        if inputHeadcount > 2.0 {
+            inputHeadcount -= 1.0
         }
     }
 
     func incrementHeadcount() {
-        if Int(inputHeadcount)! < 13 {
-            let currentNumber = Int(inputHeadcount)!
-            inputHeadcount = "\(currentNumber + 1)"
+        if inputHeadcount < 13.0 {
+            inputHeadcount += 1.0
         }
     }
 }

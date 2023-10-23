@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-import Combine
+// import Combine
 
 struct HeadcountView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
     @Environment(\.presentationMode) var presentationMode: Binding
-    @FocusState private var isFocusedSearchTextField: Bool
 
     var body: some View {
         VStack {
@@ -30,21 +29,19 @@ struct HeadcountView: View {
                 .frame(height: 50)
 
             ZStack {
-                TextField(performancesettingVM.inputHeadcount, text: $performancesettingVM.inputHeadcount)
-                    .focused($isFocusedSearchTextField)
-                    .keyboardType(.numberPad)
+                Text("\(Int(performancesettingVM.inputHeadcount))")
                     .multilineTextAlignment(.center)
-                    .font(.system(size: 30))
                     .bold()
+                    .font(.system(size: 30))
                     .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                     .background(
                         Rectangle()
                             .foregroundColor(.clear)
                             .background(.white)
                             .cornerRadius(50)
+                            .frame(width: 360)
                             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
                     )
-                    .padding(3)
 
                 HStack {
                     Button(action: {
@@ -54,9 +51,10 @@ struct HeadcountView: View {
                             .frame(width: 50)
                             .foregroundColor(.gray.opacity(0.13))
                             .overlay(
-                                Text("-")
+                                Image(systemName: "minus")
+                                    .bold()
                                     .foregroundColor(.black)
-                                    .font(.system(size: 40))
+                                    .font(.system(size: 20))
                             )
                     })
 
@@ -69,15 +67,21 @@ struct HeadcountView: View {
                             .frame(width: 50)
                             .foregroundColor(.gray.opacity(0.13))
                             .overlay(
-                                Text("+")
+                                Image(systemName: "plus")
+                                    .bold()
                                     .foregroundColor(.black)
-                                    .font(.system(size: 40))
+                                    .font(.system(size: 20))
                             )
                     }
                     )
                 }
                 .padding(.horizontal, 15)
             }
+
+            Slider(value: $performancesettingVM.inputHeadcount, in: 2...13)
+                .tint(.green)
+                .frame(width: 320)
+                .padding()
 
             Spacer()
 
@@ -90,16 +94,13 @@ struct HeadcountView: View {
             }
         }
         .padding()
-        .onTapGesture {
-            isFocusedSearchTextField = false
-        }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
     }
 
     var nextbutton: some View {
         Text("다음")
-            .frame(width: 360, height: 54)
+            .frame(width: 340, height: 54)
             .font(
                 Font.custom("Apple SD Gothic Neo", size: 16)
                     .weight(.bold)
