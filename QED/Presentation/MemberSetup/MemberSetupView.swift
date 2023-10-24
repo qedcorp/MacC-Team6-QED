@@ -10,7 +10,6 @@ struct MemberSetupView: View {
     private let performanceUseCase: PerformanceUseCase
     private let performance: Performance
     private let store: StoreOf<Reducer>
-    @State private var yame = 0
 
     init(performanceUseCase: PerformanceUseCase, performance: Performance) {
         self.performanceUseCase = performanceUseCase
@@ -72,12 +71,10 @@ struct MemberSetupView: View {
                     Button("완료") {
                         print(performance.formations.map { FormationModel.build(entity: $0) })
                     }
-                    .tag(yame)
                 }
             }
             .onChange(of: viewStore.formations) {
                 performance.formations = $0.map { $0.buildEntity(memberInfos: performance.memberInfos) }
-                yame += 1
                 Task {
                     try await performanceUseCase.updatePerformance(performance)
                 }

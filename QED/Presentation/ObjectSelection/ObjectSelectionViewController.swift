@@ -31,6 +31,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
         }
         if let objectView = touchedViewDetector.detectView(position: position) as? DotObjectView {
             let colors = getUpdatedColors(touchedObjectView: objectView)
+            updateObjectViews(colors: colors)
             onChange?(colors)
         }
     }
@@ -40,6 +41,10 @@ class ObjectSelectionViewController: ObjectStageViewController {
         guard let colors = (formable as? ColorArrayable)?.colors else {
             return
         }
+        updateObjectViews(colors: colors)
+    }
+
+    private func updateObjectViews(colors: [String?]) {
         objectViews.enumerated().forEach {
             $0.element.color = colors[$0.offset].map { .init(hex: $0) } ?? .black
         }
