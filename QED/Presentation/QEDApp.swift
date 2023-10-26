@@ -13,17 +13,3 @@ struct QEDApp: App {
         }
     }
 }
-
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, World")
-            .onTapGesture {
-                let repo = DefaultPerformanceRepository(remoteManager: FireStoreManager())
-
-                Task {
-                    let temp = try await repo.createPerformance(mockPerformance)
-
-                }
-            }
-    }
-}

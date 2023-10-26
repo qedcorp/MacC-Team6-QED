@@ -22,10 +22,10 @@ struct MainView: View {
                         .scaleEffect(1.01)
                         .frame(height: 310)
                     makeFormation
-                    myRecentFormationHeader
+                    performanceListReadingHeader
                 }
                 .padding(.horizontal, 20)
-                MyRecentFormationScrollView(viewModel: viewModel)
+                PerformanceListReadingScrollView(viewModel: viewModel)
             }
             .toolbar {
                 leftItem
@@ -66,7 +66,7 @@ struct MainView: View {
         }
     }
 
-    private var myRecentFormationHeader: some View {
+    private var performanceListReadingHeader: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text("최근 제작한 동선")
@@ -82,7 +82,7 @@ struct MainView: View {
 
             }
             Spacer()
-            NavigationLink(destination: MyRecentFormationView()) {
+            NavigationLink(destination: PerformanceListReadingView()) {
                 Image(systemName: "chevron.right")
                     .font(.title2)
                     .foregroundColor(.green)
@@ -111,7 +111,7 @@ struct MainView: View {
     }
 }
 
-struct MyRecentFormationScrollView: View {
+struct PerformanceListReadingScrollView: View {
     @StateObject var viewModel: MainViewModel
     @State var selctePerformance: Performance?
 
@@ -119,7 +119,7 @@ struct MyRecentFormationScrollView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(destination: WatchingFormationView(performance: performance)) {
+                    NavigationLink(destination: PerformanceWatchingView(performance: performance)) {
                         RecentFormationCardView(performance: performance)
                     }
                 }

@@ -1,5 +1,5 @@
 //
-//  DanceFormationView.swift
+//  PlayableDanceFormationView.swift
 //  QED
 //
 //  Created by changgyo seo on 10/23/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SpriteKit
 
-struct DanceFormationView: View {
+struct PlayableDanceFormationView: View {
     @ObservedObject var viewmodel: DetailFormationViewModel
 
     var body: some View {

@@ -19,7 +19,7 @@ struct DetailFormationView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            DanceFormationView(viewmodel: viewModel)
+            PlayableDanceFormationView(viewmodel: viewModel)
             detailControlButtons
             PreviewScrollView(viewModel: viewModel,
                               isPlaying: $isPlaying)

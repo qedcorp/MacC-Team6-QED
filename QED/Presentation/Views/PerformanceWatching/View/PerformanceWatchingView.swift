@@ -1,5 +1,5 @@
 //
-//  WatchingFormationView.swift
+//  PerformanceWatchingView.swift
 //  QED
 //
 //  Created by chaekie on 10/18/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WatchingFormationView: View {
+struct PerformanceWatchingView: View {
     var performance: Performance
     @Environment(\.dismiss) private var dismiss
     @State var isNameVisiable = false

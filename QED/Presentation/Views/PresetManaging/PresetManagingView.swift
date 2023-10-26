@@ -2,8 +2,8 @@
 
 import SwiftUI
 
-struct PresetManageView: View {
-    @StateObject private var viewModel = PresetManageViewModel(
+struct PresetManagingView: View {
+    @StateObject private var viewModel = PresetManagingViewModel(
         presetUseCase: DefaultPresetUseCase(
             presetRepository: DefaultPresetRepository(
                 remoteManager: FireStoreManager()
@@ -59,8 +59,8 @@ struct PresetManageView: View {
     }
 }
 
-struct PresetManageView_Previews: PreviewProvider {
+struct PresetManagingView_Previews: PreviewProvider {
     static var previews: some View {
-        PresetManageView()
+        PresetManagingView()
     }
 }

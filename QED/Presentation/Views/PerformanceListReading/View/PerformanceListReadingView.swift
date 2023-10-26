@@ -1,5 +1,5 @@
 //
-//  MyRecentFormationView.swift
+//  PerformanceListReadingView.swift
 //  QED
 //
 //  Created by chaekie on 10/18/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyRecentFormationView: View {
+struct PerformanceListReadingView: View {
 
     @StateObject private var viewModel = MainViewModel(
         performancesUseCase: DefaultPerformanceUseCase(
@@ -22,7 +22,7 @@ struct MyRecentFormationView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(destination: WatchingFormationView(performance: performance)) {
+                    NavigationLink(destination: PerformanceWatchingView(performance: performance)) {
                         RecentFormationCardView(performance: performance)
                     }
                 }
@@ -63,5 +63,5 @@ struct MyRecentFormationView: View {
 }
 
 #Preview {
-    MyRecentFormationView()
+    PerformanceListReadingView()
 }

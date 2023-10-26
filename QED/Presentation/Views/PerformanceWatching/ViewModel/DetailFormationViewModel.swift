@@ -15,7 +15,7 @@ class DetailFormationViewModel: ObservableObject {
 
     var bag = Set<AnyCancellable>()
 
-    var scene: DanceFormationScene
+    var scene: PlayableDanceFormationScene
     var performance: Performance
     private var playTimer: PlayTimer
     @Published var showingFormation: Formation
@@ -26,7 +26,7 @@ class DetailFormationViewModel: ObservableObject {
     @Published var currentNote: String = ""
 
     init(performance: Performance) {
-        self.scene = DanceFormationScene()
+        self.scene = PlayableDanceFormationScene()
         scene.size = CGSize(width: 350, height: 220)
 
         self.performance = performance
@@ -35,7 +35,7 @@ class DetailFormationViewModel: ObservableObject {
         selectedIndex = 0
         playTimer = PlayTimer(timeInterval: 5)
 
-        let danceFormationManager = DanceFormationManager(scene: scene, formation: mockFormations.first!)
+        let danceFormationManager = PlayableDanceFormationManager(scene: scene, formation: mockFormations.first!)
         self.scene.manager = danceFormationManager
 
         for _ in 0 ..< performance.formations.count - 1 {
