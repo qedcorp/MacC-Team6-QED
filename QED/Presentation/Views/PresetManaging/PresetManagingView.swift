@@ -16,7 +16,7 @@ struct PresetManagingView: View {
     var body: some View {
         VStack {
             VStack {
-                ObjectCanvasView(controller: objectCanvasViewController, headcount: 5)
+                ObjectCanvasView(controller: objectCanvasViewController, headcount: 5, onChange: { _ in })
                     .frame(height: 240)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
@@ -24,7 +24,7 @@ struct PresetManagingView: View {
                     )
                     .clipped()
                 HStack {
-                    HistoryControlsView(historyManagable: objectCanvasViewController.historyManager)
+                    HistoryControlsView(historyManagable: objectCanvasViewController.objectCanvasHistoryManager)
                     Spacer()
                     Button("Generate") {
                         viewModel.generatePreset()

@@ -2,9 +2,18 @@
 
 import Foundation
 
-struct PerformanceSettingManager {
+class PerformanceSettingManager {
     let performance: Performance
     let sizeable: Sizeable
+
+    private lazy var relativePositionConverter = {
+        RelativePositionConverter(sizeable: sizeable)
+    }()
+
+    init(performance: Performance, sizeable: Sizeable) {
+        self.performance = performance
+        self.sizeable = sizeable
+    }
 
     func addFormation(_ formation: Formation, index: Int) {
         performance.formations.insert(formation, at: index)
@@ -19,7 +28,7 @@ struct PerformanceSettingManager {
             return
         }
         positions.enumerated().forEach { index, position in
-            let relativePosition = getRelativePosition(position)
+            let relativePosition = relativePositionConverter.getRelativePosition(of: position)
             formation.members[safe: index]?.relativePosition = relativePosition
         }
     }
@@ -31,12 +40,5 @@ struct PerformanceSettingManager {
         memberInfos.enumerated().forEach { index, memberInfo in
             formation.members[safe: index]?.info = memberInfo
         }
-    }
-
-    private func getRelativePosition(_ position: CGPoint) -> RelativePosition {
-        RelativePosition(
-            x: Int(round(position.x / sizeable.size.width * CGFloat(RelativePosition.maxX))),
-            y: Int(round(position.y / sizeable.size.height * CGFloat(RelativePosition.maxY)))
-        )
     }
 }

@@ -11,11 +11,11 @@ struct QEDApp: App {
         WindowGroup {
             NavigationView {
                 FormationSetupView(
+                    performance: .init(id: "", author: .sample, playable: Music.newJeans, headcount: 5),
                     performanceUseCase: DefaultPerformanceUseCase(
                         performanceRepository: MockPerformanceRepository(),
                         userStore: DefaultUserStore.shared
-                    ),
-                    performance: .init(id: "", author: .sample, playable: Music.newJeans, headcount: 5)
+                    )
                 )
             }
         }

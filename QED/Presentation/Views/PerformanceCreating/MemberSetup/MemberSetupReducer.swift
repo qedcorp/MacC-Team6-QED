@@ -51,6 +51,8 @@ struct MemberSetupReducer: Reducer {
         case setPresentedMemberInfoChangeIndex(Int?)
     }
 
+    let performanceUseCase: PerformanceUseCase
+
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .memberInfoButtonTapped(index):

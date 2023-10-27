@@ -35,7 +35,7 @@ struct FormationSetupReducer: Reducer {
     }
 
     enum Action: Equatable {
-        case memoTapped
+        case memoButtonTapped
         case currentMemoChanged(String?)
         case formationChanged([RelativePosition])
         case formationAddButtonTapped
@@ -47,9 +47,11 @@ struct FormationSetupReducer: Reducer {
         case setCurrentFormationIndex(Int)
     }
 
+    let performanceUseCase: PerformanceUseCase
+
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
-        case .memoTapped:
+        case .memoButtonTapped:
             return .send(.setMemoFormPresented(true))
 
         case let .currentMemoChanged(memo):

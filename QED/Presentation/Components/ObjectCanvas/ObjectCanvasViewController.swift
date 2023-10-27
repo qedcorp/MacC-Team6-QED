@@ -7,7 +7,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
     var onChange: (([RelativePosition]) -> Void)?
 
-    private(set) lazy var historyManager = {
+    private(set) lazy var objectCanvasHistoryManager = {
         let manager = ObjectCanvasHistoryManager()
         manager.objectCanvasViewController = self
         return manager
@@ -69,7 +69,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             }
             .store(in: &cancellables)
     }
-    
+
     private func updateMultiSelectBoxViewFrame(dragging: DraggingModel?) {
         multiSelectBoxView.frame = (isMultiSelectDragging ? dragging?.rect : nil) ?? .zero
     }
@@ -141,7 +141,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private func replaceSelectedObjectViews() {
-        selectedObjectViews.forEach { replaceObjectViewAtRelativePosition($0) }
+        selectedObjectViews.forEach {
+            replaceObjectViewAtRelativePosition($0)
+        }
     }
 
     override func copyFormable(_ formable: Formable) {
@@ -170,7 +172,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        historyManager.addHistory(history)
+        objectCanvasHistoryManager.addHistory(history)
     }
 
     private func didChange() {

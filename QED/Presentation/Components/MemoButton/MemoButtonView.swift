@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct FormationMemoView: View {
+struct MemoButtonView: View {
     let memo: String?
 
     var body: some View {

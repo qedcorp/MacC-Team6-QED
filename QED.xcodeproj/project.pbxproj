@@ -22,7 +22,7 @@
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701A92AE4450A00C48403 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A72AE4450A00C48403 /* Color+.swift */; };
-		3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* FormationMemoView.swift */; };
+		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
 		3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */; };
 		3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B42AE5D07600C48403 /* Rect+Contains.swift */; };
@@ -202,7 +202,7 @@
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE701A62AE4450A00C48403 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3AE701A72AE4450A00C48403 /* Color+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
-		3AE701AB2AE58F7400C48403 /* FormationMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationMemoView.swift; sourceTree = "<group>"; };
+		3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButtonView.swift; sourceTree = "<group>"; };
 		3AE701AE2AE59DE100C48403 /* MemoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoFormView.swift; sourceTree = "<group>"; };
 		3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectBoxView.swift; sourceTree = "<group>"; };
 		3AE701B42AE5D07600C48403 /* Rect+Contains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rect+Contains.swift"; sourceTree = "<group>"; };
@@ -456,7 +456,7 @@
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */,
-				3AE701AA2AE58F6600C48403 /* FormationMemo */,
+				3AE701AA2AE58F6600C48403 /* MemoButton */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -514,12 +514,12 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		3AE701AA2AE58F6600C48403 /* FormationMemo */ = {
+		3AE701AA2AE58F6600C48403 /* MemoButton */ = {
 			isa = PBXGroup;
 			children = (
-				3AE701AB2AE58F7400C48403 /* FormationMemoView.swift */,
+				3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */,
 			);
-			path = FormationMemo;
+			path = MemoButton;
 			sourceTree = "<group>";
 		};
 		3AE701AD2AE59DCF00C48403 /* MemoForm */ = {
@@ -1406,7 +1406,7 @@
 				51BB29972AE6AAC0002CAFAA /* DirectorNoteView.swift in Sources */,
 				3AE701BD2AE65F4F00C48403 /* MemberSetupView.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
-				3AE701AC2AE58F7400C48403 /* FormationMemoView.swift in Sources */,
+				3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				3AE701A92AE4450A00C48403 /* Color+.swift in Sources */,
