@@ -8,7 +8,9 @@
 import Foundation
 
 enum AuthProviderType {
-    case kakao, apple, google
+    case kakao
+    case apple
+    case google
 
     var description: String {
         switch self {

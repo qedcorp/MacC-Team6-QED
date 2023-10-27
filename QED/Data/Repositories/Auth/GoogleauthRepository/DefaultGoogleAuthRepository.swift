@@ -13,7 +13,7 @@ import FirebaseAuth
 
 final class DefaultGoogleAuthRepository: GoogleAuthRepository {
 
-    private var authUI: AuthUIProtocol
+    var authUI: AuthUIProtocol
 
     init(authUI: AuthUIProtocol) {
         self.authUI = authUI

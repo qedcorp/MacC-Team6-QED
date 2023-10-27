@@ -60,6 +60,8 @@
 		D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D413337F2ADE8CA800BDE1BB /* GoogleSignInSwift */; };
 		D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */; };
 		D42AA10E2AEC014A0053E2A8 /* DefaultMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */; };
+		D42AA1132AEC118C0053E2A8 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */; };
+		D42AA1152AEC121B0053E2A8 /* DefaultAuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1142AEC121B0053E2A8 /* DefaultAuthUseCase.swift */; };
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
@@ -229,6 +231,8 @@
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicRepository.swift; sourceTree = "<group>"; };
+		D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		D42AA1142AEC121B0053E2A8 /* DefaultAuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthUseCase.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EF662AE18DF700A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGoogleAuthRepository.swift; sourceTree = "<group>"; };
@@ -998,6 +1002,7 @@
 				D460EFC12AE18DF700A5966A /* FormationUseCase.swift */,
 				D460EFC22AE18DF700A5966A /* FormationTransitionUseCase.swift */,
 				D460EFC32AE18DF700A5966A /* MusicUseCase.swift */,
+				D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1012,6 +1017,7 @@
 				D460EFBC2AE18DF700A5966A /* DefaultMemberUseCase.swift */,
 				D460EFBD2AE18DF700A5966A /* DefaultPresetUseCase.swift */,
 				D460EFBE2AE18DF700A5966A /* DefaultPerformanceUseCase.swift */,
+				D42AA1142AEC121B0053E2A8 /* DefaultAuthUseCase.swift */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -1359,6 +1365,7 @@
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
 				D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */,
+				D42AA1152AEC121B0053E2A8 /* DefaultAuthUseCase.swift in Sources */,
 				D460F00B2AE18DF700A5966A /* DefaultFormationUseCase.swift in Sources */,
 				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
@@ -1400,6 +1407,7 @@
 				D460EFEA2AE18DF700A5966A /* HistoryControlsView.swift in Sources */,
 				3AE701D02AE6989200C48403 /* MemberInfoChangeView.swift in Sources */,
 				3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */,
+				D42AA1132AEC118C0053E2A8 /* AuthUseCase.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
