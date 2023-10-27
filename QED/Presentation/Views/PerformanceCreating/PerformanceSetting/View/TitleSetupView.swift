@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TitleSettingView: View {
+struct TitleSetupView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
     @FocusState var isFocused: Bool
@@ -42,7 +42,7 @@ struct TitleSettingView: View {
                 Spacer()
 
                 NavigationLink {
-                    HeadcountView(performancesettingVM: performancesettingVM)
+                    HeadcountSetupView(performancesettingVM: performancesettingVM)
                         .navigationTitle("인원수 선택")
                         .navigationBarTitleDisplayMode(.inline)
                 } label: {
@@ -79,5 +79,5 @@ struct TitleSettingView: View {
 }
 
 #Preview {
-    TitleSettingView(performancesettingVM: PerformanceSettingViewModel())
+    TitleSetupView(performancesettingVM: PerformanceSettingViewModel())
 }

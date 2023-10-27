@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MusicSettingView: View {
+struct MusicSetupView: View {
     @ObservedObject var performanceSettingVM: PerformanceSettingViewModel
     @FocusState private var isFocusedSearchTextField: Bool
     @Environment(\.presentationMode) var presentationMode: Binding
@@ -156,5 +156,5 @@ struct MusicSettingView: View {
 }
 
 #Preview {
-    MusicSettingView(performanceSettingVM: PerformanceSettingViewModel())
+    MusicSetupView(performanceSettingVM: PerformanceSettingViewModel())
 }

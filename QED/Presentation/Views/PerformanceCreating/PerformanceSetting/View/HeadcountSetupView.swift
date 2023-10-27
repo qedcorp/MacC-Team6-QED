@@ -9,7 +9,7 @@ import SwiftUI
 
 // import Combine
 
-struct HeadcountView: View {
+struct HeadcountSetupView: View {
 
     @ObservedObject var performancesettingVM: PerformanceSettingViewModel
     @Environment(\.presentationMode) var presentationMode: Binding
@@ -86,7 +86,7 @@ struct HeadcountView: View {
             Spacer()
 
             NavigationLink {
-                MusicSettingView(performanceSettingVM: PerformanceSettingViewModel())
+                MusicSetupView(performanceSettingVM: PerformanceSettingViewModel())
                     .navigationTitle("노래 선택")
                     .navigationBarTitleDisplayMode(.inline)
             } label: {
@@ -124,5 +124,5 @@ struct HeadcountView: View {
 }
 
 #Preview {
-    HeadcountView(performancesettingVM: PerformanceSettingViewModel())
+    HeadcountSetupView(performancesettingVM: PerformanceSettingViewModel())
 }
