@@ -1,5 +1,5 @@
 //
-//  FormationPreview.swift
+//  DanceFormationView.swift
 //  QED
 //
 //  Created by chaekie on 10/23/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FormationPreview: View {
+struct DanceFormationView: View {
     var formation: Formation
     var index: Int
     var isNameVisiable: Bool = false
@@ -87,5 +87,5 @@ private struct TimeAndLyric: View {
 }
 
 #Preview {
-    FormationPreview(formation: mockFormations[0], index: 0)
+    DanceFormationView(formation: mockFormations[0], index: 0)
 }

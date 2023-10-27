@@ -1,5 +1,5 @@
 //
-//  PerformanceWatchingView.swift
+//  PerformanceWatchingListView.swift
 //  QED
 //
 //  Created by chaekie on 10/18/23.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct PerformanceWatchingView: View {
-    var performance: Performance
+struct PerformanceWatchingListView: View {
+    let performance: Performance
     @Environment(\.dismiss) private var dismiss
     @State var isNameVisiable = false
     @State var isAddVisible = false
@@ -16,9 +16,9 @@ struct PerformanceWatchingView: View {
     var body: some View {
         VStack(spacing: 15) {
             titleAndHeadcount
-            togglingMemberName
-            FormationScrollView(isNameVisiable: isNameVisiable,
-                                performance: performance,
+            TogglingMemberNameView(isNameVisiable: $isNameVisiable)
+            PerformanceScrollView(performance: performance,
+                                  isNameVisiable: isNameVisiable,
                                 isAddVisible: isAddVisible)
         }
         .navigationBarBackButtonHidden()
@@ -47,7 +47,35 @@ struct PerformanceWatchingView: View {
         .padding(.horizontal, 20)
     }
 
-    private var togglingMemberName: some View {
+    private var leftItem: ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(Color.green)
+            }
+        }
+    }
+
+    private var rightItem: ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                withAnimation(.easeIn(duration: 0.3)) {
+                    isAddVisible.toggle()
+                }
+            } label: {
+                Text(isAddVisible ? "완료" : "추가")
+                    .foregroundStyle(.green)
+            }
+        }
+    }
+}
+
+private struct TogglingMemberNameView: View {
+    @Binding var isNameVisiable: Bool
+
+    var body: some View {
         HStack {
             Text("팀원 이름 보기")
                 .padding(.horizontal, 15)
@@ -78,34 +106,14 @@ struct PerformanceWatchingView: View {
         }
     }
 
-    private var leftItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(Color.green)
-            }
-        }
-    }
-
-    private var rightItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                withAnimation(.easeIn(duration: 0.3)) {
-                    isAddVisible.toggle()
-                }
-            } label: {
-                Text(isAddVisible ? "완료" : "추가")
-                    .foregroundStyle(.green)
-            }
-        }
-    }
 }
 
-struct FormationScrollView: View {
+private struct PerformanceScrollView: View {
+    private let performanceUseCase = DefaultPerformanceUseCase(
+        performanceRepository: MockPerformanceRepository(),
+        userStore: DefaultUserStore.shared)
+    let performance: Performance
     var isNameVisiable: Bool
-    var performance: Performance
     var isAddVisible: Bool
 
     var body: some View {
@@ -113,8 +121,8 @@ struct FormationScrollView: View {
                 VStack(spacing: 30) {
                     ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
                         VStack {
-                            NavigationLink(destination: DetailFormationView(viewModel: DetailFormationViewModel(performance: performance))) {
-                                FormationPreview(
+                            NavigationLink(destination: PerformanceWatchingDetailView(viewModel: PerformanceWatchingDetailViewModel(performance: performance))) {
+                                DanceFormationView(
                                     formation: formation,
                                     index: index,
                                     isNameVisiable: isNameVisiable
@@ -131,9 +139,10 @@ struct FormationScrollView: View {
         }
     }
 
-    var addButton: some View {
-        Button {
-            // TODO: 자리표 찍기(수정)로 이동
+    private var addButton: some View {
+        NavigationLink {
+            FormationSetupView(performanceUseCase: performanceUseCase,
+                               performance: performance)
         } label: {
             ZStack {
                 Circle()
@@ -145,6 +154,7 @@ struct FormationScrollView: View {
                     .bold()
             }
         }
+
     }
 }
 

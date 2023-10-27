@@ -11,7 +11,7 @@ struct DirectorNoteView: View {
     private static let fraction = PresentationDetent.fraction(0.17)
     private static let medium = PresentationDetent.medium
 
-    @StateObject var viewModel: DetailFormationViewModel
+    @StateObject var viewModel: PerformanceWatchingDetailViewModel
     @Binding var isMemoEditMode: Bool
     @Binding var note: String
     @State private var settingsDetent = fraction

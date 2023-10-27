@@ -1,5 +1,5 @@
 //
-//  WatchingDetailFormationView.swift
+//  WatchingPerformanceWatchingDetailView.swift
 //  QED
 //
 //  Created by chaekie on 10/23/23.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct DetailFormationView: View {
+struct PerformanceWatchingDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: DetailFormationViewModel
+    @ObservedObject var viewModel: PerformanceWatchingDetailViewModel
     @State var isNameVisiable = false
     @State var isBeforeVisible = false
     @State var isPlaying = false
@@ -157,7 +157,7 @@ struct DetailFormationView: View {
 }
 
 struct PreviewScrollView: View {
-    @StateObject var viewModel: DetailFormationViewModel
+    @StateObject var viewModel: PerformanceWatchingDetailViewModel
     @Binding var isPlaying: Bool
 
     var body: some View {
@@ -165,7 +165,7 @@ struct PreviewScrollView: View {
             ScrollViewReader { proxy in
                 HStack(spacing: 15) {
                     ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performance.formations)), id: \.0) { (index, formation) in
-                        FormationPreview(
+                        DanceFormationView(
                             formation: formation,
                             index: index,
                             hideLine: true
@@ -196,7 +196,7 @@ struct PreviewScrollView: View {
 }
 
 struct PreviewCardView: View {
-    @StateObject var viewModel: DetailFormationViewModel
+    @StateObject var viewModel: PerformanceWatchingDetailViewModel
     var index: Int
 
     var body: some View {

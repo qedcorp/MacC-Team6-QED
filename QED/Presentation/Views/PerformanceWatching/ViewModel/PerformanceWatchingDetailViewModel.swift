@@ -1,5 +1,5 @@
 //
-//  DetailFormationViewModel.swift
+//  PerformanceWatchingDetailViewModel.swift
 //  QED
 //
 //  Created by kio on 10/23/23.
@@ -11,7 +11,7 @@ import Foundation
 import Combine
 import UIKit
 
-class DetailFormationViewModel: ObservableObject {
+class PerformanceWatchingDetailViewModel: ObservableObject {
 
     var bag = Set<AnyCancellable>()
 
@@ -86,7 +86,7 @@ class DetailFormationViewModel: ObservableObject {
     }
 }
 
-extension DetailFormationViewModel {
+extension PerformanceWatchingDetailViewModel {
     enum Status {
         case play
         case pause

@@ -113,13 +113,13 @@ struct MainView: View {
 
 struct PerformanceListReadingScrollView: View {
     @StateObject var viewModel: MainViewModel
-    @State var selctePerformance: Performance?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(destination: PerformanceWatchingView(performance: performance)) {
+                    NavigationLink(destination: PerformanceWatchingListView(performance: performance)) {
+
                         RecentFormationCardView(performance: performance)
                     }
                 }
