@@ -1,5 +1,5 @@
 //
-//  DanceFormationScene.swift
+//  PlayableDanceFormationScene.swift
 //  QED
 //
 //  Created by changgyo seo on 10/23/23.
@@ -8,8 +8,8 @@
 import SpriteKit
 import SwiftUI
 
-class DanceFormationScene: SKScene {
-    var manager: DanceFormationManager?
+class PlayableDanceFormationScene: SKScene {
+    var manager: PlayableDanceFormationManager?
 
     override func didMove(to view: SKView) {
         self.backgroundColor = UIColor(Color(.systemGray6))

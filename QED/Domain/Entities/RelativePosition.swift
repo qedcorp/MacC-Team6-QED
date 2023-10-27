@@ -5,8 +5,8 @@ import Foundation
 
 
 struct RelativePosition: Codable, Equatable {
-    static let maxX = 1000
-    static let maxY = 1000
+    static let maxX = 16
+    static let maxY = 10
     
     @MinMax(minValue: 0, maxValue: maxX)
     var x: Int

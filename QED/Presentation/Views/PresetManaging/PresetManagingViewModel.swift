@@ -3,7 +3,7 @@
 import Foundation
 
 @MainActor
-class PresetManageViewModel: ObservableObject {
+class PresetManagingViewModel: ObservableObject {
     let presetUseCase: PresetUseCase
     weak var objectCanvasViewController: ObjectCanvasViewController?
     @Published private var presets: [Preset] = []

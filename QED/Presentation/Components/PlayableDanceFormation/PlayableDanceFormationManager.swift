@@ -1,5 +1,5 @@
 //
-//  DanceFormationManager.swift
+//  PlayableDanceFormationManager.swift
 //  QED
 //
 //  Created by changgyo seo on 10/23/23.
@@ -10,16 +10,16 @@ import SpriteKit
 import Combine
 import SwiftUI
 
-class DanceFormationManager: ObservableObject {
+class PlayableDanceFormationManager: ObservableObject {
 
-    weak var scene: DanceFormationScene?
+    weak var scene: PlayableDanceFormationScene?
     var formation: Formation
     var nodes: [Member: SKShapeNode] = [:]
     var previewBag: [SKShapeNode] = []
     var isPlaying: Bool = false
     var shapeSize: CGRect = .zero
 
-    init(scene: DanceFormationScene, formation: Formation) {
+    init(scene: PlayableDanceFormationScene, formation: Formation) {
         self.scene = scene
         self.formation = formation
 
