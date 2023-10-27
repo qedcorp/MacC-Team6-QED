@@ -686,6 +686,14 @@
 			path = SearchMusicRepositoryTest;
 			sourceTree = "<group>";
 		};
+		D42AA10F2AEC04C90053E2A8 /* UIInterface */ = {
+			isa = PBXGroup;
+			children = (
+				D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */,
+			);
+			path = UIInterface;
+			sourceTree = "<group>";
+		};
 		D460EF602AE18DF700A5966A /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,12 +930,12 @@
 		D460EFA22AE18DF700A5966A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				D42AA10F2AEC04C90053E2A8 /* UIInterface */,
 				D460EFA32AE18DF700A5966A /* Enumerations */,
 				D460EFA52AE18DF700A5966A /* Stores */,
 				D460EFA92AE18DF700A5966A /* Repositories */,
 				D460EFB42AE18DF700A5966A /* UseCases */,
 				D460EFC42AE18DF700A5966A /* Entities */,
-				D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
