@@ -12,9 +12,25 @@ import FirebaseFirestore
 final class FireStoreManager: RemoteManager {
 
     private var fireStroeDB: Firestore = Firestore.firestore()
+    private var fireStoreKey: String {
+        do {
+            var dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            dateFormatter.locale = Locale(identifier:"ko_KR")
+            let myId = try KeyChainManager.shared.read(account: .id)
+            let myFireStoreKey = dateFormatter.string(from: Date()) + myId
+            
+            return myFireStoreKey
+        }
+        catch {
+            print("No KeyChain Id")
+            return ""
+        }
+    }
 
     func create<T>(
-        _ data: T
+        _ data: T,
+        createType: CreateType
     ) async throws -> Result<T, Error>
     where T: Decodable, T: Encodable {
 
@@ -31,9 +47,26 @@ final class FireStoreManager: RemoteManager {
             }
         }
 
-        fireStroeDB.collection(fireStoreData.collectionName).addDocument(data: dataDic)
-
-        return .success(data)
+        do {
+            switch createType {
+            case .noneKey:
+                fireStroeDB
+                    .collection(fireStoreData.collectionName)
+                    .addDocument(data: dataDic)
+                
+            case .hasKey:
+                try await fireStroeDB
+                    .collection(fireStoreData.collectionName)
+                    .document(fireStoreKey)
+                    .setData(dataDic)
+            }
+            
+            return .success(data)
+        }
+        catch {
+            print("Create Error")
+            return .failure(FireStoreError.cantReadCollection)
+        }
     }
 
     func read<T, K, U>(

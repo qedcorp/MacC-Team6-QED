@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RemoteManager {
-    func create<T: Codable>(_ data: T) async throws -> Result<T, Error>
+    func create<T: Codable>(_ data: T, createType: CreateType) async throws -> Result<T, Error>
     func read<T: Codable, K, U>(at endPoint: K,
                                 mockData: T,
                                 pk key: U) async throws -> Result<T, Error>
@@ -19,6 +19,11 @@ protocol RemoteManager {
     func update<T: Codable>(_ data: T) async throws -> Result<T, Error>
     func delete<T, U>(at endPoint: T,
                       pk key: U) async throws -> Result<Bool, Error>
+}
+
+enum CreateType {
+    case noneKey
+    case hasKey
 }
 
 enum ReadType {
