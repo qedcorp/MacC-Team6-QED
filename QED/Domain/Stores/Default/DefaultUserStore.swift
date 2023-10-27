@@ -8,5 +8,6 @@ final class DefaultUserStore: UserStore {
     var myUser: User?
 
     private init() {
+
     }
 }
