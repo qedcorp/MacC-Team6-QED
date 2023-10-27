@@ -23,7 +23,7 @@ struct PerformanceListReadingView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
                     NavigationLink(destination: PerformanceWatchingView(performance: performance)) {
-                        RecentFormationCardView(performance: performance)
+                        PerformanceListCardView(performance: performance)
                     }
                 }
             }

@@ -50,7 +50,7 @@ struct MainView: View {
             Spacer()
 
             Button {
-                    // TitleSettingView
+                TitleSetupView(performancesettingVM: PerformanceSettingViewModel())
             } label: {
                 Text("Go")
                     .frame(width: 86, height: 56)
@@ -120,56 +120,12 @@ struct PerformanceListReadingScrollView: View {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
                     NavigationLink(destination: PerformanceWatchingView(performance: performance)) {
-                        RecentFormationCardView(performance: performance)
+                        PerformanceListCardView(performance: performance)
                     }
                 }
             }
         }
         .padding(.leading, 20)
-    }
-}
-
-struct RecentFormationCardView: View {
-    let performance: Performance
-    var title: String
-    var creator: String
-    var thumbnailURL: URL?
-    var image: UIImage?
-
-    init(performance: Performance) {
-        self.performance = performance
-        title = performance.title ?? ""
-        creator = performance.playable.creator
-        thumbnailURL = performance.playable.thumbnailURL
-    }
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            AsyncImage(url: performance.playable.thumbnailURL) { image in
-                image
-                    .image?.resizable()
-                    .scaledToFill()
-            }
-            VStack(alignment: .leading) {
-                Text("\(title)")
-                    .font(.system(size: 13))
-                    .bold()
-                    .foregroundColor(Color.black)
-                    .opacity(0.8)
-
-                Text("\(creator)")
-                    .font(.system(size: 11))
-                    .foregroundColor(Color.black)
-                    .opacity(0.6)
-            }
-            .padding(.horizontal)
-
-            Spacer()
-        }
-        .frame(width: 160, height: 198)
-        .background(Color(.systemGray6))
-        .foregroundStyle(.black)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 
