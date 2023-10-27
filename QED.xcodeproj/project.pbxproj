@@ -11,6 +11,10 @@
 		3A021EE52AE2545F0099C008 /* FormationSetupReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE42AE2545F0099C008 /* FormationSetupReducer.swift */; };
 		3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE62AE25B860099C008 /* Music+Stub.swift */; };
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
+		3A5328AF2AEB7FF20051A09C /* PerformanceSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */; };
+		3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B02AEBA3890051A09C /* Sizeable.swift */; };
+		3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */; };
+		3A5328B52AEBBDEC0051A09C /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */; };
 		3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FC92AE2CF4E0031E6BE /* Formable.swift */; };
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
@@ -183,6 +187,10 @@
 		3A021EE62AE25B860099C008 /* Music+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Music+Stub.swift"; sourceTree = "<group>"; };
 		3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = QED.xctestplan; sourceTree = "<group>"; };
 		3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCaseTests.swift; sourceTree = "<group>"; };
+		3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingManager.swift; sourceTree = "<group>"; };
+		3A5328B02AEBA3890051A09C /* Sizeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizeable.swift; sourceTree = "<group>"; };
+		3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Sizeable.swift"; sourceTree = "<group>"; };
+		3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
 		3A897FC92AE2CF4E0031E6BE /* Formable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formable.swift; sourceTree = "<group>"; };
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
@@ -484,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE701A62AE4450A00C48403 /* Int+.swift */,
+				3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -511,6 +520,7 @@
 				3AE701C92AE6906200C48403 /* String+Hex.swift */,
 				3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */,
 				3AE701A72AE4450A00C48403 /* Color+.swift */,
+				3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -861,6 +871,7 @@
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
 				D460EF912AE18DF700A5966A /* CenterLinesRenderer.swift */,
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
+				3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -869,6 +880,7 @@
 			isa = PBXGroup;
 			children = (
 				D460EF932AE18DF700A5966A /* HistoryManagable.swift */,
+				3A5328B02AEBA3890051A09C /* Sizeable.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1326,6 +1338,7 @@
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManagingViewModel.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* KakaoAuthRepositoryImplement.swift in Sources */,
+				3A5328AF2AEB7FF20051A09C /* PerformanceSettingManager.swift in Sources */,
 				D460EFD52AE18DF700A5966A /* DefaultSearchMusicRepository.swift in Sources */,
 				D460F00D2AE18DF700A5966A /* DefaultMemberUseCase.swift in Sources */,
 				D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */,
@@ -1406,6 +1419,7 @@
 				3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
+				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingView.swift in Sources */,
@@ -1424,6 +1438,7 @@
 				3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */,
 				A974EA232AE440C600302C9D /* MusicSettingView.swift in Sources */,
 				D460EFEB2AE18DF700A5966A /* DraggingModel.swift in Sources */,
+				3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */,
 				D460F01D2AE18DF700A5966A /* Preset+Stub.swift in Sources */,
 				D460F0112AE18DF700A5966A /* UserUseCase.swift in Sources */,
 				D460F01C2AE18DF700A5966A /* FormationTransition.swift in Sources */,
@@ -1448,6 +1463,7 @@
 				D460F0412AE4035400A5966A /* FireStoreEntity.swift in Sources */,
 				D460EFF12AE18DF700A5966A /* CenterLinesRenderer.swift in Sources */,
 				D460EFF22AE18DF700A5966A /* HistoryManagable.swift in Sources */,
+				3A5328B52AEBBDEC0051A09C /* Array+Safe.swift in Sources */,
 				D460F00E2AE18DF700A5966A /* DefaultPresetUseCase.swift in Sources */,
 				D460F0342AE2573800A5966A /* DefaultUserRepository.swift in Sources */,
 				D460F0382AE2579800A5966A /* FireStoreManager.swift in Sources */,
