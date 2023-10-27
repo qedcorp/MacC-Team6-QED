@@ -19,11 +19,7 @@ struct TouchedViewDetector {
         guard let view = container.hitTest(position, with: nil) else {
             return nil
         }
-        if isAllowedType(view: view) {
-            return view
-        } else {
-            return nil
-        }
+        return isAllowedType(view: view) ? view : nil
     }
 
     private func isAllowedType(view: UIView) -> Bool {
