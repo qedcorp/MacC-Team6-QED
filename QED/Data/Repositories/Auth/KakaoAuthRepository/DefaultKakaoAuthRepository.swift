@@ -1,5 +1,5 @@
 //
-//  KakaoAuthRepositoryImplement.swift
+//  DefaultKakaoAuthRepository.swift
 //  QED
 //
 //  Created by changgyo seo on 10/18/23.
@@ -13,7 +13,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-final class KakaoAuthRepositoryImplement: KakaoAuthRepository {
+final class DefaultKakaoAuthRepository: KakaoAuthRepository {
 
     func login() async throws -> Bool {
 
@@ -41,7 +41,7 @@ final class KakaoAuthRepositoryImplement: KakaoAuthRepository {
     }
 }
 
-fileprivate extension KakaoAuthRepositoryImplement {
+fileprivate extension DefaultKakaoAuthRepository {
     private func kakaoLoginInApp() async throws -> AuthDataResult {
         return await withCheckedContinuation { continuation in
             UserApi.shared.loginWithKakaoTalk { oauthToken, _ in

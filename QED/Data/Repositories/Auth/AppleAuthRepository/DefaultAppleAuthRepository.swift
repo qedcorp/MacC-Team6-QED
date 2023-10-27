@@ -1,5 +1,5 @@
 //
-//  AppleAuthRepositoryImplement.swift
+//  DefaultAppleAuthRepository.swift
 //  QED
 //
 //  Created by changgyo seo on 10/19/23.
@@ -12,7 +12,7 @@ import CryptoKit
 import FirebaseCore
 import FirebaseAuth
 
-final class AppleAuthRepositoryImplement: NSObject, AppleAuthRepository {
+final class DefaultAppleAuthRepository: NSObject, AppleAuthRepository {
 
     private var authcontinuation: CheckedContinuation<Bool, Error>?
     private var currentNonce: String?
@@ -48,7 +48,7 @@ final class AppleAuthRepositoryImplement: NSObject, AppleAuthRepository {
     }
 }
 
-extension AppleAuthRepositoryImplement: ASAuthorizationControllerDelegate {
+extension DefaultAppleAuthRepository: ASAuthorizationControllerDelegate {
     func authorizationController(
         controller: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
