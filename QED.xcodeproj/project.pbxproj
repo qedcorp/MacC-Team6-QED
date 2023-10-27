@@ -697,7 +697,6 @@
 		D460EF602AE18DF700A5966A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				D460F0522AE58B3B00A5966A /* FireStore */,
 				D460EF752AE18DF700A5966A /* KeyChain */,
 				D460F0362AE2578600A5966A /* RemoteManager */,
 				D460EF642AE18DF700A5966A /* Repositories */,
@@ -1076,6 +1075,7 @@
 		D460F0362AE2578600A5966A /* RemoteManager */ = {
 			isa = PBXGroup;
 			children = (
+				D460F0522AE58B3B00A5966A /* FireStore */,
 				D460F0392AE25B2000A5966A /* RemoteManager.swift */,
 			);
 			path = RemoteManager;
