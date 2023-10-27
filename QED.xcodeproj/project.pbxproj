@@ -62,6 +62,9 @@
 		D42AA10E2AEC014A0053E2A8 /* DefaultMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */; };
 		D42AA1132AEC118C0053E2A8 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */; };
 		D42AA1152AEC121B0053E2A8 /* DefaultAuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1142AEC121B0053E2A8 /* DefaultAuthUseCase.swift */; };
+		D42AA11A2AEC1B5F0053E2A8 /* TypeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */; };
+		D42AA11C2AEC1C1C0053E2A8 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */; };
+		D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */; };
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
@@ -233,6 +236,9 @@
 		D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicRepository.swift; sourceTree = "<group>"; };
 		D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		D42AA1142AEC121B0053E2A8 /* DefaultAuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthUseCase.swift; sourceTree = "<group>"; };
+		D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDictionary.swift; sourceTree = "<group>"; };
+		D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDirectedGraph.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EF662AE18DF700A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGoogleAuthRepository.swift; sourceTree = "<group>"; };
@@ -696,6 +702,14 @@
 				D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */,
 			);
 			path = UIInterface;
+		D42AA1162AEC1AFA0053E2A8 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */,
+				D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */,
+				D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		D460EF602AE18DF700A5966A /* Data */ = {
@@ -889,6 +903,7 @@
 		D460EF992AE18DF700A5966A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D42AA1162AEC1AFA0053E2A8 /* DI */,
 				3AE701A52AE4450A00C48403 /* Extension */,
 				D460EF9A2AE18DF700A5966A /* LifeCycle */,
 				D460EF9C2AE18DF700A5966A /* Utilities */,
@@ -1332,6 +1347,7 @@
 				D460EFEE2AE18DF700A5966A /* PresetManagingViewModel.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* DefaultKakaoAuthRepository.swift in Sources */,
 				D460F00D2AE18DF700A5966A /* DefaultMemberUseCase.swift in Sources */,
+				D42AA11A2AEC1B5F0053E2A8 /* TypeDictionary.swift in Sources */,
 				D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */,
 				D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */,
 				D460F0132AE18DF700A5966A /* FormationTransitionUseCase.swift in Sources */,
@@ -1445,6 +1461,8 @@
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,
 				3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */,
+				D460EFD42AE18DF700A5966A /* MockSearchMusicRepository.swift in Sources */,
+				D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */,
 				D460EFF42AE18DF700A5966A /* ObjectStageView.swift in Sources */,
 				D460F0092AE18DF700A5966A /* DefaultMusicUseCase.swift in Sources */,
 				D460F0412AE4035400A5966A /* FireStoreEntity.swift in Sources */,
@@ -1453,6 +1471,7 @@
 				D460F00E2AE18DF700A5966A /* DefaultPresetUseCase.swift in Sources */,
 				D42AA10E2AEC014A0053E2A8 /* DefaultMusicRepository.swift in Sources */,
 				D460F0342AE2573800A5966A /* DefaultUserRepository.swift in Sources */,
+				D42AA11C2AEC1C1C0053E2A8 /* DIContainer.swift in Sources */,
 				D460F0382AE2579800A5966A /* FireStoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
