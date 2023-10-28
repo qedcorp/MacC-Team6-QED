@@ -16,7 +16,8 @@ extension Performance: FireStoreEntityConvertable {
     convenience init(jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8),
               let performance = try? JSONDecoder().decode(Performance.self, from: jsonData) else {
-            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: -1)
+            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 0)
+            // 여기 headcount 왜 0이에요?
             return
         }
 
