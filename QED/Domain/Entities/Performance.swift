@@ -28,7 +28,7 @@ class Performance: Codable {
         self.playable = playable
         self.headcount = headcount
         self.title = title ?? playable.title
-        self.memberInfos = (1 ... headcount)
+        self.memberInfos = (0 ... headcount)
             .map { .init(name: "인물 \($0)", color: .randomHex()) }
         self.formations = formations
         self.transitions = transitions
