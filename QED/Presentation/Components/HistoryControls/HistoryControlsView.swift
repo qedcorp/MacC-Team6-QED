@@ -3,23 +3,20 @@
 import SwiftUI
 
 struct HistoryControlsView: View {
-    // TODO: 프로토콜로 쓰고 싶다..
-    @ObservedObject private var historyManagable: ObjectCanvasHistoryManager
-
-    init(historyManagable: ObjectCanvasHistoryManager) {
-        self.historyManagable = historyManagable
-    }
+    let historyControllable: HistoryControllable
+    let tag: String
 
     var body: some View {
         HStack {
             Button("Undo") {
-                historyManagable.undo()
+                historyControllable.undo()
             }
-            .disabled(!historyManagable.isUndoable())
+            .disabled(!historyControllable.isUndoable())
             Button("Redo") {
-                historyManagable.redo()
+                historyControllable.redo()
             }
-            .disabled(!historyManagable.isRedoable())
+            .disabled(!historyControllable.isRedoable())
         }
+        .tag(tag)
     }
 }

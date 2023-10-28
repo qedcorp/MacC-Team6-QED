@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct MemberInfoChangeView: View {
+struct MemberInfoEditingView: View {
     @Binding var name: String
     let color: String
     let onDismiss: () -> Void

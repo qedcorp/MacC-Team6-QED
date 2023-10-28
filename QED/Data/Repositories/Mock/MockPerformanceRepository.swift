@@ -65,7 +65,7 @@ var mockFormations = [Formation(members: members1, startMs: 0, memo: "킥인더�
 
 var mockPerformance = Performance(id: "1231231",
                                   author: User(email: "", nickname: ""),
-                                  playable: .newJeans,
+                                  music: .newJeans,
                                   headcount: 5,
                                   title: "",
                                   formations: mockFormations)
@@ -101,31 +101,31 @@ private struct Youtube: Playable {
 //                             thumbnailURL: URL(string: "https://i.ibb.co/HtzF59j/Kakao-Talk-Photo-2023-10-24-02-30-38-001.jpg"))
 //
 // var mockPerformance = Performance(author: User(email: "", nickname: ""),
-//                                          playable: youtube,
+//                                          music: youtube,
 //                                          headcount: 4,
 //                                          title: youtube.title,
 //                                          formations: mockFormations)
 //
 // var mockPerformance1 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube1,
+//                                         music: youtube1,
 //                                         headcount: 5,
 //                                         title: youtube1.title,
 //                                         formations: mockFormations)
 //
 // var mockPerformance2 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube2,
+//                                         music: youtube2,
 //                                         headcount: 5,
 //                                         title: youtube2.title,
 //                                         formations: mockFormations)
 //
 // var mockPerformance3 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube3,
+//                                         music: youtube3,
 //                                         headcount: 5,
 //                                         title: youtube3.title,
 //                                         formations: mockFormations)
 //
 // var mockPerformance4 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube4,
+//                                         music: youtube4,
 //                                         headcount: 5,
 //                                         title: youtube4.title,
 //                                         formations: mockFormations)

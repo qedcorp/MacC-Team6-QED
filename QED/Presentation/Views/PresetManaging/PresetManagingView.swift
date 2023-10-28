@@ -16,15 +16,19 @@ struct PresetManagingView: View {
     var body: some View {
         VStack {
             VStack {
-                ObjectCanvasView(controller: objectCanvasViewController, headcount: 5, onChange: { _ in })
-                    .frame(height: 240)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.opacity(0.3))
-                    )
-                    .clipped()
+                ObjectCanvasView(
+                    controller: objectCanvasViewController,
+                    headcount: 5,
+                    onChange: { _ in }
+                )
+                .frame(height: 240)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.gray.opacity(0.3))
+                )
+                .clipped()
                 HStack {
-                    HistoryControlsView(historyManagable: objectCanvasViewController.objectCanvasHistoryManager)
+                    HistoryControlsView(historyControllable: objectCanvasViewController.objectCanvasArchiver, tag: "")
                     Spacer()
                     Button("Generate") {
                         viewModel.generatePreset()

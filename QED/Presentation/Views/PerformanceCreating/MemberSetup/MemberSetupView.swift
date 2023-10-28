@@ -1,164 +1,134 @@
 // Created by byo.
 
-import ComposableArchitecture
 import SwiftUI
 
 struct MemberSetupView: View {
-    fileprivate typealias Reducer = MemberSetupReducer
-    fileprivate typealias ViewStore = ViewStoreOf<Reducer>
+    @ObservedObject private var viewModel: MemberSetupViewModel
 
-    private let store: StoreOf<Reducer>
-
-    init(
-        performanceSettingManager: PerformanceSettingManager,
-        performanceUseCase: PerformanceUseCase
-    ) {
-        self.store = .init(initialState: Reducer.State(performance: performanceSettingManager.performance)) {
-            Reducer(performanceUseCase: performanceUseCase)
-        }
+    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
+        let performanceSettingManager = PerformanceSettingManager(performance: performance)
+        self.viewModel = MemberSetupViewModel(
+            performanceSettingManager: performanceSettingManager,
+            performanceUseCase: performanceUseCase
+        )
     }
 
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            VStack(spacing: 0) {
-                MusicHeadcountView(
-                    title: viewStore.music.title,
-                    headcount: viewStore.headcount
-                )
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(Array(viewStore.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
-                            MemberInfoButton(
-                                viewStore: viewStore,
-                                index: infoOffset,
-                                memberInfo: info
-                            )
-                        }
+        VStack(spacing: 0) {
+            buildMusicHeadcountView()
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(Array(viewModel.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
+                        buildMemberInfoButton(index: infoOffset, memberInfo: info)
                     }
-                    .padding(.vertical, 16)
-                    .padding(.horizontal, 22)
                 }
-                ScrollView(.vertical) {
-                    VStack(spacing: 14) {
-                        ForEach(Array(viewStore.formations.enumerated()), id: \.offset) { formationOffset, formation in
-                            FormationItem(
-                                viewStore: viewStore,
-                                index: formationOffset,
-                                formation: formation
-                            )
-                        }
-                    }
-                    .padding(.horizontal, 22)
-                    .padding(.bottom, 22)
-                }
+                .padding(.vertical, 16)
+                .padding(.horizontal, 22)
             }
-            .overlay(
-                viewStore.presentedMemberInfoChangeIndex != nil ?
-                MemberInfoChangeView(
-                    name: viewStore.binding(
-                        get: { $0.changingMemberInfo?.name ?? "" },
-                        send: { .memberNameChanged($0) }
-                    ),
-                    color: viewStore.changingMemberInfo?.color ?? "",
-                    onDismiss: {
-                        viewStore.send(.setPresentedMemberInfoChangeIndex(nil))
-                    }
-                )
-                : nil
-            )
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    PerformanceSetupTitleView(
-                        step: 2,
-                        title: "인물지정"
-                    )
-                }
-                ToolbarTitleMenu {
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("완료") {
+            ScrollView(.vertical) {
+                VStack(spacing: 14) {
+                    ForEach(Array(viewModel.formations.enumerated()), id: \.offset) { formationOffset, formation in
+                        buildFormationItemView(index: formationOffset, formation: formation)
                     }
                 }
+                .padding(.horizontal, 22)
+                .padding(.bottom, 22)
+            }
+        }
+        .overlay(
+            viewModel.editingMemberInfoIndex != nil ?
+            buildMemberInfoEditingView()
+            : nil
+        )
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                PerformanceSetupTitleView(step: 2, title: "인물지정")
+            }
+            ToolbarTitleMenu {
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("완료") {
+                }
+                .disabled(!viewModel.isEnabledToSave)
             }
         }
     }
 
-    private struct MemberInfoButton: View {
-        let viewStore: ViewStore
-        let index: Int
-        let memberInfo: MemberInfoModel
+    private func buildMusicHeadcountView() -> some View {
+        MusicHeadcountView(title: viewModel.musicTitle, headcount: viewModel.headcount)
+    }
 
-        var body: some View {
-            HStack(spacing: 10) {
-                Circle()
-                    .fill(Color(hex: memberInfo.color))
-                    .frame(height: 22)
-                    .aspectRatio(contentMode: .fit)
-                Text(memberInfo.name)
-                    .foregroundStyle(.gray)
+    private func buildMemberInfoButton(index: Int, memberInfo: MemberInfoModel) -> some View {
+        HStack(spacing: 10) {
+            Circle()
+                .fill(Color(hex: memberInfo.color))
+                .frame(height: 22)
+                .aspectRatio(contentMode: .fit)
+            Text(memberInfo.name)
+                .foregroundStyle(.gray)
+        }
+        .frame(height: 38)
+        .padding(.horizontal, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(.gray.opacity(0.1))
+                .overlay(
+                    index == viewModel.selectedMemberInfoIndex ?
+                    RoundedRectangle(cornerRadius: 4)
+                        .strokeBorder(.green, lineWidth: 2)
+                    : nil
+                )
+        )
+        .contextMenu {
+            ControlGroup {
+                Button("이름변경") {
+                    viewModel.editingMemberInfoIndex = index
+                }
             }
-            .frame(height: 38)
-            .padding(.horizontal, 8)
+            .controlGroupStyle(.compactMenu)
+        }
+        .onTapGesture {
+            viewModel.selectedMemberInfoIndex = index
+        }
+    }
+
+    private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
+        VStack(spacing: 10) {
+            ObjectSelectionView(
+                formable: formation,
+                colorHex: viewModel.selectedMemberInfo?.color,
+                onChange: {
+                    viewModel.updateMembers(colors: $0, formationIndex: index)
+                }
+            )
+            .aspectRatio(35 / 22, contentMode: .fit)
             .background(
                 RoundedRectangle(cornerRadius: 4)
                     .fill(.gray.opacity(0.1))
-                    .overlay(
-                        index == viewStore.selectedMemberInfoIndex ?
-                        RoundedRectangle(cornerRadius: 4)
-                            .strokeBorder(.green, lineWidth: 2)
-                        : nil
-                    )
             )
-            .contextMenu {
-                ControlGroup {
-                    Button("이름변경") {
-                        viewStore.send(.memberInfoChangeButtonTapped(index))
-                    }
-                }
-                .controlGroupStyle(.compactMenu)
-            }
-            .onTapGesture {
-                viewStore.send(.memberInfoButtonTapped(index))
-            }
-        }
-    }
-
-    private struct FormationItem: View {
-        let viewStore: ViewStore
-        let index: Int
-        let formation: FormationModel
-
-        var body: some View {
-            VStack(spacing: 10) {
-                ObjectSelectionView(
-                    formable: formation,
-                    colorHex: viewStore.selectedMemberInfo?.color,
-                    onChange: {
-                        var formation = formation
-                        $0.enumerated().forEach {
-                            formation.members[$0.offset].color = $0.element
-                        }
-                        viewStore.send(.formationChanged(index, formation))
-                    }
-                )
-                .aspectRatio(35 / 22, contentMode: .fit)
+            Text(formation.memo ?? "대형 \(index + 1)")
+                .foregroundStyle(.green)
+                .bold()
+                .multilineTextAlignment(.center)
+                .lineLimit(1)
+                .frame(height: 46)
+                .frame(maxWidth: .infinity)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
                         .fill(.gray.opacity(0.1))
                 )
-                Text(formation.memo ?? "대형 \(index + 1)")
-                    .foregroundStyle(.green)
-                    .bold()
-                    .multilineTextAlignment(.center)
-                    .lineLimit(1)
-                    .frame(height: 46)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(.gray.opacity(0.1))
-                    )
-            }
         }
+    }
+
+    private func buildMemberInfoEditingView() -> some View {
+        MemberInfoEditingView(
+            name: Binding(
+                get: { viewModel.editingMemberInfo?.name ?? "" },
+                set: { viewModel.updateEditingMemberName($0) }
+            ),
+            color: viewModel.editingMemberInfo?.color ?? "",
+            onDismiss: { viewModel.editingMemberInfoIndex = nil }
+        )
     }
 }

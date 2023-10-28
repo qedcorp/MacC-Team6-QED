@@ -5,7 +5,7 @@ import SwiftUI
 struct ObjectCanvasView: UIViewControllerRepresentable {
     let controller: ObjectCanvasViewController
     let headcount: Int
-    let onChange: (([RelativePosition]) -> Void)?
+    let onChange: (([CGPoint]) -> Void)?
 
     func makeUIViewController(context: Context) -> ObjectCanvasViewController {
         controller

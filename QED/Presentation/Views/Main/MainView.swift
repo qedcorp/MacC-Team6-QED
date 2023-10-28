@@ -139,13 +139,13 @@ struct RecentFormationCardView: View {
     init(performance: Performance) {
         self.performance = performance
         title = performance.title ?? ""
-        creator = performance.playable.creator
-        thumbnailURL = performance.playable.thumbnailURL
+        creator = performance.music.creator
+        thumbnailURL = performance.music.thumbnailURL
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: performance.playable.thumbnailURL) { image in
+            AsyncImage(url: performance.music.thumbnailURL) { image in
                 image
                     .image?.resizable()
                     .scaledToFill()

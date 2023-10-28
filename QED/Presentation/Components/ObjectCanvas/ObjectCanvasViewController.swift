@@ -5,12 +5,12 @@ import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
-    var onChange: (([RelativePosition]) -> Void)?
+    var onChange: (([CGPoint]) -> Void)?
 
-    private(set) lazy var objectCanvasHistoryManager = {
-        let manager = ObjectCanvasHistoryManager()
-        manager.objectCanvasViewController = self
-        return manager
+    private(set) lazy var objectCanvasArchiver = {
+        let archiver = ObjectCanvasArchiver()
+        archiver.objectCanvasViewController = self
+        return archiver
     }()
 
     private lazy var touchPositionConverter = {
@@ -63,7 +63,6 @@ class ObjectCanvasViewController: ObjectStageViewController {
                 if let dragging = $0 {
                     self?.handleDragging(dragging)
                 } else {
-                    self?.addHistory()
                     self?.didChange()
                 }
             }
@@ -163,20 +162,21 @@ class ObjectCanvasViewController: ObjectStageViewController {
         defer {
             objectViews.forEach { $0.removeFromSuperview() }
         }
+        let positions = getRelativePositions()
         return Preset(
             headcount: objectViews.count,
-            relativePositions: getRelativePositions()
+            relativePositions: positions
         )
     }
 
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        objectCanvasHistoryManager.addHistory(history)
+        objectCanvasArchiver.addHistory(history)
     }
 
     private func didChange() {
-        let positions = getRelativePositions()
+        let positions = objectViews.map { $0.center }
         onChange?(positions)
     }
 
