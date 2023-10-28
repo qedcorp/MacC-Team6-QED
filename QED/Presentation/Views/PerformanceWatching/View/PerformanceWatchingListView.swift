@@ -121,7 +121,9 @@ private struct PerformanceScrollView: View {
                 VStack(spacing: 30) {
                     ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
                         VStack {
-                            NavigationLink(destination: PerformanceWatchingDetailView(viewModel: PerformanceWatchingDetailViewModel(performance: performance))) {
+                            NavigationLink(destination: PerformanceWatchingDetailView(
+                                viewModel: PerformanceWatchingDetailViewModel(
+                                    performance: performance), index: index)) {
                                 DanceFormationView(
                                     formation: formation,
                                     index: index,

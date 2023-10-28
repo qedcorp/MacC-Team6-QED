@@ -31,7 +31,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
         self.performance = performance
         showingFormation = performance.formations.first!
-        beforeFormation = nil
+        beforeFormation = performance.formations.first!
         selectedIndex = 0
         currentNote = performance.formations[0].note ?? ""
         playTimer = PlayTimer(timeInterval: 5)
@@ -102,13 +102,14 @@ extension PerformanceWatchingDetailViewModel {
                 if index == performance.formations.count - 1 {
                     currentStatus = .pause
                 }
-                if self.isShowingBeforeFormation && index - 1 >= 0 {
-                    self.beforeFormation = self.performance.formations[index - 1]
+                if  self.isShowingBeforeFormation {
+                    self.beforeFormation = self.performance.formations[index]
                     if currentStatus == .play {
                         self.scene.manager?.fetchNew(formation: self.showingFormation, isPreview: true)
                     } else {
                         self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
                     }
+
                 }
                 self.scene.manager?.fetchNew(formation: self.showingFormation)
                 self.currentStatus = .pause
@@ -120,10 +121,8 @@ extension PerformanceWatchingDetailViewModel {
             .sink { [weak self] isShowing in
                 guard let self = self else { return }
                 if isShowing {
-                    if self.selectedIndex - 1 >= 0 {
-                        self.beforeFormation = self.performance.formations[self.selectedIndex - 1]
-                        self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
-                    }
+                    self.beforeFormation = self.performance.formations[self.selectedIndex]
+                    self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
                 } else {
                     self.beforeFormation = nil
                     self.scene.manager?.fetchNew(formation: Formation(), isPreview: true)

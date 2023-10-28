@@ -10,6 +10,7 @@ import SwiftUI
 struct PerformanceWatchingDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: PerformanceWatchingDetailViewModel
+    var index: Int
     @State var isNameVisiable = false
     @State var isBeforeVisible = false
     @State var isPlaying = false
@@ -29,6 +30,9 @@ struct PerformanceWatchingDetailView: View {
         .sheet(isPresented: .constant(true)) {
             DirectorNoteView(viewModel: viewModel,
                              isMemoEditMode: $isMemoEditMode)
+        }
+        .onAppear {
+            viewModel.selectedIndex = index
         }
         .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
@@ -125,7 +129,11 @@ private struct PlayButtonsView: View {
         Button {
             isPlaying.toggle()
             if isPlaying {
-                viewModel.play()
+                if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
+                    viewModel.selectedIndex = 0
+                } else {
+                    viewModel.play()
+                }
             } else {
                 viewModel.pause()
             }
@@ -172,8 +180,10 @@ private struct DanceFormationScrollView: View {
                         }
                     }
                 }
-                .onChange(of: viewModel.selectedIndex, perform: { value in
-                    proxy.scrollTo(value, anchor: .center)
+                .onChange(of: viewModel.selectedIndex, perform: { index in
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        proxy.scrollTo(index, anchor: .center)
+                    }
                     if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
                         isPlaying = false
                     }
@@ -186,5 +196,5 @@ private struct DanceFormationScrollView: View {
 #Preview {
     PerformanceWatchingDetailView(viewModel: PerformanceWatchingDetailViewModel(
         performance: mockPerformance1
-    ))
+    ), index: 0)
 }
