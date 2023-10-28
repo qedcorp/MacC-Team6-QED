@@ -12,19 +12,19 @@ struct PerformanceListCardView: View {
     let performance: Performance
     var title: String
     var creator: String
-    var thumbnailURL: URL?
+    var albumCoverURL: URL?
     var image: UIImage?
 
     init(performance: Performance) {
         self.performance = performance
         title = performance.title ?? ""
         creator = performance.playable.creator
-        thumbnailURL = performance.playable.thumbnailURL
+        albumCoverURL = performance.playable.albumCoverURL
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: performance.playable.thumbnailURL) { image in
+            AsyncImage(url: performance.playable.albumCoverURL) { image in
                 image
                     .image?.resizable()
                     .scaledToFill()
@@ -52,6 +52,6 @@ struct PerformanceListCardView: View {
     }
 }
 
-// #Preview {
-//    PerformanceListCardView(performance: performance)
-// }
+ #Preview {
+    PerformanceListCardView(performance: mockPerformance)
+ }

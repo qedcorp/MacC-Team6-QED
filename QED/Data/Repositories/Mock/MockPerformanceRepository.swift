@@ -15,12 +15,11 @@ class MockPerformanceRepository: PerformanceRepository {
             throw DescribableError(description: "Cannot find a performance.")
         }
         return performance
-
     }
 
     func readPerformances() async throws -> [Performance] {
-        performances
-        //        return [mockPerformance, mockPerformance1, mockPerformance2, mockPerformance3, mockPerformance4]
+//        performances
+        return [mockPerformance, mockPerformance1]
     }
 
     func updatePerformance(_ performance: Performance) async throws -> Performance {
@@ -63,70 +62,23 @@ var mockFormations = [Formation(members: members1, startMs: 0, memo: "킥인더�
                       Formation(members: members2, startMs: 130000, memo: "눈 감고 팝팝"),
                       Formation(members: members3, startMs: 135000, memo: "눈 팝팝")]
 
+var mockPerformances = [mockPerformance, mockPerformance1]
+
+let albumCoverURL = URL(string: "https://i.ibb.co/Px7S5hf/butter-2-cover.jpg")
+let albumCoverURL1 = URL(string: "https://i.ibb.co/jfKMZc5/Kakao-Talk-Photo-2023-10-24-02-30-38-005.webp")
+
 var mockPerformance = Performance(id: "1231231",
                                   author: User(email: "", nickname: ""),
-                                  playable: .newJeans,
+                                  playable: Music(id: "", title: "뉴진스", artistName: "Newjeans", albumCoverURL: albumCoverURL),
                                   headcount: 5,
-                                  title: "",
-                                  formations: mockFormations)
+                                  title: "성심여고3반귀요미",
+                                  formations: mockFormations
+)
 
-private struct Youtube: Playable {
-    let title: String
-    let creator: String
-    let thumbnailURL: URL?
-}
-//
-// private var youtube = Youtube(title: "Pink Venom",
-//                              creator: "Black Pink",
-//                               thumbnailURL: URL(string: "https://i.ibb.co/jfKMZc5/Kakao-Talk-Photo-2023-10-24-02-30-38-005.webp"))
-//
-// private var youtube1 = Youtube(title: "Super Shy",
-//                             creator: "뉴진스",
-//                             thumbnailURL: URL(string: "https://i.ibb.co/frZhpP1/Kakao-Talk-Photo-2023-10-24-02-30-38-006.webp"))
-//
-// private var youtube2 = Youtube(title: "Love Dive",
-//                             creator: "IVE",
-//                             thumbnailURL: URL(string: "https://i.ibb.co/C8gqrm3/Kakao-Talk-Photo-2023-10-24-02-30-38-004.jpg"))
-//
-// private var youtube3 = Youtube(title: "Ditto",
-//                             creator: "뉴진스",
-//                             thumbnailURL: URL(string: "https://i.ibb.co/rZ779Vc/Kakao-Talk-Photo-2023-10-24-02-30-38-003.png"))
-//
-// private var youtube4 = Youtube(title: "Butter",
-//                             creator: "BTS",
-//                             thumbnailURL: URL(string: "https://i.ibb.co/Px7S5hf/butter-2-cover.jpg"))
-//
-// private var youtube5 = Youtube(title: "ETA",
-//                             creator: "뉴진스",
-//                             thumbnailURL: URL(string: "https://i.ibb.co/HtzF59j/Kakao-Talk-Photo-2023-10-24-02-30-38-001.jpg"))
-//
-// var mockPerformance = Performance(author: User(email: "", nickname: ""),
-//                                          playable: youtube,
-//                                          headcount: 4,
-//                                          title: youtube.title,
-//                                          formations: mockFormations)
-//
-// var mockPerformance1 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube1,
-//                                         headcount: 5,
-//                                         title: youtube1.title,
-//                                         formations: mockFormations)
-//
-// var mockPerformance2 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube2,
-//                                         headcount: 5,
-//                                         title: youtube2.title,
-//                                         formations: mockFormations)
-//
-// var mockPerformance3 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube3,
-//                                         headcount: 5,
-//                                         title: youtube3.title,
-//                                         formations: mockFormations)
-//
-// var mockPerformance4 = Performance(author: User(email: "", nickname: ""),
-//                                         playable: youtube4,
-//                                         headcount: 5,
-//                                         title: youtube4.title,
-//                                         formations: mockFormations)
-//
+var mockPerformance1 = Performance(id: "1313",
+                                   author: User(email: "", nickname: ""),
+                                   playable: Music(id: "1", title: "뚜두뚜두", artistName: "블랙핑크", albumCoverURL: albumCoverURL1),
+                                   headcount: 4,
+                                   title: "뚜두뚜두",
+                                   formations: mockFormations
+)
