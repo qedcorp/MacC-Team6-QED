@@ -25,7 +25,7 @@ struct MainView: View {
                 if viewModel.myRecentPerformances.isEmpty {
                     mainListEmptyView
                 } else {
-                    PerformanceListReadingScrollView(viewModel: mockPerformance1)
+                    PerformanceListReadingScrollView(viewModel: viewModel)
                 }
             }
             .toolbar {
@@ -148,7 +148,7 @@ struct PerformanceListReadingScrollView: View {
                     NavigationLink {
                         PerformanceWatchingView(performance: performance)
                     } label: {
-                        PerformanceListCardView(performance: mockPerformance)
+                        PerformanceListCardView(performance: performance)
                     }
                 }
             }
@@ -164,6 +164,17 @@ extension Performance: Hashable {
 
     static func == (lhs: Performance, rhs: Performance) -> Bool {
         lhs.hashValue == rhs.hashValue
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }
 
