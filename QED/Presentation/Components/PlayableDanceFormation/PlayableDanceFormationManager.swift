@@ -111,6 +111,6 @@ extension RelativePosition {
         x
     }
     var spriteY: Int {
-        1000 - y
+        RelativePosition.maxY - y
     }
 }

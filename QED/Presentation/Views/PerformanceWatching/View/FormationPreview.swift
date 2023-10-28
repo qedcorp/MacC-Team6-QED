@@ -31,9 +31,10 @@ struct FormationPreview: View {
                     MemberCircleView(isNameVisiable: isNameVisiable,
                                      member: member,
                                      geometry: geometry)
-                    .position(CGPoint(
-                        x: CGFloat(member.relativePosition.x) * geometry.size.width * 0.001,
-                        y: CGFloat(member.relativePosition.y) * geometry.size.height * 0.001))
+                    .position(
+                        RelativePositionConverter(sizeable: geometry)
+                            .getAbsolutePosition(of: member.relativePosition)
+                    )
                 }
             }
         }

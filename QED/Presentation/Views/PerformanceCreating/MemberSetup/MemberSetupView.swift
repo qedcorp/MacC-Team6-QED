@@ -48,7 +48,8 @@ struct MemberSetupView: View {
             ToolbarTitleMenu {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("완료") {
+                NavigationLink("완료") {
+                    buildPerformanceWatchingView()
                 }
                 .disabled(!viewModel.isEnabledToSave)
             }
@@ -130,5 +131,10 @@ struct MemberSetupView: View {
             color: viewModel.editingMemberInfo?.color ?? "",
             onDismiss: { viewModel.editingMemberInfoIndex = nil }
         )
+    }
+
+    private func buildPerformanceWatchingView() -> some View {
+        let performance = viewModel.performanceSettingManager.performance
+        return PerformanceWatchingView(performance: performance)
     }
 }
