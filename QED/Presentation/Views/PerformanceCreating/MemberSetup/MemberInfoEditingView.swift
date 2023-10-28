@@ -3,16 +3,16 @@
 import SwiftUI
 
 struct MemberInfoEditingView: View {
-    @Binding var name: String
+    @State var name: String
     let color: String
-    let onDismiss: () -> Void
+    let onComplete: (String) -> Void
 
     var body: some View {
         ZStack {
             Color.black.opacity(0.5)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    onDismiss()
+                    onComplete(name)
                 }
             VStack(spacing: 36) {
                 HStack {
@@ -20,9 +20,6 @@ struct MemberInfoEditingView: View {
                         .font(.title3)
                         .bold()
                     Spacer()
-                    Button("X") {
-                        onDismiss()
-                    }
                 }
                 HStack(spacing: 14) {
                     Circle()

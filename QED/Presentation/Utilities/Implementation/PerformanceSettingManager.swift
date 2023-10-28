@@ -9,9 +9,7 @@ class PerformanceSettingManager {
     private let changedSubject = PassthroughSubject<PerformanceModel, Never>()
 
     lazy var changedPublisher = {
-        changedSubject
-            .debounce(for: 0.1, scheduler: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        changedSubject.eraseToAnyPublisher()
     }()
 
     private lazy var relativePositionConverter: RelativePositionConverter? = {
