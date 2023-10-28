@@ -45,8 +45,6 @@ struct MemberSetupView: View {
             ToolbarItem(placement: .principal) {
                 PerformanceSetupTitleView(step: 2, title: "인물지정")
             }
-            ToolbarTitleMenu {
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("완료") {
                     buildPerformanceWatchingView()

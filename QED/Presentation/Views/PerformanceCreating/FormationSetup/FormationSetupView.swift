@@ -45,8 +45,6 @@ struct FormationSetupView: View {
             ToolbarItem(placement: .principal) {
                 PerformanceSetupTitleView(step: 1, title: "대형짜기")
             }
-            ToolbarTitleMenu {
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("다음") {
                     buildMemberSetupView()

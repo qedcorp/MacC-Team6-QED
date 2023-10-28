@@ -12,10 +12,11 @@ struct HistoryControlsView: View {
                 historyControllable.undo()
             }
             .disabled(!historyControllable.isUndoable())
-            Button("Redo") {
-                historyControllable.redo()
-            }
-            .disabled(!historyControllable.isRedoable())
+            // TODO: Redo 고장남
+//            Button("Redo") {
+//                historyControllable.redo()
+//            }
+//            .disabled(!historyControllable.isRedoable())
         }
         .tag(tag)
     }
