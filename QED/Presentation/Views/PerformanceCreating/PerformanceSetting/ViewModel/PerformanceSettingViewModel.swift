@@ -14,13 +14,16 @@ class PerformanceSettingViewModel: ObservableObject {
 
     var headcount: Int? { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
-    @Published var inputHeadcount: Double = 2
-    @Published var selectedMusic: Music?
+    @Published var inputHeadcount: Double = 0
+    @Published var range: ClosedRange<Double> = 0...13
 
+    @Published var selectedMusic: Music?
     @Published var searchText: String = ""
     @Published var allMusics: [Music] = []
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
+
+    @State private var inputHeadcountChanged = false
 
     let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
         searchMusicRepository: MockSearchMusicRepository()
@@ -35,24 +38,30 @@ class PerformanceSettingViewModel: ObservableObject {
     }
 
     func decrementHeadcount() {
-        if inputHeadcount > 2.0 {
-            inputHeadcount -= 1.0
+        if inputHeadcount > range.lowerBound {
+            inputHeadcount -= 1
+            inputHeadcountChanged = true
+        } else {
+            inputHeadcount = range.lowerBound
         }
     }
 
     func incrementHeadcount() {
-        if inputHeadcount < 13.0 {
-            inputHeadcount += 1.0
+        if inputHeadcount < range.upperBound {
+            inputHeadcount += 1
+            inputHeadcountChanged = true
+        } else {
+            inputHeadcount = range.upperBound
         }
     }
 
     func generatePerformance() -> Performance {
         guard let music = selectedMusic else { return Performance(jsonString: "Error") }
         return Performance(id: "1212312313", author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                    playable: music,
-                    headcount: Int(inputHeadcount),
-                    title: inputTitle,
-                    formations: [],
-                    transitions: [])
+                           playable: music,
+                           headcount: Int(inputHeadcount),
+                           title: inputTitle,
+                           formations: [],
+                           transitions: [])
     }
 }
