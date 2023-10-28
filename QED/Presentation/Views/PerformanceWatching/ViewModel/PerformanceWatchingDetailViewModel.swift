@@ -33,6 +33,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         showingFormation = performance.formations.first!
         beforeFormation = nil
         selectedIndex = 0
+        currentNote = performance.formations[0].note ?? ""
         playTimer = PlayTimer(timeInterval: 5)
 
         let danceFormationManager = PlayableDanceFormationManager(scene: scene, formation: mockFormations.first!)
@@ -79,10 +80,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     func saveNote() {
-        if performance.formations[selectedIndex].notes == nil {
-            performance.formations[selectedIndex].notes = []
+        if performance.formations[selectedIndex].note == nil {
+            performance.formations[selectedIndex].note = ""
         }
-        performance.formations[selectedIndex].notes?.append(currentNote)
+        performance.formations[selectedIndex].note = currentNote
     }
 }
 
@@ -111,7 +112,7 @@ extension PerformanceWatchingDetailViewModel {
                 }
                 self.scene.manager?.fetchNew(formation: self.showingFormation)
                 self.currentStatus = .pause
-                self.currentNote = ""
+                self.currentNote = self.performance.formations[index].note ?? ""
             }
             .store(in: &bag)
 
@@ -138,7 +139,6 @@ extension PerformanceWatchingDetailViewModel {
                 scene.manager?.playPerformance(transion: transitions,
                                                afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
                     guard let self = self else { return }
-                    print("@LOG ssssss")
                     self.selectedIndex += 1
 
                 }

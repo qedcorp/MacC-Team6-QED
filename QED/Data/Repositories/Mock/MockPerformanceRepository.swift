@@ -68,10 +68,10 @@ private var members4 = [Member(relativePosition: RelativePosition(x: 700, y: 200
                         Member(relativePosition: RelativePosition(x: 700, y: 900),
                                info: info4)]
 
-var mockFormations = [Formation(members: members1, startMs: 0, memo: "암슈퍼샤이"),
+var mockFormations = [Formation(members: members1, startMs: 0, memo: "암슈퍼샤이", note: "키오 기어가기"),
                       Formation(members: members2, startMs: 130000, memo: "떨리는 지금도"),
-                      Formation(members: members3, startMs: 135000, memo: "암슈퍼샤이"),
-                      Formation(members: members4, startMs: 140000, memo: "가나다라")]
+                      Formation(members: members3, startMs: 135000, memo: "암슈퍼샤이", note: "지니 돌아가기"),
+                      Formation(members: members4, startMs: 140000, memo: "가나다라", note: "지니 움직이고 쥬쥬 움직이기")]
 
 private var music1 = Music(id: "ert",
                            title: "Pink Venom",

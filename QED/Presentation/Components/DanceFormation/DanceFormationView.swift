@@ -71,9 +71,9 @@ private struct TimeAndLyric: View {
                           bottomTrailingRadius: 12))
                 .frame(height: 30)
             HStack {
-                if let startMs = formation.startMs {
-                    Text(startMs.msToTimeString)
-                }
+//                if let startMs = formation.startMs {
+//                    Text(startMs.msToTimeString)
+//                }
                 if let memo = formation.memo {
                     Text(memo)
                 }
