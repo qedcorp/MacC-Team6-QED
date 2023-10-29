@@ -26,6 +26,9 @@ struct PresetContainerView: View {
             HStack {
                 Text("동선 프리셋")
                     .font(.headline)
+                NavigationLink(" ") {
+                    PresetManagingView()
+                }
                 Spacer()
                 Button("Toggle") {
                     withAnimation {
