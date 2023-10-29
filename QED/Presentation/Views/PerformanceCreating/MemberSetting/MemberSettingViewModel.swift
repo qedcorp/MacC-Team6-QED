@@ -4,7 +4,7 @@ import Combine
 import Foundation
 
 @MainActor
-class MemberSetupViewModel: ObservableObject {
+class MemberSettingViewModel: ObservableObject {
     @Published var performance: PerformanceModel
     @Published var selectedMemberInfoIndex: Int?
     @Published var editingMemberInfoIndex: Int?

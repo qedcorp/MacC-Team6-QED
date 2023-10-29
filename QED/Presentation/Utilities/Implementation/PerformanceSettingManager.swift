@@ -5,8 +5,10 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
-    let sizeable: Sizeable?
+    private let sizeable: Sizeable?
+    private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
+    private var cancellables: Set<AnyCancellable> = []
 
     lazy var changingPublisher = {
         changingSubject
@@ -22,9 +24,23 @@ class PerformanceSettingManager {
         return RelativePositionConverter(sizeable: sizeable)
     }()
 
-    init(performance: Performance, sizeable: Sizeable? = nil) {
+    init(performance: Performance, sizeable: Sizeable? = nil, performanceUseCase: PerformanceUseCase) {
         self.performance = performance
         self.sizeable = sizeable
+        self.performanceUseCase = performanceUseCase
+        subscribeChangingPublisher()
+    }
+
+    private func subscribeChangingPublisher() {
+        changingPublisher
+            .debounce(for: 3, scheduler: DispatchQueue.global(qos: .userInitiated))
+            .sink { _ in
+            } receiveValue: { [unowned self] _ in
+                Task {
+                    try await performanceUseCase.updatePerformance(performance)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func addFormation(_ formation: Formation, index: Int) {

@@ -11,15 +11,10 @@ struct PresetContainerView: View {
         )
     )
 
-    private let headcount: Int
-    private let objectCanvasViewController: ObjectCanvasViewController
+    let headcount: Int
+    let objectCanvasViewController: ObjectCanvasViewController
     private let padding: CGFloat = 22
     private let rows: [GridItem] = .init(repeating: .init(.fixed(80)), count: 2)
-
-    init(headcount: Int, objectCanvasViewController: ObjectCanvasViewController) {
-        self.headcount = headcount
-        self.objectCanvasViewController = objectCanvasViewController
-    }
 
     var body: some View {
         VStack {

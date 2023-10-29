@@ -2,16 +2,17 @@
 
 import SwiftUI
 
-struct FormationSetupView: View {
-    @ObservedObject private var viewModel: FormationSetupViewModel
+struct FormationSettingView: View {
+    @ObservedObject private var viewModel: FormationSettingViewModel
     private let objectCanvasViewController = ObjectCanvasViewController()
 
     init(performance: Performance, performanceUseCase: PerformanceUseCase) {
         let performanceSettingManager = PerformanceSettingManager(
             performance: performance,
-            sizeable: objectCanvasViewController.view
+            sizeable: objectCanvasViewController.view,
+            performanceUseCase: performanceUseCase
         )
-        self.viewModel = FormationSetupViewModel(
+        self.viewModel = FormationSettingViewModel(
             performanceSettingManager: performanceSettingManager,
             performanceUseCase: performanceUseCase
         )
@@ -43,11 +44,11 @@ struct FormationSetupView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                PerformanceSetupTitleView(step: 1, title: "대형짜기")
+                PerformanceSettingTitleView(step: 1, title: "대형짜기")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("다음") {
-                    buildMemberSetupView()
+                    buildMemberSettingView()
                 }
                 .disabled(!viewModel.isEnabledToSave)
             }
@@ -205,8 +206,8 @@ struct FormationSetupView: View {
         )
     }
 
-    private func buildMemberSetupView() -> some View {
-        MemberSetupView(
+    private func buildMemberSettingView() -> some View {
+        MemberSettingView(
             performance: viewModel.performanceSettingManager.performance,
             performanceUseCase: viewModel.performanceUseCase
         )

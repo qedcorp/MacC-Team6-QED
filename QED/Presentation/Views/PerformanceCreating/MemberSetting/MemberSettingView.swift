@@ -2,12 +2,15 @@
 
 import SwiftUI
 
-struct MemberSetupView: View {
-    @ObservedObject private var viewModel: MemberSetupViewModel
+struct MemberSettingView: View {
+    @ObservedObject private var viewModel: MemberSettingViewModel
 
     init(performance: Performance, performanceUseCase: PerformanceUseCase) {
-        let performanceSettingManager = PerformanceSettingManager(performance: performance)
-        self.viewModel = MemberSetupViewModel(
+        let performanceSettingManager = PerformanceSettingManager(
+            performance: performance,
+            performanceUseCase: performanceUseCase
+        )
+        self.viewModel = MemberSettingViewModel(
             performanceSettingManager: performanceSettingManager,
             performanceUseCase: performanceUseCase
         )
@@ -43,7 +46,7 @@ struct MemberSetupView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                PerformanceSetupTitleView(step: 2, title: "인물지정")
+                PerformanceSettingTitleView(step: 2, title: "인물지정")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("완료") {

@@ -4,7 +4,7 @@ import Combine
 import Foundation
 
 @MainActor
-class FormationSetupViewModel: ObservableObject {
+class FormationSettingViewModel: ObservableObject {
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
     @Published var currentFormationIndex = -1

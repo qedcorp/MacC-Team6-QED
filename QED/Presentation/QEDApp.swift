@@ -10,7 +10,7 @@ struct QEDApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                FormationSetupView(
+                FormationSettingView(
                     performance: .init(id: "", author: .sample, music: Music.newJeans, headcount: 5),
                     performanceUseCase: DefaultPerformanceUseCase(
                         performanceRepository: MockPerformanceRepository(),
