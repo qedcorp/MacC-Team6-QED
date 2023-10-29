@@ -702,11 +702,13 @@
 				D460EFD12AE18DF700A5966A /* AuthUIProtocol.swift */,
 			);
 			path = UIInterface;
+			sourceTree = "<group>";
+		};
 		D42AA1162AEC1AFA0053E2A8 /* DI */ = {
 			isa = PBXGroup;
 			children = (
-				D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */,
 				D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */,
+				D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */,
 				D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */,
 			);
 			path = DI;
@@ -1461,7 +1463,6 @@
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,
 				3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */,
-				D460EFD42AE18DF700A5966A /* MockSearchMusicRepository.swift in Sources */,
 				D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */,
 				D460EFF42AE18DF700A5966A /* ObjectStageView.swift in Sources */,
 				D460F0092AE18DF700A5966A /* DefaultMusicUseCase.swift in Sources */,

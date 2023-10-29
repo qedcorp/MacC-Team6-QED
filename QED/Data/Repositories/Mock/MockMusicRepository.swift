@@ -7,7 +7,7 @@ class MockMusicRepository: MusicRepository {
     private var musics: [Music]
 
     init(musics: [Music] = []) {
-        self.musics = musics
+        self.musics = [Music(id: "", title: "sdsd", artistName: "sdsd"), Music(id: "", title: "cute", artistName: "sdsd")]
     }
 
     func readMusic(id: String) async throws -> Music {

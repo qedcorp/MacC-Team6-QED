@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  TypeDirectedGraph.swift
 //  QED
 //
@@ -7,43 +7,47 @@
 
 import Foundation
 
-class TypeDirectedGraph {
-    private var nodes: [Node]
+struct TypeDirectedGraph {
+    var nodes: [Node] = []
 
-    init() {
-        self.nodes = [Node(type: ObjectIdentifier(GraphHead.self), childs: [])]
+    var count: Int { nodes.count }
+
+    mutating func addNode<T>(type: T.Type) {
+        let newNode = Node(id: nodes.count, value: ObjectIdentifier(type.self))
+
+        nodes.append(newNode)
     }
 
-    func next<T>(type: T.Type) -> [ObjectIdentifier] {
-        guard let objectIdentifers = nodes
-            .first(where: { $0.type == ObjectIdentifier(T.self) })?
-            .childs
-            .map({ $0.type })
-        else { return [] }
-
-        return objectIdentifers
-    }
-
-    func connect<T, U>(at parent: T.Type, with value: U.Type) {
-        guard let parentNode = nodes
-            .first(where: { $0.type == ObjectIdentifier(T.self) })
+    func connect<T, U>(a: T.Type, b: U.Type) {
+        guard var parentNode = nodes
+            .first(where: { $0.value == ObjectIdentifier(T.self) }),
+              var childNode = nodes
+            .first(where: { $0.value == ObjectIdentifier(U.self)})
         else { return }
 
-        let childNode = Node(type: ObjectIdentifier(U.self), childs: [])
         parentNode.childs.append(childNode)
+        childNode.parentCount += 1
     }
 }
 
 extension TypeDirectedGraph {
     class Node {
-        var type: ObjectIdentifier
+        var id: Int
+        var value: ObjectIdentifier
+        var indegreeCount: Int
+        var parentCount: Int {
+            didSet {
+                indegreeCount = parentCount
+            }
+        }
         var childs: [Node]
 
-        init(type: ObjectIdentifier, childs: [Node]) {
-            self.type = type
-            self.childs = childs
+        init(id: Int, value: ObjectIdentifier) {
+            self.id = id
+            self.value = value
+            self.parentCount = 0
+            self.indegreeCount = 0
+            self.childs = []
         }
     }
 }
-
-protocol GraphHead { }
