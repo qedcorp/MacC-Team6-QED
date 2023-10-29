@@ -2,21 +2,20 @@
 
 import SwiftUI
 
-struct HistoryControlsView: View {
-    let historyControllable: HistoryControllable
+struct HistoryControlsView<HistoryController: HistoryControllable>: View {
+    let historyController: HistoryController
     let tag: String
 
     var body: some View {
         HStack {
             Button("Undo") {
-                historyControllable.undo()
+                historyController.undo()
             }
-            .disabled(!historyControllable.isUndoable())
-            // TODO: Redo 고장남
-//            Button("Redo") {
-//                historyControllable.redo()
-//            }
-//            .disabled(!historyControllable.isRedoable())
+            .disabled(!historyController.isUndoable())
+            Button("Redo") {
+                historyController.redo()
+            }
+            .disabled(!historyController.isRedoable())
         }
         .tag(tag)
     }

@@ -10,19 +10,31 @@ class FormationSetupViewModel: ObservableObject {
     @Published var currentFormationIndex = -1
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
+    private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
     init(performanceSettingManager: PerformanceSettingManager, performanceUseCase: PerformanceUseCase) {
         self.performance = .build(entity: performanceSettingManager.performance)
         self.performanceSettingManager = performanceSettingManager
         self.performanceUseCase = performanceUseCase
+        subscribePerformanceSettingManager()
+    }
 
-        performanceSettingManager.changedPublisher
+    private func subscribePerformanceSettingManager() {
+        performanceSettingManager.changingPublisher
+            .receive(on: DispatchQueue.main)
             .sink { _ in
-            } receiveValue: { [weak self] in
-                self?.performance = $0
+            } receiveValue: { [unowned self] in
+                performance = $0
+                executePendingTasks()
             }
             .store(in: &cancellables)
+    }
+
+    private func executePendingTasks() {
+        while !tasksQueue.isEmpty {
+            tasksQueue.popLast()?()
+        }
     }
 
     var musicTitle: String {
@@ -56,7 +68,9 @@ class FormationSetupViewModel: ObservableObject {
 
     func updateCurrentMemo(_ memo: String) {
         performanceSettingManager.updateMemo(memo, formationIndex: currentFormationIndex)
-        isMemoFormPresented = false
+        tasksQueue.append { [unowned self] in
+            isMemoFormPresented = false
+        }
     }
 
     func updateMembers(positions: [CGPoint]) {
@@ -66,7 +80,9 @@ class FormationSetupViewModel: ObservableObject {
     func addFormation() {
         let formation = Formation()
         performanceSettingManager.addFormation(formation, index: currentFormationIndex + 1)
-        currentFormationIndex += 1
+        tasksQueue.append { [unowned self] in
+            currentFormationIndex += 1
+        }
     }
 
     func duplicateFormation(index: Int) {
@@ -78,11 +94,15 @@ class FormationSetupViewModel: ObservableObject {
             memo: copiedFormation.memo
         )
         performanceSettingManager.addFormation(pastedFormation, index: index + 1)
-        currentFormationIndex = index + 1
+        tasksQueue.append { [unowned self] in
+            currentFormationIndex = index + 1
+        }
     }
 
     func removeFormation(index: Int) {
         performanceSettingManager.removeFormation(index: index)
-        currentFormationIndex = index == currentFormationIndex ? index - 1 : index
+        tasksQueue.append { [unowned self] in
+            currentFormationIndex = index == currentFormationIndex ? index - 1 : index
+        }
     }
 }

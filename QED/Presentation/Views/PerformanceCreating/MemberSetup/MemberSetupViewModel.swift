@@ -16,11 +16,15 @@ class MemberSetupViewModel: ObservableObject {
         self.performance = .build(entity: performanceSettingManager.performance)
         self.performanceSettingManager = performanceSettingManager
         self.performanceUseCase = performanceUseCase
+        subscribePerformanceSettingManager()
+    }
 
-        performanceSettingManager.changedPublisher
+    private func subscribePerformanceSettingManager() {
+        performanceSettingManager.changingPublisher
+            .receive(on: DispatchQueue.main)
             .sink { _ in
-            } receiveValue: { [weak self] in
-                self?.performance = $0
+            } receiveValue: { [unowned self] in
+                performance = $0
             }
             .store(in: &cancellables)
     }

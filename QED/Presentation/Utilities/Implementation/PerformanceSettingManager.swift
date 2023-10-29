@@ -6,10 +6,13 @@ import Foundation
 class PerformanceSettingManager {
     let performance: Performance
     let sizeable: Sizeable?
-    private let changedSubject = PassthroughSubject<PerformanceModel, Never>()
+    private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
 
-    lazy var changedPublisher = {
-        changedSubject.eraseToAnyPublisher()
+    lazy var changingPublisher = {
+        changingSubject
+            .debounce(for: 0.01, scheduler: DispatchQueue.global(qos: .userInitiated))
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }()
 
     private lazy var relativePositionConverter: RelativePositionConverter? = {
@@ -82,6 +85,6 @@ class PerformanceSettingManager {
 
     private func didChange() {
         let performance = PerformanceModel.build(entity: performance)
-        changedSubject.send(performance)
+        changingSubject.send(performance)
     }
 }

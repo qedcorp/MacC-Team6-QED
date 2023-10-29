@@ -89,7 +89,7 @@ struct FormationSetupView: View {
             .clipped()
             HStack {
                 HistoryControlsView(
-                    historyControllable: objectCanvasViewController.objectCanvasArchiver,
+                    historyController: objectCanvasViewController.objectCanvasArchiver,
                     tag: viewModel.currentFormationTag
                 )
                 Spacer()
@@ -105,7 +105,7 @@ struct FormationSetupView: View {
     }
 
     private func buildPresetContainerView() -> some View {
-        PresetContainerView(objectCanvasViewController: objectCanvasViewController, headcount: viewModel.headcount)
+        PresetContainerView(headcount: viewModel.headcount, objectCanvasViewController: objectCanvasViewController)
             .modifier(disabledOpacityModifier)
     }
 

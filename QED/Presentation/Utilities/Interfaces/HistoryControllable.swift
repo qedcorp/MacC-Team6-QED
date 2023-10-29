@@ -2,7 +2,7 @@
 
 import Foundation
 
-protocol HistoryControllable: AnyObject {
+protocol HistoryControllable {
     func undo()
     func redo()
     func isUndoable() -> Bool

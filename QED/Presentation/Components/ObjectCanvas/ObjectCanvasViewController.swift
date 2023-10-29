@@ -63,6 +63,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
                 if let dragging = $0 {
                     self?.handleDragging(dragging)
                 } else {
+                    self?.addHistory()
                     self?.didChange()
                 }
             }

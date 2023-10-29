@@ -28,7 +28,7 @@ struct PresetManagingView: View {
                 )
                 .clipped()
                 HStack {
-                    HistoryControlsView(historyControllable: objectCanvasViewController.objectCanvasArchiver, tag: "")
+                    HistoryControlsView(historyController: objectCanvasViewController.objectCanvasArchiver, tag: "")
                     Spacer()
                     Button("Generate") {
                         viewModel.generatePreset()
