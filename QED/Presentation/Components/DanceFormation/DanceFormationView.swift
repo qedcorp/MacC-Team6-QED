@@ -10,7 +10,7 @@ import SwiftUI
 struct DanceFormationView: View {
     var formation: Formation
     var index: Int
-    var isNameVisiable: Bool = false
+    var isNameVisible: Bool = false
     var hideLine: Bool = false
 
     var body: some View {
@@ -28,7 +28,7 @@ struct DanceFormationView: View {
             }
             GeometryReader { geometry in
                 ForEach(formation.members, id: \.info.self) { member in
-                    MemberCircleView(isNameVisiable: isNameVisiable,
+                    MemberCircleView(isNameVisiable: isNameVisible,
                                      member: member,
                                      geometry: geometry)
                     .position(CGPoint(

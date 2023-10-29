@@ -10,16 +10,16 @@ import SwiftUI
 struct PerformanceWatchingListView: View {
     let performance: Performance
     @Environment(\.dismiss) private var dismiss
-    @State var isNameVisiable = false
+    @State var isNameVisible = false
     @State var isAddVisible = false
 
     var body: some View {
         VStack(spacing: 15) {
             titleAndHeadcount
-            TogglingMemberNameView(isNameVisiable: $isNameVisiable)
+            TogglingMemberNameView(isNameVisible: $isNameVisible)
             PerformanceScrollView(performance: performance,
-                                  isNameVisiable: isNameVisiable,
-                                isAddVisible: isAddVisible)
+                                  isNameVisible: isNameVisible,
+                                  isAddVisible: isAddVisible)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
@@ -73,14 +73,14 @@ struct PerformanceWatchingListView: View {
 }
 
 private struct TogglingMemberNameView: View {
-    @Binding var isNameVisiable: Bool
+    @Binding var isNameVisible: Bool
 
     var body: some View {
         HStack {
             Text("팀원 이름 보기")
                 .padding(.horizontal, 15)
                 .padding(.vertical, 5)
-                .foregroundStyle(isNameVisiable ? .gray: .black)
+                .foregroundStyle(isNameVisible ? .gray: .black)
                 .background(Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             toggleButton
@@ -94,10 +94,10 @@ private struct TogglingMemberNameView: View {
     private var toggleButton: some View {
         Button {
             withAnimation(.bouncy(duration: 0.15)) {
-                isNameVisiable.toggle()
+                isNameVisible.toggle()
             }
         } label: {
-            Text(isNameVisiable ? "off" : "on")
+            Text(isNameVisible ? "off" : "on")
                 .foregroundStyle(.green)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
@@ -113,32 +113,59 @@ private struct PerformanceScrollView: View {
         performanceRepository: MockPerformanceRepository(),
         userStore: DefaultUserStore.shared)
     let performance: Performance
-    var isNameVisiable: Bool
+    var isNameVisible: Bool
     var isAddVisible: Bool
+    @State private var selectedIndex: Int?
 
     var body: some View {
         ScrollView {
-                VStack(spacing: 30) {
-                    ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
-                        VStack {
-                            NavigationLink(destination: PerformanceWatchingDetailView(
-                                viewModel: PerformanceWatchingDetailViewModel(
-                                    performance: performance), index: index)) {
-                                DanceFormationView(
-                                    formation: formation,
-                                    index: index,
-                                    isNameVisiable: isNameVisiable
-                                )
-                                .frame(height: 250)
-                            }
-                            if isAddVisible {
-                                addButton
-                            }
+            VStack(spacing: 30) {
+                ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
+                    ZStack {
+                        deleteButton
+                        DanceFormationPreview(
+                            performance: performance,
+                            formation: formation,
+                            index: index,
+                            selectedIndex: $selectedIndex,
+                            isNameVisible: isNameVisible
+                        )
+
+                        if isAddVisible {
+                            addButton
                         }
                     }
                 }
-                .padding(.horizontal, 20)
+            }
+            .padding(.horizontal, 20)
         }
+        .gesture(scroll)
+    }
+
+    private var scroll: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                if gesture.translation.height != 0 {
+                    selectedIndex = nil
+                }
+            }
+    }
+
+    private var deleteButton: some View {
+        HStack {
+            Spacer()
+            Button {
+                //     TODO: 삭제
+            } label: {
+                Image(systemName: "trash")
+                    .foregroundStyle(.white)
+                    .font(.title2)
+                    .padding()
+                    .background(.green)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .padding(.horizontal)
     }
 
     private var addButton: some View {
@@ -160,6 +187,69 @@ private struct PerformanceScrollView: View {
     }
 }
 
+private struct DanceFormationPreview: View {
+    let performance: Performance
+    let formation: Formation
+    let index: Int
+    @Binding var selectedIndex: Int?
+    let isNameVisible: Bool
+    @State private var draggedOffsetX = CGFloat.zero
+    @State private var accumulatedOffsetX = CGFloat.zero
+    private let defaultSwipeX = CGFloat(90)
+
+    var body: some View {
+        NavigationLink(destination: PerformanceWatchingDetailView(
+            viewModel: PerformanceWatchingDetailViewModel(
+                performance: performance), index: index)) {
+                    DanceFormationView(
+                        formation: formation,
+                        index: index,
+                        isNameVisible: isNameVisible
+                    )
+                    .frame(height: 250)
+                    .offset(x: draggedOffsetX)
+                    .gesture(swipeToDelete)
+                    .onChange(of: selectedIndex) { index in
+                        if self.index != index {
+                            withAnimation(.spring(duration: 0.3)) {
+                                draggedOffsetX = 0
+                                accumulatedOffsetX = 0
+                            }
+                        }
+                    }
+                }
+    }
+
+    private var swipeToDelete: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                if abs(gesture.translation.height) > 50 {
+                    selectedIndex = nil
+                } else {
+                    if gesture.translation.width != 0 {
+                        selectedIndex = index
+                    }
+                    if gesture.translation.width < 0 {
+                        draggedOffsetX = max(accumulatedOffsetX + gesture.translation.width, -defaultSwipeX * 2)
+                    } else if accumulatedOffsetX < 0 {
+                        draggedOffsetX = min(accumulatedOffsetX + gesture.translation.width, defaultSwipeX)
+                    }
+                }
+            }
+            .onEnded { gesture in
+                withAnimation(.spring(duration: 0.3)) {
+                    if gesture.translation.width < -defaultSwipeX / 2 {
+                        draggedOffsetX = -defaultSwipeX
+                        accumulatedOffsetX = -defaultSwipeX
+                    } else if gesture.translation.width > defaultSwipeX / 2 {
+                        draggedOffsetX = 0
+                        accumulatedOffsetX = 0
+                    }
+                }
+            }
+    }
+}
+
 extension Formation: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(self))
@@ -168,4 +258,28 @@ extension Formation: Hashable {
     static func == (lhs: Formation, rhs: Formation) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
+}
+
+fileprivate extension CGSize {
+    static func + (lhs: Self, rhs: Self) -> Self {
+        CGSize(width: lhs.width + rhs.width,
+               height: lhs.height + rhs.height)
+    }
+
+    static func - (lhs: Self, rhs: Self) -> Self {
+        CGSize(width: lhs.width - rhs.width,
+               height: lhs.height - rhs.height)
+    }
+
+    static func += (lhs: inout Self, rhs: Self) {
+        lhs = lhs + rhs
+    }
+
+    static func -= (lhs: inout Self, rhs: Self) {
+        lhs = lhs - rhs
+    }
+}
+
+#Preview {
+    PerformanceWatchingListView(performance: mockPerformance1)
 }
