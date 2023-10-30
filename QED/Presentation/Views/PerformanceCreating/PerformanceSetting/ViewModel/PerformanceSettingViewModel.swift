@@ -7,15 +7,20 @@
 
 import SwiftUI
 
-// import Combine
-
 @MainActor
 class PerformanceSettingViewModel: ObservableObject {
+    let performancesUseCase: PerformanceUseCase
+
+    init(performancesUseCase: PerformanceUseCase) {
+        self.performancesUseCase = performancesUseCase
+    }
 
     var headcount: Int? { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
+
     @Published var inputHeadcount: Double = 0
     @Published var range: ClosedRange<Double> = 0...13
+    @State private var inputHeadcountChanged = false
 
     @Published var selectedMusic: Music?
     @Published var searchText: String = ""
@@ -23,16 +28,14 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
 
-    @State private var inputHeadcountChanged = false
-
-    let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
-        searchMusicRepository: MockSearchMusicRepository()
+    let musicUseCase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
+        searchMusicRepository: SearchMusicRepositoryImplement()
     )
 
     func search() {
         Task {
             isSearchingMusic = true
-            searchedMusics = try await usecase.searchMusics(keyword: searchText)
+            searchedMusics = try await musicUseCase.searchMusics(keyword: searchText)
             isSearchingMusic = false
         }
     }
@@ -55,10 +58,15 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-    func generatePerformance() -> Performance {
-        guard let music = selectedMusic else { return Performance(jsonString: "Error") }
-        return Performance(id: "1212312313", author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                           playable: music,
+    func createPerformance() -> Performance {
+        // 이게 왜 자꾸 도는지... 
+        print("jjj")
+        guard let selectedMusic = selectedMusic else {
+            return Performance(jsonString: "Error")
+        }
+        return Performance(id: "1212312313",
+                           author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
+                           playable: selectedMusic,
                            headcount: Int(inputHeadcount),
                            title: inputTitle,
                            formations: [],
