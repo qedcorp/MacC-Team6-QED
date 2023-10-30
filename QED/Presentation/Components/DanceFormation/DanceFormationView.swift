@@ -15,8 +15,8 @@ struct DanceFormationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            danceFormation
             TimeAndLyric(formation: formation)
+            danceFormation
         }
     }
 
@@ -43,8 +43,8 @@ struct DanceFormationView: View {
         Rectangle()
             .fill(Color(.systemGray6))
             .clipShape(
-                .rect(topLeadingRadius: 12,
-                      topTrailingRadius: 12))
+                .rect(bottomLeadingRadius: 12,
+                      bottomTrailingRadius: 12))
     }
 
     private var centerline: some View {
@@ -67,8 +67,8 @@ private struct TimeAndLyric: View {
             Rectangle()
                 .fill(.green)
                 .clipShape(
-                    .rect(bottomLeadingRadius: 12,
-                          bottomTrailingRadius: 12))
+                    .rect(topLeadingRadius: 12,
+                          topTrailingRadius: 12))
                 .frame(height: 30)
             HStack {
 //                if let startMs = formation.startMs {

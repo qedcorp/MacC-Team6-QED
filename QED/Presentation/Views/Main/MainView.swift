@@ -118,8 +118,11 @@ struct PerformanceListReadingScrollView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(destination: PerformanceWatchingListView(performance: performance)) {
-
+                    NavigationLink(destination: PerformanceWatchingListView(
+                        viewModel: PerformanceWatchingListViewModel(
+                            performance: performance
+                        )
+                    )) {
                         RecentFormationCardView(performance: performance)
                     }
                 }

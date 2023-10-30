@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct PerformanceWatchingListView: View {
-    let performance: Performance
+    @StateObject var viewModel: PerformanceWatchingListViewModel
     @Environment(\.dismiss) private var dismiss
     @State var isNameVisible = false
-    @State var isAddVisible = false
+    @State var isEditMode = false
 
     var body: some View {
         VStack(spacing: 15) {
             titleAndHeadcount
             TogglingMemberNameView(isNameVisible: $isNameVisible)
-            PerformanceScrollView(performance: performance,
+            PerformanceScrollView(viewModel: viewModel,
                                   isNameVisible: isNameVisible,
-                                  isAddVisible: isAddVisible)
+                                  isEditMode: isEditMode)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
@@ -31,12 +31,12 @@ struct PerformanceWatchingListView: View {
 
     private var titleAndHeadcount: some View {
         HStack {
-            if let title = performance.title {
+            if let title = viewModel.performance.title {
                 Text("\(title)")
                     .bold()
                     .lineLimit(1)
             }
-            Text("\(performance.headcount)인")
+            Text("\(viewModel.performance.headcount)인")
                 .padding(.vertical, 3)
                 .padding(.horizontal, 8)
                 .background(Color(.systemGray5))
@@ -62,10 +62,10 @@ struct PerformanceWatchingListView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
                 withAnimation(.easeIn(duration: 0.3)) {
-                    isAddVisible.toggle()
+                    isEditMode.toggle()
                 }
             } label: {
-                Text(isAddVisible ? "완료" : "추가")
+                Text(isEditMode ? "완료" : "수정")
                     .foregroundStyle(.green)
             }
         }
@@ -109,81 +109,81 @@ private struct TogglingMemberNameView: View {
 }
 
 private struct PerformanceScrollView: View {
+    @StateObject var viewModel: PerformanceWatchingListViewModel
     private let performanceUseCase = DefaultPerformanceUseCase(
         performanceRepository: MockPerformanceRepository(),
         userStore: DefaultUserStore.shared)
-    let performance: Performance
     var isNameVisible: Bool
-    var isAddVisible: Bool
+    var isEditMode: Bool
     @State private var selectedIndex: Int?
 
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                ForEach(Array(zip(performance.formations.indices, performance.formations)), id: \.1) { index, formation in
-                    ZStack {
-                        deleteButton
+                ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performance.formations)), id: \.1) { index, formation in
+                    VStack {
                         DanceFormationPreview(
-                            performance: performance,
+                            performance: viewModel.performance,
                             formation: formation,
                             index: index,
                             selectedIndex: $selectedIndex,
                             isNameVisible: isNameVisible
                         )
-
-                        if isAddVisible {
-                            addButton
+                        if isEditMode {
+                        HStack(spacing: 20) {
+                            DeleteButton(viewModel: viewModel,
+                                         index: index)
+                                addButton
+                            }
+                        .padding(.bottom, 15)
                         }
                     }
                 }
             }
+            .tag(viewModel.yame)
             .padding(.horizontal, 20)
         }
-        .gesture(scroll)
-    }
-
-    private var scroll: some Gesture {
-        DragGesture()
-            .onChanged { gesture in
-                if gesture.translation.height != 0 {
-                    selectedIndex = nil
-                }
-            }
-    }
-
-    private var deleteButton: some View {
-        HStack {
-            Spacer()
-            Button {
-                //     TODO: 삭제
-            } label: {
-                Image(systemName: "trash")
-                    .foregroundStyle(.white)
-                    .font(.title2)
-                    .padding()
-                    .background(.green)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-        }
-        .padding(.horizontal)
     }
 
     private var addButton: some View {
         NavigationLink {
             FormationSetupView(performanceUseCase: performanceUseCase,
-                               performance: performance)
+                               performance: viewModel.performance)
         } label: {
-            ZStack {
-                Circle()
-                    .fill(.green)
-                    .frame(width: 40, height: 40)
+            HStack {
                 Image(systemName: "plus")
-                    .foregroundStyle(.white)
-                    .font(.title3)
-                    .bold()
+                Text("추가하기")
             }
+            .bold()
+            .padding(.vertical, 8)
+            .padding(.horizontal, 20)
+            .foregroundStyle(.green)
+            .background(Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 4))
         }
 
+    }
+}
+
+private struct DeleteButton: View {
+    @StateObject var viewModel: PerformanceWatchingListViewModel
+    let index: Int
+
+    var body: some View {
+        Button {
+            viewModel.delete(index: index)
+        } label: {
+            HStack {
+                Image(systemName: "trash")
+                Text("삭제하기")
+            }
+            .bold()
+            .padding(.vertical, 8)
+            .padding(.horizontal, 20)
+            .foregroundStyle(.red)
+            .background(Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 4))
+        }
     }
 }
 
@@ -193,9 +193,6 @@ private struct DanceFormationPreview: View {
     let index: Int
     @Binding var selectedIndex: Int?
     let isNameVisible: Bool
-    @State private var draggedOffsetX = CGFloat.zero
-    @State private var accumulatedOffsetX = CGFloat.zero
-    private let defaultSwipeX = CGFloat(90)
 
     var body: some View {
         NavigationLink(destination: PerformanceWatchingDetailView(
@@ -207,46 +204,7 @@ private struct DanceFormationPreview: View {
                         isNameVisible: isNameVisible
                     )
                     .frame(height: 250)
-                    .offset(x: draggedOffsetX)
-                    .gesture(swipeToDelete)
-                    .onChange(of: selectedIndex) { index in
-                        if self.index != index {
-                            withAnimation(.spring(duration: 0.3)) {
-                                draggedOffsetX = 0
-                                accumulatedOffsetX = 0
-                            }
-                        }
-                    }
                 }
-    }
-
-    private var swipeToDelete: some Gesture {
-        DragGesture()
-            .onChanged { gesture in
-                if abs(gesture.translation.height) > 50 {
-                    selectedIndex = nil
-                } else {
-                    if gesture.translation.width != 0 {
-                        selectedIndex = index
-                    }
-                    if gesture.translation.width < 0 {
-                        draggedOffsetX = max(accumulatedOffsetX + gesture.translation.width, -defaultSwipeX * 2)
-                    } else if accumulatedOffsetX < 0 {
-                        draggedOffsetX = min(accumulatedOffsetX + gesture.translation.width, defaultSwipeX)
-                    }
-                }
-            }
-            .onEnded { gesture in
-                withAnimation(.spring(duration: 0.3)) {
-                    if gesture.translation.width < -defaultSwipeX / 2 {
-                        draggedOffsetX = -defaultSwipeX
-                        accumulatedOffsetX = -defaultSwipeX
-                    } else if gesture.translation.width > defaultSwipeX / 2 {
-                        draggedOffsetX = 0
-                        accumulatedOffsetX = 0
-                    }
-                }
-            }
     }
 }
 
@@ -260,26 +218,6 @@ extension Formation: Hashable {
     }
 }
 
-fileprivate extension CGSize {
-    static func + (lhs: Self, rhs: Self) -> Self {
-        CGSize(width: lhs.width + rhs.width,
-               height: lhs.height + rhs.height)
-    }
-
-    static func - (lhs: Self, rhs: Self) -> Self {
-        CGSize(width: lhs.width - rhs.width,
-               height: lhs.height - rhs.height)
-    }
-
-    static func += (lhs: inout Self, rhs: Self) {
-        lhs = lhs + rhs
-    }
-
-    static func -= (lhs: inout Self, rhs: Self) {
-        lhs = lhs - rhs
-    }
-}
-
 #Preview {
-    PerformanceWatchingListView(performance: mockPerformance1)
+    PerformanceWatchingListView(viewModel: PerformanceWatchingListViewModel(performance: mockPerformance1))
 }
