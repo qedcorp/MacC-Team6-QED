@@ -7,6 +7,7 @@ import Foundation
 class FormationSettingViewModel: ObservableObject {
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
+    @Published var isZoomed = false
     @Published var currentFormationIndex = -1
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase

@@ -25,7 +25,9 @@ struct FormationSettingView: View {
                     buildMusicHeadcountView()
                     buildMemoButtonView()
                     Spacer(minLength: 18)
-                    buildObjectCanvasView(width: geometry.size.width)
+                    if !viewModel.isZoomed {
+                        buildObjectCanvasView(width: geometry.size.width)
+                    }
                     Spacer()
                 }
             }
@@ -39,6 +41,15 @@ struct FormationSettingView: View {
         .overlay(
             viewModel.isMemoFormPresented ?
             buildMemoFormView()
+            : nil
+        )
+        .overlay(
+            viewModel.isZoomed ?
+            GeometryReader { geometry in
+                ZoomableView {
+                    buildObjectCanvasView(width: geometry.size.width)
+                }
+            }
             : nil
         )
         .navigationBarTitleDisplayMode(.inline)
@@ -94,6 +105,9 @@ struct FormationSettingView: View {
                     tag: viewModel.currentFormationTag
                 )
                 Spacer()
+                Button("Zoom") {
+                    viewModel.isZoomed.toggle()
+                }
             }
         }
         .modifier(disabledOpacityModifier)
