@@ -12,7 +12,7 @@ import FirebaseFirestore
 final class FireStoreManager: RemoteManager {
 
     private var fireStroeDB: Firestore = Firestore.firestore()
-    private var fireStoreKey: String {
+    static var fireStoreKey: String {
         do {
             var dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -57,7 +57,7 @@ final class FireStoreManager: RemoteManager {
             case .hasKey:
                 try await fireStroeDB
                     .collection(fireStoreData.collectionName)
-                    .document(fireStoreKey)
+                    .document(FireStoreManager.fireStoreKey)
                     .setData(dataDic)
             }
             

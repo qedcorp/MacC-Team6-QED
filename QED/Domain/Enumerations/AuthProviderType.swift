@@ -7,19 +7,12 @@
 
 import Foundation
 
-enum AuthProviderType {
+enum AuthProviderType: String {
     case kakao
     case apple
     case google
 
     var description: String {
-        switch self {
-        case .kakao:
-            return "KAKAO"
-        case .apple:
-            return "APPLE"
-        case .google:
-            return "GOOGLE"
-        }
+        self.rawValue.uppercased()
     }
 }
