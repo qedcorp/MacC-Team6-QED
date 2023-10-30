@@ -20,6 +20,7 @@ class Performance: Codable {
         music: Music,
         headcount: Int,
         title: String? = nil,
+        memberInfos: [Member.Info]? = nil,
         formations: [Formation] = [],
         transitions: [FormationTransition?] = []
     ) {
@@ -28,7 +29,7 @@ class Performance: Codable {
         self.music = music
         self.headcount = headcount
         self.title = title ?? music.title
-        self.memberInfos = Self.buildDefaultMemberInfos(headcount: headcount)
+        self.memberInfos = memberInfos ?? Self.buildDefaultMemberInfos(headcount: headcount)
         self.formations = formations
         self.transitions = transitions
     }

@@ -33,8 +33,8 @@ struct MusicSetupView: View {
                 }
             }
             NavigationLink {
-                if let performance = viewmodel.performance {
-                    viewmodel.buildYameNextView(performance: performance)
+                if viewmodel.canPressNextButton {
+                    viewmodel.buildYameNextView(performance: viewmodel.performance!)
                 }
             } label: {
                 nextbutton

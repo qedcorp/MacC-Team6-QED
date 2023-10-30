@@ -9,9 +9,8 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
-        performancesUseCase: DefaultPerformanceUseCase(
-            performanceRepository: MockPerformanceRepository(),
-            userStore: DefaultUserStore.shared))
+        performancesUseCase: DIContainer.shared.storage.resolver.resolve(PerformanceUseCase.self)
+    )
 
     var body: some View {
         NavigationView {

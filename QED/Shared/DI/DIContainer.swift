@@ -84,8 +84,6 @@ final class DIContainer {
     }
     /// 특정 목적에 맞춰 protocol들의 의존성을 주입하는 함수
     ///
-    /// 특정 목적에 맞춰 protocol들의 의존성을 주입하는 함수
-    ///
     /// - Parameters:
     ///     - dic: [ObjectIdentifier: DependencyPurpose]
     ///
@@ -109,7 +107,6 @@ final class DIContainer {
         var copyDependencyGraph = self.dependencyGraph
         if dic.count != 0 {
             copyDependencyGraph = dfs(dic, graph: copyDependencyGraph)
-            print(copyDependencyGraph.nodes.count)
         }
         else {
             copyDependencyGraph.nodes.forEach {

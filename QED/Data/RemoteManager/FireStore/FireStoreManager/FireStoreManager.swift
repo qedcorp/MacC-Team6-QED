@@ -34,12 +34,13 @@ final class FireStoreManager: RemoteManager {
     ) async throws -> Result<T, Error>
     where T: Decodable, T: Encodable {
 
-        guard let dataDTO = data as? FireStoreEntityConvertable else {
+        guard var entityConvertable = data as? FireStoreEntityConvertable else {
             return .failure(FireStoreError.castingFailure("parameter Data can't casting FireStoreEntityConvertable"))
         }
-        let fireStoreData = dataDTO.fireStoreEntity
-        var dataDic: [String: Any] = [:]
 
+        let fireStoreData = entityConvertable.fireStoreEntity
+        var dataDic: [String: Any] = [:]
+        
         for child in Mirror(reflecting: fireStoreData).children {
             guard let label = child.label else { continue }
             if label != "ID" && label != "collectionName" {
@@ -55,13 +56,20 @@ final class FireStoreManager: RemoteManager {
                     .addDocument(data: dataDic)
                 
             case .hasKey:
-                try await fireStroeDB
+                let document = fireStroeDB
                     .collection(fireStoreData.collectionName)
-                    .document(FireStoreManager.fireStoreKey)
-                    .setData(dataDic)
+                    .document()
+                
+                dataDic["ID"] = document.documentID
+                try await document.setData(dataDic)
+                entityConvertable.fireStoreID = document.documentID
             }
             
-            return .success(data)
+            guard let result = entityConvertable as? T else {
+                return .failure(FireStoreError.fetchFailure)
+            }
+            
+            return .success(result)
         }
         catch {
             print("Create Error")
@@ -92,7 +100,7 @@ final class FireStoreManager: RemoteManager {
                 FireStoreError.fetchFailure
             )
         }
-
+        
         return .success(result)
     }
 
@@ -156,8 +164,12 @@ final class FireStoreManager: RemoteManager {
             }
         }
 
-        try await fireStroeDB.collection(fireStoreData.collectionName).document(dataDTO.fireStoreEntity.ID).setData(dataDic, merge: true)
+        try await fireStroeDB
+            .collection(fireStoreData.collectionName)
+            .document(dataDTO.fireStoreEntity.ID)
+            .setData(dataDic, merge: true)
 
+        
         return .success(data)
     }
 

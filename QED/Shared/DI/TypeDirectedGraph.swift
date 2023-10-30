@@ -9,7 +9,6 @@ import Foundation
 
 struct TypeDirectedGraph {
     var nodes: [Node] = []
-
     var count: Int { nodes.count }
 
     mutating func addNode<T>(type: T.Type) {

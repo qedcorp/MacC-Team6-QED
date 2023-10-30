@@ -8,6 +8,15 @@
 import Foundation
 
 extension User: FireStoreEntityConvertable {
+    var fireStoreID: String {
+        get {
+            self.id
+        }
+        set {
+            self.id = newValue
+        }
+    }
+
     var fireStoreEntity: FireStoreEntity {
         FireStoreDTO.UserDTO(
             EMAIL: email,
