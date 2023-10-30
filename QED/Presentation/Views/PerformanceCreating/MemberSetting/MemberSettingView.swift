@@ -136,6 +136,7 @@ struct MemberSettingView: View {
 
     private func buildPerformanceWatchingView() -> some View {
         let performance = viewModel.performanceSettingManager.performance
-        return PerformanceWatchingView(performance: performance)
+        let viewModel = PerformanceWatchingListViewModel(performance: performance)
+        return PerformanceWatchingListView(viewModel: viewModel)
     }
 }

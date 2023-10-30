@@ -299,7 +299,7 @@ final class DIContainer {
         if purpose == .release {
             storage.register(FormationTransitionUseCase.self) { _ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationTransitionUseCase(performance: performance)
             }
@@ -307,7 +307,7 @@ final class DIContainer {
         else {
             storage.register(FormationTransitionUseCase.self) { _ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationTransitionUseCase(performance: performance)
             }
@@ -318,7 +318,7 @@ final class DIContainer {
         if purpose == .release {
             storage.register(FormationUseCase.self) { _ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationUseCase(performance: performance)
             }
@@ -326,7 +326,7 @@ final class DIContainer {
         else {
             storage.register(FormationUseCase.self) { _ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationUseCase(performance: performance)
             }

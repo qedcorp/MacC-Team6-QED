@@ -8,18 +8,20 @@ class Formation: Codable, Formable {
     var startMs: Int?
     var endMs: Int?
     var memo: String?
-    var notes: [String]?
+    var note: String?
 
     init(
         members: [Member] = [],
         startMs: Int? = nil,
         endMs: Int? = nil,
-        memo: String? = nil
+        memo: String? = nil,
+        note: String? = ""
     ) {
         self.members = members
         self.startMs = startMs
         self.endMs = endMs
         self.memo = memo
+        self.note = note
     }
 
     var relativePositions: [RelativePosition] {

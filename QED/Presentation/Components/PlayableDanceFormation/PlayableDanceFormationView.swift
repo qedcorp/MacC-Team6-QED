@@ -9,7 +9,7 @@ import SwiftUI
 import SpriteKit
 
 struct PlayableDanceFormationView: View {
-    @ObservedObject var viewmodel: DetailFormationViewModel
+    @ObservedObject var viewmodel: PerformanceWatchingDetailViewModel
 
     var body: some View {
         ZStack {

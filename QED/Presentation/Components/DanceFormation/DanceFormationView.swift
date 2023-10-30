@@ -1,5 +1,5 @@
 //
-//  FormationPreview.swift
+//  DanceFormationView.swift
 //  QED
 //
 //  Created by chaekie on 10/23/23.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct FormationPreview: View {
+struct DanceFormationView: View {
     var formation: Formation
     var index: Int
-    var isNameVisiable: Bool = false
+    var isNameVisible: Bool = false
     var hideLine: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
-            danceFormation
             TimeAndLyric(formation: formation)
+            danceFormation
         }
     }
 
@@ -28,7 +28,7 @@ struct FormationPreview: View {
             }
             GeometryReader { geometry in
                 ForEach(formation.members, id: \.info.self) { member in
-                    MemberCircleView(isNameVisiable: isNameVisiable,
+                    MemberCircleView(isNameVisiable: isNameVisible,
                                      member: member,
                                      geometry: geometry)
                     .position(
@@ -44,8 +44,8 @@ struct FormationPreview: View {
         Rectangle()
             .fill(Color(.systemGray6))
             .clipShape(
-                .rect(topLeadingRadius: 12,
-                      topTrailingRadius: 12))
+                .rect(bottomLeadingRadius: 12,
+                      bottomTrailingRadius: 12))
     }
 
     private var centerline: some View {
@@ -68,13 +68,13 @@ private struct TimeAndLyric: View {
             Rectangle()
                 .fill(.green)
                 .clipShape(
-                    .rect(bottomLeadingRadius: 12,
-                          bottomTrailingRadius: 12))
+                    .rect(topLeadingRadius: 12,
+                          topTrailingRadius: 12))
                 .frame(height: 30)
             HStack {
-                if let startMs = formation.startMs {
-                    Text(startMs.msToTimeString)
-                }
+//                if let startMs = formation.startMs {
+//                    Text(startMs.msToTimeString)
+//                }
                 if let memo = formation.memo {
                     Text(memo)
                 }
@@ -88,5 +88,5 @@ private struct TimeAndLyric: View {
 }
 
 #Preview {
-    FormationPreview(formation: mockFormations[0], index: 0)
+    DanceFormationView(formation: mockFormations[0], index: 0)
 }

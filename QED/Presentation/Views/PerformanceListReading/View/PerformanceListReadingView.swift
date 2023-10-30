@@ -22,7 +22,7 @@ struct PerformanceListReadingView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(destination: PerformanceWatchingView(performance: performance)) {
+                    NavigationLink(destination: PerformanceWatchingListView(viewModel: PerformanceWatchingListViewModel(performance: performance))) {
                         RecentFormationCardView(performance: performance)
                     }
                 }

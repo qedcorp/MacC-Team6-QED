@@ -1,5 +1,5 @@
 //
-//  DetailFormationViewModel.swift
+//  PerformanceWatchingDetailViewModel.swift
 //  QED
 //
 //  Created by kio on 10/23/23.
@@ -11,7 +11,7 @@ import Foundation
 import Combine
 import UIKit
 
-class DetailFormationViewModel: ObservableObject {
+class PerformanceWatchingDetailViewModel: ObservableObject {
 
     var bag = Set<AnyCancellable>()
 
@@ -31,8 +31,9 @@ class DetailFormationViewModel: ObservableObject {
 
         self.performance = performance
         showingFormation = performance.formations.first!
-        beforeFormation = nil
+        beforeFormation = performance.formations.first!
         selectedIndex = 0
+        currentNote = performance.formations[0].note ?? ""
         playTimer = PlayTimer(timeInterval: 5)
 
         let danceFormationManager = PlayableDanceFormationManager(scene: scene, formation: mockFormations.first!)
@@ -79,14 +80,14 @@ class DetailFormationViewModel: ObservableObject {
     }
 
     func saveNote() {
-        if performance.formations[selectedIndex].notes == nil {
-            performance.formations[selectedIndex].notes = []
+        if performance.formations[selectedIndex].note == nil {
+            performance.formations[selectedIndex].note = ""
         }
-        performance.formations[selectedIndex].notes?.append(currentNote)
+        performance.formations[selectedIndex].note = currentNote
     }
 }
 
-extension DetailFormationViewModel {
+extension PerformanceWatchingDetailViewModel {
     enum Status {
         case play
         case pause
@@ -101,17 +102,18 @@ extension DetailFormationViewModel {
                 if index == performance.formations.count - 1 {
                     currentStatus = .pause
                 }
-                if self.isShowingBeforeFormation && index - 1 >= 0 {
-                    self.beforeFormation = self.performance.formations[index - 1]
+                if  self.isShowingBeforeFormation {
+                    self.beforeFormation = self.performance.formations[index]
                     if currentStatus == .play {
                         self.scene.manager?.fetchNew(formation: self.showingFormation, isPreview: true)
                     } else {
                         self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
                     }
+
                 }
                 self.scene.manager?.fetchNew(formation: self.showingFormation)
                 self.currentStatus = .pause
-                self.currentNote = ""
+                self.currentNote = self.performance.formations[index].note ?? ""
             }
             .store(in: &bag)
 
@@ -119,10 +121,8 @@ extension DetailFormationViewModel {
             .sink { [weak self] isShowing in
                 guard let self = self else { return }
                 if isShowing {
-                    if self.selectedIndex - 1 >= 0 {
-                        self.beforeFormation = self.performance.formations[self.selectedIndex - 1]
-                        self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
-                    }
+                    self.beforeFormation = self.performance.formations[self.selectedIndex]
+                    self.scene.manager?.fetchNew(formation: self.beforeFormation!, isPreview: true)
                 } else {
                     self.beforeFormation = nil
                     self.scene.manager?.fetchNew(formation: Formation(), isPreview: true)
@@ -138,7 +138,6 @@ extension DetailFormationViewModel {
                 scene.manager?.playPerformance(transion: transitions,
                                                afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
                     guard let self = self else { return }
-                    print("@LOG ssssss")
                     self.selectedIndex += 1
 
                 }

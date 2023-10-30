@@ -1,5 +1,5 @@
 //
-//  WatchingDetailFormationView.swift
+//  WatchingPerformanceWatchingDetailView.swift
 //  QED
 //
 //  Created by chaekie on 10/23/23.
@@ -7,51 +7,39 @@
 
 import SwiftUI
 
-struct DetailFormationView: View {
+struct PerformanceWatchingDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: DetailFormationViewModel
+    @StateObject var viewModel: PerformanceWatchingDetailViewModel
+    var index: Int
     @State var isNameVisiable = false
     @State var isBeforeVisible = false
     @State var isPlaying = false
     @State var isMemoEditMode = false
-    @State var note = ""
-    @State var isFirst: Bool = false
 
     var body: some View {
         VStack(spacing: 10) {
             PlayableDanceFormationView(viewmodel: viewModel)
             detailControlButtons
-            PreviewScrollView(viewModel: viewModel,
-                              isPlaying: $isPlaying)
+            DanceFormationScrollView(viewModel: viewModel,
+                                     isPlaying: $isPlaying)
             Spacer()
-            playButtons
+            PlayButtonsView(viewModel: viewModel,
+                            isPlaying: $isPlaying)
             Spacer()
         }
         .sheet(isPresented: .constant(true)) {
             DirectorNoteView(viewModel: viewModel,
-                             isMemoEditMode: $isMemoEditMode,
-                             note: $note)
+                             isMemoEditMode: $isMemoEditMode)
         }
         .onAppear {
-            if viewModel.selectedIndex == 0 {
-                isFirst = true
-            }
+            viewModel.selectedIndex = index
         }
-        .onChange(of: viewModel.selectedIndex,
-                  perform: { selectedIndex in
-            if selectedIndex == 0 {
-                isFirst = true
-                isBeforeVisible = false
-            } else {
-                isFirst = false
-            }
-        })
         .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
             leftItem
-//            rightItem
+            //            rightItem
         }
     }
 
@@ -59,78 +47,37 @@ struct DetailFormationView: View {
         HStack {
             HStack {
                 Text("이전 동선 미리보기")
-                    .foregroundStyle(isFirst || isBeforeVisible ? .gray : .black)
+                    .foregroundStyle(isBeforeVisible ? .gray : .black)
                     .padding(.vertical, 5)
                     .padding(.horizontal, 12)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
-                        isBeforeVisible.toggle()
-                        viewModel.beforeFormationShowingToggle()
+                    isBeforeVisible.toggle()
+                    viewModel.beforeFormationShowingToggle()
                 } label: {
                     Text(isBeforeVisible ? "off" : "on")
-                        .foregroundStyle(isFirst ? .gray : .green)
+                        .foregroundStyle(isBeforeVisible ? .gray : .green)
                         .padding(.vertical, 5)
                         .padding(.horizontal, 8)
                         .background(Color(.systemGray6))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
-                .disabled(isFirst ? true : false)
             }
             .bold()
             Spacer()
-//            Button {
-//                //  TODO: 확대 기능
-//            } label: {
-//                Image(systemName: "arrow.up.left.and.arrow.down.right")
-//                    .padding(5)
-//                    .background(Color(.systemGray5))
-//                    .foregroundStyle(.gray)
-//                    .clipShape(RoundedRectangle(cornerRadius: 5))
-//            }
+            //            Button {
+            //                //  TODO: 확대 기능
+            //            } label: {
+            //                Image(systemName: "arrow.up.left.and.arrow.down.right")
+            //                    .padding(5)
+            //                    .background(Color(.systemGray5))
+            //                    .foregroundStyle(.gray)
+            //                    .clipShape(RoundedRectangle(cornerRadius: 5))
+            //            }
         }
         .font(.subheadline)
         .padding(.bottom, 10)
-    }
-
-    private var playButtons: some View {
-        HStack(spacing: 20) {
-            backwardButton
-            playButton
-            forwardButton
-        }
-        .foregroundColor(.green)
-        .font(.title2)
-    }
-
-    private var backwardButton: some View {
-        Button {
-            viewModel.backward()
-        } label: {
-            Image(systemName: "chevron.left")
-        }
-    }
-
-    private var playButton: some View {
-        Button {
-            isPlaying.toggle()
-            if isPlaying {
-                viewModel.play()
-            } else {
-                viewModel.pause()
-            }
-        } label: {
-            Image(systemName: isPlaying ? "pause.fill" : "play.fill")
-                .font(.title)
-        }
-    }
-
-    private var forwardButton: some View {
-        Button {
-            viewModel.forward()
-        } label: {
-            Image(systemName: "chevron.right")
-        }
     }
 
     private var leftItem: ToolbarItem<(), some View> {
@@ -156,8 +103,57 @@ struct DetailFormationView: View {
     }
 }
 
-struct PreviewScrollView: View {
-    @StateObject var viewModel: DetailFormationViewModel
+private struct PlayButtonsView: View {
+    @StateObject var viewModel: PerformanceWatchingDetailViewModel
+    @Binding var isPlaying: Bool
+
+    var body: some View {
+        HStack(spacing: 20) {
+            backwardButton
+            playButton
+            forwardButton
+        }
+        .foregroundColor(.green)
+        .font(.title2)
+    }
+
+    private var backwardButton: some View {
+        Button {
+            viewModel.backward()
+        } label: {
+            Image(systemName: "chevron.left")
+        }
+    }
+
+    private var playButton: some View {
+        Button {
+            isPlaying.toggle()
+            if isPlaying {
+                if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
+                    viewModel.selectedIndex = 0
+                } else {
+                    viewModel.play()
+                }
+            } else {
+                viewModel.pause()
+            }
+        } label: {
+            Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                .font(.title)
+        }
+    }
+
+    private var forwardButton: some View {
+        Button {
+            viewModel.forward()
+        } label: {
+            Image(systemName: "chevron.right")
+        }
+    }
+}
+
+private struct DanceFormationScrollView: View {
+    @StateObject var viewModel: PerformanceWatchingDetailViewModel
     @Binding var isPlaying: Bool
 
     var body: some View {
@@ -165,7 +161,7 @@ struct PreviewScrollView: View {
             ScrollViewReader { proxy in
                 HStack(spacing: 15) {
                     ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performance.formations)), id: \.0) { (index, formation) in
-                        FormationPreview(
+                        DanceFormationView(
                             formation: formation,
                             index: index,
                             hideLine: true
@@ -184,8 +180,10 @@ struct PreviewScrollView: View {
                         }
                     }
                 }
-                .onChange(of: viewModel.selectedIndex, perform: { value in
-                    proxy.scrollTo(value, anchor: .center)
+                .onChange(of: viewModel.selectedIndex, perform: { index in
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        proxy.scrollTo(index, anchor: .center)
+                    }
                     if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
                         isPlaying = false
                     }
@@ -195,24 +193,8 @@ struct PreviewScrollView: View {
     }
 }
 
-struct PreviewCardView: View {
-    @StateObject var viewModel: DetailFormationViewModel
-    var index: Int
-
-    var body: some View {
-        RoundedRectangle(cornerRadius: 12)
-            .fill(Color(.systemGray6))
-            .frame(width: 150, height: 100)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(
-                        viewModel.selectedIndex == index ? .green: .clear,
-                        lineWidth: 2)
-            )
-            .onTapGesture {
-                withAnimation(.easeIn(duration: 0.1)) {
-                    viewModel.selectFormation(selectedIndex: index)
-                }
-            }
-    }
+#Preview {
+    PerformanceWatchingDetailView(viewModel: PerformanceWatchingDetailViewModel(
+        performance: mockPerformance1
+    ), index: 0)
 }
