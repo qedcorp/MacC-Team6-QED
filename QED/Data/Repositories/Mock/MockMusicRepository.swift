@@ -3,10 +3,11 @@
 import Foundation
 
 class MockMusicRepository: MusicRepository {
+
     private var musics: [Music]
 
     init(musics: [Music] = []) {
-        self.musics = musics
+        self.musics = [Music(id: "", title: "sdsd", artistName: "sdsd"), Music(id: "", title: "cute", artistName: "sdsd")]
     }
 
     func readMusic(id: String) async throws -> Music {
@@ -19,4 +20,9 @@ class MockMusicRepository: MusicRepository {
     func readMusics(keyword: String) async throws -> [Music] {
         musics.filter { $0.title.lowercased().contains(keyword.lowercased()) }
     }
+
+    func readLyrics(title: String, artist: String) async throws -> Music.Lyric {
+        Music.Lyric(startMs: 0, endMs: 0, words: "")
+    }
+
 }

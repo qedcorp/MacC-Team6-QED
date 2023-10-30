@@ -1,5 +1,5 @@
 //
-//  GoogleAuthRepositoryImplement.swift
+//  DefaultGoogleAuthRepository.swift
 //  QED
 //
 //  Created by changgyo seo on 10/19/23.
@@ -11,9 +11,9 @@ import UIKit
 import FirebaseCore
 import FirebaseAuth
 
-final class GoogleAuthRepositoryImplement: GoogleAuthRepository {
+final class DefaultGoogleAuthRepository: GoogleAuthRepository {
 
-    private var authUI: AuthUIProtocol
+    var authUI: AuthUIProtocol
 
     init(authUI: AuthUIProtocol) {
         self.authUI = authUI
