@@ -74,8 +74,14 @@ final class DIContainer {
     
     func dependencyInjection(_ dic: [ObjectIdentifier: DependencyPurpose] = [:]) {
         var copyDependencyGraph = self.dependencyGraph
-        copyDependencyGraph.nodes.forEach {
-            $0.indegreeCount = $0.parentCount
+        if dic.count != 0 {
+            copyDependencyGraph = dfs(dic, graph: copyDependencyGraph)
+            print(copyDependencyGraph.nodes.count)
+        }
+        else {
+            copyDependencyGraph.nodes.forEach {
+                $0.indegreeCount = $0.parentCount
+            }
         }
         while !copyDependencyGraph.nodes.isEmpty {
             copyDependencyGraph.nodes.sort { $0.indegreeCount > $1.indegreeCount }
@@ -91,15 +97,43 @@ final class DIContainer {
         }
     }
     
+    func dfs(_ dic: [ObjectIdentifier: DependencyPurpose], graph: TypeDirectedGraph) -> TypeDirectedGraph {
+        var stack: [TypeDirectedGraph.Node] = []
+        var visit: [ObjectIdentifier] = []
+        var newGraph = graph
+        newGraph.nodes = graph.nodes.filter { node in
+            dic.contains { (key, value) in
+                key == node.value
+            }
+        }
+        for node in newGraph.nodes {
+            node.indegreeCount = 0
+            stack.append(node)
+        }
+        while !stack.isEmpty {
+            var node = stack.popLast()!
+            for child in node.childs {
+                child.indegreeCount += 1
+                if !visit.contains(where: { $0 == child.value }) {
+                    newGraph.nodes.append(child)
+                    visit.append(child.value)
+                    stack.append(child)
+                }
+            }
+        }
+        
+        return newGraph
+    }
+    
     func injectionAuthUIProtocol(_ purpose: DependencyPurpose = .release) {
         if purpose == .release {
             storage.register(AuthUIProtocol.self) { _ in
-               AuthViewController()
+                AuthViewController()
             }
         }
         else {
             storage.register(AuthUIProtocol.self) { _ in
-               AuthViewController()
+                AuthViewController()
             }
         }
     }
@@ -107,12 +141,12 @@ final class DIContainer {
     func injectionRemoteManager(_ purpose: DependencyPurpose = .release) {
         if purpose == .release {
             storage.register(RemoteManager.self) { _ in
-               FireStoreManager()
+                FireStoreManager()
             }
         }
         else {
             storage.register(RemoteManager.self) { _ in
-               FireStoreManager()
+                FireStoreManager()
             }
         }
     }
