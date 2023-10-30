@@ -12,7 +12,6 @@ struct DefaultAuthUseCase: AuthUseCase {
     let kakaoAuthRepository: KakaoAuthRepository
     let googleAuthRepository: GoogleAuthRepository
     let appleAuthRepository: AppleAuthRepository
-    let uiViewController: AuthUIProtocol
 
     func login(authType: AuthProviderType) async throws {
         do {

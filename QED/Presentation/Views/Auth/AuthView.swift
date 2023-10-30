@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct AuthView: UIViewControllerRepresentable {
+
     func makeUIViewController(context: Context) -> AuthViewController {
-        AuthViewController(
-            authViewModel: AuthViewModel()
-        )
+        DIContainer.shared.storage.resolver.resolve(MusicRepository.self) as! AuthViewController
     }
 
     func updateUIViewController(_ uiViewController: AuthViewController, context: Context) {
-
+        // print(provider)
     }
+}
+
+class ViewModel: ObservableObject {
+    @Published var temp: AuthProviderType = .apple
 }

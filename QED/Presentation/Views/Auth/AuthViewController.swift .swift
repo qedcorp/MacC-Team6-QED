@@ -16,18 +16,14 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 class AuthViewController: UIViewController, AuthUIProtocol {
-    
-    var authViewModel: AuthViewModel
-    
-    init(authViewModel: AuthViewModel) {
-        self.authViewModel = authViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
+    // @Binding var authProvider: AuthProviderType
+
+//    init(authProvider: Binding<AuthProviderType>) {
+//        self._authProvider = authProvider
+//        super.init(nibName: nil, bundle: nil)
+//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
@@ -103,5 +99,4 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     @objc
     func tapAppleSignInView(_ sender: Any) {
     }
-
 }

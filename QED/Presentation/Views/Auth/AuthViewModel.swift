@@ -9,6 +9,10 @@ import Foundation
 
 import Combine
 
-class AuthViewModel {
-    //var authUseCase: AuthUseCase
+class AuthViewModel: ObservableObject {
+    var authUseCase: AuthUseCase
+
+    init(authUseCase: AuthUseCase) {
+        self.authUseCase = authUseCase
+    }
 }
