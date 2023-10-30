@@ -104,43 +104,43 @@ private var music6 = Music(id: "ert",
                            albumCoverURL: URL(string: "https://i.ibb.co/HtzF59j/Kakao-Talk-Photo-2023-10-24-02-30-38-001.jpg"))
 
 var mockPerformance1 = Performance(id: "ggg",
-                                  author: User(email: "", nickname: "포디"),
-                                  playable: music1,
-                                  headcount: 4,
-                                  title: music1.title,
-                                  formations: mockFormations)
+                                   author: User(email: "", nickname: "포디"),
+                                   music: music1,
+                                   headcount: 4,
+                                   title: music1.title,
+                                   formations: mockFormations)
 
 var mockPerformance2 = Performance(id: "ghg",
                                    author: User(email: "", nickname: "포디"),
-                                   playable: music2,
+                                   music: music2,
                                    headcount: 5,
                                    title: music2.title,
                                    formations: mockFormations)
 
 var mockPerformance3 = Performance(id: "qgg",
                                    author: User(email: "", nickname: "포디"),
-                                   playable: music3,
+                                   music: music3,
                                    headcount: 6,
                                    title: music3.title,
                                    formations: mockFormations)
 
 var mockPerformance4 = Performance(id: "ggo",
                                    author: User(email: "", nickname: "포디"),
-                                   playable: music4,
+                                   music: music4,
                                    headcount: 5,
                                    title: music4.title,
                                    formations: mockFormations)
 
 var mockPerformance5 = Performance(id: "gxg",
                                    author: User(email: "", nickname: "포디"),
-                                   playable: music5,
+                                   music: music5,
                                    headcount: 7,
                                    title: music5.title,
                                    formations: mockFormations)
 
 var mockPerformance6 = Performance(id: "gng",
                                    author: User(email: "", nickname: "포디"),
-                                   playable: music6,
+                                   music: music6,
                                    headcount: 5,
                                    title: music6.title,
                                    formations: mockFormations)

@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol GoogleAuthRepository: AuthRepository { }
+protocol GoogleAuthRepository: AuthRepository {
+    var authUI: AuthUIProtocol { get }
+}

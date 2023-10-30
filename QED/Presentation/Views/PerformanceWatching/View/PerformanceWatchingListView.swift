@@ -130,12 +130,12 @@ private struct PerformanceScrollView: View {
                             isNameVisible: isNameVisible
                         )
                         if isEditMode {
-                        HStack(spacing: 20) {
-                            DeleteButton(viewModel: viewModel,
-                                         index: index)
+                            HStack(spacing: 20) {
+                                DeleteButton(viewModel: viewModel,
+                                             index: index)
                                 addButton
                             }
-                        .padding(.bottom, 15)
+                            .padding(.bottom, 15)
                         }
                     }
                 }
@@ -147,8 +147,8 @@ private struct PerformanceScrollView: View {
 
     private var addButton: some View {
         NavigationLink {
-            FormationSetupView(performanceUseCase: performanceUseCase,
-                               performance: viewModel.performance)
+            FormationSettingView(performance: viewModel.performance,
+                                 performanceUseCase: performanceUseCase)
         } label: {
             HStack {
                 Image(systemName: "plus")

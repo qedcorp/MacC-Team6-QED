@@ -16,6 +16,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 class AuthViewController: UIViewController, AuthUIProtocol {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()

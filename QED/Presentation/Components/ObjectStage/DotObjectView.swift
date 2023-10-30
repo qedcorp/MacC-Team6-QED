@@ -29,12 +29,12 @@ class DotObjectView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func applyPosition(_ position: CGPoint) {
+    func assignPosition(_ position: CGPoint) {
         center = position
         lastCenter = position
     }
 
-    func applyPositionDiff(_ diff: CGPoint) {
+    func assignPositionDiff(_ diff: CGPoint) {
         guard let last = lastCenter else {
             return
         }

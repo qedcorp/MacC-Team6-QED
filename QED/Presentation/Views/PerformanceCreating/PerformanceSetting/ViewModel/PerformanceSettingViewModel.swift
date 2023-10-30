@@ -22,8 +22,8 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
 
-    let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
-        searchMusicRepository: MockSearchMusicRepository()
+    let usecase: DefaultMusicUseCase = DefaultMusicUseCase(
+        musicRepository: MockMusicRepository()
     )
 
     func search() {
@@ -49,7 +49,7 @@ class PerformanceSettingViewModel: ObservableObject {
     func generatePerformance() -> Performance {
         guard let music = selectedMusic else { return Performance(jsonString: "Error") }
         return Performance(id: "1212312313", author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                    playable: music,
+                    music: music,
                     headcount: Int(inputHeadcount),
                     title: inputTitle,
                     formations: [],

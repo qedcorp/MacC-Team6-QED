@@ -17,7 +17,7 @@ final class DefaultUserRepository: UserRepository {
 
     func createUser(_ user: User) async throws -> User {
         do {
-            let createResult = try await remoteManager.create(user)
+            let createResult = try await remoteManager.create(user, createType: .noneKey)
             switch createResult {
             case .success(let success):
                 return success
@@ -47,7 +47,7 @@ final class DefaultUserRepository: UserRepository {
 
     func updateUser(_ user: User) async throws -> User {
         do {
-            let readResult = try await remoteManager.create(user)
+            let readResult = try await remoteManager.update(user)
             switch readResult {
             case .success(let success):
                 return success

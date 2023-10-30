@@ -5,12 +5,16 @@ import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
-    var onChange: (([RelativePosition]) -> Void)?
+    var onChange: (([CGPoint]) -> Void)?
 
-    private(set) lazy var historyManager = {
-        let manager = ObjectCanvasHistoryManager()
-        manager.objectCanvasViewController = self
-        return manager
+    private(set) lazy var objectCanvasArchiver = {
+        let archiver = ObjectCanvasArchiver()
+        archiver.objectCanvasViewController = self
+        return archiver
+    }()
+
+    private lazy var touchPositionConverter = {
+        TouchPositionConverter(container: view)
     }()
 
     private lazy var touchedViewDetector = {
@@ -20,22 +24,20 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private lazy var draggingHandler = DraggingHandler()
     private lazy var multiSelectBoxView = MultiSelectBoxView()
 
-    private var cancellables = Set<AnyCancellable>()
-    private var isMultiSelectDragging = false
-
     private var selectedObjectViews: Set<DotObjectView> = [] {
         didSet {
             guard selectedObjectViews != oldValue else {
                 return
             }
-            objectViews
-                .forEach { $0.color = selectedObjectViews.contains($0) ? .green : .black }
+            objectViews.forEach {
+                $0.color = selectedObjectViews.contains($0) ? .green : .black
+            }
         }
     }
 
-    override var objectViewRadius: CGFloat {
-        8
-    }
+    private var isMultiSelectDragging = false
+    private var cancellables = Set<AnyCancellable>()
+    override var objectViewRadius: CGFloat { 8 }
 
     override func loadView() {
         super.loadView()
@@ -68,12 +70,17 @@ class ObjectCanvasViewController: ObjectStageViewController {
             .store(in: &cancellables)
     }
 
+    private func updateMultiSelectBoxViewFrame(dragging: DraggingModel?) {
+        multiSelectBoxView.frame = (isMultiSelectDragging ? dragging?.rect : nil) ?? .zero
+    }
+
     private func handleDragging(_ dragging: DraggingModel) {
         if isMultiSelectDragging {
             multiSelectByDragging(dragging)
         } else if !selectedObjectViews.isEmpty {
-            selectedObjectViews
-                .forEach { $0.applyPositionDiff(dragging.positionDiff) }
+            selectedObjectViews.forEach {
+                $0.assignPositionDiff(dragging.positionDiff)
+            }
         }
     }
 
@@ -81,23 +88,18 @@ class ObjectCanvasViewController: ObjectStageViewController {
         guard dragging.rect != .zero else {
             return
         }
-        objectViews
-            .forEach {
-                if dragging.rect.contains($0.center) {
-                    selectedObjectViews.insert($0)
-                } else {
-                    selectedObjectViews.remove($0)
-                }
+        objectViews.forEach {
+            if dragging.rect.contains($0.center) {
+                selectedObjectViews.insert($0)
+            } else {
+                selectedObjectViews.remove($0)
             }
-    }
-
-    private func updateMultiSelectBoxViewFrame(dragging: DraggingModel?) {
-        multiSelectBoxView.frame = (isMultiSelectDragging ? dragging?.rect : nil) ?? .zero
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
+        guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
         if let objectView = touchedViewDetector.detectView(position: position) as? DotObjectView {
@@ -114,7 +116,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
+        guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
         draggingHandler.moveDragging(position: position)
@@ -122,7 +124,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
+        guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
         isMultiSelectDragging = false
@@ -140,9 +142,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private func replaceSelectedObjectViews() {
         selectedObjectViews.forEach {
-            let relativePosition = touchPositionConverter.getRelativePosition(absolute: $0.center)
-            let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
-            $0.applyPosition(absolutePosition)
+            replaceObjectViewAtRelativePosition($0)
         }
     }
 
@@ -163,20 +163,21 @@ class ObjectCanvasViewController: ObjectStageViewController {
         defer {
             objectViews.forEach { $0.removeFromSuperview() }
         }
+        let positions = getRelativePositions()
         return Preset(
             headcount: objectViews.count,
-            relativePositions: getRelativePositions()
+            relativePositions: positions
         )
     }
 
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        historyManager.addHistory(history)
+        objectCanvasArchiver.addHistory(history)
     }
 
     private func didChange() {
-        let positions = getRelativePositions()
+        let positions = objectViews.map { $0.center }
         onChange?(positions)
     }
 
@@ -189,8 +190,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private func getRelativePositions() -> [RelativePosition] {
-        objectViews
-            .map { touchPositionConverter.getRelativePosition(absolute: $0.center) }
+        objectViews.map {
+            relativePositionConverter.getRelativePosition(of: $0.center)
+        }
     }
 
     private struct History: Formable {
