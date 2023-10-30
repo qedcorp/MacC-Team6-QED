@@ -28,21 +28,19 @@ struct PerformanceWatchingListView: View {
 
     var body: some View {
         VStack(spacing: 15) {
-            titleAndHeadcount
-            TogglingMemberNameView(isNameVisible: $isNameVisible)
-            PerformanceScrollView(viewModel: viewModel,
-                                  isNameVisible: isNameVisible,
-                                  isEditMode: isEditMode)
+            buildTitleAndHeadcountView()
+            buildMemberNameView()
+            buildPerformanceScrollView()
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("전체 대형 보기")
         .toolbar {
-            leftItem
-            rightItem
+            buildLeftItem()
+            buildRightItem()
         }
     }
 
-    private var titleAndHeadcount: some View {
+    private func buildTitleAndHeadcountView() -> some View {
         HStack {
             Text("\(viewModel.performance.music.title)")
                 .bold()
@@ -58,35 +56,7 @@ struct PerformanceWatchingListView: View {
         .padding(.horizontal, 20)
     }
 
-    private var leftItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(Color.green)
-            }
-        }
-    }
-
-    private var rightItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                withAnimation(.easeIn(duration: 0.3)) {
-                    isEditMode.toggle()
-                }
-            } label: {
-                Text(isEditMode ? "완료" : "수정")
-                    .foregroundStyle(.green)
-            }
-        }
-    }
-}
-
-private struct TogglingMemberNameView: View {
-    @Binding var isNameVisible: Bool
-
-    var body: some View {
+    private func buildMemberNameView() -> some View {
         HStack {
             Text("팀원 이름 보기")
                 .padding(.horizontal, 15)
@@ -94,7 +64,7 @@ private struct TogglingMemberNameView: View {
                 .foregroundStyle(isNameVisible ? .gray: .black)
                 .background(Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-            toggleButton
+            buildMemberNameToggleButton()
             Spacer()
         }
         .bold()
@@ -102,7 +72,7 @@ private struct TogglingMemberNameView: View {
         .padding(.horizontal, 20)
     }
 
-    private var toggleButton: some View {
+    private func buildMemberNameToggleButton() -> some View {
         Button {
             withAnimation(.bouncy(duration: 0.15)) {
                 isNameVisible.toggle()
@@ -117,35 +87,18 @@ private struct TogglingMemberNameView: View {
         }
     }
 
-}
+    private func buildPerformanceScrollView() -> some View {
+        @State var selectedIndex: Int?
 
-private struct PerformanceScrollView: View {
-    @StateObject var viewModel: PerformanceWatchingListViewModel
-//    let performanceUseCase = DefaultPerformanceUseCase(
-//        performanceRepository: MockPerformanceRepository(),
-//        userStore: DefaultUserStore.shared
-//    )
-    var isNameVisible: Bool
-    var isEditMode: Bool
-    @State private var selectedIndex: Int?
-
-    var body: some View {
-        ScrollView {
+        return ScrollView {
             VStack(spacing: 30) {
                 ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performanceSettingManager.performance.formations)), id: \.1) { index, formation in
                     VStack {
-                        DanceFormationPreview(
-                            viewModel: viewModel,
-                            formation: formation,
-                            index: index,
-                            selectedIndex: $selectedIndex,
-                            isNameVisible: isNameVisible
-                        )
+                        buildDanceFormationPreview(formation: formation, index: index)
                         if isEditMode {
                             HStack(spacing: 20) {
-                                DeleteButton(viewModel: viewModel,
-                                             index: index)
-                                AddButton(viewModel: viewModel)
+                                buildDeleteFormationButton(index: index)
+                                buildAddFormationButton()
                             }
                             .padding(.bottom, 15)
                         }
@@ -155,12 +108,22 @@ private struct PerformanceScrollView: View {
             .padding(.horizontal, 20)
         }
     }
-}
 
-private struct AddButton: View {
-    @StateObject var viewModel: PerformanceWatchingListViewModel
+    private func buildDanceFormationPreview(formation: Formation, index: Int) -> some View {
+        NavigationLink(destination: PerformanceWatchingDetailView(
+            viewModel: PerformanceWatchingDetailViewModel(
+                performance: viewModel.performanceSettingManager.performance
+            ), index: index)) {
+                    DanceFormationView(
+                        formation: formation,
+                        index: index,
+                        isNameVisible: isNameVisible
+                    )
+                    .frame(height: 250)
+                }
+    }
 
-    var body: some View {
+    private func buildAddFormationButton() -> some View {
         NavigationLink {
             FormationSettingView(
                 performance: viewModel.performanceSettingManager.performance,
@@ -179,13 +142,8 @@ private struct AddButton: View {
             .clipShape(RoundedRectangle(cornerRadius: 4))
         }
     }
-}
 
-private struct DeleteButton: View {
-    @StateObject var viewModel: PerformanceWatchingListViewModel
-    let index: Int
-
-    var body: some View {
+    private func buildDeleteFormationButton(index: Int) -> some View {
         Button {
             viewModel.removeFormation(index: index)
         } label: {
@@ -201,27 +159,29 @@ private struct DeleteButton: View {
             .clipShape(RoundedRectangle(cornerRadius: 4))
         }
     }
-}
 
-private struct DanceFormationPreview: View {
-    @StateObject var viewModel: PerformanceWatchingListViewModel
-    let formation: Formation
-    let index: Int
-    @Binding var selectedIndex: Int?
-    let isNameVisible: Bool
+    private func buildLeftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(Color.green)
+            }
+        }
+    }
 
-    var body: some View {
-        NavigationLink(destination: PerformanceWatchingDetailView(
-            viewModel: PerformanceWatchingDetailViewModel(
-                performance: viewModel.performanceSettingManager.performance
-            ), index: index)) {
-                    DanceFormationView(
-                        formation: formation,
-                        index: index,
-                        isNameVisible: isNameVisible
-                    )
-                    .frame(height: 250)
+    private func buildRightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                withAnimation(.easeIn(duration: 0.3)) {
+                    isEditMode.toggle()
                 }
+            } label: {
+                Text(isEditMode ? "완료" : "수정")
+                    .foregroundStyle(.green)
+            }
+        }
     }
 }
 

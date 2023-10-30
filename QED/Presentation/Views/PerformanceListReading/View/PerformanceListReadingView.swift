@@ -12,6 +12,7 @@ struct PerformanceListReadingView: View {
         performancesUseCase: DefaultPerformanceUseCase(
             performanceRepository: MockPerformanceRepository(),
             userStore: DefaultUserStore.shared))
+    @Environment(\.dismiss) private var dismiss
 
     let columns: [GridItem] = [
         GridItem( spacing: 0, alignment: nil),
@@ -43,7 +44,9 @@ struct PerformanceListReadingView: View {
 
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
-            NavigationLink(destination: MainView()) {
+            Button {
+                dismiss()
+            } label : {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
                     .bold()
