@@ -20,8 +20,6 @@ struct TitleSetupView: View {
             Spacer()
             NavigationLink {
                 HeadcountSetupView(viewmodel: viewmodel)
-                    .navigationTitle("인원수 선택")
-                    .navigationBarTitleDisplayMode(.inline)
             } label: {
                 nextbutton
             }

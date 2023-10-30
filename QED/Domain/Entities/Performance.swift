@@ -28,9 +28,16 @@ class Performance: Codable {
         self.music = music
         self.headcount = headcount
         self.title = title ?? music.title
-        self.memberInfos = (1 ... headcount)
-            .map { .init(name: "인물 \($0)", color: .randomHex()) }
+        self.memberInfos = Self.buildDefaultMemberInfos(headcount: headcount)
         self.formations = formations
         self.transitions = transitions
+    }
+
+    private static func buildDefaultMemberInfos(headcount: Int) -> [Member.Info] {
+        guard headcount > 0 else {
+            return []
+        }
+        return (1 ... headcount)
+            .map { .init(name: "인물 \($0)", color: .randomHex()) }
     }
 }

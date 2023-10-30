@@ -30,14 +30,14 @@ struct HeadcountSetupView: View {
             Spacer()
             NavigationLink {
                 MusicSetupView(viewmodel: viewmodel)
-                    .navigationTitle("노래 선택")
-                    .navigationBarTitleDisplayMode(.inline)
             } label: {
                 nextbutton
             }
             .disabled(viewmodel.inputHeadcount < 2)
         }
         .padding()
+        .navigationTitle("인원수 선택")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem

@@ -10,19 +10,26 @@ import SwiftUI
 @MainActor
 class PerformanceSettingViewModel: ObservableObject {
     let performancesUseCase: PerformanceUseCase
+    private(set) var performance: Performance?
+    private var yameNextView: FormationSettingView?
 
     init(performancesUseCase: PerformanceUseCase) {
         self.performancesUseCase = performancesUseCase
     }
 
-    var headcount: Int? { Int(inputHeadcount) }
+    var headcount: Int { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
 
     @Published var inputHeadcount: Double = 0
     @Published var range: ClosedRange<Double> = 0...13
     @State private var inputHeadcountChanged = false
 
-    @Published var selectedMusic: Music?
+    @Published var selectedMusic: Music? {
+        didSet {
+            createPerformance()
+        }
+    }
+
     @Published var searchText: String = ""
     @Published var allMusics: [Music] = []
     @Published var searchedMusics: [Music] = []
@@ -58,28 +65,29 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-        func createPerformance() -> Performance {
-            // 이게 왜 자꾸 도는지...
-            print("jjj")
-            guard let selectedMusic = selectedMusic else {
-                return Performance(jsonString: "Error")
-            }
-            return Performance(id: "1212312313",
-                               author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                               music: selectedMusic,
-                               headcount: Int(inputHeadcount),
-                               title: inputTitle,
-                               formations: [],
-                               transitions: [])
+    @discardableResult
+    func createPerformance() -> Performance {
+        guard let selectedMusic = selectedMusic else {
+            return Performance(jsonString: "Error")
         }
+        let performance = Performance(id: "1212312313",
+                                      author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
+                                      music: selectedMusic,
+                                      headcount: headcount,
+                                      title: inputTitle,
+                                      formations: [],
+                                      transitions: [])
+        self.performance = performance
+        return performance
+    }
 
-    func generatePerformance() -> Performance {
-        guard let music = selectedMusic else { return Performance(jsonString: "Error") }
-        return Performance(id: "1212312313", author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                    music: music,
-                    headcount: Int(inputHeadcount),
-                    title: inputTitle,
-                    formations: [],
-                    transitions: [])
+    func buildYameNextView(performance: Performance) -> some View {
+        if yameNextView == nil {
+            yameNextView = FormationSettingView(
+                performance: performance,
+                performanceUseCase: performancesUseCase
+            )
+        }
+        return yameNextView!
     }
 }

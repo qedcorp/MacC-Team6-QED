@@ -33,11 +33,9 @@ struct MusicSetupView: View {
                 }
             }
             NavigationLink {
-                let performance = viewmodel.createPerformance()
-                FormationSettingView(
-                    performance: performance,
-                    performanceUseCase: viewmodel.performancesUseCase
-                )
+                if let performance = viewmodel.performance {
+                    viewmodel.buildYameNextView(performance: performance)
+                }
             } label: {
                 nextbutton
             }
@@ -47,6 +45,8 @@ struct MusicSetupView: View {
         .onTapGesture {
             isFocusedSearchTextField = false
         }
+        .navigationTitle("노래 선택")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem
