@@ -57,7 +57,7 @@ struct MainView: View {
             Spacer()
 
             NavigationLink {
-                TitleSetupView(performancesettingVM: PerformanceSettingViewModel())
+                TitleSetupView(viewmodel: PerformanceSettingViewModel(performancesUseCase: viewModel.performancesUseCase))
             } label: {
                 Text("Go")
                     .frame(width: 86, height: 56)

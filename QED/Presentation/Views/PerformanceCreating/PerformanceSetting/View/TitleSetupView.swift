@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TitleSetupView: View {
 
-    @ObservedObject var performancesettingVM: PerformanceSettingViewModel
+    @ObservedObject var viewmodel: PerformanceSettingViewModel
     @FocusState var isFocused: Bool
 
     var body: some View {
@@ -18,7 +18,14 @@ struct TitleSetupView: View {
             header
             projecttitle
             Spacer()
-            next
+            NavigationLink {
+                HeadcountSetupView(viewmodel: viewmodel)
+                    .navigationTitle("인원수 선택")
+                    .navigationBarTitleDisplayMode(.inline)
+            } label: {
+                nextbutton
+            }
+            .disabled(viewmodel.inputTitle.isEmpty)
         }
         .navigationTitle("이름 설정")
         .navigationBarTitleDisplayMode(.inline)
@@ -44,19 +51,8 @@ struct TitleSetupView: View {
         .padding()
     }
 
-    private var next: some View {
-        NavigationLink {
-            HeadcountSetupView(performancesettingVM: performancesettingVM)
-                .navigationTitle("인원수 선택")
-                .navigationBarTitleDisplayMode(.inline)
-        } label: {
-            nextbutton
-        }
-        .disabled(performancesettingVM.inputTitle.isEmpty)
-    }
-
     private var projecttitle: some View {
-        TextField("입력하세요", text: $performancesettingVM.inputTitle)
+        TextField("입력하세요", text: $viewmodel.inputTitle)
             .focused($isFocused)
             .multilineTextAlignment(.center)
             .font(.system(size: 30))
@@ -90,14 +86,11 @@ struct TitleSetupView: View {
                     .weight(.bold)
             )
             .foregroundColor(.white)
-            .background(performancesettingVM.inputTitle.isEmpty
+            .background(viewmodel.inputTitle.isEmpty
                         ? Color.black.opacity(0.2)
                         : Color.black)
             .cornerRadius(14)
             .padding()
     }
 
-}
-#Preview {
-    TitleSetupView(performancesettingVM: PerformanceSettingViewModel())
 }

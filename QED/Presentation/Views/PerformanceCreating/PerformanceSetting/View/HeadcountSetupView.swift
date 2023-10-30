@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct HeadcountSetupView: View {
-
-    @ObservedObject var performancesettingVM: PerformanceSettingViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var viewmodel: PerformanceSettingViewModel
 
     var body: some View {
         VStack {
@@ -29,7 +28,14 @@ struct HeadcountSetupView: View {
             }
             slider
             Spacer()
-            next
+            NavigationLink {
+                MusicSetupView(viewmodel: viewmodel)
+                    .navigationTitle("노래 선택")
+                    .navigationBarTitleDisplayMode(.inline)
+            } label: {
+                nextbutton
+            }
+            .disabled(viewmodel.inputHeadcount < 2)
         }
         .padding()
         .navigationBarBackButtonHidden(true)
@@ -49,7 +55,7 @@ struct HeadcountSetupView: View {
     }
 
     private var headcountfield: some View {
-        Text("\(Int(performancesettingVM.inputHeadcount))")
+        Text("\(Int(viewmodel.inputHeadcount))")
             .multilineTextAlignment(.center)
             .bold()
             .font(.system(size: 30))
@@ -66,41 +72,41 @@ struct HeadcountSetupView: View {
 
     private var minusButton: some View {
         Button(action: {
-            performancesettingVM.decrementHeadcount()
+            viewmodel.decrementHeadcount()
         }, label: {
             Circle()
                 .frame(width: 50)
-                .foregroundColor(performancesettingVM.inputHeadcount < 2
+                .foregroundColor(viewmodel.inputHeadcount < 2
                                   ? Color.gray.opacity(0.05)
                                   : Color.gray.opacity(0.13)
                 )
                 .overlay(
                     Image(systemName: "minus")
                         .bold()
-                            .foregroundColor(performancesettingVM.inputHeadcount < 2
+                            .foregroundColor(viewmodel.inputHeadcount < 2
                                          ? Color.black.opacity(0.3)
                                          : Color.black
                                         )
                         .font(.system(size: 20))
                 )
         })
-        .disabled(performancesettingVM.inputHeadcount == performancesettingVM.range.lowerBound)
+        .disabled(viewmodel.inputHeadcount == viewmodel.range.lowerBound)
     }
 
     private var plusButton: some View {
         Button(action: {
-            performancesettingVM.incrementHeadcount()
+            viewmodel.incrementHeadcount()
         }, label: {
             Circle()
                 .frame(width: 50)
-                .foregroundColor( performancesettingVM.inputHeadcount == performancesettingVM.range.upperBound
+                .foregroundColor( viewmodel.inputHeadcount == viewmodel.range.upperBound
                                   ? Color.gray.opacity(0.05)
                                   : Color.gray.opacity(0.13)
                 )
                 .overlay(
                     Image(systemName: "plus")
                         .bold()
-                        .foregroundColor(performancesettingVM.inputHeadcount == performancesettingVM.range.upperBound
+                        .foregroundColor(viewmodel.inputHeadcount == viewmodel.range.upperBound
                                          ? Color.black.opacity(0.3)
                                          : Color.black
                                         )
@@ -109,32 +115,13 @@ struct HeadcountSetupView: View {
         })
     }
 
-    private var leftItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            NavigationLink(destination: MainView()) {
-                Image(systemName: "chevron.backward")
-                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-                    .bold()
-            }
-        }
-    }
-
     private var slider: some View {
-        Slider(value: $performancesettingVM.inputHeadcount, in: 0...13)
+        Slider(value: $viewmodel.inputHeadcount, in: 0...13)
             .tint(.green)
             .frame(width: 320)
             .padding()
     }
 
-    private var next: some View {
-        NavigationLink {
-            MusicSetupView(performanceSettingVM: PerformanceSettingViewModel())
-                .navigationTitle("노래 선택")
-                .navigationBarTitleDisplayMode(.inline)
-        } label: {
-            nextbutton
-        }
-    }
     private var nextbutton: some View {
         Text("다음")
             .frame(width: 340, height: 54)
@@ -143,23 +130,21 @@ struct HeadcountSetupView: View {
                     .weight(.bold)
             )
             .foregroundColor(.white)
-            .background(Color.black)
+            .background(viewmodel.inputHeadcount < 2
+                             ? Color.black.opacity(0.2)
+                             : Color.black)
             .cornerRadius(14)
     }
 
-    var btnBack: some View {
-        Button {
-            self.presentationMode.wrappedValue.dismiss()
-        } label: {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .aspectRatio(contentMode: .fit)
+    private var leftItem: ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.backward")
+                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
+                    .bold()
             }
-            .foregroundStyle(.green)
         }
     }
-}
-
-#Preview {
-    HeadcountSetupView(performancesettingVM: PerformanceSettingViewModel())
 }
