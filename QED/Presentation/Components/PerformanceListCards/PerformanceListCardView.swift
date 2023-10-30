@@ -30,7 +30,7 @@ struct PerformanceListCardView: View {
                     .scaledToFill()
             }
             VStack(alignment: .leading) {
-                Text("\(title)")
+                Text("\(performance.playable.title)")
                     .font(.system(size: 13))
                     .bold()
                     .foregroundColor(Color.black)
