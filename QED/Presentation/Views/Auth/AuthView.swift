@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AuthView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> AuthViewController {
-        AuthViewController()
+        AuthViewController(
+            authViewModel: AuthViewModel()
+        )
     }
 
     func updateUIViewController(_ uiViewController: AuthViewController, context: Context) {
