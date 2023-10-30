@@ -6,13 +6,15 @@ class ObjectSelectionViewController: ObjectStageViewController {
     var colorHex: String?
     var onChange: (([String?]) -> Void)?
 
+    private lazy var touchPositionConverter = {
+        TouchPositionConverter(container: view)
+    }()
+
     private lazy var touchedViewDetector = {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
-    override var objectViewRadius: CGFloat {
-        8
-    }
+    override var objectViewRadius: CGFloat { 8 }
 
     override func loadView() {
         super.loadView()
@@ -26,7 +28,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        guard let position = touchPositionConverter.getAbsolutePosition(touches: touches) else {
+        guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
         if let objectView = touchedViewDetector.detectView(position: position) as? DotObjectView {
@@ -46,7 +48,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
 
     private func updateObjectViews(colors: [String?]) {
         objectViews.enumerated().forEach {
-            $0.element.color = colors[$0.offset].map { .init(hex: $0) } ?? .black
+            $0.element.color = colors[safe: $0.offset]?.map { .init(hex: $0) } ?? .black
         }
     }
 

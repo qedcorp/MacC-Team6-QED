@@ -3,13 +3,12 @@
 import Foundation
 
 struct MemberModel: Equatable {
-
     var relativePosition: RelativePosition
     var name: String?
     var color: String?
 
-    static func == (lhs: MemberModel, rhs: MemberModel) -> Bool {
-        lhs.relativePosition == rhs.relativePosition
+    var description: String {
+        "\(relativePosition.x) \(relativePosition.y) \(name ?? "") \(color ?? "")"
     }
 
     static func build(entity: Member) -> Self {

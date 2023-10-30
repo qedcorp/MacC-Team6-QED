@@ -53,7 +53,7 @@ class PlayableDanceFormationManager: ObservableObject {
         if !isPreview {
             self.formation = formation
         }
-        applyPostion(formation: formation, isPreivew: isPreview)
+        assignPostion(formation: formation, isPreivew: isPreview)
     }
 
     func playPerformance(transion: FormationTransition, afterFormation: Formation, completion: @escaping () -> Void ) {
@@ -80,7 +80,7 @@ class PlayableDanceFormationManager: ObservableObject {
         }
     }
 
-    func applyPostion(formation: Formation, isPreivew: Bool) {
+    func assignPostion(formation: Formation, isPreivew: Bool) {
         if !isPreivew {
             scene!.removeChildren(in: nodes.map { $0.value })
             nodes.removeAll()
@@ -111,6 +111,6 @@ extension RelativePosition {
         x
     }
     var spriteY: Int {
-        1000 - y
+        RelativePosition.maxY - y
     }
 }

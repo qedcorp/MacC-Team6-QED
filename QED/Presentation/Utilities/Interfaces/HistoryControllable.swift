@@ -2,8 +2,7 @@
 
 import Foundation
 
-@MainActor
-protocol HistoryManagable: AnyObject {
+protocol HistoryControllable {
     func undo()
     func redo()
     func isUndoable() -> Bool

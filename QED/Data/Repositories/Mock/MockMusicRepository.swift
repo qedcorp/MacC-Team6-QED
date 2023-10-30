@@ -21,7 +21,7 @@ class MockMusicRepository: MusicRepository {
         musics.filter { $0.title.lowercased().contains(keyword.lowercased()) }
     }
 
-    func readLyrics(title: String, artist: String) async throws -> Music.Lyric {
+    func readLyrics(music: Music) async throws -> Music.Lyric {
         Music.Lyric(startMs: 0, endMs: 0, words: "")
     }
 

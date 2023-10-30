@@ -33,7 +33,7 @@ struct DefaultMusicRepository: MusicRepository {
         return reponse.songs.map { $0.music }
     }
 
-    func readLyrics(title: String, artist: String) async throws -> Music.Lyric {
+    func readLyrics(music: Music) async throws -> Music.Lyric {
         Music.Lyric(startMs: 0, endMs: 0, words: "")
     }
 }
