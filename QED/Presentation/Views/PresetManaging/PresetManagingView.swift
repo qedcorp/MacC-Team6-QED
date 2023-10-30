@@ -16,15 +16,32 @@ struct PresetManagingView: View {
     var body: some View {
         VStack {
             VStack {
-                ObjectCanvasView(controller: objectCanvasViewController, headcount: 5)
-                    .frame(height: 240)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.opacity(0.3))
-                    )
-                    .clipped()
+                Slider(
+                    value: .init(
+                        get: { Double(viewModel.headcount) },
+                        set: { viewModel.headcount = Int($0) }
+                    ),
+                    in: 2 ... 13
+                )
+                Text("\(viewModel.headcount)인")
+                ObjectCanvasView(
+                    controller: objectCanvasViewController,
+                    headcount: viewModel.headcount,
+                    onChange: {
+                        viewModel.historyTag = String(describing: $0)
+                    }
+                )
+                .frame(height: 240)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.gray.opacity(0.3))
+                )
+                .clipped()
                 HStack {
-                    HistoryControlsView(historyManagable: objectCanvasViewController.historyManager)
+                    HistoryControlsView(
+                        historyController: objectCanvasViewController.objectCanvasArchiver,
+                        tag: viewModel.historyTag
+                    )
                     Spacer()
                     Button("Generate") {
                         viewModel.generatePreset()
@@ -34,17 +51,9 @@ struct PresetManagingView: View {
             .frame(width: 320)
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(Array(viewModel.getPresets().enumerated()), id: \.offset) { _, preset in
-                        ObjectStageView(formable: preset)
-                            .frame(width: 80, height: 60)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(.gray.opacity(0.1))
-                            )
-                            .clipped()
-                            .onTapGesture {
-                                viewModel.copyFormable(preset)
-                            }
+                    buildObjectStageView(formable: Preset.empty)
+                    ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
+                        buildObjectStageView(formable: preset)
                     }
                 }
             }
@@ -53,14 +62,22 @@ struct PresetManagingView: View {
                 viewModel.fetchPresets()
             }
         }
+        .navigationTitle("프리셋 제작")
         .onAppear {
             viewModel.objectCanvasViewController = objectCanvasViewController
         }
     }
-}
 
-struct PresetManagingView_Previews: PreviewProvider {
-    static var previews: some View {
-        PresetManagingView()
+    private func buildObjectStageView(formable: Formable) -> some View {
+        ObjectStageView(formable: formable)
+            .frame(width: 80, height: 60)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(.gray.opacity(0.1))
+            )
+            .clipped()
+            .onTapGesture {
+                objectCanvasViewController.copyFormable(formable)
+            }
     }
 }

@@ -28,8 +28,8 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
 
-    let musicUseCase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
-        searchMusicRepository: SearchMusicRepositoryImplement()
+    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
+        musicRepository: DefaultMusicRepository()
     )
 
     func search() {
@@ -58,18 +58,28 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-    func createPerformance() -> Performance {
-        // 이게 왜 자꾸 도는지... 
-        print("jjj")
-        guard let selectedMusic = selectedMusic else {
-            return Performance(jsonString: "Error")
+        func createPerformance() -> Performance {
+            // 이게 왜 자꾸 도는지...
+            print("jjj")
+            guard let selectedMusic = selectedMusic else {
+                return Performance(jsonString: "Error")
+            }
+            return Performance(id: "1212312313",
+                               author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
+                               music: selectedMusic,
+                               headcount: Int(inputHeadcount),
+                               title: inputTitle,
+                               formations: [],
+                               transitions: [])
         }
-        return Performance(id: "1212312313",
-                           author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                           playable: selectedMusic,
-                           headcount: Int(inputHeadcount),
-                           title: inputTitle,
-                           formations: [],
-                           transitions: [])
+
+    func generatePerformance() -> Performance {
+        guard let music = selectedMusic else { return Performance(jsonString: "Error") }
+        return Performance(id: "1212312313", author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
+                    music: music,
+                    headcount: Int(inputHeadcount),
+                    title: inputTitle,
+                    formations: [],
+                    transitions: [])
     }
 }

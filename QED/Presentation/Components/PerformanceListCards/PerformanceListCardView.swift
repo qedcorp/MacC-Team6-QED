@@ -18,19 +18,19 @@ struct PerformanceListCardView: View {
     init(performance: Performance) {
         self.performance = performance
         title = performance.title ?? ""
-        creator = performance.playable.creator
-        albumCoverURL = performance.playable.albumCoverURL
+        creator = performance.music.artistName
+        albumCoverURL = performance.music.albumCoverURL
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: performance.playable.albumCoverURL) { image in
+            AsyncImage(url: performance.music.albumCoverURL) { image in
                 image
                     .image?.resizable()
                     .scaledToFill()
             }
             VStack(alignment: .leading) {
-                Text("\(performance.playable.title)")
+                Text("\(performance.music.title)")
                     .font(.system(size: 13))
                     .bold()
                     .foregroundColor(Color.black)
@@ -53,5 +53,5 @@ struct PerformanceListCardView: View {
 }
 
  #Preview {
-    PerformanceListCardView(performance: mockPerformance)
+    PerformanceListCardView(performance: mockPerformance1)
  }

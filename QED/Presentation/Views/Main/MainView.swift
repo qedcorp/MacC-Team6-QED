@@ -139,14 +139,17 @@ struct MainView: View {
 
 struct PerformanceListReadingScrollView: View {
     @StateObject var viewModel: MainViewModel
-    @State var selctePerformance: Performance?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
                     NavigationLink {
-                        PerformanceWatchingView(performance: performance)
+                        PerformanceWatchingListView(
+                            viewModel: PerformanceWatchingListViewModel(
+                                performance: performance
+                            )
+                        )
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }
@@ -154,6 +157,50 @@ struct PerformanceListReadingScrollView: View {
             }
         }
         .padding(.leading, 20)
+    }
+}
+
+struct RecentFormationCardView: View {
+    let performance: Performance
+    var title: String
+    var creator: String
+    var thumbnailURL: URL?
+    var image: UIImage?
+
+    init(performance: Performance) {
+        self.performance = performance
+        title = performance.title ?? ""
+        creator = performance.music.creator
+        thumbnailURL = performance.music.thumbnailURL
+    }
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            AsyncImage(url: performance.music.thumbnailURL) { image in
+                image
+                    .image?.resizable()
+                    .scaledToFill()
+            }
+            VStack(alignment: .leading) {
+                Text("\(title)")
+                    .font(.system(size: 13))
+                    .bold()
+                    .foregroundColor(Color.black)
+                    .opacity(0.8)
+
+                Text("\(creator)")
+                    .font(.system(size: 11))
+                    .foregroundColor(Color.black)
+                    .opacity(0.6)
+            }
+            .padding(.horizontal)
+
+            Spacer()
+        }
+        .frame(width: 160, height: 198)
+        .background(Color(.systemGray6))
+        .foregroundStyle(.black)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

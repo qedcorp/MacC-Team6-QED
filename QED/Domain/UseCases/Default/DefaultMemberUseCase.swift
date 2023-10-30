@@ -11,7 +11,7 @@ struct DefaultMemberUseCase: MemberUseCase {
         member.relativePosition = .init(x: relativeX, y: relativeY)
     }
 
-    func applyMemberInfo(_ memberInfo: Member.Info, to member: Member) async throws {
+    func assignMemberInfo(_ memberInfo: Member.Info, to member: Member) async throws {
         member.info = memberInfo
     }
 }

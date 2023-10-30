@@ -34,9 +34,9 @@ struct MusicSetupView: View {
             }
             NavigationLink {
                 let performance = viewmodel.createPerformance()
-                FormationSetupView(
-                    performanceUseCase: viewmodel.performancesUseCase,
-                    performance: performance
+                FormationSettingView(
+                    performance: performance,
+                    performanceUseCase: viewmodel.performancesUseCase
                 )
             } label: {
                 nextbutton
@@ -62,7 +62,7 @@ struct MusicSetupView: View {
                     viewmodel.search()
                 }
                 .focused($isFocusedSearchTextField)
-            
+
             Spacer()
             Image(systemName: "xmark.circle.fill")
                 .onTapGesture {
