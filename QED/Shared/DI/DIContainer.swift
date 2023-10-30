@@ -9,6 +9,17 @@ import Foundation
 
 import UIKit
 
+/// DIContainer
+///
+/// ```swift
+///   DIContainer
+///   .shared
+///   .storage
+///   .resolver
+///   .resolve(Protocol.self)
+/// ```
+/// 위와같이 사용하게되면 protocol의 구현체가 나옴
+/// 만약 dependencyInjection 함수를 사용해 mock 인스턴스를 주입했다면, mock 인스턴스가 나옴
 final class DIContainer {
     
     static var shared: DIContainer = DIContainer()
@@ -71,7 +82,29 @@ final class DIContainer {
         
         dependencyInjection()
     }
-    
+    /// 특정 목적에 맞춰 protocol들의 의존성을 주입하는 함수
+    ///
+    /// 특정 목적에 맞춰 protocol들의 의존성을 주입하는 함수
+    ///
+    /// - Parameters:
+    ///     - dic: [ObjectIdentifier: DependencyPurpose]
+    ///
+    /// - DependencyPurpose:
+    ///     의존성주입을 하는 목적
+    ///     - mock : 목업 의존성 추가:
+    ///     - realease : 출시용 의존성 추가
+    ///     - other : 현재 미사용
+    ///
+    ///
+    /// ```swift
+    ///  dependencyInjection(
+    ///     [
+    ///         ObjectIdentifier(Procotol.self): .mock
+    ///     ]
+    ///  )
+    /// ```
+    /// 위와같이 사용하게되면 protocol이 mock에 따라 의존성이 주입되고 해당 protocol을 의존하고 있던
+    /// 기존에 UseCase나 Repository 기타등등이 알아서 의존성 주입이 됨
     func dependencyInjection(_ dic: [ObjectIdentifier: DependencyPurpose] = [:]) {
         var copyDependencyGraph = self.dependencyGraph
         if dic.count != 0 {

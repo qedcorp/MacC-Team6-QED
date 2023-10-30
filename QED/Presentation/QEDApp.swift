@@ -10,6 +10,9 @@ struct QEDApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .onTapGesture {
+                    let temp = DIContainer
+                }
         }
     }
 }

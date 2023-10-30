@@ -11,19 +11,6 @@ class KioInjection {
 
     var resolver: Resolver = Resolver()
 
-    struct TypeDictionary {
-        private var dictionary: [(ObjectIdentifier): (Any)] = [:]
-
-        subscript<T>(key: T.Type) -> Any? {
-            get {
-                return dictionary[ObjectIdentifier(key)]
-            }
-            set {
-                dictionary[ObjectIdentifier(key)] = newValue
-            }
-        }
-    }
-
     struct Resolver {
 
         var DIDictionary = TypeDictionary()
@@ -38,5 +25,17 @@ class KioInjection {
 
         resolver.DIDictionary[type.self] = result
     }
+}
 
+struct TypeDictionary {
+    private var dictionary: [(ObjectIdentifier): (Any)] = [:]
+
+    subscript<T>(key: T.Type) -> Any? {
+        get {
+            return dictionary[ObjectIdentifier(key)]
+        }
+        set {
+            dictionary[ObjectIdentifier(key)] = newValue
+        }
+    }
 }
