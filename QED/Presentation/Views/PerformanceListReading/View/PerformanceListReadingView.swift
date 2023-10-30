@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PerformanceListReadingView: View {
-
     @StateObject private var viewModel = MainViewModel(
         performancesUseCase: DefaultPerformanceUseCase(
             performanceRepository: MockPerformanceRepository(),
@@ -23,9 +22,8 @@ struct PerformanceListReadingView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
                     NavigationLink {
-                        PerformanceWatchingListView(
-                            viewModel: PerformanceWatchingListViewModel(performance: performance)
-                        )
+                        PerformanceWatchingListView(performance: performance,
+                                                    performanceUseCase: viewModel.performancesUseCase)
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }

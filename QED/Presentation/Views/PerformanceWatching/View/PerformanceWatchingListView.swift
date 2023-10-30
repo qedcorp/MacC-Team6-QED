@@ -8,10 +8,23 @@
 import SwiftUI
 
 struct PerformanceWatchingListView: View {
-    @StateObject var viewModel: PerformanceWatchingListViewModel
+    @ObservedObject private var viewModel: PerformanceWatchingListViewModel
     @Environment(\.dismiss) private var dismiss
     @State var isNameVisible = false
     @State var isEditMode = false
+
+    init(performance: Performance,
+         performanceUseCase: PerformanceUseCase) {
+        let performanceSettingManager = PerformanceSettingManager(
+            performance: performance,
+            performanceUseCase: performanceUseCase
+        )
+
+        self.viewModel = PerformanceWatchingListViewModel(
+            performanceSettingManager: performanceSettingManager,
+            performanceUseCase: performanceUseCase
+        )
+    }
 
     var body: some View {
         VStack(spacing: 15) {
@@ -31,11 +44,9 @@ struct PerformanceWatchingListView: View {
 
     private var titleAndHeadcount: some View {
         HStack {
-            if let title = viewModel.performance.title {
-                Text("\(title)")
-                    .bold()
-                    .lineLimit(1)
-            }
+            Text("\(viewModel.performance.music.title)")
+                .bold()
+                .lineLimit(1)
             Text("\(viewModel.performance.headcount)인")
                 .padding(.vertical, 3)
                 .padding(.horizontal, 8)
@@ -110,9 +121,10 @@ private struct TogglingMemberNameView: View {
 
 private struct PerformanceScrollView: View {
     @StateObject var viewModel: PerformanceWatchingListViewModel
-    private let performanceUseCase = DefaultPerformanceUseCase(
-        performanceRepository: MockPerformanceRepository(),
-        userStore: DefaultUserStore.shared)
+//    let performanceUseCase = DefaultPerformanceUseCase(
+//        performanceRepository: MockPerformanceRepository(),
+//        userStore: DefaultUserStore.shared
+//    )
     var isNameVisible: Bool
     var isEditMode: Bool
     @State private var selectedIndex: Int?
@@ -120,10 +132,10 @@ private struct PerformanceScrollView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performance.formations)), id: \.1) { index, formation in
+                ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performanceSettingManager.performance.formations)), id: \.1) { index, formation in
                     VStack {
                         DanceFormationPreview(
-                            performance: viewModel.performance,
+                            viewModel: viewModel,
                             formation: formation,
                             index: index,
                             selectedIndex: $selectedIndex,
@@ -133,22 +145,27 @@ private struct PerformanceScrollView: View {
                             HStack(spacing: 20) {
                                 DeleteButton(viewModel: viewModel,
                                              index: index)
-                                addButton
+                                AddButton(viewModel: viewModel)
                             }
                             .padding(.bottom, 15)
                         }
                     }
                 }
             }
-            .tag(viewModel.yame)
             .padding(.horizontal, 20)
         }
     }
+}
 
-    private var addButton: some View {
+private struct AddButton: View {
+    @StateObject var viewModel: PerformanceWatchingListViewModel
+
+    var body: some View {
         NavigationLink {
-            FormationSettingView(performance: viewModel.performance,
-                                 performanceUseCase: performanceUseCase)
+            FormationSettingView(
+                performance: viewModel.performanceSettingManager.performance,
+                performanceUseCase: viewModel.performanceUseCase
+            )
         } label: {
             HStack {
                 Image(systemName: "plus")
@@ -161,7 +178,6 @@ private struct PerformanceScrollView: View {
             .background(Color(.systemGray6))
             .clipShape(RoundedRectangle(cornerRadius: 4))
         }
-
     }
 }
 
@@ -171,7 +187,7 @@ private struct DeleteButton: View {
 
     var body: some View {
         Button {
-            viewModel.delete(index: index)
+            viewModel.removeFormation(index: index)
         } label: {
             HStack {
                 Image(systemName: "trash")
@@ -188,7 +204,7 @@ private struct DeleteButton: View {
 }
 
 private struct DanceFormationPreview: View {
-    let performance: Performance
+    @StateObject var viewModel: PerformanceWatchingListViewModel
     let formation: Formation
     let index: Int
     @Binding var selectedIndex: Int?
@@ -197,7 +213,8 @@ private struct DanceFormationPreview: View {
     var body: some View {
         NavigationLink(destination: PerformanceWatchingDetailView(
             viewModel: PerformanceWatchingDetailViewModel(
-                performance: performance), index: index)) {
+                performance: viewModel.performanceSettingManager.performance
+            ), index: index)) {
                     DanceFormationView(
                         formation: formation,
                         index: index,
@@ -216,8 +233,4 @@ extension Formation: Hashable {
     static func == (lhs: Formation, rhs: Formation) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
-}
-
-#Preview {
-    PerformanceWatchingListView(viewModel: PerformanceWatchingListViewModel(performance: mockPerformance1))
 }

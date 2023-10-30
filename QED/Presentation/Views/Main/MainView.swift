@@ -145,11 +145,8 @@ struct PerformanceListReadingScrollView: View {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
                     NavigationLink {
-                        PerformanceWatchingListView(
-                            viewModel: PerformanceWatchingListViewModel(
-                                performance: performance
-                            )
-                        )
+                        PerformanceWatchingListView(performance: performance,
+                                                    performanceUseCase: viewModel.performancesUseCase)
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }

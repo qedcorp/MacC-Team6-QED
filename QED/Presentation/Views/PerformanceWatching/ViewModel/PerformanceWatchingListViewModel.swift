@@ -6,17 +6,32 @@
 //
 
 import Foundation
+import Combine
 
 class PerformanceWatchingListViewModel: ObservableObject {
-    var performance: Performance
-    @Published var yame = ""
+    @Published var performance: PerformanceModel
+    let performanceSettingManager: PerformanceSettingManager
+    let performanceUseCase: PerformanceUseCase
+    private var cancellables: Set<AnyCancellable> = []
 
-    init(performance: Performance) {
-        self.performance = performance
+    init(performanceSettingManager: PerformanceSettingManager, performanceUseCase: PerformanceUseCase) {
+        self.performance = .build(entity: performanceSettingManager.performance)
+        self.performanceSettingManager = performanceSettingManager
+        self.performanceUseCase = performanceUseCase
+        subscribePerformanceSettingManager()
     }
 
-    func delete(index: Int) {
-        performance.formations = performance.formations.filter({ $0 != performance.formations[index] })
-        yame = UUID().uuidString
+    private func subscribePerformanceSettingManager() {
+        performanceSettingManager.changingPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [unowned self] in
+                performance = $0
+            }
+            .store(in: &cancellables)
+    }
+
+    func removeFormation(index: Int) {
+        performanceSettingManager.removeFormation(index: index)
     }
 }

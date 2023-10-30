@@ -9,9 +9,9 @@ import Foundation
 
 @MainActor
 class MainViewModel: ObservableObject {
-    let performancesUseCase: PerformanceUseCase
-    @Published var nickname: String = ""
     @Published var myRecentPerformances: [Performance] = []
+    @Published var nickname: String = ""
+    let performancesUseCase: PerformanceUseCase
 
     init(performancesUseCase: PerformanceUseCase) {
         self.performancesUseCase = performancesUseCase
