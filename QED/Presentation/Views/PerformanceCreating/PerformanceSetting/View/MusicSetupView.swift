@@ -8,112 +8,91 @@
 import SwiftUI
 
 struct MusicSetupView: View {
-    @ObservedObject var performanceSettingVM: PerformanceSettingViewModel
+    @StateObject var viewmodel: PerformanceSettingViewModel
     @FocusState private var isFocusedSearchTextField: Bool
-    @Environment(\.presentationMode) var presentationMode: Binding
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundStyle(Color.gray)
-                    TextField(" 가수,노래", text: $performanceSettingVM.searchText)
-                        .onSubmit(of: .text) {
-                            performanceSettingVM.search()
-                        }
-                        .focused($isFocusedSearchTextField)
-                    Spacer()
-                    Image(systemName: "xmark.circle.fill")
-                        .onTapGesture {
-                            performanceSettingVM.searchText = ""
-                        }
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .opacity(performanceSettingVM.searchText.isEmpty ? 0 : 0.1)
-                }
-                .font(.system(size: 20))
-                .foregroundStyle(Color.black)
-                .padding(7)
-                .background(
-                    Rectangle()
-                        .foregroundStyle(Color.black)
-                        .opacity(0.08)
-                        .cornerRadius(25)
-                        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
-                )
-                .padding()
+        VStack {
+            searchField
+            Spacer()
+            if viewmodel.isSearchingMusic {
+                ProgressView()
                 Spacer()
-                if performanceSettingVM.isSearchingMusic {
-                    ProgressView()
-                    Spacer()
-                } else if performanceSettingVM.searchText == "" {
-                    Text("노래를 검색하세요")
-                        .font(
-                            Font.custom("Apple SD Gothic Neo", size: 30)
-                                .weight(.bold)
-                        )
-                        .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
-                    Spacer()
-                } else {
-                    ScrollView {
-                        VStack {
-                            ForEach(performanceSettingVM.searchedMusics) { music in
-                                cell(music: music)
-                            }
+            } else if viewmodel.searchText == "" {
+                emptyMusic
+                Spacer()
+            } else {
+                ScrollView {
+                    VStack {
+                        ForEach(viewmodel.searchedMusics) { music in
+                            cell(music: music)
                         }
-                        .padding(.vertical)
                     }
+                    .padding(.vertical)
                 }
-                NavigationLink {
-                    // TODO: 여기서 다음 view로 넘어감!
-                    let performance = performanceSettingVM.generatePerformance()
-                    settingFinishView
-                } label: {
-                    nextbutton
-                }
-                .disabled(performanceSettingVM.selectedMusic == nil)
-                .padding()
             }
+            NavigationLink {
+                let performance = viewmodel.createPerformance()
+                FormationSetupView(
+                    performanceUseCase: viewmodel.performancesUseCase,
+                    performance: performance
+                )
+            } label: {
+                nextbutton
+            }
+            .disabled(viewmodel.selectedMusic == nil)
+            .padding()
         }
         .onTapGesture {
             isFocusedSearchTextField = false
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .toolbar {
+            leftItem
+        }
     }
 
-    var settingFinishView: some View {
-        Text("팀 생성 완료")
-            .font(.largeTitle)
-            .bold()
+    private var searchField: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(Color.gray)
+            TextField(" 가수,노래", text: $viewmodel.searchText)
+                .onSubmit(of: .text) {
+                    viewmodel.search()
+                }
+                .focused($isFocusedSearchTextField)
+            
+            Spacer()
+            Image(systemName: "xmark.circle.fill")
+                .onTapGesture {
+                    viewmodel.searchText = ""
+                    viewmodel.selectedMusic = nil
+                }
+                .font(.title)
+                .foregroundColor(.black)
+                .opacity(viewmodel.searchText.isEmpty ? 0 : 0.1)
+        }
+        .font(.system(size: 20))
+        .foregroundStyle(Color.black)
+        .padding(7)
+        .background(
+            Rectangle()
+                .foregroundStyle(Color.black)
+                .opacity(0.08)
+                .cornerRadius(25)
+                .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
+        )
+        .padding()
     }
 
-    var nextbutton: some View {
-        Text("다음")
-            .frame(width: 340, height: 54)
+    private var emptyMusic: some View {
+        Text("노래를 검색하세요")
             .font(
-                Font.custom("Apple SD Gothic Neo", size: 16)
+                Font.custom("Apple SD Gothic Neo", size: 30)
                     .weight(.bold)
             )
-            .foregroundColor(.white)
-            .background(performanceSettingVM.selectedMusic == nil
-                        ? Color.black.opacity(0.2)
-                        : Color.black
-            )
-            .cornerRadius(14)
-    }
-
-    var btnBack: some View {
-        Button {
-            self.presentationMode.wrappedValue.dismiss()
-        } label: {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .aspectRatio(contentMode: .fit)
-            }
-            .foregroundStyle(.green)
-        }
+            .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
     }
 
     @ViewBuilder
@@ -129,7 +108,7 @@ struct MusicSetupView: View {
 
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(
-                    performanceSettingVM.selectedMusic?.id ?? "-1" == music.id
+                    viewmodel.selectedMusic?.id ?? "-1" == music.id
                     ? Color.green
                     : Color.gray.opacity(0.2)
                 )
@@ -139,22 +118,44 @@ struct MusicSetupView: View {
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(
-                    performanceSettingVM.selectedMusic?.id ?? "-1" == music.id
+                    viewmodel.selectedMusic?.id ?? "-1" == music.id
                     ? Color.green
                     : Color.gray, lineWidth: 2
                 )
                 .foregroundStyle(Color.gray
                     .opacity(0.1))
-                .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
+                .padding(EdgeInsets())
         )
         .padding(.horizontal)
         .onTapGesture {
-            performanceSettingVM.selectedMusic = music
+            viewmodel.selectedMusic = music
         }
     }
 
-}
+    private var nextbutton: some View {
+        Text("다음")
+            .frame(width: 340, height: 54)
+            .font(
+                Font.custom("Apple SD Gothic Neo", size: 16)
+                    .weight(.bold)
+            )
+            .foregroundColor(.white)
+            .background(viewmodel.selectedMusic == nil
+                        ? Color.black.opacity(0.2)
+                        : Color.black
+            )
+            .cornerRadius(14)
+    }
 
-#Preview {
-    MusicSetupView(performanceSettingVM: PerformanceSettingViewModel())
+    private var leftItem: ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.backward")
+                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
+                    .bold()
+            }
+        }
+    }
 }
