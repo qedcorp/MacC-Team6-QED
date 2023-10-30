@@ -12,15 +12,30 @@ import FirebaseFirestore
 final class FireStoreManager: RemoteManager {
 
     private var fireStroeDB: Firestore = Firestore.firestore()
+    static var fireStoreKey: String {
+        do {
+            var dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            dateFormatter.locale = Locale(identifier:"ko_KR")
+            let myId = try KeyChainManager.shared.read(account: .id)
+            let myFireStoreKey = dateFormatter.string(from: Date()) + myId
+            
+            return myFireStoreKey
+        }
+        catch {
+            print("No KeyChain Id")
+            return ""
+        }
+    }
 
     func create<T>(
-        _ data: T
+        _ data: T,
+        createType: CreateType
     ) async throws -> Result<T, Error>
     where T: Decodable, T: Encodable {
-        // TODO: 여기서 entity를 DTO형태로 바꿀수 있어야해
 
         guard let dataDTO = data as? FireStoreEntityConvertable else {
-            return .failure(FireStoreError.disableFireStoreType)
+            return .failure(FireStoreError.castingFailure("parameter Data can't casting FireStoreEntityConvertable"))
         }
         let fireStoreData = dataDTO.fireStoreEntity
         var dataDic: [String: Any] = [:]
@@ -32,9 +47,26 @@ final class FireStoreManager: RemoteManager {
             }
         }
 
-        fireStroeDB.collection(fireStoreData.collectionName).addDocument(data: dataDic)
-
-        return .success(data)
+        do {
+            switch createType {
+            case .noneKey:
+                fireStroeDB
+                    .collection(fireStoreData.collectionName)
+                    .addDocument(data: dataDic)
+                
+            case .hasKey:
+                try await fireStroeDB
+                    .collection(fireStoreData.collectionName)
+                    .document(FireStoreManager.fireStoreKey)
+                    .setData(dataDic)
+            }
+            
+            return .success(data)
+        }
+        catch {
+            print("Create Error")
+            return .failure(FireStoreError.cantReadCollection)
+        }
     }
 
     func read<T, K, U>(
@@ -45,7 +77,7 @@ final class FireStoreManager: RemoteManager {
     where T: Decodable, T: Encodable {
         guard let dataDTO = mockData as? FireStoreEntityConvertable,
               let key = key as? String else {
-            return .failure(FireStoreError.keyTypeError)
+            return .failure(FireStoreError.castingFailure("parameter mockData can't casting FireStoreEntityConvertable"))
         }
 
         let collectionName = dataDTO.fireStoreEntity.collectionName
@@ -55,7 +87,11 @@ final class FireStoreManager: RemoteManager {
         }
 
         let dataResult = dataDTO.fireStoreEntity.fetchValue(id: key, data: result).entity
-        guard let result = dataResult as? T else { return . failure(FireStoreError.keyTypeError)}
+        guard let result = dataResult as? T else {
+            return .failure(
+                FireStoreError.fetchFailure
+            )
+        }
 
         return .success(result)
     }
@@ -132,13 +168,4 @@ final class FireStoreManager: RemoteManager {
         return .success(true)
     }
 
-}
-
-fileprivate extension FireStoreManager {
-    enum FireStoreError: Error {
-        case didntFindDoucument
-        case keyTypeError
-        case cantReadCollection
-        case disableFireStoreType
-    }
 }

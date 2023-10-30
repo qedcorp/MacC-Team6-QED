@@ -17,7 +17,7 @@ final class DefaultPerformanceRepository: PerformanceRepository {
 
     func createPerformance(_ performance: Performance) async throws -> Performance {
         do {
-            let createResult = try await remoteManager.create(performance)
+            let createResult = try await remoteManager.create(performance, createType: .hasKey)
             switch createResult {
             case .success(let success):
                 return success

@@ -22,8 +22,8 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
 
-    let usecase: MockUpSearchMusicUseCase = MockUpSearchMusicUseCase(
-        searchMusicRepository: MockSearchMusicRepository()
+    let usecase: DefaultMusicUseCase = DefaultMusicUseCase(
+        musicRepository: MockMusicRepository()
     )
 
     func search() {

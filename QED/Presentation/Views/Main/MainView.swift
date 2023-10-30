@@ -49,8 +49,14 @@ struct MainView: View {
 
             Spacer()
 
-            Button {
-                    // TitleSettingView
+            NavigationLink {
+                FormationSettingView(
+                    performance: .init(id: "", author: .sample, music: Music.newJeans, headcount: 5),
+                    performanceUseCase: DefaultPerformanceUseCase(
+                        performanceRepository: MockPerformanceRepository(),
+                        userStore: DefaultUserStore.shared
+                    )
+                )
             } label: {
                 Text("Go")
                     .frame(width: 86, height: 56)
