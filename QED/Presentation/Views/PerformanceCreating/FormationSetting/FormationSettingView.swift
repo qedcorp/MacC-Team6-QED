@@ -26,7 +26,7 @@ struct FormationSettingView: View {
                     buildMemoButtonView()
                     Spacer(minLength: 18)
                     if !viewModel.isZoomed {
-                        buildObjectCanvasView(width: geometry.size.width)
+                        buildObjectCanvasContainerView(width: geometry.size.width)
                     }
                     Spacer()
                 }
@@ -45,11 +45,7 @@ struct FormationSettingView: View {
         )
         .overlay(
             viewModel.isZoomed ?
-            GeometryReader { geometry in
-                ZoomableView {
-                    buildObjectCanvasView(width: geometry.size.width)
-                }
-            }
+            buildZoomableObjectCanvasContainerView()
             : nil
         )
         .navigationBarTitleDisplayMode(.inline)
@@ -83,39 +79,47 @@ struct FormationSettingView: View {
             }
     }
 
-    private func buildObjectCanvasView(width: CGFloat) -> some View {
-        let height = width * CGFloat(22 / Float(35))
-        return VStack(spacing: 6) {
-            ObjectCanvasView(
-                controller: objectCanvasViewController,
-                headcount: viewModel.headcount,
-                onChange: {
-                    viewModel.updateMembers(positions: $0)
-                }
-            )
-            .frame(width: width, height: height)
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(.gray.opacity(0.1))
-            )
-            .clipped()
-            HStack {
-                HistoryControlsView(
-                    historyController: objectCanvasViewController.objectCanvasArchiver,
-                    tag: viewModel.currentFormationTag
-                )
-                Spacer()
-                Button("Zoom") {
-                    viewModel.isZoomed.toggle()
-                }
-            }
+    private func buildObjectCanvasContainerView(width: CGFloat) -> some View {
+        VStack(spacing: 6) {
+            buildObjectCanvasView(width: width)
+            buildObjectCanvasControlsView()
         }
         .modifier(disabledOpacityModifier)
-        .onChange(of: viewModel.currentFormation) {
-            guard let formable = $0 else {
-                return
+    }
+
+    private func buildObjectCanvasView(width: CGFloat) -> some View {
+        let height = width * CGFloat(22 / Float(35))
+        return ObjectCanvasView(
+            controller: objectCanvasViewController,
+            headcount: viewModel.headcount,
+            onChange: {
+                viewModel.updateMembers(positions: $0)
             }
-            objectCanvasViewController.copyFormable(formable)
+        )
+        .frame(width: width, height: height)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(.gray.opacity(0.1))
+        )
+        .clipped()
+//        .onChange(of: viewModel.currentFormation) {
+//            guard let formable = $0 else {
+//                return
+//            }
+//            objectCanvasViewController.copyFormable(formable)
+//        }
+    }
+
+    private func buildObjectCanvasControlsView() -> some View {
+        HStack {
+            HistoryControlsView(
+                historyController: objectCanvasViewController.objectCanvasArchiver,
+                tag: viewModel.currentFormationTag
+            )
+            Spacer()
+            Button("Zoom") {
+                viewModel.isZoomed.toggle()
+            }
         }
     }
 
@@ -218,6 +222,18 @@ struct FormationSettingView: View {
             onSubmit: { viewModel.updateCurrentMemo($0) },
             onDismiss: { viewModel.isMemoFormPresented = false }
         )
+    }
+
+    private func buildZoomableObjectCanvasContainerView() -> some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                ZoomableView {
+                    buildObjectCanvasView(width: geometry.size.width)
+                }
+                buildObjectCanvasControlsView()
+                    .padding()
+            }
+        }
     }
 
     private func buildMemberSettingView() -> some View {
