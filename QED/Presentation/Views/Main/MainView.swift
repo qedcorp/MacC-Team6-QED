@@ -17,15 +17,16 @@ struct MainView: View {
         NavigationView {
             VStack {
                 VStack {
-                    Image("MockMain")
-                        .ignoresSafeArea()
-                        .scaleEffect(1.01)
-                        .frame(height: 310)
+                    mainTop
                     makeFormation
                     performanceListReadingHeader
                 }
                 .padding(.horizontal, 20)
-                PerformanceListReadingScrollView(viewModel: viewModel)
+                if viewModel.myRecentPerformances.isEmpty {
+                    mainListEmptyView
+                } else {
+                    PerformanceListReadingScrollView(viewModel: viewModel)
+                }
             }
             .toolbar {
                 leftItem
@@ -39,24 +40,24 @@ struct MainView: View {
         .navigationBarBackButtonHidden()
     }
 
+    private var mainTop: some View {
+        Image("MockMain")
+            .ignoresSafeArea()
+            .scaleEffect(1.01)
+            .frame(height: 310)
+    }
+
     private var makeFormation: some View {
         HStack {
             Text("동선 만들기")
                 .font(.title)
                 .bold()
-                .multilineTextAlignment(.center)
                 .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
 
             Spacer()
 
             NavigationLink {
-                FormationSettingView(
-                    performance: .init(id: "", author: .sample, music: Music.newJeans, headcount: 5),
-                    performanceUseCase: DefaultPerformanceUseCase(
-                        performanceRepository: MockPerformanceRepository(),
-                        userStore: DefaultUserStore.shared
-                    )
-                )
+                TitleSetupView(viewmodel: PerformanceSettingViewModel(performancesUseCase: viewModel.performancesUseCase))
             } label: {
                 Text("Go")
                     .frame(width: 86, height: 56)
@@ -77,24 +78,24 @@ struct MainView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("최근 제작한 동선")
                     .font(
-                    Font.custom("Apple SD Gothic Neo", size: 20)
-                    .weight(.bold)
+                        Font.custom("Apple SD Gothic Neo", size: 20)
+                            .weight(.bold)
                     )
                     .kerning(0.38)
 
                 Text("동선 만들기를 완료한 후 디렉팅하세요")
                     .font(Font.custom("Apple SD Gothic Neo", size: 11))
                     .kerning(0.07)
-
             }
             Spacer()
-            NavigationLink(destination: PerformanceListReadingView()) {
+            NavigationLink {
+                PerformanceListReadingView()
+            } label: {
                 Image(systemName: "chevron.right")
                     .font(.title2)
                     .foregroundColor(.green)
             }
         }
-        .font(.title)
         .bold()
         .padding(.vertical)
     }
@@ -109,11 +110,30 @@ struct MainView: View {
 
     private var rightItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink(destination: MyPageView()) {
+            NavigationLink {
+                MyPageView()
+            } label: {
                 Image(systemName: "person.circle")
                     .foregroundColor(Color.green)
             }
         }
+    }
+
+    private var mainListEmptyView: some View {
+        VStack {
+            Spacer()
+            Image("MainListEmpty")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 106, height: 106)
+
+            Text("만들어진 동선이 없어요")
+                .font(.title3)
+                .bold()
+                .foregroundStyle(Color(red: 0.45, green: 0.87, blue: 0.98))
+            Spacer()
+        }
+        .opacity(0.5)
     }
 }
 
@@ -124,12 +144,14 @@ struct PerformanceListReadingScrollView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
-                    NavigationLink(destination: PerformanceWatchingListView(
-                        viewModel: PerformanceWatchingListViewModel(
-                            performance: performance
+                    NavigationLink {
+                        PerformanceWatchingListView(
+                            viewModel: PerformanceWatchingListViewModel(
+                                performance: performance
+                            )
                         )
-                    )) {
-                        RecentFormationCardView(performance: performance)
+                    } label: {
+                        PerformanceListCardView(performance: performance)
                     }
                 }
             }
@@ -189,6 +211,17 @@ extension Performance: Hashable {
 
     static func == (lhs: Performance, rhs: Performance) -> Bool {
         lhs.hashValue == rhs.hashValue
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }
 

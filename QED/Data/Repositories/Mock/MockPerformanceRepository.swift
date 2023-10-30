@@ -15,11 +15,9 @@ class MockPerformanceRepository: PerformanceRepository {
             throw DescribableError(description: "Cannot find a performance.")
         }
         return performance
-
     }
 
     func readPerformances() async throws -> [Performance] {
-        //        performances
         return [mockPerformance1, mockPerformance2, mockPerformance3, mockPerformance4, mockPerformance5, mockPerformance6]
     }
 
@@ -72,6 +70,9 @@ var mockFormations = [Formation(members: members1, startMs: 0, memo: "암슈퍼�
                       Formation(members: members2, startMs: 130000, memo: "떨리는 지금도"),
                       Formation(members: members3, startMs: 135000, memo: "암슈퍼샤이", note: "지니 돌아가기"),
                       Formation(members: members4, startMs: 140000, memo: "가나다라", note: "지니 움직이고 쥬쥬 움직이기")]
+
+let albumCoverURL = URL(string: "https://i.ibb.co/Px7S5hf/butter-2-cover.jpg")
+let albumCoverURL1 = URL(string: "https://i.ibb.co/jfKMZc5/Kakao-Talk-Photo-2023-10-24-02-30-38-005.webp")
 
 private var music1 = Music(id: "ert",
                            title: "Pink Venom",
