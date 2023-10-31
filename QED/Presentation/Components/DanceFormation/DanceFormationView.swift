@@ -32,8 +32,8 @@ struct DanceFormationView: View {
                                      member: member,
                                      geometry: geometry)
                     .position(
-                        RelativePositionConverter(sizeable: geometry)
-                            .getAbsolutePosition(of: member.relativePosition)
+                        RelativeCoordinateConverter(sizeable: geometry)
+                            .getAbsoluteValue(of: member.relativePosition)
                     )
                 }
             }

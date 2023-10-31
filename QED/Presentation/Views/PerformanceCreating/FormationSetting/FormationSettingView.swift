@@ -87,12 +87,19 @@ struct FormationSettingView: View {
         color: Color
     ) -> some View {
         let height = width * CGFloat(22 / Float(35))
-        return ObjectCanvasView(
-            controller: controller,
-            formable: viewModel.currentFormation,
-            headcount: viewModel.headcount,
+//        return ObjectCanvasView(
+//            controller: controller,
+//            formable: viewModel.currentFormation,
+//            headcount: viewModel.headcount,
+//            onChange: {
+//                viewModel.updateMembers(positions: $0)
+//            }
+//        )
+        return ObjectMovementView(
+            beforeFormation: mockFormations[0],
+            afterFormation: mockFormations[1],
             onChange: {
-                viewModel.updateMembers(positions: $0)
+                print($0)
             }
         )
         .frame(width: width, height: height)

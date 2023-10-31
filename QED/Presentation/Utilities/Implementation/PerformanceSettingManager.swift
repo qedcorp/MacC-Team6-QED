@@ -5,7 +5,7 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
-    weak var relativePositionConverter: RelativePositionConverter?
+    weak var relativeCoordinateConverter: RelativeCoordinateConverter?
     private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
     private var cancellables: Set<AnyCancellable> = []
@@ -59,7 +59,8 @@ class PerformanceSettingManager {
         }
         formation.members = Array(formation.members.prefix(positions.count))
         positions.enumerated().forEach { index, position in
-            guard let relativePosition = relativePositionConverter?.getRelativePosition(of: position) else {
+            guard let relativePosition = relativeCoordinateConverter?
+                .getRelativeValue(of: position, type: RelativePosition.self) else {
                 return
             }
             if let member = formation.members[safe: index] {

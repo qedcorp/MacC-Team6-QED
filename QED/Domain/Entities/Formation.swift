@@ -2,7 +2,7 @@
 
 import Foundation
 
-class Formation: Codable, Formable {
+class Formation: Codable, Formable, ColorArrayable {
 
     var members: [Member]
     var startMs: Int?
@@ -26,5 +26,9 @@ class Formation: Codable, Formable {
 
     var relativePositions: [RelativePosition] {
         members.map { $0.relativePosition }
+    }
+
+    var colors: [String?] {
+        members.map { $0.info?.color }
     }
 }

@@ -3,8 +3,8 @@
 import UIKit
 
 class ObjectStageViewController: UIViewController {
-    private(set) lazy var relativePositionConverter = {
-        RelativePositionConverter(sizeable: view)
+    private(set) lazy var relativeCoordinateConverter = {
+        RelativeCoordinateConverter(sizeable: view)
     }()
 
     private var isViewAppeared: Bool = false
@@ -29,18 +29,21 @@ class ObjectStageViewController: UIViewController {
         }
     }
 
-    func placeObjectView(position: CGPoint) {
+    func placeObjectView(position: CGPoint, color: UIColor = .black) {
         let objectView = DotObjectView()
         objectView.radius = objectViewRadius
-        objectView.color = .black
+        objectView.color = color
         objectView.assignPosition(position)
         replaceObjectViewAtRelativePosition(objectView)
         view.addSubview(objectView)
     }
 
     func replaceObjectViewAtRelativePosition(_ view: DotObjectView) {
-        let relativePosition = relativePositionConverter.getRelativePosition(of: view.center)
-        let absolutePosition = relativePositionConverter.getAbsolutePosition(of: relativePosition)
+        let relativePosition = relativeCoordinateConverter.getRelativeValue(
+            of: view.center,
+            type: RelativePosition.self
+        )
+        let absolutePosition = relativeCoordinateConverter.getAbsoluteValue(of: relativePosition)
         view.assignPosition(absolutePosition)
     }
 
@@ -51,7 +54,7 @@ class ObjectStageViewController: UIViewController {
         }
         objectViews.forEach { $0.removeFromSuperview() }
         formable?.relativePositions
-            .map { relativePositionConverter.getAbsolutePosition(of: $0) }
+            .map { relativeCoordinateConverter.getAbsoluteValue(of: $0) }
             .forEach { placeObjectView(position: $0) }
     }
 }

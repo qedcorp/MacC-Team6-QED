@@ -136,6 +136,6 @@ class FormationSettingViewModel: ObservableObject {
     private func assignControllerToArchiverByZoomed() {
         let controller = isZoomed ? zoomableCanvasController : canvasController
         objectCanvasArchiver.canvasController = controller
-        performanceSettingManager.relativePositionConverter = controller.relativePositionConverter
+        performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
     }
 }

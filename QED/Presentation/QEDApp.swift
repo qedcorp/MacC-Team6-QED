@@ -9,13 +9,15 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            FormationSettingView(
-                performance: .init(id: "", author: .sample, music: Music.newJeans, headcount: 5),
-                performanceUseCase: DefaultPerformanceUseCase(
-                    performanceRepository: MockPerformanceRepository(),
-                    userStore: DefaultUserStore.shared
+            NavigationView {
+                FormationSettingView(
+                    performance: .init(id: "", author: .sample, music: Music.newJeans, headcount: 5),
+                    performanceUseCase: DefaultPerformanceUseCase(
+                        performanceRepository: MockPerformanceRepository(),
+                        userStore: DefaultUserStore.shared
+                    )
                 )
-            )
+            }
         }
     }
 }

@@ -130,8 +130,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
         draggingHandler.endDragging()
     }
 
-    override func placeObjectView(position: CGPoint) {
-        super.placeObjectView(position: position)
+    override func placeObjectView(position: CGPoint, color: UIColor = .black) {
+        super.placeObjectView(position: position, color: color)
         replaceSelectedObjectViews()
     }
 
@@ -186,7 +186,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private func getRelativePositions() -> [RelativePosition] {
         objectViews.map {
-            relativePositionConverter.getRelativePosition(of: $0.center)
+            relativeCoordinateConverter.getRelativeValue(of: $0.center, type: RelativePosition.self)
         }
     }
 

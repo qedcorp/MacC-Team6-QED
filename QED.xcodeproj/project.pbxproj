@@ -13,7 +13,7 @@
 		3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B02AEBA3890051A09C /* Sizeable.swift */; };
 		3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */; };
 		3A5328B52AEBBDEC0051A09C /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */; };
-		3A5328B92AEBED6A0051A09C /* RelativePositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B82AEBED6A0051A09C /* RelativePositionConverter.swift */; };
+		3A5328B92AEBED6A0051A09C /* RelativeCoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B82AEBED6A0051A09C /* RelativeCoordinateConverter.swift */; };
 		3A5329042AED17470051A09C /* PerformanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5329032AED17470051A09C /* PerformanceModel.swift */; };
 		3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5329052AED37C10051A09C /* FormationSettingViewModel.swift */; };
 		3A5329082AED3B800051A09C /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5329072AED3B800051A09C /* MusicModel.swift */; };
@@ -21,6 +21,11 @@
 		3A53290C2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */; };
 		3A533A3B2AEFAE48007E76F7 /* ZoomableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3A2AEFAE48007E76F7 /* ZoomableViewModel.swift */; };
 		3A533A3D2AEFAE5D007E76F7 /* ZoomableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3C2AEFAE5D007E76F7 /* ZoomableView.swift */; };
+		3A533A402AF0F79C007E76F7 /* ObjectMovementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3F2AF0F79C007E76F7 /* ObjectMovementView.swift */; };
+		3A533A422AF0F7A9007E76F7 /* ObjectMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A412AF0F7A9007E76F7 /* ObjectMovementViewController.swift */; };
+		3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */; };
+		3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A452AF15ECF007E76F7 /* BezierPath.swift */; };
+		3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */; };
 		3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FC92AE2CF4E0031E6BE /* Formable.swift */; };
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
@@ -199,7 +204,7 @@
 		3A5328B02AEBA3890051A09C /* Sizeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizeable.swift; sourceTree = "<group>"; };
 		3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Sizeable.swift"; sourceTree = "<group>"; };
 		3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
-		3A5328B82AEBED6A0051A09C /* RelativePositionConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePositionConverter.swift; sourceTree = "<group>"; };
+		3A5328B82AEBED6A0051A09C /* RelativeCoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeCoordinateConverter.swift; sourceTree = "<group>"; };
 		3A5329032AED17470051A09C /* PerformanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceModel.swift; sourceTree = "<group>"; };
 		3A5329052AED37C10051A09C /* FormationSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationSettingViewModel.swift; sourceTree = "<group>"; };
 		3A5329072AED3B800051A09C /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
@@ -207,6 +212,11 @@
 		3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Sizeable.swift"; sourceTree = "<group>"; };
 		3A533A3A2AEFAE48007E76F7 /* ZoomableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableViewModel.swift; sourceTree = "<group>"; };
 		3A533A3C2AEFAE5D007E76F7 /* ZoomableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableView.swift; sourceTree = "<group>"; };
+		3A533A3F2AF0F79C007E76F7 /* ObjectMovementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMovementView.swift; sourceTree = "<group>"; };
+		3A533A412AF0F7A9007E76F7 /* ObjectMovementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMovementViewController.swift; sourceTree = "<group>"; };
+		3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeCoordinatable.swift; sourceTree = "<group>"; };
+		3A533A452AF15ECF007E76F7 /* BezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPath.swift; sourceTree = "<group>"; };
+		3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathConverter.swift; sourceTree = "<group>"; };
 		3A897FC92AE2CF4E0031E6BE /* Formable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formable.swift; sourceTree = "<group>"; };
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
@@ -446,9 +456,10 @@
 				D460EF8F2AE18DF700A5966A /* DraggingHandler.swift */,
 				D460EF7D2AE18DF700A5966A /* ObjectCanvasArchiver.swift */,
 				3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */,
-				3A5328B82AEBED6A0051A09C /* RelativePositionConverter.swift */,
+				3A5328B82AEBED6A0051A09C /* RelativeCoordinateConverter.swift */,
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
+				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -460,6 +471,15 @@
 				3A533A3A2AEFAE48007E76F7 /* ZoomableViewModel.swift */,
 			);
 			path = Zoomable;
+			sourceTree = "<group>";
+		};
+		3A533A3E2AF0F764007E76F7 /* ObjectMovement */ = {
+			isa = PBXGroup;
+			children = (
+				3A533A3F2AF0F79C007E76F7 /* ObjectMovementView.swift */,
+				3A533A412AF0F7A9007E76F7 /* ObjectMovementViewController.swift */,
+			);
+			path = ObjectMovement;
 			sourceTree = "<group>";
 		};
 		3A897FCF2AE2E7150031E6BE /* ViewModifiers */ = {
@@ -474,12 +494,12 @@
 			isa = PBXGroup;
 			children = (
 				A9ABC1442AEC156C00E28EEE /* PerformanceListCards */,
-				3AE701B62AE6593100C48403 /* PerformanceSetup */,
 				3AE701B62AE6593100C48403 /* PerformanceSetting */,
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
 				D460EF852AE18DF700A5966A /* HistoryControls */,
 				D460EF7C2AE18DF700A5966A /* ObjectCanvas */,
 				3AE701C22AE66A9B00C48403 /* ObjectSelection */,
+				3A533A3E2AF0F764007E76F7 /* ObjectMovement */,
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				5159A3872AEBEC1A004D304E /* DanceFormation */,
@@ -955,6 +975,7 @@
 			children = (
 				D460EF932AE18DF700A5966A /* HistoryControllable.swift */,
 				3A5328B02AEBA3890051A09C /* Sizeable.swift */,
+				3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1111,6 +1132,7 @@
 			children = (
 				D460EFC52AE18DF700A5966A /* Music.swift */,
 				D460EFC62AE18DF700A5966A /* RelativePosition.swift */,
+				3A533A452AF15ECF007E76F7 /* BezierPath.swift */,
 				D460EFC72AE18DF700A5966A /* Performance.swift */,
 				D460EFC82AE18DF700A5966A /* Preset.swift */,
 				D460EFC92AE18DF700A5966A /* User.swift */,
@@ -1422,8 +1444,9 @@
 				D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */,
 				D460F0132AE18DF700A5966A /* FormationTransitionUseCase.swift in Sources */,
 				51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */,
-				3A5328B92AEBED6A0051A09C /* RelativePositionConverter.swift in Sources */,
+				3A5328B92AEBED6A0051A09C /* RelativeCoordinateConverter.swift in Sources */,
 				3A5329042AED17470051A09C /* PerformanceModel.swift in Sources */,
+				3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */,
 				51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */,
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
@@ -1440,6 +1463,7 @@
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */,
 				D460EFF92AE18DF700A5966A /* HexString.swift in Sources */,
+				3A533A402AF0F79C007E76F7 /* ObjectMovementView.swift in Sources */,
 				D460F0452AE41A0F00A5966A /* FireStoreDTO+Performance.swift in Sources */,
 				D460F0192AE18DF700A5966A /* User.swift in Sources */,
 				D460EFFB2AE18DF700A5966A /* AuthProviderType.swift in Sources */,
@@ -1454,7 +1478,7 @@
 				D460EFE32AE18DF700A5966A /* ObjectCanvasArchiver.swift in Sources */,
 				D460EFF02AE18DF700A5966A /* TouchedViewDetector.swift in Sources */,
 				A9ABC1462AEC159D00E28EEE /* PerformanceListCardView.swift in Sources */,
-				D460EFD72AE18DF700A5966A /* GoogleAuthRepositoryImplement.swift in Sources */,
+				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
 				D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */,
@@ -1470,6 +1494,7 @@
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
+				3A533A422AF0F7A9007E76F7 /* ObjectMovementViewController.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
 				D460EFE82AE18DF700A5966A /* QEDApp.swift in Sources */,
 				D460F00C2AE18DF700A5966A /* DefaultUserUseCase.swift in Sources */,
@@ -1485,7 +1510,7 @@
 				3AE701A92AE4450A00C48403 /* Color+.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
-				A974EA212AE440C600302C9D /* HeadcountView.swift in Sources */,
+				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
@@ -1518,6 +1543,7 @@
 				D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */,
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
+				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
@@ -1537,9 +1563,10 @@
 				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,
 				3AE701A82AE4450A00C48403 /* Int+.swift in Sources */,
 				D460F0022AE18DF700A5966A /* KakaoAuthRepository.swift in Sources */,
+				3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */,
 				3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */,
 				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
-				A974EA202AE440C600302C9D /* TitleSettingView.swift in Sources */,
+				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
 				3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
