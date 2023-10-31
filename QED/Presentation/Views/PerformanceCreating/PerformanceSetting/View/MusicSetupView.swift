@@ -8,95 +8,117 @@
 import SwiftUI
 
 struct MusicSetupView: View {
-    @StateObject var viewmodel: PerformanceSettingViewModel
-    @FocusState private var isFocusedSearchTextField: Bool
+    @StateObject var viewModel: PerformanceSettingViewModel
+    @FocusState private var isFocused: Bool
     @Environment(\.dismiss) private var dismiss
+    @State private var isSearchFromEmptyText = true
 
     var body: some View {
         VStack {
-            searchField
+            buildSearchFieldView()
             Spacer()
-            if viewmodel.isSearchingMusic {
+
+            if viewModel.isSearchingMusic {
                 ProgressView()
                 Spacer()
-            } else if viewmodel.searchText == "" {
-                emptyMusic
+            } else if isSearchFromEmptyText {
+                buildEmptyMusicView()
                 Spacer()
             } else {
-                ScrollView {
-                    VStack {
-                        ForEach(viewmodel.searchedMusics) { music in
-                            cell(music: music)
-                        }
-                    }
-                    .padding(.vertical)
-                }
+                buildSearchResultScrollView()
             }
-            NavigationLink {
-                if let performance = viewmodel.performance {
-                    viewmodel.buildYameNextView(performance: performance)
-                }
-            } label: {
-                nextbutton
+
+            if viewModel.selectedMusic == nil {
+                buildSearchButton()
+            } else {
+                buildNextButton()
             }
-            .disabled(viewmodel.selectedMusic == nil)
-            .padding()
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                isFocused = true
+            }
         }
         .onTapGesture {
-            isFocusedSearchTextField = false
+            isFocused = false
         }
+        .simultaneousGesture(
+            DragGesture().onChanged({
+                if $0.translation.height != 0 {
+                    isFocused = false
+                }
+            }))
+        .onChange(of: viewModel.searchText, perform: { _ in
+            if viewModel.searchText.isEmpty {
+                isSearchFromEmptyText = true
+                viewModel.selectedMusic = nil
+            }
+        })
         .navigationTitle("노래 선택")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            leftItem
+            buildLeftItem()
         }
     }
 
-    private var searchField: some View {
+    private func searchMusic() {
+        viewModel.search()
+        isSearchFromEmptyText = false
+        isFocused = false
+    }
+
+    private func buildSearchFieldView() -> some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Color.gray)
-            TextField(" 가수,노래", text: $viewmodel.searchText)
+
+            TextField("가수, 노래", text: $viewModel.searchText)
+                .tint(.green)
+                .focused($isFocused)
                 .onSubmit(of: .text) {
-                    viewmodel.search()
+                    searchMusic()
                 }
-                .focused($isFocusedSearchTextField)
 
             Spacer()
-            Image(systemName: "xmark.circle.fill")
-                .onTapGesture {
-                    viewmodel.searchText = ""
-                    viewmodel.selectedMusic = nil
-                }
-                .font(.title)
-                .foregroundColor(.black)
-                .opacity(viewmodel.searchText.isEmpty ? 0 : 0.1)
+
+            Button {
+                viewModel.searchText = ""
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .foregroundColor(.black)
+                    .opacity(viewModel.searchText.isEmpty ? 0 : 0.1)
+            }
         }
-        .font(.system(size: 20))
+        .font(.title3)
+        .padding(.horizontal)
+        .padding(.vertical, 7.5)
         .foregroundStyle(Color.black)
-        .padding(7)
-        .background(
-            Rectangle()
-                .foregroundStyle(Color.black)
-                .opacity(0.08)
-                .cornerRadius(25)
-                .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
-        )
-        .padding()
+        .background(.black.opacity(0.08))
+        .clipShape(RoundedRectangle(cornerRadius: 50))
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
     }
 
-    private var emptyMusic: some View {
+    private func buildEmptyMusicView() -> some View {
         Text("노래를 검색하세요")
-            .font(
-                Font.custom("Apple SD Gothic Neo", size: 30)
-                    .weight(.bold)
-            )
+            .font(Font.custom("Apple SD Gothic Neo", size: 30))
+            .bold()
             .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
     }
 
+    private func buildSearchResultScrollView() -> some View {
+        ScrollView {
+            VStack {
+                ForEach(viewModel.searchedMusics) { music in
+                    buildCell(music: music)
+                }
+            }
+            .padding(.vertical)
+        }
+    }
+
     @ViewBuilder
-    func cell(music: Music) -> some View {
+    private func buildCell(music: Music) -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(music.artistName)
@@ -108,9 +130,9 @@ struct MusicSetupView: View {
 
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(
-                    viewmodel.selectedMusic?.id ?? "-1" == music.id
-                    ? Color.green
-                    : Color.gray.opacity(0.2)
+                    viewModel.selectedMusic?.id ?? "-1" == music.id
+                    ? .green
+                    : .gray.opacity(0.2)
                 )
                 .font(.title2)
         }
@@ -118,36 +140,68 @@ struct MusicSetupView: View {
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(
-                    viewmodel.selectedMusic?.id ?? "-1" == music.id
-                    ? Color.green
-                    : Color.gray, lineWidth: 2
+                    viewModel.selectedMusic?.id ?? "-1" == music.id
+                    ? .green
+                    : .gray, lineWidth: 2
                 )
-                .foregroundStyle(Color.gray
-                    .opacity(0.1))
-                .padding(EdgeInsets())
+                .foregroundStyle(.gray.opacity(0.1))
         )
         .padding(.horizontal)
+        .contentShape(Rectangle())
         .onTapGesture {
-            viewmodel.selectedMusic = music
+            if music.id == viewModel.selectedMusic?.id {
+                viewModel.selectedMusic = nil
+            } else {
+                viewModel.selectedMusic = music
+            }
         }
     }
 
-    private var nextbutton: some View {
-        Text("다음")
-            .frame(width: 340, height: 54)
-            .font(
-                Font.custom("Apple SD Gothic Neo", size: 16)
-                    .weight(.bold)
-            )
-            .foregroundColor(.white)
-            .background(viewmodel.selectedMusic == nil
-                        ? Color.black.opacity(0.2)
-                        : Color.black
-            )
-            .cornerRadius(14)
+    private func buildNextButton() -> some View {
+        NavigationLink {
+            if let performance = viewModel.performance {
+                viewModel.buildYameNextView(performance: performance)
+            }
+        } label: {
+            Text("다음")
+                .bold()
+                .font(.title3)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 52)
+                .background(viewModel.selectedMusic == nil
+                            ? .black.opacity(0.2)
+                            : .black
+                )
+                .cornerRadius(14)
+                .padding(.horizontal)
+                .padding(.bottom)
+        }
+        .disabled(viewModel.selectedMusic == nil)
     }
 
-    private var leftItem: ToolbarItem<(), some View> {
+    private func buildSearchButton() -> some View {
+        Button {
+            searchMusic()
+        } label: {
+            Text("검색")
+                .bold()
+                .font(.title3)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 52)
+                .background(viewModel.searchText.isEmpty
+                            ? .black.opacity(0.2)
+                            : .black
+                )
+                .cornerRadius(14)
+                .padding(.horizontal)
+                .padding(.bottom)
+        }
+        .disabled(viewModel.searchText.isEmpty)
+    }
+
+    private func buildLeftItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
                 dismiss()
