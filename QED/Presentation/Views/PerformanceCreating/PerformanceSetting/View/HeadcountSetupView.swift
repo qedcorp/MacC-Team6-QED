@@ -37,7 +37,6 @@ struct HeadcountSetupView: View {
         }
         .padding()
         .navigationTitle("인원수 선택")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem

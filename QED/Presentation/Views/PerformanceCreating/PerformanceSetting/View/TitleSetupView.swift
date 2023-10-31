@@ -25,7 +25,6 @@ struct TitleSetupView: View {
             nextbutton
         }
         .navigationTitle("이름 설정")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem
@@ -63,6 +62,7 @@ struct TitleSetupView: View {
                     .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
             )
             .padding(3)
+            .submitLabel(.next)
     }
 
     private var leftItem: ToolbarItem<(), some View> {

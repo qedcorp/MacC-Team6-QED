@@ -78,7 +78,7 @@ struct MusicSetupView: View {
                 .onSubmit(of: .text) {
                     searchMusic()
                 }
-
+                .submitLabel(.search)
             Spacer()
 
             Button {
