@@ -5,6 +5,20 @@ import UIKit
 class BezierPathConverter {
     weak var relativeCoordinateConverter: RelativeCoordinateConverter?
 
+    func getRect(_ bezierPath: BezierPath) -> CGRect {
+        guard let startPoint = relativeCoordinateConverter?.getAbsoluteValue(of: bezierPath.startPosition),
+              let endPoint = relativeCoordinateConverter?.getAbsoluteValue(of: bezierPath.endPosition) else {
+            return .zero
+        }
+        let padding: CGFloat = 22
+        return CGRect(
+            x: min(startPoint.x, endPoint.x) - padding,
+            y: min(startPoint.y, endPoint.y) - padding,
+            width: abs(startPoint.x - endPoint.x) + padding,
+            height: abs(startPoint.y - endPoint.y) + padding
+        )
+    }
+
     func buildCAShapeLayer(_ bezierPath: BezierPath) -> CAShapeLayer {
         let layer = CAShapeLayer()
         let path = buildUIBezierPath(bezierPath)

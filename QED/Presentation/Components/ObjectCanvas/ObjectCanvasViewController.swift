@@ -53,13 +53,13 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private func subscribeDragging() {
         draggingHandler.$dragging
             .sink { _ in
-            } receiveValue: { [weak self] in
-                self?.updateMultiSelectBoxViewFrame(dragging: $0)
+            } receiveValue: { [unowned self] in
+                updateMultiSelectBoxViewFrame(dragging: $0)
                 if let dragging = $0 {
-                    self?.handleDragging(dragging)
+                    handleDragging(dragging)
                 } else {
-                    self?.addHistory()
-                    self?.didChange()
+                    addHistory()
+                    didChange()
                 }
             }
             .store(in: &cancellables)

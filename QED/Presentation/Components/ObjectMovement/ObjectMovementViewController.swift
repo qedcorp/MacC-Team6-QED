@@ -16,16 +16,16 @@ class ObjectMovementViewController: ObjectStageViewController {
         TouchPositionConverter(container: view)
     }()
 
-    private lazy var touchedViewDetector = {
-        TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
-    }()
-
     private lazy var draggingHandler = DraggingHandler()
 
-    private var memberInfoBezierPathMap: [Member.Info: BezierPath] = [:]
+    private var memberInfoBezierPathMap: [Member.Info: BezierPath] = [:] {
+        didSet { placeBezierPathLayers() }
+    }
+
+    private var selectedMemberInfo: Member.Info?
     private var cancellables: Set<AnyCancellable> = []
     override var objectViewRadius: CGFloat { 9 }
-
+    
     override func loadView() {
         super.loadView()
         setupCenterLines()
@@ -46,11 +46,49 @@ class ObjectMovementViewController: ObjectStageViewController {
             .sink { _ in
             } receiveValue: { [unowned self] in
                 if let dragging = $0 {
+                    handleDragging(dragging)
                 } else {
                     onChange?(memberInfoBezierPathMap)
                 }
             }
             .store(in: &cancellables)
+    }
+
+    private func handleDragging(_ dragging: DraggingModel) {
+        guard let memberInfo = selectedMemberInfo else {
+            return
+        }
+        let controlPoint = relativeCoordinateConverter.getRelativeValue(
+            of: dragging.currentPosition,
+            type: BezierPath.ControlPoint.self
+        )
+        memberInfoBezierPathMap[memberInfo]?.controlPoint = controlPoint
+        placeBezierPathLayers()
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        guard let position = touchPositionConverter.getPosition(touches: touches) else {
+            return
+        }
+        selectedMemberInfo = memberInfoBezierPathMap
+            .filter { bezierPathConverter.getRect($0.value).contains(position) }
+            .randomElement()?
+            .key
+        draggingHandler.beginDragging(position: position)
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        guard let position = touchPositionConverter.getPosition(touches: touches) else {
+            return
+        }
+        draggingHandler.moveDragging(position: position)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        draggingHandler.endDragging()
     }
 
     func copy(beforeFormation: Formation, afterFormation: Formation) {
@@ -61,7 +99,6 @@ class ObjectMovementViewController: ObjectStageViewController {
         objectViews.forEach { $0.removeFromSuperview() }
         placeObjectViewsWithColor(formation: beforeFormation, alpha: 0.3)
         placeObjectViewsWithColor(formation: afterFormation)
-        renderMovementBezierPaths()
     }
 
     private func placeObjectViewsWithColor(formation: Formation, alpha: CGFloat = 1) {
@@ -72,12 +109,12 @@ class ObjectMovementViewController: ObjectStageViewController {
         }
     }
 
-    private func renderMovementBezierPaths() {
+    private func placeBezierPathLayers() {
         view.layer.sublayers?
             .compactMap { $0 as? CAShapeLayer }
             .forEach { $0.removeFromSuperlayer() }
-        memberInfoBezierPathMap.values
-            .map { bezierPathConverter.buildCAShapeLayer($0) }
+        memberInfoBezierPathMap
+            .map { bezierPathConverter.buildCAShapeLayer($0.value) }
             .forEach { view.layer.addSublayer($0) }
     }
 

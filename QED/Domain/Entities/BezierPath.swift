@@ -6,7 +6,7 @@ import Foundation
 struct BezierPath {
     let startPosition: RelativePosition
     let endPosition: RelativePosition
-    var controlPoint: ControlPoint? = .buildRandom()
+    var controlPoint: ControlPoint?
 
     init(startPosition: RelativePosition, endPosition: RelativePosition) {
         self.startPosition = startPosition

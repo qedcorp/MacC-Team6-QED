@@ -14,9 +14,7 @@ class DotObjectView: UIView {
     }
 
     var color: UIColor? {
-        didSet {
-            backgroundColor = color
-        }
+        didSet { backgroundColor = color }
     }
 
     private var lastCenter: CGPoint?
