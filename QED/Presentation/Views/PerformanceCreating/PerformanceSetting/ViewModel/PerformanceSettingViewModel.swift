@@ -7,37 +7,33 @@
 
 import SwiftUI
 
-@MainActor
+ @MainActor
 class PerformanceSettingViewModel: ObservableObject {
-    let performancesUseCase: PerformanceUseCase
+    let performanceUseCase: PerformanceUseCase
     private(set) var performance: Performance?
     private var yameNextView: FormationSettingView?
 
-    init(performancesUseCase: PerformanceUseCase) {
-        self.performancesUseCase = performancesUseCase
+    init(performanceUseCase: PerformanceUseCase) {
+        self.performanceUseCase = performanceUseCase
     }
 
-    var headcount: Int { Int(inputHeadcount) }
     @Published var inputTitle: String = ""
-
-    @Published var inputHeadcount: Double = 0
-    @Published var range: ClosedRange<Double> = 0...13
+    @Published var inputHeadcount: Double = 1
+    @Published var range: ClosedRange<Double> = 1...13
     @State private var inputHeadcountChanged = false
 
+    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
+        musicRepository: DefaultMusicRepository()
+    )
+    @Published var searchText: String = ""
+    @Published var allMusics: [Music] = []
+    @Published var searchedMusics: [Music] = []
+    @Published var isSearchingMusic: Bool = false
     @Published var selectedMusic: Music? {
         didSet {
             createPerformance()
         }
     }
-
-    @Published var searchText: String = ""
-    @Published var allMusics: [Music] = []
-    @Published var searchedMusics: [Music] = []
-    @Published var isSearchingMusic: Bool = false
-
-    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
-        musicRepository: DefaultMusicRepository()
-    )
 
     func search() {
         Task {
@@ -73,7 +69,7 @@ class PerformanceSettingViewModel: ObservableObject {
         let performance = Performance(id: "1212312313",
                                       author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
                                       music: selectedMusic,
-                                      headcount: headcount,
+                                      headcount: Int(inputHeadcount),
                                       title: inputTitle,
                                       formations: [],
                                       transitions: [])
@@ -85,7 +81,7 @@ class PerformanceSettingViewModel: ObservableObject {
         if yameNextView == nil {
             yameNextView = FormationSettingView(
                 performance: performance,
-                performanceUseCase: performancesUseCase
+                performanceUseCase: performanceUseCase
             )
         }
         return yameNextView!

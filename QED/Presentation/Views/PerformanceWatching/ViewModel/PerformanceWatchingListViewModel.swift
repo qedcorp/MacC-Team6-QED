@@ -5,8 +5,8 @@
 //  Created by chaekie on 10/30/23.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 class PerformanceWatchingListViewModel: ObservableObject {
     @Published var performance: PerformanceModel
