@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct PerformanceListCardView: View {
-
-    let performance: Performance
+    let performance: PerformanceModel
     var title: String
     var creator: String
     var albumCoverURL: URL?
     var image: UIImage?
 
-    init(performance: Performance) {
+    init(performance: PerformanceModel) {
         self.performance = performance
-        title = performance.title ?? ""
+        title = performance.music.title
         creator = performance.music.artistName
         albumCoverURL = performance.music.albumCoverURL
     }
@@ -51,7 +50,3 @@ struct PerformanceListCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
-
- #Preview {
-    PerformanceListCardView(performance: mockPerformance1)
- }

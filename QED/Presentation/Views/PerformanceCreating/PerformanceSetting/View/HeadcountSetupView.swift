@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HeadcountSetupView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewmodel: PerformanceSettingViewModel
+    @ObservedObject var viewModel: PerformanceSettingViewModel
 
     var body: some View {
         VStack {
@@ -29,11 +29,11 @@ struct HeadcountSetupView: View {
             slider
             Spacer()
             NavigationLink {
-                MusicSetupView(viewmodel: viewmodel)
+                MusicSetupView(viewModel: viewModel)
             } label: {
                 nextbutton
             }
-            .disabled(viewmodel.inputHeadcount < 2)
+            .disabled(viewModel.inputHeadcount < 2)
         }
         .padding()
         .navigationTitle("인원수 선택")
@@ -55,11 +55,12 @@ struct HeadcountSetupView: View {
     }
 
     private var headcountfield: some View {
-        Text("\(Int(viewmodel.inputHeadcount))")
+        Text("\(Int(viewModel.inputHeadcount))")
             .multilineTextAlignment(.center)
             .bold()
             .font(.system(size: 30))
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
+            .foregroundColor(viewModel.inputHeadcount < 2 ? .gray : .black)
             .background(
                 Rectangle()
                     .foregroundColor(.clear)
@@ -72,41 +73,41 @@ struct HeadcountSetupView: View {
 
     private var minusButton: some View {
         Button(action: {
-            viewmodel.decrementHeadcount()
+            viewModel.decrementHeadcount()
         }, label: {
             Circle()
                 .frame(width: 50)
-                .foregroundColor(viewmodel.inputHeadcount < 2
+                .foregroundColor(viewModel.inputHeadcount < 2
                                   ? Color.gray.opacity(0.05)
                                   : Color.gray.opacity(0.13)
                 )
                 .overlay(
                     Image(systemName: "minus")
                         .bold()
-                            .foregroundColor(viewmodel.inputHeadcount < 2
+                            .foregroundColor(viewModel.inputHeadcount < 2
                                          ? Color.black.opacity(0.3)
                                          : Color.black
                                         )
                         .font(.system(size: 20))
                 )
         })
-        .disabled(viewmodel.inputHeadcount == viewmodel.range.lowerBound)
+        .disabled(viewModel.inputHeadcount == viewModel.range.lowerBound)
     }
 
     private var plusButton: some View {
         Button(action: {
-            viewmodel.incrementHeadcount()
+            viewModel.incrementHeadcount()
         }, label: {
             Circle()
                 .frame(width: 50)
-                .foregroundColor( viewmodel.inputHeadcount == viewmodel.range.upperBound
+                .foregroundColor( viewModel.inputHeadcount == viewModel.range.upperBound
                                   ? Color.gray.opacity(0.05)
                                   : Color.gray.opacity(0.13)
                 )
                 .overlay(
                     Image(systemName: "plus")
                         .bold()
-                        .foregroundColor(viewmodel.inputHeadcount == viewmodel.range.upperBound
+                        .foregroundColor(viewModel.inputHeadcount == viewModel.range.upperBound
                                          ? Color.black.opacity(0.3)
                                          : Color.black
                                         )
@@ -116,7 +117,7 @@ struct HeadcountSetupView: View {
     }
 
     private var slider: some View {
-        Slider(value: $viewmodel.inputHeadcount, in: 0...13)
+        Slider(value: $viewModel.inputHeadcount, in: 1...13)
             .tint(.green)
             .frame(width: 320)
             .padding()
@@ -124,16 +125,15 @@ struct HeadcountSetupView: View {
 
     private var nextbutton: some View {
         Text("다음")
-            .frame(width: 340, height: 54)
-            .font(
-                Font.custom("Apple SD Gothic Neo", size: 16)
-                    .weight(.bold)
-            )
+            .bold()
+            .font(.title3)
             .foregroundColor(.white)
-            .background(viewmodel.inputHeadcount < 2
-                             ? Color.black.opacity(0.2)
-                             : Color.black)
-            .cornerRadius(14)
+            .frame(maxWidth: .infinity)
+            .frame(height: 52)
+            .background(viewModel.inputHeadcount < 2
+                         ? Color.black.opacity(0.2)
+                         : Color.black)
+            .cornerRadius(15)
     }
 
     private var leftItem: ToolbarItem<(), some View> {
