@@ -44,13 +44,13 @@ class ObjectStageViewController: UIViewController {
         view.assignPosition(absolutePosition)
     }
 
-    func copyFormable(_ formable: Formable) {
+    func copyFormable(_ formable: Formable?) {
         guard isViewAppeared else {
             copiedFormable = formable
             return
         }
         objectViews.forEach { $0.removeFromSuperview() }
-        formable.relativePositions
+        formable?.relativePositions
             .map { relativePositionConverter.getAbsolutePosition(of: $0) }
             .forEach { placeObjectView(position: $0) }
     }

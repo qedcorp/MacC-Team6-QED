@@ -4,16 +4,10 @@ import SwiftUI
 
 struct FormationSettingView: View {
     @ObservedObject private var viewModel: FormationSettingViewModel
-    private let objectCanvasViewController = ObjectCanvasViewController()
 
     init(performance: Performance, performanceUseCase: PerformanceUseCase) {
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            sizeable: objectCanvasViewController.view,
-            performanceUseCase: performanceUseCase
-        )
         self.viewModel = FormationSettingViewModel(
-            performanceSettingManager: performanceSettingManager,
+            performance: performance,
             performanceUseCase: performanceUseCase
         )
     }
@@ -81,16 +75,21 @@ struct FormationSettingView: View {
 
     private func buildObjectCanvasContainerView(width: CGFloat) -> some View {
         VStack(spacing: 6) {
-            buildObjectCanvasView(width: width)
+            buildObjectCanvasView(controller: viewModel.canvasController, width: width, color: .gray.opacity(0.1))
             buildObjectCanvasControlsView()
         }
         .modifier(disabledOpacityModifier)
     }
 
-    private func buildObjectCanvasView(width: CGFloat) -> some View {
+    private func buildObjectCanvasView(
+        controller: ObjectCanvasViewController,
+        width: CGFloat,
+        color: Color
+    ) -> some View {
         let height = width * CGFloat(22 / Float(35))
         return ObjectCanvasView(
-            controller: objectCanvasViewController,
+            controller: controller,
+            formable: viewModel.currentFormation,
             headcount: viewModel.headcount,
             onChange: {
                 viewModel.updateMembers(positions: $0)
@@ -99,21 +98,15 @@ struct FormationSettingView: View {
         .frame(width: width, height: height)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(.gray.opacity(0.1))
+                .fill(color)
         )
         .clipped()
-//        .onChange(of: viewModel.currentFormation) {
-//            guard let formable = $0 else {
-//                return
-//            }
-//            objectCanvasViewController.copyFormable(formable)
-//        }
     }
 
     private func buildObjectCanvasControlsView() -> some View {
         HStack {
             HistoryControlsView(
-                historyController: objectCanvasViewController.objectCanvasArchiver,
+                historyControllable: viewModel.objectCanvasArchiver,
                 tag: viewModel.currentFormationTag
             )
             Spacer()
@@ -124,7 +117,7 @@ struct FormationSettingView: View {
     }
 
     private func buildPresetContainerView() -> some View {
-        PresetContainerView(headcount: viewModel.headcount, objectCanvasViewController: objectCanvasViewController)
+        PresetContainerView(headcount: viewModel.headcount, objectCanvasViewController: viewModel.canvasController)
             .modifier(disabledOpacityModifier)
     }
 
@@ -228,10 +221,15 @@ struct FormationSettingView: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 ZoomableView {
-                    buildObjectCanvasView(width: geometry.size.width)
+                    buildObjectCanvasView(
+                        controller: viewModel.zoomableCanvasController,
+                        width: geometry.size.width,
+                        color: .white
+                    )
                 }
                 buildObjectCanvasControlsView()
                     .padding()
+                    .background(.white)
             }
         }
     }

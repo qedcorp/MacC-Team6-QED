@@ -5,7 +5,7 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
-    private let sizeable: Sizeable?
+    let sizeable: Sizeable?
     private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
     private var cancellables: Set<AnyCancellable> = []

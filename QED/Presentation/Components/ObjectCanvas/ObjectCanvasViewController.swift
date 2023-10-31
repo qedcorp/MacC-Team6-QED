@@ -6,12 +6,7 @@ import Combine
 class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
-
-    private(set) lazy var objectCanvasArchiver = {
-        let archiver = ObjectCanvasArchiver()
-        archiver.objectCanvasViewController = self
-        return archiver
-    }()
+    weak var objectCanvasArchiver: ObjectCanvasArchiver?
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -36,7 +31,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private var isMultiSelectDragging = false
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable> = []
     override var objectViewRadius: CGFloat { 8 }
 
     override func loadView() {
@@ -146,14 +141,14 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
     }
 
-    override func copyFormable(_ formable: Formable) {
+    override func copyFormable(_ formable: Formable?) {
         super.copyFormable(formable)
         selectedObjectViews = []
         addHistory()
         didChange()
     }
 
-    func copyFormableFromHistory(_ formable: Formable) {
+    func copyFormableFromHistory(_ formable: Formable?) {
         super.copyFormable(formable)
         selectedObjectViews = []
         didChange()
@@ -173,7 +168,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        objectCanvasArchiver.addHistory(history)
+        objectCanvasArchiver?.addHistory(history)
     }
 
     private func didChange() {
