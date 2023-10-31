@@ -10,6 +10,7 @@ class ZoomableViewModel: ObservableObject {
     let zoomScaleRange: ClosedRange<CGFloat>
     @Published private(set) var zoomScale = defaultZoomScale
     @Published private(set) var transitionSize: CGSize = .zero
+    private var lastZoomScale = defaultZoomScale
     private var lastTransitionSize: CGSize = .zero
 
     init(zoomScaleRange: ClosedRange<CGFloat> = defaultZoomScaleRange) {
@@ -23,7 +24,8 @@ class ZoomableViewModel: ObservableObject {
         )
     }
 
-    func updateZoomScale(_ value: CGFloat) {
+    func updateZoomScale(_ value: MagnificationGesture.Value) {
+        let value = lastZoomScale + (value - 1) * 2
         zoomScale = min(max(value, zoomScaleRange.lowerBound), zoomScaleRange.upperBound)
     }
 
@@ -34,7 +36,8 @@ class ZoomableViewModel: ObservableObject {
         )
     }
 
-    func updateLastTransitionSize() {
+    func updateLastValues() {
+        lastZoomScale = zoomScale
         lastTransitionSize = transitionSize
     }
 }

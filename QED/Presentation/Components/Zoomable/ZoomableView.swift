@@ -15,7 +15,7 @@ struct ZoomableView<Content: View>: View {
                             viewModel.updateTransition($0)
                         }
                         .onEnded { _ in
-                            viewModel.updateLastTransitionSize()
+                            viewModel.updateLastValues()
                         }
                 )
             content()
@@ -26,6 +26,9 @@ struct ZoomableView<Content: View>: View {
             MagnificationGesture()
                 .onChanged {
                     viewModel.updateZoomScale($0)
+                }
+                .onEnded { _ in
+                    viewModel.updateLastValues()
                 }
         )
     }

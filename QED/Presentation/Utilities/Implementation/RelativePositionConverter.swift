@@ -2,8 +2,12 @@
 
 import UIKit
 
-struct RelativePositionConverter {
+class RelativePositionConverter {
     let sizeable: Sizeable
+
+    init(sizeable: Sizeable) {
+        self.sizeable = sizeable
+    }
 
     func getRelativePosition(of absolutePosition: CGPoint) -> RelativePosition {
         RelativePosition(
