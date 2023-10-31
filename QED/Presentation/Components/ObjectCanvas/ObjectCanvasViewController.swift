@@ -32,7 +32,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private var isMultiSelectDragging = false
     private var cancellables: Set<AnyCancellable> = []
-    override var objectViewRadius: CGFloat { 8 }
+    override var objectViewRadius: CGFloat { 9 }
 
     override func loadView() {
         super.loadView()

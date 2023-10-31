@@ -14,7 +14,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
-    override var objectViewRadius: CGFloat { 8 }
+    override var objectViewRadius: CGFloat { 9 }
 
     override func loadView() {
         super.loadView()

@@ -30,7 +30,6 @@ class FormationSettingViewModel: ObservableObject {
         let objectCanvasArchiver = ObjectCanvasArchiver()
         let performanceSettingManager = PerformanceSettingManager(
             performance: performance,
-            sizeable: canvasController.view,
             performanceUseCase: performanceUseCase
         )
 
@@ -135,6 +134,8 @@ class FormationSettingViewModel: ObservableObject {
     }
 
     private func assignControllerToArchiverByZoomed() {
-        objectCanvasArchiver.canvasController = isZoomed ? zoomableCanvasController : canvasController
+        let controller = isZoomed ? zoomableCanvasController : canvasController
+        objectCanvasArchiver.canvasController = controller
+        performanceSettingManager.relativePositionConverter = controller.relativePositionConverter
     }
 }

@@ -223,7 +223,7 @@ struct FormationSettingView: View {
                 ZoomableView {
                     buildObjectCanvasView(
                         controller: viewModel.zoomableCanvasController,
-                        width: geometry.size.width,
+                        width: geometry.size.width - 44, // TRICK: Zoom 여부 상관 없이 같은 frame을 갖도록 하기 위함
                         color: .white
                     )
                 }

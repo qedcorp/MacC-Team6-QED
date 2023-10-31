@@ -5,7 +5,7 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
-    let sizeable: Sizeable?
+    weak var relativePositionConverter: RelativePositionConverter?
     private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
     private var cancellables: Set<AnyCancellable> = []
@@ -17,16 +17,8 @@ class PerformanceSettingManager {
             .eraseToAnyPublisher()
     }()
 
-    private lazy var relativePositionConverter: RelativePositionConverter? = {
-        guard let sizeable = sizeable else {
-            return nil
-        }
-        return RelativePositionConverter(sizeable: sizeable)
-    }()
-
-    init(performance: Performance, sizeable: Sizeable? = nil, performanceUseCase: PerformanceUseCase) {
+    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
         self.performance = performance
-        self.sizeable = sizeable
         self.performanceUseCase = performanceUseCase
         subscribeChangingPublisher()
     }

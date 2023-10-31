@@ -31,9 +31,9 @@ class ObjectStageViewController: UIViewController {
 
     func placeObjectView(position: CGPoint) {
         let objectView = DotObjectView()
-        objectView.center = position
         objectView.radius = objectViewRadius
         objectView.color = .black
+        objectView.assignPosition(position)
         replaceObjectViewAtRelativePosition(objectView)
         view.addSubview(objectView)
     }
