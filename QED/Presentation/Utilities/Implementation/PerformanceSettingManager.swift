@@ -84,6 +84,14 @@ class PerformanceSettingManager {
         didChange()
     }
 
+    func updateMembers(movementMap: MovementMap, formationIndex: Int) {
+        guard let formation = performance.formations[safe: formationIndex] else {
+            return
+        }
+        formation.movementMap = movementMap
+        didChange()
+    }
+
     func updateMemberName(_ name: String, memberInfoIndex: Int) {
         guard let memberInfo = performance.memberInfos[safe: memberInfoIndex] else {
             return

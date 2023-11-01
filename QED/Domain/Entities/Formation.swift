@@ -3,8 +3,8 @@
 import Foundation
 
 class Formation: Codable, Formable, ColorArrayable {
-
     var members: [Member]
+    var movementMap: MovementMap?
     var startMs: Int?
     var endMs: Int?
     var memo: String?
@@ -12,12 +12,14 @@ class Formation: Codable, Formable, ColorArrayable {
 
     init(
         members: [Member] = [],
+        movementMap: MovementMap? = nil,
         startMs: Int? = nil,
         endMs: Int? = nil,
         memo: String? = nil,
         note: String? = ""
     ) {
         self.members = members
+        self.movementMap = movementMap
         self.startMs = startMs
         self.endMs = endMs
         self.memo = memo

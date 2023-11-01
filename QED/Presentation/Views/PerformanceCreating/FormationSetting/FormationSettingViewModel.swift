@@ -8,6 +8,7 @@ class FormationSettingViewModel: ObservableObject {
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
     @Published var currentFormationIndex = -1
+    @Published var isMovementMode = false // TODO: 임시 세부동선
 
     @Published var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
@@ -84,6 +85,11 @@ class FormationSettingViewModel: ObservableObject {
         String(describing: performance.formations[safe: currentFormationIndex]?.relativePositions)
     }
 
+    // TODO: 임시 세부동선
+    var nextFormation: FormationModel? {
+        performance.formations[safe: currentFormationIndex + 1]
+    }
+
     var isEnabledToEdit: Bool {
         currentFormationIndex >= 0
     }
@@ -102,6 +108,11 @@ class FormationSettingViewModel: ObservableObject {
 
     func updateMembers(positions: [CGPoint]) {
         performanceSettingManager.updateMembers(positions: positions, formationIndex: currentFormationIndex)
+    }
+
+    // TODO: 임시 세부동선
+    func updateMembers(movementMap: MovementMap) {
+        performanceSettingManager.updateMembers(movementMap: movementMap, formationIndex: currentFormationIndex)
     }
 
     func addFormation() {

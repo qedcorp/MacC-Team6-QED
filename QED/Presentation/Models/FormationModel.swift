@@ -3,12 +3,16 @@
 import Foundation
 
 struct FormationModel: Equatable, Formable, ColorArrayable {
+    let entity: Formation
     var memo: String?
     var members: [MemberModel]
+    var movementMap: MovementMap?
 
-    init(memo: String? = nil, members: [MemberModel] = []) {
+    init(entity: Formation, memo: String? = nil, members: [MemberModel] = [], movementMap: MovementMap? = nil) {
+        self.entity = entity
         self.memo = memo
         self.members = members
+        self.movementMap = movementMap
     }
 
     var relativePositions: [RelativePosition] {
@@ -19,23 +23,12 @@ struct FormationModel: Equatable, Formable, ColorArrayable {
         members.map { $0.color }
     }
 
-    func buildEntity(memberInfos: [Member.Info]) -> Formation {
-        Formation(
-            members: members
-                .map { model in
-                    Member(
-                        relativePosition: model.relativePosition,
-                        info: memberInfos.first(where: { $0.color == model.color })
-                    )
-                },
-            memo: memo
-        )
-    }
-
     static func build(entity: Formation) -> Self {
         FormationModel(
+            entity: entity,
             memo: entity.memo,
-            members: entity.members.map { .build(entity: $0) }
+            members: entity.members.map { .build(entity: $0) },
+            movementMap: entity.movementMap
         )
     }
 }

@@ -3,14 +3,15 @@
 
 import Foundation
 
-struct BezierPath {
+struct BezierPath: Codable, Equatable {
     let startPosition: RelativePosition
     let endPosition: RelativePosition
     var controlPoint: ControlPoint?
 
-    init(startPosition: RelativePosition, endPosition: RelativePosition) {
+    init(startPosition: RelativePosition, endPosition: RelativePosition, controlPoint: ControlPoint? = nil) {
         self.startPosition = startPosition
         self.endPosition = endPosition
+        self.controlPoint = controlPoint
     }
 
     struct ControlPoint: Codable, Equatable, RelativeCoordinatable {

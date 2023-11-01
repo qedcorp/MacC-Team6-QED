@@ -26,6 +26,7 @@
 		3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */; };
 		3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A452AF15ECF007E76F7 /* BezierPath.swift */; };
 		3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */; };
+		3A533A4C2AF21BCF007E76F7 /* MovementMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */; };
 		3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FC92AE2CF4E0031E6BE /* Formable.swift */; };
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
@@ -62,7 +63,6 @@
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
 		51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */; };
-		51BB29972AE6AAC0002CAFAA /* DirectorNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BB29962AE6AAC0002CAFAA /* DirectorNoteView.swift */; };
 		A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */; };
 		A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA192AE440C600302C9D /* TitleSetupView.swift */; };
 		A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */; };
@@ -217,6 +217,7 @@
 		3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeCoordinatable.swift; sourceTree = "<group>"; };
 		3A533A452AF15ECF007E76F7 /* BezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPath.swift; sourceTree = "<group>"; };
 		3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathConverter.swift; sourceTree = "<group>"; };
+		3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementMap.swift; sourceTree = "<group>"; };
 		3A897FC92AE2CF4E0031E6BE /* Formable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formable.swift; sourceTree = "<group>"; };
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
@@ -256,7 +257,6 @@
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
 		51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
-		51BB29962AE6AAC0002CAFAA /* DirectorNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorNoteView.swift; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
 		A974EA192AE440C600302C9D /* TitleSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSetupView.swift; sourceTree = "<group>"; };
 		A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadcountSetupView.swift; sourceTree = "<group>"; };
@@ -710,7 +710,6 @@
 			children = (
 				5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */,
 				5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */,
-				51BB29962AE6AAC0002CAFAA /* DirectorNoteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1139,6 +1138,7 @@
 				D460EFCA2AE18DF700A5966A /* Member.swift */,
 				D460EFCB2AE18DF700A5966A /* Formation.swift */,
 				D460EFCC2AE18DF700A5966A /* FormationTransition.swift */,
+				3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */,
 				D460EFCD2AE18DF700A5966A /* Stub */,
 				D460EFCF2AE18DF700A5966A /* Interfaces */,
 			);
@@ -1455,6 +1455,7 @@
 				D460F0042AE18DF700A5966A /* AppleAuthRepository.swift in Sources */,
 				D460F0072AE18DF700A5966A /* PresetUseCase.swift in Sources */,
 				3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */,
+				3A533A4C2AF21BCF007E76F7 /* MovementMap.swift in Sources */,
 				D460EFFA2AE18DF700A5966A /* DescribableError.swift in Sources */,
 				3A533A3D2AEFAE5D007E76F7 /* ZoomableView.swift in Sources */,
 				D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */,
@@ -1501,7 +1502,6 @@
 				D460EFF72AE18DF700A5966A /* AppDelegate.swift in Sources */,
 				D460F01E2AE18DF700A5966A /* Playable.swift in Sources */,
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
-				51BB29972AE6AAC0002CAFAA /* DirectorNoteView.swift in Sources */,
 				3AE701BD2AE65F4F00C48403 /* MemberSettingView.swift in Sources */,
 				D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */,
 				3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */,

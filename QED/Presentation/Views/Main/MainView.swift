@@ -8,29 +8,33 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var viewModel = MainViewModel(
-        performancesUseCase: DefaultPerformanceUseCase(
+    @ObservedObject private var viewModel: MainViewModel
+
+    init() {
+        let performanceUseCase = DefaultPerformanceUseCase(
             performanceRepository: MockPerformanceRepository(),
-            userStore: DefaultUserStore.shared))
+            userStore: DefaultUserStore.shared
+        )
+        self.viewModel = MainViewModel(performanceUseCase: performanceUseCase)
+    }
 
     var body: some View {
         NavigationView {
-            VStack {
-                VStack {
-                    mainTop
-                    makeFormation
-                    performanceListReadingHeader
-                }
-                .padding(.horizontal, 20)
+            VStack(spacing: 30) {
+                buildMainTopView()
+                buildMakeFormationButtonView()
+                buildPerformanceListHeaderView()
                 if viewModel.myRecentPerformances.isEmpty {
-                    mainListEmptyView
+                    buildEmptyView()
                 } else {
-                    PerformanceListReadingScrollView(viewModel: viewModel)
+                    buildPerformanceListScrollView()
                 }
+                Spacer()
             }
+            .ignoresSafeArea()
             .toolbar {
-                leftItem
-                rightItem
+                leftItem()
+                rightItem()
             }
         }
         .onAppear {
@@ -40,52 +44,43 @@ struct MainView: View {
         .navigationBarBackButtonHidden()
     }
 
-    private var mainTop: some View {
+    private func buildMainTopView() -> some View {
         Image("MockMain")
-            .ignoresSafeArea()
-            .scaleEffect(1.01)
-            .frame(height: 310)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
     }
 
-    private var makeFormation: some View {
+    private func buildMakeFormationButtonView() -> some View {
         HStack {
             Text("동선 만들기")
                 .font(.title)
                 .bold()
                 .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-
             Spacer()
-
             NavigationLink {
-                TitleSetupView(viewmodel: PerformanceSettingViewModel(performancesUseCase: viewModel.performancesUseCase))
+                TitleSetupView(performanceUseCase: viewModel.performanceUseCase)
             } label: {
                 Text("Go")
-                    .frame(width: 86, height: 56)
-                    .font(.title)
+                    .font(.title2)
                     .bold()
-                    .kerning(0.38)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
                     .foregroundColor(.white)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color(red: 0, green: 0.97, blue: 0.04))
-                    )
+                    .background(Color(red: 0, green: 0.97, blue: 0.04))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
+        .padding(.horizontal, 20)
     }
 
-    private var performanceListReadingHeader: some View {
+    private func buildPerformanceListHeaderView() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text("최근 제작한 동선")
-                    .font(
-                        Font.custom("Apple SD Gothic Neo", size: 20)
-                            .weight(.bold)
-                    )
-                    .kerning(0.38)
-
+                    .font(.title3)
+                    .bold()
                 Text("동선 만들기를 완료한 후 디렉팅하세요")
-                    .font(Font.custom("Apple SD Gothic Neo", size: 11))
-                    .kerning(0.07)
+                    .font(.caption)
             }
             Spacer()
             NavigationLink {
@@ -93,63 +88,36 @@ struct MainView: View {
             } label: {
                 Image(systemName: "chevron.right")
                     .font(.title2)
-                    .foregroundColor(.green)
+                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
             }
         }
         .bold()
-        .padding(.vertical)
+        .padding(.horizontal, 20)
     }
 
-    private var leftItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Text("Formy")
-                .fontWeight(.heavy)
-                .kerning(0.4)
-        }
-    }
-
-    private var rightItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink {
-                MyPageView()
-            } label: {
-                Image(systemName: "person.circle")
-                    .foregroundColor(Color.green)
-            }
-        }
-    }
-
-    private var mainListEmptyView: some View {
+    private func buildEmptyView() -> some View {
         VStack {
-            Spacer()
             Image("MainListEmpty")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 106, height: 106)
-
+                .frame(width: 100)
             Text("만들어진 동선이 없어요")
-                .font(.title3)
+                .font(.headline)
                 .bold()
                 .foregroundStyle(Color(red: 0.45, green: 0.87, blue: 0.98))
-            Spacer()
         }
+        .padding(.top, 30)
         .opacity(0.5)
     }
-}
 
-struct PerformanceListReadingScrollView: View {
-    @StateObject var viewModel: MainViewModel
-
-    var body: some View {
+    private func buildPerformanceListScrollView() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(viewModel.myRecentPerformances, id: \.self) { performance in
+                ForEach(viewModel.myRecentPerformances) { performance in
                     NavigationLink {
                         PerformanceWatchingListView(
-                            viewModel: PerformanceWatchingListViewModel(
-                                performance: performance
-                            )
-                        )
+                            performance: performance.entity,
+                            performanceUseCase: viewModel.performanceUseCase)
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }
@@ -158,49 +126,24 @@ struct PerformanceListReadingScrollView: View {
         }
         .padding(.leading, 20)
     }
-}
 
-struct RecentFormationCardView: View {
-    let performance: Performance
-    var title: String
-    var creator: String
-    var thumbnailURL: URL?
-    var image: UIImage?
-
-    init(performance: Performance) {
-        self.performance = performance
-        title = performance.title ?? ""
-        creator = performance.music.creator
-        thumbnailURL = performance.music.thumbnailURL
+    private func leftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Text("Fodi")
+                .fontWeight(.bold)
+                .kerning(0.4)
+        }
     }
 
-    var body: some View {
-        VStack(alignment: .leading) {
-            AsyncImage(url: performance.music.thumbnailURL) { image in
-                image
-                    .image?.resizable()
-                    .scaledToFill()
+    private func rightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            NavigationLink {
+                MyPageView()
+            } label: {
+                Image(systemName: "person.circle")
+                    .foregroundColor(Color.green)
             }
-            VStack(alignment: .leading) {
-                Text("\(title)")
-                    .font(.system(size: 13))
-                    .bold()
-                    .foregroundColor(Color.black)
-                    .opacity(0.8)
-
-                Text("\(creator)")
-                    .font(.system(size: 11))
-                    .foregroundColor(Color.black)
-                    .opacity(0.6)
-            }
-            .padding(.horizontal)
-
-            Spacer()
         }
-        .frame(width: 160, height: 198)
-        .background(Color(.systemGray6))
-        .foregroundStyle(.black)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

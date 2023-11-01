@@ -87,21 +87,31 @@ struct FormationSettingView: View {
         color: Color
     ) -> some View {
         let height = width * CGFloat(22 / Float(35))
-//        return ObjectCanvasView(
-//            controller: controller,
-//            formable: viewModel.currentFormation,
-//            headcount: viewModel.headcount,
-//            onChange: {
-//                viewModel.updateMembers(positions: $0)
-//            }
-//        )
-        return ObjectMovementView(
-            beforeFormation: mockFormations[0],
-            afterFormation: mockFormations[1],
-            onChange: {
-                print($0)
+        return Group {
+            // TODO: 임시 세부동선
+            if viewModel.isMovementMode,
+               let beforeFormation = viewModel.currentFormation?.entity,
+               let afterFormation = viewModel.nextFormation?.entity {
+                ObjectMovementView(
+                    beforeFormation: beforeFormation,
+                    afterFormation: afterFormation,
+                    onChange: {
+                        viewModel.updateMembers(movementMap: $0)
+                    }
+                )
+            } else {
+                ObjectCanvasView(
+                    controller: controller,
+                    formable: viewModel.currentFormation,
+                    headcount: viewModel.headcount,
+                    onChange: {
+                        if !viewModel.isMovementMode {
+                            viewModel.updateMembers(positions: $0)
+                        }
+                    }
+                )
             }
-        )
+        }
         .frame(width: width, height: height)
         .background(
             RoundedRectangle(cornerRadius: 4)
@@ -117,6 +127,9 @@ struct FormationSettingView: View {
                 tag: viewModel.currentFormationTag
             )
             Spacer()
+            Button("세부동선") {
+                viewModel.isMovementMode.toggle()
+            }
             Button("Zoom") {
                 viewModel.isZoomed.toggle()
             }

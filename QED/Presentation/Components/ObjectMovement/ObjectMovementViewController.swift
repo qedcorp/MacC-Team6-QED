@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 class ObjectMovementViewController: ObjectStageViewController {
-    var onChange: (([Member.Info: BezierPath]) -> Void)?
+    var onChange: ((MovementMap) -> Void)?
 
     private lazy var bezierPathConverter = {
         let converter = BezierPathConverter()
@@ -18,14 +18,11 @@ class ObjectMovementViewController: ObjectStageViewController {
 
     private lazy var draggingHandler = DraggingHandler()
 
-    private var memberInfoBezierPathMap: [Member.Info: BezierPath] = [:] {
-        didSet { placeBezierPathLayers() }
-    }
-
+    private var movementMap: MovementMap = [:]
     private var selectedMemberInfo: Member.Info?
     private var cancellables: Set<AnyCancellable> = []
     override var objectViewRadius: CGFloat { 9 }
-    
+
     override func loadView() {
         super.loadView()
         setupCenterLines()
@@ -48,7 +45,7 @@ class ObjectMovementViewController: ObjectStageViewController {
                 if let dragging = $0 {
                     handleDragging(dragging)
                 } else {
-                    onChange?(memberInfoBezierPathMap)
+                    onChange?(movementMap)
                 }
             }
             .store(in: &cancellables)
@@ -62,7 +59,7 @@ class ObjectMovementViewController: ObjectStageViewController {
             of: dragging.currentPosition,
             type: BezierPath.ControlPoint.self
         )
-        memberInfoBezierPathMap[memberInfo]?.controlPoint = controlPoint
+        movementMap[memberInfo]?.controlPoint = controlPoint
         placeBezierPathLayers()
     }
 
@@ -71,7 +68,7 @@ class ObjectMovementViewController: ObjectStageViewController {
         guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
-        selectedMemberInfo = memberInfoBezierPathMap
+        selectedMemberInfo = movementMap
             .filter { bezierPathConverter.getRect($0.value).contains(position) }
             .randomElement()?
             .key
@@ -92,16 +89,17 @@ class ObjectMovementViewController: ObjectStageViewController {
     }
 
     func copy(beforeFormation: Formation, afterFormation: Formation) {
-        memberInfoBezierPathMap = Self.buildMemberInfoBezierPathMap(
+        movementMap = Self.buildLinearMovementMap(
             beforeFormation: beforeFormation,
             afterFormation: afterFormation
         )
         objectViews.forEach { $0.removeFromSuperview() }
-        placeObjectViewsWithColor(formation: beforeFormation, alpha: 0.3)
-        placeObjectViewsWithColor(formation: afterFormation)
+        placeObjectViews(formation: beforeFormation)
+        placeObjectViews(formation: afterFormation, alpha: 0.3)
+        placeBezierPathLayers()
     }
 
-    private func placeObjectViewsWithColor(formation: Formation, alpha: CGFloat = 1) {
+    private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {
         formation.relativePositions.enumerated().forEach {
             let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
             let color = formation.colors[safe: $0.offset]?.map { UIColor(hex: $0) } ?? .black
@@ -113,31 +111,30 @@ class ObjectMovementViewController: ObjectStageViewController {
         view.layer.sublayers?
             .compactMap { $0 as? CAShapeLayer }
             .forEach { $0.removeFromSuperlayer() }
-        memberInfoBezierPathMap
+        movementMap
             .map { bezierPathConverter.buildCAShapeLayer($0.value) }
             .forEach { view.layer.addSublayer($0) }
     }
 
-    private static func buildMemberInfoBezierPathMap(
+    private static func buildLinearMovementMap(
         beforeFormation: Formation,
         afterFormation: Formation
-    ) -> [Member.Info: BezierPath] {
+    ) -> MovementMap {
         beforeFormation.members
-            .compactMap { $0.info }
-            .compactMap { info in
-                afterFormation.members.first(where: { $0.info == info })?.info
+            .compactMap { beforeMember in
+                afterFormation.members.first(where: { $0.info == beforeMember.info })?.info
             }
             .reduce([:]) { map, info in
                 guard let beforeMember = beforeFormation.members.first(where: { $0.info == info }),
                       let afterMember = afterFormation.members.first(where: { $0.info == info }) else {
                     return map
                 }
-                var map = map
-                map[info] = BezierPath(
+                let path = BezierPath(
                     startPosition: beforeMember.relativePosition,
-                    endPosition: afterMember.relativePosition
+                    endPosition: afterMember.relativePosition,
+                    controlPoint: beforeFormation.movementMap?[info]?.controlPoint
                 )
-                return map
+                return map.merging([info: path]) { $1 }
             }
     }
 }

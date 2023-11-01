@@ -16,20 +16,22 @@ struct PerformanceWatchingDetailView: View {
     @State var isPlaying = false
     @State var isMemoEditMode = false
 
+    private static let fraction = PresentationDetent.fraction(0.15)
+    private static let medium = PresentationDetent.medium
+    @State private var settingsDetent = fraction
+    @FocusState private var isFoused: Bool
+
     var body: some View {
         VStack(spacing: 10) {
             PlayableDanceFormationView(viewmodel: viewModel)
-            detailControlButtons
-            DanceFormationScrollView(viewModel: viewModel,
-                                     isPlaying: $isPlaying)
+            buildDetailControlButtons()
+            buildDanceFormationScrollView()
             Spacer()
-            PlayButtonsView(viewModel: viewModel,
-                            isPlaying: $isPlaying)
+            buildPlayButtons()
             Spacer()
         }
         .sheet(isPresented: .constant(true)) {
-            DirectorNoteView(viewModel: viewModel,
-                             isMemoEditMode: $isMemoEditMode)
+            buildDirectorNoteView()
         }
         .onAppear {
             viewModel.selectedIndex = index
@@ -38,12 +40,12 @@ struct PerformanceWatchingDetailView: View {
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
-            leftItem
-            //            rightItem
+            buildLeftItem()
+            //            rightItem()
         }
     }
 
-    private var detailControlButtons: some View {
+    private func buildDetailControlButtons() -> some View {
         HStack {
             HStack {
                 Text("이전 동선 미리보기")
@@ -52,72 +54,54 @@ struct PerformanceWatchingDetailView: View {
                     .padding(.horizontal, 12)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                Button {
-                    isBeforeVisible.toggle()
-                    viewModel.beforeFormationShowingToggle()
-                } label: {
-                    Text(isBeforeVisible ? "off" : "on")
-                        .foregroundStyle(isBeforeVisible ? .gray : .green)
-                        .padding(.vertical, 5)
-                        .padding(.horizontal, 8)
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                }
+                buildBeforeFormationButton()
+                //                buildZoomInButton()
             }
             .bold()
             Spacer()
-            //            Button {
-            //                //  TODO: 확대 기능
-            //            } label: {
-            //                Image(systemName: "arrow.up.left.and.arrow.down.right")
-            //                    .padding(5)
-            //                    .background(Color(.systemGray5))
-            //                    .foregroundStyle(.gray)
-            //                    .clipShape(RoundedRectangle(cornerRadius: 5))
-            //            }
+
         }
         .font(.subheadline)
         .padding(.bottom, 10)
     }
 
-    private var leftItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(Color.green)
-            }
+    private func buildBeforeFormationButton() -> some View {
+        Button {
+            isBeforeVisible.toggle()
+            viewModel.beforeFormationShowingToggle()
+        } label: {
+            Text(isBeforeVisible ? "off" : "on")
+                .foregroundStyle(isBeforeVisible ? .gray : .green)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 8)
+                .background(Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
         }
     }
 
-    private var rightItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                //  TODO: 상세 동선 수정 기능
-            } label: {
-                Text("동선수정")
-                    .foregroundStyle(.green)
-            }
+    private func buildZoomInButton() -> some View {
+        Button {
+            //  TODO: 확대 기능
+        } label: {
+            Image(systemName: "arrow.up.left.and.arrow.down.right")
+                .padding(5)
+                .background(Color(.systemGray5))
+                .foregroundStyle(.gray)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
         }
     }
-}
 
-private struct PlayButtonsView: View {
-    @StateObject var viewModel: PerformanceWatchingDetailViewModel
-    @Binding var isPlaying: Bool
-
-    var body: some View {
+    private func buildPlayButtons() -> some View {
         HStack(spacing: 20) {
-            backwardButton
-            playButton
-            forwardButton
+            buildBackwardButton()
+            buildpPlayButton()
+            forwardButton()
         }
         .foregroundColor(.green)
         .font(.title2)
     }
 
-    private var backwardButton: some View {
+    private func buildBackwardButton() -> some View {
         Button {
             viewModel.backward()
         } label: {
@@ -125,11 +109,13 @@ private struct PlayButtonsView: View {
         }
     }
 
-    private var playButton: some View {
-        Button {
+    private func buildpPlayButton() -> some View {
+        let formations = viewModel.performance.formations
+
+        return Button {
             isPlaying.toggle()
             if isPlaying {
-                if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
+                if viewModel.selectedIndex == formations.count - 1 {
                     viewModel.selectedIndex = 0
                 } else {
                     viewModel.play()
@@ -143,24 +129,21 @@ private struct PlayButtonsView: View {
         }
     }
 
-    private var forwardButton: some View {
+    private func forwardButton() -> some View {
         Button {
             viewModel.forward()
         } label: {
             Image(systemName: "chevron.right")
         }
     }
-}
 
-private struct DanceFormationScrollView: View {
-    @StateObject var viewModel: PerformanceWatchingDetailViewModel
-    @Binding var isPlaying: Bool
+    private func buildDanceFormationScrollView() -> some View {
+        let formations = viewModel.performance.formations
 
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        return ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { proxy in
                 HStack(spacing: 15) {
-                    ForEach(Array(zip(viewModel.performance.formations.indices, viewModel.performance.formations)), id: \.0) { (index, formation) in
+                    ForEach(Array(zip(formations.indices, formations)), id: \.0) { (index, formation) in
                         DanceFormationView(
                             formation: formation,
                             index: index,
@@ -184,10 +167,95 @@ private struct DanceFormationScrollView: View {
                     withAnimation(.easeIn(duration: 0.2)) {
                         proxy.scrollTo(index, anchor: .center)
                     }
-                    if viewModel.selectedIndex == viewModel.performance.formations.count - 1 {
+                    if viewModel.selectedIndex == formations.count - 1 {
                         isPlaying = false
                     }
                 })
+            }
+        }
+    }
+
+    private func buildDirectorNoteView() -> some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 10) {
+                HStack {
+                    Text("디렉터 노트")
+                        .bold()
+                    Spacer()
+                    buildEditButton()
+                }
+
+                if isMemoEditMode {
+                    buildTextEditorNoteView()
+                } else {
+                    buildTextNoteView()
+                }
+                Spacer()
+            }
+        }
+        .padding([.horizontal, .top], 20)
+        .interactiveDismissDisabled()
+        .presentationBackgroundInteraction(.enabled)
+        .presentationDetents([Self.fraction, Self.medium], selection: $settingsDetent)
+        .presentationBackgroundInteraction(.enabled(upThrough: Self.medium))
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
+
+    private func buildEditButton() -> some View {
+        Button {
+            isMemoEditMode.toggle()
+            if isMemoEditMode {
+                isFoused = true
+                settingsDetent = Self.fraction
+            } else {
+                viewModel.saveNote()
+                isFoused = false
+            }
+        } label: {
+            if isMemoEditMode {
+                Text("완료")
+                    .foregroundStyle(.green)
+            } else {
+                Image(systemName: "pencil")
+                    .foregroundStyle(.gray)
+            }
+        }
+    }
+
+    private func buildTextEditorNoteView() -> some View {
+        TextEditor(text: $viewModel.currentNote)
+            .disableAutocorrection(true)
+            .scrollContentBackground(.hidden)
+            .background(Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .focused($isFoused, equals: true)
+            .frame(height: 100)
+            .tint(.green)
+    }
+
+    private func buildTextNoteView() -> some View {
+        Text(viewModel.currentNote == "" ? "메모를 입력하세요" : viewModel.currentNote)
+            .foregroundStyle(viewModel.currentNote == "" ? .gray : .black)
+    }
+
+    private func buildLeftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(Color.green)
+            }
+        }
+    }
+
+    private func buildRightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                //  TODO: 상세 동선 수정 기능
+            } label: {
+                Text("동선수정")
+                    .foregroundStyle(.green)
             }
         }
     }

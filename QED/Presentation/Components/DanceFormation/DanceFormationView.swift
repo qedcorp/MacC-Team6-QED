@@ -15,16 +15,16 @@ struct DanceFormationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            TimeAndLyric(formation: formation)
-            danceFormation
+            timeAndLyric()
+            danceFormation()
         }
     }
 
-    private var danceFormation: some View {
+    private func danceFormation() -> some View {
         ZStack {
-            danceFormationBackground
+            danceFormationBackground()
             if !self.hideLine {
-                centerline
+                centerline()
             }
             GeometryReader { geometry in
                 ForEach(formation.members, id: \.info.self) { member in
@@ -40,7 +40,7 @@ struct DanceFormationView: View {
         }
     }
 
-    private var danceFormationBackground: some View {
+    private func danceFormationBackground() -> some View {
         Rectangle()
             .fill(Color(.systemGray6))
             .clipShape(
@@ -48,7 +48,7 @@ struct DanceFormationView: View {
                       bottomTrailingRadius: 12))
     }
 
-    private var centerline: some View {
+    private func centerline() -> some View {
         ZStack {
             Divider()
                 .background(.green)
@@ -58,12 +58,8 @@ struct DanceFormationView: View {
             }
         }
     }
-}
 
-private struct TimeAndLyric: View {
-    var formation: Formation
-
-    var body: some View {
+    private func timeAndLyric() -> some View {
         ZStack {
             Rectangle()
                 .fill(.green)
