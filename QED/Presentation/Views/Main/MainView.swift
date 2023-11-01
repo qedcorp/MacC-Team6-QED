@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject private var viewModel: MainViewModel
-
-    init() {
-        let performanceUseCase = DefaultPerformanceUseCase(
-            performanceRepository: MockPerformanceRepository(),
-            userStore: DefaultUserStore.shared
-        )
-        self.viewModel = MainViewModel(performanceUseCase: performanceUseCase)
-    }
+    @StateObject private var viewModel = MainViewModel(
+        performancesUseCase: DIContainer.shared.storage.resolver.resolve(PerformanceUseCase.self)
+    )
 
     var body: some View {
         NavigationView {

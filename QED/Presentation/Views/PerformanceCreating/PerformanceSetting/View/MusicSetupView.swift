@@ -27,16 +27,12 @@ struct MusicSetupView: View {
             } else {
                 buildSearchResultScrollView()
             }
-
-            if viewModel.selectedMusic == nil {
-                buildSearchButton()
-            } else {
-                buildNextButton()
-            }
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                isFocused = true
+            NavigationLink {
+                if viewmodel.canPressNextButton {
+                    viewmodel.buildYameNextView(performance: viewmodel.performance!)
+                }
+            } label: {
+                nextbutton
             }
         }
         .onTapGesture {

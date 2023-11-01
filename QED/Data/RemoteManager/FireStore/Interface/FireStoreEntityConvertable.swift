@@ -8,5 +8,6 @@
 import Foundation
 
 protocol FireStoreEntityConvertable {
+    var fireStoreID: String { get set }
     var fireStoreEntity: FireStoreEntity { get }
 }

@@ -30,6 +30,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         if GIDSignIn.sharedInstance.handle(url) && AuthApi.isKakaoTalkLoginUrl(url) {
             return AuthController.handleOpenUrl(url: url)
         }
+        do {
+            try KeyChainManager.shared.create(account: .id, data: "ADMIN")
+        } catch {
+
+        }
         return false
     }
 }

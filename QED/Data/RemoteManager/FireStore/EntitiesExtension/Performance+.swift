@@ -8,6 +8,15 @@
 import Foundation
 
 extension Performance: FireStoreEntityConvertable {
+    var fireStoreID: String {
+        get {
+            self.id
+        }
+        set {
+            self.id = newValue
+        }
+    }
+
     var jsonString: String {
         guard let jsonData = try? JSONEncoder().encode(self) else { return "Encoding Fail" }
         return String(data: jsonData, encoding: .utf8) ?? "Encoding Fail"
@@ -26,6 +35,7 @@ extension Performance: FireStoreEntityConvertable {
             music: performance.music,
             headcount: performance.headcount,
             title: performance.title,
+            memberInfos: performance.memberInfos,
             formations: performance.formations,
             transitions: performance.transitions
         )

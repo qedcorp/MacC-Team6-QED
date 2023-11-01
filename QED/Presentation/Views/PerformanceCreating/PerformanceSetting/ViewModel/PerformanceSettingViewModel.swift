@@ -34,6 +34,15 @@ class PerformanceSettingViewModel: ObservableObject {
             createPerformance()
         }
     }
+    @Published var canPressNextButton: Bool = false
+    @Published var searchText: String = ""
+    @Published var allMusics: [Music] = []
+    @Published var searchedMusics: [Music] = []
+    @Published var isSearchingMusic: Bool = false
+
+    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
+        musicRepository: DefaultMusicRepository()
+    )
 
     func search() {
         Task {
@@ -61,22 +70,18 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-    @discardableResult
-    func createPerformance() -> Performance {
-        guard let selectedMusic = selectedMusic else {
-            return Performance(jsonString: "Error")
+    func createPerformance() {
+        canPressNextButton = false
+        Task {
+            guard let selectedMusic = selectedMusic,
+                  let performance = try? await performancesUseCase.createPerformance(music: selectedMusic, headcount: self.headcount) else { return }
+
+            self.performance = performance
+            canPressNextButton = true
         }
-        let performance = Performance(id: "1212312313",
-                                      author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                                      music: selectedMusic,
-                                      headcount: Int(inputHeadcount),
-                                      title: inputTitle,
-                                      formations: [],
-                                      transitions: [])
-        self.performance = performance
-        return performance
     }
 
+    // TODO: 이거 알쥐??
     func buildYameNextView(performance: Performance) -> some View {
         if yameNextView == nil {
             yameNextView = FormationSettingView(
