@@ -5,21 +5,23 @@
 //  Created by chaekie on 10/22/23.
 //
 
+import Combine
 import Foundation
 
 @MainActor
 class MainViewModel: ObservableObject {
-    let performancesUseCase: PerformanceUseCase
     @Published var nickname: String = ""
-    @Published var myRecentPerformances: [Performance] = []
+    @Published var myRecentPerformances: [PerformanceModel] = []
+    let performanceUseCase: PerformanceUseCase
 
-    init(performancesUseCase: PerformanceUseCase) {
-        self.performancesUseCase = performancesUseCase
+    init( performanceUseCase: PerformanceUseCase) {
+        self.performanceUseCase = performanceUseCase
     }
 
     func fetchMyRecentPerformances() {
         Task {
-            myRecentPerformances = try await performancesUseCase.getMyRecentPerformances()
+            let performances = try await performanceUseCase.getMyRecentPerformances()
+            myRecentPerformances = performances.map({ PerformanceModel.build(entity: $0) })
         }
     }
 

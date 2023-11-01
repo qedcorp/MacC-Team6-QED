@@ -8,40 +8,55 @@
 import SwiftUI
 
 struct PerformanceListCardView: View {
-
-    let performance: Performance
+    let performance: PerformanceModel
     var title: String
     var creator: String
     var albumCoverURL: URL?
     var image: UIImage?
+    @State private var isLoading = true
 
-    init(performance: Performance) {
+    init(performance: PerformanceModel) {
         self.performance = performance
-        title = performance.title ?? ""
+        title = performance.music.title
         creator = performance.music.artistName
         albumCoverURL = performance.music.albumCoverURL
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: performance.music.albumCoverURL) { image in
-                image
-                    .image?.resizable()
-                    .scaledToFill()
+            AsyncImage(url: performance.music.albumCoverURL) { phase in
+                switch phase {
+                case .empty:
+                    VStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .onAppear {
+                            isLoading = false
+                        }
+                case .failure:
+                    Image(systemName: "exclamationmark.circle.fill")
+                @unknown default:
+                    Image(systemName: "exclamationmark.circle.fill")
+                }
             }
-            VStack(alignment: .leading) {
-                Text("\(performance.music.title)")
-                    .font(.system(size: 13))
-                    .bold()
-                    .foregroundColor(Color.black)
-                    .opacity(0.8)
-
-                Text("\(creator)")
-                    .font(.system(size: 11))
-                    .foregroundColor(Color.black)
-                    .opacity(0.6)
+            if !isLoading {
+                VStack(alignment: .leading) {
+                    Text("\(performance.music.title)")
+                        .font(.footnote)
+                        .bold()
+                        .opacity(0.8)
+                    Text("\(creator)")
+                        .font(.caption2)
+                        .opacity(0.6)
+                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
 
             Spacer()
         }
@@ -51,7 +66,3 @@ struct PerformanceListCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
-
- #Preview {
-    PerformanceListCardView(performance: mockPerformance1)
- }
