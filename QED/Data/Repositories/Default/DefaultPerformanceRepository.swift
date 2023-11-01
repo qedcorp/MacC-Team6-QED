@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  DefaultPerformanceRepository.swift
 //  QED
 //
@@ -34,12 +34,12 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         Performance(jsonString: "")
     }
 
-    func readPerformances() async throws -> [Performance] {
+    func readMyPerformances() async throws -> [Performance] {
         do {
             let myID = try KeyChainManager.shared.read(account: .id)
             let readResult = try await remoteManager.reads(at: "PERFORMANCE",
-                                                           readType: .key(field: "ID", value: myID),
-                                                           mockData: Performance(jsonString: ""),
+                                                           readType: .key(field: "OWNERID", value: myID),
+                                                           mockData: Performance(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5),
                                                            valueType: String.self)
             switch readResult {
             case .success(let success):

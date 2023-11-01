@@ -16,89 +16,96 @@ import UIKit
 ///   .shared
 ///   .storage
 ///   .resolver
-///   .resolve(Protocol.self)
+///   [Protocol.self])
 /// ```
 /// 위와같이 사용하게되면 protocol의 구현체가 나옴
 /// 만약 dependencyInjection 함수를 사용해 mock 인스턴스를 주입했다면, mock 인스턴스가 나옴
 final class DIContainer {
     static var shared: DIContainer = DIContainer()
-    var storage: KioInjection = KioInjection()
+    var resolver: KioInjection = KioInjection()
     
     private init() {
+        resolver.dependencyGraph.addNode(type: AuthUIProtocol.self)
+        resolver.dependencyGraph.addNode(type: UserStore.self)
+        resolver.dependencyGraph.addNode(type: RemoteManager.self)
+        resolver.dependencyGraph.addNode(type: UserRepository.self)
+        resolver.dependencyGraph.addNode(type: PerformanceRepository.self)
+        resolver.dependencyGraph.addNode(type: PresetRepository.self)
+        resolver.dependencyGraph.addNode(type: MusicRepository.self)
+        resolver.dependencyGraph.addNode(type: KakaoAuthRepository.self)
+        resolver.dependencyGraph.addNode(type: GoogleAuthRepository.self)
+        resolver.dependencyGraph.addNode(type: AppleAuthRepository.self)
+        resolver.dependencyGraph.addNode(type: FormationTransitionUseCase.self)
+        resolver.dependencyGraph.addNode(type: FormationUseCase.self)
+        resolver.dependencyGraph.addNode(type: MemberUseCase.self)
+        resolver.dependencyGraph.addNode(type: MusicUseCase.self)
+        resolver.dependencyGraph.addNode(type: UserUseCase.self)
+        resolver.dependencyGraph.addNode(type: AuthUseCase.self)
+        resolver.dependencyGraph.addNode(type: PerformanceUseCase.self)
         
-        storage.dependencyGraph.addNode(type: AuthUIProtocol.self)
-        storage.dependencyGraph.addNode(type: UserStore.self)
-        storage.dependencyGraph.addNode(type: RemoteManager.self)
-        storage.dependencyGraph.addNode(type: UserRepository.self)
-        storage.dependencyGraph.addNode(type: PerformanceRepository.self)
-        storage.dependencyGraph.addNode(type: PresetRepository.self)
-        storage.dependencyGraph.addNode(type: MusicRepository.self)
-        storage.dependencyGraph.addNode(type: KakaoAuthRepository.self)
-        storage.dependencyGraph.addNode(type: GoogleAuthRepository.self)
-        storage.dependencyGraph.addNode(type: AppleAuthRepository.self)
-        storage.dependencyGraph.addNode(type: FormationTransitionUseCase.self)
-        storage.dependencyGraph.addNode(type: FormationUseCase.self)
-        storage.dependencyGraph.addNode(type: MemberUseCase.self)
-        storage.dependencyGraph.addNode(type: MusicUseCase.self)
-        storage.dependencyGraph.addNode(type: UserUseCase.self)
-        storage.dependencyGraph.addNode(type: AuthUseCase.self)
-        storage.dependencyGraph.addNode(type: PerformanceUseCase.self)
+        resolver.dependencyGraph.connect(a: RemoteManager.self, b: PresetRepository.self)
+        resolver.dependencyGraph.connect(a: RemoteManager.self, b: UserRepository.self)
+        resolver.dependencyGraph.connect(a: RemoteManager.self, b: PerformanceRepository.self)
+        resolver.dependencyGraph.connect(a: AuthUIProtocol.self, b: GoogleAuthRepository.self)
+        resolver.dependencyGraph.connect(a: AuthUIProtocol.self, b: AuthUseCase.self)
+        resolver.dependencyGraph.connect(a: MusicRepository.self, b: MusicUseCase.self)
+        resolver.dependencyGraph.connect(a: UserRepository.self, b: UserUseCase.self)
+        resolver.dependencyGraph.connect(a: UserStore.self, b: UserUseCase.self)
+        resolver.dependencyGraph.connect(a: PresetRepository.self, b: PresetUseCase.self)
+        resolver.dependencyGraph.connect(a: PerformanceRepository.self, b: PerformanceUseCase.self)
+        resolver.dependencyGraph.connect(a: UserStore.self, b: PerformanceUseCase.self)
+        resolver.dependencyGraph.connect(a: KakaoAuthRepository.self, b: AuthUseCase.self)
+        resolver.dependencyGraph.connect(a: GoogleAuthRepository.self, b: AuthUseCase.self)
+        resolver.dependencyGraph.connect(a: AppleAuthRepository.self, b: AuthUseCase.self)
         
-        storage.dependencyGraph.connect(a: RemoteManager.self, b: PresetRepository.self)
-        storage.dependencyGraph.connect(a: RemoteManager.self, b: UserRepository.self)
-        storage.dependencyGraph.connect(a: RemoteManager.self, b: PerformanceRepository.self)
-        storage.dependencyGraph.connect(a: AuthUIProtocol.self, b: GoogleAuthRepository.self)
-        storage.dependencyGraph.connect(a: AuthUIProtocol.self, b: AuthUseCase.self)
-        storage.dependencyGraph.connect(a: MusicRepository.self, b: MusicUseCase.self)
-        storage.dependencyGraph.connect(a: UserRepository.self, b: UserUseCase.self)
-        storage.dependencyGraph.connect(a: UserStore.self, b: UserUseCase.self)
-        storage.dependencyGraph.connect(a: PresetRepository.self, b: PresetUseCase.self)
-        storage.dependencyGraph.connect(a: PerformanceRepository.self, b: PerformanceUseCase.self)
-        storage.dependencyGraph.connect(a: UserStore.self, b: PerformanceUseCase.self)
-        storage.dependencyGraph.connect(a: KakaoAuthRepository.self, b: AuthUseCase.self)
-        storage.dependencyGraph.connect(a: GoogleAuthRepository.self, b: AuthUseCase.self)
-        storage.dependencyGraph.connect(a: AppleAuthRepository.self, b: AuthUseCase.self)
+        resolver.typeToClosure[ObjectIdentifier(AuthUIProtocol.self)] = injectionAuthUIProtocol
+        resolver.typeToClosure[ObjectIdentifier(RemoteManager.self)] = injectionRemoteManager
+        resolver.typeToClosure[ObjectIdentifier(UserRepository.self)] = injectionUserRepository
+        resolver.typeToClosure[ObjectIdentifier(PerformanceRepository.self)] = injectionPerformanceRepository
+        resolver.typeToClosure[ObjectIdentifier(PresetRepository.self)] = injectionPresetRepository
+        resolver.typeToClosure[ObjectIdentifier(MusicRepository.self)] = injectionMusicRepository
+        resolver.typeToClosure[ObjectIdentifier(KakaoAuthRepository.self)] = injectionKakaoAuthRepository
+        resolver.typeToClosure[ObjectIdentifier(GoogleAuthRepository.self)] = injectionGoogleAuthRepository
+        resolver.typeToClosure[ObjectIdentifier(AppleAuthRepository.self)] = injectionAppleAuthRepository
+        resolver.typeToClosure[ObjectIdentifier(FormationTransitionUseCase.self)] = injectionFormationTransitionUseCase
+        resolver.typeToClosure[ObjectIdentifier(FormationUseCase.self)] = injectionFormationUseCase
+        resolver.typeToClosure[ObjectIdentifier(MemberUseCase.self)] = injectionMemberUseCase
+        resolver.typeToClosure[ObjectIdentifier(UserStore.self)] = injectionUserStore
+        resolver.typeToClosure[ObjectIdentifier(MusicUseCase.self)] = injectionMusicUseCase
+        resolver.typeToClosure[ObjectIdentifier(UserUseCase.self)] = injectionUserUseCase
+        resolver.typeToClosure[ObjectIdentifier(AuthUseCase.self)] = injectionAuthUseCase
+        resolver.typeToClosure[ObjectIdentifier(PerformanceUseCase.self)] = injectionPerformanceUseCase
         
-        storage.typeToClosure[ObjectIdentifier(AuthUIProtocol.self)] = injectionAuthUIProtocol
-        storage.typeToClosure[ObjectIdentifier(RemoteManager.self)] = injectionRemoteManager
-        storage.typeToClosure[ObjectIdentifier(UserRepository.self)] = injectionUserRepository
-        storage.typeToClosure[ObjectIdentifier(PerformanceRepository.self)] = injectionPerformanceRepository
-        storage.typeToClosure[ObjectIdentifier(PresetRepository.self)] = injectionPresetRepository
-        storage.typeToClosure[ObjectIdentifier(MusicRepository.self)] = injectionMusicRepository
-        storage.typeToClosure[ObjectIdentifier(KakaoAuthRepository.self)] = injectionKakaoAuthRepository
-        storage.typeToClosure[ObjectIdentifier(GoogleAuthRepository.self)] = injectionGoogleAuthRepository
-        storage.typeToClosure[ObjectIdentifier(AppleAuthRepository.self)] = injectionAppleAuthRepository
-        storage.typeToClosure[ObjectIdentifier(FormationTransitionUseCase.self)] = injectionFormationTransitionUseCase
-        storage.typeToClosure[ObjectIdentifier(FormationUseCase.self)] = injectionFormationUseCase
-        storage.typeToClosure[ObjectIdentifier(MemberUseCase.self)] = injectionMemberUseCase
-        storage.typeToClosure[ObjectIdentifier(UserStore.self)] = injectionUserStore
-        storage.typeToClosure[ObjectIdentifier(MusicUseCase.self)] = injectionMusicUseCase
-        storage.typeToClosure[ObjectIdentifier(UserUseCase.self)] = injectionUserUseCase
-        storage.typeToClosure[ObjectIdentifier(AuthUseCase.self)] = injectionAuthUseCase
-        storage.typeToClosure[ObjectIdentifier(PerformanceUseCase.self)] = injectionPerformanceUseCase
+        resolver.dependencyInjection()
     }
     
     func injectionAuthUIProtocol(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(AuthUIProtocol.self) { _ in
-                AuthViewController()
+            resolver.register(AuthUIProtocol.self) { _ ,_  in
+                if let returnValue = self.resolver.providerType  {
+                    return returnValue
+                }
+                return AuthViewController(authProvider: .constant(.apple))
             }
         }
         else {
-            storage.register(AuthUIProtocol.self) { _ in
-                AuthViewController()
+            resolver.register(AuthUIProtocol.self) { _ ,_ in
+                if let returnValue = self.resolver.providerType  {
+                    return returnValue
+                }
+                return AuthViewController(authProvider: .constant(.apple))
             }
         }
     }
     
     func injectionRemoteManager(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(RemoteManager.self) { _ in
+            resolver.register(RemoteManager.self) { _ ,_ in
                 FireStoreManager()
             }
         }
         else {
-            storage.register(RemoteManager.self) { _ in
+            resolver.register(RemoteManager.self) { _ ,_ in
                 FireStoreManager()
             }
         }
@@ -106,15 +113,15 @@ final class DIContainer {
     
     func injectionUserRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(UserRepository.self) { resolver in
-                let remoteManager = resolver.resolve(RemoteManager.self)
+            resolver.register(UserRepository.self) { resolver ,_ in
+                let remoteManager = resolver[RemoteManager.self]
                 
                 return DefaultUserRepository(remoteManager: remoteManager)
             }
         }
         else {
-            storage.register(UserRepository.self) { resolver in
-                let userStore = resolver.resolve(UserStore.self)
+            resolver.register(UserRepository.self) { resolver ,_ in
+                let userStore = resolver[UserStore.self]
                 
                 return MockUserRepository(userStore: userStore)
             }
@@ -123,14 +130,14 @@ final class DIContainer {
     
     func injectionPerformanceRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(PerformanceRepository.self) { resolver in
-                let remoteManager = resolver.resolve(RemoteManager.self)
+            resolver.register(PerformanceRepository.self) { resolver ,_ in
+                let remoteManager = resolver[RemoteManager.self]
                 
                 return DefaultPerformanceRepository(remoteManager: remoteManager)
             }
         }
         else {
-            storage.register(PerformanceRepository.self) { _ in
+            resolver.register(PerformanceRepository.self) { _ ,_ in
                 
                 return MockPerformanceRepository()
             }
@@ -139,13 +146,13 @@ final class DIContainer {
     
     func injectionMusicRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(MusicRepository.self) { _ in
+            resolver.register(MusicRepository.self) { _ ,_ in
                 
                 return DefaultMusicRepository()
             }
         }
         else {
-            storage.register(MusicRepository.self) { _ in
+            resolver.register(MusicRepository.self) { _ ,_ in
                 
                 return MockMusicRepository()
             }
@@ -154,14 +161,14 @@ final class DIContainer {
     
     func injectionPresetRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(PresetRepository.self) { resolver in
-                var remoteManager = resolver.resolve(RemoteManager.self)
+            resolver.register(PresetRepository.self) { resolver ,_ in
+                var remoteManager = resolver[RemoteManager.self]
                 
                 return DefaultPresetRepository(remoteManager: remoteManager)
             }
         }
         else {
-            storage.register(PresetRepository.self) { _ in
+            resolver.register(PresetRepository.self) { _ ,_ in
                 
                 return MockPresetRepository()
             }
@@ -170,13 +177,13 @@ final class DIContainer {
     
     func injectionKakaoAuthRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(KakaoAuthRepository.self) { _ in
+            resolver.register(KakaoAuthRepository.self) { _ ,_ in
                 
                 return DefaultKakaoAuthRepository()
             }
         }
         else {
-            storage.register(KakaoAuthRepository.self) { _ in
+            resolver.register(KakaoAuthRepository.self) { _ ,_ in
                 
                 return DefaultKakaoAuthRepository()
             }
@@ -185,15 +192,15 @@ final class DIContainer {
     
     func injectionGoogleAuthRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(GoogleAuthRepository.self) { resolver in
-                let authUI = resolver.resolve(AuthUIProtocol.self)
+            resolver.register(GoogleAuthRepository.self) { resolver  ,_ in
+                let authUI = resolver[AuthUIProtocol.self]
                 
                 return DefaultGoogleAuthRepository(authUI: authUI)
             }
         }
         else {
-            storage.register(GoogleAuthRepository.self) { resolver in
-                let authUI = resolver.resolve(AuthUIProtocol.self)
+            resolver.register(GoogleAuthRepository.self) { resolver  ,_ in
+                let authUI = resolver[AuthUIProtocol.self]
                 
                 return DefaultGoogleAuthRepository(authUI: authUI)
             }
@@ -202,13 +209,13 @@ final class DIContainer {
     
     func injectionAppleAuthRepository(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(AppleAuthRepository.self) { _ in
+            resolver.register(AppleAuthRepository.self) { _ ,_ in
                 
                 return DefaultAppleAuthRepository()
             }
         }
         else {
-            storage.register(AppleAuthRepository.self) { _ in
+            resolver.register(AppleAuthRepository.self) { _  ,_ in
                 
                 return DefaultAppleAuthRepository()
             }
@@ -217,7 +224,7 @@ final class DIContainer {
     
     func injectionFormationTransitionUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(FormationTransitionUseCase.self) { _ in
+            resolver.register(FormationTransitionUseCase.self) { _  ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
                 let performance = mockPerformance
                 
@@ -225,7 +232,7 @@ final class DIContainer {
             }
         }
         else {
-            storage.register(FormationTransitionUseCase.self) { _ in
+            resolver.register(FormationTransitionUseCase.self) { _ ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
                 let performance = mockPerformance
                 
@@ -236,7 +243,7 @@ final class DIContainer {
     
     func injectionFormationUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(FormationUseCase.self) { _ in
+            resolver.register(FormationUseCase.self) { _ ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
                 let performance = mockPerformance
                 
@@ -244,7 +251,7 @@ final class DIContainer {
             }
         }
         else {
-            storage.register(FormationUseCase.self) { _ in
+            resolver.register(FormationUseCase.self) { _ ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
                 let performance = mockPerformance
                 
@@ -255,13 +262,13 @@ final class DIContainer {
     
     func injectionMemberUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(MemberUseCase.self) { _ in
+            resolver.register(MemberUseCase.self) { _ ,_ in
                 
                 return DefaultMemberUseCase()
             }
         }
         else {
-            storage.register(MemberUseCase.self) { _ in
+            resolver.register(MemberUseCase.self) { _ ,_ in
                 
                 return DefaultMemberUseCase()
             }
@@ -270,13 +277,13 @@ final class DIContainer {
     
     func injectionUserStore(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(UserStore.self) { _ in
+            resolver.register(UserStore.self) { _ ,_ in
                 
                 return DefaultUserStore.shared
             }
         }
         else {
-            storage.register(UserStore.self) { _ in
+            resolver.register(UserStore.self) { _ ,_ in
                 
                 return DefaultUserStore.shared
             }
@@ -285,15 +292,15 @@ final class DIContainer {
     
     func injectionMusicUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(MusicUseCase.self) { resolver in
-                let musicRepository = resolver.resolve(MusicRepository.self)
+            resolver.register(MusicUseCase.self) { resolver ,_ in
+                let musicRepository = resolver[MusicRepository.self]
                 
                 return DefaultMusicUseCase(musicRepository: musicRepository)
             }
         }
         else {
-            storage.register(MusicUseCase.self) { resolver in
-                let musicRepository = resolver.resolve(MusicRepository.self)
+            resolver.register(MusicUseCase.self) { resolver ,_ in
+                let musicRepository = resolver[MusicRepository.self]
                 
                 return DefaultMusicUseCase(musicRepository: musicRepository)
             }
@@ -302,17 +309,17 @@ final class DIContainer {
     
     func injectionUserUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(UserUseCase.self) { resolver in
-                let userRepository = resolver.resolve(UserRepository.self)
-                let userStore = resolver.resolve(UserStore.self)
+            resolver.register(UserUseCase.self) { resolver ,_ in
+                let userRepository = resolver[UserRepository.self]
+                let userStore = resolver[UserStore.self]
                 
                 return DefaultUserUseCase(userRepository: userRepository, userStore: userStore)
             }
         }
         else {
-            storage.register(UserUseCase.self) { resolver in
-                let userRepository = resolver.resolve(UserRepository.self)
-                let userStore = resolver.resolve(UserStore.self)
+            resolver.register(UserUseCase.self) { resolver ,_ in
+                let userRepository = resolver[UserRepository.self]
+                let userStore = resolver[UserStore.self]
                 
                 return DefaultUserUseCase(userRepository: userRepository, userStore: userStore)
             }
@@ -321,15 +328,15 @@ final class DIContainer {
     
     func injectionPresetUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(PresetUseCase.self) { resolver in
-                let presetRepository = resolver.resolve(PresetRepository.self)
+            resolver.register(PresetUseCase.self) { resolver ,_ in
+                let presetRepository = resolver[PresetRepository.self]
                 
                 return DefaultPresetUseCase(presetRepository: presetRepository)
             }
         }
         else {
-            storage.register(PresetUseCase.self) { resolver in
-                let presetRepository = resolver.resolve(PresetRepository.self)
+            resolver.register(PresetUseCase.self) { resolver ,_ in
+                let presetRepository = resolver[PresetRepository.self]
                 
                 return DefaultPresetUseCase(presetRepository: presetRepository)
             }
@@ -338,17 +345,17 @@ final class DIContainer {
     
     func injectionPerformanceUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(PerformanceUseCase.self) { resolver in
-                let performanceRepository = resolver.resolve(PerformanceRepository.self)
-                let userStore = resolver.resolve(UserStore.self)
+            resolver.register(PerformanceUseCase.self) { resolver ,_ in
+                let performanceRepository = resolver[PerformanceRepository.self]
+                let userStore = resolver[UserStore.self]
                 
                 return DefaultPerformanceUseCase(performanceRepository: performanceRepository, userStore: userStore)
             }
         }
         else {
-            storage.register(PerformanceUseCase.self) { resolver in
-                let performanceRepository = resolver.resolve(PerformanceRepository.self)
-                let userStore = resolver.resolve(UserStore.self)
+            resolver.register(PerformanceUseCase.self) { resolver ,_ in
+                let performanceRepository = resolver[PerformanceRepository.self]
+                let userStore = resolver[UserStore.self]
                 
                 return DefaultPerformanceUseCase(performanceRepository: performanceRepository, userStore: userStore)
             }
@@ -357,10 +364,10 @@ final class DIContainer {
     
     func injectionAuthUseCase(_ purpose: KioInjection.DependencyPurpose = .release) {
         if purpose == .release {
-            storage.register(AuthUseCase.self) { resolver in
-                let kakaoAuthRepository = resolver.resolve(KakaoAuthRepository.self)
-                let googleAuthRepository = resolver.resolve(GoogleAuthRepository.self)
-                let appleAuthRepository = resolver.resolve(AppleAuthRepository.self)
+            resolver.register(AuthUseCase.self) { resolver ,_ in
+                let kakaoAuthRepository = resolver[KakaoAuthRepository.self]
+                let googleAuthRepository = resolver[GoogleAuthRepository.self]
+                let appleAuthRepository = resolver[AppleAuthRepository.self]
                 
                 return DefaultAuthUseCase(kakaoAuthRepository: kakaoAuthRepository,
                                           googleAuthRepository: googleAuthRepository,
@@ -368,11 +375,11 @@ final class DIContainer {
             }
         }
         else {
-            storage.register(AuthUseCase.self) { resolver in
-                let kakaoAuthRepository = resolver.resolve(KakaoAuthRepository.self)
-                let googleAuthRepository = resolver.resolve(GoogleAuthRepository.self)
-                let appleAuthRepository = resolver.resolve(AppleAuthRepository.self)
-                let uiViewController = resolver.resolve(AuthUIProtocol.self)
+            resolver.register(AuthUseCase.self) { resolver ,_ in
+                let kakaoAuthRepository = resolver[KakaoAuthRepository.self]
+                let googleAuthRepository = resolver[GoogleAuthRepository.self]
+                let appleAuthRepository = resolver[AppleAuthRepository.self]
+                let uiViewController = resolver[AuthUIProtocol.self]
                 
                 return DefaultAuthUseCase(kakaoAuthRepository: kakaoAuthRepository,
                                           googleAuthRepository: googleAuthRepository,

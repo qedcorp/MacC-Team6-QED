@@ -18,7 +18,7 @@ class MockPerformanceRepository: PerformanceRepository {
 
     }
 
-    func readPerformances() async throws -> [Performance] {
+    func readMyPerformances() async throws -> [Performance] {
         performances
         //        return [mockPerformance, mockPerformance1, mockPerformance2, mockPerformance3, mockPerformance4]
     }

@@ -17,12 +17,16 @@ import KakaoSDKUser
 
 class AuthViewController: UIViewController, AuthUIProtocol {
 
-    // @Binding var authProvider: AuthProviderType
+     @Binding var authProvider: AuthProviderType
 
-//    init(authProvider: Binding<AuthProviderType>) {
-//        self._authProvider = authProvider
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    init(authProvider: Binding<AuthProviderType>) {
+        self._authProvider = authProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,13 +94,16 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     @objc
     func tapGoogleSignInView(_ sender: Any) {
+        authProvider = .google
     }
 
     @objc
     func tapKakaoSignInView(_ sender: Any) {
+        authProvider = .kakao
     }
 
     @objc
     func tapAppleSignInView(_ sender: Any) {
+        authProvider = .apple
     }
 }

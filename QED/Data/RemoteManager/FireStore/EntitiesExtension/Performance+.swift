@@ -14,21 +14,29 @@ extension Performance: FireStoreEntityConvertable {
     }
 
     convenience init(jsonString: String) {
-        guard let jsonData = jsonString.data(using: .utf8),
-              let performance = try? JSONDecoder().decode(Performance.self, from: jsonData) else {
-            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: -1)
+        guard let jsonData = jsonString.data(using: .utf8) else {
+            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
+            return
+        }
+        do {
+            let performance = try JSONDecoder().decode(Performance.self, from: jsonData)
+            self.init(
+                id: performance.id,
+                author: performance.author,
+                playable: performance.playable,
+                headcount: performance.headcount,
+                title: performance.title,
+                formations: performance.formations,
+                transitions: performance.transitions
+            )
+        } catch let jsonError {
+            print("-----------------")
+            print(jsonError)
+            print("-----------------")
+            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
             return
         }
 
-        self.init(
-            id: performance.id,
-            author: performance.author,
-            playable: performance.playable,
-            headcount: performance.headcount,
-            title: performance.title,
-            formations: performance.formations,
-            transitions: performance.transitions
-        )
     }
 
     var fireStoreEntity: FireStoreEntity {
@@ -37,5 +45,10 @@ extension Performance: FireStoreEntityConvertable {
             OWNERID: "",
             DATA: jsonString
         )
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, author, headcount, title, memberInfos, formations, transitions
+        case playable = "music"
     }
 }

@@ -113,11 +113,11 @@ final class FireStoreManager: RemoteManager {
             do {
                 switch readType {
                 case .all:
-                    let data = try await fireStroeDB.collection(collectionName).getDocuments().documents
+                    data = try await fireStroeDB.collection(collectionName).getDocuments().documents
                 case .key(let field, let value):
                     guard let strValue = value as? String,
                           let strfield = field as? String else { return .failure(FireStoreError.keyTypeError) }
-                    let data = try await fireStroeDB.collection(collectionName)
+                    data = try await fireStroeDB.collection(collectionName)
                         .whereField(strfield, isEqualTo: strValue)
                         .getDocuments()
                         .documents

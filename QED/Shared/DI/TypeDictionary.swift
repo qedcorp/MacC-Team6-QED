@@ -9,23 +9,21 @@ import Foundation
 
 class KioInjection {
 
-    var resolver: Resolver = Resolver()
     var dependencyGraph: TypeDirectedGraph = TypeDirectedGraph()
     var typeToClosure: [ObjectIdentifier: (DependencyPurpose)->()] = [:]
+    var defaultInstancesClosure: ClosureDictionary = ClosureDictionary()
+    var providerType: AuthUIProtocol?
 
-    struct Resolver {
-
-        var DIDictionary = TypeDictionary()
-
-        func resolve<T>(_ type: T.Type, _ arg1: Any ...) -> T {
-            return DIDictionary[type.self] as! T
-        }
+    var DIDictionary = TypeDictionary()
+    
+    func resolve<T>(_ type: T.Type, _ arg: Any ...) -> T {
+        return DIDictionary[type.self] as! T
     }
-
-    func register<T>(_ type: T.Type, _ completion: @escaping (Resolver) -> T) {
-        let result = completion(self.resolver)
-
-        resolver.DIDictionary[type.self] = result
+    
+    func register<T>(_ type: T.Type, _ completion: @escaping (TypeDictionary, Any ...) -> T) {
+        let result = completion(self.DIDictionary)
+        
+        DIDictionary[type] = result
     }
     
     /// 특정 목적에 맞춰 protocol들의 의존성을 주입하는 함수
@@ -49,7 +47,8 @@ class KioInjection {
     /// ```
     /// 위와같이 사용하게되면 protocol이 mock에 따라 의존성이 주입되고 해당 protocol을 의존하고 있던
     /// 기존에 UseCase나 Repository 기타등등이 알아서 의존성 주입이 됨
-    func dependencyInjection(_ dic: [ObjectIdentifier: DependencyPurpose] = [:]) {
+    func dependencyInjection(_ dic: [ObjectIdentifier: DependencyPurpose] = [:], providerType: AuthUIProtocol? = nil) {
+        self.providerType = providerType
         var copydependencyGraph = self.dependencyGraph
         if dic.count != 0 {
             copydependencyGraph = dfs(dic, graph: copydependencyGraph)
@@ -112,6 +111,19 @@ extension KioInjection {
 }
 
 struct TypeDictionary {
+    private var dictionary: [(ObjectIdentifier): (Any)] = [:]
+
+    subscript<T>(key: T.Type) -> T {
+        get {
+            return dictionary[ObjectIdentifier(key)] as! T
+        }
+        set {
+            dictionary[ObjectIdentifier(key)] = newValue
+        }
+    }
+}
+
+struct ClosureDictionary {
     private var dictionary: [(ObjectIdentifier): (Any)] = [:]
 
     subscript<T>(key: T.Type) -> Any? {
