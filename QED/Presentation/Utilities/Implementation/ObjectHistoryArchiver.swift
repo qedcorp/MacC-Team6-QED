@@ -2,7 +2,7 @@
 
 import Foundation
 
-class ObjectCanvasArchiver: HistoryControllable {
+class ObjectHistoryArchiver: HistoryControllable {
     typealias History = any Formable
 
     weak var canvasController: ObjectCanvasViewController?

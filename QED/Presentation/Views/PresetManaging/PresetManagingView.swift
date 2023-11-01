@@ -40,7 +40,7 @@ struct PresetManagingView: View {
                 .clipped()
                 HStack {
                     HistoryControlsView(
-                        historyControllable: objectCanvasViewController.objectCanvasArchiver!,
+                        historyControllable: objectCanvasViewController.objectHistoryArchiver!,
                         tag: viewModel.historyTag
                     )
                     Spacer()

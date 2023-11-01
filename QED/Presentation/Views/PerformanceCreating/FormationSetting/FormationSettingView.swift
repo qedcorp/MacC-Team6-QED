@@ -92,7 +92,7 @@ struct FormationSettingView: View {
             if viewModel.isMovementMode,
                let beforeFormation = viewModel.currentFormation?.entity,
                let afterFormation = viewModel.nextFormation?.entity {
-                ObjectMovementView(
+                ObjectMovementAssigningView(
                     beforeFormation: beforeFormation,
                     afterFormation: afterFormation,
                     onChange: {
@@ -123,7 +123,7 @@ struct FormationSettingView: View {
     private func buildObjectCanvasControlsView() -> some View {
         HStack {
             HistoryControlsView(
-                historyControllable: viewModel.objectCanvasArchiver,
+                historyControllable: viewModel.objectHistoryArchiver,
                 tag: viewModel.currentFormationTag
             )
             Spacer()

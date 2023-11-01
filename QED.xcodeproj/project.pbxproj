@@ -21,8 +21,8 @@
 		3A53290C2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */; };
 		3A533A3B2AEFAE48007E76F7 /* ZoomableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3A2AEFAE48007E76F7 /* ZoomableViewModel.swift */; };
 		3A533A3D2AEFAE5D007E76F7 /* ZoomableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3C2AEFAE5D007E76F7 /* ZoomableView.swift */; };
-		3A533A402AF0F79C007E76F7 /* ObjectMovementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3F2AF0F79C007E76F7 /* ObjectMovementView.swift */; };
-		3A533A422AF0F7A9007E76F7 /* ObjectMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A412AF0F7A9007E76F7 /* ObjectMovementViewController.swift */; };
+		3A533A402AF0F79C007E76F7 /* ObjectMovementAssigningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A3F2AF0F79C007E76F7 /* ObjectMovementAssigningView.swift */; };
+		3A533A422AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A412AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift */; };
 		3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */; };
 		3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A452AF15ECF007E76F7 /* BezierPath.swift */; };
 		3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */; };
@@ -40,8 +40,8 @@
 		3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B72AE6594300C48403 /* PerformanceSettingTitleView.swift */; };
 		3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */; };
 		3AE701BD2AE65F4F00C48403 /* MemberSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */; };
-		3AE701C42AE66AAA00C48403 /* ObjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C32AE66AAA00C48403 /* ObjectSelectionView.swift */; };
-		3AE701C62AE66AB800C48403 /* ObjectSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C52AE66AB800C48403 /* ObjectSelectionViewController.swift */; };
+		3AE701C42AE66AAA00C48403 /* ObjectInfoAssigningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C32AE66AAA00C48403 /* ObjectInfoAssigningView.swift */; };
+		3AE701C62AE66AB800C48403 /* ObjectInfoAssigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C52AE66AB800C48403 /* ObjectInfoAssigningViewController.swift */; };
 		3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */; };
 		3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C92AE6906200C48403 /* String+Hex.swift */; };
 		3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */; };
@@ -96,7 +96,7 @@
 		D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF772AE18DF700A5966A /* KeyChainManager.swift */; };
 		D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF782AE18DF700A5966A /* KeyChainAccount.swift */; };
 		D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF7B2AE18DF700A5966A /* DotObjectView.swift */; };
-		D460EFE32AE18DF700A5966A /* ObjectCanvasArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF7D2AE18DF700A5966A /* ObjectCanvasArchiver.swift */; };
+		D460EFE32AE18DF700A5966A /* ObjectHistoryArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF7D2AE18DF700A5966A /* ObjectHistoryArchiver.swift */; };
 		D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF7E2AE18DF700A5966A /* ObjectCanvasView.swift */; };
 		D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF7F2AE18DF700A5966A /* ObjectCanvasViewController.swift */; };
 		D460EFE62AE18DF700A5966A /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF812AE18DF700A5966A /* AuthView.swift */; };
@@ -212,8 +212,8 @@
 		3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Sizeable.swift"; sourceTree = "<group>"; };
 		3A533A3A2AEFAE48007E76F7 /* ZoomableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableViewModel.swift; sourceTree = "<group>"; };
 		3A533A3C2AEFAE5D007E76F7 /* ZoomableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableView.swift; sourceTree = "<group>"; };
-		3A533A3F2AF0F79C007E76F7 /* ObjectMovementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMovementView.swift; sourceTree = "<group>"; };
-		3A533A412AF0F7A9007E76F7 /* ObjectMovementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMovementViewController.swift; sourceTree = "<group>"; };
+		3A533A3F2AF0F79C007E76F7 /* ObjectMovementAssigningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMovementAssigningView.swift; sourceTree = "<group>"; };
+		3A533A412AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMovementAssigningViewController.swift; sourceTree = "<group>"; };
 		3A533A432AF144A9007E76F7 /* RelativeCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeCoordinatable.swift; sourceTree = "<group>"; };
 		3A533A452AF15ECF007E76F7 /* BezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPath.swift; sourceTree = "<group>"; };
 		3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathConverter.swift; sourceTree = "<group>"; };
@@ -234,8 +234,8 @@
 		3AE701B72AE6594300C48403 /* PerformanceSettingTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingTitleView.swift; sourceTree = "<group>"; };
 		3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHeadcountView.swift; sourceTree = "<group>"; };
 		3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingView.swift; sourceTree = "<group>"; };
-		3AE701C32AE66AAA00C48403 /* ObjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSelectionView.swift; sourceTree = "<group>"; };
-		3AE701C52AE66AB800C48403 /* ObjectSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSelectionViewController.swift; sourceTree = "<group>"; };
+		3AE701C32AE66AAA00C48403 /* ObjectInfoAssigningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectInfoAssigningView.swift; sourceTree = "<group>"; };
+		3AE701C52AE66AB800C48403 /* ObjectInfoAssigningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectInfoAssigningViewController.swift; sourceTree = "<group>"; };
 		3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModel.swift; sourceTree = "<group>"; };
 		3AE701C92AE6906200C48403 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 		D460EF772AE18DF700A5966A /* KeyChainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		D460EF782AE18DF700A5966A /* KeyChainAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainAccount.swift; sourceTree = "<group>"; };
 		D460EF7B2AE18DF700A5966A /* DotObjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotObjectView.swift; sourceTree = "<group>"; };
-		D460EF7D2AE18DF700A5966A /* ObjectCanvasArchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCanvasArchiver.swift; sourceTree = "<group>"; };
+		D460EF7D2AE18DF700A5966A /* ObjectHistoryArchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHistoryArchiver.swift; sourceTree = "<group>"; };
 		D460EF7E2AE18DF700A5966A /* ObjectCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCanvasView.swift; sourceTree = "<group>"; };
 		D460EF7F2AE18DF700A5966A /* ObjectCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCanvasViewController.swift; sourceTree = "<group>"; };
 		D460EF812AE18DF700A5966A /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
@@ -454,7 +454,7 @@
 				3A897FCF2AE2E7150031E6BE /* ViewModifiers */,
 				D460EF912AE18DF700A5966A /* CenterLinesRenderer.swift */,
 				D460EF8F2AE18DF700A5966A /* DraggingHandler.swift */,
-				D460EF7D2AE18DF700A5966A /* ObjectCanvasArchiver.swift */,
+				D460EF7D2AE18DF700A5966A /* ObjectHistoryArchiver.swift */,
 				3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */,
 				3A5328B82AEBED6A0051A09C /* RelativeCoordinateConverter.swift */,
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
@@ -473,13 +473,13 @@
 			path = Zoomable;
 			sourceTree = "<group>";
 		};
-		3A533A3E2AF0F764007E76F7 /* ObjectMovement */ = {
+		3A533A3E2AF0F764007E76F7 /* ObjectMovementAssigning */ = {
 			isa = PBXGroup;
 			children = (
-				3A533A3F2AF0F79C007E76F7 /* ObjectMovementView.swift */,
-				3A533A412AF0F7A9007E76F7 /* ObjectMovementViewController.swift */,
+				3A533A3F2AF0F79C007E76F7 /* ObjectMovementAssigningView.swift */,
+				3A533A412AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift */,
 			);
-			path = ObjectMovement;
+			path = ObjectMovementAssigning;
 			sourceTree = "<group>";
 		};
 		3A897FCF2AE2E7150031E6BE /* ViewModifiers */ = {
@@ -498,8 +498,8 @@
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
 				D460EF852AE18DF700A5966A /* HistoryControls */,
 				D460EF7C2AE18DF700A5966A /* ObjectCanvas */,
-				3AE701C22AE66A9B00C48403 /* ObjectSelection */,
-				3A533A3E2AF0F764007E76F7 /* ObjectMovement */,
+				3AE701C22AE66A9B00C48403 /* ObjectInfoAssigning */,
+				3A533A3E2AF0F764007E76F7 /* ObjectMovementAssigning */,
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				5159A3872AEBEC1A004D304E /* DanceFormation */,
@@ -611,13 +611,13 @@
 			path = MemberSetting;
 			sourceTree = "<group>";
 		};
-		3AE701C22AE66A9B00C48403 /* ObjectSelection */ = {
+		3AE701C22AE66A9B00C48403 /* ObjectInfoAssigning */ = {
 			isa = PBXGroup;
 			children = (
-				3AE701C32AE66AAA00C48403 /* ObjectSelectionView.swift */,
-				3AE701C52AE66AB800C48403 /* ObjectSelectionViewController.swift */,
+				3AE701C32AE66AAA00C48403 /* ObjectInfoAssigningView.swift */,
+				3AE701C52AE66AB800C48403 /* ObjectInfoAssigningViewController.swift */,
 			);
-			path = ObjectSelection;
+			path = ObjectInfoAssigning;
 			sourceTree = "<group>";
 		};
 		3AF617C82AE191BB0052FC90 /* Utilities */ = {
@@ -1464,7 +1464,7 @@
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */,
 				D460EFF92AE18DF700A5966A /* HexString.swift in Sources */,
-				3A533A402AF0F79C007E76F7 /* ObjectMovementView.swift in Sources */,
+				3A533A402AF0F79C007E76F7 /* ObjectMovementAssigningView.swift in Sources */,
 				D460F0452AE41A0F00A5966A /* FireStoreDTO+Performance.swift in Sources */,
 				D460F0192AE18DF700A5966A /* User.swift in Sources */,
 				D460EFFB2AE18DF700A5966A /* AuthProviderType.swift in Sources */,
@@ -1476,7 +1476,7 @@
 				3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */,
 				3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */,
 				D460EFDC2AE18DF700A5966A /* MockPerformanceRepository.swift in Sources */,
-				D460EFE32AE18DF700A5966A /* ObjectCanvasArchiver.swift in Sources */,
+				D460EFE32AE18DF700A5966A /* ObjectHistoryArchiver.swift in Sources */,
 				D460EFF02AE18DF700A5966A /* TouchedViewDetector.swift in Sources */,
 				A9ABC1462AEC159D00E28EEE /* PerformanceListCardView.swift in Sources */,
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
@@ -1495,7 +1495,7 @@
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
-				3A533A422AF0F7A9007E76F7 /* ObjectMovementViewController.swift in Sources */,
+				3A533A422AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
 				D460EFE82AE18DF700A5966A /* QEDApp.swift in Sources */,
 				D460F00C2AE18DF700A5966A /* DefaultUserUseCase.swift in Sources */,
@@ -1518,7 +1518,7 @@
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */,
-				3AE701C42AE66AAA00C48403 /* ObjectSelectionView.swift in Sources */,
+				3AE701C42AE66AAA00C48403 /* ObjectInfoAssigningView.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
@@ -1557,7 +1557,7 @@
 				D460F01D2AE18DF700A5966A /* Preset+Stub.swift in Sources */,
 				D460F0112AE18DF700A5966A /* UserUseCase.swift in Sources */,
 				D460F01C2AE18DF700A5966A /* FormationTransition.swift in Sources */,
-				3AE701C62AE66AB800C48403 /* ObjectSelectionViewController.swift in Sources */,
+				3AE701C62AE66AB800C48403 /* ObjectInfoAssigningViewController.swift in Sources */,
 				D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */,
 				D460F0142AE18DF700A5966A /* MusicUseCase.swift in Sources */,
 				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,

@@ -16,7 +16,7 @@ class FormationSettingViewModel: ObservableObject {
 
     let canvasController: ObjectCanvasViewController
     let zoomableCanvasController: ObjectCanvasViewController
-    let objectCanvasArchiver: ObjectCanvasArchiver
+    let objectHistoryArchiver: ObjectHistoryArchiver
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
     private var tasksQueue: [() -> Void] = []
@@ -28,7 +28,7 @@ class FormationSettingViewModel: ObservableObject {
     ) {
         let canvasController = ObjectCanvasViewController()
         let zoomableCanvasController = ObjectCanvasViewController()
-        let objectCanvasArchiver = ObjectCanvasArchiver()
+        let objectHistoryArchiver = ObjectHistoryArchiver()
         let performanceSettingManager = PerformanceSettingManager(
             performance: performance,
             performanceUseCase: performanceUseCase
@@ -37,12 +37,12 @@ class FormationSettingViewModel: ObservableObject {
         self.performance = .build(entity: performance)
         self.canvasController = canvasController
         self.zoomableCanvasController = zoomableCanvasController
-        self.objectCanvasArchiver = objectCanvasArchiver
+        self.objectHistoryArchiver = objectHistoryArchiver
         self.performanceSettingManager = performanceSettingManager
         self.performanceUseCase = performanceUseCase
 
-        canvasController.objectCanvasArchiver = objectCanvasArchiver
-        zoomableCanvasController.objectCanvasArchiver = objectCanvasArchiver
+        canvasController.objectHistoryArchiver = objectHistoryArchiver
+        zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
@@ -146,7 +146,7 @@ class FormationSettingViewModel: ObservableObject {
 
     private func assignControllerToArchiverByZoomed() {
         let controller = isZoomed ? zoomableCanvasController : canvasController
-        objectCanvasArchiver.canvasController = controller
+        objectHistoryArchiver.canvasController = controller
         performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
     }
 }

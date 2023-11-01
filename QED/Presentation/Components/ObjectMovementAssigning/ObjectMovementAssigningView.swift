@@ -2,17 +2,17 @@
 
 import SwiftUI
 
-struct ObjectMovementView: UIViewControllerRepresentable {
+struct ObjectMovementAssigningView: UIViewControllerRepresentable {
     let beforeFormation: Formation
     let afterFormation: Formation
     let onChange: ((MovementMap) -> Void)?
-    @State private var controller = ObjectMovementViewController()
+    @State private var controller = ObjectMovementAssigningViewController()
 
-    func makeUIViewController(context: Context) -> ObjectMovementViewController {
+    func makeUIViewController(context: Context) -> ObjectMovementAssigningViewController {
         controller
     }
 
-    func updateUIViewController(_ uiViewController: ObjectMovementViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: ObjectMovementAssigningViewController, context: Context) {
         uiViewController.onChange = onChange
         DispatchQueue.main.async {
             uiViewController.copy(beforeFormation: beforeFormation, afterFormation: afterFormation)

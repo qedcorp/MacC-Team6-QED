@@ -3,7 +3,7 @@
 import Combine
 import UIKit
 
-class ObjectMovementViewController: ObjectStageViewController {
+class ObjectMovementAssigningViewController: ObjectStageViewController {
     var onChange: ((MovementMap) -> Void)?
 
     private lazy var bezierPathConverter = {

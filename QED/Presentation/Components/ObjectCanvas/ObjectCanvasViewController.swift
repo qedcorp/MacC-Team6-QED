@@ -6,7 +6,7 @@ import Combine
 class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
-    weak var objectCanvasArchiver: ObjectCanvasArchiver?
+    weak var objectHistoryArchiver: ObjectHistoryArchiver?
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -168,7 +168,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        objectCanvasArchiver?.addHistory(history)
+        objectHistoryArchiver?.addHistory(history)
     }
 
     private func didChange() {
