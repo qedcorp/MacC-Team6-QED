@@ -43,8 +43,8 @@
 		3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B72AE6594300C48403 /* PerformanceSettingTitleView.swift */; };
 		3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */; };
 		3AE701BD2AE65F4F00C48403 /* MemberSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */; };
-		3AE701C42AE66AAA00C48403 /* ObjectInfoAssigningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C32AE66AAA00C48403 /* ObjectInfoAssigningView.swift */; };
-		3AE701C62AE66AB800C48403 /* ObjectInfoAssigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C52AE66AB800C48403 /* ObjectInfoAssigningViewController.swift */; };
+		3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C32AE66AAA00C48403 /* ObjectColorAssigningView.swift */; };
+		3AE701C62AE66AB800C48403 /* ObjectColorAssigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C52AE66AB800C48403 /* ObjectColorAssigningViewController.swift */; };
 		3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */; };
 		3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C92AE6906200C48403 /* String+Hex.swift */; };
 		3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */; };
@@ -240,8 +240,8 @@
 		3AE701B72AE6594300C48403 /* PerformanceSettingTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingTitleView.swift; sourceTree = "<group>"; };
 		3AE701B92AE6595100C48403 /* MusicHeadcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHeadcountView.swift; sourceTree = "<group>"; };
 		3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingView.swift; sourceTree = "<group>"; };
-		3AE701C32AE66AAA00C48403 /* ObjectInfoAssigningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectInfoAssigningView.swift; sourceTree = "<group>"; };
-		3AE701C52AE66AB800C48403 /* ObjectInfoAssigningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectInfoAssigningViewController.swift; sourceTree = "<group>"; };
+		3AE701C32AE66AAA00C48403 /* ObjectColorAssigningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectColorAssigningView.swift; sourceTree = "<group>"; };
+		3AE701C52AE66AB800C48403 /* ObjectColorAssigningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectColorAssigningViewController.swift; sourceTree = "<group>"; };
 		3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModel.swift; sourceTree = "<group>"; };
 		3AE701C92AE6906200C48403 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -514,7 +514,7 @@
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
 				D460EF852AE18DF700A5966A /* HistoryControls */,
 				D460EF7C2AE18DF700A5966A /* ObjectCanvas */,
-				3AE701C22AE66A9B00C48403 /* ObjectInfoAssigning */,
+				3AE701C22AE66A9B00C48403 /* ObjectColorAssigning */,
 				3A533A3E2AF0F764007E76F7 /* ObjectMovementAssigning */,
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
@@ -627,13 +627,13 @@
 			path = MemberSetting;
 			sourceTree = "<group>";
 		};
-		3AE701C22AE66A9B00C48403 /* ObjectInfoAssigning */ = {
+		3AE701C22AE66A9B00C48403 /* ObjectColorAssigning */ = {
 			isa = PBXGroup;
 			children = (
-				3AE701C32AE66AAA00C48403 /* ObjectInfoAssigningView.swift */,
-				3AE701C52AE66AB800C48403 /* ObjectInfoAssigningViewController.swift */,
+				3AE701C32AE66AAA00C48403 /* ObjectColorAssigningView.swift */,
+				3AE701C52AE66AB800C48403 /* ObjectColorAssigningViewController.swift */,
 			);
-			path = ObjectInfoAssigning;
+			path = ObjectColorAssigning;
 			sourceTree = "<group>";
 		};
 		3AF617C82AE191BB0052FC90 /* Utilities */ = {
@@ -1537,7 +1537,7 @@
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */,
-				3AE701C42AE66AAA00C48403 /* ObjectInfoAssigningView.swift in Sources */,
+				3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
@@ -1577,7 +1577,7 @@
 				3A26C9892AF2726F00BFE0EA /* MovementSettingViewModel.swift in Sources */,
 				D460F0112AE18DF700A5966A /* UserUseCase.swift in Sources */,
 				D460F01C2AE18DF700A5966A /* FormationTransition.swift in Sources */,
-				3AE701C62AE66AB800C48403 /* ObjectInfoAssigningViewController.swift in Sources */,
+				3AE701C62AE66AB800C48403 /* ObjectColorAssigningViewController.swift in Sources */,
 				D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */,
 				D460F0142AE18DF700A5966A /* MusicUseCase.swift in Sources */,
 				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,

@@ -4,6 +4,10 @@ import UIKit
 import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
+    struct History: Equatable, Formable {
+        let relativePositions: [RelativePosition]
+    }
+
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
     weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
@@ -101,7 +105,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             selectedObjectViews = [objectView]
         } else {
             if objectViews.count < maxObjectsCount ?? .max {
-                placeObjectView(position: position)
+                placeObjectView(position: position, color: .black)
             } else if selectedObjectViews.isEmpty {
                 isMultiSelectDragging = true
             }
@@ -130,7 +134,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         draggingHandler.endDragging()
     }
 
-    override func placeObjectView(position: CGPoint, color: UIColor = .black) {
+    override func placeObjectView(position: CGPoint, color: UIColor) {
         super.placeObjectView(position: position, color: color)
         replaceSelectedObjectViews()
     }
@@ -182,10 +186,6 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
         let touchedView = touchedViewDetector.detectView(position: position)
         return touchedView == nil
-    }
-
-    struct History: Equatable, Formable {
-        let relativePositions: [RelativePosition]
     }
 }
 

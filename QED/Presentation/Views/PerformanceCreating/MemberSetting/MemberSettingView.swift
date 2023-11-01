@@ -103,7 +103,7 @@ struct MemberSettingView: View {
 
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
         VStack(spacing: 10) {
-            ObjectInfoAssigningView(
+            ObjectColorAssigningView(
                 formable: formation,
                 colorHex: viewModel.selectedMemberInfo?.color,
                 onChange: {

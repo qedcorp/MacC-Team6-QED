@@ -18,7 +18,7 @@ class PerformanceSettingManager {
     }()
 
     init(performance: Performance, performanceUseCase: PerformanceUseCase) {
-        self.performance = mockPerformance1
+        self.performance = performance
         self.performanceUseCase = performanceUseCase
         subscribeChangingPublisher()
     }

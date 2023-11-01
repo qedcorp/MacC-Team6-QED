@@ -2,7 +2,7 @@
 
 import UIKit
 
-class ObjectInfoAssigningViewController: ObjectStageViewController {
+class ObjectColorAssigningViewController: ObjectStageViewController {
     var colorHex: String?
     var onChange: (([String?]) -> Void)?
 

@@ -4,17 +4,21 @@ import Combine
 import UIKit
 
 class ObjectMovementAssigningViewController: ObjectStageViewController {
+    struct History: Equatable {
+        let movementMap: MovementMap
+    }
+
     var onChange: ((MovementMap) -> Void)?
     weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
+
+    private lazy var touchPositionConverter = {
+        TouchPositionConverter(container: view)
+    }()
 
     private lazy var bezierPathConverter = {
         let converter = BezierPathConverter()
         converter.relativeCoordinateConverter = relativeCoordinateConverter
         return converter
-    }()
-
-    private lazy var touchPositionConverter = {
-        TouchPositionConverter(container: view)
     }()
 
     private lazy var draggingHandler = DraggingHandler()
@@ -158,10 +162,6 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
                 )
                 return map.merging([info: path]) { $1 }
             }
-    }
-
-    struct History: Equatable {
-        let movementMap: MovementMap
     }
 }
 

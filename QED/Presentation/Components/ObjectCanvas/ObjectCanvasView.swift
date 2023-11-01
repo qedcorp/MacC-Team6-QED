@@ -9,7 +9,8 @@ struct ObjectCanvasView: UIViewControllerRepresentable {
     let onChange: (([CGPoint]) -> Void)?
 
     func makeUIViewController(context: Context) -> ObjectCanvasViewController {
-        controller
+        controller.isColorAssignable = false
+        return controller
     }
 
     func updateUIViewController(_ uiViewController: ObjectCanvasViewController, context: Context) {

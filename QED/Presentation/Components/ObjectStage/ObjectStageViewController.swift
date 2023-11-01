@@ -7,7 +7,8 @@ class ObjectStageViewController: UIViewController {
         RelativeCoordinateConverter(sizeable: view)
     }()
 
-    private var isViewAppeared: Bool = false
+    var isColorAssignable = true
+    private var isViewAppeared = false
     private var copiedFormable: Formable?
 
     var objectViewRadius: CGFloat { 2 }
@@ -29,7 +30,7 @@ class ObjectStageViewController: UIViewController {
         }
     }
 
-    func placeObjectView(position: CGPoint, color: UIColor = .black) {
+    func placeObjectView(position: CGPoint, color: UIColor) {
         let objectView = DotObjectView()
         objectView.radius = objectViewRadius
         objectView.color = color
@@ -53,9 +54,12 @@ class ObjectStageViewController: UIViewController {
             return
         }
         objectViews.forEach { $0.removeFromSuperview() }
-        formable?.relativePositions
-            .map { relativeCoordinateConverter.getAbsoluteValue(of: $0) }
-            .forEach { placeObjectView(position: $0) }
+        let colors = (formable as? ColorArrayable)?.colors ?? []
+        formable?.relativePositions.enumerated().forEach {
+            let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
+            let color = (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .black
+            placeObjectView(position: position, color: color)
+        }
     }
 
     final func getRelativePositions() -> [RelativePosition] {
