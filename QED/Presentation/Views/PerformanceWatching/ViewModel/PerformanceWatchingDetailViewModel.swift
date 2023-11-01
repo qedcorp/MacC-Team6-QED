@@ -141,7 +141,14 @@ extension PerformanceWatchingDetailViewModel {
     }
 
     private func timingAction() {
-        if selectedIndex + 1 < performance.formations.count {
+        if let transitions = performance.transitions[selectedIndex] {
+            scene.manager?.playPerformance(transion: transitions,
+                                           afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
+                guard let self = self else { return }
+                self.selectedIndex += 1
+
+            }
+        } else {
             guard let transitions = makeTransitionWithStraightLine(
                 before: performance.formations[selectedIndex],
                 after: performance.formations[selectedIndex + 1]
@@ -151,25 +158,6 @@ extension PerformanceWatchingDetailViewModel {
                 guard let self = self else { return }
                 self.selectedIndex += 1
             }
-            //            if let transitions = performance.transitions[selectedIndex] {
-            //                scene.manager?.playPerformance(transion: transitions,
-            //                                               afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
-            //                    guard let self = self else { return }
-            //                    self.selectedIndex += 1
-            //
-            //                }
-            //            } else {
-            //                guard let transitions = makeTransitionWithStraightLine(
-            //                    before: performance.formations[selectedIndex],
-            //                    after: performance.formations[selectedIndex + 1]
-            //                ) else { return }
-            //                scene.manager?.playPerformance(transion: transitions,
-            //                                               afterFormation: performance.formations[selectedIndex + 1]) { [weak self] in
-            //                    guard let self = self else { return }
-            //                    print("@LOG ssssss")
-            //                    self.selectedIndex += 1
-            //                }
-            //            }
         }
     }
 
