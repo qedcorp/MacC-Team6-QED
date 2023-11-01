@@ -2,10 +2,8 @@
 
 import Foundation
 
-class ObjectHistoryArchiver: HistoryControllable {
-    typealias History = any Formable
-
-    weak var canvasController: ObjectCanvasViewController?
+class ObjectHistoryArchiver<History: Equatable>: HistoryControllable {
+    weak var delegate: HistoryControllableDelegate?
     private var histories: [History] = []
     private var historyIndex = -1
 
@@ -18,7 +16,7 @@ class ObjectHistoryArchiver: HistoryControllable {
     }
 
     func addHistory(_ history: History) {
-        guard history.relativePositions != histories[safe: historyIndex]?.relativePositions else {
+        guard history != histories[safe: historyIndex] else {
             return
         }
         if historyIndex < histories.count - 1 {
@@ -33,7 +31,7 @@ class ObjectHistoryArchiver: HistoryControllable {
             return
         }
         historyIndex -= 1
-        reflectHistoryToView()
+        reflectHistory()
     }
 
     func redo() {
@@ -41,13 +39,18 @@ class ObjectHistoryArchiver: HistoryControllable {
             return
         }
         historyIndex += 1
-        reflectHistoryToView()
+        reflectHistory()
     }
 
-    private func reflectHistoryToView() {
+    func reset() {
+        histories = []
+        historyIndex = -1
+    }
+
+    private func reflectHistory() {
         guard let history = histories[safe: historyIndex] else {
             return
         }
-        canvasController?.copyFormableFromHistory(history)
+        delegate?.reflectHistoryFromHistoryControllable(history)
     }
 }

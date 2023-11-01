@@ -5,18 +5,19 @@ import Foundation
 
 @MainActor
 class FormationSettingViewModel: ObservableObject {
+    typealias Controller = ObjectCanvasViewController
+
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
     @Published var currentFormationIndex = -1
-    @Published var isMovementMode = false // TODO: 임시 세부동선
 
     @Published var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
 
-    let canvasController: ObjectCanvasViewController
-    let zoomableCanvasController: ObjectCanvasViewController
-    let objectHistoryArchiver: ObjectHistoryArchiver
+    let canvasController: Controller
+    let zoomableCanvasController: Controller
+    let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
     private var tasksQueue: [() -> Void] = []
@@ -26,9 +27,9 @@ class FormationSettingViewModel: ObservableObject {
         performance: Performance,
         performanceUseCase: PerformanceUseCase
     ) {
-        let canvasController = ObjectCanvasViewController()
-        let zoomableCanvasController = ObjectCanvasViewController()
-        let objectHistoryArchiver = ObjectHistoryArchiver()
+        let canvasController = Controller()
+        let zoomableCanvasController = Controller()
+        let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
         let performanceSettingManager = PerformanceSettingManager(
             performance: performance,
             performanceUseCase: performanceUseCase
@@ -85,11 +86,6 @@ class FormationSettingViewModel: ObservableObject {
         String(describing: performance.formations[safe: currentFormationIndex]?.relativePositions)
     }
 
-    // TODO: 임시 세부동선
-    var nextFormation: FormationModel? {
-        performance.formations[safe: currentFormationIndex + 1]
-    }
-
     var isEnabledToEdit: Bool {
         currentFormationIndex >= 0
     }
@@ -108,11 +104,6 @@ class FormationSettingViewModel: ObservableObject {
 
     func updateMembers(positions: [CGPoint]) {
         performanceSettingManager.updateMembers(positions: positions, formationIndex: currentFormationIndex)
-    }
-
-    // TODO: 임시 세부동선
-    func updateMembers(movementMap: MovementMap) {
-        performanceSettingManager.updateMembers(movementMap: movementMap, formationIndex: currentFormationIndex)
     }
 
     func addFormation() {
@@ -146,7 +137,7 @@ class FormationSettingViewModel: ObservableObject {
 
     private func assignControllerToArchiverByZoomed() {
         let controller = isZoomed ? zoomableCanvasController : canvasController
-        objectHistoryArchiver.canvasController = controller
+        objectHistoryArchiver.delegate = controller
         performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
     }
 }

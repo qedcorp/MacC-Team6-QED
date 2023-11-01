@@ -5,6 +5,7 @@ import UIKit
 
 class ObjectMovementAssigningViewController: ObjectStageViewController {
     var onChange: ((MovementMap) -> Void)?
+    weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
 
     private lazy var bezierPathConverter = {
         let converter = BezierPathConverter()
@@ -45,7 +46,8 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
                 if let dragging = $0 {
                     handleDragging(dragging)
                 } else {
-                    onChange?(movementMap)
+                    addHistory()
+                    didChange()
                 }
             }
             .store(in: &cancellables)
@@ -97,6 +99,14 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         placeObjectViews(formation: beforeFormation)
         placeObjectViews(formation: afterFormation, alpha: 0.3)
         placeBezierPathLayers()
+        addHistory()
+        didChange()
+    }
+
+    func copyFromHistory(_ history: History) {
+        movementMap = history.movementMap
+        placeBezierPathLayers()
+        didChange()
     }
 
     private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {
@@ -114,6 +124,18 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         movementMap
             .map { bezierPathConverter.buildCAShapeLayer($0.value) }
             .forEach { view.layer.addSublayer($0) }
+    }
+
+    private func addHistory() {
+        guard !movementMap.isEmpty else {
+            return
+        }
+        let history = History(movementMap: movementMap)
+        objectHistoryArchiver?.addHistory(history)
+    }
+
+    private func didChange() {
+        onChange?(movementMap)
     }
 
     private static func buildLinearMovementMap(
@@ -136,5 +158,18 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
                 )
                 return map.merging([info: path]) { $1 }
             }
+    }
+
+    struct History: Equatable {
+        let movementMap: MovementMap
+    }
+}
+
+extension ObjectMovementAssigningViewController: HistoryControllableDelegate {
+    func reflectHistoryFromHistoryControllable<T>(_ history: T) where T: Equatable {
+        guard let history = history as? History else {
+            return
+        }
+        copyFromHistory(history)
     }
 }

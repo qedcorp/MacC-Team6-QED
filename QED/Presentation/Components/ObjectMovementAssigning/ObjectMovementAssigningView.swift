@@ -3,10 +3,10 @@
 import SwiftUI
 
 struct ObjectMovementAssigningView: UIViewControllerRepresentable {
+    let controller: ObjectMovementAssigningViewController
     let beforeFormation: Formation
     let afterFormation: Formation
     let onChange: ((MovementMap) -> Void)?
-    @State private var controller = ObjectMovementAssigningViewController()
 
     func makeUIViewController(context: Context) -> ObjectMovementAssigningViewController {
         controller

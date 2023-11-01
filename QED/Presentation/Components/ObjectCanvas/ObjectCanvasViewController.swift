@@ -6,7 +6,7 @@ import Combine
 class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
-    weak var objectHistoryArchiver: ObjectHistoryArchiver?
+    weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -184,13 +184,16 @@ class ObjectCanvasViewController: ObjectStageViewController {
         return touchedView == nil
     }
 
-    private func getRelativePositions() -> [RelativePosition] {
-        objectViews.map {
-            relativeCoordinateConverter.getRelativeValue(of: $0.center, type: RelativePosition.self)
-        }
-    }
-
-    private struct History: Formable {
+    struct History: Equatable, Formable {
         let relativePositions: [RelativePosition]
+    }
+}
+
+extension ObjectCanvasViewController: HistoryControllableDelegate {
+    func reflectHistoryFromHistoryControllable<T>(_ history: T) where T: Equatable {
+        guard let formable = history as? Formable else {
+            return
+        }
+        copyFormable(formable)
     }
 }

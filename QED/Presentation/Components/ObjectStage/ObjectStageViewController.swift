@@ -57,4 +57,10 @@ class ObjectStageViewController: UIViewController {
             .map { relativeCoordinateConverter.getAbsoluteValue(of: $0) }
             .forEach { placeObjectView(position: $0) }
     }
+
+    final func getRelativePositions() -> [RelativePosition] {
+        objectViews.map {
+            relativeCoordinateConverter.getRelativeValue(of: $0.center, type: RelativePosition.self)
+        }
+    }
 }
