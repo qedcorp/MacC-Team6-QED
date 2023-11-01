@@ -24,7 +24,6 @@
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
-		3AE701A92AE4450A00C48403 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A72AE4450A00C48403 /* Color+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
 		3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */; };
@@ -61,6 +60,8 @@
 		A974EA232AE440C600302C9D /* MusicSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA1C2AE440C600302C9D /* MusicSetupView.swift */; };
 		A9ABC1462AEC159D00E28EEE /* PerformanceListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */; };
 		A9D279F12AE68CF6002B00DA /* MockAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */; };
+		A9DB97382AF2746400703732 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97372AF2746400703732 /* Color+.swift */; };
+		A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97392AF2751200703732 /* CustomFont.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
@@ -210,7 +211,6 @@
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE701A62AE4450A00C48403 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
-		3AE701A72AE4450A00C48403 /* Color+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButtonView.swift; sourceTree = "<group>"; };
 		3AE701AE2AE59DE100C48403 /* MemoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoFormView.swift; sourceTree = "<group>"; };
 		3AE701B12AE5C46000C48403 /* MultiSelectBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectBoxView.swift; sourceTree = "<group>"; };
@@ -247,6 +247,8 @@
 		A974EA1C2AE440C600302C9D /* MusicSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicSetupView.swift; sourceTree = "<group>"; };
 		A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceListCardView.swift; sourceTree = "<group>"; };
 		A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockAssets.xcassets; sourceTree = "<group>"; };
+		A9DB97372AF2746400703732 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		A9DB97392AF2751200703732 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 			children = (
 				3AE701A62AE4450A00C48403 /* Int+.swift */,
 				3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */,
+				A9DB97372AF2746400703732 /* Color+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -548,7 +551,6 @@
 				3AE701B42AE5D07600C48403 /* Rect+Contains.swift */,
 				3AE701C92AE6906200C48403 /* String+Hex.swift */,
 				3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */,
-				3AE701A72AE4450A00C48403 /* Color+.swift */,
 				3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */,
 				3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */,
 			);
@@ -958,6 +960,7 @@
 				3AE701A52AE4450A00C48403 /* Extension */,
 				D460EF9A2AE18DF700A5966A /* LifeCycle */,
 				D460EF9C2AE18DF700A5966A /* Utilities */,
+				A9DB97392AF2751200703732 /* CustomFont.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1410,6 +1413,7 @@
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
 				D460EFDB2AE18DF700A5966A /* MockPresetRepository.swift in Sources */,
+				A9DB97382AF2746400703732 /* Color+.swift in Sources */,
 				D460F0042AE18DF700A5966A /* AppleAuthRepository.swift in Sources */,
 				D460F0072AE18DF700A5966A /* PresetUseCase.swift in Sources */,
 				3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */,
@@ -1461,9 +1465,9 @@
 				3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
-				3AE701A92AE4450A00C48403 /* Color+.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
+				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
