@@ -9,9 +9,8 @@ import SwiftUI
 
 struct PerformanceListReadingView: View {
     @StateObject private var viewModel = MainViewModel(
-        performanceUseCase: DefaultPerformanceUseCase(
-            performanceRepository: MockPerformanceRepository(),
-            userStore: DefaultUserStore.shared))
+        performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
+    )
     @Environment(\.dismiss) private var dismiss
 
     let columns: [GridItem] = [

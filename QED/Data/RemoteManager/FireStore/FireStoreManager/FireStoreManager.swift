@@ -60,7 +60,8 @@ final class FireStoreManager: RemoteManager {
                     .collection(fireStoreData.collectionName)
                     .document()
                 
-                dataDic["ID"] = document.documentID
+                let myId = try KeyChainManager.shared.read(account: .id)
+                dataDic["ID"] = myId
                 try await document.setData(dataDic)
                 entityConvertable.fireStoreID = document.documentID
             }
