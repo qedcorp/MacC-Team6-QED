@@ -90,6 +90,7 @@
 		D42AA11C2AEC1C1C0053E2A8 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */; };
 		D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */; };
 		D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */; };
+		D42AA1252AF3B4F70053E2A8 /* ObjectPlayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1242AF3B4F70053E2A8 /* ObjectPlayable.swift */; };
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
@@ -290,6 +291,7 @@
 		D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDirectedGraph.swift; sourceTree = "<group>"; };
 		D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		D42AA1242AF3B4F70053E2A8 /* ObjectPlayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayable.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EF662AE18DF700A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGoogleAuthRepository.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */,
 				A9ABC1442AEC156C00E28EEE /* PerformanceListCards */,
 				3AE701B62AE6593100C48403 /* PerformanceSetting */,
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
@@ -848,6 +851,14 @@
 				D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */ = {
+			isa = PBXGroup;
+			children = (
+				D42AA1242AF3B4F70053E2A8 /* ObjectPlayable.swift */,
+			);
+			path = ObjectPlaying;
 			sourceTree = "<group>";
 		};
 		D460EF602AE18DF700A5966A /* Data */ = {
@@ -1597,6 +1608,7 @@
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D460F00A2AE18DF700A5966A /* DefaultFormationTransitionUseCase.swift in Sources */,
 				D460F0162AE18DF700A5966A /* RelativePosition.swift in Sources */,
+				D42AA1252AF3B4F70053E2A8 /* ObjectPlayable.swift in Sources */,
 				D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */,
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
