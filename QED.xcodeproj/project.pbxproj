@@ -35,6 +35,7 @@
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
 		3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */; };
+		3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701A92AE4450A00C48403 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A72AE4450A00C48403 /* Color+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
@@ -230,6 +231,7 @@
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
 		3A927F192AE2640A002ED7E8 /* FormationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationModel.swift; sourceTree = "<group>"; };
 		3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoColorset.swift; sourceTree = "<group>"; };
+		3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoEditingViewModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -461,6 +463,7 @@
 				A974EA122AE440C600302C9D /* PerformanceSetting */,
 				3AF617CE2AE1961D0052FC90 /* FormationSetting */,
 				3AE701BB2AE65F3500C48403 /* MemberSetting */,
+				3AC325032AF40BDB002B6682 /* MemberInfoEditing */,
 				3A26C9852AF2721F00BFE0EA /* MovementSetting */,
 			);
 			path = PerformanceCreating;
@@ -527,6 +530,15 @@
 				3A533A392AEFAE25007E76F7 /* Zoomable */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		3AC325032AF40BDB002B6682 /* MemberInfoEditing */ = {
+			isa = PBXGroup;
+			children = (
+				3AE701CF2AE6989200C48403 /* MemberInfoEditingView.swift */,
+				3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */,
+			);
+			path = MemberInfoEditing;
 			sourceTree = "<group>";
 		};
 		3AE0CCB32ADD0CE1001FE371 = {
@@ -624,7 +636,6 @@
 			children = (
 				3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */,
 				3A5329092AED92B40051A09C /* MemberSettingViewModel.swift */,
-				3AE701CF2AE6989200C48403 /* MemberInfoEditingView.swift */,
 			);
 			path = MemberSetting;
 			sourceTree = "<group>";
@@ -1593,6 +1604,7 @@
 				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
 				3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
+				3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,
