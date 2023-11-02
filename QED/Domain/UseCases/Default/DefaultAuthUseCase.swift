@@ -12,22 +12,22 @@ struct DefaultAuthUseCase: AuthUseCase {
     let kakaoAuthRepository: KakaoAuthRepository
     let googleAuthRepository: GoogleAuthRepository
     let appleAuthRepository: AppleAuthRepository
-    let uiViewController: AuthUIProtocol
 
-    func login(authType: AuthProviderType) async throws {
+    func login(authType: AuthProviderType) async throws -> Bool {
         do {
             switch authType {
             case .kakao:
-                _ = try await kakaoAuthRepository.login()
+                return try await kakaoAuthRepository.login()
             case .apple:
-                _ = try await appleAuthRepository.login()
+                return try await appleAuthRepository.login()
             case .google:
-                _ = try await googleAuthRepository.login()
+                return try await googleAuthRepository.login()
             }
         } catch {
             print("--------------------")
             print("Fail to social login")
             print("--------------------")
+            return false
         }
     }
 }

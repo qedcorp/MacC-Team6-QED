@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
-        performancesUseCase: DIContainer.shared.storage.resolver.resolve(PerformanceUseCase.self)
+        performancesUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
 
     var body: some View {

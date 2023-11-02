@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AuthUseCase {
-    func login(authType: AuthProviderType) async throws
+    func login(authType: AuthProviderType) async throws -> Bool
 }

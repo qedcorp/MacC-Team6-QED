@@ -9,7 +9,6 @@ import Foundation
 
 extension FireStoreDTO {
     final class PresetDTO: NSObject, FireStoreEntity {
-
         let collectionName: String = "PRESET"
         @objc var ID: String
         @objc var HEADCOUNT: String?
