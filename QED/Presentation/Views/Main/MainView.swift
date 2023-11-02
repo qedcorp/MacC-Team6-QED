@@ -33,7 +33,6 @@ struct MainView: View {
         }
         .onAppear {
             viewModel.fetchUser()
-            viewModel.fetchMyRecentPerformances()
         }
         .navigationBarBackButtonHidden()
     }
@@ -62,6 +61,9 @@ struct MainView: View {
                     .foregroundColor(.white)
                     .background(Color(red: 0, green: 0.97, blue: 0.04))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .onAppear {
+                viewModel.fetchMyRecentPerformances()
             }
         }
         .padding(.horizontal, 20)
