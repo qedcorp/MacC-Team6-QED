@@ -92,6 +92,7 @@
 		D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */; };
 		D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */; };
 		D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */; };
+		D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */; };
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
@@ -294,6 +295,7 @@
 		D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableViewController.swift; sourceTree = "<group>"; };
 		D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableView.swift; sourceTree = "<group>"; };
+		D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToPointCalculator.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EF662AE18DF700A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGoogleAuthRepository.swift; sourceTree = "<group>"; };
@@ -858,10 +860,19 @@
 		D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */ = {
 			isa = PBXGroup;
 			children = (
+				D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */,
 				D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */,
 				D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */,
 			);
 			path = ObjectPlaying;
+			sourceTree = "<group>";
+		};
+		D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */,
+			);
+			path = PathPointCalculator;
 			sourceTree = "<group>";
 		};
 		D460EF602AE18DF700A5966A /* Data */ = {
@@ -1638,6 +1649,7 @@
 				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,
 				3AE701A82AE4450A00C48403 /* Int+.swift in Sources */,
 				D460F0022AE18DF700A5966A /* KakaoAuthRepository.swift in Sources */,
+				D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */,
 				3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */,
 				3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */,
 				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
