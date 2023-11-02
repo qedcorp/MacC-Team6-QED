@@ -78,7 +78,7 @@ class PerformanceSettingManager {
             return
         }
         colors.enumerated().forEach { index, color in
-            let memberInfo = performance.memberInfos.first { $0.color == color }
+            let memberInfo = performance.memberInfos?.first { $0.color == color }
             formation.members[safe: index]?.info = memberInfo
         }
         didChange()
@@ -93,7 +93,7 @@ class PerformanceSettingManager {
     }
 
     func updateMemberName(_ name: String, memberInfoIndex: Int) {
-        guard let memberInfo = performance.memberInfos[safe: memberInfoIndex] else {
+        guard let memberInfo = performance.memberInfos?[safe: memberInfoIndex] else {
             return
         }
         memberInfo.name = name

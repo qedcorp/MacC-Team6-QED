@@ -18,7 +18,7 @@ struct PerformanceModel: Identifiable, Equatable {
             entity: entity,
             music: .build(entity: entity.music),
             headcount: entity.headcount,
-            memberInfos: entity.memberInfos.map { .build(entity: $0) },
+            memberInfos: entity.memberInfos?.map { .build(entity: $0) } ?? [],
             formations: entity.formations.map { .build(entity: $0) }
         )
     }
