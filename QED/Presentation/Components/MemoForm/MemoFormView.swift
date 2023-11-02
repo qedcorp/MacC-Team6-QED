@@ -4,8 +4,7 @@ import SwiftUI
 
 struct MemoFormView: View {
     @State var memo: String
-    let onSubmit: (String) -> Void
-    let onDismiss: () -> Void
+    let onComplete: (String) -> Void
     @State private var animation: AnimationType = .appear
     @FocusState private var focusedField: FocusType?
 
@@ -15,7 +14,7 @@ struct MemoFormView: View {
                 .ignoresSafeArea()
                 .onTapGesture {
                     animation = .disappear
-                    onDismiss()
+                    onComplete(memo)
                 }
             VStack(spacing: 124) {
                 TextField("클릭해서 가사 입력", text: $memo)
@@ -31,7 +30,7 @@ struct MemoFormView: View {
                     .padding(.horizontal, 22)
                 Button {
                     animation = .disappear
-                    onSubmit(memo)
+                    onComplete(memo)
                 } label: {
                     ZStack {
                         Capsule()

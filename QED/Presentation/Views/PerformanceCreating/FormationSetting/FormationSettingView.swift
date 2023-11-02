@@ -212,8 +212,7 @@ struct FormationSettingView: View {
     private func buildMemoFormView() -> some View {
         MemoFormView(
             memo: viewModel.currentFormation?.memo ?? "",
-            onSubmit: { viewModel.updateCurrentMemo($0) },
-            onDismiss: { viewModel.isMemoFormPresented = false }
+            onComplete: { viewModel.updateCurrentMemo($0) }
         )
     }
 
