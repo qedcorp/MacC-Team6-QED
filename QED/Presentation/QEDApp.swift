@@ -10,11 +10,12 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
-                MainView()
-            } else {
-                AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
-            }
+            ObjectPlayableView()
+//            if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
+//                MainView()
+//            } else {
+//                AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
+//            }
         }
     }
 }

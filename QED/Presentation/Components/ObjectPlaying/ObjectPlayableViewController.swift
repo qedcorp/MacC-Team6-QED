@@ -1,5 +1,5 @@
 //
-//  ObjectPlayable.swift
+//  ObjectPlayableViewController.swift
 //  QED
 //
 //  Created by changgyo seo on 11/2/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ObjectPlayable: ObjectStageViewController {
+class ObjectPlayableViewController: ObjectStageViewController {
     
     var index: Int
 
