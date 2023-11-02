@@ -17,7 +17,7 @@ struct MemoFormView: View {
                     onComplete(memo)
                 }
             VStack(spacing: 124) {
-                TextField("클릭해서 가사 입력", text: $memo)
+                TextField("탭해서 가사 입력", text: $memo)
                     .focused($focusedField, equals: .memoField)
                     .font(.system(size: 26).bold())
                     .multilineTextAlignment(.center)

@@ -8,7 +8,7 @@ struct MemoButtonView: View {
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
-            Text(memo ?? "클릭해서 가사 입력")
+            Text(memo ?? "탭해서 가사 입력")
                 .foregroundStyle(memo == nil ? .green : .black)
                 .bold()
                 .lineLimit(1)
