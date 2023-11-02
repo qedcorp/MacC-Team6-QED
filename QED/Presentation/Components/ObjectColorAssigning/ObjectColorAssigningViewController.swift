@@ -2,7 +2,7 @@
 
 import UIKit
 
-class ObjectSelectionViewController: ObjectStageViewController {
+class ObjectColorAssigningViewController: ObjectStageViewController {
     var colorHex: String?
     var onChange: (([String?]) -> Void)?
 
@@ -14,7 +14,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
-    override var objectViewRadius: CGFloat { 8 }
+    override var objectViewRadius: CGFloat { 9 }
 
     override func loadView() {
         super.loadView()
@@ -38,7 +38,7 @@ class ObjectSelectionViewController: ObjectStageViewController {
         }
     }
 
-    override func copyFormable(_ formable: Formable) {
+    override func copyFormable(_ formable: Formable?) {
         super.copyFormable(formable)
         guard let colors = (formable as? ColorArrayable)?.colors else {
             return

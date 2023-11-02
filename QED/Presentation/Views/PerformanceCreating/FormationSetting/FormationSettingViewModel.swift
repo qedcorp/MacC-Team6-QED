@@ -5,19 +5,48 @@ import Foundation
 
 @MainActor
 class FormationSettingViewModel: ObservableObject {
+    typealias Controller = ObjectCanvasViewController
+
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
     @Published var currentFormationIndex = -1
+
+    @Published var isZoomed = false {
+        didSet { assignControllerToArchiverByZoomed() }
+    }
+
+    let canvasController: Controller
+    let zoomableCanvasController: Controller
+    let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
     private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
-    init(performanceSettingManager: PerformanceSettingManager, performanceUseCase: PerformanceUseCase) {
-        self.performance = .build(entity: performanceSettingManager.performance)
+    init(
+        performance: Performance,
+        performanceUseCase: PerformanceUseCase
+    ) {
+        let canvasController = Controller()
+        let zoomableCanvasController = Controller()
+        let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
+        let performanceSettingManager = PerformanceSettingManager(
+            performance: performance,
+            performanceUseCase: performanceUseCase
+        )
+
+        self.performance = .build(entity: performance)
+        self.canvasController = canvasController
+        self.zoomableCanvasController = zoomableCanvasController
+        self.objectHistoryArchiver = objectHistoryArchiver
         self.performanceSettingManager = performanceSettingManager
         self.performanceUseCase = performanceUseCase
+
+        canvasController.objectHistoryArchiver = objectHistoryArchiver
+        zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
+
         subscribePerformanceSettingManager()
+        assignControllerToArchiverByZoomed()
     }
 
     private func subscribePerformanceSettingManager() {
@@ -104,5 +133,11 @@ class FormationSettingViewModel: ObservableObject {
         tasksQueue.append { [unowned self] in
             currentFormationIndex = index == currentFormationIndex ? index - 1 : index
         }
+    }
+
+    private func assignControllerToArchiverByZoomed() {
+        let controller = isZoomed ? zoomableCanvasController : canvasController
+        objectHistoryArchiver.delegate = controller
+        performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
     }
 }

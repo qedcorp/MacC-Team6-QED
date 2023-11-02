@@ -2,17 +2,17 @@
 
 import SwiftUI
 
-struct ObjectSelectionView: UIViewControllerRepresentable {
+struct ObjectColorAssigningView: UIViewControllerRepresentable {
     let formable: Formable
     let colorHex: String?
     let onChange: (([String?]) -> Void)?
-    @State private var controller = ObjectSelectionViewController()
+    @State private var controller = ObjectColorAssigningViewController()
 
-    func makeUIViewController(context: Context) -> ObjectSelectionViewController {
+    func makeUIViewController(context: Context) -> ObjectColorAssigningViewController {
         controller
     }
 
-    func updateUIViewController(_ uiViewController: ObjectSelectionViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: ObjectColorAssigningViewController, context: Context) {
         uiViewController.colorHex = colorHex
         uiViewController.onChange = onChange
         DispatchQueue.main.async {

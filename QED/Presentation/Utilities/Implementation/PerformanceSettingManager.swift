@@ -5,7 +5,7 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
-    private let sizeable: Sizeable?
+    weak var relativeCoordinateConverter: RelativeCoordinateConverter?
     private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
     private var cancellables: Set<AnyCancellable> = []
@@ -17,16 +17,8 @@ class PerformanceSettingManager {
             .eraseToAnyPublisher()
     }()
 
-    private lazy var relativePositionConverter: RelativePositionConverter? = {
-        guard let sizeable = sizeable else {
-            return nil
-        }
-        return RelativePositionConverter(sizeable: sizeable)
-    }()
-
-    init(performance: Performance, sizeable: Sizeable? = nil, performanceUseCase: PerformanceUseCase) {
+    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
         self.performance = performance
-        self.sizeable = sizeable
         self.performanceUseCase = performanceUseCase
         subscribeChangingPublisher()
     }
@@ -67,7 +59,8 @@ class PerformanceSettingManager {
         }
         formation.members = Array(formation.members.prefix(positions.count))
         positions.enumerated().forEach { index, position in
-            guard let relativePosition = relativePositionConverter?.getRelativePosition(of: position) else {
+            guard let relativePosition = relativeCoordinateConverter?
+                .getRelativeValue(of: position, type: RelativePosition.self) else {
                 return
             }
             if let member = formation.members[safe: index] {
@@ -88,6 +81,14 @@ class PerformanceSettingManager {
             let memberInfo = performance.memberInfos.first { $0.color == color }
             formation.members[safe: index]?.info = memberInfo
         }
+        didChange()
+    }
+
+    func updateMembers(movementMap: MovementMap, formationIndex: Int) {
+        guard let formation = performance.formations[safe: formationIndex] else {
+            return
+        }
+        formation.movementMap = movementMap
         didChange()
     }
 

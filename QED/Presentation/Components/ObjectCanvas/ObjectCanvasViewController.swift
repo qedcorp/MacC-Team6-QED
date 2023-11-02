@@ -4,14 +4,13 @@ import UIKit
 import Combine
 
 class ObjectCanvasViewController: ObjectStageViewController {
+    struct History: Equatable, Formable {
+        let relativePositions: [RelativePosition]
+    }
+
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
-
-    private(set) lazy var objectCanvasArchiver = {
-        let archiver = ObjectCanvasArchiver()
-        archiver.objectCanvasViewController = self
-        return archiver
-    }()
+    weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -36,8 +35,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private var isMultiSelectDragging = false
-    private var cancellables = Set<AnyCancellable>()
-    override var objectViewRadius: CGFloat { 8 }
+    private var cancellables: Set<AnyCancellable> = []
+    override var objectViewRadius: CGFloat { 9 }
 
     override func loadView() {
         super.loadView()
@@ -58,13 +57,13 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private func subscribeDragging() {
         draggingHandler.$dragging
             .sink { _ in
-            } receiveValue: { [weak self] in
-                self?.updateMultiSelectBoxViewFrame(dragging: $0)
+            } receiveValue: { [unowned self] in
+                updateMultiSelectBoxViewFrame(dragging: $0)
                 if let dragging = $0 {
-                    self?.handleDragging(dragging)
+                    handleDragging(dragging)
                 } else {
-                    self?.addHistory()
-                    self?.didChange()
+                    addHistory()
+                    didChange()
                 }
             }
             .store(in: &cancellables)
@@ -106,7 +105,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             selectedObjectViews = [objectView]
         } else {
             if objectViews.count < maxObjectsCount ?? .max {
-                placeObjectView(position: position)
+                placeObjectView(position: position, color: .black)
             } else if selectedObjectViews.isEmpty {
                 isMultiSelectDragging = true
             }
@@ -135,8 +134,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
         draggingHandler.endDragging()
     }
 
-    override func placeObjectView(position: CGPoint) {
-        super.placeObjectView(position: position)
+    override func placeObjectView(position: CGPoint, color: UIColor) {
+        super.placeObjectView(position: position, color: color)
         replaceSelectedObjectViews()
     }
 
@@ -146,14 +145,14 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
     }
 
-    override func copyFormable(_ formable: Formable) {
+    override func copyFormable(_ formable: Formable?) {
         super.copyFormable(formable)
         selectedObjectViews = []
         addHistory()
         didChange()
     }
 
-    func copyFormableFromHistory(_ formable: Formable) {
+    func copyFormableFromHistory(_ formable: Formable?) {
         super.copyFormable(formable)
         selectedObjectViews = []
         didChange()
@@ -173,7 +172,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)
-        objectCanvasArchiver.addHistory(history)
+        objectHistoryArchiver?.addHistory(history)
     }
 
     private func didChange() {
@@ -188,14 +187,13 @@ class ObjectCanvasViewController: ObjectStageViewController {
         let touchedView = touchedViewDetector.detectView(position: position)
         return touchedView == nil
     }
+}
 
-    private func getRelativePositions() -> [RelativePosition] {
-        objectViews.map {
-            relativePositionConverter.getRelativePosition(of: $0.center)
+extension ObjectCanvasViewController: HistoryControllableDelegate {
+    func reflectHistoryFromHistoryControllable<T>(_ history: T) where T: Equatable {
+        guard let formable = history as? Formable else {
+            return
         }
-    }
-
-    private struct History: Formable {
-        let relativePositions: [RelativePosition]
+        copyFormable(formable)
     }
 }

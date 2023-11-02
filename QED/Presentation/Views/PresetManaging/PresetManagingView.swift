@@ -26,6 +26,7 @@ struct PresetManagingView: View {
                 Text("\(viewModel.headcount)인")
                 ObjectCanvasView(
                     controller: objectCanvasViewController,
+                    formable: nil,
                     headcount: viewModel.headcount,
                     onChange: {
                         viewModel.historyTag = String(describing: $0)
@@ -39,7 +40,7 @@ struct PresetManagingView: View {
                 .clipped()
                 HStack {
                     HistoryControlsView(
-                        historyController: objectCanvasViewController.objectCanvasArchiver,
+                        historyControllable: objectCanvasViewController.objectHistoryArchiver!,
                         tag: viewModel.historyTag
                     )
                     Spacer()

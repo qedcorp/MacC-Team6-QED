@@ -4,16 +4,10 @@ import SwiftUI
 
 struct FormationSettingView: View {
     @ObservedObject private var viewModel: FormationSettingViewModel
-    private let objectCanvasViewController = ObjectCanvasViewController()
 
     init(performance: Performance, performanceUseCase: PerformanceUseCase) {
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            sizeable: objectCanvasViewController.view,
-            performanceUseCase: performanceUseCase
-        )
         self.viewModel = FormationSettingViewModel(
-            performanceSettingManager: performanceSettingManager,
+            performance: performance,
             performanceUseCase: performanceUseCase
         )
     }
@@ -25,7 +19,9 @@ struct FormationSettingView: View {
                     buildMusicHeadcountView()
                     buildMemoButtonView()
                     Spacer(minLength: 18)
-                    buildObjectCanvasView(width: geometry.size.width)
+                    if !viewModel.isZoomed {
+                        buildObjectCanvasContainerView(width: geometry.size.width)
+                    }
                     Spacer()
                 }
             }
@@ -39,6 +35,11 @@ struct FormationSettingView: View {
         .overlay(
             viewModel.isMemoFormPresented ?
             buildMemoFormView()
+            : nil
+        )
+        .overlay(
+            viewModel.isZoomed ?
+            buildZoomableObjectCanvasContainerView()
             : nil
         )
         .navigationBarTitleDisplayMode(.inline)
@@ -72,41 +73,51 @@ struct FormationSettingView: View {
             }
     }
 
-    private func buildObjectCanvasView(width: CGFloat) -> some View {
-        let height = width * CGFloat(22 / Float(35))
-        return VStack(spacing: 6) {
-            ObjectCanvasView(
-                controller: objectCanvasViewController,
-                headcount: viewModel.headcount,
-                onChange: {
-                    viewModel.updateMembers(positions: $0)
-                }
-            )
-            .frame(width: width, height: height)
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(.gray.opacity(0.1))
-            )
-            .clipped()
-            HStack {
-                HistoryControlsView(
-                    historyController: objectCanvasViewController.objectCanvasArchiver,
-                    tag: viewModel.currentFormationTag
-                )
-                Spacer()
-            }
+    private func buildObjectCanvasContainerView(width: CGFloat) -> some View {
+        VStack(spacing: 6) {
+            buildObjectCanvasView(controller: viewModel.canvasController, width: width, color: .gray.opacity(0.1))
+            buildObjectCanvasControlsView()
         }
         .modifier(disabledOpacityModifier)
-        .onChange(of: viewModel.currentFormation) {
-            guard let formable = $0 else {
-                return
+    }
+
+    private func buildObjectCanvasView(
+        controller: ObjectCanvasViewController,
+        width: CGFloat,
+        color: Color
+    ) -> some View {
+        let height = width * CGFloat(22 / Float(35))
+        return ObjectCanvasView(
+            controller: controller,
+            formable: viewModel.currentFormation,
+            headcount: viewModel.headcount,
+            onChange: {
+                viewModel.updateMembers(positions: $0)
             }
-            objectCanvasViewController.copyFormable(formable)
+        )
+        .frame(width: width, height: height)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(color)
+        )
+        .clipped()
+    }
+
+    private func buildObjectCanvasControlsView() -> some View {
+        HStack {
+            HistoryControlsView(
+                historyControllable: viewModel.objectHistoryArchiver,
+                tag: viewModel.currentFormationTag
+            )
+            Spacer()
+            Button("Zoom") {
+                viewModel.isZoomed.toggle()
+            }
         }
     }
 
     private func buildPresetContainerView() -> some View {
-        PresetContainerView(headcount: viewModel.headcount, objectCanvasViewController: objectCanvasViewController)
+        PresetContainerView(headcount: viewModel.headcount, objectCanvasViewController: viewModel.canvasController)
             .modifier(disabledOpacityModifier)
     }
 
@@ -204,6 +215,23 @@ struct FormationSettingView: View {
             onSubmit: { viewModel.updateCurrentMemo($0) },
             onDismiss: { viewModel.isMemoFormPresented = false }
         )
+    }
+
+    private func buildZoomableObjectCanvasContainerView() -> some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                ZoomableView {
+                    buildObjectCanvasView(
+                        controller: viewModel.zoomableCanvasController,
+                        width: geometry.size.width - 44, // TRICK: Zoom 여부 상관 없이 같은 frame을 갖도록 하기 위함
+                        color: .white
+                    )
+                }
+                buildObjectCanvasControlsView()
+                    .padding()
+                    .background(.white)
+            }
+        }
     }
 
     private func buildMemberSettingView() -> some View {

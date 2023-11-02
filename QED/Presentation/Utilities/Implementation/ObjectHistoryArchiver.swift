@@ -2,15 +2,21 @@
 
 import Foundation
 
-class ObjectCanvasArchiver: HistoryControllable {
-    typealias History = any Formable
-
-    weak var objectCanvasViewController: ObjectCanvasViewController?
+class ObjectHistoryArchiver<History: Equatable>: HistoryControllable {
+    weak var delegate: HistoryControllableDelegate?
     private var histories: [History] = []
     private var historyIndex = -1
 
+    var isUndoable: Bool {
+        historyIndex > 0
+    }
+
+    var isRedoable: Bool {
+        historyIndex >= 0 && historyIndex < histories.count - 1
+    }
+
     func addHistory(_ history: History) {
-        guard history.relativePositions != histories[safe: historyIndex]?.relativePositions else {
+        guard history != histories[safe: historyIndex] else {
             return
         }
         if historyIndex < histories.count - 1 {
@@ -21,33 +27,30 @@ class ObjectCanvasArchiver: HistoryControllable {
     }
 
     func undo() {
-        guard isUndoable() else {
+        guard isUndoable else {
             return
         }
         historyIndex -= 1
-        reflectHistoryToView()
+        reflectHistory()
     }
 
     func redo() {
-        guard isRedoable() else {
+        guard isRedoable else {
             return
         }
         historyIndex += 1
-        reflectHistoryToView()
+        reflectHistory()
     }
 
-    func isUndoable() -> Bool {
-        historyIndex > 0
+    func reset() {
+        histories = []
+        historyIndex = -1
     }
 
-    func isRedoable() -> Bool {
-        historyIndex >= 0 && historyIndex < histories.count - 1
-    }
-
-    private func reflectHistoryToView() {
+    private func reflectHistory() {
         guard let history = histories[safe: historyIndex] else {
             return
         }
-        objectCanvasViewController?.copyFormableFromHistory(history)
+        delegate?.reflectHistoryFromHistoryControllable(history)
     }
 }

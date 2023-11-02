@@ -49,6 +49,12 @@ struct MemberSettingView: View {
                 PerformanceSettingTitleView(step: 2, title: "인물지정")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink("세부동선") {
+                    buildMovementSettingView()
+                }
+                .disabled(!viewModel.isEnabledToSave)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("완료") {
                     buildPerformanceWatchingView()
                 }
@@ -97,7 +103,7 @@ struct MemberSettingView: View {
 
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
         VStack(spacing: 10) {
-            ObjectSelectionView(
+            ObjectColorAssigningView(
                 formable: formation,
                 colorHex: viewModel.selectedMemberInfo?.color,
                 onChange: {
@@ -138,5 +144,12 @@ struct MemberSettingView: View {
         let performance = viewModel.performanceSettingManager.performance
         return PerformanceWatchingListView(performance: performance,
                                            performanceUseCase: viewModel.performanceUseCase)
+    }
+
+    private func buildMovementSettingView() -> some View {
+        MovementSettingView(
+            performance: viewModel.performanceSettingManager.performance,
+            performanceUseCase: viewModel.performanceUseCase
+        )
     }
 }

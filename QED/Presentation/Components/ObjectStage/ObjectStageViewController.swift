@@ -3,11 +3,12 @@
 import UIKit
 
 class ObjectStageViewController: UIViewController {
-    private(set) lazy var relativePositionConverter = {
-        RelativePositionConverter(sizeable: view)
+    private(set) lazy var relativeCoordinateConverter = {
+        RelativeCoordinateConverter(sizeable: view)
     }()
 
-    private var isViewAppeared: Bool = false
+    var isColorAssignable = true
+    private var isViewAppeared = false
     private var copiedFormable: Formable?
 
     var objectViewRadius: CGFloat { 2 }
@@ -29,29 +30,41 @@ class ObjectStageViewController: UIViewController {
         }
     }
 
-    func placeObjectView(position: CGPoint) {
+    func placeObjectView(position: CGPoint, color: UIColor) {
         let objectView = DotObjectView()
-        objectView.center = position
         objectView.radius = objectViewRadius
-        objectView.color = .black
+        objectView.color = color
+        objectView.assignPosition(position)
         replaceObjectViewAtRelativePosition(objectView)
         view.addSubview(objectView)
     }
 
     func replaceObjectViewAtRelativePosition(_ view: DotObjectView) {
-        let relativePosition = relativePositionConverter.getRelativePosition(of: view.center)
-        let absolutePosition = relativePositionConverter.getAbsolutePosition(of: relativePosition)
+        let relativePosition = relativeCoordinateConverter.getRelativeValue(
+            of: view.center,
+            type: RelativePosition.self
+        )
+        let absolutePosition = relativeCoordinateConverter.getAbsoluteValue(of: relativePosition)
         view.assignPosition(absolutePosition)
     }
 
-    func copyFormable(_ formable: Formable) {
+    func copyFormable(_ formable: Formable?) {
         guard isViewAppeared else {
             copiedFormable = formable
             return
         }
         objectViews.forEach { $0.removeFromSuperview() }
-        formable.relativePositions
-            .map { relativePositionConverter.getAbsolutePosition(of: $0) }
-            .forEach { placeObjectView(position: $0) }
+        let colors = (formable as? ColorArrayable)?.colors ?? []
+        formable?.relativePositions.enumerated().forEach {
+            let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
+            let color = (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .black
+            placeObjectView(position: position, color: color)
+        }
+    }
+
+    final func getRelativePositions() -> [RelativePosition] {
+        objectViews.map {
+            relativeCoordinateConverter.getRelativeValue(of: $0.center, type: RelativePosition.self)
+        }
     }
 }
