@@ -38,7 +38,7 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         do {
             let myID = try KeyChainManager.shared.read(account: .id)
             let readResult = try await remoteManager.reads(at: "PERFORMANCE",
-                                                           readType: .key(field: "OWNERID", value: myID),
+                                                           readType: .key(field: "ID", value: myID),
                                                            mockData: Performance(id: "", author: User(id: "failure"), music: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5),
                                                            valueType: String.self)
             switch readResult {
