@@ -34,9 +34,23 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
     }
 
-    private var isMultiSelectDragging = false
+    private var lastPositionTouchedInEmptySpace: CGPoint?
+    private var isDraggingForSelectingMultiObjects = false
     private var cancellables: Set<AnyCancellable> = []
+
     override var objectViewRadius: CGFloat { 9 }
+
+    private var canPlaceObject: Bool {
+        objectViews.count < maxObjectsCount ?? .max
+    }
+
+    private var isNotDragged: Bool {
+        draggingHandler.dragging?.isDragged == false
+    }
+
+    private var areObjectsSelected: Bool {
+        !selectedObjectViews.isEmpty
+    }
 
     override func loadView() {
         super.loadView()
@@ -70,13 +84,13 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private func updateMultiSelectBoxViewFrame(dragging: DraggingModel?) {
-        multiSelectBoxView.frame = (isMultiSelectDragging ? dragging?.rect : nil) ?? .zero
+        multiSelectBoxView.frame = (isDraggingForSelectingMultiObjects ? dragging?.rect : nil) ?? .zero
     }
 
     private func handleDragging(_ dragging: DraggingModel) {
-        if isMultiSelectDragging {
+        if isDraggingForSelectingMultiObjects {
             multiSelectByDragging(dragging)
-        } else if !selectedObjectViews.isEmpty {
+        } else if areObjectsSelected {
             selectedObjectViews.forEach {
                 $0.assignPositionDiff(dragging.positionDiff)
             }
@@ -104,11 +118,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         if let objectView = touchedViewDetector.detectView(position: position) as? DotObjectView {
             selectedObjectViews = [objectView]
         } else {
-            if objectViews.count < maxObjectsCount ?? .max {
-                placeObjectView(position: position, color: .black)
-            } else if selectedObjectViews.isEmpty {
-                isMultiSelectDragging = true
-            }
+            lastPositionTouchedInEmptySpace = position
         }
         draggingHandler.beginDragging(position: position)
     }
@@ -118,6 +128,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
         guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
+        if lastPositionTouchedInEmptySpace != nil, !areObjectsSelected {
+            isDraggingForSelectingMultiObjects = true
+        }
         draggingHandler.moveDragging(position: position)
     }
 
@@ -126,11 +139,15 @@ class ObjectCanvasViewController: ObjectStageViewController {
         guard let position = touchPositionConverter.getPosition(touches: touches) else {
             return
         }
-        isMultiSelectDragging = false
+        if let position = lastPositionTouchedInEmptySpace, canPlaceObject, isNotDragged {
+            placeObjectView(position: position, color: .black)
+        }
         replaceSelectedObjectViews()
         if isObjectViewUnselectNeeded(position: position) {
             selectedObjectViews = []
         }
+        lastPositionTouchedInEmptySpace = nil
+        isDraggingForSelectingMultiObjects = false
         draggingHandler.endDragging()
     }
 
@@ -181,7 +198,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private func isObjectViewUnselectNeeded(position: CGPoint) -> Bool {
-        guard draggingHandler.dragging?.isDragged == false else {
+        guard isNotDragged else {
             return false
         }
         let touchedView = touchedViewDetector.detectView(position: position)
