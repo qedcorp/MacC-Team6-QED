@@ -47,6 +47,7 @@ class FormationSettingViewModel: ObservableObject {
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
+        addFormation()
     }
 
     private func subscribePerformanceSettingManager() {
