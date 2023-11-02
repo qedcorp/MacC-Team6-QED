@@ -8,13 +8,13 @@
 import Foundation
 
 final class DefaultPerformanceRepository: PerformanceRepository {
-
+    
     var remoteManager: RemoteManager
-
+    
     init(remoteManager: RemoteManager) {
         self.remoteManager = remoteManager
     }
-
+    
     func createPerformance(_ performance: Performance) async throws -> Performance {
         do {
             let createResult = try await remoteManager.create(performance, createType: .hasKey)
@@ -29,17 +29,17 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         }
         return Performance(jsonString: "Create Error")
     }
-
+    
     func readPerformance() async throws -> Performance {
         Performance(jsonString: "")
     }
-
+    
     func readMyPerformances() async throws -> [Performance] {
         do {
-            // let myID = try KeyChainManager.shared.read(account: .id)
+            let myID = try KeyChainManager.shared.read(account: .id)
             let readResult = try await remoteManager.reads(at: "PERFORMANCE",
                                                            readType: .key(field: "OWNERID", value: myID),
-                                                           mockData: Performance(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5),
+                                                           mockData: Performance(id: "", author: User(id: "failure"), music: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5),
                                                            valueType: String.self)
             switch readResult {
             case .success(let success):
@@ -52,7 +52,7 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         }
         return [Performance(jsonString: "Create Error")]
     }
-
+    
     func updatePerformance(_ performance: Performance) async throws -> Performance {
         do {
             let updateResult = try await remoteManager.update(performance)
@@ -67,5 +67,5 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         }
         return Performance(jsonString: "Update Error")
     }
-
+    
 }

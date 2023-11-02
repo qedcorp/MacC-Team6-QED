@@ -23,7 +23,7 @@ struct PerformanceWatchingDetailView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            PlayableDanceFormationView(viewmodel: viewModel)
+            PlayableDanceFormationView(viewModel: viewModel)
             buildDetailControlButtons()
             buildDanceFormationScrollView()
             Spacer()

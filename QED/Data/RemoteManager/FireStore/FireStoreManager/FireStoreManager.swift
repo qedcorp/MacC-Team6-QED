@@ -34,10 +34,10 @@ final class FireStoreManager: RemoteManager {
     ) async throws -> Result<T, Error>
     where T: Decodable, T: Encodable {
         // 입력받은 entity data를 firestore에 맞는 DTO로 변경하는 작업
-        guard let dataDTO = data as? FireStoreEntityConvertable else {
+        guard var entityConvertable = data as? FireStoreEntityConvertable else {
             return .failure(FireStoreError.castingFailure("parameter Data can't casting FireStoreEntityConvertable"))
         }
-        let fireStoreData = dataDTO.fireStoreEntity
+        let fireStoreData = entityConvertable.fireStoreEntity
         var dataDic: [String: Any] = [:]
         
         // DTO를 [String: Any]로 타입을 변경하는 부분

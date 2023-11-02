@@ -9,11 +9,11 @@ import SwiftUI
 import SpriteKit
 
 struct PlayableDanceFormationView: View {
-    @ObservedObject var viewmodel: PerformanceWatchingDetailViewModel
+    @ObservedObject var viewModel: PerformanceWatchingDetailViewModel
 
     var body: some View {
         ZStack {
-            SpriteView(scene: self.viewmodel.scene)
+            SpriteView(scene: self.viewModel.scene)
                 .frame(width: 350, height: 220)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }

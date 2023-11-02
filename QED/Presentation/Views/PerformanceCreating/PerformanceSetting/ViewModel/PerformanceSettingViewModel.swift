@@ -22,9 +22,6 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var range: ClosedRange<Double> = 1...13
     @State private var inputHeadcountChanged = false
 
-    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
-        musicRepository: DefaultMusicRepository()
-    )
     @Published var searchText: String = ""
     @Published var allMusics: [Music] = []
     @Published var searchedMusics: [Music] = []
@@ -35,10 +32,6 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
     @Published var canPressNextButton: Bool = false
-    @Published var searchText: String = ""
-    @Published var allMusics: [Music] = []
-    @Published var searchedMusics: [Music] = []
-    @Published var isSearchingMusic: Bool = false
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
         musicRepository: DefaultMusicRepository()
@@ -74,7 +67,7 @@ class PerformanceSettingViewModel: ObservableObject {
         canPressNextButton = false
         Task {
             guard let selectedMusic = selectedMusic,
-                  let performance = try? await performancesUseCase.createPerformance(music: selectedMusic, headcount: self.headcount) else { return }
+                  let performance = try? await performanceUseCase.createPerformance(music: selectedMusic, headcount: Int(self.inputHeadcount)) else { return }
 
             self.performance = performance
             canPressNextButton = true

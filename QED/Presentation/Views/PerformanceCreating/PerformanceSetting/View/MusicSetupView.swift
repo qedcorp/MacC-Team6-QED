@@ -28,11 +28,11 @@ struct MusicSetupView: View {
                 buildSearchResultScrollView()
             }
             NavigationLink {
-                if viewmodel.canPressNextButton {
-                    viewmodel.buildYameNextView(performance: viewmodel.performance!)
+                if viewModel.canPressNextButton {
+                    viewModel.buildYameNextView(performance: viewModel.performance!)
                 }
             } label: {
-                nextbutton
+                buildNextButton()
             }
         }
         .onTapGesture {

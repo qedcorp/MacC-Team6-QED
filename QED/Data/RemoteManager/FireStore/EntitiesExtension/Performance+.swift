@@ -24,7 +24,7 @@ extension Performance: FireStoreEntityConvertable {
 
     convenience init(jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8) else {
-            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
+            self.init(id: "", author: User(id: "failure"), music: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
             return
         }
         do {
@@ -32,7 +32,7 @@ extension Performance: FireStoreEntityConvertable {
             self.init(
                 id: performance.id,
                 author: performance.author,
-                playable: performance.playable,
+                music: performance.music,
                 headcount: performance.headcount,
                 title: performance.title,
                 formations: performance.formations,
@@ -42,7 +42,7 @@ extension Performance: FireStoreEntityConvertable {
             print("-----------------")
             print(jsonError)
             print("-----------------")
-            self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
+            self.init(id: "", author: User(id: "failure"), music: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
             return
         }
     }
@@ -53,10 +53,5 @@ extension Performance: FireStoreEntityConvertable {
             OWNERID: "",
             DATA: jsonString
         )
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id, author, headcount, title, memberInfos, formations, transitions
-        case playable = "music"
     }
 }
