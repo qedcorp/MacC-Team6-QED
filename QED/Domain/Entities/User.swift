@@ -3,8 +3,8 @@
 import Foundation
 
 class User: Equatable, Codable {
-    let id: String
-    let email: String?
+    var id: String
+    var email: String?
     var nickname: String?
 
     init(id: String = "", email: String? = nil, nickname: String? = nil) {

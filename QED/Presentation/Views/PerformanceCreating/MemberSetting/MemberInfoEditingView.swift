@@ -2,17 +2,17 @@
 
 import SwiftUI
 
-struct MemberInfoChangeView: View {
-    @Binding var name: String
+struct MemberInfoEditingView: View {
+    @State var name: String
     let color: String
-    let onDismiss: () -> Void
+    let onComplete: (String) -> Void
 
     var body: some View {
         ZStack {
             Color.black.opacity(0.5)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    onDismiss()
+                    onComplete(name)
                 }
             VStack(spacing: 36) {
                 HStack {
@@ -20,9 +20,6 @@ struct MemberInfoChangeView: View {
                         .font(.title3)
                         .bold()
                     Spacer()
-                    Button("X") {
-                        onDismiss()
-                    }
                 }
                 HStack(spacing: 14) {
                     Circle()

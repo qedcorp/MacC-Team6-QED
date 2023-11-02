@@ -7,52 +7,88 @@
 
 import SwiftUI
 
-// import Combine
-
-@MainActor
+ @MainActor
 class PerformanceSettingViewModel: ObservableObject {
+    let performanceUseCase: PerformanceUseCase
+    private(set) var performance: Performance?
+    private var yameNextView: FormationSettingView?
 
-    var headcount: Int? { Int(inputHeadcount) }
+    init(performanceUseCase: PerformanceUseCase) {
+        self.performanceUseCase = performanceUseCase
+    }
+
     @Published var inputTitle: String = ""
-    @Published var inputHeadcount: Double = 2
-    @Published var selectedMusic: Music?
+    @Published var inputHeadcount: Double = 1
+    @Published var range: ClosedRange<Double> = 1...13
+    @State private var inputHeadcountChanged = false
 
+    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
+        musicRepository: DefaultMusicRepository()
+    )
+    @Published var searchText: String = ""
+    @Published var allMusics: [Music] = []
+    @Published var searchedMusics: [Music] = []
+    @Published var isSearchingMusic: Bool = false
+    @Published var selectedMusic: Music? {
+        didSet {
+            createPerformance()
+        }
+    }
+    @Published var canPressNextButton: Bool = false
     @Published var searchText: String = ""
     @Published var allMusics: [Music] = []
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
 
-    let usecase: DefaultMusicUseCase = DefaultMusicUseCase(
-        musicRepository: MockMusicRepository()
+    let musicUseCase: MusicUseCase = DefaultMusicUseCase(
+        musicRepository: DefaultMusicRepository()
     )
 
     func search() {
         Task {
             isSearchingMusic = true
-            searchedMusics = try await usecase.searchMusics(keyword: searchText)
+            searchedMusics = try await musicUseCase.searchMusics(keyword: searchText)
             isSearchingMusic = false
         }
     }
 
     func decrementHeadcount() {
-        if inputHeadcount > 2.0 {
-            inputHeadcount -= 1.0
+        if inputHeadcount > range.lowerBound {
+            inputHeadcount -= 1
+            inputHeadcountChanged = true
+        } else {
+            inputHeadcount = range.lowerBound
         }
     }
 
     func incrementHeadcount() {
-        if inputHeadcount < 13.0 {
-            inputHeadcount += 1.0
+        if inputHeadcount < range.upperBound {
+            inputHeadcount += 1
+            inputHeadcountChanged = true
+        } else {
+            inputHeadcount = range.upperBound
         }
     }
 
-    func generatePerformance() -> Performance {
-        guard let music = selectedMusic else { return Performance(jsonString: "Error") }
-        return Performance(id: "1212312313", author: User(id: "ADMIN", email: "ADMIN", nickname: "ADMIN"),
-                    playable: music,
-                    headcount: Int(inputHeadcount),
-                    title: inputTitle,
-                    formations: [],
-                    transitions: [])
+    func createPerformance() {
+        canPressNextButton = false
+        Task {
+            guard let selectedMusic = selectedMusic,
+                  let performance = try? await performancesUseCase.createPerformance(music: selectedMusic, headcount: self.headcount) else { return }
+
+            self.performance = performance
+            canPressNextButton = true
+        }
+    }
+
+    // TODO: 이거 알쥐??
+    func buildYameNextView(performance: Performance) -> some View {
+        if yameNextView == nil {
+            yameNextView = FormationSettingView(
+                performance: performance,
+                performanceUseCase: performanceUseCase
+            )
+        }
+        return yameNextView!
     }
 }

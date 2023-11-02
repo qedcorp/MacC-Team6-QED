@@ -3,16 +3,14 @@
 import UIKit
 
 class ObjectStageViewController: UIViewController {
-    private(set) lazy var touchPositionConverter = {
-        TouchPositionConverter(container: view)
+    private(set) lazy var relativePositionConverter = {
+        RelativePositionConverter(sizeable: view)
     }()
 
     private var isViewAppeared: Bool = false
     private var copiedFormable: Formable?
 
-    var objectViewRadius: CGFloat {
-        2
-    }
+    var objectViewRadius: CGFloat { 2 }
 
     var objectViews: [DotObjectView] {
         view.subviews.compactMap { $0 as? DotObjectView }
@@ -33,12 +31,17 @@ class ObjectStageViewController: UIViewController {
 
     func placeObjectView(position: CGPoint) {
         let objectView = DotObjectView()
-        let relativePosition = touchPositionConverter.getRelativePosition(absolute: position)
-        let absolutePosition = touchPositionConverter.getAbsolutePosition(relative: relativePosition)
+        objectView.center = position
         objectView.radius = objectViewRadius
         objectView.color = .black
-        objectView.applyPosition(absolutePosition)
+        replaceObjectViewAtRelativePosition(objectView)
         view.addSubview(objectView)
+    }
+
+    func replaceObjectViewAtRelativePosition(_ view: DotObjectView) {
+        let relativePosition = relativePositionConverter.getRelativePosition(of: view.center)
+        let absolutePosition = relativePositionConverter.getAbsolutePosition(of: relativePosition)
+        view.assignPosition(absolutePosition)
     }
 
     func copyFormable(_ formable: Formable) {
@@ -48,7 +51,7 @@ class ObjectStageViewController: UIViewController {
         }
         objectViews.forEach { $0.removeFromSuperview() }
         formable.relativePositions
-            .map { touchPositionConverter.getAbsolutePosition(relative: $0) }
+            .map { relativePositionConverter.getAbsolutePosition(of: $0) }
             .forEach { placeObjectView(position: $0) }
     }
 }

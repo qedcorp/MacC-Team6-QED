@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct PerformanceSetupTitleView: View {
+struct PerformanceSettingTitleView: View {
     let step: Int
     let title: String
 
@@ -24,5 +24,5 @@ struct PerformanceSetupTitleView: View {
 }
 
 #Preview {
-    PerformanceSetupTitleView(step: 0, title: "")
+    PerformanceSettingTitleView(step: 0, title: "")
 }

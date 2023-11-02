@@ -6,7 +6,9 @@ import Foundation
 class PresetManagingViewModel: ObservableObject {
     let presetUseCase: PresetUseCase
     weak var objectCanvasViewController: ObjectCanvasViewController?
-    @Published private var presets: [Preset] = []
+    @Published var headcount = 5
+    @Published var historyTag = ""
+    @Published private(set) var presets: [Preset] = []
 
     init(presetUseCase: PresetUseCase) {
         self.presetUseCase = presetUseCase
@@ -26,13 +28,5 @@ class PresetManagingViewModel: ObservableObject {
         Task {
             try await presetUseCase.createPreset(preset)
         }
-    }
-
-    func copyFormable(_ preset: Preset) {
-        objectCanvasViewController?.copyFormable(preset)
-    }
-
-    func getPresets() -> [Preset] {
-        [.empty] + presets
     }
 }

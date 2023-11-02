@@ -8,6 +8,15 @@
 import Foundation
 
 extension Performance: FireStoreEntityConvertable {
+    var fireStoreID: String {
+        get {
+            self.id
+        }
+        set {
+            self.id = newValue
+        }
+    }
+
     var jsonString: String {
         guard let jsonData = try? JSONEncoder().encode(self) else { return "Encoding Fail" }
         return String(data: jsonData, encoding: .utf8) ?? "Encoding Fail"
@@ -36,7 +45,6 @@ extension Performance: FireStoreEntityConvertable {
             self.init(id: "", author: User(id: "failure"), playable: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
             return
         }
-
     }
 
     var fireStoreEntity: FireStoreEntity {

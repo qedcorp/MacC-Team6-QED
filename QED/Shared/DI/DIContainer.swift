@@ -75,7 +75,7 @@ final class DIContainer {
         resolver.typeToClosure[ObjectIdentifier(UserUseCase.self)] = injectionUserUseCase
         resolver.typeToClosure[ObjectIdentifier(AuthUseCase.self)] = injectionAuthUseCase
         resolver.typeToClosure[ObjectIdentifier(PerformanceUseCase.self)] = injectionPerformanceUseCase
-        
+       
         resolver.dependencyInjection()
     }
     
@@ -226,7 +226,7 @@ final class DIContainer {
         if purpose == .release {
             resolver.register(FormationTransitionUseCase.self) { _  ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationTransitionUseCase(performance: performance)
             }
@@ -234,7 +234,7 @@ final class DIContainer {
         else {
             resolver.register(FormationTransitionUseCase.self) { _ ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationTransitionUseCase(performance: performance)
             }
@@ -245,7 +245,7 @@ final class DIContainer {
         if purpose == .release {
             resolver.register(FormationUseCase.self) { _ ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationUseCase(performance: performance)
             }
@@ -253,7 +253,7 @@ final class DIContainer {
         else {
             resolver.register(FormationUseCase.self) { _ ,_ in
                 // TODO: 수정 요망 여기서 뭘 받아야할지 모르겠음
-                let performance = mockPerformance
+                let performance = mockPerformance1
                 
                 return DefaultFormationUseCase(performance: performance)
             }

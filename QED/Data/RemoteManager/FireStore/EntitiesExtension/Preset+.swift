@@ -8,6 +8,15 @@
 import Foundation
 
 extension Preset: FireStoreEntityConvertable {
+    var fireStoreID: String {
+        get {
+            UUID().uuidString
+        }
+        set {
+
+        }
+    }
+
     var jsonString: String {
         guard let jsonData = try? JSONEncoder().encode(self) else { return "Encoding Fail" }
         return String(data: jsonData, encoding: .utf8) ?? "Encoding Fail"

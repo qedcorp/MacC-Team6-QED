@@ -1,5 +1,5 @@
 //
-//  FormationPreview.swift
+//  DanceFormationView.swift
 //  QED
 //
 //  Created by chaekie on 10/23/23.
@@ -7,47 +7,48 @@
 
 import SwiftUI
 
-struct FormationPreview: View {
+struct DanceFormationView: View {
     var formation: Formation
     var index: Int
-    var isNameVisiable: Bool = false
+    var isNameVisible: Bool = false
     var hideLine: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
-            danceFormation
-            TimeAndLyric(formation: formation)
+            timeAndLyric()
+            danceFormation()
         }
     }
 
-    private var danceFormation: some View {
+    private func danceFormation() -> some View {
         ZStack {
-            danceFormationBackground
+            danceFormationBackground()
             if !self.hideLine {
-                centerline
+                centerline()
             }
             GeometryReader { geometry in
                 ForEach(formation.members, id: \.info.self) { member in
-                    MemberCircleView(isNameVisiable: isNameVisiable,
+                    MemberCircleView(isNameVisiable: isNameVisible,
                                      member: member,
                                      geometry: geometry)
-                    .position(CGPoint(
-                        x: CGFloat(member.relativePosition.x) * geometry.size.width * 0.001,
-                        y: CGFloat(member.relativePosition.y) * geometry.size.height * 0.001))
+                    .position(
+                        RelativePositionConverter(sizeable: geometry)
+                            .getAbsolutePosition(of: member.relativePosition)
+                    )
                 }
             }
         }
     }
 
-    private var danceFormationBackground: some View {
+    private func danceFormationBackground() -> some View {
         Rectangle()
             .fill(Color(.systemGray6))
             .clipShape(
-                .rect(topLeadingRadius: 12,
-                      topTrailingRadius: 12))
+                .rect(bottomLeadingRadius: 12,
+                      bottomTrailingRadius: 12))
     }
 
-    private var centerline: some View {
+    private func centerline() -> some View {
         ZStack {
             Divider()
                 .background(.green)
@@ -57,23 +58,19 @@ struct FormationPreview: View {
             }
         }
     }
-}
 
-private struct TimeAndLyric: View {
-    var formation: Formation
-
-    var body: some View {
+    private func timeAndLyric() -> some View {
         ZStack {
             Rectangle()
                 .fill(.green)
                 .clipShape(
-                    .rect(bottomLeadingRadius: 12,
-                          bottomTrailingRadius: 12))
+                    .rect(topLeadingRadius: 12,
+                          topTrailingRadius: 12))
                 .frame(height: 30)
             HStack {
-                if let startMs = formation.startMs {
-                    Text(startMs.msToTimeString)
-                }
+//                if let startMs = formation.startMs {
+//                    Text(startMs.msToTimeString)
+//                }
                 if let memo = formation.memo {
                     Text(memo)
                 }
@@ -87,5 +84,5 @@ private struct TimeAndLyric: View {
 }
 
 #Preview {
-    FormationPreview(formation: mockFormations[0], index: 0)
+    DanceFormationView(formation: mockFormations[0], index: 0)
 }
