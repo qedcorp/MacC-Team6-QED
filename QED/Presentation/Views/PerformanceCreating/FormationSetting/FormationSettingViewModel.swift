@@ -132,7 +132,9 @@ class FormationSettingViewModel: ObservableObject {
     func removeFormation(index: Int) {
         performanceSettingManager.removeFormation(index: index)
         tasksQueue.append { [unowned self] in
-            currentFormationIndex = index == currentFormationIndex ? index - 1 : index
+            if index <= currentFormationIndex {
+                currentFormationIndex = min(currentFormationIndex - 1, formations.count - 1)
+            }
         }
     }
 
