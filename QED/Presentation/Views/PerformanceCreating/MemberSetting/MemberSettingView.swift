@@ -88,16 +88,8 @@ struct MemberSettingView: View {
                     : nil
                 )
         )
-        .contextMenu {
-            ControlGroup {
-                Button("이름변경") {
-                    viewModel.editingMemberInfoIndex = index
-                }
-            }
-            .controlGroupStyle(.compactMenu)
-        }
         .onTapGesture {
-            viewModel.selectedMemberInfoIndex = index
+            viewModel.selectMember(index: index)
         }
     }
 
