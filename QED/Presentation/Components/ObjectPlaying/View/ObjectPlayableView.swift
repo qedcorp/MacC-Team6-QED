@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ObjectPlayableView: UIViewControllerRepresentable {
 
+    let controller: ObjectPlayableViewController
+
     func makeUIViewController(context: Context) -> ObjectPlayableViewController {
-        ObjectPlayableViewController(index: 0)
+        controller
     }
 
     func updateUIViewController(_ uiViewController: ObjectPlayableViewController, context: Context) {

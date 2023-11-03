@@ -9,55 +9,68 @@ import UIKit
 
 struct PathToPointCalculator {
     
+    typealias ThreePoint = (startPoint: CGPoint, endPoint: CGPoint, controlPoint1: CGPoint, controlPoint2: CGPoint)
+    let totalPercent: CGFloat = 100
     
-
-    private func getMiddlePoint(_ path: CGPath, startPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint) -> CGPoint {
-        let straightMiddlePoint = middlePointOf(a: startPoint, b: endPoint)
-
-        var answer: CGPoint = .zero
-        let linearFunctionValue = makeLinearFunction(startPoint: controlPoint, endPoint: straightMiddlePoint)
-        var beforePoint: CGPoint = .zero
-        for x in Int(controlPoint.x)...Int(straightMiddlePoint.x) {
-            let y = (Int(linearFunctionValue.sloth)) * Int(x) + Int(linearFunctionValue.height)
-            let currentPoint = CGPoint(x: x, y: y)
-            if path.contains(currentPoint) {
-                answer = beforePoint
-                break
+    func getAllPoints(_ path: CGPath) -> [CGPoint] {
+        let threePoint = getThreePoint(path: path)
+        let startPoint = threePoint.startPoint
+        let controllPoint1 = threePoint.controlPoint1
+        let controllPoint2 = threePoint.controlPoint2
+        let endPoint = threePoint.endPoint
+        
+        var answer: [CGPoint] = []
+        
+        if controllPoint1 == CGPoint(x: -1, y: -1) {
+            for percent in stride(from: 0.0, through: totalPercent, by: 1.0) {
+                
+                let pathPoint = getPercentPoint(start: startPoint, end: endPoint, percent: percent)
+                answer.append(pathPoint)
             }
-            beforePoint = currentPoint
+        }
+        else {
+            for percent in stride(from: 0.0, through: totalPercent, by: 1.0) {
+                let firstPoint = getPercentPoint(start: startPoint, end: controllPoint1, percent: percent)
+                let sencondPoint = getPercentPoint(start: controllPoint1, end: controllPoint2, percent: percent)
+                let thirdPoint = getPercentPoint(start: controllPoint2, end: endPoint, percent: percent)
+                let fouthPoint = getPercentPoint(start: firstPoint, end: sencondPoint, percent: percent)
+                let fifthPoint = getPercentPoint(start: sencondPoint, end: thirdPoint, percent: percent)
+                
+                let pathPoint = getPercentPoint(start: fouthPoint, end: fifthPoint, percent: percent)
+                
+                answer.append(pathPoint)
+            }
         }
         return answer
     }
-
-    private func getThreePoint(path: CGPath) -> (startPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint) {
-        var answer: (startPoint: CGPoint, endPoint: CGPoint, controlPoint: CGPoint) = (.zero, .zero, .zero)
+    
+    private func getThreePoint(path: CGPath) -> ThreePoint {
+        var answer: ThreePoint = (.zero, .zero, CGPoint(x: -1, y: -1), .zero)
         path.applyWithBlock { element in
-               switch element.pointee.type {
-               case .moveToPoint:
-                   let point = element.pointee.points[0]
-                   answer.startPoint = point
-               case .addCurveToPoint:
-                   let controlPoint2 = element.pointee.points[1]
-                   let endPoint = element.pointee.points[2]
-                   answer.controlPoint = controlPoint2
-                   answer.endPoint = endPoint
-               default:
-                   break
-               }
-           }
+            switch element.pointee.type {
+            case .addLineToPoint:
+                let point = element.pointee.points[0]
+                answer.endPoint = point
+            case .moveToPoint:
+                let point = element.pointee.points[0]
+                answer.startPoint = point
+            case .addCurveToPoint:
+                let controlPoint1 = element.pointee.points[0]
+                let controlPoint2 = element.pointee.points[1]
+                let endPoint = element.pointee.points[2]
+                answer.controlPoint1 = controlPoint1
+                answer.controlPoint2 = controlPoint2
+                answer.endPoint = endPoint
+            default:
+                break
+            }
+        }
         return answer
     }
-
-    private func makeLinearFunction(startPoint: CGPoint, endPoint: CGPoint) -> (sloth: CGFloat, height: CGFloat) {
-        let sloth = endPoint.x - startPoint.x == 0 ? 0 : (endPoint.y - startPoint.y) / (endPoint.x - startPoint.x)
-        let height =  startPoint.y - (sloth * startPoint.x)
-
-        return (sloth, height)
-    }
-
-    private func middlePointOf(a: CGPoint, b: CGPoint) -> CGPoint {
-        let middlePointX = abs(a.x - b.x) / 2
-        let middlePointY = abs(a.y - b.y) / 2
-        return CGPoint(x: middlePointX, y: middlePointY)
+    
+    private func getPercentPoint(start: CGPoint, end: CGPoint, percent: CGFloat) -> CGPoint {
+        let pointX = start.x + ((end.x - start.x) * (percent / totalPercent))
+        let pointy = start.y + ((end.y - start.y) * (percent / totalPercent))
+        return CGPoint(x: pointX, y: pointy)
     }
 }

@@ -182,6 +182,7 @@
 		D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */; };
 		D460F04D2AE432BA00A5966A /* User+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04C2AE432BA00A5966A /* User+.swift */; };
 		D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */; };
+		D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */; };
 		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
 		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
 		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
@@ -381,6 +382,7 @@
 		D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPerformanceRepository.swift; sourceTree = "<group>"; };
 		D460F04C2AE432BA00A5966A /* User+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+.swift"; sourceTree = "<group>"; };
 		D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntityConvertable.swift; sourceTree = "<group>"; };
+		D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableModel.swift; sourceTree = "<group>"; };
 		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
 		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
 		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
@@ -861,8 +863,7 @@
 			isa = PBXGroup;
 			children = (
 				D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */,
-				D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */,
-				D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */,
+				D4984C902AF4C2F700693752 /* View */,
 			);
 			path = ObjectPlaying;
 			sourceTree = "<group>";
@@ -1011,6 +1012,7 @@
 				3AE701D32AE6C2FF00C48403 /* MemberModel.swift */,
 				3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */,
 				3A5329072AED3B800051A09C /* MusicModel.swift */,
+				D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1319,6 +1321,15 @@
 			path = FireStore;
 			sourceTree = "<group>";
 		};
+		D4984C902AF4C2F700693752 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */,
+				D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1592,6 +1603,7 @@
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
+				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,
