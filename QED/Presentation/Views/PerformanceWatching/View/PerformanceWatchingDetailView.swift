@@ -26,7 +26,7 @@ struct PerformanceWatchingDetailView: View {
             PlayableDanceFormationView(viewModel: viewModel)
             buildDetailControlButtons()
             PlayBarView(viewModel: viewModel,
-                           formations: viewModel.performance.formations)
+                        formations: viewModel.performance.formations)
             Spacer()
             buildPlayButtons()
             Spacer()

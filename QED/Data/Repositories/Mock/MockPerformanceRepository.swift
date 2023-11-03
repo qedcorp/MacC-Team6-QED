@@ -30,41 +30,25 @@ let info1 = Member.Info(name: "쥬쥬", color: "F06292")
 let info2 = Member.Info(name: "웅", color: "85C1E9")
 let info3 = Member.Info(name: "키오오", color: "C39BD3")
 let info4 = Member.Info(name: "올링링링", color: "F7DC6F")
-var members1 = [Member(relativePosition: .buildRandom(),
-                       info: info1),
-                Member(relativePosition: .buildRandom(),
-                       info: info2),
-                Member(relativePosition: .buildRandom(),
-                       info: info3),
-                Member(relativePosition: .buildRandom(),
-                       info: info4)]
+var members1 = [Member(relativePosition: .buildRandom(), info: info1),
+                Member(relativePosition: .buildRandom(), info: info2),
+                Member(relativePosition: .buildRandom(), info: info3),
+                Member(relativePosition: .buildRandom(), info: info4)]
 
-private var members2 = [Member(relativePosition: .buildRandom(),
-                               info: info1),
-                        Member(relativePosition: .buildRandom(),
-                               info: info2),
-                        Member(relativePosition: .buildRandom(),
-                               info: info3),
-                        Member(relativePosition: .buildRandom(),
-                               info: info4)]
+private var members2 = [Member(relativePosition: .buildRandom(), info: info1),
+                        Member(relativePosition: .buildRandom(), info: info2),
+                        Member(relativePosition: .buildRandom(), info: info3),
+                        Member(relativePosition: .buildRandom(), info: info4)]
 
-private var members3 = [Member(relativePosition: .buildRandom(),
-                               info: info1),
-                        Member(relativePosition: .buildRandom(),
-                               info: info2),
-                        Member(relativePosition: .buildRandom(),
-                               info: info3),
-                        Member(relativePosition: .buildRandom(),
-                               info: info4)]
+private var members3 = [Member(relativePosition: .buildRandom(), info: info1),
+                        Member(relativePosition: .buildRandom(), info: info2),
+                        Member(relativePosition: .buildRandom(), info: info3),
+                        Member(relativePosition: .buildRandom(), info: info4)]
 
-private var members4 = [Member(relativePosition: .buildRandom(),
-                               info: info1),
-                        Member(relativePosition: .buildRandom(),
-                               info: info2),
-                        Member(relativePosition: .buildRandom(),
-                               info: info3),
-                        Member(relativePosition: .buildRandom(),
-                               info: info4)]
+private var members4 = [Member(relativePosition: .buildRandom(), info: info1),
+                        Member(relativePosition: .buildRandom(), info: info2),
+                        Member(relativePosition: .buildRandom(), info: info3),
+                        Member(relativePosition: .buildRandom(), info: info4)]
 
 var mockFormations = [Formation(members: members1, startMs: 0, memo: "암슈퍼샤이", note: "키오 기어가기"),
                       Formation(members: members2, startMs: 130000, memo: "떨리는 지금도"),

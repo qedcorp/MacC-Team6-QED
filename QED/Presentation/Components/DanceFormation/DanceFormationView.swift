@@ -18,6 +18,7 @@ struct DanceFormationView: View {
 //            timeAndLyric()
             danceFormation()
         }
+        .clipped()
     }
 
     private func danceFormation() -> some View {
