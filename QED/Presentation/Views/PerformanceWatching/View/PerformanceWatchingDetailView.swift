@@ -25,7 +25,8 @@ struct PerformanceWatchingDetailView: View {
         VStack(spacing: 10) {
             PlayableDanceFormationView(viewModel: viewModel)
             buildDetailControlButtons()
-            buildDanceFormationScrollView()
+            PlayBarView(viewModel: viewModel,
+                           formations: viewModel.performance.formations)
             Spacer()
             buildPlayButtons()
             Spacer()
@@ -134,44 +135,6 @@ struct PerformanceWatchingDetailView: View {
             viewModel.forward()
         } label: {
             Image(systemName: "chevron.right")
-        }
-    }
-
-    private func buildDanceFormationScrollView() -> some View {
-        let formations = viewModel.performance.formations
-
-        return ScrollView(.horizontal, showsIndicators: false) {
-            ScrollViewReader { proxy in
-                HStack(spacing: 15) {
-                    ForEach(Array(zip(formations.indices, formations)), id: \.0) { (index, formation) in
-                        DanceFormationView(
-                            formation: formation,
-                            index: index,
-                            hideLine: true
-                        )
-                        .frame(width: 150, height: 100)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .strokeBorder(
-                                    viewModel.selectedIndex == index ? .green: .clear,
-                                    lineWidth: 2)
-                        )
-                        .onTapGesture {
-                            withAnimation(.easeIn(duration: 0.1)) {
-                                viewModel.selectFormation(selectedIndex: index)
-                            }
-                        }
-                    }
-                }
-                .onChange(of: viewModel.selectedIndex, perform: { index in
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        proxy.scrollTo(index, anchor: .center)
-                    }
-                    if viewModel.selectedIndex == formations.count - 1 {
-                        isPlaying = false
-                    }
-                })
-            }
         }
     }
 

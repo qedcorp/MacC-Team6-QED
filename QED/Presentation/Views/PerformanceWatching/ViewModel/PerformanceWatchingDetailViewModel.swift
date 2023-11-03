@@ -25,6 +25,15 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var currentStatus: Status = .pause
     @Published var currentNote: String = ""
 
+    @Published var offset: CGFloat = 0
+    @Published var direct: Direct = .none
+    @Published var previewWidth = CGFloat(94)
+    @Published var previewHeight = CGFloat(64)
+    @Published var pauseWidth = CGFloat(20)
+    @Published var totalLength: Int
+    private var originOffset: CGFloat = 0
+    private var isCheckedOriginOffset: Bool = false
+
     init(performance: Performance) {
         self.scene = PlayableDanceFormationScene()
         scene.size = CGSize(width: 350, height: 220)
@@ -35,6 +44,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         selectedIndex = 0
         currentNote = performance.formations[0].note ?? ""
         playTimer = PlayTimer(timeInterval: 5)
+        totalLength = performance.formations.count
 
         let danceFormationManager = PlayableDanceFormationManager(scene: scene, formation: mockFormations.first!)
         self.scene.manager = danceFormationManager
@@ -52,6 +62,31 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             }
         subscribe()
     }
+
+    func setOriginOffset(_ offset: CGFloat) {
+        guard !isCheckedOriginOffset else { return }
+        self.originOffset = offset
+        self.offset = offset
+        isCheckedOriginOffset = true
+    }
+
+    func setOffset(_ offset: CGFloat) {
+        guard isCheckedOriginOffset else { return }
+        if self.offset < offset {
+            direct = .left
+        } else if self.offset > offset {
+            direct = .right
+        } else {
+            direct = .none
+        }
+        self.offset = offset
+    }
+
+//    func play() {
+//        withAnimation(.linear(duration: TimeInterval(Int(previewWidth) * totalLength/50))) {
+//            offset -= CGFloat(Int(previewWidth) * totalLength)
+//        }
+//    }
 
     func play() {
         currentStatus = .play
