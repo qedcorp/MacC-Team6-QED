@@ -525,7 +525,7 @@
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				5159A3872AEBEC1A004D304E /* DanceFormation */,
-				510502CB2AF4C63500C653B2 /* PlayingBar */,
+				510502CB2AF4C63500C653B2 /* PlayBar */,
 				D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */,
 				3AE701AA2AE58F6600C48403 /* MemoButton */,
 				3A533A392AEFAE25007E76F7 /* Zoomable */,
@@ -678,13 +678,13 @@
 			path = PresetContainer;
 			sourceTree = "<group>";
 		};
-		510502CB2AF4C63500C653B2 /* PlayingBar */ = {
+		510502CB2AF4C63500C653B2 /* PlayBar */ = {
 			isa = PBXGroup;
 			children = (
 				510502CC2AF4C6B700C653B2 /* PlayBarView.swift */,
 				510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */,
 			);
-			path = PlayingBar;
+			path = PlayBar;
 			sourceTree = "<group>";
 		};
 		5136BF9C2ADE7F2700882B6B /* Main */ = {
