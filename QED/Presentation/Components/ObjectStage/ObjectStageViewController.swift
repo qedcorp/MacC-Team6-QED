@@ -32,6 +32,12 @@ class ObjectStageViewController: UIViewController {
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isViewAppeared = false
+        copiedFormable = nil
+    }
+
     func placeObjectView(position: CGPoint, color: UIColor) {
         let objectView = DotObjectView()
         objectView.radius = objectViewRadius

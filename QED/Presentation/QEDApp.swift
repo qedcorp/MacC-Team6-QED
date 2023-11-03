@@ -13,7 +13,7 @@ struct QEDApp: App {
             if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
                 NavigationView {
                     FormationSettingView(
-                        performance: mockPerformance1,
+                        performance: Performance(id: "", author: .sample, music: .newJeans, headcount: 5),
                         performanceUseCase: DefaultPerformanceUseCase(
                             performanceRepository: MockPerformanceRepository(),
                             userStore: DefaultUserStore.shared
