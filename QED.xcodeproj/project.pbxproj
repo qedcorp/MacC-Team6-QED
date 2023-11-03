@@ -174,6 +174,7 @@
 		D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */; };
 		D460F04D2AE432BA00A5966A /* User+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04C2AE432BA00A5966A /* User+.swift */; };
 		D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */; };
+		D4984C8E2AF4B84200693752 /* DeletePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4984C8D2AF4B84200693752 /* DeletePreset.swift */; };
 		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
 		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
 		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
@@ -365,6 +366,7 @@
 		D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPerformanceRepository.swift; sourceTree = "<group>"; };
 		D460F04C2AE432BA00A5966A /* User+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+.swift"; sourceTree = "<group>"; };
 		D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntityConvertable.swift; sourceTree = "<group>"; };
+		D4984C8D2AF4B84200693752 /* DeletePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePreset.swift; sourceTree = "<group>"; };
 		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
 		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
 		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				5136BFB22ADFB83400882B6B /* PerformanceWatching */,
 				5136BFAE2ADFB15800882B6B /* MyPage */,
 				D460EF8B2AE18DF700A5966A /* PresetManaging */,
+				D4984C8F2AF4B86500693752 /* OnlyDevelope */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1263,6 +1266,14 @@
 			path = FireStore;
 			sourceTree = "<group>";
 		};
+		D4984C8F2AF4B86500693752 /* OnlyDevelope */ = {
+			isa = PBXGroup;
+			children = (
+				D4984C8D2AF4B84200693752 /* DeletePreset.swift */,
+			);
+			path = OnlyDevelope;
+			sourceTree = "<group>";
+		};
 		D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1500,6 +1511,7 @@
 				D460EFE32AE18DF700A5966A /* ObjectHistoryArchiver.swift in Sources */,
 				D460EFF02AE18DF700A5966A /* TouchedViewDetector.swift in Sources */,
 				A9ABC1462AEC159D00E28EEE /* PerformanceListCardView.swift in Sources */,
+				D4984C8E2AF4B84200693752 /* DeletePreset.swift in Sources */,
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
