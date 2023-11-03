@@ -11,7 +11,15 @@ struct QEDApp: App {
     var body: some Scene {
         WindowGroup {
             if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
-                MainView()
+                NavigationView {
+                    FormationSettingView(
+                        performance: mockPerformance1,
+                        performanceUseCase: DefaultPerformanceUseCase(
+                            performanceRepository: MockPerformanceRepository(),
+                            userStore: DefaultUserStore.shared
+                        )
+                    )
+                }
             } else {
                 AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
             }

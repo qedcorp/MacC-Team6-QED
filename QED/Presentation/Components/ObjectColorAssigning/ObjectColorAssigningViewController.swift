@@ -14,15 +14,13 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
-    override var objectViewRadius: CGFloat { 9 }
-
     override func loadView() {
         super.loadView()
-        setupCenterLines()
+        setupGrid()
     }
 
-    private func setupCenterLines() {
-        let renderer = CenterLinesRenderer(color: .green)
+    private func setupGrid() {
+        let renderer = GridRenderer()
         renderer.render(in: view)
     }
 

@@ -86,7 +86,7 @@ struct FormationSettingView: View {
         width: CGFloat,
         color: Color
     ) -> some View {
-        let height = width * CGFloat(22 / Float(35))
+        let height = width * CGFloat(12 / Float(19))
         return ObjectCanvasView(
             controller: controller,
             formable: viewModel.currentFormation,
@@ -192,7 +192,7 @@ struct FormationSettingView: View {
                 .font(.caption)
                 .lineLimit(1)
         }
-        .aspectRatio(41 / 32, contentMode: .fit)
+        .aspectRatio(94 / 79, contentMode: .fit)
         .contextMenu {
             ControlGroup {
                 Button("삭제") {

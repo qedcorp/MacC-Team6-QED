@@ -11,7 +11,9 @@ class ObjectStageViewController: UIViewController {
     private var isViewAppeared = false
     private var copiedFormable: Formable?
 
-    var objectViewRadius: CGFloat { 2 }
+    var objectViewRadius: CGFloat {
+        view.frame.height / CGFloat(RelativePosition.maxY)
+    }
 
     var objectViews: [DotObjectView] {
         view.subviews.compactMap { $0 as? DotObjectView }

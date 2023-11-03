@@ -55,7 +55,7 @@ struct MovementSettingView: View {
         width: CGFloat,
         color: Color
     ) -> some View {
-        let height = width * CGFloat(22 / Float(35))
+        let height = width * CGFloat(12 / Float(19))
         return ZStack {
             RoundedRectangle(cornerRadius: 4)
                 .fill(color)

@@ -38,8 +38,6 @@ class ObjectCanvasViewController: ObjectStageViewController {
     private var isDraggingForSelectingMultiObjects = false
     private var cancellables: Set<AnyCancellable> = []
 
-    override var objectViewRadius: CGFloat { 9 }
-
     private var canPlaceObject: Bool {
         objectViews.count < maxObjectsCount ?? .max
     }
@@ -55,11 +53,11 @@ class ObjectCanvasViewController: ObjectStageViewController {
     override func loadView() {
         super.loadView()
         view.addSubview(multiSelectBoxView)
-        setupCenterLines()
+        setupGrid()
     }
 
-    private func setupCenterLines() {
-        let renderer = CenterLinesRenderer(color: .green)
+    private func setupGrid() {
+        let renderer = GridRenderer()
         renderer.render(in: view)
     }
 
