@@ -86,12 +86,6 @@ extension Color {
     static let Dot11 = Color(hex: "D9B8FA")
     static let Dot12 = Color(hex: "CDFAB8")
     static let Dot13 = Color(hex: "F8A98C")
-    static let blueGradation1 = LinearGradient(colors: [Color.blueLight3.opacity(0.4), Color.blueNormal.opacity(0.4)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let blueGradation2 = LinearGradient(colors: [Color.blueLight3.opacity(0.6), Color.blueNormal.opacity(0.6)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let blueGradation3 = LinearGradient(colors: [Color.blueLight3, Color.blueNormal], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let strokeGlass1 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.6)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let strokeGlass2 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.3)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let strokeGlass3 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.2)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
 }
 
  extension Gradient {
