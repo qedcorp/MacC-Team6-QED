@@ -9,7 +9,9 @@ class FormationSettingViewModel: ObservableObject {
 
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
-    @Published var currentFormationIndex = -1
+    @Published private(set) var currentFormationIndex = -1
+    @Published private(set) var controllingFormationIndex: Int?
+    @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
 
     @Published var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
@@ -56,6 +58,7 @@ class FormationSettingViewModel: ObservableObject {
             .sink { _ in
             } receiveValue: { [unowned self] in
                 performance = $0
+                controllingFormationIndex = nil
                 executePendingTasks()
             }
             .store(in: &cancellables)
@@ -115,6 +118,17 @@ class FormationSettingViewModel: ObservableObject {
         }
     }
 
+    func selectFormation(index: Int) {
+        if controllingFormationIndex == index {
+            controllingFormationIndex = nil
+        } else if currentFormationIndex == index {
+            controllingFormationIndex = index
+        } else {
+            currentFormationIndex = index
+            controllingFormationIndex = nil
+        }
+    }
+
     func duplicateFormation(index: Int) {
         guard let copiedFormation = performance.formations[safe: index] else {
             return
@@ -136,6 +150,10 @@ class FormationSettingViewModel: ObservableObject {
                 currentFormationIndex = min(currentFormationIndex - 1, formations.count - 1)
             }
         }
+    }
+
+    func updateFormationItemFrame(_ frame: CGRect, index: Int) {
+        formationItemFrameMap[index] = frame
     }
 
     private func assignControllerToArchiverByZoomed() {

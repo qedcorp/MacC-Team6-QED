@@ -133,19 +133,24 @@ struct FormationSettingView: View {
                         Text("프레임을 추가한 후 가사와 대형을 설정하세요.")
                             .foregroundStyle(.green)
                     }
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(
-                                Array(viewModel.formations.enumerated()),
-                                id: \.offset
-                            ) { formationOffset, formation in
-                                buildFormationItemView(index: formationOffset, formation: formation)
+                    ZStack(alignment: .topLeading) {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(
+                                    Array(viewModel.formations.enumerated()),
+                                    id: \.offset
+                                ) { formationOffset, formation in
+                                    buildFormationItemView(index: formationOffset, formation: formation)
+                                }
+                                Spacer()
                             }
-                            Spacer()
+                            .frame(height: 64)
+                            .padding(.horizontal, 14)
+                            .padding(.bottom, 14)
                         }
-                        .frame(height: 64)
-                        .padding(.horizontal, 14)
-                        .padding(.bottom, 14)
+                        if let index = viewModel.controllingFormationIndex {
+                            buildFormationItemControlsView(index: index)
+                        }
                     }
                 }
             }
@@ -175,38 +180,52 @@ struct FormationSettingView: View {
     }
 
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            ObjectStageView(formable: formation)
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(.gray.opacity(0.1))
-                )
-                .overlay(
-                    index == viewModel.currentFormationIndex ?
-                    RoundedRectangle(cornerRadius: 4)
-                        .strokeBorder(.green, lineWidth: 1)
-                    : nil
-                )
-                .clipped()
-            Text(formation.memo ?? "대형 \(index + 1)")
-                .font(.caption)
-                .lineLimit(1)
+        GeometryReader { geometry in
+            VStack(alignment: .leading, spacing: 2) {
+                ObjectStageView(formable: formation)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(.gray.opacity(0.1))
+                    )
+                    .clipped()
+                    .overlay(
+                        index == viewModel.currentFormationIndex ?
+                        RoundedRectangle(cornerRadius: 4)
+                            .strokeBorder(.green, lineWidth: 1)
+                        : nil
+                    )
+                Text(formation.memo ?? "대형 \(index + 1)")
+                    .font(.caption)
+                    .lineLimit(1)
+            }
+            .onAppear {
+                let frame = geometry.frame(in: .global)
+                viewModel.updateFormationItemFrame(frame, index: index)
+            }
+            .onChange(of: geometry.frame(in: .global)) {
+                viewModel.updateFormationItemFrame($0, index: index)
+            }
         }
         .aspectRatio(94 / 79, contentMode: .fit)
-        .contextMenu {
-            ControlGroup {
-                Button("삭제") {
-                    viewModel.removeFormation(index: index)
-                }
-                Button("복제") {
-                    viewModel.duplicateFormation(index: index)
-                }
-            }
-            .controlGroupStyle(.compactMenu)
-        }
         .onTapGesture {
-            viewModel.currentFormationIndex = index
+            viewModel.selectFormation(index: index)
         }
+    }
+
+    private func buildFormationItemControlsView(index: Int) -> some View {
+        let itemFrame = viewModel.formationItemFrameMap[index] ?? .zero
+        let margin: CGFloat = 3
+        return HStack {
+            Button("삭제") {
+                viewModel.removeFormation(index: index)
+            }
+            Button("복제") {
+                viewModel.duplicateFormation(index: index)
+            }
+        }
+        .frame(width: max(itemFrame.width - margin * 2, 0), height: 56)
+        .background(.gray.opacity(0.5))
+        .offset(x: itemFrame.minX + margin, y: -52)
     }
 
     private func buildMemoFormView() -> some View {
