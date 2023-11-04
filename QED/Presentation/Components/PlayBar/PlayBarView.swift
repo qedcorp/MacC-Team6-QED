@@ -55,7 +55,6 @@ struct PlayBarView: View {
                 buildCenterBarView()
             }
             .frame(height: viewModel.previewHeight + 25)
-            .background(.purple)
         }
     }
 
@@ -112,7 +111,7 @@ struct PlayBarView: View {
 
     private func buildTransitionView(index: Int) -> some View {
         TransitionShape()
-        .stroke(Color.green, lineWidth: 1.5)
+            .stroke(index == viewModel.selectedIndex ? .green : .gray, lineWidth: 1.5)
         .frame(width: viewModel.transitionWidth, height: 35)
     }
 
@@ -122,7 +121,7 @@ struct PlayBarView: View {
                 .foregroundStyle(.white)
 
             RoundedRectangle(cornerRadius: 5)
-                .strokeBorder(Color.blue, lineWidth: 1)
+                .strokeBorder(.blue, lineWidth: 1)
         }
         .frame(width: 4, height: 65)
         .offset(y: -4)
@@ -136,21 +135,21 @@ private struct TransitionShape: Shape {
 
             path.addQuadCurve(to: CGPoint(x: rect.width/2, y: rect.height/2),
                               control: CGPoint(x: rect.width/3,
-                                               y: rect.height/20))
+                                               y: -rect.height/20))
 
             path.addQuadCurve(to: CGPoint(x: rect.width, y: rect.height),
                               control: CGPoint(x: rect.width * 2/3,
-                                               y: rect.height * 19/20))
+                                               y: rect.height * 21/20))
 
             path.move(to: CGPoint(x: 0, y: rect.height))
 
             path.addQuadCurve(to: CGPoint(x: rect.width/2, y: rect.height/2),
                               control: CGPoint(x: rect.width/3,
-                                               y: rect.height * 19/20 ))
+                                               y: rect.height * 21/20 ))
 
             path.addQuadCurve(to: CGPoint(x: rect.width, y: 0),
                               control: CGPoint(x: rect.width * 2/3,
-                                               y: rect.height/20))
+                                               y: -rect.height/20))
         }
     }
 }
