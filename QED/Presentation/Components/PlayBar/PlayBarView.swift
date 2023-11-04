@@ -15,52 +15,47 @@ struct PlayBarView: View {
     @State private var formationCount = 0
 
     var body: some View {
-        VStack {
-            Text("\(viewModel.offset)")
-            GeometryReader { geometry in
-                ZStack {
-                    ScrollViewReader { proxy in
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            buildScrollObservableView()
-                            HStack(spacing: 0) {
-                                ForEach(Array(zip(formations.indices, formations)),
-                                        id: \.0) { index, formation in
-                                    buildPlayingSectionView(
-                                        index: index,
-                                        formation: formation,
-                                        proxy: proxy
-                                    )
-                                }
+        GeometryReader { geometry in
+            ZStack {
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        buildScrollObservableView()
+                        HStack(spacing: 0) {
+                            ForEach(Array(zip(formations.indices, formations)),
+                                    id: \.0) { index, formation in
+                                buildPlayingSectionView(
+                                    index: index,
+                                    formation: formation,
+                                    proxy: proxy
+                                )
                             }
-                            .padding(.horizontal, geometry.size.width / 2)
-                            .offset(x: calculateOffset())
                         }
-                        .onPreferenceChange(ScrollOffsetKey.self) {
-                            viewModel.setOffset($0)
-                        }
-                        .onAppear {
-                            UIScrollView.appearance().bounces = false
-                            playingSectionWidth = viewModel.previewWidth + viewModel.transitionWidth
-                            formationCount = viewModel.performance.formations.count
-                        }
-                        .onChange(of: viewModel.offset, perform: {
-                            if viewModel.isScrolling {
-                                viewModel.isScrolling = false
-                            }
-                            viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
-                        })
-                        .onChange(of: viewModel.selectedIndex) {
-                            isLast = $0 == formationCount - 1 ? true : false
-                        }
+                        .padding(.horizontal, geometry.size.width / 2)
+                        .offset(x: calculateOffset())
                     }
-                    Rectangle()
-                        .frame(width: 4, height: viewModel.previewHeight)
-                        .offset(y: -6)
+                    .onPreferenceChange(ScrollOffsetKey.self) {
+                        viewModel.setOffset($0)
+                    }
+                    .onAppear {
+                        UIScrollView.appearance().bounces = false
+                        playingSectionWidth = viewModel.previewWidth + viewModel.transitionWidth
+                        formationCount = viewModel.performance.formations.count
+                    }
+                    .onChange(of: viewModel.offset, perform: {
+                        if viewModel.isScrolling {
+                            viewModel.isScrolling = false
+                        }
+                        viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
+                    })
+                    .onChange(of: viewModel.selectedIndex) {
+                        isLast = $0 == formationCount - 1 ? true : false
+                    }
                 }
-                .frame(height: viewModel.previewHeight + 25)
-                .background(.purple)
-            }
 
+                buildCenterBarView()
+            }
+            .frame(height: viewModel.previewHeight + 25)
+            .background(.purple)
         }
     }
 
@@ -96,8 +91,8 @@ struct PlayBarView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .strokeBorder(
-                            index == viewModel.selectedIndex ? .green: .clear,
-                            lineWidth: 2)
+                            index == viewModel.selectedIndex ? .green: .gray,
+                            lineWidth: 1)
                 )
                 if index != formationCount - 1 {
                     buildTransitionView(index: index)
@@ -116,9 +111,47 @@ struct PlayBarView: View {
     }
 
     private func buildTransitionView(index: Int) -> some View {
-        Rectangle()
-            .frame(width: viewModel.transitionWidth, height: 35)
-            .foregroundStyle(index == viewModel.selectedIndex ? .green : .gray)
+        TransitionShape()
+        .stroke(Color.green, lineWidth: 1.5)
+        .frame(width: viewModel.transitionWidth, height: 35)
+    }
+
+    private func buildCenterBarView() -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 5)
+                .foregroundStyle(.white)
+
+            RoundedRectangle(cornerRadius: 5)
+                .strokeBorder(Color.blue, lineWidth: 1)
+        }
+        .frame(width: 4, height: 65)
+        .offset(y: -4)
+    }
+}
+
+private struct TransitionShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            path.move(to: CGPoint(x: 0, y: 0))
+
+            path.addQuadCurve(to: CGPoint(x: rect.width/2, y: rect.height/2),
+                              control: CGPoint(x: rect.width/3,
+                                               y: rect.height/20))
+
+            path.addQuadCurve(to: CGPoint(x: rect.width, y: rect.height),
+                              control: CGPoint(x: rect.width * 2/3,
+                                               y: rect.height * 19/20))
+
+            path.move(to: CGPoint(x: 0, y: rect.height))
+
+            path.addQuadCurve(to: CGPoint(x: rect.width/2, y: rect.height/2),
+                              control: CGPoint(x: rect.width/3,
+                                               y: rect.height * 19/20 ))
+
+            path.addQuadCurve(to: CGPoint(x: rect.width, y: 0),
+                              control: CGPoint(x: rect.width * 2/3,
+                                               y: rect.height/20))
+        }
     }
 }
 
