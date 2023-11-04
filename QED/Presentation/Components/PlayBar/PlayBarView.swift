@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct PlayBarView: View {
     @StateObject var viewModel: PerformanceWatchingDetailViewModel
@@ -13,6 +14,7 @@ struct PlayBarView: View {
     @State private var playingSectionWidth = CGFloat.zero
     @State private var isLast = false
     @State private var formationCount = 0
+    @State private var screenOffset = CGFloat.zero
 
     var body: some View {
         GeometryReader { geometry in
@@ -31,10 +33,14 @@ struct PlayBarView: View {
                             }
                         }
                         .padding(.horizontal, geometry.size.width / 2)
-                        .offset(x: calculateOffset())
+                        .offset(x: screenOffset)
                     }
                     .onPreferenceChange(ScrollOffsetKey.self) {
-                        viewModel.setOffset($0)
+                        calculateScreenOffset()
+                        viewModel.offset = $0
+                        if viewModel.isScrollToExecuting {
+                            viewModel.isScrollToExecuting = false
+                        }
                     }
                     .onAppear {
                         UIScrollView.appearance().bounces = false
@@ -42,12 +48,13 @@ struct PlayBarView: View {
                         formationCount = viewModel.performance.formations.count
                     }
                     .onChange(of: viewModel.offset, perform: {
-                        if viewModel.isScrolling {
-                            viewModel.isScrolling = false
-                        }
                         viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
+
                     })
                     .onChange(of: viewModel.selectedIndex) {
+                        if !viewModel.isScrollToExecuting {
+                            HapticManager.shared.hapticImpact(style: .soft)
+                        }
                         isLast = $0 == formationCount - 1 ? true : false
                     }
                 }
@@ -58,12 +65,15 @@ struct PlayBarView: View {
         }
     }
 
-    private func calculateOffset() -> CGFloat {
-        guard viewModel.isScrolling else { return .zero }
+    private func calculateScreenOffset() {
+        guard viewModel.isScrollToExecuting else {
+            screenOffset = .zero
+            return
+        }
         if isLast {
-            return -viewModel.previewWidth / 2
+            screenOffset = -viewModel.previewWidth / 2
         } else {
-            return -playingSectionWidth / 2
+            screenOffset = -playingSectionWidth / 2
         }
     }
 

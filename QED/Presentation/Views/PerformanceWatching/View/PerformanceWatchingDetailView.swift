@@ -37,7 +37,6 @@ struct PerformanceWatchingDetailView: View {
         .onAppear {
             viewModel.selectedIndex = index
         }
-        .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
@@ -64,6 +63,7 @@ struct PerformanceWatchingDetailView: View {
         }
         .font(.subheadline)
         .padding(.bottom, 10)
+        .padding(.horizontal, 20)
     }
 
     private func buildBeforeFormationButton() -> some View {

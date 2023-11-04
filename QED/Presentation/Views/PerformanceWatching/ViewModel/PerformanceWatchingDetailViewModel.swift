@@ -26,7 +26,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var currentNote: String = ""
 
     @Published var offset: CGFloat = 0
-    @Published var isScrolling: Bool = false
+    @Published var isScrollToExecuting: Bool = false
     @Published var previewWidth = CGFloat(94)
     @Published var previewHeight = CGFloat(64)
     @Published var transitionWidth = CGFloat(20)
@@ -57,10 +57,6 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
                 $0.info = info
             }
         subscribe()
-    }
-
-    func setOffset(_ offset: CGFloat) {
-        self.offset = offset
     }
 
     func play() {
@@ -95,7 +91,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     func selectFormation(selectedIndex: Int) {
         self.selectedIndex = selectedIndex
-        self.isScrolling = true
+        self.isScrollToExecuting = true
     }
 
     func beforeFormationShowingToggle() {
