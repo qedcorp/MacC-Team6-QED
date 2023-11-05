@@ -10,7 +10,7 @@ import UIKit
 struct PathToPointCalculator {
     
     typealias ThreePoint = (startPoint: CGPoint, endPoint: CGPoint, controlPoint1: CGPoint, controlPoint2: CGPoint)
-    let totalPercent: CGFloat = 100
+    let totalPercent: CGFloat
     
     func getAllPoints(_ path: CGPath) -> [CGPoint] {
         let threePoint = getThreePoint(path: path)

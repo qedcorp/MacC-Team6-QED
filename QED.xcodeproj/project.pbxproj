@@ -183,6 +183,7 @@
 		D460F04D2AE432BA00A5966A /* User+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04C2AE432BA00A5966A /* User+.swift */; };
 		D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */; };
 		D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */; };
+		D48797752AF4D9C1004EFEDA /* NewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797742AF4D9C1004EFEDA /* NewViewModel.swift */; };
 		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
 		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
 		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
@@ -383,6 +384,7 @@
 		D460F04C2AE432BA00A5966A /* User+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+.swift"; sourceTree = "<group>"; };
 		D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntityConvertable.swift; sourceTree = "<group>"; };
 		D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableModel.swift; sourceTree = "<group>"; };
+		D48797742AF4D9C1004EFEDA /* NewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewModel.swift; sourceTree = "<group>"; };
 		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
 		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
 		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
@@ -786,6 +788,7 @@
 				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
 				51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */,
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
+				D48797742AF4D9C1004EFEDA /* NewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -862,7 +865,6 @@
 		D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */ = {
 			isa = PBXGroup;
 			children = (
-				D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */,
 				D4984C902AF4C2F700693752 /* View */,
 			);
 			path = ObjectPlaying;
@@ -1088,6 +1090,7 @@
 		D460EF9C2AE18DF700A5966A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */,
 				D460EF9D2AE18DF700A5966A /* PropertyWrappers */,
 				D460EFA02AE18DF700A5966A /* Errors */,
 			);
@@ -1548,6 +1551,7 @@
 				3A533A3D2AEFAE5D007E76F7 /* ZoomableView.swift in Sources */,
 				D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */,
 				3A5329082AED3B800051A09C /* MusicModel.swift in Sources */,
+				D48797752AF4D9C1004EFEDA /* NewViewModel.swift in Sources */,
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */,

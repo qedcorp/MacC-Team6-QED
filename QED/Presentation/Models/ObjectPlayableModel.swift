@@ -8,5 +8,5 @@
 import Foundation
 
 struct ObjectPlayableModel {
-    var memeberDacnePoints: [Member.Info: [CGPoint]]
+    var memeberDacnePoints: [Member.Info: [RelativeCoordinatable]]
 }
