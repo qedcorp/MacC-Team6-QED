@@ -24,7 +24,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
 
     init(movementsMap: MovementsMap) {
         self.movementsMap = movementsMap
-        self.pathToPointCalculator = PathToPointCalculator(totalPercent: CGFloat(Constants.transitionLength))
+        self.pathToPointCalculator = PathToPointCalculator(totalPercent: CGFloat(PlayableConstants.transitionLength))
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -50,7 +50,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
                 .map { bezierPath in
                     let path = bezierPathConverter.buildUIBezierPath(bezierPath).cgPath
                     let framPostion = relativeCoordinateConverter.getAbsoluteValue(of: bezierPath.startPosition)
-                    let framPostions = Array(repeating: framPostion, count: Constants.frameLength)
+                    let framPostions = Array(repeating: framPostion, count: PlayableConstants.frameLength)
                     return framPostions + pathToPointCalculator.getAllPoints(path)
                 }
                 .flatMap { $0 }
@@ -86,13 +86,5 @@ class ObjectPlayableViewController: ObjectStageViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension ObjectPlayableViewController {
-    struct Constants {
-        static let base = 100
-        static let frameLength = 300
-        static let transitionLength = 100
     }
 }
