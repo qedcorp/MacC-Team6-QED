@@ -31,6 +31,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var previewHeight = CGFloat(64)
     @Published var transitionWidth = CGFloat(20)
 
+    private var lastOffset: CGFloat = .zero
+    private var lastOffsetCapture: TimeInterval = .zero
+    @Published var isScrollingSlow: Bool = false
+
     init(performance: Performance) {
         self.scene = PlayableDanceFormationScene()
         scene.size = CGSize(width: 350, height: 220)
@@ -63,9 +67,9 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         currentStatus = .play
         playTimer.startTimer(completion: timingAction)
 
-//        withAnimation(.linear(duration: TimeInterval(Int(previewWidth) * totalLength/50))) {
-//            offset -= CGFloat(Int(previewWidth) * totalLength)
-//        }
+        //        withAnimation(.linear(duration: TimeInterval(Int(previewWidth) * totalLength/50))) {
+        //            offset -= CGFloat(Int(previewWidth) * totalLength)
+        //        }
     }
 
     func pause() {
@@ -103,6 +107,24 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             performance.formations[selectedIndex].note = ""
         }
         performance.formations[selectedIndex].note = currentNote
+    }
+
+    func scrollViewDidScroll(offset: CGFloat) {
+        let currentOffset = offset
+        let currentTime = Date.timeIntervalSinceReferenceDate
+        let timeDiff = currentTime - lastOffsetCapture
+        let captureInterval = 0.05
+
+        if timeDiff > captureInterval {
+            let distance = currentOffset - lastOffset
+            let scrollSpeedNotAbs = (distance * 10) / 1000
+            let scrollSpeed = fabsf(Float(scrollSpeedNotAbs))
+
+            isScrollingSlow = scrollSpeed < 0.15 ? true : false
+
+            lastOffset = currentOffset
+            lastOffsetCapture = currentTime
+        }
     }
 }
 

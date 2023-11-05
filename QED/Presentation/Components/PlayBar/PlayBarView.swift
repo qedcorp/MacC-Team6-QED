@@ -14,7 +14,8 @@ struct PlayBarView: View {
     @State private var playingSectionWidth = CGFloat.zero
     @State private var isLast = false
     @State private var formationCount = 0
-    @State private var screenOffset = CGFloat.zero
+
+    @Binding var screenOffset: CGFloat
 
     var body: some View {
         GeometryReader { geometry in
@@ -34,26 +35,28 @@ struct PlayBarView: View {
                         }
                         .padding(.horizontal, geometry.size.width / 2)
                         .offset(x: screenOffset)
+
+                    }
+                    .onAppear {
+                        UIScrollView.appearance().bounces = false
+                        UIScrollView.appearance().decelerationRate  = .fast
+                        playingSectionWidth = viewModel.previewWidth + viewModel.transitionWidth
+                        formationCount = viewModel.performance.formations.count
                     }
                     .onPreferenceChange(ScrollOffsetKey.self) {
-                        calculateScreenOffset()
                         viewModel.offset = $0
+                        calculateScreenOffset()
                         if viewModel.isScrollToExecuting {
                             viewModel.isScrollToExecuting = false
                         }
                     }
-                    .onAppear {
-                        UIScrollView.appearance().bounces = false
-                        playingSectionWidth = viewModel.previewWidth + viewModel.transitionWidth
-                        formationCount = viewModel.performance.formations.count
-                    }
                     .onChange(of: viewModel.offset, perform: {
                         viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
-
+                        viewModel.scrollViewDidScroll(offset: $0)
                     })
                     .onChange(of: viewModel.selectedIndex) {
-                        if !viewModel.isScrollToExecuting {
-                            HapticManager.shared.hapticImpact(style: .soft)
+                        if viewModel.isScrollingSlow && !viewModel.isScrollToExecuting {
+                            HapticManager.shared.hapticImpact(style: .rigid)
                         }
                         isLast = $0 == formationCount - 1 ? true : false
                     }
@@ -61,8 +64,8 @@ struct PlayBarView: View {
 
                 buildCenterBarView()
             }
-            .frame(height: viewModel.previewHeight + 25)
         }
+        .frame(height: viewModel.previewHeight + 25)
     }
 
     private func calculateScreenOffset() {
@@ -122,7 +125,7 @@ struct PlayBarView: View {
     private func buildTransitionView(index: Int) -> some View {
         TransitionShape()
             .stroke(index == viewModel.selectedIndex ? .green : .gray, lineWidth: 1.5)
-        .frame(width: viewModel.transitionWidth, height: 35)
+            .frame(width: viewModel.transitionWidth, height: 35)
     }
 
     private func buildCenterBarView() -> some View {
@@ -142,21 +145,19 @@ private struct TransitionShape: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
             path.move(to: CGPoint(x: 0, y: 0))
-
-            path.addQuadCurve(to: CGPoint(x: rect.width/2, y: rect.height/2),
+            path.addQuadCurve(to: CGPoint(x: rect.width/2,
+                                          y: rect.height/2),
                               control: CGPoint(x: rect.width/3,
                                                y: -rect.height/20))
-
             path.addQuadCurve(to: CGPoint(x: rect.width, y: rect.height),
                               control: CGPoint(x: rect.width * 2/3,
                                                y: rect.height * 21/20))
 
             path.move(to: CGPoint(x: 0, y: rect.height))
-
-            path.addQuadCurve(to: CGPoint(x: rect.width/2, y: rect.height/2),
+            path.addQuadCurve(to: CGPoint(x: rect.width/2,
+                                          y: rect.height/2),
                               control: CGPoint(x: rect.width/3,
                                                y: rect.height * 21/20 ))
-
             path.addQuadCurve(to: CGPoint(x: rect.width, y: 0),
                               control: CGPoint(x: rect.width * 2/3,
                                                y: -rect.height/20))
@@ -174,5 +175,5 @@ private struct ScrollOffsetKey: PreferenceKey {
 #Preview {
     PlayBarView(viewModel: PerformanceWatchingDetailViewModel(
         performance: mockPerformance3
-    ), formations: mockFormations)
+    ), formations: mockFormations, screenOffset: .constant(CGFloat.zero))
 }
