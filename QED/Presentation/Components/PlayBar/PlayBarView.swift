@@ -16,6 +16,7 @@ struct PlayBarView: View {
     @State private var formationCount = 0
 
     @Binding var screenOffset: CGFloat
+    @Binding var scrollProxy: ScrollViewProxy?
 
     var body: some View {
         GeometryReader { geometry in
@@ -38,6 +39,7 @@ struct PlayBarView: View {
 
                     }
                     .onAppear {
+                        scrollProxy = proxy
                         UIScrollView.appearance().bounces = false
                         UIScrollView.appearance().decelerationRate  = .fast
                         playingSectionWidth = viewModel.previewWidth + viewModel.transitionWidth
@@ -175,5 +177,5 @@ private struct ScrollOffsetKey: PreferenceKey {
 #Preview {
     PlayBarView(viewModel: PerformanceWatchingDetailViewModel(
         performance: mockPerformance3
-    ), formations: mockFormations, screenOffset: .constant(CGFloat.zero))
+    ), formations: mockFormations, screenOffset: .constant(CGFloat.zero), scrollProxy: .constant(nil))
 }

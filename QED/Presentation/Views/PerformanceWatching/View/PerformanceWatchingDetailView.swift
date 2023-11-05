@@ -11,22 +11,29 @@ struct PerformanceWatchingDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: PerformanceWatchingDetailViewModel
     var index: Int
-    @State var isNameVisiable = false
-    @State var isBeforeVisible = false
-    @State var isPlaying = false
-    @State var isMemoEditMode = false
+    @State private var isNameVisiable = false
+    @State private var isBeforeVisible = false
+    @State private var isPlaying = false
+    @State private var isMemoEditMode = false
 
     private static let fraction = PresentationDetent.fraction(0.15)
     private static let medium = PresentationDetent.medium
     @State private var settingsDetent = fraction
     @FocusState private var isFoused: Bool
 
+    @State private var screenOffset: CGFloat = 0
+    @State private var formationCount = 0
+    @State private var totalWidth = CGFloat.zero
+    @State private var scrollProxy: ScrollViewProxy?
+
     var body: some View {
         VStack(spacing: 10) {
             PlayableDanceFormationView(viewModel: viewModel)
             buildDetailControlButtons()
             PlayBarView(viewModel: viewModel,
-                        formations: viewModel.performance.formations)
+                        formations: viewModel.performance.formations,
+                        screenOffset: $screenOffset,
+                        scrollProxy: $scrollProxy)
             Spacer()
             buildPlayButtons()
             Spacer()
@@ -36,12 +43,17 @@ struct PerformanceWatchingDetailView: View {
         }
         .onAppear {
             viewModel.selectedIndex = index
+            formationCount = viewModel.performance.formations.count
+            totalWidth = (
+                viewModel.previewWidth + viewModel.transitionWidth
+            ) * CGFloat(formationCount) - viewModel.transitionWidth
+
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
             buildLeftItem()
-            //            rightItem()
+            //            buildRightItem()
         }
     }
 
@@ -93,48 +105,58 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildPlayButtons() -> some View {
-        HStack(spacing: 20) {
-            buildBackwardButton()
-            buildpPlayButton()
-            forwardButton()
+        HStack(spacing: 50) {
+            buildMoveToLastButton()
+            buildPlayButton()
+            buildMoveToFirstButton()
         }
         .foregroundColor(.green)
         .font(.title2)
     }
 
-    private func buildBackwardButton() -> some View {
+    private func buildMoveToFirstButton() -> some View {
         Button {
-            viewModel.backward()
+            viewModel.selectFormation(selectedIndex: 0)
+            scrollProxy?.scrollTo(0, anchor: .center)
         } label: {
             Image(systemName: "chevron.left")
         }
     }
 
-    private func buildpPlayButton() -> some View {
-        let formations = viewModel.performance.formations
+    private func buildMoveToLastButton() -> some View {
+           Button {
+               viewModel.selectFormation(selectedIndex: formationCount - 1)
+               scrollProxy?.scrollTo(formationCount - 1, anchor: .center)
+           } label: {
+               Image(systemName: "chevron.right")
+           }
+       }
+
+    private func buildPlayButton() -> some View {
+
+        let remainingWidth = totalWidth + viewModel.offset
+        let remainingCount = formationCount - viewModel.selectedIndex
 
         return Button {
             isPlaying.toggle()
             if isPlaying {
-                if viewModel.selectedIndex == formations.count - 1 {
+                if viewModel.selectedIndex == formationCount - 1 {
                     viewModel.selectedIndex = 0
                 } else {
                     viewModel.play()
+                    //                    withAnimation(.linear(duration: TimeInterval(remainingCount * 1))) {
+                    //                        viewModel.offset -= remainingWidth
+                    //                        screenOffset -= remainingWidth
+                    //                    }
                 }
             } else {
                 viewModel.pause()
+                viewModel.offset = .zero
+                screenOffset = .zero
             }
         } label: {
             Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                 .font(.title)
-        }
-    }
-
-    private func forwardButton() -> some View {
-        Button {
-            viewModel.forward()
-        } label: {
-            Image(systemName: "chevron.right")
         }
     }
 
