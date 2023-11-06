@@ -34,6 +34,8 @@
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
+		3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */; };
+		3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
@@ -45,7 +47,6 @@
 		3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C32AE66AAA00C48403 /* ObjectColorAssigningView.swift */; };
 		3AE701C62AE66AB800C48403 /* ObjectColorAssigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C52AE66AB800C48403 /* ObjectColorAssigningViewController.swift */; };
 		3AE701C82AE68C7B00C48403 /* MemberInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */; };
-		3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701C92AE6906200C48403 /* String+Hex.swift */; };
 		3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */; };
 		3AE701D02AE6989200C48403 /* MemberInfoEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701CF2AE6989200C48403 /* MemberInfoEditingView.swift */; };
 		3AE701D42AE6C2FF00C48403 /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701D32AE6C2FF00C48403 /* MemberModel.swift */; };
@@ -230,6 +231,8 @@
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
 		3A927F192AE2640A002ED7E8 /* FormationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationModel.swift; sourceTree = "<group>"; };
+		3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoColorset.swift; sourceTree = "<group>"; };
+		3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoEditingViewModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,7 +247,6 @@
 		3AE701C32AE66AAA00C48403 /* ObjectColorAssigningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectColorAssigningView.swift; sourceTree = "<group>"; };
 		3AE701C52AE66AB800C48403 /* ObjectColorAssigningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectColorAssigningViewController.swift; sourceTree = "<group>"; };
 		3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModel.swift; sourceTree = "<group>"; };
-		3AE701C92AE6906200C48403 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		3AE701CF2AE6989200C48403 /* MemberInfoEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoEditingView.swift; sourceTree = "<group>"; };
 		3AE701D32AE6C2FF00C48403 /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				A974EA122AE440C600302C9D /* PerformanceSetting */,
 				3AF617CE2AE1961D0052FC90 /* FormationSetting */,
 				3AE701BB2AE65F3500C48403 /* MemberSetting */,
+				3AC325032AF40BDB002B6682 /* MemberInfoEditing */,
 				3A26C9852AF2721F00BFE0EA /* MovementSetting */,
 			);
 			path = PerformanceCreating;
@@ -480,6 +483,7 @@
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
 				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
+				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -528,6 +532,15 @@
 				3A533A392AEFAE25007E76F7 /* Zoomable */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		3AC325032AF40BDB002B6682 /* MemberInfoEditing */ = {
+			isa = PBXGroup;
+			children = (
+				3AE701CF2AE6989200C48403 /* MemberInfoEditingView.swift */,
+				3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */,
+			);
+			path = MemberInfoEditing;
 			sourceTree = "<group>";
 		};
 		3AE0CCB32ADD0CE1001FE371 = {
@@ -604,7 +617,6 @@
 			isa = PBXGroup;
 			children = (
 				3AE701B42AE5D07600C48403 /* Rect+Contains.swift */,
-				3AE701C92AE6906200C48403 /* String+Hex.swift */,
 				3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */,
 				3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */,
 				3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */,
@@ -626,7 +638,6 @@
 			children = (
 				3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */,
 				3A5329092AED92B40051A09C /* MemberSettingViewModel.swift */,
-				3AE701CF2AE6989200C48403 /* MemberInfoEditingView.swift */,
 			);
 			path = MemberSetting;
 			sourceTree = "<group>";
@@ -1574,10 +1585,10 @@
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
+				3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */,
 				3AE701D42AE6C2FF00C48403 /* MemberModel.swift in Sources */,
 				3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */,
 				D460F00F2AE18DF700A5966A /* DefaultPerformanceUseCase.swift in Sources */,
-				3AE701CA2AE6906200C48403 /* String+Hex.swift in Sources */,
 				A974EA232AE440C600302C9D /* MusicSetupView.swift in Sources */,
 				D460EFEB2AE18DF700A5966A /* DraggingModel.swift in Sources */,
 				3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */,
@@ -1597,6 +1608,7 @@
 				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
 				3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
+				3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,

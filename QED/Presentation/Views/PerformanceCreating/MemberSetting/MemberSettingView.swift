@@ -131,10 +131,10 @@ struct MemberSettingView: View {
 
     private func buildMemberInfoEditingView() -> some View {
         MemberInfoEditingView(
-            name: viewModel.editingMemberInfo?.name ?? "",
-            color: viewModel.editingMemberInfo?.color ?? "",
+            memberInfos: viewModel.memberInfos,
+            index: viewModel.editingMemberInfoIndex!,
             onComplete: {
-                viewModel.updateEditingMemberName($0)
+                viewModel.updateEditingMemberInfo($0)
                 viewModel.editingMemberInfoIndex = nil
             }
         )
