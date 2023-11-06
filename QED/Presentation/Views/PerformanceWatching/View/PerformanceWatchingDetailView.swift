@@ -11,21 +11,27 @@ struct PerformanceWatchingDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: PerformanceWatchingDetailViewModel
     var index: Int
-    @State var isNameVisiable = false
-    @State var isBeforeVisible = false
-    @State var isPlaying = false
-    @State var isMemoEditMode = false
+    @State private var isNameVisiable = false
+    @State private var isBeforeVisible = false
+    @State private var isPlaying = false
+    @State private var isMemoEditMode = false
 
     private static let fraction = PresentationDetent.fraction(0.15)
     private static let medium = PresentationDetent.medium
     @State private var settingsDetent = fraction
     @FocusState private var isFoused: Bool
 
+    @State private var formationCount = 0
+    @State private var totalWidth = CGFloat.zero
+    @State private var scrollProxy: ScrollViewProxy?
+
     var body: some View {
         VStack(spacing: 10) {
             PlayableDanceFormationView(viewModel: viewModel)
             buildDetailControlButtons()
-            buildDanceFormationScrollView()
+            PlayBarView(viewModel: viewModel,
+                        formations: viewModel.performance.formations,
+                        scrollProxy: $scrollProxy)
             Spacer()
             buildPlayButtons()
             Spacer()
@@ -35,13 +41,17 @@ struct PerformanceWatchingDetailView: View {
         }
         .onAppear {
             viewModel.selectedIndex = index
+            formationCount = viewModel.performance.formations.count
+            totalWidth = (
+                viewModel.previewWidth + viewModel.transitionWidth
+            ) * CGFloat(formationCount) - viewModel.transitionWidth
+
         }
-        .padding(.horizontal, 20)
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
             buildLeftItem()
-            //            rightItem()
+            //            buildRightItem()
         }
     }
 
@@ -63,6 +73,7 @@ struct PerformanceWatchingDetailView: View {
         }
         .font(.subheadline)
         .padding(.bottom, 10)
+        .padding(.horizontal, 20)
     }
 
     private func buildBeforeFormationButton() -> some View {
@@ -92,30 +103,41 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildPlayButtons() -> some View {
-        HStack(spacing: 20) {
-            buildBackwardButton()
-            buildpPlayButton()
-            forwardButton()
+        HStack(spacing: 50) {
+            buildMoveToFirstButton()
+            buildPlayButton()
+            buildMoveToLastButton()
         }
         .foregroundColor(.green)
         .font(.title2)
     }
 
-    private func buildBackwardButton() -> some View {
+    private func buildMoveToFirstButton() -> some View {
         Button {
-            viewModel.backward()
+            viewModel.selectFormation(selectedIndex: 0)
+            scrollProxy?.scrollTo(0, anchor: .center)
         } label: {
             Image(systemName: "chevron.left")
         }
     }
 
-    private func buildpPlayButton() -> some View {
-        let formations = viewModel.performance.formations
+    private func buildMoveToLastButton() -> some View {
+           Button {
+               viewModel.selectFormation(selectedIndex: formationCount - 1)
+               scrollProxy?.scrollTo(formationCount - 1, anchor: .center)
+           } label: {
+               Image(systemName: "chevron.right")
+           }
+       }
+
+    private func buildPlayButton() -> some View {
+        let remainingWidth = totalWidth + viewModel.offset
+        let remainingCount = formationCount - viewModel.selectedIndex
 
         return Button {
             isPlaying.toggle()
             if isPlaying {
-                if viewModel.selectedIndex == formations.count - 1 {
+                if viewModel.selectedIndex == formationCount - 1 {
                     viewModel.selectedIndex = 0
                 } else {
                     viewModel.play()
@@ -126,52 +148,6 @@ struct PerformanceWatchingDetailView: View {
         } label: {
             Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                 .font(.title)
-        }
-    }
-
-    private func forwardButton() -> some View {
-        Button {
-            viewModel.forward()
-        } label: {
-            Image(systemName: "chevron.right")
-        }
-    }
-
-    private func buildDanceFormationScrollView() -> some View {
-        let formations = viewModel.performance.formations
-
-        return ScrollView(.horizontal, showsIndicators: false) {
-            ScrollViewReader { proxy in
-                HStack(spacing: 15) {
-                    ForEach(Array(zip(formations.indices, formations)), id: \.0) { (index, formation) in
-                        DanceFormationView(
-                            formation: formation,
-                            index: index,
-                            hideLine: true
-                        )
-                        .frame(width: 150, height: 100)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .strokeBorder(
-                                    viewModel.selectedIndex == index ? .green: .clear,
-                                    lineWidth: 2)
-                        )
-                        .onTapGesture {
-                            withAnimation(.easeIn(duration: 0.1)) {
-                                viewModel.selectFormation(selectedIndex: index)
-                            }
-                        }
-                    }
-                }
-                .onChange(of: viewModel.selectedIndex, perform: { index in
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        proxy.scrollTo(index, anchor: .center)
-                    }
-                    if viewModel.selectedIndex == formations.count - 1 {
-                        isPlaying = false
-                    }
-                })
-            }
         }
     }
 
