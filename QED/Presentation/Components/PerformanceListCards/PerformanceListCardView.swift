@@ -66,7 +66,7 @@ struct PerformanceListCardView: View {
                             .opacity(0.6)
                             .lineLimit(1)
                     }
-
+                    Spacer()
                     Text("\(performance.headcount)")
                         .foregroundStyle(Color.blueDark)
                         .font(.footnote)
