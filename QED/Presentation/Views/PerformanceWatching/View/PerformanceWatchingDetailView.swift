@@ -21,7 +21,6 @@ struct PerformanceWatchingDetailView: View {
     @State private var settingsDetent = fraction
     @FocusState private var isFoused: Bool
 
-    @State private var screenOffset: CGFloat = 0
     @State private var formationCount = 0
     @State private var totalWidth = CGFloat.zero
     @State private var scrollProxy: ScrollViewProxy?
@@ -32,7 +31,6 @@ struct PerformanceWatchingDetailView: View {
             buildDetailControlButtons()
             PlayBarView(viewModel: viewModel,
                         formations: viewModel.performance.formations,
-                        screenOffset: $screenOffset,
                         scrollProxy: $scrollProxy)
             Spacer()
             buildPlayButtons()
@@ -106,9 +104,9 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPlayButtons() -> some View {
         HStack(spacing: 50) {
-            buildMoveToLastButton()
-            buildPlayButton()
             buildMoveToFirstButton()
+            buildPlayButton()
+            buildMoveToLastButton()
         }
         .foregroundColor(.green)
         .font(.title2)
@@ -133,7 +131,6 @@ struct PerformanceWatchingDetailView: View {
        }
 
     private func buildPlayButton() -> some View {
-
         let remainingWidth = totalWidth + viewModel.offset
         let remainingCount = formationCount - viewModel.selectedIndex
 
@@ -144,15 +141,9 @@ struct PerformanceWatchingDetailView: View {
                     viewModel.selectedIndex = 0
                 } else {
                     viewModel.play()
-                    //                    withAnimation(.linear(duration: TimeInterval(remainingCount * 1))) {
-                    //                        viewModel.offset -= remainingWidth
-                    //                        screenOffset -= remainingWidth
-                    //                    }
                 }
             } else {
                 viewModel.pause()
-                viewModel.offset = .zero
-                screenOffset = .zero
             }
         } label: {
             Image(systemName: isPlaying ? "pause.fill" : "play.fill")

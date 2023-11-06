@@ -15,7 +15,6 @@ struct PlayBarView: View {
     @State private var isLast = false
     @State private var formationCount = 0
 
-    @Binding var screenOffset: CGFloat
     @Binding var scrollProxy: ScrollViewProxy?
 
     var body: some View {
@@ -35,7 +34,7 @@ struct PlayBarView: View {
                             }
                         }
                         .padding(.horizontal, geometry.size.width / 2)
-                        .offset(x: screenOffset)
+                        .offset(x: viewModel.screenOffset)
 
                     }
                     .onAppear {
@@ -46,16 +45,16 @@ struct PlayBarView: View {
                         formationCount = viewModel.performance.formations.count
                     }
                     .onPreferenceChange(ScrollOffsetKey.self) {
-                        viewModel.offset = $0
-                        calculateScreenOffset()
-                        if viewModel.isScrollToExecuting {
-                            viewModel.isScrollToExecuting = false
-                        }
+                            viewModel.offset = $0
+                            viewModel.calculateScreenOffset()
+                            viewModel.scrollViewDidScroll(offset: $0)
+                            if viewModel.isScrollToExecuting {
+                                viewModel.isScrollToExecuting = false
+                            }
+                            if playingSectionWidth > 0 {
+                                viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
+                            }
                     }
-                    .onChange(of: viewModel.offset, perform: {
-                        viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
-                        viewModel.scrollViewDidScroll(offset: $0)
-                    })
                     .onChange(of: viewModel.selectedIndex) {
                         if viewModel.isScrollingSlow && !viewModel.isScrollToExecuting {
                             HapticManager.shared.hapticImpact(style: .rigid)
@@ -68,18 +67,6 @@ struct PlayBarView: View {
             }
         }
         .frame(height: viewModel.previewHeight + 25)
-    }
-
-    private func calculateScreenOffset() {
-        guard viewModel.isScrollToExecuting else {
-            screenOffset = .zero
-            return
-        }
-        if isLast {
-            screenOffset = -viewModel.previewWidth / 2
-        } else {
-            screenOffset = -playingSectionWidth / 2
-        }
     }
 
     private func buildScrollObservableView() -> some View {
@@ -177,5 +164,5 @@ private struct ScrollOffsetKey: PreferenceKey {
 #Preview {
     PlayBarView(viewModel: PerformanceWatchingDetailViewModel(
         performance: mockPerformance3
-    ), formations: mockFormations, screenOffset: .constant(CGFloat.zero), scrollProxy: .constant(nil))
+    ), formations: mockFormations, scrollProxy: .constant(nil))
 }

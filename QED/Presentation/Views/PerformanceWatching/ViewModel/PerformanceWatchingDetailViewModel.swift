@@ -9,6 +9,7 @@
 import Foundation
 
 import Combine
+import SwiftUI
 import UIKit
 
 class PerformanceWatchingDetailViewModel: ObservableObject {
@@ -18,6 +19,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     var scene: PlayableDanceFormationScene
     var performance: Performance
     private var playTimer: PlayTimer
+    private var scrollTimer: PlayTimer
     @Published var showingFormation: Formation
     @Published var beforeFormation: Formation?
     @Published var isShowingBeforeFormation: Bool = false
@@ -26,6 +28,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var currentNote: String = ""
 
     @Published var offset: CGFloat = 0
+    @Published var screenOffset: CGFloat = 0
     @Published var isScrollToExecuting: Bool = false
     @Published var previewWidth = CGFloat(94)
     @Published var previewHeight = CGFloat(64)
@@ -44,7 +47,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         beforeFormation = performance.formations.first!
         selectedIndex = 0
         currentNote = performance.formations[0].note ?? ""
-        playTimer = PlayTimer(timeInterval: 5)
+        playTimer = PlayTimer(timeInterval: 4)
+        scrollTimer = PlayTimer(timeInterval: 0.2)
 
         let danceFormationManager = PlayableDanceFormationManager(scene: scene, formation: mockFormations.first!)
         self.scene.manager = danceFormationManager
@@ -66,19 +70,13 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     func play() {
         currentStatus = .play
         playTimer.startTimer(completion: timingAction)
-
-        //        withAnimation(.linear(duration: TimeInterval(Int(previewWidth) * totalLength/50))) {
-        //            offset -= CGFloat(Int(previewWidth) * totalLength)
-        //        }
+        scrollTimer.startTimer(completion: timingScrollAction)
     }
 
     func pause() {
         currentStatus = .pause
         playTimer.resetTimer()
-        scene.manager?.fetchNew(formation: showingFormation)
-        if isShowingBeforeFormation {
-            scene.manager?.fetchNew(formation: beforeFormation!, isPreview: true)
-        }
+        scrollTimer.resetTimer()
     }
 
     func backward() {
@@ -107,6 +105,18 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             performance.formations[selectedIndex].note = ""
         }
         performance.formations[selectedIndex].note = currentNote
+    }
+
+    func calculateScreenOffset() {
+        guard isScrollToExecuting else {
+            screenOffset = .zero
+            return
+        }
+        if selectedIndex == performance.formations.count - 1 {
+            screenOffset = -previewWidth / 2
+        } else {
+            screenOffset = -(previewWidth + transitionWidth) / 2
+        }
     }
 
     func scrollViewDidScroll(offset: CGFloat) {
@@ -171,6 +181,18 @@ extension PerformanceWatchingDetailViewModel {
                 }
             }
             .store(in: &bag)
+    }
+
+    private func timingScrollAction() {
+        if selectedIndex != performance.formations.count - 1 {
+            withAnimation(.linear(duration: 0.2)) {
+                screenOffset -= (previewWidth + transitionWidth) / 20
+            }
+        } else {
+            withAnimation(.linear(duration: 0.2)) {
+                screenOffset -= previewWidth / 20
+            }
+        }
     }
 
     private func timingAction() {
