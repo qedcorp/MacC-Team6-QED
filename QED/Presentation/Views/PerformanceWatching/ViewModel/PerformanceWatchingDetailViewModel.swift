@@ -25,7 +25,6 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var isShowingBeforeFormation: Bool = false
     @Published var selectedIndex: Int
     @Published var currentStatus: Status = .pause
-    @Published var currentNote: String = ""
 
     @Published var offset: CGFloat = 0
     @Published var screenOffset: CGFloat = 0
@@ -46,7 +45,6 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         showingFormation = performance.formations.first!
         beforeFormation = performance.formations.first!
         selectedIndex = 0
-        currentNote = performance.formations[0].note ?? ""
         playTimer = PlayTimer(timeInterval: 4)
         scrollTimer = PlayTimer(timeInterval: 0.2)
 
@@ -98,13 +96,6 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     func beforeFormationShowingToggle() {
         isShowingBeforeFormation.toggle()
-    }
-
-    func saveNote() {
-        if performance.formations[selectedIndex].note == nil {
-            performance.formations[selectedIndex].note = ""
-        }
-        performance.formations[selectedIndex].note = currentNote
     }
 
     func calculateScreenOffset() {
@@ -164,7 +155,6 @@ extension PerformanceWatchingDetailViewModel {
                 }
                 self.scene.manager?.fetchNew(formation: self.showingFormation)
                 self.currentStatus = .pause
-                self.currentNote = self.performance.formations[index].note ?? ""
             }
             .store(in: &bag)
 

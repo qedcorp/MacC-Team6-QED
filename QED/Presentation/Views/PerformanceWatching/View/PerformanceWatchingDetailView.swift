@@ -14,12 +14,6 @@ struct PerformanceWatchingDetailView: View {
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isPlaying = false
-    @State private var isMemoEditMode = false
-
-    private static let fraction = PresentationDetent.fraction(0.15)
-    private static let medium = PresentationDetent.medium
-    @State private var settingsDetent = fraction
-    @FocusState private var isFoused: Bool
 
     @State private var formationCount = 0
     @State private var totalWidth = CGFloat.zero
@@ -35,9 +29,6 @@ struct PerformanceWatchingDetailView: View {
             Spacer()
             buildPlayButtons()
             Spacer()
-        }
-        .sheet(isPresented: .constant(true)) {
-            buildDirectorNoteView()
         }
         .onAppear {
             viewModel.selectedIndex = index
@@ -149,69 +140,6 @@ struct PerformanceWatchingDetailView: View {
             Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                 .font(.title)
         }
-    }
-
-    private func buildDirectorNoteView() -> some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 10) {
-                HStack {
-                    Text("디렉터 노트")
-                        .bold()
-                    Spacer()
-                    buildEditButton()
-                }
-
-                if isMemoEditMode {
-                    buildTextEditorNoteView()
-                } else {
-                    buildTextNoteView()
-                }
-                Spacer()
-            }
-        }
-        .padding([.horizontal, .top], 20)
-        .interactiveDismissDisabled()
-        .presentationBackgroundInteraction(.enabled)
-        .presentationDetents([Self.fraction, Self.medium], selection: $settingsDetent)
-        .presentationBackgroundInteraction(.enabled(upThrough: Self.medium))
-        .ignoresSafeArea(.keyboard, edges: .bottom)
-    }
-
-    private func buildEditButton() -> some View {
-        Button {
-            isMemoEditMode.toggle()
-            if isMemoEditMode {
-                isFoused = true
-                settingsDetent = Self.fraction
-            } else {
-                viewModel.saveNote()
-                isFoused = false
-            }
-        } label: {
-            if isMemoEditMode {
-                Text("완료")
-                    .foregroundStyle(.green)
-            } else {
-                Image(systemName: "pencil")
-                    .foregroundStyle(.gray)
-            }
-        }
-    }
-
-    private func buildTextEditorNoteView() -> some View {
-        TextEditor(text: $viewModel.currentNote)
-            .disableAutocorrection(true)
-            .scrollContentBackground(.hidden)
-            .background(Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .focused($isFoused, equals: true)
-            .frame(height: 100)
-            .tint(.green)
-    }
-
-    private func buildTextNoteView() -> some View {
-        Text(viewModel.currentNote == "" ? "메모를 입력하세요" : viewModel.currentNote)
-            .foregroundStyle(viewModel.currentNote == "" ? .gray : .black)
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
