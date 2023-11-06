@@ -117,6 +117,8 @@ struct PerformanceWatchingListView: View {
                     DanceFormationView(
                         formation: formation,
                         index: index,
+                        width: 350,
+                        height: 280,
                         isNameVisible: isNameVisible
                     )
                     .frame(height: 250)

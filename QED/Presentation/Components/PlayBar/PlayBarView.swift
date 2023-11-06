@@ -86,24 +86,15 @@ struct PlayBarView: View {
                 DanceFormationView(
                     formation: formation,
                     index: index,
+                    selectedIndex: viewModel.selectedIndex,
+                    width: viewModel.previewWidth,
+                    height: viewModel.previewHeight,
                     hideLine: true
-                )
-                .frame(width: viewModel.previewWidth, height: viewModel.previewHeight)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .strokeBorder(
-                            index == viewModel.selectedIndex ? AnyShapeStyle(Color.blueLight3): AnyShapeStyle(Gradient.strokeGlass3),
-                            lineWidth: 1)
                 )
                 if index != formationCount - 1 {
                     buildTransitionView(index: index)
                 }
             }
-
-            Text(formation.memo ?? "")
-                .font(.caption2)
-                .bold()
-                .foregroundStyle(index == viewModel.selectedIndex ? Color.blueLight3 : .white)
         }
         .onTapGesture {
             proxy.scrollTo(index, anchor: .center)
@@ -115,6 +106,7 @@ struct PlayBarView: View {
         TransitionShape()
             .stroke(index == viewModel.selectedIndex ? Color.blueLight3 : Color.monoDark, lineWidth: 1.5)
             .frame(width: viewModel.transitionWidth, height: 35)
+            .offset(y: -8)
     }
 
     private func buildCenterBarView() -> some View {

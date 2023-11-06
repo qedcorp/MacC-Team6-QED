@@ -56,6 +56,10 @@ struct PerformanceWatchingDetailView: View {
         }
     }
 
+//    if let memo = formation.memo {
+//        Text(memo)
+//    }
+
     private func onDismissSheet() {
         isSheetVisiable = false
     }
