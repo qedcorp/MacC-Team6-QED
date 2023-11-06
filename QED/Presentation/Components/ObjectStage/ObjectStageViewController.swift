@@ -65,7 +65,7 @@ class ObjectStageViewController: UIViewController {
         let colors = (formable as? ColorArrayable)?.colors ?? []
         formable.relativePositions.enumerated().forEach {
             let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
-            let color = (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .black
+            let color = (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .monoWhite3
             placeObjectView(position: position, color: color)
         }
     }

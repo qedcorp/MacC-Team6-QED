@@ -20,8 +20,14 @@ class ObjectCanvasViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
+    private lazy var multiSelectBoxView = {
+        let box = MultiSelectBoxView()
+        box.layer.zPosition = .greatestFiniteMagnitude
+        view.addSubview(box)
+        return box
+    }()
+
     private lazy var draggingHandler = DraggingHandler()
-    private lazy var multiSelectBoxView = MultiSelectBoxView()
 
     private var selectedObjectViews: Set<DotObjectView> = [] {
         didSet {
@@ -29,7 +35,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
                 return
             }
             objectViews.forEach {
-                $0.color = selectedObjectViews.contains($0) ? .green : .black
+                $0.borderColor = selectedObjectViews.contains($0) ? .blueNormal : nil
             }
         }
     }
@@ -52,7 +58,6 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
-        view.addSubview(multiSelectBoxView)
         setupGrid()
     }
 

@@ -88,14 +88,14 @@ extension Color {
     static let Dot13 = Color(hex: "F8A98C")
 }
 
- extension Gradient {
+extension Gradient {
     static let blueGradation1 = LinearGradient(colors: [Color.blueLight3.opacity(0.4), Color.blueNormal.opacity(0.4)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
     static let blueGradation2 = LinearGradient(colors: [Color.blueLight3.opacity(0.6), Color.blueNormal.opacity(0.6)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
     static let blueGradation3 = LinearGradient(colors: [Color.blueLight3, Color.blueNormal], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
     static let strokeGlass1 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.6)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
     static let strokeGlass2 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.3)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
     static let strokeGlass3 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.2)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
- }
+}
 
 extension UIColor {
     static let monoWhite1 = UIColor(hex: "FFFFFF").withAlphaComponent(0.25)
@@ -179,4 +179,30 @@ extension CAGradientLayer {
 
         return layer
     }()
+}
+
+// MARK: - 등록 안된 hex들 by byo
+// TODO: - 이런식으로 리팩토링 해주세요 to oling
+
+enum HexColorType {
+    case bottom
+
+    var data: (String, Double) {
+        switch self {
+        case .bottom:
+            return ("767680", 0.24)
+        }
+    }
+}
+
+extension Color {
+    static func build(hex colorType: HexColorType) -> Color {
+        Color(hex: colorType.data.0).opacity(colorType.data.1)
+    }
+}
+
+extension UIColor {
+    static func build(hex colorType: HexColorType) -> UIColor {
+        UIColor(hex: colorType.data.0).withAlphaComponent(colorType.data.1)
+    }
 }

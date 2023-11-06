@@ -13,45 +13,50 @@ struct FormationSettingView: View {
     }
 
     var body: some View {
-        VStack(spacing: 26) {
-            GeometryReader { geometry in
-                VStack(spacing: 0) {
-                    buildMusicHeadcountView()
-                    buildMemoButtonView()
-                    Spacer(minLength: 18)
-                    if !viewModel.isZoomed {
-                        buildObjectCanvasContainerView(width: geometry.size.width)
+        ZStack {
+            Image("background")
+                .resizable()
+                .ignoresSafeArea(.all)
+            VStack(spacing: 22) {
+                GeometryReader { geometry in
+                    VStack(spacing: 0) {
+                        buildMusicHeadcountView()
+                        buildMemoButtonView()
+                        Spacer(minLength: 18)
+                        if !viewModel.isZoomed {
+                            buildObjectCanvasContainerView(width: geometry.size.width)
+                        }
+                        Spacer()
                     }
-                    Spacer()
+                }
+                .padding(.horizontal, 22)
+                VStack(spacing: 20) {
+                    buildPresetContainerView()
+                    buildFormationContainerView()
                 }
             }
-            .padding(.horizontal, 22)
-            VStack(spacing: 0) {
-                buildPresetContainerView()
-                buildFormationContainerView()
-            }
-        }
-        .ignoresSafeArea(.keyboard)
-        .overlay(
-            viewModel.isMemoFormPresented ?
-            buildMemoFormView()
-            : nil
-        )
-        .overlay(
-            viewModel.isZoomed ?
-            buildZoomableObjectCanvasContainerView()
-            : nil
-        )
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                PerformanceSettingTitleView(step: 1, title: "대형짜기")
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink("다음") {
-                    buildMemberSettingView()
+            .ignoresSafeArea([.keyboard, .container], edges: .bottom)
+            .overlay(
+                viewModel.isMemoFormPresented ?
+                buildMemoFormView()
+                : nil
+            )
+            .overlay(
+                viewModel.isZoomed ?
+                buildZoomableObjectCanvasContainerView()
+                : nil
+            )
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    PerformanceSettingTitleView(step: 1, title: "대형짜기")
                 }
-                .disabled(!viewModel.isEnabledToSave)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink("다음") {
+                        buildMemberSettingView()
+                    }
+                    .disabled(!viewModel.isEnabledToSave)
+                }
             }
         }
     }
@@ -74,8 +79,8 @@ struct FormationSettingView: View {
     }
 
     private func buildObjectCanvasContainerView(width: CGFloat) -> some View {
-        VStack(spacing: 6) {
-            buildObjectCanvasView(controller: viewModel.canvasController, width: width, color: .gray.opacity(0.1))
+        VStack(spacing: 12) {
+            buildObjectCanvasView(controller: viewModel.canvasController, width: width)
             buildObjectCanvasControlsView()
         }
         .modifier(disabledOpacityModifier)
@@ -83,8 +88,7 @@ struct FormationSettingView: View {
 
     private func buildObjectCanvasView(
         controller: ObjectCanvasViewController,
-        width: CGFloat,
-        color: Color
+        width: CGFloat
     ) -> some View {
         let height = width * CGFloat(12 / Float(19))
         return ObjectCanvasView(
@@ -96,11 +100,9 @@ struct FormationSettingView: View {
             }
         )
         .frame(width: width, height: height)
-        .background(
-            RoundedRectangle(cornerRadius: 4)
-                .fill(color)
-        )
-        .clipped()
+        .mask {
+            RoundedRectangle(cornerRadius: 6)
+        }
     }
 
     private func buildObjectCanvasControlsView() -> some View {
@@ -110,8 +112,11 @@ struct FormationSettingView: View {
                 tag: viewModel.currentFormationTag
             )
             Spacer()
-            Button("Zoom") {
+            Button {
                 viewModel.isZoomed.toggle()
+            } label: {
+                Image("zoom_\(viewModel.isZoomed ? "full" : "off")")
+                    .frame(width: 30, height: 24)
             }
         }
     }
@@ -122,88 +127,90 @@ struct FormationSettingView: View {
     }
 
     private func buildFormationContainerView() -> some View {
-        ZStack(alignment: .bottom) {
-            Rectangle()
-                .fill(.white)
-                .frame(height: 106)
-            VStack(spacing: 0) {
-                buildFormationAddButton()
-                ZStack {
-                    if viewModel.formations.isEmpty {
-                        Text("프레임을 추가한 후 가사와 대형을 설정하세요.")
-                            .foregroundStyle(.green)
+        let itemWidth: CGFloat = 94
+        return GeometryReader { geometry in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(
+                        Array(viewModel.formations.enumerated()),
+                        id: \.offset
+                    ) { formationOffset, formation in
+                        buildFormationItemView(index: formationOffset, formation: formation)
                     }
-                    ZStack(alignment: .topLeading) {
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(
-                                    Array(viewModel.formations.enumerated()),
-                                    id: \.offset
-                                ) { formationOffset, formation in
-                                    buildFormationItemView(index: formationOffset, formation: formation)
-                                }
-                                Spacer()
-                            }
-                            .frame(height: 64)
-                            .padding(.horizontal, 14)
-                            .padding(.bottom, 14)
-                        }
-                        if let index = viewModel.controllingFormationIndex {
-                            buildFormationItemControlsView(index: index)
-                        }
-                    }
+                    .frame(width: itemWidth)
+                    buildFormationAddButton()
                 }
+                .frame(height: 79)
+                .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
+                .padding(.top, 12)
             }
         }
-        .shadow(color: .black.opacity(0.1), radius: 2, y: -2)
+        .frame(height: 110)
+        .background(
+            Image("bottom")
+                .resizable()
+                .shadow(color: .monoBlack.opacity(0.4), radius: 3, y: -3)
+        )
     }
 
     private func buildFormationAddButton() -> some View {
-        let buttonLength: CGFloat = 52
-        return Button {
+        Button {
             viewModel.addFormation()
         } label: {
-            Circle()
-                .foregroundColor(.green)
-                .frame(width: buttonLength)
-                .aspectRatio(contentMode: .fit)
-                .overlay(
-                    Circle()
-                        .strokeBorder(.white, lineWidth: 6)
-                )
-                .overlay(
+            VStack {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.blueLight3, style: StrokeStyle(lineWidth: 1.5, dash: [1.5]))
                     Image(systemName: "plus")
-                        .foregroundColor(.white)
-                        .font(.system(size: buttonLength / 2, weight: .bold))
-                )
+                        .foregroundStyle(Color.blueLight3)
+                        .font(.title3.weight(.bold))
+                }
+                .frame(width: 94, height: 61)
+                Spacer()
+            }
         }
     }
 
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
-        GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 2) {
-                ObjectStageView(formable: formation)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(.gray.opacity(0.1))
-                    )
-                    .clipped()
-                    .overlay(
-                        index == viewModel.currentFormationIndex ?
-                        RoundedRectangle(cornerRadius: 4)
-                            .strokeBorder(.green, lineWidth: 1)
-                        : nil
-                    )
-                Text(formation.memo ?? "대형 \(index + 1)")
-                    .font(.caption)
-                    .lineLimit(1)
-            }
-            .onAppear {
-                let frame = geometry.frame(in: .global)
-                viewModel.updateFormationItemFrame(frame, index: index)
-            }
-            .onChange(of: geometry.frame(in: .global)) {
-                viewModel.updateFormationItemFrame($0, index: index)
+        let isSelected = index == viewModel.currentFormationIndex
+        let cornerRadius: CGFloat = 5
+        return VStack(alignment: .leading, spacing: 4) {
+            ObjectStageView(formable: formation)
+                .frame(width: 94, height: 61)
+                .background(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(isSelected ? Color.blueLight2 : Color.monoNormal1)
+                        .blur(radius: 50)
+                )
+                .overlay(
+                    isSelected ?
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Color.blueLight3, lineWidth: 1)
+                    : nil
+                )
+                .overlay(
+                    !isSelected ?
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                    : nil
+                )
+                .mask {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                }
+            Text(formation.memo ?? "대형 \(index + 1)")
+                .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoWhite3)
+                .font(.caption2.weight(.bold))
+                .lineLimit(1)
+                .frame(height: 13)
+        }
+        .contextMenu {
+            ControlGroup {
+                Button("삭제") {
+                    viewModel.removeFormation(index: index)
+                }
+                Button("복제") {
+                    viewModel.duplicateFormation(index: index)
+                }
             }
         }
         .aspectRatio(94 / 79, contentMode: .fit)
@@ -241,21 +248,30 @@ struct FormationSettingView: View {
                 ZoomableView {
                     buildObjectCanvasView(
                         controller: viewModel.zoomableCanvasController,
-                        width: geometry.size.width - 44, // TRICK: Zoom 여부 상관 없이 같은 frame을 갖도록 하기 위함
-                        color: .white
+                        width: geometry.size.width - 44 // TRICK: Zoom 여부 상관 없이 같은 frame을 갖도록 하기 위함
                     )
                 }
                 buildObjectCanvasControlsView()
-                    .padding()
-                    .background(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 115)
             }
         }
+        .ignoresSafeArea()
     }
 
     private func buildMemberSettingView() -> some View {
         MemberSettingView(
             performance: viewModel.performanceSettingManager.performance,
             performanceUseCase: viewModel.performanceUseCase
+        )
+    }
+}
+
+#Preview {
+    NavigationView {
+        FormationSettingView(
+            performance: mockPerformance1,
+            performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
         )
     }
 }

@@ -115,7 +115,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
     private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {
         formation.relativePositions.enumerated().forEach {
             let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
-            let color = formation.colors[safe: $0.offset]?.map { UIColor(hex: $0) } ?? .black
+            let color = formation.colors[safe: $0.offset]?.map { UIColor(hex: $0) } ?? .monoWhite3
             placeObjectView(position: position, color: color.withAlphaComponent(alpha))
         }
     }

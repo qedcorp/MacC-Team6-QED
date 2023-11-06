@@ -7,22 +7,24 @@ struct PerformanceSettingTitleView: View {
     let title: String
 
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 7) {
             Text("STEP \(step)")
-                .foregroundColor(.white)
-                .font(.caption2.weight(.heavy))
-                .frame(height: 20)
-                .padding(.horizontal, 4)
+                .foregroundStyle(Color.monoBlack)
+                .font(.system(size: 11).weight(.bold))
+                .kerning(-1)
+                .frame(height: 22)
+                .padding(.horizontal, 5)
                 .background(
                     RoundedRectangle(cornerRadius: 6)
-                        .fill(.green)
+                        .fill(Color.blueLight3)
                 )
             Text(title)
-                .font(.headline)
+                .foregroundStyle(Color.monoWhite3)
+                .font(.body.weight(.bold))
         }
     }
 }
 
 #Preview {
-    PerformanceSettingTitleView(step: 0, title: "")
+    PerformanceSettingTitleView(step: 1, title: "대형짜기")
 }

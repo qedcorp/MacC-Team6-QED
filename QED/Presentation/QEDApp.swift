@@ -12,14 +12,17 @@ struct QEDApp: App {
         WindowGroup {
             if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
                 NavigationView {
-                    FormationSettingView(
-                        performance: Performance(id: "", author: .sample, music: .newJeans, headcount: 5),
-                        performanceUseCase: DefaultPerformanceUseCase(
-                            performanceRepository: MockPerformanceRepository(),
-                            userStore: DefaultUserStore.shared
+                    NavigationLink("홈") {
+                        FormationSettingView(
+                            performance: Performance(id: "", author: .sample, music: .newJeans, headcount: 5),
+                            performanceUseCase: DefaultPerformanceUseCase(
+                                performanceRepository: MockPerformanceRepository(),
+                                userStore: DefaultUserStore.shared
+                            )
                         )
-                    )
+                    }
                 }
+                .tint(.blueLight3)
             } else {
                 AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
             }
