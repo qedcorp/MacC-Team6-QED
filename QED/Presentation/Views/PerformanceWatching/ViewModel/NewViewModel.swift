@@ -17,7 +17,7 @@ class NewViewModel: ObservableObject {
     var movementsMap: MovementsMap {
         // TODO: 함수형으로 바꾸기
         var map = MovementsMap()
-        let memberInfos = performance.memberInfos
+        guard let memberInfos = performance.memberInfos else { return [:] }
         for movementMap in performance.formations.map({ $0.movementMap }) {
             for info in memberInfos {
                 guard let path = movementMap?[info] else { continue }
@@ -31,9 +31,11 @@ class NewViewModel: ObservableObject {
         return map
     }
     var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
+    private var indexToOffset: [Int: CGFloat] = [:]
     @Published var offset: CGFloat = 0.0
     @Published var playableIndex: Int = 0
     @Published var selectedIndex: Int = 0
+    @Published var formationIndex: Int = 0
 
     init(performance: Performance) {
         self.performance = performance
@@ -44,6 +46,7 @@ class NewViewModel: ObservableObject {
     private func mappingIndexFromOffest() {
         var lastX: CGFloat = 0.0
         for formationIndex in performance.formations.indices {
+            indexToOffset[formationIndex] = lastX
             let formatationLength = Constants.frameWidth + Constants.trasitionWidth
             let range = lastX...(lastX + formatationLength)
             indexDictionary[range] = formationIndex
@@ -62,6 +65,31 @@ class NewViewModel: ObservableObject {
                 self.playableIndex = Int(round(currentOffset * base))
             }
             .store(in: &bag)
+
+        $formationIndex
+            .sink { [weak self] index in
+                guard let self = self,
+                let offset = indexToOffset[index] else { return }
+
+                self.offset = offset
+            }
+            .store(in: &bag)
+    }
+
+    func backward() {
+        if 0 <= formationIndex - 1 {
+            formationIndex -= 1
+        }
+    }
+
+    func forward() {
+        if performance.formations.count > formationIndex + 1 {
+            formationIndex += 1
+        }
+    }
+
+    func pause() {
+        formationIndex = selectedIndex
     }
 }
 
