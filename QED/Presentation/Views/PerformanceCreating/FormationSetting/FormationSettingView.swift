@@ -117,7 +117,7 @@ struct FormationSettingView: View {
     }
 
     private func buildPresetContainerView() -> some View {
-        PresetContainerView(headcount: viewModel.headcount, objectCanvasViewController: viewModel.canvasController)
+        PresetContainerView(headcount: viewModel.headcount, canvasController: viewModel.canvasController)
             .modifier(disabledOpacityModifier)
     }
 

@@ -12,7 +12,7 @@ struct PresetContainerView: View {
     )
 
     let headcount: Int
-    let objectCanvasViewController: ObjectCanvasViewController
+    let canvasController: ObjectCanvasViewController
     private let padding: CGFloat = 22
     private let rows: [GridItem] = .init(repeating: .init(.fixed(80)), count: 2)
 
@@ -60,7 +60,7 @@ struct PresetContainerView: View {
             )
             .clipped()
             .onTapGesture {
-                objectCanvasViewController.copyFormable(formable)
+                canvasController.copyFormable(formable)
             }
     }
 }

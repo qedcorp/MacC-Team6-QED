@@ -56,14 +56,14 @@ class ObjectStageViewController: UIViewController {
         view.assignPosition(absolutePosition)
     }
 
-    func copyFormable(_ formable: Formable?) {
+    func copyFormable(_ formable: Formable) {
         guard isViewAppeared else {
             copiedFormable = formable
             return
         }
         objectViews.forEach { $0.removeFromSuperview() }
         let colors = (formable as? ColorArrayable)?.colors ?? []
-        formable?.relativePositions.enumerated().forEach {
+        formable.relativePositions.enumerated().forEach {
             let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
             let color = (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .black
             placeObjectView(position: position, color: color)

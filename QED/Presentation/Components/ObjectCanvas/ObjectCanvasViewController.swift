@@ -160,23 +160,27 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
     }
 
-    override func copyFormable(_ formable: Formable?) {
+    override func copyFormable(_ formable: Formable) {
         super.copyFormable(formable)
         selectedObjectViews = []
         addHistory()
         didChange()
     }
 
-    func copyFormableFromHistory(_ formable: Formable?) {
+    func copyFormableFromHistory(_ formable: Formable) {
         super.copyFormable(formable)
         selectedObjectViews = []
         didChange()
     }
 
-    func generatePreset() -> Preset {
+    func createPreset() -> Preset {
         defer {
             objectViews.forEach { $0.removeFromSuperview() }
         }
+        return getPreset()
+    }
+
+    func getPreset() -> Preset {
         let positions = getRelativePositions()
         return Preset(
             headcount: objectViews.count,

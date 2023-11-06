@@ -36,7 +36,7 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
         }
     }
 
-    override func copyFormable(_ formable: Formable?) {
+    override func copyFormable(_ formable: Formable) {
         super.copyFormable(formable)
         guard let colors = (formable as? ColorArrayable)?.colors else {
             return

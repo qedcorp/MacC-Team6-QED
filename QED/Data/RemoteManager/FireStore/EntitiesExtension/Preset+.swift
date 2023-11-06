@@ -13,7 +13,6 @@ extension Preset: FireStoreEntityConvertable {
             UUID().uuidString
         }
         set {
-
         }
     }
 
@@ -22,7 +21,7 @@ extension Preset: FireStoreEntityConvertable {
         return String(data: jsonData, encoding: .utf8) ?? "Encoding Fail"
     }
 
-    convenience init(jsonString: String) {
+    init(jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8),
               let preset = try? JSONDecoder().decode(Preset.self, from: jsonData) else {
             self.init(headcount: 0, relativePositions: [])

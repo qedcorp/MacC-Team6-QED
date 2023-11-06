@@ -11,8 +11,6 @@ struct PresetManagingView: View {
         )
     )
 
-    private let objectCanvasViewController = ObjectCanvasViewController()
-
     var body: some View {
         VStack {
             VStack {
@@ -25,14 +23,14 @@ struct PresetManagingView: View {
                 )
                 Text("\(viewModel.headcount)인")
                 ObjectCanvasView(
-                    controller: objectCanvasViewController,
+                    controller: viewModel.canvasController,
                     formable: nil,
                     headcount: viewModel.headcount,
                     onChange: {
                         viewModel.historyTag = String(describing: $0)
                     }
                 )
-                .frame(height: 240)
+                .aspectRatio(19 / 12, contentMode: .fit)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
                         .fill(.gray.opacity(0.3))
@@ -40,12 +38,12 @@ struct PresetManagingView: View {
                 .clipped()
                 HStack {
                     HistoryControlsView(
-                        historyControllable: objectCanvasViewController.objectHistoryArchiver!,
+                        historyControllable: viewModel.objectHistoryArchiver,
                         tag: viewModel.historyTag
                     )
                     Spacer()
                     Button("Generate") {
-                        viewModel.generatePreset()
+                        viewModel.createPreset()
                     }
                 }
             }
@@ -64,9 +62,6 @@ struct PresetManagingView: View {
             }
         }
         .navigationTitle("프리셋 제작")
-        .onAppear {
-            viewModel.objectCanvasViewController = objectCanvasViewController
-        }
     }
 
     private func buildObjectStageView(formable: Formable) -> some View {
@@ -78,7 +73,7 @@ struct PresetManagingView: View {
             )
             .clipped()
             .onTapGesture {
-                objectCanvasViewController.copyFormable(formable)
+                viewModel.canvasController.copyFormable(formable)
             }
     }
 }
