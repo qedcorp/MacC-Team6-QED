@@ -20,10 +20,10 @@ struct PerformanceListCardView: View {
     init(performance: PerformanceModel) {
         self.performance = performance
         performanceTitle = performance.entity.title ?? "_"
-        musicTitle = performance.music.title
-        creator = performance.music.artistName
-        albumCoverURL = performance.music.albumCoverURL
-        headcount = performance.headcount
+        musicTitle = performance.entity.music.title
+        creator = performance.entity.music.artistName
+        albumCoverURL = performance.entity.music.albumCoverURL
+        headcount = performance.entity.headcount
     }
 
     var body: some View {
@@ -61,13 +61,13 @@ struct PerformanceListCardView: View {
                             .lineLimit(1)
                             .padding(.bottom, 1)
 
-                        Text("\(creator) - \(performance.music.title)")
+                        Text("\(creator) - \(musicTitle)")
                             .font(.caption2)
                             .opacity(0.6)
                             .lineLimit(1)
                     }
                     Spacer()
-                    Text("\(performance.headcount)")
+                    Text("\(headcount)")
                         .foregroundStyle(Color.blueDark)
                         .font(.footnote)
                         .bold()
