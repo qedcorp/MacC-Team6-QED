@@ -14,14 +14,6 @@ struct DanceFormationView: View {
     var hideLine: Bool = false
 
     var body: some View {
-        VStack(spacing: 0) {
-//            timeAndLyric()
-            danceFormation()
-        }
-        .clipped()
-    }
-
-    private func danceFormation() -> some View {
         ZStack {
             danceFormationBackground()
             if !self.hideLine {
@@ -39,14 +31,12 @@ struct DanceFormationView: View {
                 }
             }
         }
+        .clipped()
     }
 
     private func danceFormationBackground() -> some View {
         Rectangle()
-            .fill(Color(.systemGray6))
-//            .clipShape(
-//                .rect(bottomLeadingRadius: 12,
-//                      bottomTrailingRadius: 12))
+            .fill(Color.monoNormal1)
             .clipShape(RoundedRectangle(cornerRadius: 5))
     }
 
@@ -70,9 +60,6 @@ struct DanceFormationView: View {
                           topTrailingRadius: 12))
                 .frame(height: 30)
             HStack {
-//                if let startMs = formation.startMs {
-//                    Text(startMs.msToTimeString)
-//                }
                 if let memo = formation.memo {
                     Text(memo)
                 }

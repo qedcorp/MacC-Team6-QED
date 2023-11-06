@@ -92,7 +92,7 @@ struct PlayBarView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .strokeBorder(
-                            index == viewModel.selectedIndex ? .green: .gray,
+                            index == viewModel.selectedIndex ? AnyShapeStyle(Color.blueLight3): AnyShapeStyle(Gradient.strokeGlass3),
                             lineWidth: 1)
                 )
                 if index != formationCount - 1 {
@@ -103,7 +103,7 @@ struct PlayBarView: View {
             Text(formation.memo ?? "")
                 .font(.caption2)
                 .bold()
-                .foregroundStyle(index == viewModel.selectedIndex ? .green : .black)
+                .foregroundStyle(index == viewModel.selectedIndex ? Color.blueLight3 : .white)
         }
         .onTapGesture {
             proxy.scrollTo(index, anchor: .center)
@@ -113,7 +113,7 @@ struct PlayBarView: View {
 
     private func buildTransitionView(index: Int) -> some View {
         TransitionShape()
-            .stroke(index == viewModel.selectedIndex ? .green : .gray, lineWidth: 1.5)
+            .stroke(index == viewModel.selectedIndex ? Color.blueLight3 : Color.monoDark, lineWidth: 1.5)
             .frame(width: viewModel.transitionWidth, height: 35)
     }
 
