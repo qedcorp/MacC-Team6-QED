@@ -33,11 +33,10 @@ struct PerformanceListReadingView: View {
         .onAppear {
             viewModel.fetchMyRecentPerformances()
         }
-        .navigationTitle("최근 제작 동선")
+        .navigationTitle("제작 동선 리스트")
         .navigationBarBackButtonHidden()
         .toolbar {
             leftItem
-            rightItem
         }
     }
 
@@ -47,19 +46,6 @@ struct PerformanceListReadingView: View {
                 dismiss()
             } label: {
                 Image(systemName: "chevron.backward")
-                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-                    .bold()
-            }
-        }
-    }
-
-    private var rightItem: ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                // 선택은 나중에 할래...
-            } label: {
-                Text("선택")
-                    .bold()
                     .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
             }
         }

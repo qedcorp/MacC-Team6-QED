@@ -142,7 +142,6 @@ struct HeadcountSetupView: View {
             } label: {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-                    .bold()
             }
         }
     }
