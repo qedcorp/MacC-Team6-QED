@@ -47,7 +47,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             .flatMap { $0.members }
             .forEach {
                 let color = $0.info?.color
-                let info = memberInfos.first(where: { $0.color == color })
+                let info = memberInfos?.first(where: { $0.color == color })
                 $0.info = info
             }
         subscribe()

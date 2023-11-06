@@ -78,10 +78,10 @@ class MemberSettingViewModel: ObservableObject {
         performanceSettingManager.updateMembers(colors: colors, formationIndex: formationIndex)
     }
 
-    func updateEditingMemberName(_ name: String) {
+    func updateEditingMemberInfo(_ info: MemberInfoModel) {
         guard let index = editingMemberInfoIndex else {
             return
         }
-        performanceSettingManager.updateMemberName(name, memberInfoIndex: index)
+        performanceSettingManager.updateMemberInfo(name: info.name, color: info.color, memberInfoIndex: index)
     }
 }
