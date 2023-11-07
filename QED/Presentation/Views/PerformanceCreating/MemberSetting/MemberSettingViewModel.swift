@@ -63,6 +63,17 @@ class MemberSettingViewModel: ObservableObject {
         performance.formations.allSatisfy { !$0.colors.contains(nil) }
     }
 
+    func selectMember(index: Int) {
+        if editingMemberInfoIndex == index {
+            editingMemberInfoIndex = nil
+        } else if selectedMemberInfoIndex == index {
+            editingMemberInfoIndex = index
+        } else {
+            selectedMemberInfoIndex = index
+            editingMemberInfoIndex = nil
+        }
+    }
+
     func updateMembers(colors: [String?], formationIndex: Int) {
         performanceSettingManager.updateMembers(colors: colors, formationIndex: formationIndex)
     }

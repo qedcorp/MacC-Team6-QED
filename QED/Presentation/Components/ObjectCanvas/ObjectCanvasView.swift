@@ -16,8 +16,10 @@ struct ObjectCanvasView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: ObjectCanvasViewController, context: Context) {
         uiViewController.maxObjectsCount = headcount
         uiViewController.onChange = onChange
-        DispatchQueue.main.async {
-            uiViewController.copyFormable(formable)
+        if let formable = formable {
+            DispatchQueue.main.async {
+                uiViewController.copyFormable(formable)
+            }
         }
     }
 }

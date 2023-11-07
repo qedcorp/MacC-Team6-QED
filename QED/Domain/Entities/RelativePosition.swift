@@ -5,13 +5,13 @@ import Foundation
 
 
 struct RelativePosition: Codable, Equatable, RelativeCoordinatable {
-    static let maxX = 16
-    static let maxY = 10
+    static let maxX = 38
+    static let maxY = 24
     
-    @MinMax(minValue: 0, maxValue: maxX)
+    @MinMax(minValue: 1, maxValue: maxX - 1)
     var x: Int
     
-    @MinMax(minValue: 0, maxValue: maxY)
+    @MinMax(minValue: 1, maxValue: maxY - 1)
     var y: Int
     
     init(x: Int, y: Int) {
