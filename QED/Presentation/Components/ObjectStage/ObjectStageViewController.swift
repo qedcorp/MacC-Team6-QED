@@ -4,7 +4,7 @@ import UIKit
 
 class ObjectStageViewController: UIViewController {
     private(set) lazy var relativeCoordinateConverter = {
-        RelativeCoordinateConverter(sizeable: view)
+        return RelativeCoordinateConverter(sizeable: view)
     }()
 
     var isColorAssignable = true
@@ -15,6 +15,12 @@ class ObjectStageViewController: UIViewController {
 
     var objectViews: [DotObjectView] {
         view.subviews.compactMap { $0 as? DotObjectView }
+    }
+
+    convenience init(copiedFormable: Formable?, frame: CGRect) {
+        self.init()
+        self.copiedFormable = copiedFormable
+        self.view.frame = frame
     }
 
     override func loadView() {

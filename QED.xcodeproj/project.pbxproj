@@ -187,6 +187,7 @@
 		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
 		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
 		D48797B82AF7D915004EFEDA /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B72AF7D915004EFEDA /* TestView.swift */; };
+		D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */; };
 		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
 		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
 		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
@@ -194,6 +195,10 @@
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
+		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
+		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
+		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
+		D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -391,6 +396,7 @@
 		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
 		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
 		D48797B72AF7D915004EFEDA /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPerformanceWatchingViewModel.swift; sourceTree = "<group>"; };
 		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
 		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
 		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
@@ -398,6 +404,9 @@
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
+		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
+		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
+		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +423,7 @@
 				D41333692ADE619700BDE1BB /* Alamofire in Frameworks */,
 				D460F02C2AE24EC300A5966A /* FirebaseFirestore in Frameworks */,
 				D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */,
+				D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +550,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D4F19A292AF8DE3300F2F013 /* ScrollObservable */,
 				D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */,
 				A9ABC1442AEC156C00E28EEE /* PerformanceListCards */,
 				3AE701B62AE6593100C48403 /* PerformanceSetting */,
@@ -797,6 +808,7 @@
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
 				D48797742AF4D9C1004EFEDA /* NewViewModel.swift */,
 				D48797B72AF7D915004EFEDA /* TestView.swift */,
+				D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1352,6 +1364,24 @@
 			path = PlayableDanceFormation;
 			sourceTree = "<group>";
 		};
+		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
+			isa = PBXGroup;
+			children = (
+				D4F19A312AF94A4000F2F013 /* CollectionViewCell */,
+				D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */,
+				D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */,
+			);
+			path = ScrollObservable;
+			sourceTree = "<group>";
+		};
+		D4F19A312AF94A4000F2F013 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1379,6 +1409,7 @@
 				D460F02B2AE24EC300A5966A /* FirebaseFirestore */,
 				D460F02D2AE24EC300A5966A /* FirebaseFirestoreCombine-Community */,
 				D460F02F2AE24EC300A5966A /* FirebaseFirestoreSwift */,
+				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1457,6 +1488,7 @@
 				D413337C2ADE8CA800BDE1BB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */,
+				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -1594,6 +1626,7 @@
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
 				D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */,
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
@@ -1611,6 +1644,7 @@
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
+				D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
@@ -1627,6 +1661,7 @@
 				3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
+				D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
 				D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */,
 				D460F0012AE18DF700A5966A /* AuthRepository.swift in Sources */,
@@ -1643,6 +1678,7 @@
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
 				510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
+				D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */,
@@ -2075,6 +2111,14 @@
 				minimumVersion = 2.18.0;
 			};
 		};
+		D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2122,6 +2166,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D413336C2ADE7F2200BDE1BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D4F19A2F2AF93B7A00F2F013 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
