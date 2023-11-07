@@ -28,19 +28,28 @@ struct PerformanceWatchingDetailView: View {
     @State private var scrollProxy: ScrollViewProxy?
 
     var body: some View {
-        VStack(spacing: 10) {
-            PlayableDanceFormationView(viewModel: viewModel)
-            if isTransitionEditable {
-                buildDetailControlButtons()
+        GeometryReader { geometry in
+        VStack {
+            buildTitleAndHeadcountView(geometry: geometry)
+
+            VStack(spacing: 8) {
+                buildMemo()
+                PlayableDanceFormationView(viewModel: viewModel)
+                if isTransitionEditable {
+                    buildDetailControlButtons()
+                }
             }
             Spacer()
             buildPlayerView()
-            buildTabBar()
+            buildTabBar(geometry: geometry)
         }
-        .background(Color.monoBlack)
-        .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSheet) {
+        .background(.black)
+        .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
             buildSettingSheetView()
         }
+        .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
+            VStack {}
+        })
         .onAppear {
             viewModel.selectedIndex = index
             formationCount = viewModel.performance.formations.count
@@ -54,14 +63,50 @@ struct PerformanceWatchingDetailView: View {
             buildLeftItem()
             buildRightItem()
         }
+        }
     }
 
-//    if let memo = formation.memo {
-//        Text(memo)
-//    }
-
-    private func onDismissSheet() {
+    private func onDismissSettingSheet() {
         isSheetVisiable = false
+    }
+
+    private func onDismissAllFormationSheet() {
+        isAllFormationVisible = false
+    }
+
+    private func buildTitleAndHeadcountView(geometry: GeometryProxy) -> some View {
+        HStack {
+            Text("\(viewModel.performance.music.title)")
+                .bold()
+                .lineLimit(1)
+            Text("\(viewModel.performance.headcount)인")
+                .padding(.vertical, 3)
+                .padding(.horizontal, 8)
+                .background(Color(.systemGray5))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .font(.subheadline)
+        .foregroundStyle(.gray)
+        .padding(.horizontal, 20)
+        .padding(.bottom, geometry.size.height * 0.1)
+    }
+
+    private func buildMemo() -> some View {
+        let memo = viewModel.performance.formations[viewModel.selectedIndex].memo ?? "대형 \(viewModel.selectedIndex)"
+        return ZStack {
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.monoNormal1)
+                .frame(height: 46)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .strokeBorder(Gradient.strokeGlass3, lineWidth: 1)
+                )
+                .padding(.horizontal, 24)
+
+            Text("\(memo)")
+                .foregroundStyle(Color.monoWhite3)
+                .font(.title3)
+        }
     }
 
     private func buildDetailControlButtons() -> some View {
@@ -111,10 +156,10 @@ struct PerformanceWatchingDetailView: View {
                 buildToast()
             }
         }
-
+        .padding(.bottom)
     }
 
-    private func buildTabBar() -> some View {
+    private func buildTabBar(geometry: GeometryProxy) -> some View {
         HStack {
             Button {
                 withAnimation(.spring) {
@@ -136,7 +181,7 @@ struct PerformanceWatchingDetailView: View {
             }
         }
         .padding(.horizontal, 24)
-        .frame(height: 123)
+        .frame(height: geometry.size.height * 0.15)
         .background(Color.monoNormal1)
     }
 
@@ -218,7 +263,7 @@ struct PerformanceWatchingDetailView: View {
                     Text("상세설정")
                     Spacer()
                     Button {
-                        onDismissSheet()
+                        onDismissSettingSheet()
                     } label: {
                         Image("close")
                     }
