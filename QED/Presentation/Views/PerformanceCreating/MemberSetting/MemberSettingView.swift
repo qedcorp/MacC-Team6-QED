@@ -112,10 +112,6 @@ struct MemberSettingView: View {
                 }
             )
             .aspectRatio(35 / 22, contentMode: .fit)
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(.gray.opacity(0.1))
-            )
             Text(formation.memo ?? "대형 \(index + 1)")
                 .foregroundStyle(Color.monoWhite3)
                 .font(.title3)

@@ -57,8 +57,6 @@ struct MovementSettingView: View {
     ) -> some View {
         let height = width * CGFloat(12 / Float(19))
         return ZStack {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(color)
             if let beforeFormation = viewModel.beforeFormation?.entity,
                let afterFormation = viewModel.afterFormation?.entity {
                 ObjectMovementAssigningView(
@@ -72,7 +70,6 @@ struct MovementSettingView: View {
             }
         }
         .frame(width: width, height: height)
-        .clipped()
     }
 
     private func buildZoomableView() -> some View {
@@ -88,7 +85,6 @@ struct MovementSettingView: View {
             }
             buildHistoryControlsView()
                 .padding()
-                .background(.white)
         }
     }
 
