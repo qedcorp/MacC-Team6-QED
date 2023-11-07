@@ -45,6 +45,9 @@ struct PlayBarView: View {
                 DanceFormationView(
                     formation: formation,
                     index: index,
+                    selectedIndex: viewModel.selectedIndex,
+                    width: viewModel.previewWidth,
+                    height: viewModel.previewHeight,
                     hideLine: true
                 )
                 .frame(width: viewModel.previewWidth, height: viewModel.previewHeight)
@@ -62,6 +65,7 @@ struct PlayBarView: View {
         TransitionShape()
             .stroke()
             .frame(width: viewModel.transitionWidth, height: 35)
+            .offset(y: -8)
     }
 
     private func buildCenterBarView() -> some View {
