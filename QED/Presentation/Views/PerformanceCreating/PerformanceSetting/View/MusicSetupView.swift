@@ -16,6 +16,7 @@ struct MusicSetupView: View {
     var body: some View {
         VStack {
             buildSearchFieldView()
+
             Spacer()
 
             if viewModel.isSearchingMusic {
@@ -27,13 +28,7 @@ struct MusicSetupView: View {
             } else {
                 buildSearchResultScrollView()
             }
-            NavigationLink {
-                if viewModel.canPressNextButton {
-                    viewModel.buildYameNextView(performance: viewModel.performance!)
-                }
-            } label: {
-                buildNextButton()
-            }
+            buildNextButton()
         }
         .onTapGesture {
             isFocused = false
@@ -116,12 +111,16 @@ struct MusicSetupView: View {
     @ViewBuilder
     private func buildCell(music: Music) -> some View {
         HStack {
+            AsyncImage(url: music.albumCoverURL) { image in
+                image
+                    .image?.resizable()
+                    .scaledToFit()
+            }
             VStack(alignment: .leading) {
                 Text(music.artistName)
                     .font(.caption2)
                 Text(music.title)
             }
-
             Spacer()
 
             Image(systemName: "checkmark.circle.fill")
@@ -132,6 +131,7 @@ struct MusicSetupView: View {
                 )
                 .font(.title2)
         }
+
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20)
@@ -142,6 +142,7 @@ struct MusicSetupView: View {
                 )
                 .foregroundStyle(.gray.opacity(0.1))
         )
+        .frame(height: 64)
         .padding(.horizontal)
         .contentShape(Rectangle())
         .onTapGesture {
@@ -155,8 +156,8 @@ struct MusicSetupView: View {
 
     private func buildNextButton() -> some View {
         NavigationLink {
-            if let performance = viewModel.performance {
-                viewModel.buildYameNextView(performance: performance)
+            if viewModel.canPressNextButton {
+                viewModel.buildYameNextView(performance: viewModel.performance!)
             }
         } label: {
             Text("다음")
@@ -204,7 +205,6 @@ struct MusicSetupView: View {
             } label: {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-                    .bold()
             }
         }
     }

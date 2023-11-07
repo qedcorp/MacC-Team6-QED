@@ -57,9 +57,12 @@
 		3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CF2AE1961D0052FC90 /* FormationSettingView.swift */; };
 		3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617D22AE1A7170052FC90 /* PresetContainerView.swift */; };
 		3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617D42AE1A8680052FC90 /* PresetContainerViewModel.swift */; };
+		510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510502CC2AF4C6B700C653B2 /* PlayBarView.swift */; };
+		510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */; };
 		5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA02ADE7F5C00882B6B /* MainView.swift */; };
 		5136BFA92ADF9D0600882B6B /* PerformanceListReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA82ADF9D0600882B6B /* PerformanceListReadingView.swift */; };
 		5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFAC2ADFB0B100882B6B /* MyPageView.swift */; };
+		51449D752AF68FDD008DFE9E /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51449D742AF68FDD008DFE9E /* HapticManager.swift */; };
 		5149AFB82AE58529006F0C4A /* DanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFB72AE58529006F0C4A /* DanceFormationView.swift */; };
 		5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFB92AE58610006F0C4A /* MemberCircleView.swift */; };
 		5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */; };
@@ -258,9 +261,12 @@
 		3AF617CF2AE1961D0052FC90 /* FormationSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormationSettingView.swift; sourceTree = "<group>"; };
 		3AF617D22AE1A7170052FC90 /* PresetContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContainerView.swift; sourceTree = "<group>"; };
 		3AF617D42AE1A8680052FC90 /* PresetContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContainerViewModel.swift; sourceTree = "<group>"; };
+		510502CC2AF4C6B700C653B2 /* PlayBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayBarView.swift; sourceTree = "<group>"; };
+		510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlayBar.swift; sourceTree = "<group>"; };
 		5136BFA02ADE7F5C00882B6B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		5136BFA82ADF9D0600882B6B /* PerformanceListReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceListReadingView.swift; sourceTree = "<group>"; };
 		5136BFAC2ADFB0B100882B6B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		51449D742AF68FDD008DFE9E /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		5149AFB72AE58529006F0C4A /* DanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanceFormationView.swift; sourceTree = "<group>"; };
 		5149AFB92AE58610006F0C4A /* MemberCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCircleView.swift; sourceTree = "<group>"; };
 		5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailView.swift; sourceTree = "<group>"; };
@@ -486,6 +492,7 @@
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
 				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
 				3AC325062AF4C08A002B6682 /* GridRenderer.swift */,
+				51449D742AF68FDD008DFE9E /* HapticManager.swift */,
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
 			);
 			path = Implementation;
@@ -530,6 +537,7 @@
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				5159A3872AEBEC1A004D304E /* DanceFormation */,
+				510502CB2AF4C63500C653B2 /* PlayBar */,
 				D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */,
 				3AE701AA2AE58F6600C48403 /* MemoButton */,
 				3A533A392AEFAE25007E76F7 /* Zoomable */,
@@ -687,6 +695,15 @@
 				3AF617D42AE1A8680052FC90 /* PresetContainerViewModel.swift */,
 			);
 			path = PresetContainer;
+			sourceTree = "<group>";
+		};
+		510502CB2AF4C63500C653B2 /* PlayBar */ = {
+			isa = PBXGroup;
+			children = (
+				510502CC2AF4C6B700C653B2 /* PlayBarView.swift */,
+				510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */,
+			);
+			path = PlayBar;
 			sourceTree = "<group>";
 		};
 		5136BF9C2ADE7F2700882B6B /* Main */ = {
@@ -1574,11 +1591,13 @@
 				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
+				510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,
+				51449D752AF68FDD008DFE9E /* HapticManager.swift in Sources */,
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D460F00A2AE18DF700A5966A /* DefaultFormationTransitionUseCase.swift in Sources */,
 				D460F0162AE18DF700A5966A /* RelativePosition.swift in Sources */,
@@ -1586,6 +1605,7 @@
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
+				510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,

@@ -15,9 +15,10 @@ struct DanceFormationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            timeAndLyric()
+//            timeAndLyric()
             danceFormation()
         }
+        .clipped()
     }
 
     private func danceFormation() -> some View {
@@ -33,7 +34,7 @@ struct DanceFormationView: View {
                                      geometry: geometry)
                     .position(
                         RelativeCoordinateConverter(sizeable: geometry)
-                            .getAbsoluteValue(of: member.relativePosition)
+                                                    .getAbsoluteValue(of: member.relativePosition)
                     )
                 }
             }
@@ -43,9 +44,10 @@ struct DanceFormationView: View {
     private func danceFormationBackground() -> some View {
         Rectangle()
             .fill(Color(.systemGray6))
-            .clipShape(
-                .rect(bottomLeadingRadius: 12,
-                      bottomTrailingRadius: 12))
+//            .clipShape(
+//                .rect(bottomLeadingRadius: 12,
+//                      bottomTrailingRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 5))
     }
 
     private func centerline() -> some View {
