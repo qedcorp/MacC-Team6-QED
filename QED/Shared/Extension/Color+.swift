@@ -185,11 +185,14 @@ extension CAGradientLayer {
 // TODO: - 이런식으로 리팩토링 해주세요 to oling
 
 enum HexColorType {
-    case bottom
+    case unknown1
+    case unknown2
 
     var data: (String, Double) {
         switch self {
-        case .bottom:
+        case .unknown1:
+            return ("262630", 1)
+        case .unknown2:
             return ("767680", 0.24)
         }
     }

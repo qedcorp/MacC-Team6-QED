@@ -17,25 +17,30 @@ struct MemberSettingView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            buildMusicHeadcountView()
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(Array(viewModel.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
-                        buildMemberInfoButton(index: infoOffset, memberInfo: info)
+        ZStack {
+            Image("background")
+                .resizable()
+                .ignoresSafeArea(.all)
+            VStack(spacing: 0) {
+                buildMusicHeadcountView()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(Array(viewModel.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
+                            buildMemberInfoButton(index: infoOffset, memberInfo: info)
+                        }
                     }
+                    .padding(.vertical, 14)
+                    .padding(.horizontal, 24)
                 }
-                .padding(.vertical, 16)
-                .padding(.horizontal, 22)
-            }
-            ScrollView(.vertical) {
-                VStack(spacing: 14) {
-                    ForEach(Array(viewModel.formations.enumerated()), id: \.offset) { formationOffset, formation in
-                        buildFormationItemView(index: formationOffset, formation: formation)
+                ScrollView(.vertical) {
+                    VStack(spacing: 30) {
+                        ForEach(Array(viewModel.formations.enumerated()), id: \.offset) { formationOffset, formation in
+                            buildFormationItemView(index: formationOffset, formation: formation)
+                        }
                     }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 30)
                 }
-                .padding(.horizontal, 22)
-                .padding(.bottom, 22)
             }
         }
         .overlay(
@@ -68,24 +73,27 @@ struct MemberSettingView: View {
     }
 
     private func buildMemberInfoButton(index: Int, memberInfo: MemberInfoModel) -> some View {
-        HStack(spacing: 10) {
+        let cornerRadius: CGFloat = 10
+        return HStack(spacing: 3) {
             Circle()
                 .fill(Color(hex: memberInfo.color))
-                .frame(height: 22)
+                .frame(height: 18)
                 .aspectRatio(contentMode: .fit)
             Text(memberInfo.name)
-                .foregroundStyle(.gray)
+                .foregroundStyle(Color.monoWhite3)
+                .font(.subheadline)
         }
-        .frame(height: 38)
-        .padding(.horizontal, 8)
+        .frame(height: 40)
+        .padding(.horizontal, 9)
         .background(
-            RoundedRectangle(cornerRadius: 4)
-                .fill(.gray.opacity(0.1))
-                .overlay(
-                    index == viewModel.selectedMemberInfoIndex ?
-                    RoundedRectangle(cornerRadius: 4)
-                        .strokeBorder(.green, lineWidth: 2)
-                    : nil
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(index == viewModel.selectedMemberInfoIndex ? Color.blueLight2 : Color.monoNormal1)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .strokeBorder(
+                    index == viewModel.selectedMemberInfoIndex ? Gradient.blueGradation2 : Gradient.strokeGlass2,
+                    lineWidth: 1
                 )
         )
         .onTapGesture {
@@ -94,7 +102,8 @@ struct MemberSettingView: View {
     }
 
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
-        VStack(spacing: 10) {
+        let cornerRadius: CGFloat = 6
+        return VStack(spacing: 8) {
             ObjectColorAssigningView(
                 formable: formation,
                 colorHex: viewModel.selectedMemberInfo?.color,
@@ -108,15 +117,19 @@ struct MemberSettingView: View {
                     .fill(.gray.opacity(0.1))
             )
             Text(formation.memo ?? "대형 \(index + 1)")
-                .foregroundStyle(.green)
-                .bold()
+                .foregroundStyle(Color.monoWhite3)
+                .font(.title3)
                 .multilineTextAlignment(.center)
                 .lineLimit(1)
                 .frame(height: 46)
                 .frame(maxWidth: .infinity)
                 .background(
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(.gray.opacity(0.1))
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(Color.monoNormal1)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2)
                 )
         }
     }
