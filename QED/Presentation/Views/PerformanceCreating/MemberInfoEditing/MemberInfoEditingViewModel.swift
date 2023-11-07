@@ -29,7 +29,7 @@ class MemberInfoEditingViewModel: ObservableObject {
     var colors: [String] {
         colorset.colorHexes
     }
-    
+
     var isEnabledToComplete: Bool {
         memberInfo?.name.isEmpty == false
     }

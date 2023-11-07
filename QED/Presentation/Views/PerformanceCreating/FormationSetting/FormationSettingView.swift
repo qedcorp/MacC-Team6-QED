@@ -129,20 +129,25 @@ struct FormationSettingView: View {
     private func buildFormationContainerView() -> some View {
         let itemWidth: CGFloat = 94
         return GeometryReader { geometry in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
-                    ForEach(
-                        Array(viewModel.formations.enumerated()),
-                        id: \.offset
-                    ) { formationOffset, formation in
-                        buildFormationItemView(index: formationOffset, formation: formation)
+            ZStack(alignment: .topLeading) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(
+                            Array(viewModel.formations.enumerated()),
+                            id: \.offset
+                        ) { formationOffset, formation in
+                            buildFormationItemView(index: formationOffset, formation: formation)
+                        }
+                        .frame(width: itemWidth)
+                        buildFormationAddButton()
                     }
-                    .frame(width: itemWidth)
-                    buildFormationAddButton()
+                    .frame(height: 79)
+                    .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
+                    .padding(.top, 12)
                 }
-                .frame(height: 79)
-                .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
-                .padding(.top, 12)
+                if let index = viewModel.controllingFormationIndex {
+                    buildFormationItemControlsView(index: index)
+                }
             }
         }
         .frame(height: 110)
@@ -174,43 +179,42 @@ struct FormationSettingView: View {
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
         let isSelected = index == viewModel.currentFormationIndex
         let cornerRadius: CGFloat = 5
-        return VStack(alignment: .leading, spacing: 4) {
-            ObjectStageView(formable: formation)
-                .frame(width: 94, height: 61)
-                .background(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(isSelected ? Color.blueLight2 : Color.monoNormal1)
-                        .blur(radius: 50)
-                )
-                .overlay(
-                    isSelected ?
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .strokeBorder(Color.blueLight3, lineWidth: 1)
-                    : nil
-                )
-                .overlay(
-                    !isSelected ?
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
-                    : nil
-                )
-                .mask {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                }
-            Text(formation.memo ?? "대형 \(index + 1)")
-                .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoWhite3)
-                .font(.caption2.weight(.bold))
-                .lineLimit(1)
-                .frame(height: 13)
-        }
-        .contextMenu {
-            ControlGroup {
-                Button("삭제") {
-                    viewModel.removeFormation(index: index)
-                }
-                Button("복제") {
-                    viewModel.duplicateFormation(index: index)
-                }
+        return GeometryReader { geometry in
+            VStack(alignment: .leading, spacing: 4) {
+                ObjectStageView(formable: formation)
+                    .frame(width: 94, height: 61)
+                    .background(
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .fill(isSelected ? Color.blueLight2 : Color.monoNormal1)
+                            .blur(radius: 50)
+                    )
+                    .overlay(
+                        isSelected ?
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .strokeBorder(Color.blueLight3, lineWidth: 1)
+                        : nil
+                    )
+                    .overlay(
+                        !isSelected ?
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                        : nil
+                    )
+                    .mask {
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                    }
+                Text(formation.memo ?? "대형 \(index + 1)")
+                    .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoWhite3)
+                    .font(.caption2.weight(.bold))
+                    .lineLimit(1)
+                    .frame(height: 13)
+            }
+            .onAppear {
+                let frame = geometry.frame(in: .global)
+                viewModel.updateFormationItemFrame(frame, index: index)
+            }
+            .onChange(of: geometry.frame(in: .global)) {
+                viewModel.updateFormationItemFrame($0, index: index)
             }
         }
         .aspectRatio(94 / 79, contentMode: .fit)
