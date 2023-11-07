@@ -34,9 +34,11 @@
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
 		3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A927F192AE2640A002ED7E8 /* FormationModel.swift */; };
-		3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325062AF4C08A002B6682 /* GridRenderer.swift */; };
 		3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */; };
 		3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */; };
+		3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325062AF4C08A002B6682 /* GridRenderer.swift */; };
+		3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */; };
+		3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
@@ -235,9 +237,11 @@
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
 		3A927F192AE2640A002ED7E8 /* FormationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationModel.swift; sourceTree = "<group>"; };
-		3AC325062AF4C08A002B6682 /* GridRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridRenderer.swift; sourceTree = "<group>"; };
 		3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoColorset.swift; sourceTree = "<group>"; };
 		3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoEditingViewModel.swift; sourceTree = "<group>"; };
+		3AC325062AF4C08A002B6682 /* GridRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridRenderer.swift; sourceTree = "<group>"; };
+		3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathLayer.swift; sourceTree = "<group>"; };
+		3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -491,6 +495,7 @@
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
 				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
+				3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */,
 				3AC325062AF4C08A002B6682 /* GridRenderer.swift */,
 				51449D742AF68FDD008DFE9E /* HapticManager.swift */,
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
@@ -631,6 +636,7 @@
 				3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */,
 				3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */,
 				3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */,
+				3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1577,6 +1583,7 @@
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */,
 				3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */,
+				3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
@@ -1605,6 +1612,7 @@
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
+				3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */,
 				510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,

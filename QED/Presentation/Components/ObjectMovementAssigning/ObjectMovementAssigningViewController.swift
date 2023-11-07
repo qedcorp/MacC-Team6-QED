@@ -16,7 +16,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
     }()
 
     private lazy var bezierPathConverter = {
-        let converter = BezierPathConverter()
+        let converter = BezierPathConverter(pixelMargin: objectViewRadius)
         converter.relativeCoordinateConverter = relativeCoordinateConverter
         return converter
     }()
@@ -74,7 +74,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
             return
         }
         selectedMemberInfo = movementMap
-            .filter { bezierPathConverter.getRect($0.value).contains(position) }
+            .filter { bezierPathConverter.getTouchableRect($0.value).contains(position) }
             .randomElement()?
             .key
         draggingHandler.beginDragging(position: position)
@@ -122,10 +122,10 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     private func placeBezierPathLayers() {
         view.layer.sublayers?
-            .compactMap { $0 as? CAShapeLayer }
+            .compactMap { $0 as? BezierPathLayer }
             .forEach { $0.removeFromSuperlayer() }
         movementMap
-            .map { bezierPathConverter.buildCAShapeLayer($0.value) }
+            .map { bezierPathConverter.buildLayer($0.value, color: UIColor(hex: $0.key.color)) }
             .forEach { view.layer.addSublayer($0) }
     }
 
