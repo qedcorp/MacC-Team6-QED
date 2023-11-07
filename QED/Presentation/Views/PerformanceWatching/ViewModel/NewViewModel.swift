@@ -75,22 +75,6 @@ class NewViewModel: ObservableObject {
             }
             .store(in: &bag)
     }
-
-    func backward() {
-        if 0 <= formationIndex - 1 {
-            formationIndex -= 1
-        }
-    }
-
-    func forward() {
-        if performance.formations.count > formationIndex + 1 {
-            formationIndex += 1
-        }
-    }
-
-    func pause() {
-        formationIndex = selectedIndex
-    }
 }
 
 extension NewViewModel {

@@ -187,6 +187,7 @@
 		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
 		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
 		D48797B82AF7D915004EFEDA /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B72AF7D915004EFEDA /* TestView.swift */; };
+		D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */; };
 		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
 		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
 		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
@@ -197,6 +198,7 @@
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
+		D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -394,6 +396,7 @@
 		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
 		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
 		D48797B72AF7D915004EFEDA /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPerformanceWatchingViewModel.swift; sourceTree = "<group>"; };
 		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
 		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
 		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
@@ -403,6 +406,7 @@
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
 		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
 		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
+		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -804,6 +808,7 @@
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
 				D48797742AF4D9C1004EFEDA /* NewViewModel.swift */,
 				D48797B72AF7D915004EFEDA /* TestView.swift */,
+				D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1362,10 +1367,19 @@
 		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
 			isa = PBXGroup;
 			children = (
+				D4F19A312AF94A4000F2F013 /* CollectionViewCell */,
 				D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */,
 				D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */,
 			);
 			path = ScrollObservable;
+			sourceTree = "<group>";
+		};
+		D4F19A312AF94A4000F2F013 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1612,6 +1626,7 @@
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
 				D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */,
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
@@ -1663,6 +1678,7 @@
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
 				510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
+				D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */,

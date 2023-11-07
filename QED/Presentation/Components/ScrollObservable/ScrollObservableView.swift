@@ -7,18 +7,34 @@
 
 import SwiftUI
 
-struct ScrollObservableView<ContentView: View>: UIViewControllerRepresentable {
+import Combine
 
-    @Binding var offset: CGFloat
-    var content: (() -> ContentView)?
+struct ScrollObservableView: UIViewControllerRepresentable {
 
+    var bag = Set<AnyCancellable>()
+    var action: CurrentValueSubject<ValuePurpose, Never>
     func makeUIViewController(context: Context) -> ScrollObservableViewController {
-        let view = UIHostingController(rootView: content!()).view!
-        return ScrollObservableViewController(offset: $offset, content: view)
+        let scrollObservableViewController = ScrollObservableViewController(performance: mockPerformance1,
+                                                                            action: action)
+        return scrollObservableViewController
     }
 
     func updateUIViewController(_ uiViewController: ScrollObservableViewController, context: Context) {
-//        let view = UIHostingController(rootView: content!()).view!
-//        uiViewController.setOffset(offset, view)
+    }
+}
+
+extension ScrollObservableView {
+
+    enum ValuePurpose {
+        case getOffset(CGFloat)
+        case setOffset(CGFloat)
+        case getSelctedIndex(Int)
+        case setSelctedIndex(Int)
+    }
+
+    struct Constants {
+        // static let framStartScrollPosition: UICollectionView.ScrollPosition = UICollectionView.ScrollPosition(
+        static let formationFrame: CGSize = CGSize(width: 94, height: 61)
+        static let trasitionFrame: CGSize = CGSize(width: 20, height: 35)
     }
 }

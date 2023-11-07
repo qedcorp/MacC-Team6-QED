@@ -13,9 +13,7 @@ struct PlayBarView: View {
     let formations: [Formation]
 
     var body: some View {
-        ScrollObservableView(offset: $viewModel.offset) {
-            buildPlaybar()
-        }
+        buildPlaybar()
     }
 
     private func buildPlaybar() -> some View {
