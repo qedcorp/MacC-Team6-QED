@@ -14,27 +14,30 @@ struct MovementSettingView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                Spacer()
-                if !viewModel.isZoomed {
-                    buildMovementView(
-                        controller: viewModel.movementController,
-                        width: geometry.size.width,
-                        color: .gray.opacity(0.1)
-                    )
-                    buildHistoryControlsView()
-                        .padding(.vertical)
-                }
-                HStack {
-                    Button("이전") {
-                        viewModel.gotoBefore()
+        ZStack {
+            buildBackgroundView()
+            GeometryReader { geometry in
+                VStack {
+                    Spacer()
+                    if !viewModel.isZoomed {
+                        buildMovementView(
+                            controller: viewModel.movementController,
+                            width: geometry.size.width,
+                            color: .gray.opacity(0.1)
+                        )
+                        buildHistoryControlsView()
+                            .padding(.vertical)
                     }
-                    Button("다음") {
-                        viewModel.gotoAfter()
+                    HStack {
+                        Button("이전") {
+                            viewModel.gotoBefore()
+                        }
+                        Button("다음") {
+                            viewModel.gotoAfter()
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .overlay(
@@ -45,9 +48,15 @@ struct MovementSettingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                PerformanceSettingTitleView(step: 3, title: "세부동선 테스트")
+                PerformanceSettingTitleView(step: 3, title: "세부동선")
             }
         }
+    }
+
+    private func buildBackgroundView() -> some View {
+        Image("background")
+            .resizable()
+            .ignoresSafeArea(.all)
     }
 
     private func buildMovementView(

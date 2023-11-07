@@ -119,9 +119,10 @@ class FormationSettingViewModel: ObservableObject {
 
     func addFormation() {
         let formation = Formation()
-        performanceSettingManager.addFormation(formation, index: currentFormationIndex + 1)
+        let index = formations.count
+        performanceSettingManager.addFormation(formation, index: index)
         tasksQueue.append { [unowned self] in
-            currentFormationIndex += 1
+            currentFormationIndex = index
         }
     }
 

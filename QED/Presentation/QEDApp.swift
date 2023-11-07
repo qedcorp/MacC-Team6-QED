@@ -10,22 +10,14 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
-                NavigationView {
-                    NavigationLink("홈") {
-                        FormationSettingView(
-                            performance: Performance(id: "", author: .sample, music: .newJeans, headcount: 5),
-                            performanceUseCase: DefaultPerformanceUseCase(
-                                performanceRepository: MockPerformanceRepository(),
-                                userStore: DefaultUserStore.shared
-                            )
-                        )
-                    }
+            Group {
+                if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
+                    MainView()
+                } else {
+                    AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
                 }
-                .tint(.blueLight3)
-            } else {
-                AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
             }
+            .tint(.blueLight3)
         }
     }
 }

@@ -14,9 +14,7 @@ struct FormationSettingView: View {
 
     var body: some View {
         ZStack {
-            Image("background")
-                .resizable()
-                .ignoresSafeArea(.all)
+            buildBackgroundView()
             VStack(spacing: 22) {
                 GeometryReader { geometry in
                     VStack(spacing: 0) {
@@ -63,6 +61,12 @@ struct FormationSettingView: View {
 
     private var disabledOpacityModifier: DisabledOpacityModifier {
         DisabledOpacityModifier(isDisabled: !viewModel.isEnabledToEdit, disabledOpacity: 0.3)
+    }
+
+    private func buildBackgroundView() -> some View {
+        Image("background")
+            .resizable()
+            .ignoresSafeArea(.all)
     }
 
     private func buildMusicHeadcountView() -> some View {

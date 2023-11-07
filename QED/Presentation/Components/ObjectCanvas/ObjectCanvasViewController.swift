@@ -143,7 +143,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             return
         }
         if let position = lastPositionTouchedInEmptySpace, canPlaceObject, isNotDragged {
-            placeObjectView(position: position, color: .black)
+            placeObjectView(position: position, color: UIColor.monoWhite3)
         }
         replaceSelectedObjectViews()
         if isObjectViewUnselectNeeded(position: position) {

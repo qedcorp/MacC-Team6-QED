@@ -18,9 +18,7 @@ struct MemberSettingView: View {
 
     var body: some View {
         ZStack {
-            Image("background")
-                .resizable()
-                .ignoresSafeArea(.all)
+            buildBackgroundView()
             VStack(spacing: 0) {
                 buildMusicHeadcountView()
                 ScrollViewReader { scrollView in
@@ -76,6 +74,12 @@ struct MemberSettingView: View {
                 .disabled(!viewModel.isEnabledToSave)
             }
         }
+    }
+
+    private func buildBackgroundView() -> some View {
+        Image("background")
+            .resizable()
+            .ignoresSafeArea(.all)
     }
 
     private func buildMusicHeadcountView() -> some View {

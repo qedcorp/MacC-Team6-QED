@@ -27,6 +27,7 @@ struct MemoFormView: View {
                 }
             TextField("", text: $memo)
                 .focused($focusedField, equals: .memoField)
+                .submitLabel(.done)
                 .foregroundStyle(Color.monoBlack)
                 .font(.title.weight(.bold))
                 .multilineTextAlignment(.center)
@@ -35,6 +36,9 @@ struct MemoFormView: View {
                     RoundedRectangle(cornerRadius: 8).fill(.white)
                 )
                 .padding(.horizontal, 20)
+                .onSubmit {
+                    complete()
+                }
         }
         .opacity(animation == .appeared ? 1 : 0)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
