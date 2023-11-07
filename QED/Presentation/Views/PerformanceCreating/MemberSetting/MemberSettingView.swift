@@ -23,14 +23,24 @@ struct MemberSettingView: View {
                 .ignoresSafeArea(.all)
             VStack(spacing: 0) {
                 buildMusicHeadcountView()
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(Array(viewModel.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
-                            buildMemberInfoButton(index: infoOffset, memberInfo: info)
+                ScrollViewReader { scrollView in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(Array(viewModel.memberInfos.enumerated()), id: \.offset) { infoOffset, info in
+                                buildMemberInfoButton(index: infoOffset, memberInfo: info)
+                            }
+                        }
+                        .padding(.vertical, 14)
+                        .padding(.horizontal, 24)
+                    }
+                    .onChange(of: viewModel.selectedMemberInfoIndex) {
+                        guard let id = $0 else {
+                            return
+                        }
+                        withAnimation {
+                            scrollView.scrollTo(id, anchor: .center)
                         }
                     }
-                    .padding(.vertical, 14)
-                    .padding(.horizontal, 24)
                 }
                 ScrollView(.vertical) {
                     VStack(spacing: 30) {
@@ -96,6 +106,7 @@ struct MemberSettingView: View {
                     lineWidth: 1
                 )
         )
+        .id(index)
         .onTapGesture {
             viewModel.selectMember(index: index)
         }

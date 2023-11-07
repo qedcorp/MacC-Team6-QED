@@ -130,20 +130,27 @@ struct FormationSettingView: View {
         let itemWidth: CGFloat = 94
         return GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        ForEach(
-                            Array(viewModel.formations.enumerated()),
-                            id: \.offset
-                        ) { formationOffset, formation in
-                            buildFormationItemView(index: formationOffset, formation: formation)
+                ScrollViewReader { scrollView in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(
+                                Array(viewModel.formations.enumerated()),
+                                id: \.offset
+                            ) { formationOffset, formation in
+                                buildFormationItemView(index: formationOffset, formation: formation)
+                            }
+                            .frame(width: itemWidth)
+                            buildFormationAddButton()
                         }
-                        .frame(width: itemWidth)
-                        buildFormationAddButton()
+                        .frame(height: 79)
+                        .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
+                        .padding(.top, 12)
                     }
-                    .frame(height: 79)
-                    .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
-                    .padding(.top, 12)
+                    .onChange(of: viewModel.currentFormationIndex) { id in
+                        withAnimation {
+                            scrollView.scrollTo(id, anchor: .center)
+                        }
+                    }
                 }
                 if let index = viewModel.controllingFormationIndex {
                     buildFormationItemControlsView(index: index)
@@ -209,6 +216,7 @@ struct FormationSettingView: View {
                     .lineLimit(1)
                     .frame(height: 13)
             }
+            .id(index)
             .onAppear {
                 let frame = geometry.frame(in: .global)
                 viewModel.updateFormationItemFrame(frame, index: index)
