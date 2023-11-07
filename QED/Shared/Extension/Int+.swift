@@ -14,4 +14,11 @@ extension Int {
         let second = overS % 60
         return String(format: "%d:%02d", minute, second)
     }
+
+    var secondToString: String {
+        let minute = self / 60
+        let second = self % 60
+
+        return String(format: "%d:%02d", minute, second)
+    }
 }

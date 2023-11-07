@@ -30,8 +30,7 @@ struct PerformanceWatchingDetailView: View {
             PlayableDanceFormationView(viewModel: viewModel)
             buildDetailControlButtons()
             PlayBarView(viewModel: viewModel,
-                        formations: viewModel.performance.formations,
-                        scrollProxy: $scrollProxy)
+                        formations: viewModel.performance.formations)
             Spacer()
             buildPlayButtons()
             Spacer()
