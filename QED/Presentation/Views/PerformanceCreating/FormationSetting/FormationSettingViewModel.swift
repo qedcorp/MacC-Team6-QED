@@ -49,7 +49,7 @@ class FormationSettingViewModel: ObservableObject {
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
-        addFormation()
+        addFormationIfEmpty()
     }
 
     private func subscribePerformanceSettingManager() {
@@ -68,6 +68,13 @@ class FormationSettingViewModel: ObservableObject {
         while !tasksQueue.isEmpty {
             tasksQueue.popLast()?()
         }
+    }
+
+    private func addFormationIfEmpty() {
+        guard formations.isEmpty else {
+            return
+        }
+        addFormation()
     }
 
     var musicTitle: String {
@@ -146,8 +153,10 @@ class FormationSettingViewModel: ObservableObject {
     func removeFormation(index: Int) {
         performanceSettingManager.removeFormation(index: index)
         tasksQueue.append { [unowned self] in
-            if index <= currentFormationIndex {
-                currentFormationIndex = min(currentFormationIndex - 1, formations.count - 1)
+            if formations.isEmpty {
+                currentFormationIndex = -1
+            } else if index <= currentFormationIndex {
+                currentFormationIndex = max(min(currentFormationIndex - 1, formations.count - 1), 0)
             }
         }
     }
