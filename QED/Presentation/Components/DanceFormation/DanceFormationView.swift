@@ -101,8 +101,12 @@ struct DanceFormationView: View {
     }
 }
 
-#Preview {
-    DanceFormationView(
-        formation: mockFormations[0], index: 0, width: 163, height: 108
-    )
+extension Member: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+
+    static func == (lhs: Member, rhs: Member) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
 }

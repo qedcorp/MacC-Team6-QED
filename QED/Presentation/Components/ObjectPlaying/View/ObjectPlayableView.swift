@@ -10,13 +10,14 @@ import SwiftUI
 struct ObjectPlayableView: UIViewControllerRepresentable {
 
     let movementsMap: MovementsMap
-    @Binding var index: Int
+    @Binding var index: CGFloat
 
     func makeUIViewController(context: Context) -> ObjectPlayableViewController {
-        ObjectPlayableViewController(movementsMap: movementsMap)
+        return ObjectPlayableViewController(movementsMap: movementsMap)
     }
 
     func updateUIViewController(_ uiViewController: ObjectPlayableViewController, context: Context) {
-        uiViewController.setNewMemberFormation(index: index)
+        let temp = Int(index)
+        uiViewController.setNewMemberFormation(index: temp)
     }
 }

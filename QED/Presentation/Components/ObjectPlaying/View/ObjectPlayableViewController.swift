@@ -22,14 +22,19 @@ class ObjectPlayableViewController: ObjectStageViewController {
         return converter
     }()
 
+    override var objectViewRadius: CGFloat {
+        9
+    }
+
     init(movementsMap: MovementsMap) {
         self.movementsMap = movementsMap
         self.pathToPointCalculator = PathToPointCalculator(totalPercent: CGFloat(PlayableConstants.transitionLength))
         super.init(nibName: nil, bundle: nil)
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        settingAppearance()
         setupCenterLines()
         initFormation()
         render()
@@ -44,6 +49,12 @@ class ObjectPlayableViewController: ObjectStageViewController {
         }
     }
 
+    private func settingAppearance() {
+        view.backgroundColor = .monoNormal2
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 8
+    }
+
     private func render() {
         for member in movementsMap {
             let absolutePostions = member.value
@@ -51,6 +62,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
                     let path = bezierPathConverter.buildUIBezierPath(bezierPath).cgPath
                     let framPostion = relativeCoordinateConverter.getAbsoluteValue(of: bezierPath.startPosition)
                     let framPostions = Array(repeating: framPostion, count: PlayableConstants.frameLength)
+
                     return framPostions + pathToPointCalculator.getAllPoints(path)
                 }
                 .flatMap { $0 }
@@ -80,7 +92,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
     }
 
     private func setupCenterLines() {
-        let renderer = CenterLinesRenderer(color: .green)
+        let renderer = CenterLinesRenderer(color: .blueLight3)
         renderer.render(in: view)
     }
 

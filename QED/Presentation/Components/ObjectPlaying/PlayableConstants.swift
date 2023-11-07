@@ -8,6 +8,6 @@
 import Foundation
 
 struct PlayableConstants {
-    static let frameLength = 300
-    static let transitionLength = 150
+    static let frameLength = 94
+    static let transitionLength = 20
 }

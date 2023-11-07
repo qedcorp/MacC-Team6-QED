@@ -8,24 +8,20 @@
 import SwiftUI
 
 struct PerformanceWatchingDetailView: View {
+
+    typealias PlayBarConstants = ScrollObservableView.Constants
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel: PerformanceWatchingDetailViewModel
-    var index: Int
+
+    @StateObject var viewModel: PerformanceWatichingDetailViewModel
+
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
 
     @State private var isAllFormationVisible = false
-
-    @State private var isPlaying = false
-
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
-
-    @State private var formationCount = 0
-    @State private var totalWidth = CGFloat.zero
-    @State private var scrollProxy: ScrollViewProxy?
 
     var body: some View {
         GeometryReader { geometry in
@@ -33,11 +29,14 @@ struct PerformanceWatchingDetailView: View {
             buildTitleAndHeadcountView(geometry: geometry)
 
             VStack(spacing: 8) {
-                buildMemo()
-                PlayableDanceFormationView(viewModel: viewModel)
-                if isTransitionEditable {
-                    buildDetailControlButtons()
+                VStack {
+                    buildMemo()
+                    buildObjectPlayView()
+                    if isTransitionEditable {
+                        buildDetailControlButtons()
+                    }
                 }
+                .padding(.horizontal, 24)
             }
             Spacer()
             buildPlayerView()
@@ -50,13 +49,6 @@ struct PerformanceWatchingDetailView: View {
         .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
             VStack {}
         })
-        .onAppear {
-            viewModel.selectedIndex = index
-            formationCount = viewModel.performance.formations.count
-            totalWidth = (
-                viewModel.previewWidth + viewModel.transitionWidth
-            ) * CGFloat(formationCount) - viewModel.transitionWidth
-        }
         .navigationBarBackButtonHidden()
         .navigationTitle(viewModel.performance.title ?? "")
         .toolbar {
@@ -64,6 +56,11 @@ struct PerformanceWatchingDetailView: View {
             buildRightItem()
         }
         }
+    }
+
+    private func buildObjectPlayView() -> some View {
+        ObjectPlayableView(movementsMap: viewModel.movementsMap, index: $viewModel.offset)
+            .frame(height: 216)
     }
 
     private func onDismissSettingSheet() {
@@ -101,7 +98,6 @@ struct PerformanceWatchingDetailView: View {
                     RoundedRectangle(cornerRadius: 5)
                         .strokeBorder(Gradient.strokeGlass3, lineWidth: 1)
                 )
-                .padding(.horizontal, 24)
 
             Text("\(memo)")
                 .foregroundStyle(Color.monoWhite3)
@@ -142,16 +138,10 @@ struct PerformanceWatchingDetailView: View {
     private func buildPlayerView() -> some View {
         ZStack {
             GeometryReader { _ in
-                PlayBarView(
-                    viewModel: viewModel,
-                    formations: viewModel.performance.formations,
-                    scrollProxy: $scrollProxy
-                )
-
+                ScrollObservableView(performance: viewModel.performance, action: viewModel.action)
                 buildAllFormationButton()
             }
-            .frame(height: viewModel.previewHeight + 25)
-
+            .frame(height: PlayBarConstants.playBarHeight + 25)
             if isToastVisiable {
                 buildToast()
             }
@@ -190,7 +180,7 @@ struct PerformanceWatchingDetailView: View {
             isAllFormationVisible = true
         } label: {
             Image("showAllFrames")
-                .frame(height: viewModel.previewHeight + 25)
+                .frame(height: PlayBarConstants.playBarHeight + 25)
                 .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 14))
         }
         .background(Color.monoBlack)
@@ -218,20 +208,8 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildPlayButton() -> some View {
-        let remainingWidth = totalWidth + viewModel.offset
-        let remainingCount = formationCount - viewModel.selectedIndex
-
         return Button {
-            isPlaying.toggle()
-            if isPlaying {
-                if viewModel.selectedIndex == formationCount - 1 {
-                    viewModel.selectedIndex = 0
-                } else {
-                    viewModel.play()
-                }
-            } else {
-                viewModel.pause()
-            }
+            // TODO: paly button
         } label: {
             Image("play_on")
         }
@@ -239,8 +217,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildMoveToFirstButton() -> some View {
         Button {
-            viewModel.selectFormation(selectedIndex: 0)
-            scrollProxy?.scrollTo(0, anchor: .center)
+
         } label: {
             Image(systemName: "chevron.left")
         }
@@ -248,8 +225,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildMoveToLastButton() -> some View {
         Button {
-            viewModel.selectFormation(selectedIndex: formationCount - 1)
-            scrollProxy?.scrollTo(formationCount - 1, anchor: .center)
+
         } label: {
             Image(systemName: "chevron.right")
         }
@@ -328,10 +304,4 @@ struct PerformanceWatchingDetailView: View {
             }
         }
     }
-}
-
-#Preview {
-    PerformanceWatchingDetailView(viewModel: PerformanceWatchingDetailViewModel(
-        performance: mockPerformance1
-    ), index: 0)
 }

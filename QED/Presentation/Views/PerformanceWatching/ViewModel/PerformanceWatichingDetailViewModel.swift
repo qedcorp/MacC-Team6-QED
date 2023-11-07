@@ -1,5 +1,5 @@
 //
-//  TestPerformanceWatchingViewModel.swift
+//  PerformanceWatichingDetailViewModel.swift
 //  QED
 //
 //  Created by changgyo seo on 11/7/23.
@@ -8,7 +8,7 @@ import Foundation
 
 import Combine
 
-class TestPerformanceWatchingViewModel: ObservableObject {
+class PerformanceWatichingDetailViewModel: ObservableObject {
     typealias ValuePurpose = ScrollObservableView.ValuePurpose
     typealias Constants = ScrollObservableView.Constants
 
@@ -18,16 +18,20 @@ class TestPerformanceWatchingViewModel: ObservableObject {
         // TODO: 함수형으로 바꾸기
         var map = MovementsMap()
         guard let memberInfos = performance.memberInfos else { return [:] }
-        for movementMap in performance.formations.map({ $0.movementMap }) {
+        let movementsMap = performance.formations.map({ $0.movementMap })
+        for movementMap in movementsMap {
             for info in memberInfos {
-                guard let path = movementMap?[info] else { continue }
-                if map[info] != nil {
-                    map[info]?.append(path)
+                guard let path = movementMap?[info.color] else { continue }
+                if map[info.color] != nil {
+                    var arr = map[info.name]
+                    arr?.append(path)
+                    map[info.color] = arr
                 } else {
                     map[info] = [path]
                 }
             }
         }
+
         return map
     }
     var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
@@ -91,5 +95,27 @@ class TestPerformanceWatchingViewModel: ObservableObject {
 
     func pause() {
         formationIndex = selectedIndex
+    }
+}
+
+extension Dictionary where Key == Member.Info {
+
+    internal subscript(color: String) ->  Value? {
+        get {
+            var answer: Value?
+            for element in self {
+                if element.key.color == color {
+                    answer = element.value
+                }
+            }
+            return answer
+        }
+        set {
+            for element in self {
+                if element.key.color == color {
+                    self[element.key] = newValue
+                }
+            }
+        }
     }
 }
