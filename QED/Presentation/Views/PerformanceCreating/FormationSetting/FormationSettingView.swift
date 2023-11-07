@@ -234,17 +234,43 @@ struct FormationSettingView: View {
     private func buildFormationItemControlsView(index: Int) -> some View {
         let itemFrame = viewModel.formationItemFrameMap[index] ?? .zero
         let margin: CGFloat = 3
-        return HStack {
-            Button("삭제") {
+        return HStack(spacing: 0) {
+            buildFormationItemControlButton(imageName: "trash.fill", title: "삭제") {
                 viewModel.removeFormation(index: index)
             }
-            Button("복제") {
+            Rectangle()
+                .fill(Gradient.strokeGlass2)
+                .frame(width: 1)
+            buildFormationItemControlButton(imageName: "plus.rectangle.fill.on.rectangle.fill", title: "복제") {
                 viewModel.duplicateFormation(index: index)
             }
         }
-        .frame(width: max(itemFrame.width - margin * 2, 0), height: 56)
-        .background(.gray.opacity(0.5))
-        .offset(x: itemFrame.minX + margin, y: -52)
+        .frame(width: max(itemFrame.width - margin * 2, 0), height: 44)
+        .background(Color.blueLight2.background(.ultraThinMaterial))
+        .mask {
+            RoundedRectangle(cornerRadius: 5)
+        }
+        .offset(x: itemFrame.minX + margin, y: -36)
+    }
+
+    private func buildFormationItemControlButton(
+        imageName: String,
+        title: String,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button {
+            action()
+        } label: {
+            VStack(spacing: 0) {
+                Image(systemName: imageName)
+                    .font(.caption)
+                Text(title)
+                    .font(.system(size: 8))
+            }
+            .foregroundStyle(Color.monoWhite3)
+            .fontWeight(.medium)
+        }
+        .frame(width: 44)
     }
 
     private func buildMemoFormView() -> some View {
