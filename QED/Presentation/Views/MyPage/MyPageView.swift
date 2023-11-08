@@ -9,38 +9,34 @@ import SwiftUI
 
 struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
-//    @ObservedObject var viewModel = MyPageViewModel(
-//        userUseCase: DIContainer.shared.resolver.resolve(DefaultUserUseCase.self),
-//        authUseCase: DIContainer.shared.resolver.resolve(DefaultAuthUseCase.self)
-//    )
+    //    @ObservedObject var viewModel = MyPageViewModel(
+    //        userUseCase: DIContainer.shared.resolver.resolve(DefaultUserUseCase.self),
+    //        authUseCase: DIContainer.shared.resolver.resolve(DefaultAuthUseCase.self)
+    //    )
     @ObservedObject var viewModel = MyPageViewModel(
-//        authUseCase: DefaultAuthUseCase(kakaoAuthRepository: DefaultKakaoAuthRepository(),
-//                                        googleAuthRepository: DefaultGoogleAuthRepository(authUI: AuthUIProtocol.self as! AuthUIProtocol),
-//                                        appleAuthRepository: DefaultAppleAuthRepository()
-//                                       )
+        //        authUseCase: DefaultAuthUseCase(kakaoAuthRepository: DefaultKakaoAuthRepository(),
+        //                                        googleAuthRepository: DefaultGoogleAuthRepository(authUI: AuthUIProtocol.self as! AuthUIProtocol),
+        //                                        appleAuthRepository: DefaultAppleAuthRepository()
+        //                                       )
     )
-    @State private var sectionType: MyPageList = .defaultInfo
-    let sections: [String] = MyPageList.allCases.map { $0.title }
-    let closureArray: [() -> Void] = []
-    let date = 1
+    let defaultInfo: MyPageList = .defaultInfo
+    let termsAndConditions: MyPageList = .termsAndConditions
+    let manageAccount: MyPageList = .manageAccount
 
     var body: some View {
         ScrollView {
             VStack {
                 buildProfileView()
-                Button("logout") {
-                    viewModel.logout()
-                }
-                ForEach(sections, id: \.self) {
-                    buildSectionView(title: $0)
-                }
+                buildSectionView(section: defaultInfo)
+                buildSectionView(section: termsAndConditions)
+                buildSectionView(section: manageAccount)
             }
         }
         .background(Color.monoBlack)
         .navigationBarBackButtonHidden()
-        .navigationTitle("나의 프로필")
         .toolbar {
             buildLeftItem()
+            buildCenterItem()
         }
         .onAppear {
             viewModel.getMe()
@@ -50,12 +46,14 @@ struct MyPageView: View {
     private func buildProfileView() -> some View {
         VStack(spacing: 10) {
             Image("profile")
-                .padding(.bottom, 10)
-            Text(viewModel.user?.nickname ?? "")
+                .padding(.bottom, 5)
+
+            Text(viewModel.user?.nickname ?? "-")
                 .fontWeight(.heavy)
                 .foregroundStyle(Color.monoWhite3)
+
                 .font(.system(size: 25))
-            Text("포디와 함께한지 \(date)일")
+            Text("포디와 함께한지 \(viewModel.signUpPeriod)일")
                 .foregroundStyle(Color.monoNormal2)
         }
         .padding(.top, 28)
@@ -64,51 +62,16 @@ struct MyPageView: View {
         .background(Color.monoDarker)
     }
 
-//    @ViewBuilder
-//    private func buildContentView(title: MyPageList) -> some View {
-//      switch title {
-//      case .defaultInfo: buildDefaultInfoView()
-//      case .termsAndConditions: buildtermsAndConditionsView()
-//      case .manageAccount: buildmanageAccountView()
-//      }
-//    }
-
-    private func buildSectionView(title: String) -> some View {
+    private func buildSectionView(section: MyPageList) -> some View {
         VStack(spacing: 0) {
-            buildSectionHeaderView(title: title)
-            buildDefaultInfoView()
+            buildSectionHeaderView(title: section.title)
+            ForEach(section.label, id: \.self) {
+                buildListRowView(label: $0)
+            }
         }
         .padding(.top, 30)
         .padding(.bottom, 20)
         .background(Color.monoDarker)
-    }
-
-    private func buildDefaultInfoView() -> some View {
-        VStack(spacing: 0) {
-            buildSectionRowView(label: "이름", content: viewModel.user?.nickname ?? "")
-            buildSectionRowView(label: "가입상태", content: viewModel.user?.email ?? "")
-        }
-    }
-    private func buildActionAndButton(title: String, _ completion: @escaping () -> Void) -> some View {
-        HStack {
-            Text(title)
-            Spacer()
-            Button("button", action: completion)
-        }
-    }
-
-    private func buildtermsAndConditionsView() -> some View {
-        VStack {
-            buildSectionRowView(label: "이용약관", content: "")
-            buildSectionRowView(label: "개인정보 처리 방침", content: "")
-            buildSectionRowView(label: "마케팅 정보 수신 동의", content: "")
-        }
-    }
-
-    private func buildmanageAccountView() -> some View {
-        VStack {
-            buildSectionRowView(label: "로그아웃", content: "")
-        }
     }
 
     private func buildSectionHeaderView(title: String) -> some View {
@@ -122,18 +85,58 @@ struct MyPageView: View {
         .padding(.bottom, 12)
     }
 
-    private func buildSectionRowView(label: String, content: String) -> some View {
+    private func buildListRowView(label: MyPageList.Label) -> some View {
         HStack {
-            Text(label)
+            Text(label.rawValue)
                 .foregroundStyle(Color.monoWhite2)
             Spacer()
-            Text(content)
-                .foregroundStyle(Color.monoWhite3)
+            buildContentView(label: label)
         }
         .font(.subheadline)
         .padding(.horizontal, 36)
         .padding(.vertical, 12)
         .listRowSeparator(.hidden)
+    }
+
+    @ViewBuilder
+    private func buildContentView(label: MyPageList.Label) -> some View {
+        if let user = viewModel.user {
+            switch label {
+            case .name:
+                buildTextComponentView(user.nickname ?? "-")
+            case .email:
+                buildTextComponentView(user.email ?? "-")
+            case .terms: buildChevronButton({})
+            case .personalInfo: buildChevronButton({})
+            case .notification: buildToggleButton(
+                isOn: user.isNotificationOn ?? false,
+                action: viewModel.updateNotification
+            )
+            case .logout: buildChevronButton(viewModel.logout)
+            }
+        }
+    }
+
+    private func buildTextComponentView(_ text: String) -> some View {
+        Text(text)
+            .foregroundStyle(.white)
+    }
+
+    private func buildChevronButton(_ action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.white)
+        }
+    }
+
+    private func buildToggleButton(isOn: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Image(isOn ? "toggle_on" : "toggle_off")
+        }
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
@@ -146,10 +149,17 @@ struct MyPageView: View {
             }
         }
     }
+
+    private func buildCenterItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .principal) {
+            Text("나의 프로필")
+                .bold()
+                .foregroundColor(.white)
+        }
+    }
 }
 
 enum MyPageList: String, CaseIterable {
-
     case defaultInfo
     case termsAndConditions
     case manageAccount
@@ -164,42 +174,24 @@ enum MyPageList: String, CaseIterable {
         }
     }
 
-//    var components: [Component] {
-//        switch self {
-//        case .defaultInfo:
-//            return [
-//                .text("이름", getUserName()),
-//                .text("가입상태", getUserEmail())
-//            ]
-//        case .termsAndConditions:
-//            return [
-//                .showViewButton("이용약관", <#T##AnyView#>)
-//            ]
-//        case .manageAccount:
-//            return [
-//                .actionButton("로그아웃", 1)
-//            ]
-//        }
-//    }
-
-    enum Component {
-        case text(String, String)
-        case showViewButton(String, AnyView)
-        case actionButton(String, Int)
+    var label: [Label] {
+        switch self {
+        case .defaultInfo:
+            return [.name, .email]
+        case .termsAndConditions:
+            return [.terms, .personalInfo, .notification]
+        case .manageAccount:
+            return [.logout]
+        }
     }
 
-    func getUserName() -> String {
-        if let name = try? KeyChainManager.shared.read(account: .name) {
-            return name
-        }
-        return ""
-    }
-
-    func getUserEmail() -> String {
-        if let email = try? KeyChainManager.shared.read(account: .email) {
-            return email
-        }
-        return ""
+    enum Label: String {
+        case name = "이름"
+        case email = "가입상태"
+        case terms = "이용약관"
+        case personalInfo = "개인정보 처리 방침"
+        case notification = "마케팅 정보 수신 동의"
+        case logout = "로그아웃"
     }
 }
 

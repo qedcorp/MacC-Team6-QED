@@ -9,6 +9,7 @@ import Foundation
 
 class MyPageViewModel: ObservableObject {
     @Published var user: User?
+    @Published var signUpPeriod = 1
 //    let userUseCase: DefaultUserUseCase
 //    let authUseCase: DefaultAuthUseCase
 
@@ -25,7 +26,6 @@ class MyPageViewModel: ObservableObject {
         Task {
             user?.nickname = try KeyChainManager.shared.read(account: .name)
             user?.email = try KeyChainManager.shared.read(account: .email)
-            print("@LOG getMe \(user?.nickname ?? "nono")")
         }
     }
 
