@@ -33,5 +33,8 @@ struct ZoomableView<Content: View>: View {
                     viewModel.updateLastValues()
                 }
         )
+        .onAppear {
+            viewModel.appearWithZoom()
+        }
     }
 }

@@ -261,6 +261,11 @@ struct FormationSettingView: View {
             RoundedRectangle(cornerRadius: 5)
         }
         .offset(x: itemFrame.minX + margin, y: -36)
+        .transition(
+            .opacity
+                .combined(with: .offset(y: 16))
+                .animation(.easeOut)
+        )
     }
 
     private func buildFormationItemControlButton(

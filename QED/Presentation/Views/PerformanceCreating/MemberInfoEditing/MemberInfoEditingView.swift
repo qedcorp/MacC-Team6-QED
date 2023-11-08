@@ -4,6 +4,7 @@ import SwiftUI
 
 struct MemberInfoEditingView: View {
     @ObservedObject private var viewModel: MemberInfoEditingViewModel
+    @State private var offsetY: CGFloat = -64
     private let cornerRadius: CGFloat = 12
 
     init(memberInfos: [MemberInfoModel], index: Int, onComplete: @escaping (MemberInfoModel) -> Void) {
@@ -89,6 +90,12 @@ struct MemberInfoEditingView: View {
                         .frame(height: 16)
                         .padding(.bottom, 11)
                 }
+            }
+            .offset(y: offsetY)
+        }
+        .onAppear {
+            animate(.interpolatingSpring) {
+                offsetY = 0
             }
         }
     }
