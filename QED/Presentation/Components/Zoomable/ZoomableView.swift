@@ -8,7 +8,7 @@ struct ZoomableView<Content: View>: View {
 
     var body: some View {
         ZStack {
-            Color.black.opacity(0.3)
+            Color.monoBlack.opacity(0.9)
                 .gesture(
                     DragGesture()
                         .onChanged {

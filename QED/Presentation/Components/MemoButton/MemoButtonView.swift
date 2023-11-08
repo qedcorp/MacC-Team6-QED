@@ -9,15 +9,27 @@ struct MemoButtonView: View {
         HStack(alignment: .center) {
             Spacer()
             Text(memo ?? "탭해서 가사 입력")
-                .foregroundStyle(memo == nil ? .green : .black)
-                .bold()
+                .foregroundStyle(hasMemo ? Color.monoWhite3 : Color.monoNormal2)
+                .font(.title2.weight(.bold))
                 .lineLimit(1)
             Spacer()
         }
-        .frame(height: 46)
+        .frame(height: 64)
         .background(
-            RoundedRectangle(cornerRadius: 4)
-                .fill(.gray.opacity(0.1))
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.monoNormal1)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 6)
+                .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
         )
     }
+
+    private var hasMemo: Bool {
+        memo != nil
+    }
+}
+
+#Preview {
+    MemoButtonView(memo: "Pop pop")
 }
