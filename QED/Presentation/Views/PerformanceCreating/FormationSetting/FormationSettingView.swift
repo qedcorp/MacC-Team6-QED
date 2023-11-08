@@ -171,14 +171,8 @@ struct FormationSettingView: View {
             viewModel.addFormation()
         } label: {
             VStack {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.blueLight3, style: StrokeStyle(lineWidth: 1.5, dash: [1.5]))
-                    Image(systemName: "plus")
-                        .foregroundStyle(Color.blueLight3)
-                        .font(.title3.weight(.bold))
-                }
-                .frame(width: 94, height: 61)
+                Image("plusbox")
+                    .frame(width: 94, height: 61)
                 Spacer()
             }
         }
@@ -193,29 +187,41 @@ struct FormationSettingView: View {
                     .frame(width: 94, height: 61)
                     .background(
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(isSelected ? Color.blueLight2 : Color.monoNormal1)
+                            .fill(isSelected ? Color.blueLight2 : Color.monoNormal2)
                             .blur(radius: 50)
                     )
                     .overlay(
-                        isSelected ?
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .strokeBorder(Color.blueLight3, lineWidth: 1)
-                        : nil
-                    )
-                    .overlay(
-                        !isSelected ?
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
-                        : nil
+                        ZStack {
+                            if isSelected {
+                                RoundedRectangle(cornerRadius: cornerRadius)
+                                    .strokeBorder(Color.blueLight3, lineWidth: 1)
+                            } else {
+                                RoundedRectangle(cornerRadius: cornerRadius)
+                                    .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                            }
+                        }
                     )
                     .mask {
                         RoundedRectangle(cornerRadius: cornerRadius)
                     }
-                Text(formation.memo ?? "대형 \(index + 1)")
-                    .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoWhite3)
-                    .font(.caption2.weight(.bold))
-                    .lineLimit(1)
-                    .frame(height: 13)
+                HStack(spacing: 3) {
+                    Text("\(index + 1)")
+                        .foregroundStyle(Color.monoWhite3)
+                        .multilineTextAlignment(.center)
+                        .frame(minWidth: 13)
+                        .background(
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(isSelected ? Color.blueLight3 : Color.monoNormal2)
+                        )
+                    Text(formation.memo ?? "대형 \(index + 1)")
+                        .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoNormal2)
+                        .lineLimit(1)
+                }
+                .font(.caption2.weight(isSelected ? .bold : .regular))
+                .frame(height: 13)
+                .transaction {
+                    $0.animation = nil
+                }
             }
             .id(index)
             .onAppear {
@@ -247,7 +253,10 @@ struct FormationSettingView: View {
             }
         }
         .frame(width: max(itemFrame.width - margin * 2, 0), height: 44)
-        .background(Color.blueLight2.background(.ultraThinMaterial))
+        .background(
+            Color.blueLight2
+                .background(.ultraThinMaterial)
+        )
         .mask {
             RoundedRectangle(cornerRadius: 5)
         }
