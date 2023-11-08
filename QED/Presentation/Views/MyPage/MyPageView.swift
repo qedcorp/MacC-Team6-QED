@@ -9,9 +9,15 @@ import SwiftUI
 
 struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
+//    @ObservedObject var viewModel = MyPageViewModel(
+//        userUseCase: DIContainer.shared.resolver.resolve(DefaultUserUseCase.self),
+//        authUseCase: DIContainer.shared.resolver.resolve(DefaultAuthUseCase.self)
+//    )
     @ObservedObject var viewModel = MyPageViewModel(
-        userUseCase: DIContainer.shared.resolver.resolve(DefaultUserUseCase.self),
-        authUseCase: DIContainer.shared.resolver.resolve(DefaultAuthUseCase.self)
+//        authUseCase: DefaultAuthUseCase(kakaoAuthRepository: DefaultKakaoAuthRepository(),
+//                                        googleAuthRepository: DefaultGoogleAuthRepository(authUI: AuthUIProtocol.self as! AuthUIProtocol),
+//                                        appleAuthRepository: DefaultAppleAuthRepository()
+//                                       )
     )
     @State private var sectionType: MyPageList = .defaultInfo
     let sections: [String] = MyPageList.allCases.map { $0.title }
@@ -36,13 +42,16 @@ struct MyPageView: View {
         .toolbar {
             buildLeftItem()
         }
+        .onAppear {
+            viewModel.getMe()
+        }
     }
 
     private func buildProfileView() -> some View {
         VStack(spacing: 10) {
             Image("profile")
                 .padding(.bottom, 10)
-            Text("이지은")
+            Text(viewModel.user?.nickname ?? "")
                 .fontWeight(.heavy)
                 .foregroundStyle(Color.monoWhite3)
                 .font(.system(size: 25))
@@ -55,19 +64,19 @@ struct MyPageView: View {
         .background(Color.monoDarker)
     }
 
-    @ViewBuilder
-    private func buildContentView(title: MyPageList) -> some View {
-      switch title {
-      case .defaultInfo: buildDefaultInfoView()
-      case .termsAndConditions: buildtermsAndConditionsView()
-      case .manageAccount: buildmanageAccountView()
-      }
-    }
+//    @ViewBuilder
+//    private func buildContentView(title: MyPageList) -> some View {
+//      switch title {
+//      case .defaultInfo: buildDefaultInfoView()
+//      case .termsAndConditions: buildtermsAndConditionsView()
+//      case .manageAccount: buildmanageAccountView()
+//      }
+//    }
 
     private func buildSectionView(title: String) -> some View {
         VStack(spacing: 0) {
             buildSectionHeaderView(title: title)
-//            buildContentView(title: title)
+            buildDefaultInfoView()
         }
         .padding(.top, 30)
         .padding(.bottom, 20)
@@ -76,8 +85,8 @@ struct MyPageView: View {
 
     private func buildDefaultInfoView() -> some View {
         VStack(spacing: 0) {
-            buildSectionRowView(label: "이름", content: "이지은")
-            buildSectionRowView(label: "가입상태", content: "abc@gmail.com")
+            buildSectionRowView(label: "이름", content: viewModel.user?.nickname ?? "")
+            buildSectionRowView(label: "가입상태", content: viewModel.user?.email ?? "")
         }
     }
     private func buildActionAndButton(title: String, _ completion: @escaping () -> Void) -> some View {
