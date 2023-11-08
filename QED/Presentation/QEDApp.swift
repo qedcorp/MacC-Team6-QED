@@ -9,7 +9,7 @@ import Combine
 struct QEDApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var isLogin = false
-    
+
     var body: some Scene {
         WindowGroup {
             Group {

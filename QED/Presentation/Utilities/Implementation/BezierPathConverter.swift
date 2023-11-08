@@ -21,6 +21,19 @@ class BezierPathConverter {
         let origin = getMidPoint(bezierPath: bezierPath, padding: sizeLength / 2)
         return CGRect(origin: origin, size: size)
     }
+    
+    func buildUIBezierPath(_ bezierPath: BezierPath) -> UIBezierPath {
+        let path = UIBezierPath()
+        let startPoint = converter.getAbsoluteValue(of: bezierPath.startPosition)
+        let endPoint = converter.getAbsoluteValue(of: bezierPath.endPosition)
+        path.move(to: startPoint)
+        if let controlPoint = bezierPath.controlPoint.map({ converter.getAbsoluteValue(of: $0) }) {
+            path.addCurve(to: endPoint, controlPoint1: startPoint, controlPoint2: controlPoint)
+        } else {
+            path.addLine(to: endPoint)
+        }
+        return path
+    }
 
     func buildLayer(_ bezierPath: BezierPath, color: UIColor) -> BezierPathLayer {
         let layer = BezierPathLayer()
