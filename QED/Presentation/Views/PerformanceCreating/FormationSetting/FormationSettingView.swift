@@ -75,7 +75,7 @@ struct FormationSettingView: View {
     }
 
     private func buildMemoButtonView() -> some View {
-        MemoButtonView(memo: viewModel.currentFormation?.memo)
+        MemoButtonView(memo: viewModel.currentFormation?.memo, isHighlighted: !viewModel.hasMemoBeenInputted)
             .modifier(disabledOpacityModifier)
             .onTapGesture {
                 viewModel.isMemoFormPresented = true

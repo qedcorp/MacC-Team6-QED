@@ -15,12 +15,14 @@ struct MemoFormView: View {
 
     @State var memo: String
     let onComplete: (String) -> Void
+    private let cornerRadius: CGFloat = 8
     @State private var animation: AnimationType = .appear
     @FocusState private var focusedField: FocusType?
 
     var body: some View {
         ZStack {
             Color.monoBlack.opacity(0.75)
+                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     complete()
@@ -28,14 +30,19 @@ struct MemoFormView: View {
             TextField("", text: $memo)
                 .focused($focusedField, equals: .memoField)
                 .submitLabel(.done)
-                .foregroundStyle(Color.monoBlack)
-                .font(.title.weight(.bold))
+                .foregroundStyle(Color.monoWhite3)
+                .font(.headline)
                 .multilineTextAlignment(.center)
-                .frame(height: 72)
+                .frame(height: 64)
                 .background(
-                    RoundedRectangle(cornerRadius: 8).fill(.white)
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(Color.monoNormal1)
                 )
-                .padding(.horizontal, 20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2)
+                )
+                .padding(.horizontal, 24)
                 .onSubmit {
                     complete()
                 }
@@ -55,5 +62,12 @@ struct MemoFormView: View {
         }
         animation = .disappear
         onComplete(memo)
+    }
+}
+
+#Preview {
+    ZStack {
+        MainView()
+        MemoFormView(memo: "") { _ in }
     }
 }

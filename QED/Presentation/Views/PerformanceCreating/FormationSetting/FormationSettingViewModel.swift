@@ -9,6 +9,7 @@ class FormationSettingViewModel: ObservableObject {
 
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
+    @Published private(set) var hasMemoBeenInputted = false
     @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
     @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
@@ -25,10 +26,7 @@ class FormationSettingViewModel: ObservableObject {
     private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
-    init(
-        performance: Performance,
-        performanceUseCase: PerformanceUseCase
-    ) {
+    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
         let canvasController = Controller()
         let zoomableCanvasController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
@@ -37,15 +35,15 @@ class FormationSettingViewModel: ObservableObject {
             performanceUseCase: performanceUseCase
         )
 
+        canvasController.objectHistoryArchiver = objectHistoryArchiver
+        zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
+
         self.performance = .build(entity: performance)
         self.canvasController = canvasController
         self.zoomableCanvasController = zoomableCanvasController
         self.objectHistoryArchiver = objectHistoryArchiver
         self.performanceSettingManager = performanceSettingManager
         self.performanceUseCase = performanceUseCase
-
-        canvasController.objectHistoryArchiver = objectHistoryArchiver
-        zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
@@ -110,6 +108,7 @@ class FormationSettingViewModel: ObservableObject {
         performanceSettingManager.updateMemo(memo, formationIndex: currentFormationIndex)
         tasksQueue.append { [unowned self] in
             isMemoFormPresented = false
+            hasMemoBeenInputted = true
         }
     }
 
