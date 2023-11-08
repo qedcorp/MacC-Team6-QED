@@ -22,6 +22,7 @@ class FormationSettingViewModel: ObservableObject {
     let zoomableCanvasController: Controller
     let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
     let presetContainerViewModel: PresetContainerViewModel
+    let toastContainerViewModel: ToastContainerViewModel
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
     private var tasksQueue: [() -> Void] = []
@@ -43,6 +44,7 @@ class FormationSettingViewModel: ObservableObject {
             headcount: performance.headcount,
             canvasController: canvasController
         )
+        self.toastContainerViewModel = .shared
         self.performanceSettingManager = PerformanceSettingManager(
             performance: performance,
             performanceUseCase: performanceUseCase
@@ -168,6 +170,7 @@ class FormationSettingViewModel: ObservableObject {
             memo: copiedFormation.memo
         )
         performanceSettingManager.addFormation(pastedFormation, index: index + 1)
+        toastContainerViewModel.presentMessage("레이어가 복제되었습니다")
         tasksQueue.append { [unowned self] in
             currentFormationIndex = index + 1
         }
@@ -175,6 +178,7 @@ class FormationSettingViewModel: ObservableObject {
 
     func removeFormation(index: Int) {
         performanceSettingManager.removeFormation(index: index)
+        toastContainerViewModel.presentMessage("레이어가 삭제되었습니다")
         tasksQueue.append { [unowned self] in
             if formations.isEmpty {
                 currentFormationIndex = -1
