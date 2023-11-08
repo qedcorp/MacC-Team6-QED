@@ -37,8 +37,10 @@ final class DefaultKakaoAuthRepository: KakaoAuthRepository {
     }
 
     func logout() async throws {
-        try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
+        try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
     }
+
+    func withdraw() async throws {}
 }
 
 fileprivate extension DefaultKakaoAuthRepository {

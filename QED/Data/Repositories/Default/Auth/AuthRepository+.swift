@@ -15,7 +15,10 @@ extension AuthRepository {
             authDataResult.user.uid,
             authDataResult.user.displayName ?? "anonymous",
             authDataResult.user.email ?? "no-email",
+            authDataResult.user.providerID,
+            authDataResult.user.metadata.creationDate?.description ?? "no-creationDate",
             authDataResult.user.refreshToken ?? "no-refreshToken"
+
         ]
         let zip = zip(accounts, results)
         for (account, data) in zip {

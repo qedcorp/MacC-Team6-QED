@@ -6,16 +6,6 @@ struct DefaultUserUseCase: UserUseCase {
     let userRepository: UserRepository
     let userStore: UserStore
 
-    func signup(user: User) async throws -> User {
-        try await userRepository.createUser(user)
-    }
-
-    func login(user: User) async throws -> User {
-        let user = try await userRepository.readUser(id: user.id)
-        userStore.myUser = user
-        return user
-    }
-
     func getMe() async throws -> User {
         guard let user = userStore.myUser else {
             throw DescribableError(description: "Cannot find me.")
@@ -28,9 +18,8 @@ struct DefaultUserUseCase: UserUseCase {
     }
 
     func updateMe(user: User) async throws -> User {
-        guard user == userStore.myUser else {
-            throw DescribableError(description: "It is not me.")
-        }
-        return try await userRepository.updateUser(user)
+        try KeyChainManager.shared.delete(account: .name)
+        try KeyChainManager.shared.create(account: .name, data: user.nickname!)
+        return user
     }
 }

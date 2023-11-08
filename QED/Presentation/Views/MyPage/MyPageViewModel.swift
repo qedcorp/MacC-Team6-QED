@@ -29,8 +29,13 @@ class MyPageViewModel: ObservableObject {
 
     func logout() {
         Task {
-//            TODO: 로그아웃 provider 상태로 처리
-//            try await authUseCase.logout(authType: .apple)
+            let provider = try KeyChainManager.shared.read(account: .provider)
+            switch provider {
+            case "KAKAO": return try await authUseCase.logout(authType: .kakao)
+            case "APPLE": return try await authUseCase.logout(authType: .apple)
+            case "GOOGLE": return try await authUseCase.logout(authType: .google)
+            default: return
+            }
         }
     }
 

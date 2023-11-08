@@ -22,6 +22,9 @@ struct MyPageView: View {
         ScrollView {
             VStack {
                 buildProfileView()
+                Button("logout") {
+                    viewModel.logout()
+                }
                 ForEach(sections, id: \.self) {
                     buildSectionView(title: $0)
                 }

@@ -48,9 +48,11 @@ final class DefaultGoogleAuthRepository: GoogleAuthRepository {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
+            try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
+
+    func withdraw() async throws {}
 }
