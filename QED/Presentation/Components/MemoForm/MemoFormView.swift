@@ -3,12 +3,6 @@
 import SwiftUI
 
 struct MemoFormView: View {
-    private enum AnimationType {
-        case appear
-        case appeared
-        case disappear
-    }
-
     private enum FocusType {
         case memoField
     }
@@ -16,7 +10,6 @@ struct MemoFormView: View {
     @State var memo: String
     let onComplete: (String) -> Void
     private let cornerRadius: CGFloat = 8
-    @State private var animation: AnimationType = .appear
     @FocusState private var focusedField: FocusType?
 
     var body: some View {
@@ -47,11 +40,8 @@ struct MemoFormView: View {
                     complete()
                 }
         }
-        .opacity(animation == .appeared ? 1 : 0)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .animation(.easeInOut, value: animation)
         .onAppear {
-            animation = .appeared
             focusedField = .memoField
         }
     }
@@ -60,7 +50,6 @@ struct MemoFormView: View {
         guard !memo.isEmpty else {
             return
         }
-        animation = .disappear
         onComplete(memo)
     }
 }

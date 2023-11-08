@@ -75,7 +75,7 @@ struct FormationSettingView: View {
         MemoButtonView(memo: viewModel.currentFormation?.memo, isHighlighted: !viewModel.hasMemoBeenInputted)
             .modifier(disabledOpacityModifier)
             .onTapGesture {
-                viewModel.isMemoFormPresented = true
+                viewModel.presentMemoForm()
             }
     }
 
@@ -114,7 +114,7 @@ struct FormationSettingView: View {
             )
             Spacer()
             Button {
-                viewModel.isZoomed.toggle()
+                viewModel.toggleZoom()
             } label: {
                 Image("zoom_\(viewModel.isZoomed ? "full" : "off")")
                     .frame(width: 30, height: 24)
@@ -148,7 +148,7 @@ struct FormationSettingView: View {
                         .padding(.top, 12)
                     }
                     .onChange(of: viewModel.currentFormationIndex) { id in
-                        withAnimation {
+                        animate {
                             scrollView.scrollTo(id, anchor: .center)
                         }
                     }
@@ -220,10 +220,10 @@ struct FormationSettingView: View {
             .id(index)
             .onAppear {
                 let frame = geometry.frame(in: .global)
-                viewModel.formationItemFrameMap[index] = frame
+                viewModel.updateFormationItemFrameMap(frame, index: index)
             }
             .onChange(of: geometry.frame(in: .global)) {
-                viewModel.formationItemFrameMap[index] = $0
+                viewModel.updateFormationItemFrameMap($0, index: index)
             }
         }
         .aspectRatio(94 / 79, contentMode: .fit)

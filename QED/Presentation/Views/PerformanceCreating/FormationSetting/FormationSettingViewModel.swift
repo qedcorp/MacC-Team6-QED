@@ -7,13 +7,13 @@ import Foundation
 class FormationSettingViewModel: ObservableObject {
     typealias Controller = ObjectCanvasViewController
 
-    @Published var performance: PerformanceModel
-    @Published var isMemoFormPresented = false
-    @Published var formationItemFrameMap: [Int: CGRect] = [:]
+    @Published private(set) var performance: PerformanceModel
+    @Published private(set) var isMemoFormPresented = false
     @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
+    @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
 
-    @Published var isZoomed = false {
+    @Published private(set) var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
 
@@ -61,10 +61,12 @@ class FormationSettingViewModel: ObservableObject {
         performanceSettingManager.changingPublisher
             .receive(on: DispatchQueue.main)
             .sink { _ in
-            } receiveValue: { [unowned self] in
-                performance = $0
-                controllingFormationIndex = nil
-                executePendingTasks()
+            } receiveValue: { [unowned self] value in
+                animate {
+                    performance = value
+                    controllingFormationIndex = nil
+                    executePendingTasks()
+                }
             }
             .store(in: &cancellables)
     }
@@ -111,6 +113,12 @@ class FormationSettingViewModel: ObservableObject {
         formations.allSatisfy { $0.relativePositions.count == headcount }
     }
 
+    func presentMemoForm() {
+        animate {
+            isMemoFormPresented = true
+        }
+    }
+
     func updateCurrentMemo(_ memo: String) {
         performanceSettingManager.updateMemo(memo, formationIndex: currentFormationIndex)
         tasksQueue.append { [unowned self] in
@@ -123,6 +131,12 @@ class FormationSettingViewModel: ObservableObject {
         performanceSettingManager.updateMembers(positions: positions, formationIndex: currentFormationIndex)
     }
 
+    func toggleZoom() {
+        animate {
+            isZoomed.toggle()
+        }
+    }
+
     func addFormation() {
         let formation = Formation()
         let index = formations.count
@@ -133,13 +147,15 @@ class FormationSettingViewModel: ObservableObject {
     }
 
     func selectFormation(index: Int) {
-        if controllingFormationIndex == index {
-            controllingFormationIndex = nil
-        } else if currentFormationIndex == index {
-            controllingFormationIndex = index
-        } else {
-            currentFormationIndex = index
-            controllingFormationIndex = nil
+        animate {
+            if controllingFormationIndex == index {
+                controllingFormationIndex = nil
+            } else if currentFormationIndex == index {
+                controllingFormationIndex = index
+            } else {
+                currentFormationIndex = index
+                controllingFormationIndex = nil
+            }
         }
     }
 
@@ -168,12 +184,16 @@ class FormationSettingViewModel: ObservableObject {
         }
     }
 
+    func updateFormationItemFrameMap(_ frame: CGRect, index: Int) {
+        formationItemFrameMap[index] = frame
+    }
+
     private func assignControllerToArchiverByZoomed() {
         let controller = isZoomed ? zoomableCanvasController : canvasController
         objectHistoryArchiver.delegate = controller
         performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
     }
-    
+
     private func presentPresetGridByMemoInputted() {
         guard hasMemoBeenInputted else {
             return
