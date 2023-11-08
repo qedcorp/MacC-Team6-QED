@@ -4,7 +4,6 @@ import SwiftUI
 
 struct MemberInfoEditingView: View {
     @ObservedObject private var viewModel: MemberInfoEditingViewModel
-
     private let cornerRadius: CGFloat = 12
 
     init(memberInfos: [MemberInfoModel], index: Int, onComplete: @escaping (MemberInfoModel) -> Void) {
@@ -19,7 +18,8 @@ struct MemberInfoEditingView: View {
 
     var body: some View {
         ZStack {
-            Color.monoBlack.opacity(0.75)
+            Color.build(hex: .unknown0)
+                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     viewModel.complete()
@@ -32,7 +32,7 @@ struct MemberInfoEditingView: View {
                                 .foregroundStyle(Color.blueLight3)
                             Spacer()
                         }
-                        TextField("", text: .init(
+                        TextField("인물 \(viewModel.index + 1)", text: .init(
                             get: { viewModel.memberInfo?.name ?? "" },
                             set: { viewModel.updateName($0) }
                         ))
@@ -72,12 +72,15 @@ struct MemberInfoEditingView: View {
                 .padding(.bottom, 35)
                 .background(
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(Color.build(hex: .unknown1))
+                        .fill(.ultraThinMaterial)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .strokeBorder(Gradient.strokeGlass2)
                 )
+                .mask {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                }
                 .padding(.horizontal, 24)
                 if viewModel.isAlreadySelected {
                     Text("이미 선택된 컬러입니다")

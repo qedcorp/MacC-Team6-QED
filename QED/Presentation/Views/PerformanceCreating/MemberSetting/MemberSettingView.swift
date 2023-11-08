@@ -151,7 +151,6 @@ struct MemberSettingView: View {
             index: viewModel.editingMemberInfoIndex!,
             onComplete: {
                 viewModel.updateEditingMemberInfo($0)
-                viewModel.editingMemberInfoIndex = nil
             }
         )
     }

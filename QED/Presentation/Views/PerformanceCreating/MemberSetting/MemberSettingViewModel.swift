@@ -5,9 +5,9 @@ import Foundation
 
 @MainActor
 class MemberSettingViewModel: ObservableObject {
-    @Published var performance: PerformanceModel
-    @Published var selectedMemberInfoIndex: Int?
-    @Published var editingMemberInfoIndex: Int?
+    @Published private(set) var performance: PerformanceModel
+    @Published private(set) var selectedMemberInfoIndex: Int?
+    @Published private(set) var editingMemberInfoIndex: Int?
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
     private var cancellables: Set<AnyCancellable> = []
@@ -64,13 +64,15 @@ class MemberSettingViewModel: ObservableObject {
     }
 
     func selectMember(index: Int) {
-        if editingMemberInfoIndex == index {
-            editingMemberInfoIndex = nil
-        } else if selectedMemberInfoIndex == index {
-            editingMemberInfoIndex = index
-        } else {
-            selectedMemberInfoIndex = index
-            editingMemberInfoIndex = nil
+        animate {
+            if editingMemberInfoIndex == index {
+                editingMemberInfoIndex = nil
+            } else if selectedMemberInfoIndex == index {
+                editingMemberInfoIndex = index
+            } else {
+                selectedMemberInfoIndex = index
+                editingMemberInfoIndex = nil
+            }
         }
     }
 
@@ -83,5 +85,8 @@ class MemberSettingViewModel: ObservableObject {
             return
         }
         performanceSettingManager.updateMemberInfo(name: info.name, color: info.color, memberInfoIndex: index)
+        animate {
+            editingMemberInfoIndex = nil
+        }
     }
 }

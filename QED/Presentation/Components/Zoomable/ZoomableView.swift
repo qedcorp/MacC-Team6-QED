@@ -8,7 +8,7 @@ struct ZoomableView<Content: View>: View {
 
     var body: some View {
         ZStack {
-            Color.monoBlack.opacity(0.75)
+            Color.build(hex: .unknown0)
                 .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .gesture(
