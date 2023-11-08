@@ -9,18 +9,22 @@ class FormationSettingViewModel: ObservableObject {
 
     @Published var performance: PerformanceModel
     @Published var isMemoFormPresented = false
-    @Published private(set) var hasMemoBeenInputted = false
+    @Published var formationItemFrameMap: [Int: CGRect] = [:]
     @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
-    @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
 
     @Published var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
 
+    @Published private(set) var hasMemoBeenInputted = false {
+        didSet { presentPresetGridByMemoInputted() }
+    }
+
     let canvasController: Controller
     let zoomableCanvasController: Controller
     let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
+    let presetContainerViewModel: PresetContainerViewModel
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
     private var tasksQueue: [() -> Void] = []
@@ -30,10 +34,6 @@ class FormationSettingViewModel: ObservableObject {
         let canvasController = Controller()
         let zoomableCanvasController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            performanceUseCase: performanceUseCase
-        )
 
         canvasController.objectHistoryArchiver = objectHistoryArchiver
         zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
@@ -42,7 +42,14 @@ class FormationSettingViewModel: ObservableObject {
         self.canvasController = canvasController
         self.zoomableCanvasController = zoomableCanvasController
         self.objectHistoryArchiver = objectHistoryArchiver
-        self.performanceSettingManager = performanceSettingManager
+        self.presetContainerViewModel = PresetContainerViewModel(
+            headcount: performance.headcount,
+            canvasController: canvasController
+        )
+        self.performanceSettingManager = PerformanceSettingManager(
+            performance: performance,
+            performanceUseCase: performanceUseCase
+        )
         self.performanceUseCase = performanceUseCase
 
         subscribePerformanceSettingManager()
@@ -161,13 +168,16 @@ class FormationSettingViewModel: ObservableObject {
         }
     }
 
-    func updateFormationItemFrame(_ frame: CGRect, index: Int) {
-        formationItemFrameMap[index] = frame
-    }
-
     private func assignControllerToArchiverByZoomed() {
         let controller = isZoomed ? zoomableCanvasController : canvasController
         objectHistoryArchiver.delegate = controller
         performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
+    }
+    
+    private func presentPresetGridByMemoInputted() {
+        guard hasMemoBeenInputted else {
+            return
+        }
+        presetContainerViewModel.toggleGrid(isPresented: true)
     }
 }

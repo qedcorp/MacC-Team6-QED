@@ -6,10 +6,7 @@ struct FormationSettingView: View {
     @ObservedObject private var viewModel: FormationSettingViewModel
 
     init(performance: Performance, performanceUseCase: PerformanceUseCase) {
-        self.viewModel = FormationSettingViewModel(
-            performance: performance,
-            performanceUseCase: performanceUseCase
-        )
+        self.viewModel = FormationSettingViewModel(performance: performance, performanceUseCase: performanceUseCase)
     }
 
     var body: some View {
@@ -126,7 +123,7 @@ struct FormationSettingView: View {
     }
 
     private func buildPresetContainerView() -> some View {
-        PresetContainerView(headcount: viewModel.headcount, canvasController: viewModel.canvasController)
+        PresetContainerView(viewModel: viewModel.presetContainerViewModel)
             .modifier(disabledOpacityModifier)
     }
 
@@ -223,10 +220,10 @@ struct FormationSettingView: View {
             .id(index)
             .onAppear {
                 let frame = geometry.frame(in: .global)
-                viewModel.updateFormationItemFrame(frame, index: index)
+                viewModel.formationItemFrameMap[index] = frame
             }
             .onChange(of: geometry.frame(in: .global)) {
-                viewModel.updateFormationItemFrame($0, index: index)
+                viewModel.formationItemFrameMap[index] = $0
             }
         }
         .aspectRatio(94 / 79, contentMode: .fit)
