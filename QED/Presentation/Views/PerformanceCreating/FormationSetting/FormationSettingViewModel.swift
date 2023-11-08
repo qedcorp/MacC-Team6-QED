@@ -12,13 +12,10 @@ class FormationSettingViewModel: ObservableObject {
     @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
     @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
+    @Published private(set) var hasMemoBeenInputted = false
 
     @Published private(set) var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
-    }
-
-    @Published private(set) var hasMemoBeenInputted = false {
-        didSet { presentPresetGridByMemoInputted() }
     }
 
     let canvasController: Controller
@@ -121,6 +118,9 @@ class FormationSettingViewModel: ObservableObject {
 
     func updateCurrentMemo(_ memo: String) {
         performanceSettingManager.updateMemo(memo, formationIndex: currentFormationIndex)
+        if !hasMemoBeenInputted {
+            presetContainerViewModel.toggleGrid(isPresented: true)
+        }
         tasksQueue.append { [unowned self] in
             isMemoFormPresented = false
             hasMemoBeenInputted = true
@@ -192,12 +192,5 @@ class FormationSettingViewModel: ObservableObject {
         let controller = isZoomed ? zoomableCanvasController : canvasController
         objectHistoryArchiver.delegate = controller
         performanceSettingManager.relativeCoordinateConverter = controller.relativeCoordinateConverter
-    }
-
-    private func presentPresetGridByMemoInputted() {
-        guard hasMemoBeenInputted else {
-            return
-        }
-        presetContainerViewModel.toggleGrid(isPresented: true)
     }
 }
