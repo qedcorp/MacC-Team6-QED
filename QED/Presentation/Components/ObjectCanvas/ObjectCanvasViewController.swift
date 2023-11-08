@@ -11,6 +11,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
     weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
+    private let hapticManager = HapticManager.shared
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -37,6 +38,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             objectViews.forEach {
                 $0.borderColor = selectedObjectViews.contains($0) ? .blueNormal : nil
             }
+            hapticManager.hapticImpact(style: .rigid)
         }
     }
 
@@ -144,6 +146,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         }
         if let position = lastPositionTouchedInEmptySpace, canPlaceObject, isNotDragged {
             placeObjectView(position: position, color: UIColor.monoWhite3)
+            hapticManager.hapticImpact(style: .rigid)
         }
         replaceSelectedObjectViews()
         if isObjectViewUnselectNeeded(position: position) {
@@ -170,6 +173,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         selectedObjectViews = []
         addHistory()
         didChange()
+        hapticManager.hapticImpact(style: .medium)
     }
 
     func copyFormableFromHistory(_ formable: Formable) {

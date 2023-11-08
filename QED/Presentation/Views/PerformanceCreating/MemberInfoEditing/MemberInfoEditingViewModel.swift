@@ -9,17 +9,20 @@ class MemberInfoEditingViewModel: ObservableObject {
     let index: Int
     let colorset: MemberInfoColorset
     let onComplete: (MemberInfoModel) -> Void
+    let hapticManager: HapticManager
 
     init(
         memberInfos: [MemberInfoModel],
         index: Int,
         colorset: MemberInfoColorset,
-        onComplete: @escaping (MemberInfoModel) -> Void
+        onComplete: @escaping (MemberInfoModel) -> Void,
+        hapticManager: HapticManager = .shared
     ) {
         self.memberInfos = memberInfos
         self.index = index
         self.colorset = colorset
         self.onComplete = onComplete
+        self.hapticManager = hapticManager
     }
 
     var memberInfo: MemberInfoModel? {
@@ -46,10 +49,12 @@ class MemberInfoEditingViewModel: ObservableObject {
         animate {
             guard otherMemberInfos.allSatisfy({ $0.color != color }) else {
                 isAlreadySelected = true
+                hapticManager.hapticNotification(type: .error)
                 return
             }
             memberInfos[safe: index]?.color = color
             isAlreadySelected = false
+            hapticManager.hapticImpact(style: .light)
         }
     }
 

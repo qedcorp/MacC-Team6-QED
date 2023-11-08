@@ -5,6 +5,7 @@ import UIKit
 class ObjectColorAssigningViewController: ObjectStageViewController {
     var colorHex: String?
     var onChange: (([String?]) -> Void)?
+    private let hapticManager = HapticManager.shared
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -33,6 +34,7 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
             let colors = getUpdatedColors(touchedObjectView: objectView)
             updateObjectViews(colors: colors)
             onChange?(colors)
+            hapticManager.hapticImpact(style: .rigid)
         }
     }
 

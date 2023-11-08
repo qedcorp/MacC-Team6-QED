@@ -10,6 +10,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     var onChange: ((MovementMap) -> Void)?
     weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
+    private let hapticManager = HapticManager.shared
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -66,6 +67,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         )
         movementMap[memberInfo]?.controlPoint = controlPoint
         placeBezierPathLayers()
+        hapticManager.hapticImpact(style: .soft)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -110,6 +112,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         movementMap = history.movementMap
         placeBezierPathLayers()
         didChange()
+        hapticManager.hapticImpact(style: .medium)
     }
 
     private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {

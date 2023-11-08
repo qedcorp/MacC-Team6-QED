@@ -11,7 +11,6 @@ class FormationSettingViewModel: ObservableObject {
     @Published private(set) var isMemoFormPresented = false
     @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
-    @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
     @Published private(set) var hasMemoBeenInputted = false
 
     @Published private(set) var isZoomed = false {
@@ -23,12 +22,19 @@ class FormationSettingViewModel: ObservableObject {
     let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
     let presetContainerViewModel: PresetContainerViewModel
     let toastContainerViewModel: ToastContainerViewModel
+    let hapticManager: HapticManager
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
+    private(set) var formationItemFrameMap: [Int: CGRect] = [:]
     private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
-    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
+    init(
+        performance: Performance,
+        toastContainerViewModel: ToastContainerViewModel = .shared,
+        hapticManager: HapticManager = .shared,
+        performanceUseCase: PerformanceUseCase
+    ) {
         let canvasController = Controller()
         let zoomableCanvasController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
@@ -44,7 +50,8 @@ class FormationSettingViewModel: ObservableObject {
             headcount: performance.headcount,
             canvasController: canvasController
         )
-        self.toastContainerViewModel = .shared
+        self.toastContainerViewModel = toastContainerViewModel
+        self.hapticManager = hapticManager
         self.performanceSettingManager = PerformanceSettingManager(
             performance: performance,
             performanceUseCase: performanceUseCase
@@ -113,6 +120,7 @@ class FormationSettingViewModel: ObservableObject {
     }
 
     func presentMemoForm() {
+        hapticManager.hapticImpact(style: .light)
         animate {
             isMemoFormPresented = true
         }
@@ -120,6 +128,7 @@ class FormationSettingViewModel: ObservableObject {
 
     func updateCurrentMemo(_ memo: String) {
         performanceSettingManager.updateMemo(memo, formationIndex: currentFormationIndex)
+        hapticManager.hapticNotification(type: .success)
         if !hasMemoBeenInputted {
             presetContainerViewModel.toggleGrid(isPresented: true)
         }
@@ -134,6 +143,7 @@ class FormationSettingViewModel: ObservableObject {
     }
 
     func toggleZoom() {
+        hapticManager.hapticImpact(style: .light)
         animate {
             isZoomed.toggle()
         }
@@ -143,12 +153,14 @@ class FormationSettingViewModel: ObservableObject {
         let formation = Formation()
         let index = formations.count
         performanceSettingManager.addFormation(formation, index: index)
+        hapticManager.hapticImpact(style: .medium)
         tasksQueue.append { [unowned self] in
             currentFormationIndex = index
         }
     }
 
     func selectFormation(index: Int) {
+        hapticManager.hapticImpact(style: .light)
         animate {
             if controllingFormationIndex == index {
                 controllingFormationIndex = nil
@@ -170,6 +182,7 @@ class FormationSettingViewModel: ObservableObject {
             memo: copiedFormation.memo
         )
         performanceSettingManager.addFormation(pastedFormation, index: index + 1)
+        hapticManager.hapticImpact(style: .medium)
         toastContainerViewModel.presentMessage("레이어가 복제되었습니다")
         tasksQueue.append { [unowned self] in
             currentFormationIndex = index + 1
@@ -178,6 +191,7 @@ class FormationSettingViewModel: ObservableObject {
 
     func removeFormation(index: Int) {
         performanceSettingManager.removeFormation(index: index)
+        hapticManager.hapticImpact(style: .medium)
         toastContainerViewModel.presentMessage("레이어가 삭제되었습니다")
         tasksQueue.append { [unowned self] in
             if formations.isEmpty {
