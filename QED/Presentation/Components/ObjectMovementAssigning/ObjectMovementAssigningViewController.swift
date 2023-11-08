@@ -99,8 +99,8 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
             afterFormation: afterFormation
         )
         objectViews.forEach { $0.removeFromSuperview() }
-        placeObjectViews(formation: beforeFormation)
-        placeObjectViews(formation: afterFormation, alpha: 0.3)
+        placeObjectViews(formation: beforeFormation, alpha: 0.3)
+        placeObjectViews(formation: afterFormation)
         placeBezierPathLayers()
         addHistory()
         didChange()

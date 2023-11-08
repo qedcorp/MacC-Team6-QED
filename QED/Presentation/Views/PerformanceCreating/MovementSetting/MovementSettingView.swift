@@ -20,14 +20,11 @@ struct MovementSettingView: View {
                 VStack {
                     Spacer()
                     if !viewModel.isZoomed {
-                        buildMovementView(
-                            controller: viewModel.movementController,
-                            width: geometry.size.width,
-                            color: .gray.opacity(0.1)
-                        )
+                        buildMovementView(controller: viewModel.movementController, width: geometry.size.width)
                         buildHistoryControlsView()
                             .padding(.vertical)
                     }
+                    Spacer()
                     HStack {
                         Button("이전") {
                             viewModel.gotoBefore()
@@ -36,7 +33,7 @@ struct MovementSettingView: View {
                             viewModel.gotoAfter()
                         }
                     }
-                    Spacer()
+                    .padding()
                 }
             }
         }
@@ -59,11 +56,7 @@ struct MovementSettingView: View {
             .ignoresSafeArea(.all)
     }
 
-    private func buildMovementView(
-        controller: ObjectMovementAssigningViewController,
-        width: CGFloat,
-        color: Color
-    ) -> some View {
+    private func buildMovementView(controller: ObjectMovementAssigningViewController, width: CGFloat) -> some View {
         let height = width * CGFloat(12 / Float(19))
         return ZStack {
             if let beforeFormation = viewModel.beforeFormation?.entity,
@@ -85,11 +78,7 @@ struct MovementSettingView: View {
         ZStack(alignment: .bottom) {
             GeometryReader { geometry in
                 ZoomableView {
-                    buildMovementView(
-                        controller: viewModel.zoomableMovementController,
-                        width: geometry.size.width,
-                        color: .white
-                    )
+                    buildMovementView(controller: viewModel.zoomableMovementController, width: geometry.size.width)
                 }
             }
             buildHistoryControlsView()
@@ -105,7 +94,7 @@ struct MovementSettingView: View {
             )
             Spacer()
             Button("Zoom") {
-                viewModel.isZoomed.toggle()
+                viewModel.toggleZoom()
             }
         }
     }
