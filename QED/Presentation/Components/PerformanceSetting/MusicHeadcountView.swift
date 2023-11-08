@@ -7,23 +7,23 @@ struct MusicHeadcountView: View {
     let headcount: Int
 
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 7) {
             Text(title)
-                .foregroundColor(.gray)
-                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Color.monoWhite3)
+                .font(.caption)
             Text("\(headcount)인")
-                .foregroundColor(.gray)
-                .font(.caption2)
-                .frame(height: 20)
-                .padding(.horizontal, 4)
+                .foregroundStyle(Color.monoBlack)
+                .font(.system(size: 10).weight(.semibold))
+                .frame(height: 16)
+                .padding(.horizontal, 7)
                 .background(
                     RoundedRectangle(cornerRadius: 6)
-                        .fill(.gray.opacity(0.1))
+                        .fill(Color.monoWhite3)
                 )
         }
     }
 }
 
 #Preview {
-    MusicHeadcountView(title: "", headcount: 0)
+    MusicHeadcountView(title: "New Jeans", headcount: 5)
 }

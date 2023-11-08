@@ -4,7 +4,7 @@ import SwiftUI
 import UIKit
 
 struct MemberInfoColorset {
-    private static let defaultColorHexes = ["5E5CE6", "74FB9A", "FDFC54", "F666AB", "D9B8FA", "CDFAB8"]
+    private static let defaultColorHexes = ["8A66F6", "74FB9A", "FDFC54", "F666AB", "FF8000", "FF4601", "FF1594", "FFC700", "01F8FF", "00A5FF", "D9B8FA", "CDFAB8", "F8A98C"]
     private static let hexCharacters = Set("01234567890ABCDEF")
 
     let colorHexes: [String]

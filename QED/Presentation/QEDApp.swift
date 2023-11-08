@@ -3,6 +3,8 @@
 import SwiftUI
 import FirebaseFirestore
 
+import Combine
+
 @main
 struct QEDApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
@@ -10,19 +12,14 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
-                NavigationView {
-                    FormationSettingView(
-                        performance: Performance(id: "", author: .sample, music: .newJeans, headcount: 5),
-                        performanceUseCase: DefaultPerformanceUseCase(
-                            performanceRepository: MockPerformanceRepository(),
-                            userStore: DefaultUserStore.shared
-                        )
-                    )
+            Group {
+                if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
+                    MainView()
+                } else {
+                    AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
                 }
-            } else {
-                AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
             }
+            .tint(.blueLight3)
         }
     }
 }

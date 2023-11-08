@@ -11,76 +11,35 @@ import UIKit
 struct PlayBarView: View {
     @StateObject var viewModel: PerformanceWatchingDetailViewModel
     let formations: [Formation]
-    @State private var playingSectionWidth = CGFloat.zero
-    @State private var isLast = false
-    @State private var formationCount = 0
-
-    @Binding var scrollProxy: ScrollViewProxy?
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                ScrollViewReader { proxy in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        buildScrollObservableView()
-                        HStack(spacing: 0) {
-                            ForEach(Array(zip(formations.indices, formations)),
-                                    id: \.0) { index, formation in
-                                buildPlayingSectionView(
-                                    index: index,
-                                    formation: formation,
-                                    proxy: proxy
-                                )
-                            }
-                        }
-                        .padding(.horizontal, geometry.size.width / 2)
-                        .offset(x: viewModel.screenOffset)
+        buildPlaybar()
+    }
 
-                    }
-                    .onAppear {
-                        scrollProxy = proxy
-                        UIScrollView.appearance().bounces = false
-                        UIScrollView.appearance().decelerationRate  = .fast
-                        playingSectionWidth = viewModel.previewWidth + viewModel.transitionWidth
-                        formationCount = viewModel.performance.formations.count
-                    }
-                    .onPreferenceChange(ScrollOffsetKey.self) {
-                            viewModel.offset = $0
-                            viewModel.calculateScreenOffset()
-                            viewModel.scrollViewDidScroll(offset: $0)
-                            if viewModel.isScrollToExecuting {
-                                viewModel.isScrollToExecuting = false
-                            }
-                            if playingSectionWidth > 0 {
-                                viewModel.selectedIndex = Int(abs($0 / playingSectionWidth))
-                            }
-                    }
-                    .onChange(of: viewModel.selectedIndex) {
-                        if viewModel.isScrollingSlow && !viewModel.isScrollToExecuting {
-                            HapticManager.shared.hapticImpact(style: .rigid)
+    private func buildPlaybar() -> some View {
+        return HStack(spacing: 0) {
+            ForEach(Array(zip(formations.indices, formations)), id: \.0) { index, formation in
+                VStack(alignment: .leading) {
+                    HStack(spacing: 0) {
+                        buildPlayingSectionView(
+                            index: index,
+                            formation: formation
+                        )
+                        if index < formations.count - 1 {
+                            buildTransitionView()
                         }
-                        isLast = $0 == formationCount - 1 ? true : false
                     }
+                    Text(formation.memo ?? "")
+                        .font(.caption2)
+                        .bold()
+                        .foregroundStyle(index == viewModel.selectedIndex ? .green : .black)
                 }
-
-                buildCenterBarView()
             }
         }
-        .frame(height: viewModel.previewHeight + 25)
+        .frame(height: 100)
     }
 
-    private func buildScrollObservableView() -> some View {
-        GeometryReader { proxy in
-            let offsetX = proxy.frame(in: .global).origin.x
-            Color.clear
-                .preference(
-                    key: ScrollOffsetKey.self,
-                    value: offsetX
-                )
-        }
-    }
-
-    private func buildPlayingSectionView(index: Int, formation: Formation, proxy: ScrollViewProxy) -> some View {
+    private func buildPlayingSectionView(index: Int, formation: Formation) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             HStack(alignment: .center, spacing: 0) {
                 DanceFormationView(
@@ -95,25 +54,13 @@ struct PlayBarView: View {
                             index == viewModel.selectedIndex ? .green: .gray,
                             lineWidth: 1)
                 )
-                if index != formationCount - 1 {
-                    buildTransitionView(index: index)
-                }
             }
-
-            Text(formation.memo ?? "")
-                .font(.caption2)
-                .bold()
-                .foregroundStyle(index == viewModel.selectedIndex ? .green : .black)
-        }
-        .onTapGesture {
-            proxy.scrollTo(index, anchor: .center)
-            viewModel.selectFormation(selectedIndex: index)
         }
     }
 
-    private func buildTransitionView(index: Int) -> some View {
+    private func buildTransitionView() -> some View {
         TransitionShape()
-            .stroke(index == viewModel.selectedIndex ? .green : .gray, lineWidth: 1.5)
+            .stroke()
             .frame(width: viewModel.transitionWidth, height: 35)
     }
 
@@ -164,5 +111,29 @@ private struct ScrollOffsetKey: PreferenceKey {
 #Preview {
     PlayBarView(viewModel: PerformanceWatchingDetailViewModel(
         performance: mockPerformance3
-    ), formations: mockFormations, scrollProxy: .constant(nil))
+    ), formations: mockFormations)
 }
+
+// GeometryReader { geometry in
+//            HStack(spacing: 0) {
+//                ForEach(Array(zip(formations.indices, formations)), id: \.0) { index, formation in
+//                    VStack(alignment: .leading) {
+//                        HStack(spacing: 0) {
+//                            buildPlayingSectionView(
+//                                index: index,
+//                                formation: formation
+//                            )
+//                            if index < formations.count - 1 {
+//                                buildTransitionView()
+//                            }
+//                        }
+//                        Text(formation.memo ?? "asdasdasdasd")
+//                             .font(.caption2)
+//                             .bold()
+//                             .foregroundStyle(index == viewModel.selectedIndex ? .green : .black)
+//                    }
+//                }
+//            }
+//            .padding(.horizontal, geometry.size.width / 2)
+//        }
+//        .frame(height: viewModel.previewHeight + 25)

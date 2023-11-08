@@ -46,7 +46,7 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
 
     private func updateObjectViews(colors: [String?]) {
         objectViews.enumerated().forEach {
-            $0.element.color = colors[safe: $0.offset]?.map { .init(hex: $0) } ?? .black
+            $0.element.color = colors[safe: $0.offset]?.map { .init(hex: $0) } ?? .monoWhite3
         }
     }
 

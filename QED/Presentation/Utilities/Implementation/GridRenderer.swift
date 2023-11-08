@@ -5,7 +5,7 @@ import UIKit
 class GridRenderer {
     private lazy var gridImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "grid")
+        view.image = UIImage(named: "stage")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

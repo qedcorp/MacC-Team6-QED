@@ -37,6 +37,8 @@
 		3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */; };
 		3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */; };
 		3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325062AF4C08A002B6682 /* GridRenderer.swift */; };
+		3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */; };
+		3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
@@ -92,6 +94,9 @@
 		D42AA11C2AEC1C1C0053E2A8 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */; };
 		D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */; };
 		D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */; };
+		D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */; };
+		D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */; };
+		D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */; };
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
@@ -181,6 +186,12 @@
 		D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */; };
 		D460F04D2AE432BA00A5966A /* User+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04C2AE432BA00A5966A /* User+.swift */; };
 		D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */; };
+		D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */; };
+		D48797752AF4D9C1004EFEDA /* NewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797742AF4D9C1004EFEDA /* NewViewModel.swift */; };
+		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
+		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
+		D48797B82AF7D915004EFEDA /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B72AF7D915004EFEDA /* TestView.swift */; };
+		D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */; };
 		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
 		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
 		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
@@ -188,6 +199,10 @@
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
+		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
+		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
+		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
+		D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +254,8 @@
 		3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoColorset.swift; sourceTree = "<group>"; };
 		3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoEditingViewModel.swift; sourceTree = "<group>"; };
 		3AC325062AF4C08A002B6682 /* GridRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridRenderer.swift; sourceTree = "<group>"; };
+		3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathLayer.swift; sourceTree = "<group>"; };
+		3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,6 +311,9 @@
 		D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDirectedGraph.swift; sourceTree = "<group>"; };
 		D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableViewController.swift; sourceTree = "<group>"; };
+		D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableView.swift; sourceTree = "<group>"; };
+		D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToPointCalculator.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EF662AE18DF700A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGoogleAuthRepository.swift; sourceTree = "<group>"; };
@@ -379,6 +399,12 @@
 		D460F04A2AE42EE000A5966A /* DefaultPerformanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPerformanceRepository.swift; sourceTree = "<group>"; };
 		D460F04C2AE432BA00A5966A /* User+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+.swift"; sourceTree = "<group>"; };
 		D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntityConvertable.swift; sourceTree = "<group>"; };
+		D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableModel.swift; sourceTree = "<group>"; };
+		D48797742AF4D9C1004EFEDA /* NewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewModel.swift; sourceTree = "<group>"; };
+		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
+		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
+		D48797B72AF7D915004EFEDA /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPerformanceWatchingViewModel.swift; sourceTree = "<group>"; };
 		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
 		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
 		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
@@ -386,6 +412,9 @@
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
+		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
+		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
+		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,6 +431,7 @@
 				D41333692ADE619700BDE1BB /* Alamofire in Frameworks */,
 				D460F02C2AE24EC300A5966A /* FirebaseFirestore in Frameworks */,
 				D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */,
+				D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +523,7 @@
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
 				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
+				3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */,
 				3AC325062AF4C08A002B6682 /* GridRenderer.swift */,
 				51449D742AF68FDD008DFE9E /* HapticManager.swift */,
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
@@ -529,6 +560,8 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D4F19A292AF8DE3300F2F013 /* ScrollObservable */,
+				D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */,
 				A9ABC1442AEC156C00E28EEE /* PerformanceListCards */,
 				3AE701B62AE6593100C48403 /* PerformanceSetting */,
 				3AE701AD2AE59DCF00C48403 /* MemoForm */,
@@ -606,6 +639,7 @@
 				3AE701A62AE4450A00C48403 /* Int+.swift */,
 				3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */,
 				A9DB97372AF2746400703732 /* Color+.swift */,
+				D48797B52AF7D218004EFEDA /* Dictionary+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -633,6 +667,7 @@
 				3AE701CB2AE690FA00C48403 /* UIColor+Hex.swift */,
 				3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */,
 				3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */,
+				3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -775,6 +810,9 @@
 				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
 				51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */,
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
+				D48797742AF4D9C1004EFEDA /* NewViewModel.swift */,
+				D48797B72AF7D915004EFEDA /* TestView.swift */,
+				D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -846,6 +884,23 @@
 				D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */ = {
+			isa = PBXGroup;
+			children = (
+				D4984C902AF4C2F700693752 /* View */,
+				D48797B32AF7D111004EFEDA /* PlayableConstants.swift */,
+			);
+			path = ObjectPlaying;
+			sourceTree = "<group>";
+		};
+		D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */,
+			);
+			path = PathPointCalculator;
 			sourceTree = "<group>";
 		};
 		D460EF602AE18DF700A5966A /* Data */ = {
@@ -984,6 +1039,7 @@
 				3AE701D32AE6C2FF00C48403 /* MemberModel.swift */,
 				3AE701C72AE68C7B00C48403 /* MemberInfoModel.swift */,
 				3A5329072AED3B800051A09C /* MusicModel.swift */,
+				D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1059,6 +1115,7 @@
 		D460EF9C2AE18DF700A5966A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */,
 				D460EF9D2AE18DF700A5966A /* PropertyWrappers */,
 				D460EFA02AE18DF700A5966A /* Errors */,
 			);
@@ -1292,6 +1349,15 @@
 			path = FireStore;
 			sourceTree = "<group>";
 		};
+		D4984C902AF4C2F700693752 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */,
+				D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1300,6 +1366,24 @@
 				D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */,
 			);
 			path = PlayableDanceFormation;
+			sourceTree = "<group>";
+		};
+		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
+			isa = PBXGroup;
+			children = (
+				D4F19A312AF94A4000F2F013 /* CollectionViewCell */,
+				D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */,
+				D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */,
+			);
+			path = ScrollObservable;
+			sourceTree = "<group>";
+		};
+		D4F19A312AF94A4000F2F013 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1329,6 +1413,7 @@
 				D460F02B2AE24EC300A5966A /* FirebaseFirestore */,
 				D460F02D2AE24EC300A5966A /* FirebaseFirestoreCombine-Community */,
 				D460F02F2AE24EC300A5966A /* FirebaseFirestoreSwift */,
+				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1407,6 +1492,7 @@
 				D413337C2ADE8CA800BDE1BB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */,
+				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -1512,6 +1598,7 @@
 				3A533A3D2AEFAE5D007E76F7 /* ZoomableView.swift in Sources */,
 				D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */,
 				3A5329082AED3B800051A09C /* MusicModel.swift in Sources */,
+				D48797752AF4D9C1004EFEDA /* NewViewModel.swift in Sources */,
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */,
@@ -1545,6 +1632,7 @@
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
 				D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */,
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
@@ -1562,26 +1650,34 @@
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
+				D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
+				D48797B82AF7D915004EFEDA /* TestView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
+				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
+				D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */,
 				D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */,
 				3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */,
+				3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
+				D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
+				D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */,
 				D460F0012AE18DF700A5966A /* AuthRepository.swift in Sources */,
 				D460EFED2AE18DF700A5966A /* PresetManagingView.swift in Sources */,
 				D460EFEA2AE18DF700A5966A /* HistoryControlsView.swift in Sources */,
 				3AE701D02AE6989200C48403 /* MemberInfoEditingView.swift in Sources */,
 				3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */,
 				D42AA1132AEC118C0053E2A8 /* AuthUseCase.swift in Sources */,
+				D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
 				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
@@ -1589,6 +1685,7 @@
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
 				510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
+				D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */,
@@ -1597,10 +1694,12 @@
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D460F00A2AE18DF700A5966A /* DefaultFormationTransitionUseCase.swift in Sources */,
 				D460F0162AE18DF700A5966A /* RelativePosition.swift in Sources */,
+				D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */,
 				D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */,
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
+				3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */,
 				510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
@@ -1622,6 +1721,7 @@
 				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,
 				3AE701A82AE4450A00C48403 /* Int+.swift in Sources */,
 				D460F0022AE18DF700A5966A /* KakaoAuthRepository.swift in Sources */,
+				D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */,
 				3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */,
 				3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */,
 				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
@@ -2019,6 +2119,14 @@
 				minimumVersion = 2.18.0;
 			};
 		};
+		D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2066,6 +2174,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D413336C2ADE7F2200BDE1BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D4F19A2F2AF93B7A00F2F013 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
