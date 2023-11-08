@@ -22,7 +22,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private lazy var multiSelectBoxView = {
         let box = MultiSelectBoxView()
-        box.layer.zPosition = .greatestFiniteMagnitude
+        box.layer.zPosition = .greatestFiniteMagnitude - 1
         view.addSubview(box)
         return box
     }()
@@ -58,12 +58,12 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
-        setupGrid()
+        setupViews()
     }
 
-    private func setupGrid() {
-        let renderer = GridRenderer()
-        renderer.render(in: view)
+    private func setupViews() {
+        GridRenderer().render(in: view)
+        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {

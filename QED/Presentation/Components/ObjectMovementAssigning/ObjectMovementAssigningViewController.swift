@@ -29,12 +29,12 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
-        setupGrid()
+        setupViews()
     }
 
-    private func setupGrid() {
-        let renderer = GridRenderer()
-        renderer.render(in: view)
+    private func setupViews() {
+        GridRenderer().render(in: view)
+        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {
