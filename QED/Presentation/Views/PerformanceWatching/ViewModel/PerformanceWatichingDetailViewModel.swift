@@ -41,6 +41,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
     @Published var selectedIndex: Int = 0
     @Published var formationIndex: Int = 0
     private var indexToOffset: [Int: CGFloat] = [:]
+    private var player = PlayTimer(timeInterval: 0.03)
 
     init(performance: Performance) {
         self.performance = performance
@@ -79,22 +80,15 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         }
     }
 
-    func backward() {
-        if 0 <= formationIndex - 1 {
-            formationIndex -= 1
-            action.send(.setSelctedIndex(formationIndex))
-        }
-    }
-
-    func forward() {
-        if performance.formations.count > formationIndex + 1 {
-            formationIndex += 1
-            action.send(.setSelctedIndex(formationIndex))
+    func play() {
+        player.startTimer {
+            self.offset += 1
+            self.action.send(.setOffset(self.offset))
         }
     }
 
     func pause() {
-        formationIndex = selectedIndex
+        player.resetTimer()
     }
 }
 

@@ -22,39 +22,40 @@ struct PerformanceWatchingDetailView: View {
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
+    @State private var isPlaying = false
 
     var body: some View {
         GeometryReader { geometry in
-        VStack {
-            buildTitleAndHeadcountView(geometry: geometry)
+            VStack {
+                buildTitleAndHeadcountView(geometry: geometry)
 
-            VStack(spacing: 8) {
-                VStack {
-                    buildMemo()
-                    buildObjectPlayView()
-                    if isTransitionEditable {
-                        buildDetailControlButtons()
+                VStack(spacing: 8) {
+                    VStack {
+                        buildMemo()
+                        buildObjectPlayView()
+                        if isTransitionEditable {
+                            buildDetailControlButtons()
+                        }
                     }
+                    .padding(.horizontal, 24)
                 }
-                .padding(.horizontal, 24)
+                Spacer()
+                buildPlayerView()
+                buildTabBar(geometry: geometry)
             }
-            Spacer()
-            buildPlayerView()
-            buildTabBar(geometry: geometry)
-        }
-        .background(.black)
-        .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
-            buildSettingSheetView()
-        }
-        .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
-            VStack {}
-        })
-        .navigationBarBackButtonHidden()
-        .navigationTitle(viewModel.performance.title ?? "")
-        .toolbar {
-            buildLeftItem()
-            buildRightItem()
-        }
+            .background(.black)
+            .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
+                buildSettingSheetView()
+            }
+            .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
+                VStack {}
+            })
+            .navigationBarBackButtonHidden()
+            .navigationTitle(viewModel.performance.title ?? "")
+            .toolbar {
+                buildLeftItem()
+                buildRightItem()
+            }
         }
     }
 
@@ -162,7 +163,11 @@ struct PerformanceWatchingDetailView: View {
                 Image(isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
             }
             Spacer()
-            buildPlayButton()
+            if isPlaying {
+                buildPuaseButton()
+            } else {
+                buildPlayButton()
+            }
             Spacer()
             Button {
                 isSheetVisiable.toggle()
@@ -208,10 +213,20 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildPlayButton() -> some View {
-        return Button {
-            // TODO: paly button
+        Button {
+            isPlaying = true
+            viewModel.play()
         } label: {
             Image("play_on")
+        }
+    }
+
+    private func buildPuaseButton() -> some View {
+        Button {
+            isPlaying = false
+            viewModel.pause()
+        } label: {
+            Image("play_off")
         }
     }
 
