@@ -8,15 +8,15 @@ import Combine
 @main
 struct QEDApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var isLogin = false
+    @StateObject var loginViewModel = LoginViewModel.shared
 
     var body: some Scene {
         WindowGroup {
             Group {
-                if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
+                if loginViewModel.isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
                     MainView()
                 } else {
-                    AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
+                    AuthView(loginViewModel: loginViewModel)
                 }
             }
             .tint(.blueLight3)

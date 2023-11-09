@@ -28,15 +28,15 @@ struct AuthView: UIViewControllerRepresentable {
 
 class LoginViewModel: ObservableObject {
 
+    static let shared = LoginViewModel()
+    
     var bag = Set<AnyCancellable>()
     var authUseCase: AuthUseCase?
 
     @Published var temp: AuthProviderType = .apple
-    @Binding var isLogin: Bool
+    @Published var isLogin: Bool = false
 
-    init(isLogin: Binding<Bool>) {
-        self._isLogin = isLogin
-    }
+    private init() {}
 
     func subscribe() {
         authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)

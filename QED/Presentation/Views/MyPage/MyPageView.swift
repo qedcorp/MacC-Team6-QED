@@ -91,16 +91,15 @@ struct MyPageView: View {
             Text(label.rawValue)
                 .foregroundStyle(Color.monoWhite2)
             Spacer()
-            buildContentView(label: label)
+            buildListContentView(label: label)
         }
         .font(.subheadline)
         .padding(.horizontal, 36)
         .padding(.vertical, 12)
-        .listRowSeparator(.hidden)
     }
 
     @ViewBuilder
-    private func buildContentView(label: MyPageList.Label) -> some View {
+    private func buildListContentView(label: MyPageList.Label) -> some View {
         let user = viewModel.user
         switch label {
         case .name: buildTextListItem(
