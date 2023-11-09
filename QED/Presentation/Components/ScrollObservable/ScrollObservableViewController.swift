@@ -14,6 +14,7 @@ import SwiftUI
 final class ScrollObservableViewController: UIViewController {
 
     typealias ValuePurpose = ScrollObservableView.ValuePurpose
+    typealias Constants = ScrollObservableView.Constants
 
     private var bag = Set<AnyCancellable>()
 
@@ -44,7 +45,7 @@ final class ScrollObservableViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
-        flowLayout.itemSize = CGSize(width: 114, height: 79)
+        flowLayout.itemSize = CGSize(width: Constants.formationFrame.width + Constants.trasitionFrame.width, height: Constants.playBarHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
@@ -146,7 +147,7 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: view.frame.width / 2, bottom: 0, right: view.frame.width / 2 - 20)
+        UIEdgeInsets(top: 0, left: view.frame.width / 2, bottom: 0, right: view.frame.width / 2 - Constants.trasitionFrame.width)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

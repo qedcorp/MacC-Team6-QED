@@ -779,8 +779,8 @@
 		51BB29932AE5AFC6002CAFAA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
+				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
 				D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */,
 			);
 			path = ViewModel;

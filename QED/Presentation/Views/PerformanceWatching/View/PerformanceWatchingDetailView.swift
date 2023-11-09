@@ -60,7 +60,7 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildObjectPlayView() -> some View {
-        ObjectPlayableView(movementsMap: viewModel.movementsMap, index: $viewModel.offset)
+        ObjectPlayableView(movementsMap: viewModel.movementsMap, totalCount: viewModel.performance.formations.count, offset: $viewModel.offset)
             .frame(height: 216)
     }
 

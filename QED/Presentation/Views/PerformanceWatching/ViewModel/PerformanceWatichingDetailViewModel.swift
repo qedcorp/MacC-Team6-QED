@@ -23,7 +23,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
             for info in memberInfos {
                 guard let path = movementMap?[info.color] else { continue }
                 if map[info.color] != nil {
-                    var arr = map[info.name]
+                    var arr = map[info.color]
                     arr?.append(path)
                     map[info.color] = arr
                 } else {
@@ -35,6 +35,8 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         return map
     }
     var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
+    var isTrasition: [ClosedRange<CGFloat>: Int] = [:]
+    var isFormation: [ClosedRange<CGFloat>: Int] = [:]
     var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
     @Published var offset: CGFloat = 0.0
     @Published var playableIndex: Int = 0
@@ -46,6 +48,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
     init(performance: Performance) {
         self.performance = performance
         binding()
+        mappingIndexFromOffest()
     }
 
     private func binding() {
@@ -55,7 +58,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
                 switch purpose {
                 case let .getOffset(offset):
                     self.offset = offset
-                    self.changeSelectedIndex(offset: offset)
+                    // self.changeSelectedIndex(offset: offset)
                 case let .getSelctedIndex(index):
                     self.formationIndex = index
                 default:
@@ -73,17 +76,26 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         var lastX: CGFloat = 0.0
         for formationIndex in performance.formations.indices {
             indexToOffset[formationIndex] = lastX
-            let formatationLength = Constants.formationFrame.width + Constants.formationFrame.height
+            let formatationLength = Constants.formationFrame.width + Constants.trasitionFrame.width
             let range = lastX...(lastX + formatationLength)
+            let formationRange = lastX...(lastX + Constants.formationFrame.width)
+            let transtionRange = (lastX + Constants.formationFrame.width + 1)...(lastX + formatationLength)
             indexDictionary[range] = formationIndex
+            isFormation[formationRange] = formationIndex
+            isTrasition[transtionRange] = formationIndex
             lastX += formatationLength + 1.0
         }
     }
 
     func play() {
         player.startTimer {
-            self.offset += 1
-            self.action.send(.setOffset(self.offset))
+            if self.isFormation[self.offset] == nil {
+                self.offset += 0.5
+                self.action.send(.setOffset(self.offset))
+            } else {
+                self.offset += 1
+                self.action.send(.setOffset(self.offset))
+            }
         }
     }
 

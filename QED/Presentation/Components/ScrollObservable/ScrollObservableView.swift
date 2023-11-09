@@ -35,7 +35,7 @@ extension ScrollObservableView {
 
     struct Constants {
         static let playBarHeight: CGFloat = 79
-        static let formationFrame: CGSize = CGSize(width: 94, height: 61)
-        static let trasitionFrame: CGSize = CGSize(width: 20, height: 35)
+        static let formationFrame: CGSize = CGSize(width: 96, height: 61)
+        static let trasitionFrame: CGSize = CGSize(width: 32, height: 35)
     }
 }
