@@ -11,9 +11,20 @@ class MyPageViewModel: ObservableObject {
     let authUseCase: AuthUseCase
     @Published var user = User(id: "")
     @Published var signUpPeriod = 1
+    @Published var alertMessage: [Message?] = []
 
     init() {
         self.authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)
+        alertMessage = [
+            .destruction(title: AlertMessage.logout.title,
+                         body: AlertMessage.logout.body,
+                         label: AlertMessage.logout.lebel,
+                         action: logout),
+            .destruction(title: AlertMessage.withdrawal.title,
+                         body: AlertMessage.withdrawal.body,
+                         label: AlertMessage.withdrawal.lebel,
+                         action: withdraw)
+        ]
     }
 
     func getMe() {

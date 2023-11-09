@@ -16,7 +16,7 @@ struct MyPageView: View {
 
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
-    @State private var isLogouAlertVisible = false
+    @State private var message: Message?
 
     var body: some View {
         ScrollView {
@@ -26,7 +26,6 @@ struct MyPageView: View {
                 buildSectionView(section: termsAndConditions)
                 buildSectionView(section: manageAccount)
             }
-
         }
         .background(Color.monoBlack)
         .navigationBarBackButtonHidden()
@@ -116,8 +115,16 @@ struct MyPageView: View {
         case .personalInfo: buildChevronButton({
             isPersonalInfoVisble = true
         })
-        case .logout: buildChevronButton(viewModel.logout)
-        case .withdraw: buildChevronButton(viewModel.withdraw)
+        case .logout: buildChevronButton({
+            if let alertMessage = viewModel.alertMessage.first {
+                message = alertMessage
+            }
+        })
+        case .withdrawal: buildChevronButton({
+            if let alertMessage = viewModel.alertMessage.last {
+                message = alertMessage
+            }
+        })
         }
     }
 
@@ -133,21 +140,7 @@ struct MyPageView: View {
             Image(systemName: "chevron.right")
                 .foregroundStyle(.white)
         }
-//        .alert("로그아웃 알림",
-//                  isPresented: $isLogouAlertVisible,
-//                  presenting: details
-//              ) { details in
-//                  Button(role: .destructive) {
-//                      // Handle the deletion.
-//                  } label: {
-//                      Text("Delete \(details.name)")
-//                  }
-//                  Button("Retry") {
-//                      // Handle the retry action.
-//                  }
-//              } message: { details in
-//                  Text(details.error)
-//              }
+        .alert(with: $message)
     }
 
     private func buildToggleButton(isOn: Bool, action: @escaping () -> Void) -> some View {
@@ -183,42 +176,6 @@ struct MyPageView: View {
                 .bold()
                 .foregroundColor(.white)
         }
-    }
-}
-
-enum MyPageList: String, CaseIterable {
-    case defaultInfo
-    case termsAndConditions
-    case manageAccount
-
-    var id: String { return title }
-
-    var title: String {
-        switch self {
-        case .defaultInfo: "기본 정보"
-        case .termsAndConditions: "약관 및 정책"
-        case .manageAccount: "계정 관리"
-        }
-    }
-
-    var label: [Label] {
-        switch self {
-        case .defaultInfo:
-            return [.name, .email]
-        case .termsAndConditions:
-            return [.terms, .personalInfo]
-        case .manageAccount:
-            return [.logout, .withdraw]
-        }
-    }
-
-    enum Label: String {
-        case name = "이름"
-        case email = "가입상태"
-        case terms = "이용약관"
-        case personalInfo = "개인정보 처리 방침"
-        case logout = "로그아웃"
-        case withdraw = "회원 탈퇴"
     }
 }
 

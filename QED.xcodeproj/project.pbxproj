@@ -69,6 +69,8 @@
 		5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFB92AE58610006F0C4A /* MemberCircleView.swift */; };
 		5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */; };
 		514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */; };
+		517327902AFCD5C700386A40 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5173278F2AFCD5C700386A40 /* AlertManager.swift */; };
+		517327922AFD099C00386A40 /* MyPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517327912AFD099C00386A40 /* MyPageManager.swift */; };
 		5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */; };
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
@@ -289,6 +291,8 @@
 		5149AFB92AE58610006F0C4A /* MemberCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCircleView.swift; sourceTree = "<group>"; };
 		5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailView.swift; sourceTree = "<group>"; };
 		514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		5173278F2AFCD5C700386A40 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		517327912AFD099C00386A40 /* MyPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageManager.swift; sourceTree = "<group>"; };
 		5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
@@ -527,6 +531,7 @@
 				3AC325062AF4C08A002B6682 /* GridRenderer.swift */,
 				51449D742AF68FDD008DFE9E /* HapticManager.swift */,
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
+				5173278F2AFCD5C700386A40 /* AlertManager.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -1067,6 +1072,7 @@
 				3A5328BB2AEBF3160051A09C /* Implementation */,
 				D460EF922AE18DF700A5966A /* Interfaces */,
 				3AE701B32AE5D06D00C48403 /* Extensions */,
+				517327912AFD099C00386A40 /* MyPageManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1570,7 +1576,9 @@
 				D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */,
 				5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
+				517327922AFD099C00386A40 /* MyPageManager.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManagingViewModel.swift in Sources */,
+				517327902AFCD5C700386A40 /* AlertManager.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* DefaultKakaoAuthRepository.swift in Sources */,
 				3A5328AF2AEB7FF20051A09C /* PerformanceSettingManager.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* DefaultKakaoAuthRepository.swift in Sources */,
