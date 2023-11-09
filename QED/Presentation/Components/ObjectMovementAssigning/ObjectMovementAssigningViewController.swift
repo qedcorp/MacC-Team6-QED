@@ -112,7 +112,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         movementMap = history.movementMap
         placeBezierPathLayers()
         didChange()
-        hapticManager.hapticImpact(style: .medium)
+        hapticManager.hapticImpact(style: .rigid)
     }
 
     private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {

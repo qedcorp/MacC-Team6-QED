@@ -173,7 +173,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         selectedObjectViews = []
         addHistory()
         didChange()
-        hapticManager.hapticImpact(style: .medium)
+        hapticManager.hapticImpact(style: .rigid)
     }
 
     func copyFormableFromHistory(_ formable: Formable) {

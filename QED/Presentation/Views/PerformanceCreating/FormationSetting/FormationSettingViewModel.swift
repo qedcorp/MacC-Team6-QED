@@ -132,8 +132,10 @@ class FormationSettingViewModel: ObservableObject {
         if !hasMemoBeenInputted {
             presetContainerViewModel.toggleGrid(isPresented: true)
         }
-        tasksQueue.append { [unowned self] in
+        animate {
             isMemoFormPresented = false
+        }
+        tasksQueue.append { [unowned self] in
             hasMemoBeenInputted = true
         }
     }
