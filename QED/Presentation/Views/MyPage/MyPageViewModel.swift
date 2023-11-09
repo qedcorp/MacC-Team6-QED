@@ -8,24 +8,23 @@
 import Foundation
 
 class MyPageViewModel: ObservableObject {
-    @Published var user: User?
+    let authUseCase: AuthUseCase
+    @Published var user = User(id: "")
     @Published var signUpPeriod = 1
-//    let userUseCase: DefaultUserUseCase
-//    let authUseCase: DefaultAuthUseCase
 
-//    init(userUseCase: DefaultUserUseCase, authUseCase: DefaultAuthUseCase) {
-//        self.userUseCase = userUseCase
-//        self.authUseCase = authUseCase
-//    }
-
-//    init(authUseCase: DefaultAuthUseCase) {
-//        self.authUseCase = authUseCase
-//    }
+    init() {
+        self.authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)
+    }
 
     func getMe() {
         Task {
-            user?.nickname = try KeyChainManager.shared.read(account: .name)
-            user?.email = try KeyChainManager.shared.read(account: .email)
+            do {
+                user.id = try KeyChainManager.shared.read(account: .id)
+                user.nickname = try KeyChainManager.shared.read(account: .name)
+                user.email = try KeyChainManager.shared.read(account: .email)
+            } catch {
+                print(error)
+            }
         }
     }
 
@@ -34,16 +33,26 @@ class MyPageViewModel: ObservableObject {
     func updateUser() {}
 
     func logout() {
-//        Task {
-//            let provider = try KeyChainManager.shared.read(account: .provider)
-//            switch provider {
-//            case "KAKAO": return try await authUseCase.logout(authType: .kakao)
-//            case "APPLE": return try await authUseCase.logout(authType: .apple)
-//            case "GOOGLE": return try await authUseCase.logout(authType: .google)
-//            default: return
-//            }
-//        }
+        Task {
+            let provider = try KeyChainManager.shared.read(account: .provider)
+            switch provider {
+            case "KAKAO": return try await authUseCase.logout(authType: .kakao)
+            case "APPLE": return try await authUseCase.logout(authType: .apple)
+            case "GOOGLE": return try await authUseCase.logout(authType: .google)
+            default: return
+            }
+        }
     }
 
-    func withdraw() { }
+    func withdraw() {
+        Task {
+            let provider = try KeyChainManager.shared.read(account: .provider)
+            switch provider {
+            case "KAKAO": return try await authUseCase.withdraw(authType: .kakao)
+            case "APPLE": return try await authUseCase.logout(authType: .apple)
+            case "GOOGLE": return try await authUseCase.withdraw(authType: .google)
+            default: return
+            }
+        }
+    }
 }

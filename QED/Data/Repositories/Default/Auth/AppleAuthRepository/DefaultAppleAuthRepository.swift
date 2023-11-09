@@ -47,7 +47,20 @@ final class DefaultAppleAuthRepository: NSObject, AppleAuthRepository {
         }
     }
 
-    func withdraw() async throws {}
+    func withdraw() async throws {
+        if let user = Auth.auth().currentUser {
+            user.delete { [self] error in
+                if let error = error {
+                    print("Error delete user: %@", error)
+                } else {
+                    print("Successful withdrawal")
+                }
+            }
+            try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
+        } else {
+            print("Login information does not exist")
+        }
+    }
 }
 
 extension DefaultAppleAuthRepository: ASAuthorizationControllerDelegate {
@@ -66,7 +79,7 @@ extension DefaultAppleAuthRepository: ASAuthorizationControllerDelegate {
             Task {
                 do {
                     let firebaseAuthResult = try await Auth.auth().signIn(with: credential)
-                    try registerKeyChain(with: firebaseAuthResult)
+                    try registerKeyChain(with: firebaseAuthResult, provider: .apple)
                     authcontinuation?.resume(returning: true)
                 } catch {
                     authcontinuation?.resume(returning: false)

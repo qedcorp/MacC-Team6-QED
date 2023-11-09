@@ -9,19 +9,14 @@ import SwiftUI
 
 struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
-    //    @ObservedObject var viewModel = MyPageViewModel(
-    //        userUseCase: DIContainer.shared.resolver.resolve(DefaultUserUseCase.self),
-    //        authUseCase: DIContainer.shared.resolver.resolve(DefaultAuthUseCase.self)
-    //    )
-    @ObservedObject var viewModel = MyPageViewModel(
-        //        authUseCase: DefaultAuthUseCase(kakaoAuthRepository: DefaultKakaoAuthRepository(),
-        //                                        googleAuthRepository: DefaultGoogleAuthRepository(authUI: AuthUIProtocol.self as! AuthUIProtocol),
-        //                                        appleAuthRepository: DefaultAppleAuthRepository()
-        //                                       )
-    )
+    @ObservedObject var viewModel = MyPageViewModel()
     let defaultInfo: MyPageList = .defaultInfo
     let termsAndConditions: MyPageList = .termsAndConditions
     let manageAccount: MyPageList = .manageAccount
+
+    @State private var isTermsVisible = false
+    @State private var isPersonalInfoVisble = false
+    @State private var isLogouAlertVisible = false
 
     var body: some View {
         ScrollView {
@@ -31,6 +26,7 @@ struct MyPageView: View {
                 buildSectionView(section: termsAndConditions)
                 buildSectionView(section: manageAccount)
             }
+
         }
         .background(Color.monoBlack)
         .navigationBarBackButtonHidden()
@@ -38,6 +34,12 @@ struct MyPageView: View {
             buildLeftItem()
             buildCenterItem()
         }
+        .sheet(isPresented: $isTermsVisible, content: {
+            buildTermsSheetView()
+        })
+        .sheet(isPresented: $isPersonalInfoVisble, content: {
+            buildPersonalInfoSheetView()
+        })
         .onAppear {
             viewModel.getMe()
         }
@@ -48,7 +50,7 @@ struct MyPageView: View {
             Image("profile")
                 .padding(.bottom, 5)
 
-            Text(viewModel.user?.nickname ?? "-")
+            Text(viewModel.user.nickname ?? "-")
                 .fontWeight(.heavy)
                 .foregroundStyle(Color.monoWhite3)
 
@@ -100,24 +102,26 @@ struct MyPageView: View {
 
     @ViewBuilder
     private func buildContentView(label: MyPageList.Label) -> some View {
-        if let user = viewModel.user {
-            switch label {
-            case .name:
-                buildTextComponentView(user.nickname ?? "-")
-            case .email:
-                buildTextComponentView(user.email ?? "-")
-            case .terms: buildChevronButton({})
-            case .personalInfo: buildChevronButton({})
-            case .notification: buildToggleButton(
-                isOn: user.isNotificationOn ?? false,
-                action: viewModel.updateNotification
-            )
-            case .logout: buildChevronButton(viewModel.logout)
-            }
+        let user = viewModel.user
+        switch label {
+        case .name: buildTextListItem(
+            user.nickname ?? "-"
+        )
+        case .email: buildTextListItem(
+            user.email ?? "-"
+        )
+        case .terms: buildChevronButton({
+            isTermsVisible = true
+        })
+        case .personalInfo: buildChevronButton({
+            isPersonalInfoVisble = true
+        })
+        case .logout: buildChevronButton(viewModel.logout)
+        case .withdraw: buildChevronButton(viewModel.withdraw)
         }
     }
 
-    private func buildTextComponentView(_ text: String) -> some View {
+    private func buildTextListItem(_ text: String) -> some View {
         Text(text)
             .foregroundStyle(.white)
     }
@@ -129,6 +133,21 @@ struct MyPageView: View {
             Image(systemName: "chevron.right")
                 .foregroundStyle(.white)
         }
+//        .alert("로그아웃 알림",
+//                  isPresented: $isLogouAlertVisible,
+//                  presenting: details
+//              ) { details in
+//                  Button(role: .destructive) {
+//                      // Handle the deletion.
+//                  } label: {
+//                      Text("Delete \(details.name)")
+//                  }
+//                  Button("Retry") {
+//                      // Handle the retry action.
+//                  }
+//              } message: { details in
+//                  Text(details.error)
+//              }
     }
 
     private func buildToggleButton(isOn: Bool, action: @escaping () -> Void) -> some View {
@@ -137,6 +156,14 @@ struct MyPageView: View {
         } label: {
             Image(isOn ? "toggle_on" : "toggle_off")
         }
+    }
+
+    private func buildTermsSheetView() -> some View {
+        Text("이용약관")
+    }
+
+    private func buildPersonalInfoSheetView() -> some View {
+        Text("개인정보 처리 방침")
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
@@ -179,9 +206,9 @@ enum MyPageList: String, CaseIterable {
         case .defaultInfo:
             return [.name, .email]
         case .termsAndConditions:
-            return [.terms, .personalInfo, .notification]
+            return [.terms, .personalInfo]
         case .manageAccount:
-            return [.logout]
+            return [.logout, .withdraw]
         }
     }
 
@@ -190,8 +217,8 @@ enum MyPageList: String, CaseIterable {
         case email = "가입상태"
         case terms = "이용약관"
         case personalInfo = "개인정보 처리 방침"
-        case notification = "마케팅 정보 수신 동의"
         case logout = "로그아웃"
+        case withdraw = "회원 탈퇴"
     }
 }
 

@@ -48,5 +48,20 @@ struct DefaultAuthUseCase: AuthUseCase {
         }
     }
 
-    func withdraw() async throws {}
+    func withdraw(authType: AuthProviderType) async throws {
+        do {
+            switch authType {
+            case .kakao:
+                return try await kakaoAuthRepository.withdraw()
+            case .apple:
+                return try await appleAuthRepository.withdraw()
+            case .google:
+                return try await googleAuthRepository.withdraw()
+            }
+        } catch {
+            print("--------------------")
+            print("Fail to delete account")
+            print("--------------------")
+        }
+    }
 }

@@ -37,7 +37,7 @@ final class DefaultGoogleAuthRepository: GoogleAuthRepository {
         guard let firebaseAuthResult = try? await Auth.auth().signIn(with: credential) else { return false }
 
         do {
-            try registerKeyChain(with: firebaseAuthResult)
+            try registerKeyChain(with: firebaseAuthResult, provider: .google)
             return true
         } catch {
             return false
@@ -54,5 +54,19 @@ final class DefaultGoogleAuthRepository: GoogleAuthRepository {
         }
     }
 
-    func withdraw() async throws {}
+    func withdraw() async throws {
+        if let user = Auth.auth().currentUser {
+            user.delete { [self] error in
+                if let error = error {
+                    print("Error delete user: %@", error)
+                } else {
+                    print("Successful withdrawal")
+                }
+            }
+            try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
+        } else {
+            print("Login information does not exist")
+        }
+
+    }
 }
