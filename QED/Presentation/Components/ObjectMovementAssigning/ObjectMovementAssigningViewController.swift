@@ -10,6 +10,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     var onChange: ((MovementMap) -> Void)?
     weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
+    private let hapticManager = HapticManager.shared
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -29,12 +30,12 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
-        setupGrid()
+        setupViews()
     }
 
-    private func setupGrid() {
-        let renderer = GridRenderer()
-        renderer.render(in: view)
+    private func setupViews() {
+        GridRenderer().render(in: view)
+        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {
@@ -66,6 +67,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         )
         movementMap[memberInfo]?.controlPoint = controlPoint
         placeBezierPathLayers()
+        hapticManager.hapticImpact(style: .soft)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -99,8 +101,8 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
             afterFormation: afterFormation
         )
         objectViews.forEach { $0.removeFromSuperview() }
-        placeObjectViews(formation: beforeFormation)
-        placeObjectViews(formation: afterFormation, alpha: 0.3)
+        placeObjectViews(formation: beforeFormation, alpha: 0.3)
+        placeObjectViews(formation: afterFormation)
         placeBezierPathLayers()
         addHistory()
         didChange()
@@ -110,6 +112,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         movementMap = history.movementMap
         placeBezierPathLayers()
         didChange()
+        hapticManager.hapticImpact(style: .rigid)
     }
 
     private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {

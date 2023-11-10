@@ -8,7 +8,6 @@ struct DisabledOpacityModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .animation(.easeInOut, value: isDisabled)
             .opacity(isDisabled ? disabledOpacity : 1)
             .disabled(isDisabled)
     }
