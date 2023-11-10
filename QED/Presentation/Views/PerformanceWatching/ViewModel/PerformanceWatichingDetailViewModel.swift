@@ -13,13 +13,13 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
     typealias Constants = ScrollObservableView.Constants
 
     private var bag = Set<AnyCancellable>()
+
     var performance: Performance
     var movementsMap: MovementsMap {
         // TODO: 함수형으로 바꾸기
         var map = MovementsMap()
         guard let memberInfos = performance.memberInfos else { return [:] }
         let movementsMap = performance.formations.map({ $0.movementMap })
-        let ett = movementsMap.first
         for movementMap in movementsMap {
             for info in memberInfos {
                 guard let path = movementMap?[info.color] else { continue }
@@ -34,16 +34,14 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         }
         return map
     }
-    var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
-    var isTrasition: [ClosedRange<CGFloat>: Int] = [:]
-    var isFormation: [ClosedRange<CGFloat>: Int] = [:]
-    var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
+
+    private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
     @Published var offset: CGFloat = 0.0
-    @Published var playableIndex: Int = 0
     @Published var selectedIndex: Int = 0
-    @Published var formationIndex: Int = 0
-    @Published var isShowingPreview: Bool = false
-    private var indexToOffset: [Int: CGFloat] = [:]
+    @Published var isPlaying = false
+    private var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
+    private var isTrasition: [ClosedRange<CGFloat>: Int] = [:]
+    private var isFormation: [ClosedRange<CGFloat>: Int] = [:]
     private var player = PlayTimer(timeInterval: 0.03)
 
     init(performance: Performance) {
@@ -59,24 +57,22 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
                 switch purpose {
                 case let .getOffset(offset):
                     self.offset = offset
-                    // self.changeSelectedIndex(offset: offset)
-                case let .getSelctedIndex(index):
-                    self.formationIndex = index
                 default:
                     break
                 }
             }
             .store(in: &bag)
-    }
 
-    private func changeSelectedIndex(offset: CGFloat) {
-        self.selectedIndex = indexDictionary[offset] ?? 0
+        $selectedIndex
+            .sink { index in
+                self.action.send(.setSelctedIndex(index))
+            }
+            .store(in: &bag)
     }
 
     private func mappingIndexFromOffest() {
         var lastX: CGFloat = 0.0
         for formationIndex in performance.formations.indices {
-            indexToOffset[formationIndex] = lastX
             let formatationLength = Constants.formationFrame.width + Constants.trasitionFrame.width
             let range = lastX...(lastX + formatationLength)
             let formationRange = lastX...(lastX + Constants.formationFrame.width)
@@ -96,6 +92,13 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
             } else {
                 self.offset += 1
                 self.action.send(.setOffset(self.offset))
+            }
+            let totalFormationLength = Constants.formationFrame.width * CGFloat(self.performance.formations.count)
+            let totalTransitionLength = Constants.trasitionFrame.width * CGFloat(self.performance.formations.count - 1)
+            if self.offset >  totalFormationLength + totalTransitionLength {
+                self.player.resetTimer()
+                self.offset = totalFormationLength + totalTransitionLength
+                self.isPlaying = false
             }
         }
     }

@@ -100,7 +100,7 @@ final class ScrollObservableViewController: UIViewController {
 
     private func moveToIndex(_ index: Int) {
         var point = collectionView.contentOffset
-        point.x = cellForStartOffset[index] ?? 0
+        point.x = cellForStartOffset[index] ?? 100
         collectionView.setContentOffset(point, animated: true)
     }
 
