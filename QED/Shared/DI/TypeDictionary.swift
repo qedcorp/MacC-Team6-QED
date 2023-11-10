@@ -52,7 +52,6 @@ class KioInjection {
         var copydependencyGraph = self.dependencyGraph
         if dic.count != 0 {
             copydependencyGraph = dfs(dic, graph: copydependencyGraph)
-            print(copydependencyGraph.nodes.count)
         }
         else {
             copydependencyGraph.nodes.forEach {

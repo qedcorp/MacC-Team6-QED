@@ -28,7 +28,6 @@ struct PerformanceWatchingDetailView: View {
         GeometryReader { geometry in
             VStack {
                 buildTitleAndHeadcountView(geometry: geometry)
-
                 VStack(spacing: 8) {
                     VStack {
                         buildMemo()
@@ -60,8 +59,12 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildObjectPlayView() -> some View {
-        ObjectPlayableView(movementsMap: viewModel.movementsMap, totalCount: viewModel.performance.formations.count, offset: $viewModel.offset)
-            .frame(height: 216)
+        ObjectPlayableView(movementsMap: viewModel.movementsMap,
+                           totalCount: viewModel.performance.formations.count,
+                           offset: $viewModel.offset,
+                           isShowingPreview: $viewModel.isShowingPreview
+        )
+        .frame(height: 216)
     }
 
     private func onDismissSettingSheet() {

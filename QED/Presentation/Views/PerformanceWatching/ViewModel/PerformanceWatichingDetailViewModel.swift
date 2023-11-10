@@ -19,6 +19,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         var map = MovementsMap()
         guard let memberInfos = performance.memberInfos else { return [:] }
         let movementsMap = performance.formations.map({ $0.movementMap })
+        let ett = movementsMap.first
         for movementMap in movementsMap {
             for info in memberInfos {
                 guard let path = movementMap?[info.color] else { continue }
@@ -31,7 +32,6 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
                 }
             }
         }
-
         return map
     }
     var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
@@ -42,6 +42,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
     @Published var playableIndex: Int = 0
     @Published var selectedIndex: Int = 0
     @Published var formationIndex: Int = 0
+    @Published var isShowingPreview: Bool = false
     private var indexToOffset: [Int: CGFloat] = [:]
     private var player = PlayTimer(timeInterval: 0.03)
 
@@ -108,19 +109,14 @@ extension Dictionary where Key == Member.Info {
 
     internal subscript(color: String) ->  Value? {
         get {
-            var answer: Value?
-            for element in self {
-                if element.key.color == color {
-                    answer = element.value
-                }
+            for element in self where element.key.color == color {
+                return element.value
             }
-            return answer
+            return nil
         }
         set {
-            for element in self {
-                if element.key.color == color {
-                    self[element.key] = newValue
-                }
+            for element in self where element.key.color == color {
+                self[element.key] = newValue
             }
         }
     }
