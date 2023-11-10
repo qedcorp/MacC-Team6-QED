@@ -10,13 +10,15 @@ import SwiftUI
 struct ObjectPlayableView: UIViewControllerRepresentable {
 
     let movementsMap: MovementsMap
-    @Binding var index: Int
+    let totalCount: Int
+    @Binding var offset: CGFloat
+    @Binding var isShowingPreview: Bool
 
     func makeUIViewController(context: Context) -> ObjectPlayableViewController {
-        ObjectPlayableViewController(movementsMap: movementsMap)
+        return ObjectPlayableViewController(movementsMap: movementsMap, totalCount: totalCount)
     }
 
     func updateUIViewController(_ uiViewController: ObjectPlayableViewController, context: Context) {
-        uiViewController.setNewMemberFormation(index: index)
+        uiViewController.setNewMemberFormation(offset: offset, isShowingPreview: isShowingPreview)
     }
 }

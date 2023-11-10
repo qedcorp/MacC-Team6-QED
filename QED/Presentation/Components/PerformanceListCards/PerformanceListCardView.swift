@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PerformanceListCardView: View {
-    let performance: PerformanceModel
+    let performance: Performance
     var performanceTitle: String
     var musicTitle: String
     var creator: String
@@ -17,13 +17,13 @@ struct PerformanceListCardView: View {
     var headcount: Int
     @State private var isLoading = true
 
-    init(performance: PerformanceModel) {
+    init(performance: Performance) {
         self.performance = performance
-        performanceTitle = performance.entity.title ?? "_"
-        musicTitle = performance.entity.music.title
-        creator = performance.entity.music.artistName
-        albumCoverURL = performance.entity.music.albumCoverURL
-        headcount = performance.entity.headcount
+        performanceTitle = performance.title ?? "_"
+        musicTitle = performance.music.title
+        creator = performance.music.artistName
+        albumCoverURL = performance.music.albumCoverURL
+        headcount = performance.headcount
     }
 
     var body: some View {
