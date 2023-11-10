@@ -27,7 +27,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
     private var rangeToIndex: [ClosedRange<Int>: Int] = [:]
 
     private lazy var bezierPathConverter = {
-        let converter = BezierPathConverter()
+        let converter = BezierPathConverter(pixelMargin: objectViewRadius)
         converter.relativeCoordinateConverter = relativeCoordinateConverter
         return converter
     }()

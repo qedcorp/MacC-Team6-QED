@@ -10,6 +10,8 @@ class DotObjectView: UIView {
             }
             frame.size = .init(width: radius * 2, height: radius * 2)
             layer.cornerRadius = radius
+            borderLayer.frame = bounds.insetBy(dx: -borderLayer.borderWidth, dy: -borderLayer.borderWidth)
+            borderLayer.cornerRadius = radius + borderLayer.borderWidth
         }
     }
 
@@ -17,10 +19,23 @@ class DotObjectView: UIView {
         didSet { backgroundColor = color }
     }
 
+    var borderColor: UIColor? {
+        didSet { borderLayer.borderColor = (borderColor ?? .clear).cgColor }
+    }
+
     private var lastCenter: CGPoint?
+
+    private lazy var borderLayer = {
+        let border = CALayer()
+        border.borderWidth = 2.5
+        border.borderColor = UIColor.clear.cgColor
+        layer.addSublayer(border)
+        return border
+    }()
 
     init() {
         super.init(frame: .zero)
+        backgroundColor = .clear
     }
 
     required init?(coder: NSCoder) {

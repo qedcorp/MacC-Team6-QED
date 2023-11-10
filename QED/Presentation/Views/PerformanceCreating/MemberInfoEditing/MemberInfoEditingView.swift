@@ -4,6 +4,8 @@ import SwiftUI
 
 struct MemberInfoEditingView: View {
     @ObservedObject private var viewModel: MemberInfoEditingViewModel
+    @State private var offsetY: CGFloat = -64
+    private let cornerRadius: CGFloat = 12
 
     init(memberInfos: [MemberInfoModel], index: Int, onComplete: @escaping (MemberInfoModel) -> Void) {
         let colorset = MemberInfoColorset()
@@ -17,7 +19,8 @@ struct MemberInfoEditingView: View {
 
     var body: some View {
         ZStack {
-            Color.black.opacity(0.5)
+            Color.build(hex: .unknown0)
+                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     viewModel.complete()
@@ -27,23 +30,23 @@ struct MemberInfoEditingView: View {
                     VStack(spacing: 26) {
                         HStack {
                             Text("인물 수정")
+                                .foregroundStyle(Color.blueLight3)
                             Spacer()
                         }
-                        TextField("", text: .init(
+                        TextField("인물 \(viewModel.index + 1)", text: .init(
                             get: { viewModel.memberInfo?.name ?? "" },
                             set: { viewModel.updateName($0) }
                         ))
+                        .foregroundStyle(Color.monoWhite3)
                         .multilineTextAlignment(.center)
                         .frame(height: 64)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(.white)
-                                .shadow(radius: 2)
+                                .fill(viewModel.isEnabledToComplete ? Color.blueLight2 : Color.build(hex: .unknown2))
                         )
                     }
-                    .font(.title2)
-                    .bold()
-                    .padding(.horizontal, 18)
+                    .font(.title2.weight(.bold))
+                    .padding(.horizontal, 30)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
                             ForEach(Array(viewModel.colors.enumerated()), id: \.offset) { _, color in
@@ -56,7 +59,7 @@ struct MemberInfoEditingView: View {
                                         .overlay(
                                             color == viewModel.memberInfo?.color ?
                                             Circle()
-                                                .strokeBorder(.gray, lineWidth: 3)
+                                                .strokeBorder(Color.blueLight3, lineWidth: 3)
                                             : nil
                                         )
                                 }
@@ -67,18 +70,32 @@ struct MemberInfoEditingView: View {
                     .frame(height: 40)
                 }
                 .padding(.top, 26)
-                .padding(.bottom, 36)
+                .padding(.bottom, 35)
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.white)
-                        .shadow(radius: 2)
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(.ultraThinMaterial)
                 )
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2)
+                )
+                .mask {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                }
                 .padding(.horizontal, 24)
                 if viewModel.isAlreadySelected {
                     Text("이미 선택된 컬러입니다")
+                        .foregroundStyle(Color.blueLight3)
                         .font(.caption)
+                        .frame(height: 16)
                         .padding(.bottom, 11)
                 }
+            }
+            .offset(y: offsetY)
+        }
+        .onAppear {
+            animate(.interpolatingSpring) {
+                offsetY = 0
             }
         }
     }

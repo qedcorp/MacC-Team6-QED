@@ -12,13 +12,15 @@ struct QEDApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
-                NavigationView {
+            ZStack {
+                if isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
                     MainView()
+                } else {
+                    AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
                 }
-            } else {
-                AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
+                ToastContainerView()
             }
+            .tint(.blueLight3)
         }
     }
 }

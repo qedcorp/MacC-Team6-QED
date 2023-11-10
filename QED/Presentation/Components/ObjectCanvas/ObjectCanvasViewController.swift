@@ -11,6 +11,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
     var maxObjectsCount: Int?
     var onChange: (([CGPoint]) -> Void)?
     weak var objectHistoryArchiver: ObjectHistoryArchiver<History>?
+    private let hapticManager = HapticManager.shared
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -20,8 +21,14 @@ class ObjectCanvasViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
+    private lazy var multiSelectBoxView = {
+        let box = MultiSelectBoxView()
+        box.layer.zPosition = .greatestFiniteMagnitude - 1
+        view.addSubview(box)
+        return box
+    }()
+
     private lazy var draggingHandler = DraggingHandler()
-    private lazy var multiSelectBoxView = MultiSelectBoxView()
 
     private var selectedObjectViews: Set<DotObjectView> = [] {
         didSet {
@@ -29,8 +36,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
                 return
             }
             objectViews.forEach {
-                $0.color = selectedObjectViews.contains($0) ? .green : .black
+                $0.borderColor = selectedObjectViews.contains($0) ? .blueNormal : nil
             }
+            hapticManager.hapticImpact(style: .rigid)
         }
     }
 
@@ -52,13 +60,12 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
-        view.addSubview(multiSelectBoxView)
-        setupGrid()
+        setupViews()
     }
 
-    private func setupGrid() {
-        let renderer = GridRenderer()
-        renderer.render(in: view)
+    private func setupViews() {
+        GridRenderer().render(in: view)
+        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {
@@ -138,7 +145,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
             return
         }
         if let position = lastPositionTouchedInEmptySpace, canPlaceObject, isNotDragged {
-            placeObjectView(position: position, color: .black)
+            placeObjectView(position: position, color: UIColor.monoWhite3)
+            hapticManager.hapticImpact(style: .rigid)
         }
         replaceSelectedObjectViews()
         if isObjectViewUnselectNeeded(position: position) {
@@ -165,6 +173,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
         selectedObjectViews = []
         addHistory()
         didChange()
+        hapticManager.hapticImpact(style: .rigid)
     }
 
     func copyFormableFromHistory(_ formable: Formable) {

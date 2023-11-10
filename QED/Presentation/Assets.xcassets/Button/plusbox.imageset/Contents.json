@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "grid@1x.png",
+      "filename" : "plusbox@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "grid@2x.png",
+      "filename" : "plusbox@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "grid@3x.png",
+      "filename" : "plusbox@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -3,41 +3,34 @@
 import SwiftUI
 
 struct PresetContainerView: View {
-    @StateObject private var viewModel = PresetContainerViewModel(
-        presetUseCase: DefaultPresetUseCase(
-            presetRepository: DefaultPresetRepository(
-                remoteManager: FireStoreManager()
-            )
-        )
-    )
-
-    let headcount: Int
-    let canvasController: ObjectCanvasViewController
+    @ObservedObject var viewModel: PresetContainerViewModel
     private let padding: CGFloat = 22
-    private let rows: [GridItem] = .init(repeating: .init(.fixed(80)), count: 2)
+    private let rows: [GridItem] = .init(repeating: .init(.fixed(89)), count: 2)
 
     var body: some View {
         VStack {
             HStack {
                 Text("동선 프리셋")
-                    .font(.headline)
+                    .font(.headline.weight(.bold))
                 NavigationLink(" ") {
                     PresetManagingView()
                 }
                 Spacer()
-                Button("Toggle") {
-                    withAnimation {
-                        viewModel.isGridPresented.toggle()
-                    }
+                Button {
+                    viewModel.toggleGrid()
+                } label: {
+                    Image(systemName: "chevron.\(viewModel.isGridPresented ? "down" : "up")")
+                        .font(.title3.weight(.semibold))
                 }
             }
+            .foregroundStyle(Color.monoWhite3)
             .padding(.horizontal, padding)
             if viewModel.isGridPresented {
-                ScrollView(.horizontal) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     LazyHGrid(rows: rows) {
-                        buildObjectStageView(formable: Preset.empty)
+                        buildObjectStageView(preset: .empty)
                         ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
-                            buildObjectStageView(formable: preset)
+                            buildObjectStageView(preset: preset)
                         }
                     }
                     .padding(.horizontal, padding)
@@ -46,21 +39,28 @@ struct PresetContainerView: View {
             }
         }
         .onAppear {
-            viewModel.headcount = headcount // TODO: @StateObject의 경우 초기값을 어떻게 넣어야 할까
             viewModel.fetchPresets()
         }
     }
 
-    private func buildObjectStageView(formable: Formable) -> some View {
-        ObjectStageView(formable: formable)
-            .aspectRatio(73 / 48, contentMode: .fit)
+    private func buildObjectStageView(preset: Preset) -> some View {
+        let cornerRadius: CGFloat = 8
+        return ObjectStageView(formable: preset)
+            .aspectRatio(138 / 89, contentMode: .fit)
             .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(.gray.opacity(0.1))
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(Color.monoNormal2)
+                    .blur(radius: 50)
             )
-            .clipped()
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+            )
+            .mask {
+                RoundedRectangle(cornerRadius: cornerRadius)
+            }
             .onTapGesture {
-                canvasController.copyFormable(formable)
+                viewModel.canvasController.copyFormable(preset)
             }
     }
 }

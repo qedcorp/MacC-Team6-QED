@@ -88,14 +88,27 @@ extension Color {
     static let Dot13 = Color(hex: "F8A98C")
 }
 
- extension Gradient {
-    static let blueGradation1 = LinearGradient(colors: [Color.blueLight3.opacity(0.4), Color.blueNormal.opacity(0.4)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let blueGradation2 = LinearGradient(colors: [Color.blueLight3.opacity(0.6), Color.blueNormal.opacity(0.6)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let blueGradation3 = LinearGradient(colors: [Color.blueLight3, Color.blueNormal], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let strokeGlass1 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.6)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let strokeGlass2 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.3)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
-    static let strokeGlass3 = LinearGradient(colors: [Color.monoLight, Color.monoNormal3.opacity(0.2)], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 1))
- }
+extension Gradient {
+    static let blueGradation1 = LinearGradient(colors: [Color.blueLight3.opacity(0.4), Color.blueNormal.opacity(0.4)],
+                                               startPoint: UnitPoint(x: 0.5, y: 0),
+                                               endPoint: UnitPoint(x: 0.5, y: 1))
+    static let blueGradation2 = LinearGradient(colors: [Color.blueLight3, Color.blueNormal.opacity(0.6)],
+                                               startPoint: UnitPoint(x: 0.5, y: 0),
+                                               endPoint: UnitPoint(x: 0.5, y: 1))
+    static let blueGradation3 = LinearGradient(colors: [Color.blueLight3, Color.blueNormal],
+                                               startPoint: UnitPoint(x: 0.5, y: 0),
+                                               endPoint: UnitPoint(x: 0.5, y: 1))
+    static let strokeGlass1 = LinearGradient(colors: [Color.monoWhite3.opacity(0.6), Color.monoWhite3.opacity(0)],
+                                             startPoint: UnitPoint(x: 0.5, y: 0),
+                                             endPoint: UnitPoint(x: 0.5, y: 1))
+    static let strokeGlass2 = LinearGradient(colors: [Color.monoWhite3.opacity(0.3),
+                                                      Color.monoWhite3.opacity(0)],
+                                             startPoint: UnitPoint(x: 0.5, y: 0),
+                                             endPoint: UnitPoint(x: 0.5, y: 1))
+    static let strokeGlass3 = LinearGradient(colors: [Color.monoWhite3.opacity(0.2), Color.monoWhite3.opacity(0)],
+                                             startPoint: UnitPoint(x: 0.5, y: 0),
+                                             endPoint: UnitPoint(x: 0.5, y: 1))
+}
 
 extension UIColor {
     static let monoWhite1 = UIColor(hex: "FFFFFF").withAlphaComponent(0.25)
@@ -142,7 +155,7 @@ extension CAGradientLayer {
         let layer = CAGradientLayer()
         layer.startPoint = CGPoint.init(x: layer.frame.width / 2, y: 0)
         layer.endPoint = CGPoint.init(x: layer.frame.width / 2, y: layer.frame.height)
-        layer.colors = [UIColor.blueLight3.withAlphaComponent(0.6), UIColor.blueNormal.withAlphaComponent(0.6)]
+        layer.colors = [UIColor.blueLight3.withAlphaComponent, UIColor.blueNormal.withAlphaComponent(0.6)]
 
         return layer
     }()
@@ -159,7 +172,7 @@ extension CAGradientLayer {
         let layer = CAGradientLayer()
         layer.startPoint = CGPoint.init(x: layer.frame.width / 2, y: 0)
         layer.endPoint = CGPoint.init(x: layer.frame.width / 2, y: layer.frame.height)
-        layer.colors = [UIColor.monoLight, UIColor.monoNormal3.withAlphaComponent(0.6)]
+        layer.colors = [UIColor.monoWhite3.withAlphaComponent(0.6), UIColor.monoWhite3.withAlphaComponent(0)]
 
         return layer
     }()
@@ -167,7 +180,7 @@ extension CAGradientLayer {
         let layer = CAGradientLayer()
         layer.startPoint = CGPoint.init(x: layer.frame.width / 2, y: 0)
         layer.endPoint = CGPoint.init(x: layer.frame.width / 2, y: layer.frame.height)
-        layer.colors = [UIColor.monoLight, UIColor.monoNormal3.withAlphaComponent(0.3)]
+        layer.colors = [UIColor.monoWhite3.withAlphaComponent(0.3), UIColor.monoWhite3.withAlphaComponent(0)]
 
         return layer
     }()
@@ -175,8 +188,40 @@ extension CAGradientLayer {
         let layer = CAGradientLayer()
         layer.startPoint = CGPoint.init(x: layer.frame.width / 2, y: 0)
         layer.endPoint = CGPoint.init(x: layer.frame.width / 2, y: layer.frame.height)
-        layer.colors = [UIColor.monoLight, UIColor.monoNormal3.withAlphaComponent(0.2)]
+        layer.colors = [UIColor.monoWhite3.withAlphaComponent(0.2), UIColor.monoWhite3.withAlphaComponent(0)]
 
         return layer
     }()
+}
+
+// MARK: - 등록 안된 hex들 by byo
+// TODO: - 이런식으로 리팩토링 해주세요 to oling
+
+enum HexColorType {
+    case unknown0
+    case unknown1
+    case unknown2
+
+    var data: (String, Double) {
+        switch self {
+        case .unknown0:
+            return ("000000", 0.75)
+        case .unknown1:
+            return ("262630", 1)
+        case .unknown2:
+            return ("767680", 0.24)
+        }
+    }
+}
+
+extension Color {
+    static func build(hex colorType: HexColorType) -> Color {
+        Color(hex: colorType.data.0).opacity(colorType.data.1)
+    }
+}
+
+extension UIColor {
+    static func build(hex colorType: HexColorType) -> UIColor {
+        UIColor(hex: colorType.data.0).withAlphaComponent(colorType.data.1)
+    }
 }

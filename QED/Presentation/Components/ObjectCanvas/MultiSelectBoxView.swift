@@ -3,6 +3,10 @@
 import UIKit
 
 class MultiSelectBoxView: UIView {
+    override var frame: CGRect {
+        didSet { layer.cornerRadius = min(min(size.width, size.height) / 2, 10) }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStyle()
@@ -13,8 +17,8 @@ class MultiSelectBoxView: UIView {
     }
 
     private func setupStyle() {
-        backgroundColor = .green.withAlphaComponent(0.1)
-        layer.borderColor = UIColor.green.cgColor
+        backgroundColor = .blueLight1
+        layer.borderColor = UIColor.blueLight3.cgColor
         layer.borderWidth = 1
     }
 }
