@@ -5,16 +5,14 @@
 //  Created by changgyo seo on 10/17/23.
 //
 
+import Combine
 import SwiftUI
 
-import Combine
-
 struct AuthView: UIViewControllerRepresentable {
-
     @ObservedObject var loginViewModel: LoginViewModel
 
     func makeUIViewController(context: Context) -> AuthViewController {
-        var authViewController = AuthViewController(authProvider: $loginViewModel.temp)
+        let authViewController = AuthViewController(authProvider: $loginViewModel.temp)
         DIContainer.shared.resolver.dependencyInjection(providerType: authViewController)
         loginViewModel.subscribe()
 
@@ -26,10 +24,10 @@ struct AuthView: UIViewControllerRepresentable {
     }
 }
 
+ @MainActor
 class LoginViewModel: ObservableObject {
-
     static let shared = LoginViewModel()
-    
+
     var bag = Set<AnyCancellable>()
     var authUseCase: AuthUseCase?
 
@@ -58,5 +56,9 @@ class LoginViewModel: ObservableObject {
                 }
             }
             .store(in: &bag)
+    }
+
+    func logout() {
+        self.isLogin = false
     }
 }

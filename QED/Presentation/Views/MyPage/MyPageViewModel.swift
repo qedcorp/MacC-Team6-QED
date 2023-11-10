@@ -52,7 +52,7 @@ class MyPageViewModel: ObservableObject {
             case "GOOGLE": try await authUseCase.logout(authType: .google)
             default: break
             }
-            LoginViewModel.shared.isLogin = false
+            await LoginViewModel.shared.logout()
         }
     }
 
@@ -61,11 +61,11 @@ class MyPageViewModel: ObservableObject {
             let provider = try KeyChainManager.shared.read(account: .provider)
             switch provider {
             case "KAKAO": try await authUseCase.withdraw(authType: .kakao)
-            case "APPLE": try await authUseCase.logout(authType: .apple)
+            case "APPLE": try await authUseCase.withdraw(authType: .apple)
             case "GOOGLE": try await authUseCase.withdraw(authType: .google)
             default: break
             }
-            LoginViewModel.shared.isLogin = false
+            await LoginViewModel.shared.logout()
         }
     }
 }
