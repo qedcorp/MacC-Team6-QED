@@ -72,6 +72,7 @@
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
 		51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */; };
+		A94415AE2AFB76AC00250D8B /* PerformanceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94415AD2AFB76AC00250D8B /* PerformanceSettingView.swift */; };
 		A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */; };
 		A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA192AE440C600302C9D /* TitleSetupView.swift */; };
 		A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */; };
@@ -291,6 +292,7 @@
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
 		51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
+		A94415AD2AFB76AC00250D8B /* PerformanceSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingView.swift; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
 		A974EA192AE440C600302C9D /* TitleSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSetupView.swift; sourceTree = "<group>"; };
 		A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadcountSetupView.swift; sourceTree = "<group>"; };
@@ -845,6 +847,7 @@
 				A974EA192AE440C600302C9D /* TitleSetupView.swift */,
 				A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */,
 				A974EA1C2AE440C600302C9D /* MusicSetupView.swift */,
+				A94415AD2AFB76AC00250D8B /* PerformanceSettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1735,6 +1738,7 @@
 				3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
+				A94415AE2AFB76AC00250D8B /* PerformanceSettingView.swift in Sources */,
 				D460EFE72AE18DF700A5966A /* AuthViewController.swift .swift in Sources */,
 				3AE701CC2AE690FA00C48403 /* UIColor+Hex.swift in Sources */,
 				D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */,
