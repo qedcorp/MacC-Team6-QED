@@ -41,24 +41,9 @@ final class DefaultAppleAuthRepository: NSObject, AppleAuthRepository {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
+            try unregisterKeyChain(accounts: KeyChainAccount.allCases)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
-        }
-    }
-
-    func withdraw() async throws {
-        if let user = Auth.auth().currentUser {
-            user.delete { [self] error in
-                if let error = error {
-                    print("Error delete user: %@", error)
-                } else {
-                    print("Successful withdrawal")
-                }
-            }
-            try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
-        } else {
-            print("Login information does not exist")
         }
     }
 }

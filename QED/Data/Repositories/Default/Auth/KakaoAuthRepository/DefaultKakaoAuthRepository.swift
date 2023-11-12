@@ -37,22 +37,7 @@ final class DefaultKakaoAuthRepository: KakaoAuthRepository {
     }
 
     func logout() async throws {
-        try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
-    }
-
-    func withdraw() async throws {
-        if let user = Auth.auth().currentUser {
-            user.delete { [self] error in
-                if let error = error {
-                    print("Error delete user: %@", error)
-                } else {
-                    print("Successful withdrawal")
-                }
-            }
-            try unregisterKeyChain(accounts: [.id, .name, .email, .provider, .signUpdate, .refreshToken])
-        } else {
-            print("Login information does not exist")
-        }
+        try unregisterKeyChain(accounts: KeyChainAccount.allCases)
     }
 }
 

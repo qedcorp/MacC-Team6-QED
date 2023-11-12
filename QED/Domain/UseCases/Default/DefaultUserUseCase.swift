@@ -19,7 +19,10 @@ struct DefaultUserUseCase: UserUseCase {
 
     func updateMe(user: User) async throws -> User {
         try KeyChainManager.shared.delete(account: .name)
-        try KeyChainManager.shared.create(account: .name, data: user.nickname!)
+        guard let nickname = user.nickname else {
+            throw DescribableError(description: "Cannot update me")
+        }
+        try KeyChainManager.shared.create(account: .name, data: nickname)
         return user
     }
 }
