@@ -18,26 +18,54 @@ struct PerformanceListReadingView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-                ForEach(viewModel.myRecentPerformances) { performance in
-                    NavigationLink {
-                        PerformanceWatchingListView(performance: performance.entity,
-                                                    performanceUseCase: viewModel.performanceUseCase)
-                    } label: {
-                        PerformanceListCardView(performance: performance)
+        VStack {
+            subline
+            ScrollView(.vertical) {
+                LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
+                    ForEach(viewModel.myRecentPerformances) { performance in
+                        NavigationLink {
+                            PerformanceWatchingListView(performance: performance.entity,
+                                                        performanceUseCase: viewModel.performanceUseCase)
+                        } label: {
+                            PerformanceListCardView(performance: performance)
+                        }
                     }
                 }
+                .padding(.horizontal, 15)
             }
         }
+        .background(
+            Image("background")
+                .resizable()
+                .ignoresSafeArea(.all)
+        )
         .onAppear {
             viewModel.fetchMyRecentPerformances()
         }
-        .navigationTitle("제작 동선 리스트")
+        .foregroundStyle(Color.monoWhite3)
         .navigationBarBackButtonHidden()
         .toolbar {
             leftItem
+            ToolbarItem(placement: .principal) {
+                Text("제작한 프로젝트")
+                    .font(.body)
+                    .bold()
+                    .foregroundStyle(Color.monoWhite3)
+            }
         }
+    }
+
+    private var subline: some View {
+        HStack {
+            // TODO: 퍼포먼스 갯수 가져오기
+            Text("전체( )")
+                .font(.headline)
+                .bold()
+                .foregroundStyle(Color.monoWhite3)
+            Spacer()
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 25)
     }
 
     private var leftItem: ToolbarItem<(), some View> {
@@ -46,7 +74,7 @@ struct PerformanceListReadingView: View {
                 dismiss()
             } label: {
                 Image(systemName: "chevron.backward")
-                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
+                    .foregroundColor(Color.blueLight3)
             }
         }
     }
