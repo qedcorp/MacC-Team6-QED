@@ -11,14 +11,35 @@ import SwiftUI
 extension Font {
     enum FodiFont {
         case SFPro
-        case newFont
+        case PretendardBlack
+        case PretendardBold
+        case PretendardExtraLight
+        case PretendardLight
+        case PretendardMedium
+        case PretendardRegular
+        case PretendardSemiBold
+        case PretendardThin
 
         var name: String {
             switch self {
             case .SFPro:
                 return "SFPro"
-            case .newFont:
-                return "newFont"
+            case .PretendardBlack:
+                return "Pretendard-Black"
+            case .PretendardBold:
+                return "Pretendard-Bold"
+            case .PretendardExtraLight:
+                return "Pretendard-ExtraLight"
+            case .PretendardLight:
+                return "Pretendard-Light"
+            case .PretendardMedium:
+                return "Pretendard-Medium"
+            case .PretendardRegular:
+                return "Pretendard-Regular"
+            case .PretendardSemiBold:
+                return "Pretendard-SemiBold"
+            case .PretendardThin:
+                return "Pretendard-Thin"
             }
         }
     }
