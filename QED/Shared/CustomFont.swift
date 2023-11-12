@@ -7,44 +7,42 @@
 
 import SwiftUI
 
-// TODO: 아직 SFPro 기본 폰트만 적용 되어있어서 추가가 된다면 쓸 코드 기본 폰트만 쓰면 없어져도 될 코드
 extension Font {
     enum FodiFont {
         case SFPro
-        case PretendardBlack
-        case PretendardBold
-        case PretendardExtraLight
-        case PretendardLight
-        case PretendardMedium
-        case PretendardRegular
-        case PretendardSemiBold
-        case PretendardThin
+        case pretendardBlack
+        case pretendardBold
+        case pretendardExtraLight
+        case pretendardLight
+        case pretendardMedium
+        case pretendardRegular
+        case pretendardSemiBold
+        case pretendardThin
 
         var name: String {
             switch self {
             case .SFPro:
                 return "SFPro"
-            case .PretendardBlack:
+            case .pretendardBlack:
                 return "Pretendard-Black"
-            case .PretendardBold:
+            case .pretendardBold:
                 return "Pretendard-Bold"
-            case .PretendardExtraLight:
+            case .pretendardExtraLight:
                 return "Pretendard-ExtraLight"
-            case .PretendardLight:
+            case .pretendardLight:
                 return "Pretendard-Light"
-            case .PretendardMedium:
+            case .pretendardMedium:
                 return "Pretendard-Medium"
-            case .PretendardRegular:
+            case .pretendardRegular:
                 return "Pretendard-Regular"
-            case .PretendardSemiBold:
+            case .pretendardSemiBold:
                 return "Pretendard-SemiBold"
-            case .PretendardThin:
+            case .pretendardThin:
                 return "Pretendard-Thin"
             }
         }
     }
-
     static func fodiFont(_ type: FodiFont, size: CGFloat) -> Font {
-        return .custom(type.name, size: size)
+        return.custom(type.name, size: size)
     }
 }

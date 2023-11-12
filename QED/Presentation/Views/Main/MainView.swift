@@ -14,101 +14,121 @@ struct MainView: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 30) {
-                buildMainTopView()
-                buildMakeFormationButtonView()
-                buildPerformanceListHeaderView()
-                if viewModel.myRecentPerformances.isEmpty {
-                    buildEmptyView()
-                } else {
-                    buildPerformanceListScrollView()
+            GeometryReader { geometry in
+                ZStack {
+                    VStack {
+                        buildMainTopView()
+                        Spacer()
+                    }
+                    VStack {
+                        Spacer()
+                            .frame(height: geometry.size.height * 0.27)
+                        mainTitle()
+                        buildMakeFormationButtonView()
+                        buildPerformanceListHeaderView()
+                        if viewModel.myRecentPerformances.isEmpty {
+                            buildEmptyView()
+                        } else {
+                            buildPerformanceListScrollView()
+                        }
+                    }
                 }
-                Spacer()
-            }
-            .ignoresSafeArea()
-            .toolbar {
-                leftItem()
-                rightItem()
+                .background(
+                    Image("background")
+                        .resizable()
+                        .ignoresSafeArea(.all)
+                )
+                .ignoresSafeArea(.all)
+                .toolbar {
+                    leftItem()
+                    rightItem()
+                }
+                .onAppear {
+                    viewModel.fetchUser()
+                }
+                .navigationBarBackButtonHidden()
             }
         }
-        .onAppear {
-            viewModel.fetchUser()
-        }
-        .navigationBarBackButtonHidden()
     }
 
     private func buildMainTopView() -> some View {
-        Image("MockMain")
+        Image("Main")
             .resizable()
             .aspectRatio(contentMode: .fit)
     }
+    private func mainTitle() -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("당신의")
+                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(Color.monoWhite3)
+                Text("든든한 서포터")
+                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                    .bold()
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(Color.monoWhite3)
+                HStack(alignment: .center, spacing: 0) {
+                    Text("FODI")
+                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(Color.blueLight3)
+                    Text(" 와 함께,")
+                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(Color.monoWhite3)
+                }
+            }
+            Spacer()
+        }
+        .padding(.vertical)
+        .padding(.horizontal, 20)
 
+    }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-            Text("동선 만들기")
-                .font(.title)
-                .bold()
-                .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-            Spacer()
             NavigationLink {
-                TitleSetupView(performanceUseCase: viewModel.performanceUseCase)
+                PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
             } label: {
-                Text("Go")
-                    .font(.title2)
-                    .bold()
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
-                    .foregroundColor(.white)
-                    .background(Color(red: 0, green: 0.97, blue: 0.04))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                Image("performanceSetting")
             }
             .onAppear {
                 viewModel.fetchMyRecentPerformances()
             }
+            Spacer()
         }
         .padding(.horizontal, 20)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
         HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("최근 제작한 동선")
-                    .font(.title3)
-                    .bold()
-                Text("동선 만들기를 완료한 후 디렉팅하세요")
-                    .font(.caption)
-            }
+            Text("최근 프로젝트")
+                .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
+                .kerning(0.38)
+                .foregroundStyle(Color.monoWhite3)
+
             Spacer()
             NavigationLink {
                 PerformanceListReadingView()
             } label: {
-                Image(systemName: "chevron.right")
-                    .font(.title2)
-                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
+                Image("listReading")
             }
         }
-        .bold()
         .padding(.horizontal, 20)
+        .padding(.top, 20)
     }
 
     private func buildEmptyView() -> some View {
-        VStack {
-            Image("MainListEmpty")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100)
-            Text("만들어진 동선이 없어요")
-                .font(.headline)
-                .bold()
-                .foregroundStyle(Color(red: 0.45, green: 0.87, blue: 0.98))
-        }
-        .padding(.top, 30)
-        .opacity(0.5)
+        Image("mainlistEmpty")
     }
 
+    let columns: [GridItem] = [
+        GridItem(spacing: 0, alignment: nil),
+        GridItem(spacing: 0, alignment: nil)]
+
     private func buildPerformanceListScrollView() -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     NavigationLink {
                         PerformanceWatchingListView(
@@ -119,15 +139,14 @@ struct MainView: View {
                     }
                 }
             }
+            .padding(.horizontal, 7)
         }
-        .padding(.leading, 20)
     }
 
     private func leftItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
-            Text("Fodi")
-                .fontWeight(.bold)
-                .kerning(0.4)
+            Image("FodiIcon")
+                .resizable()
         }
     }
 
@@ -136,8 +155,8 @@ struct MainView: View {
             NavigationLink {
                 MyPageView()
             } label: {
-                Image(systemName: "person.circle")
-                    .foregroundColor(Color.green)
+                Image("profile")
+                    .resizable()
             }
         }
     }
