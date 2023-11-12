@@ -18,7 +18,6 @@ struct PerformanceSettingView: View {
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
     @State private var scrollToID: Int?
-    
     //    @State private var revealDetails = false
     
     init(performanceUseCase: PerformanceUseCase) {
@@ -47,6 +46,13 @@ struct PerformanceSettingView: View {
                                 }
                             )
                             .disclosureGroupBackground()
+                            .simultaneousGesture(
+                                DragGesture().onChanged({
+                                    if $0.translation.height != 0 {
+                                        isFocused = false
+                                    }
+                                })
+                            )
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                     isFocused = true
@@ -68,6 +74,13 @@ struct PerformanceSettingView: View {
                                     }
                                 })
                             .disclosureGroupBackground()
+                            .simultaneousGesture(
+                                DragGesture().onChanged({
+                                    if $0.translation.height != 0 {
+                                        isFocused = false
+                                    }
+                                })
+                            )
                             .id(2)
                             
                             DisclosureGroup(
@@ -87,11 +100,14 @@ struct PerformanceSettingView: View {
                             .disclosureGroupBackground()
                             .id(3)
                         }
-                        .onChange(of: scrollToID) { value in
-                            withAnimation {
-                                proxy.scrollTo(value, anchor: .top)
-                            }
+                    }
+                    .onChange(of: scrollToID) { value in
+                        withAnimation {
+                            proxy.scrollTo(value, anchor: .top)
                         }
+                    }
+                    .onTapGesture {
+                        self.endTextEditing()
                     }
                 }
             }
@@ -99,27 +115,28 @@ struct PerformanceSettingView: View {
                 Spacer()
                 HStack {
                     Button {
-                        // TODO: 전체삭제
+                        viewModel.allClear()
                     } label: {
-                        Text("전체삭제")
+                        Text("다시입력")
                             .underline()
                             .foregroundStyle(Color.monoNormal2)
                             .font(.title3)
+                            .kerning(0.35)
                             .bold()
                             .padding(.bottom, 25)
                     }
                     Spacer()
-//                    buildNextButton()
+                    //                    buildNextButton()
                 }
                 .background(
                     Rectangle()
                         .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                        .background(Color(hex: ("767680")).opacity(0.24))
+                        .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
                         .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
                 )
                 .padding(.top, 5)
                 .padding(.bottom, 20)
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 25)
             }
             .ignoresSafeArea(.all)
         }
@@ -138,16 +155,13 @@ struct PerformanceSettingView: View {
     
     var inputTitleTextField: some View {
         TextField("입력하세요", text: $viewModel.performanceTitle)
-            .focused($isFocused)
-            .onAppear {
-                viewModel.toggleDisclosureGroup1()
-            }
             .onSubmit {
                 withAnimation {
-                    scrollToID = 2
                     viewModel.toggleDisclosureGroup2()
+                    scrollToID = 2
                 }
             }
+            .focused($isFocused)
             .foregroundStyle(viewModel.performanceTitle.isEmpty
                              ? Color.monoNormal2
                              : Color.monoWhite3)
@@ -167,11 +181,10 @@ struct PerformanceSettingView: View {
     
     var inputTitleLabelClosed: some View {
         Text("프로젝트 제목을 입력하세요")
-            .foregroundStyle(Color.blueLight3)
-            .font(.title3)
-            .bold()
-            .padding(.horizontal)
-            .padding(.vertical, 20)
+            .disclosureGroupLabelStyle()
+            .onAppear {
+                viewModel.toggleDisclosureGroup1()
+            }
     }
     
     var inputTitleLabelOpen: some View {
@@ -199,11 +212,7 @@ struct PerformanceSettingView: View {
     
     private var inputMusicLabelClosed: some View {
         Text("프로젝트의 노래를 알려주세요")
-            .foregroundStyle(Color.blueLight3)
-            .font(.title3)
-            .bold()
-            .padding(.horizontal)
-            .padding(.vertical, 20)
+            .disclosureGroupLabelStyle()
     }
     
     private var inputMusicLabelOpened: some View {
@@ -277,34 +286,29 @@ struct PerformanceSettingView: View {
     }
     
     var musicContent: some View {
-        VStack {
-            buildSearchFieldView()
-            Spacer()
-            if viewModel.isSearchingMusic {
-                progressView
+            VStack {
+                musicSearchFieldView()
                 Spacer()
-            } else if isSearchFromEmptyText {
-                emptyMusic
-                Spacer()
-            } else {
-                buildSearchResultScrollView()
-            }
-        }
-        .onTapGesture {
-            isFocused = true
-        }
-        .simultaneousGesture(
-            DragGesture().onChanged({
-                if $0.translation.height != 0 {
-                    isFocused = false
+                if viewModel.isSearchingMusic {
+                    ProgressView()
+                        .tint(Color.blueNormal)
+                    Spacer()
+                } else if isSearchFromEmptyText {
+                    emptyMusic
+                    Spacer()
+                } else {
+                    buildSearchResultScrollView()
                 }
-            }))
-        .onChange(of: viewModel.musicTitle, perform: { _ in
-            if viewModel.musicTitle.isEmpty {
-                isSearchFromEmptyText = true
-                viewModel.selectedMusic = nil
             }
-        })
+            .onTapGesture {
+                isFocused = true
+            }
+            .onChange(of: viewModel.musicTitle, perform: { _ in
+                if viewModel.musicTitle.isEmpty {
+                    isSearchFromEmptyText = true
+                    viewModel.selectedMusic = nil
+                }
+            })
     }
     
     private func buildSearchResultScrollView() -> some View {
@@ -318,7 +322,7 @@ struct PerformanceSettingView: View {
         }
     }
     
-    private func buildSearchFieldView() -> some View {
+    private func musicSearchFieldView() -> some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Color.gray)
@@ -331,6 +335,9 @@ struct PerformanceSettingView: View {
                 }
                 .font(.body)
                 .bold()
+                .onChange(of: viewModel.musicSearch) { _ in
+                    viewModel.search()
+                }
                 .onSubmit(of: .text) {
                     searchMusic()
                 }
@@ -339,10 +346,13 @@ struct PerformanceSettingView: View {
                 .multilineTextAlignment(.center)
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .tint(Color.blueLight2)
+            
             Spacer()
             
             Button {
                 viewModel.musicSearch = ""
+                isSearchFromEmptyText = true
+                
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .foregroundColor(.black)
@@ -368,21 +378,11 @@ struct PerformanceSettingView: View {
     private var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
-//            scrollToID = 3
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
         } label: {
             Image("emptyMusic")
                 .padding()
         }
-    }
-    
-    private var progressView: some View {
-        Text("검색 중이에요")
-            .foregroundStyle(Color.blueLight3)
-            .font(.title3)
-            .bold()
-            .padding(.horizontal)
-            .padding(.vertical, 20)
     }
     
     private func searchMusic() {
@@ -392,46 +392,49 @@ struct PerformanceSettingView: View {
     }
     
     
-//    private func buildNextButton() -> some View {
-//        NavigationLink {
-//            buildYameNextView(
-//                performance: viewModel.performance ?? Performance(id: "",
-//                                                        author: User(),
-//                                                        music: Music(id: "",
-//                                                                     title: "",
-//                                                                     artistName: ""),
-//                                                        headcount: viewModel.headcount)
-//            )
-//        } label: {
-//            Image("go_able")
-//                .padding(.bottom, 25)
-//        }
-//    }
+    //    private func buildNextButton() -> some View {
+    //        NavigationLink {
+    //            buildYameNextView(
+    //                performance: viewModel.performance ?? Performance(id: "",
+    //                                                        author: User(),
+    //                                                        music: Music(id: "",
+    //                                                                     title: "",
+    //                                                                     artistName: ""),
+    //                                                        headcount: viewModel.headcount)
+    //            )
+    //        } label: {
+    //            Image("go_able")
+    //                .padding(.bottom, 25)
+    //        }
+    //    }
     
     var inputHeadcountContent: some View {
-        VStack {
-            ZStack {
-                inputHeadcountTextField
-                HStack {
-                    Button {
-                        viewModel.decrementHeadcount()
-                    } label: {
-                        Image("minus_on")
+        ScrollView {
+            VStack {
+                ZStack {
+                    inputHeadcountTextField
+                    HStack {
+                        Button {
+                            viewModel.decrementHeadcount()
+                        } label: {
+                            Image("minus_on")
+                        }
+                        Spacer()
+                        Button {
+                            viewModel.incrementHeadcount()
+                        } label: {
+                            Image("plus_on")
+                        }
                     }
-                    Spacer()
-                    Button {
-                        viewModel.incrementHeadcount()
-                    } label: {
-                        Image("plus_on")
-                    }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
+                .padding(.horizontal)
+                slider
+                headcountText
+                inputMemperinfoTextFiledsView
             }
-            .padding(.horizontal)
-            slider
-            headcountText
-            inputMemperinfoTextFiledsView
         }
+        .frame(maxHeight: 411)
     }
     
     var inputHeadcountTextField: some View {
@@ -455,11 +458,7 @@ struct PerformanceSettingView: View {
     
     var inputHeadcountlabelClosed: some View {
         Text("인원수를 입력하세요")
-            .foregroundStyle(Color.blueLight3)
-            .font(.title3)
-            .bold()
-            .padding(.horizontal)
-            .padding(.vertical, 20)
+            .disclosureGroupLabelStyle()
     }
     
     var inputHeadcountlabelOpened: some View {
@@ -520,17 +519,17 @@ struct PerformanceSettingView: View {
         }
     }
     
-//    func buildYameNextView(performance: Performance) -> some View {
-//        Task  {
-//            viewModel.createPerformance()
-//        }
-//        if yameNextView == nil {
-//            yameNextView = FormationSettingView(
-//                performance: performance, performanceUseCase: viewModel.performanceUseCase
-//            )
-//        }
-//        return yameNextView!
-//    }
+    //    func buildYameNextView(performance: Performance) -> some View {
+    //        Task  {
+    //            viewModel.createPerformance()
+    //        }
+    //        if yameNextView == nil {
+    //            yameNextView = FormationSettingView(
+    //                performance: performance, performanceUseCase: viewModel.performanceUseCase
+    //            )
+    //        }
+    //        return yameNextView!
+    //    }
     
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
@@ -543,28 +542,4 @@ struct PerformanceSettingView: View {
         }
     }
     
-}
-
-struct DisclosureGroupBackground: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .foregroundStyle(Color.monoNormal1)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Gradient.strokeGlass2)
-            )
-            .padding(.horizontal, 20)
-            .padding(.vertical, 3)
-            .tint(.clear)
-    }
-    
-}
-
-extension View {
-    func disclosureGroupBackground() -> some View {
-        modifier(DisclosureGroupBackground())
-    }
 }
