@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "state=state2@1x.png",
+      "filename" : "plusbox@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "state=state2@2x.png",
+      "filename" : "plusbox@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "state=state2@3x.png",
+      "filename" : "plusbox@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

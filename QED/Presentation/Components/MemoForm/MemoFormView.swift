@@ -3,24 +3,19 @@
 import SwiftUI
 
 struct MemoFormView: View {
-    private enum AnimationType {
-        case appear
-        case appeared
-        case disappear
-    }
-
     private enum FocusType {
         case memoField
     }
 
     @State var memo: String
     let onComplete: (String) -> Void
-    @State private var animation: AnimationType = .appear
+    private let cornerRadius: CGFloat = 8
     @FocusState private var focusedField: FocusType?
 
     var body: some View {
         ZStack {
-            Color.monoBlack.opacity(0.75)
+            Color.build(hex: .unknown0)
+                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     complete()
@@ -28,23 +23,25 @@ struct MemoFormView: View {
             TextField("", text: $memo)
                 .focused($focusedField, equals: .memoField)
                 .submitLabel(.done)
-                .foregroundStyle(Color.monoBlack)
-                .font(.title.weight(.bold))
+                .foregroundStyle(Color.monoWhite3)
+                .font(.headline)
                 .multilineTextAlignment(.center)
-                .frame(height: 72)
+                .frame(height: 64)
                 .background(
-                    RoundedRectangle(cornerRadius: 8).fill(.white)
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(Color.monoNormal1)
                 )
-                .padding(.horizontal, 20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2)
+                )
+                .padding(.horizontal, 24)
                 .onSubmit {
                     complete()
                 }
         }
-        .opacity(animation == .appeared ? 1 : 0)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .animation(.easeInOut, value: animation)
         .onAppear {
-            animation = .appeared
             focusedField = .memoField
         }
     }
@@ -53,7 +50,16 @@ struct MemoFormView: View {
         guard !memo.isEmpty else {
             return
         }
-        animation = .disappear
-        onComplete(memo)
+        focusedField = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            onComplete(memo)
+        }
+    }
+}
+
+#Preview {
+    ZStack {
+        MainView()
+        MemoFormView(memo: "") { _ in }
     }
 }

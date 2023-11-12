@@ -14,6 +14,7 @@ import SwiftUI
 final class ScrollObservableViewController: UIViewController {
 
     typealias ValuePurpose = ScrollObservableView.ValuePurpose
+    typealias Constants = ScrollObservableView.Constants
 
     private var bag = Set<AnyCancellable>()
 
@@ -44,7 +45,7 @@ final class ScrollObservableViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
-        flowLayout.itemSize = CGSize(width: 114, height: 79)
+        flowLayout.itemSize = CGSize(width: Constants.formationFrame.width + Constants.trasitionFrame.width, height: Constants.playBarHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
@@ -52,40 +53,14 @@ final class ScrollObservableViewController: UIViewController {
         return collectionView
     }()
 
-    var currentBar: UIView = {
-        let uiView = UIView()
-
-        let timeBox = UIView()
-        timeBox.backgroundColor = .blueLight2
-        timeBox.layer.masksToBounds = true
-        timeBox.layer.cornerRadius = 5
+    var currentBar: UIImageView = {
+        let uiImageView = UIImageView()
 
         let uiImage = UIImage(named: "Union")
-        let uiImageView = UIImageView(image: uiImage)
+        uiImageView.image = uiImage
         uiImageView.contentMode = .scaleAspectFit
 
-        [timeBox, uiImageView].forEach { uiView.addSubview($0) }
-
-        timeBox.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(28)
-        }
-
-        uiImageView.snp.makeConstraints {
-            $0.bottom.leading.trailing.equalToSuperview()
-            $0.height.equalTo(65)
-        }
-
-        return uiView
-    }()
-
-    var timeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 11)
-        label.text = 0.secondToString
-
-        return label
+        return uiImageView
     }()
 
     init(performance: Performance, action: CurrentValueSubject<ValuePurpose, Never>) {
@@ -144,22 +119,12 @@ final class ScrollObservableViewController: UIViewController {
 
         collectionView.snp.makeConstraints {
             $0.bottom.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview().offset(38)
+            $0.top.equalToSuperview()
         }
 
         currentBar.snp.makeConstraints {
-            $0.top.centerX.equalToSuperview()
+            $0.top.centerX.bottom.equalToSuperview()
             $0.width.equalTo(48)
-            $0.height.equalTo(101)
-        }
-
-        [timeLabel].forEach { currentBar.addSubview($0) }
-
-        timeLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(7.5)
-            $0.width.equalTo(26)
-            $0.height.equalTo(13)
         }
     }
 
@@ -182,7 +147,7 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: view.frame.width / 2, bottom: 0, right: view.frame.width / 2 - 20)
+        UIEdgeInsets(top: 0, left: view.frame.width / 2, bottom: 0, right: view.frame.width / 2 - Constants.trasitionFrame.width)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -39,6 +39,10 @@
 		3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325062AF4C08A002B6682 /* GridRenderer.swift */; };
 		3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */; };
 		3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */; };
+		3AC325122AFB75EF002B6682 /* Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325112AFB75EF002B6682 /* Animate.swift */; };
+		3AC325142AFBB702002B6682 /* CaptionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325132AFBB702002B6682 /* CaptionRenderer.swift */; };
+		3AC325192AFC103A002B6682 /* ToastContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325182AFC103A002B6682 /* ToastContainerView.swift */; };
+		3AC3251B2AFC1049002B6682 /* ToastContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
@@ -59,8 +63,6 @@
 		3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617CF2AE1961D0052FC90 /* FormationSettingView.swift */; };
 		3AF617D32AE1A7170052FC90 /* PresetContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617D22AE1A7170052FC90 /* PresetContainerView.swift */; };
 		3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF617D42AE1A8680052FC90 /* PresetContainerViewModel.swift */; };
-		510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510502CC2AF4C6B700C653B2 /* PlayBarView.swift */; };
-		510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */; };
 		5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA02ADE7F5C00882B6B /* MainView.swift */; };
 		5136BFA92ADF9D0600882B6B /* PerformanceListReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFA82ADF9D0600882B6B /* PerformanceListReadingView.swift */; };
 		5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136BFAC2ADFB0B100882B6B /* MyPageView.swift */; };
@@ -74,7 +76,6 @@
 		5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */; };
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
-		51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */; };
 		A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */; };
 		A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA192AE440C600302C9D /* TitleSetupView.swift */; };
 		A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */; };
@@ -189,14 +190,9 @@
 		D460F04D2AE432BA00A5966A /* User+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04C2AE432BA00A5966A /* User+.swift */; };
 		D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */; };
 		D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */; };
-		D48797752AF4D9C1004EFEDA /* NewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797742AF4D9C1004EFEDA /* NewViewModel.swift */; };
 		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
 		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
-		D48797B82AF7D915004EFEDA /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B72AF7D915004EFEDA /* TestView.swift */; };
-		D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */; };
-		D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */; };
-		D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */; };
-		D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */; };
+		D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */; };
 		D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */; };
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
@@ -258,6 +254,10 @@
 		3AC325062AF4C08A002B6682 /* GridRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridRenderer.swift; sourceTree = "<group>"; };
 		3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathLayer.swift; sourceTree = "<group>"; };
 		3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
+		3AC325112AFB75EF002B6682 /* Animate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animate.swift; sourceTree = "<group>"; };
+		3AC325132AFBB702002B6682 /* CaptionRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionRenderer.swift; sourceTree = "<group>"; };
+		3AC325182AFC103A002B6682 /* ToastContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerView.swift; sourceTree = "<group>"; };
+		3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerViewModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,8 +281,6 @@
 		3AF617CF2AE1961D0052FC90 /* FormationSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormationSettingView.swift; sourceTree = "<group>"; };
 		3AF617D22AE1A7170052FC90 /* PresetContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContainerView.swift; sourceTree = "<group>"; };
 		3AF617D42AE1A8680052FC90 /* PresetContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContainerViewModel.swift; sourceTree = "<group>"; };
-		510502CC2AF4C6B700C653B2 /* PlayBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayBarView.swift; sourceTree = "<group>"; };
-		510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlayBar.swift; sourceTree = "<group>"; };
 		5136BFA02ADE7F5C00882B6B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		5136BFA82ADF9D0600882B6B /* PerformanceListReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceListReadingView.swift; sourceTree = "<group>"; };
 		5136BFAC2ADFB0B100882B6B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
@@ -296,7 +294,6 @@
 		5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
-		51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
 		A974EA192AE440C600302C9D /* TitleSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSetupView.swift; sourceTree = "<group>"; };
 		A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadcountSetupView.swift; sourceTree = "<group>"; };
@@ -404,14 +401,9 @@
 		D460F04C2AE432BA00A5966A /* User+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+.swift"; sourceTree = "<group>"; };
 		D460F04E2AE50F1400A5966A /* FireStoreEntityConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreEntityConvertable.swift; sourceTree = "<group>"; };
 		D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableModel.swift; sourceTree = "<group>"; };
-		D48797742AF4D9C1004EFEDA /* NewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewModel.swift; sourceTree = "<group>"; };
 		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
 		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
-		D48797B72AF7D915004EFEDA /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPerformanceWatchingViewModel.swift; sourceTree = "<group>"; };
-		D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationView.swift; sourceTree = "<group>"; };
-		D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationScene.swift; sourceTree = "<group>"; };
-		D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableDanceFormationManager.swift; sourceTree = "<group>"; };
+		D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatichingDetailViewModel.swift; sourceTree = "<group>"; };
 		D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimer.swift; sourceTree = "<group>"; };
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
@@ -529,9 +521,11 @@
 				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
 				3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */,
 				3AC325062AF4C08A002B6682 /* GridRenderer.swift */,
+				3AC325132AFBB702002B6682 /* CaptionRenderer.swift */,
 				51449D742AF68FDD008DFE9E /* HapticManager.swift */,
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
 				5173278F2AFCD5C700386A40 /* AlertManager.swift */,
+				3AC325112AFB75EF002B6682 /* Animate.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -565,6 +559,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				3AC325152AFC0F3B002B6682 /* ToastContainer */,
 				D4F19A292AF8DE3300F2F013 /* ScrollObservable */,
 				D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */,
 				A9ABC1442AEC156C00E28EEE /* PerformanceListCards */,
@@ -577,8 +572,6 @@
 				D460EF952AE18DF700A5966A /* ObjectStage */,
 				3AF617D12AE1A7030052FC90 /* PresetContainer */,
 				5159A3872AEBEC1A004D304E /* DanceFormation */,
-				510502CB2AF4C63500C653B2 /* PlayBar */,
-				D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */,
 				3AE701AA2AE58F6600C48403 /* MemoButton */,
 				3A533A392AEFAE25007E76F7 /* Zoomable */,
 			);
@@ -592,6 +585,15 @@
 				3AC325042AF40BF2002B6682 /* MemberInfoEditingViewModel.swift */,
 			);
 			path = MemberInfoEditing;
+			sourceTree = "<group>";
+		};
+		3AC325152AFC0F3B002B6682 /* ToastContainer */ = {
+			isa = PBXGroup;
+			children = (
+				3AC325182AFC103A002B6682 /* ToastContainerView.swift */,
+				3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */,
+			);
+			path = ToastContainer;
 			sourceTree = "<group>";
 		};
 		3AE0CCB32ADD0CE1001FE371 = {
@@ -739,15 +741,6 @@
 			path = PresetContainer;
 			sourceTree = "<group>";
 		};
-		510502CB2AF4C63500C653B2 /* PlayBar */ = {
-			isa = PBXGroup;
-			children = (
-				510502CC2AF4C6B700C653B2 /* PlayBarView.swift */,
-				510502CE2AF4C70B00C653B2 /* TestPlayBar.swift */,
-			);
-			path = PlayBar;
-			sourceTree = "<group>";
-		};
 		5136BF9C2ADE7F2700882B6B /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,12 +805,9 @@
 		51BB29932AE5AFC6002CAFAA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
-				51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */,
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
-				D48797742AF4D9C1004EFEDA /* NewViewModel.swift */,
-				D48797B72AF7D915004EFEDA /* TestView.swift */,
-				D49B04E62AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift */,
+				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
+				D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1364,16 +1354,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D4AF10022AE65A6900A97CC2 /* PlayableDanceFormation */ = {
-			isa = PBXGroup;
-			children = (
-				D4AF10002AE653DB00A97CC2 /* PlayableDanceFormationView.swift */,
-				D4AF10032AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift */,
-				D4AF10052AE6623E00A97CC2 /* PlayableDanceFormationManager.swift */,
-			);
-			path = PlayableDanceFormation;
-			sourceTree = "<group>";
-		};
 		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
 			isa = PBXGroup;
 			children = (
@@ -1587,11 +1567,9 @@
 				D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */,
 				D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */,
 				D460F0132AE18DF700A5966A /* FormationTransitionUseCase.swift in Sources */,
-				51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				3A5328B92AEBED6A0051A09C /* RelativeCoordinateConverter.swift in Sources */,
 				3A5329042AED17470051A09C /* PerformanceModel.swift in Sources */,
 				3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */,
-				51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */,
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
@@ -1606,7 +1584,6 @@
 				3A533A3D2AEFAE5D007E76F7 /* ZoomableView.swift in Sources */,
 				D460F03A2AE25B2000A5966A /* RemoteManager.swift in Sources */,
 				3A5329082AED3B800051A09C /* MusicModel.swift in Sources */,
-				D48797752AF4D9C1004EFEDA /* NewViewModel.swift in Sources */,
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
 				3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */,
@@ -1621,7 +1598,9 @@
 				5149AFB82AE58529006F0C4A /* DanceFormationView.swift in Sources */,
 				D460F0182AE18DF700A5966A /* Preset.swift in Sources */,
 				3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */,
+				3AC325142AFBB702002B6682 /* CaptionRenderer.swift in Sources */,
 				3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */,
+				3AC325192AFC103A002B6682 /* ToastContainerView.swift in Sources */,
 				3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */,
 				D460EFDC2AE18DF700A5966A /* MockPerformanceRepository.swift in Sources */,
 				D460EFE32AE18DF700A5966A /* ObjectHistoryArchiver.swift in Sources */,
@@ -1630,16 +1609,17 @@
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
-				D4AF10012AE653DB00A97CC2 /* PlayableDanceFormationView.swift in Sources */,
 				D42AA1152AEC121B0053E2A8 /* DefaultAuthUseCase.swift in Sources */,
 				D460F00B2AE18DF700A5966A /* DefaultFormationUseCase.swift in Sources */,
+				3AC3251B2AFC1049002B6682 /* ToastContainerViewModel.swift in Sources */,
 				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
 				514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */,
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
-				D4AF10042AE65A8F00A97CC2 /* PlayableDanceFormationScene.swift in Sources */,
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
+				3AC325122AFB75EF002B6682 /* Animate.swift in Sources */,
 				D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
@@ -1662,7 +1642,6 @@
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
 				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
-				D48797B82AF7D915004EFEDA /* TestView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
 				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
@@ -1671,7 +1650,6 @@
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */,
-				D4AF10062AE6623E00A97CC2 /* PlayableDanceFormationManager.swift in Sources */,
 				3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */,
 				3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
@@ -1691,7 +1669,6 @@
 				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
-				510502CF2AF4C70B00C653B2 /* TestPlayBar.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
 				D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,

@@ -20,14 +20,14 @@ struct PerformanceListReadingView: View {
     var body: some View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-                ForEach(viewModel.myRecentPerformances) { performance in
-                    NavigationLink {
-                        PerformanceWatchingListView(performance: performance.entity,
-                                                    performanceUseCase: viewModel.performanceUseCase)
-                    } label: {
-                        PerformanceListCardView(performance: performance)
-                    }
-                }
+//                ForEach(viewModel.myRecentPerformances) { performance in
+//                    NavigationLink {
+//                        PerformanceWatchingListView(performance: performance.entity,
+//                                                    performanceUseCase: viewModel.performanceUseCase)
+//                    } label: {
+//                        PerformanceListCardView(performance: performance)
+//                    }
+//                }
             }
         }
         .onAppear {

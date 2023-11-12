@@ -111,9 +111,9 @@ struct MainView: View {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     NavigationLink {
-                        PerformanceWatchingListView(
-                            performance: performance.entity,
-                            performanceUseCase: viewModel.performanceUseCase)
+                        PerformanceWatchingDetailView(
+                            viewModel: PerformanceWatichingDetailViewModel(performance: performance)
+                        )
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }
@@ -167,3 +167,5 @@ extension UINavigationController: UIGestureRecognizerDelegate {
 #Preview {
     MainView()
 }
+
+extension Performance: Identifiable { }

@@ -8,7 +8,7 @@ class ZoomableViewModel: ObservableObject {
     static let defaultZoomScaleRange: ClosedRange<CGFloat> = 1 ... 3
 
     let zoomScaleRange: ClosedRange<CGFloat>
-    @Published private(set) var zoomScale = defaultZoomScale
+    @Published private(set) var zoomScale: CGFloat = 1
     @Published private(set) var transitionSize: CGSize = .zero
     private var lastZoomScale = defaultZoomScale
     private var lastTransitionSize: CGSize = .zero
@@ -22,6 +22,12 @@ class ZoomableViewModel: ObservableObject {
             width: zoomScale,
             height: zoomScale
         )
+    }
+
+    func appearWithZoom() {
+        animate(.interpolatingSpring) {
+            zoomScale = Self.defaultZoomScale
+        }
     }
 
     func updateZoomScale(_ value: MagnificationGesture.Value) {

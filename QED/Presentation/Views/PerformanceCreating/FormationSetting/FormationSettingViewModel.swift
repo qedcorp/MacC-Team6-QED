@@ -7,45 +7,56 @@ import Foundation
 class FormationSettingViewModel: ObservableObject {
     typealias Controller = ObjectCanvasViewController
 
-    @Published var performance: PerformanceModel
-    @Published var isMemoFormPresented = false
+    @Published private(set) var performance: PerformanceModel
+    @Published private(set) var isMemoFormPresented = false
     @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
-    @Published private(set) var formationItemFrameMap: [Int: CGRect] = [:]
+    @Published private(set) var hasMemoBeenInputted = false
 
-    @Published var isZoomed = false {
+    @Published private(set) var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
 
     let canvasController: Controller
     let zoomableCanvasController: Controller
     let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
+    let presetContainerViewModel: PresetContainerViewModel
+    let toastContainerViewModel: ToastContainerViewModel
+    let hapticManager: HapticManager
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
+    private(set) var formationItemFrameMap: [Int: CGRect] = [:]
     private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
     init(
         performance: Performance,
+        toastContainerViewModel: ToastContainerViewModel = .shared,
+        hapticManager: HapticManager = .shared,
         performanceUseCase: PerformanceUseCase
     ) {
         let canvasController = Controller()
         let zoomableCanvasController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            performanceUseCase: performanceUseCase
-        )
+
+        canvasController.objectHistoryArchiver = objectHistoryArchiver
+        zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
 
         self.performance = .build(entity: performance)
         self.canvasController = canvasController
         self.zoomableCanvasController = zoomableCanvasController
         self.objectHistoryArchiver = objectHistoryArchiver
-        self.performanceSettingManager = performanceSettingManager
+        self.presetContainerViewModel = PresetContainerViewModel(
+            headcount: performance.headcount,
+            canvasController: canvasController
+        )
+        self.toastContainerViewModel = toastContainerViewModel
+        self.hapticManager = hapticManager
+        self.performanceSettingManager = PerformanceSettingManager(
+            performance: performance,
+            performanceUseCase: performanceUseCase
+        )
         self.performanceUseCase = performanceUseCase
-
-        canvasController.objectHistoryArchiver = objectHistoryArchiver
-        zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
@@ -56,10 +67,12 @@ class FormationSettingViewModel: ObservableObject {
         performanceSettingManager.changingPublisher
             .receive(on: DispatchQueue.main)
             .sink { _ in
-            } receiveValue: { [unowned self] in
-                performance = $0
-                controllingFormationIndex = nil
-                executePendingTasks()
+            } receiveValue: { [unowned self] value in
+                animate {
+                    performance = value
+                    controllingFormationIndex = nil
+                    executePendingTasks()
+                }
             }
             .store(in: &cancellables)
     }
@@ -106,10 +119,24 @@ class FormationSettingViewModel: ObservableObject {
         formations.allSatisfy { $0.relativePositions.count == headcount }
     }
 
+    func presentMemoForm() {
+        hapticManager.hapticImpact(style: .light)
+        animate {
+            isMemoFormPresented = true
+        }
+    }
+
     func updateCurrentMemo(_ memo: String) {
         performanceSettingManager.updateMemo(memo, formationIndex: currentFormationIndex)
-        tasksQueue.append { [unowned self] in
+        hapticManager.hapticNotification(type: .success)
+        if !hasMemoBeenInputted {
+            presetContainerViewModel.toggleGrid(isPresented: true)
+        }
+        animate {
             isMemoFormPresented = false
+        }
+        tasksQueue.append { [unowned self] in
+            hasMemoBeenInputted = true
         }
     }
 
@@ -117,23 +144,34 @@ class FormationSettingViewModel: ObservableObject {
         performanceSettingManager.updateMembers(positions: positions, formationIndex: currentFormationIndex)
     }
 
+    func toggleZoom() {
+        hapticManager.hapticImpact(style: .light)
+        animate {
+            isZoomed.toggle()
+        }
+    }
+
     func addFormation() {
         let formation = Formation()
         let index = formations.count
         performanceSettingManager.addFormation(formation, index: index)
+        hapticManager.hapticImpact(style: .medium)
         tasksQueue.append { [unowned self] in
             currentFormationIndex = index
         }
     }
 
     func selectFormation(index: Int) {
-        if controllingFormationIndex == index {
-            controllingFormationIndex = nil
-        } else if currentFormationIndex == index {
-            controllingFormationIndex = index
-        } else {
-            currentFormationIndex = index
-            controllingFormationIndex = nil
+        hapticManager.hapticImpact(style: .light)
+        animate {
+            if controllingFormationIndex == index {
+                controllingFormationIndex = nil
+            } else if currentFormationIndex == index {
+                controllingFormationIndex = index
+            } else {
+                currentFormationIndex = index
+                controllingFormationIndex = nil
+            }
         }
     }
 
@@ -146,6 +184,8 @@ class FormationSettingViewModel: ObservableObject {
             memo: copiedFormation.memo
         )
         performanceSettingManager.addFormation(pastedFormation, index: index + 1)
+        hapticManager.hapticImpact(style: .medium)
+        toastContainerViewModel.presentMessage("레이어가 복제되었습니다")
         tasksQueue.append { [unowned self] in
             currentFormationIndex = index + 1
         }
@@ -153,6 +193,8 @@ class FormationSettingViewModel: ObservableObject {
 
     func removeFormation(index: Int) {
         performanceSettingManager.removeFormation(index: index)
+        hapticManager.hapticImpact(style: .medium)
+        toastContainerViewModel.presentMessage("레이어가 삭제되었습니다")
         tasksQueue.append { [unowned self] in
             if formations.isEmpty {
                 currentFormationIndex = -1
@@ -162,7 +204,7 @@ class FormationSettingViewModel: ObservableObject {
         }
     }
 
-    func updateFormationItemFrame(_ frame: CGRect, index: Int) {
+    func updateFormationItemFrameMap(_ frame: CGRect, index: Int) {
         formationItemFrameMap[index] = frame
     }
 

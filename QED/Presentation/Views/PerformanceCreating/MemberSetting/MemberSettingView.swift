@@ -104,11 +104,15 @@ struct MemberSettingView: View {
                 .fill(index == viewModel.selectedMemberInfoIndex ? Color.blueLight2 : Color.monoNormal1)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .strokeBorder(
-                    index == viewModel.selectedMemberInfoIndex ? Gradient.blueGradation2 : Gradient.strokeGlass2,
-                    lineWidth: 1
-                )
+            ZStack {
+                if index == viewModel.selectedMemberInfoIndex {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.blueGradation2, lineWidth: 1)
+                } else {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                }
+            }
         )
         .id(index)
         .onTapGesture {
@@ -151,7 +155,6 @@ struct MemberSettingView: View {
             index: viewModel.editingMemberInfoIndex!,
             onComplete: {
                 viewModel.updateEditingMemberInfo($0)
-                viewModel.editingMemberInfoIndex = nil
             }
         )
     }

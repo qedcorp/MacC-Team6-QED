@@ -5,6 +5,7 @@ import UIKit
 class ObjectColorAssigningViewController: ObjectStageViewController {
     var colorHex: String?
     var onChange: (([String?]) -> Void)?
+    private let hapticManager = HapticManager.shared
 
     private lazy var touchPositionConverter = {
         TouchPositionConverter(container: view)
@@ -16,12 +17,12 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
 
     override func loadView() {
         super.loadView()
-        setupGrid()
+        setupViews()
     }
 
-    private func setupGrid() {
-        let renderer = GridRenderer()
-        renderer.render(in: view)
+    private func setupViews() {
+        GridRenderer().render(in: view)
+        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -33,6 +34,7 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
             let colors = getUpdatedColors(touchedObjectView: objectView)
             updateObjectViews(colors: colors)
             onChange?(colors)
+            hapticManager.hapticImpact(style: .rigid)
         }
     }
 

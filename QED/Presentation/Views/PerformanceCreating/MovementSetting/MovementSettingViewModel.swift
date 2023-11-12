@@ -7,13 +7,13 @@ import Foundation
 class MovementSettingViewModel: ObservableObject {
     typealias Controller = ObjectMovementAssigningViewController
 
-    @Published var performance: PerformanceModel
+    @Published private(set) var performance: PerformanceModel
 
-    @Published var currentFormationIndex = 0 {
+    @Published private(set) var currentFormationIndex = 0 {
         didSet { objectHistoryArchiver.reset() }
     }
 
-    @Published var isZoomed = false {
+    @Published private(set) var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
 
@@ -28,14 +28,14 @@ class MovementSettingViewModel: ObservableObject {
         let zoomableMovementController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
 
+        movementController.objectHistoryArchiver = objectHistoryArchiver
+        zoomableMovementController.objectHistoryArchiver = objectHistoryArchiver
+
         self.performance = .build(entity: performanceSettingManager.performance)
         self.movementController = movementController
         self.zoomableMovementController = zoomableMovementController
         self.objectHistoryArchiver = objectHistoryArchiver
         self.performanceSettingManager = performanceSettingManager
-
-        movementController.objectHistoryArchiver = objectHistoryArchiver
-        zoomableMovementController.objectHistoryArchiver = objectHistoryArchiver
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
@@ -71,14 +71,24 @@ class MovementSettingViewModel: ObservableObject {
         guard currentFormationIndex > 0 else {
             return
         }
-        currentFormationIndex -= 1
+        animate {
+            currentFormationIndex -= 1
+        }
     }
 
     func gotoAfter() {
         guard currentFormationIndex < performance.formations.count - 2 else {
             return
         }
-        currentFormationIndex += 1
+        animate {
+            currentFormationIndex += 1
+        }
+    }
+
+    func toggleZoom() {
+        animate {
+            isZoomed.toggle()
+        }
     }
 
     private func assignControllerToArchiverByZoomed() {
