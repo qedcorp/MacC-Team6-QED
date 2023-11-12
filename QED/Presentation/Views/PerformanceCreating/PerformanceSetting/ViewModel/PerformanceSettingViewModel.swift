@@ -36,7 +36,7 @@ class PerformanceSettingViewModel: ObservableObject {
     }
     @Published var range: ClosedRange<Int> = 2...13
     @Published var inputMemberInfo: [String] = []
-    @Published var inputMemberDefault: String = ""
+//    @Published var inputMemberDefault: String = ""
     @Published var isCreateButton: Bool = false {
         didSet {
             createPerformance()
@@ -107,22 +107,34 @@ class PerformanceSettingViewModel: ObservableObject {
     }
 
     func toggleDisclosureGroup1() {
-        isExpanded1 = true
-        isExpanded2 = false
-        isExpanded3 = false
+        withAnimation {
+            isExpanded1 = true
+            isExpanded2 = false
+            isExpanded3 = false
+        }
     }
 
     func toggleDisclosureGroup2() {
-        isExpanded2 = true
-        isExpanded1 = false
-        isExpanded3 = false
+        withAnimation {
+            isExpanded2 = true
+            isExpanded1 = false
+            isExpanded3 = false
+        }
     }
 
     func toggleDisclosureGroup3() {
-        isExpanded3 = true
-        isExpanded1 = false
-        isExpanded2 = false
+        withAnimation {
+            isExpanded3 = true
+            isExpanded1 = false
+            isExpanded2 = false
+        }
+    }
 
+    func allClear() {
+        performanceTitle = ""
+        selectedMusic = nil
+        headcount = 2
+        inputMemberInfo = ["", ""]
     }
 
     // TODO: 다음뷰로 넘어가면서 create되어야함
@@ -153,20 +165,47 @@ class PerformanceSettingViewModel: ObservableObject {
     //    }
 }
 
-struct DoubleToIntConverter1 {
-
-    var inputHeadcount: Binding<Int>
-
-    init(_ intValue: Binding<Int>) {
-        self.inputHeadcount = intValue
+struct DisclosureGroupBackground: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .foregroundStyle(Color.monoNormal1)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Gradient.strokeGlass2)
+            )
+            .padding(.horizontal, 20)
+            .padding(.vertical, 3)
+            .tint(.clear)
     }
 
-    var doubleValue: Binding<Double> {
-        Binding<Double>(
-            get: { Double(inputHeadcount.wrappedValue) },
-            set: { newValue in
-                inputHeadcount.wrappedValue = Int(newValue)
-            }
+}
+
+struct DisclosureGroupLabelStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundStyle(Color.blueLight3)
+            .font(.title3)
+            .bold()
+            .padding(.horizontal)
+            .padding(.vertical, 20)
+    }
+}
+
+extension View {
+    func disclosureGroupBackground() -> some View {
+        modifier(DisclosureGroupBackground())
+    }
+
+    func disclosureGroupLabelStyle() -> some View {
+        modifier(DisclosureGroupLabelStyle())
+    }
+
+    func endTextEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil
         )
     }
 }
