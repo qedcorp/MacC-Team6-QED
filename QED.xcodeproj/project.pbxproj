@@ -101,9 +101,6 @@
 		A958E3282B0131C800C9FF3F /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */; };
 		A958E3292B0131C800C9FF3F /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */; };
 		A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */; };
-		A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA192AE440C600302C9D /* TitleSetupView.swift */; };
-		A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */; };
-		A974EA232AE440C600302C9D /* MusicSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA1C2AE440C600302C9D /* MusicSetupView.swift */; };
 		A9ABC1462AEC159D00E28EEE /* PerformanceListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */; };
 		A9D279F12AE68CF6002B00DA /* MockAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */; };
 		A9DB97382AF2746400703732 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97372AF2746400703732 /* Color+.swift */; };
@@ -330,9 +327,6 @@
 		A958E30D2B0131C800C9FF3F /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
-		A974EA192AE440C600302C9D /* TitleSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSetupView.swift; sourceTree = "<group>"; };
-		A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadcountSetupView.swift; sourceTree = "<group>"; };
-		A974EA1C2AE440C600302C9D /* MusicSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicSetupView.swift; sourceTree = "<group>"; };
 		A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceListCardView.swift; sourceTree = "<group>"; };
 		A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockAssets.xcassets; sourceTree = "<group>"; };
 		A9DB97372AF2746400703732 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
@@ -897,9 +891,6 @@
 		A974EA182AE440C600302C9D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A974EA192AE440C600302C9D /* TitleSetupView.swift */,
-				A974EA1A2AE440C600302C9D /* HeadcountSetupView.swift */,
-				A974EA1C2AE440C600302C9D /* MusicSetupView.swift */,
 				A94415AD2AFB76AC00250D8B /* PerformanceSettingView.swift */,
 			);
 			path = View;
@@ -1736,11 +1727,9 @@
 				3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */,
 				D460F0082AE18DF700A5966A /* MemberUseCase.swift in Sources */,
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
-				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
-				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				D48797B82AF7D915004EFEDA /* TestView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
@@ -1795,7 +1784,6 @@
 				3AE701D42AE6C2FF00C48403 /* MemberModel.swift in Sources */,
 				3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */,
 				D460F00F2AE18DF700A5966A /* DefaultPerformanceUseCase.swift in Sources */,
-				A974EA232AE440C600302C9D /* MusicSetupView.swift in Sources */,
 				D460EFEB2AE18DF700A5966A /* DraggingModel.swift in Sources */,
 				3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */,
 				D460F01D2AE18DF700A5966A /* Preset+Stub.swift in Sources */,
@@ -1811,8 +1799,6 @@
 				D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */,
 				3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */,
 				3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */,
-				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
-				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
 				3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */,
