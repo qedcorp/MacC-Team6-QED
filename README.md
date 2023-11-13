@@ -33,8 +33,9 @@ brew install swiftlint
 
 ### CI/CD Pipeline
 
-- 아래 파이프라인은 Xcode Cloud와 Github Actions으로 자동화되어 있으며, build number도 매번 자동으로 증가합니다.
-- `develop` Branch에 Pull Request를 생성하면 Build, Test가 진행됩니다.
+아래 파이프라인은 Xcode Cloud와 Github Actions으로 자동화되어 있으며, build number도 매번 자동으로 증가합니다.
+
+- `develop` Branch에 Pull Request를 생성하거나 변경사항이 Merge 되면 Build, Test가 진행됩니다.
 - `release/*` Branch에 변경사항이 생기면 내부 테스트용 TestFlight 빌드가 업로드됩니다.
 - `main` Branch에 `release/*` Branch가 Merge 되면 release tag가 생성됩니다.
 - release tag가 생성되면 Build, Test, 그리고 App Store 배포용 TestFlight 빌드가 업로드됩니다.
