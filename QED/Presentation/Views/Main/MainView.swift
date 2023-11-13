@@ -111,9 +111,7 @@ struct MainView: View {
             HStack(spacing: 15) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     NavigationLink {
-                        PerformanceWatchingDetailView(
-                            viewModel: PerformanceWatichingDetailViewModel(performance: performance)
-                        )
+                        PerformanceWatchingDetailView(performance: performance)
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }

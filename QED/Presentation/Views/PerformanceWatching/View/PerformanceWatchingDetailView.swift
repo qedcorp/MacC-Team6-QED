@@ -22,6 +22,11 @@ struct PerformanceWatchingDetailView: View {
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
+    @State private var isLoading = true
+
+    init(performance: Performance) {
+        self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -67,10 +72,15 @@ struct PerformanceWatchingDetailView: View {
     private func buildObjectPlayView() -> some View {
         ZStack {
             Image(isLineVisible ? "stage" : "stage_nongrid")
+            if isLoading {
+                ProgressView()
+            }
             ObjectPlayableView(movementsMap: viewModel.movementsMap,
                                totalCount: viewModel.performance.formations.count,
                                offset: $viewModel.offset,
-                               isShowingPreview: $isBeforeVisible
+                               isShowingPreview: $isBeforeVisible,
+                               isLoading: $isLoading
+
             )
         }
         .frame(height: 216)
@@ -323,7 +333,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildTitleItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
-           Text("대형보기")
+            Text("대형보기")
                 .foregroundStyle(.white)
                 .bold()
         }

@@ -13,9 +13,12 @@ struct ObjectPlayableView: UIViewControllerRepresentable {
     let totalCount: Int
     @Binding var offset: CGFloat
     @Binding var isShowingPreview: Bool
+    @Binding var isLoading: Bool
 
     func makeUIViewController(context: Context) -> ObjectPlayableViewController {
-        return ObjectPlayableViewController(movementsMap: movementsMap, totalCount: totalCount)
+        return ObjectPlayableViewController(movementsMap: movementsMap, totalCount: totalCount) {
+            isLoading = false
+        }
     }
 
     func updateUIViewController(_ uiViewController: ObjectPlayableViewController, context: Context) {
