@@ -21,10 +21,14 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     private var currentIndex = 0 {
         didSet { setUpObjects() }
     }
-    let imageHeight = 365
-    let imageWidth = 258
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    let scrollWidth: CGFloat
+    let scrollHeight: CGFloat
 
     init(authProvider: Binding<AuthProviderType>) {
+        scrollWidth = screenWidth * 0.66
+        scrollHeight = screenHeight * 0.43
         self._authProvider = authProvider
         super.init(nibName: nil, bundle: nil)
     }
@@ -67,7 +71,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     lazy var scrollView: UIScrollView = {
         let object = UIScrollView()
-        object.contentSize = CGSize(width: imageWidth * pages.count, height: imageHeight)
+        object.contentSize = CGSize(width: Int(scrollWidth) * pages.count, height: Int(scrollHeight))
         object.delegate = self
         object.alwaysBounceVertical = false
         object.showsHorizontalScrollIndicator = false
@@ -107,7 +111,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapAppleSignInView(_:)))
         object.backgroundColor = .white
-        object.layer.cornerRadius = 30
+        object.layer.cornerRadius = screenWidth * 0.075
         object.setImage(UIImage(named: "apple_login"), for: .normal)
         object.addGestureRecognizer(gesture)
         return object
@@ -117,7 +121,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapKakaoSignInView(_:)))
         object.backgroundColor = .yellow
-        object.layer.cornerRadius = 30
+        object.layer.cornerRadius = screenWidth * 0.075
         object.setImage(UIImage(named: "kakao_login"), for: .normal)
         object.addGestureRecognizer(gesture)
         return object
@@ -127,7 +131,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapGoogleSignInView(_:)))
         object.backgroundColor = .white
-        object.layer.cornerRadius = 30
+        object.layer.cornerRadius = screenWidth * 0.075
         object.setImage(UIImage(named: "google_login"), for: .normal)
         object.addGestureRecognizer(gesture)
         return object
@@ -142,6 +146,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     }()
 
     private func setUpUI() {
+        view.backgroundColor = .black
         view.addSubview(stepLabel)
         view.addSubview(titleBoldLabel)
         view.addSubview(titleRegularLabel)
@@ -156,14 +161,14 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         view.addSubview(loginButtonStackView)
 
         loginInfoStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(80)
+            $0.top.equalToSuperview().offset(screenHeight * 0.14)
             $0.left.equalToSuperview().inset(66)
         }
 
         scrollView.snp.makeConstraints {
-            $0.width.equalTo(imageWidth)
-            $0.height.equalTo(imageHeight)
-            $0.top.equalTo(loginInfoStackView.snp.bottom).offset(28)
+            $0.width.equalTo(scrollWidth)
+            $0.height.equalTo(scrollHeight)
+            $0.top.equalTo(loginInfoStackView.snp.bottom).offset(screenHeight * 0.03)
             $0.centerX.equalToSuperview()
         }
 
@@ -182,29 +187,29 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         }
 
         pageControl.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(28)
+            $0.top.equalTo(scrollView.snp.bottom).offset(screenHeight * 0.025)
             $0.centerX.equalToSuperview()
         }
 
         loginGuideLabel.snp.makeConstraints {
-            $0.top.equalTo(pageControl.snp.bottom).offset(43)
+            $0.bottom.equalTo(loginButtonStackView.snp.top).offset(-screenHeight * 0.02)
             $0.centerX.equalToSuperview()
         }
 
         appleButton.snp.makeConstraints {
-            $0.width.height.equalTo(60)
+            $0.width.height.equalTo(screenWidth * 0.15)
         }
 
         kakaoButton.snp.makeConstraints {
-            $0.width.height.equalTo(60)
+            $0.width.height.equalTo(screenWidth * 0.15)
         }
 
         googleButton.snp.makeConstraints {
-            $0.width.height.equalTo(60)
+            $0.width.height.equalTo(screenWidth * 0.15)
         }
 
         loginButtonStackView.snp.makeConstraints {
-            $0.top.equalTo(loginGuideLabel.snp.bottom).offset(16)
+            $0.bottom.equalToSuperview().offset(-screenHeight * 0.1)
             $0.centerX.equalToSuperview()
         }
 
