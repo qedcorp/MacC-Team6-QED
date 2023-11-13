@@ -28,36 +28,32 @@ struct PerformanceSettingView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
                 ScrollViewReader { proxy in
-                    ScrollView {
-                        VStack {
-                            ForEach(1..<4) { index in
+                    ScrollView(.vertical) {
+                            ForEach(1..<4) { groupNum in
                                 DisclosureGroup(
-                                    isExpanded: bindingForIndex(index),
+                                    isExpanded: bindingForIndex(groupNum),
                                     content: {
-                                        disclosureContent(for: index)
+                                        disclosureContent(for: groupNum)
                                     },
                                     label: {
-                                        disclosureLabel(for: index)
+                                        disclosureLabel(for: groupNum)
                                     }
-//                                        .id(Int(index))
                                 )
                                 .disclosureGroupBackground()
-                                .id(Int(index))
+                                .id(groupNum)
                             }
-                        }
                     }
+                    .frame(height: geometry.size.height)
                     .onChange(of: scrollToID) { newID in
-                        withAnimation {
-                            proxy.scrollTo(newID, anchor: .center)
-                        }
+                        print("New scrollToID: \(String(describing: newID))")
+                            proxy.scrollTo(newID, anchor: .top)
                     }
                     .onTapGesture {
                         endTextEditing()
                     }
                 }
-       
+            
                 VStack {
                     Spacer()
                     HStack {
@@ -87,7 +83,6 @@ struct PerformanceSettingView: View {
                     .padding(.horizontal, 25)
                 }
                 .ignoresSafeArea(.all)
-            }
         }
         .background(
             Image("background")
@@ -102,8 +97,8 @@ struct PerformanceSettingView: View {
         .padding(.top)
     }
     
-    func bindingForIndex(_ index: Int) -> Binding<Bool> {
-        switch index {
+    func bindingForIndex(_ groupNum: Int) -> Binding<Bool> {
+        switch groupNum {
         case 1:
             return $viewModel.isExpanded1
         case 2:
@@ -116,8 +111,8 @@ struct PerformanceSettingView: View {
     }
     
     @ViewBuilder
-    func disclosureContent(for index: Int) -> some View {
-        switch index {
+    func disclosureContent(for groupNum: Int) -> some View {
+        switch groupNum {
         case 1:
             AnyView(inputTitleTextField)
         case 2:
@@ -129,8 +124,8 @@ struct PerformanceSettingView: View {
         }
     }
     @ViewBuilder
-    func disclosureLabel(for index: Int) -> some View {
-        switch index {
+    func disclosureLabel(for groupNum: Int) -> some View {
+        switch groupNum {
         case 1:
             viewModel.isExpanded1 ? AnyView(inputTitleLabelClosed) :  AnyView(inputTitleLabelOpen)
         case 2:
@@ -198,7 +193,6 @@ struct PerformanceSettingView: View {
     }
     
     //music
-    
     var inputMusicLabelClosed: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
@@ -223,11 +217,11 @@ struct PerformanceSettingView: View {
             AsyncImage(url: music.albumCoverURL) { image in
                 image
                     .image?.resizable()
-                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                    .scaledToFill()
                     .frame(width: 90, height: 64, alignment: .leading)
-                    .aspectRatio(contentMode: .fill)
+                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 15, style: .continuous).stroke(Color.clear, lineWidth: 1))
                     .clipped()
-                
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.all)
@@ -324,9 +318,6 @@ struct PerformanceSettingView: View {
                 }
                 .font(.body)
                 .bold()
-                .onChange(of: viewModel.musicSearch) { _ in
-                    viewModel.search()
-                }
                 .onSubmit(of: .text) {
                     searchMusic()
                 }
@@ -367,6 +358,7 @@ struct PerformanceSettingView: View {
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
+            scrollToID = 3
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
         } label: {
             Image("emptyMusic")
