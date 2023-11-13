@@ -6,20 +6,23 @@ import Foundation
 class MemberInfoEditingViewModel: ObservableObject {
     @Published private var memberInfos: [MemberInfoModel]
     @Published private(set) var isAlreadySelected = false
-    private let index: Int
-    private let colorset: MemberInfoColorset
-    private let onComplete: (MemberInfoModel) -> Void
+    let index: Int
+    let colorset: MemberInfoColorset
+    let onComplete: (MemberInfoModel) -> Void
+    let hapticManager: HapticManager
 
     init(
         memberInfos: [MemberInfoModel],
         index: Int,
         colorset: MemberInfoColorset,
-        onComplete: @escaping (MemberInfoModel) -> Void
+        onComplete: @escaping (MemberInfoModel) -> Void,
+        hapticManager: HapticManager = .shared
     ) {
         self.memberInfos = memberInfos
         self.index = index
         self.colorset = colorset
         self.onComplete = onComplete
+        self.hapticManager = hapticManager
     }
 
     var memberInfo: MemberInfoModel? {
@@ -35,18 +38,24 @@ class MemberInfoEditingViewModel: ObservableObject {
     }
 
     func updateName(_ name: String) {
-        memberInfos[safe: index]?.name = name
+        animate {
+            memberInfos[safe: index]?.name = name
+        }
     }
 
     func updateColor(_ color: String) {
         var otherMemberInfos = memberInfos
         otherMemberInfos.remove(at: index)
-        guard otherMemberInfos.allSatisfy({ $0.color != color }) else {
-            isAlreadySelected = true
-            return
+        animate {
+            guard otherMemberInfos.allSatisfy({ $0.color != color }) else {
+                isAlreadySelected = true
+                hapticManager.hapticNotification(type: .error)
+                return
+            }
+            memberInfos[safe: index]?.color = color
+            isAlreadySelected = false
+            hapticManager.hapticImpact(style: .light)
         }
-        memberInfos[safe: index]?.color = color
-        isAlreadySelected = false
     }
 
     func complete() {

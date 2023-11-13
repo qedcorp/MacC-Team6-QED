@@ -3,16 +3,7 @@
 import SwiftUI
 
 struct PresetContainerView: View {
-    @StateObject private var viewModel = PresetContainerViewModel(
-        presetUseCase: DefaultPresetUseCase(
-            presetRepository: DefaultPresetRepository(
-                remoteManager: FireStoreManager()
-            )
-        )
-    )
-
-    let headcount: Int
-    let canvasController: ObjectCanvasViewController
+    @ObservedObject var viewModel: PresetContainerViewModel
     private let padding: CGFloat = 22
     private let rows: [GridItem] = .init(repeating: .init(.fixed(89)), count: 2)
 
@@ -26,9 +17,7 @@ struct PresetContainerView: View {
                 }
                 Spacer()
                 Button {
-                    withAnimation {
-                        viewModel.isGridPresented.toggle()
-                    }
+                    viewModel.toggleGrid()
                 } label: {
                     Image(systemName: "chevron.\(viewModel.isGridPresented ? "down" : "up")")
                         .font(.title3.weight(.semibold))
@@ -50,7 +39,6 @@ struct PresetContainerView: View {
             }
         }
         .onAppear {
-            viewModel.headcount = headcount // TODO: @StateObject의 경우 초기값을 어떻게 넣어야 할까
             viewModel.fetchPresets()
         }
     }
@@ -72,12 +60,7 @@ struct PresetContainerView: View {
                 RoundedRectangle(cornerRadius: cornerRadius)
             }
             .onTapGesture {
-                canvasController.copyFormable(preset)
+                viewModel.canvasController.copyFormable(preset)
             }
     }
-}
-
-#Preview {
-    let canvasController = ObjectCanvasViewController()
-    return PresetContainerView(headcount: 5, canvasController: canvasController)
 }

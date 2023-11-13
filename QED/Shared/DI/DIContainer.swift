@@ -30,7 +30,6 @@ final class DIContainer {
         resolver.dependencyGraph.addNode(type: RemoteManager.self)
         resolver.dependencyGraph.addNode(type: UserRepository.self)
         resolver.dependencyGraph.addNode(type: PerformanceRepository.self)
-        resolver.dependencyGraph.addNode(type: PresetRepository.self)
         resolver.dependencyGraph.addNode(type: MusicRepository.self)
         resolver.dependencyGraph.addNode(type: KakaoAuthRepository.self)
         resolver.dependencyGraph.addNode(type: GoogleAuthRepository.self)
@@ -42,6 +41,8 @@ final class DIContainer {
         resolver.dependencyGraph.addNode(type: UserUseCase.self)
         resolver.dependencyGraph.addNode(type: AuthUseCase.self)
         resolver.dependencyGraph.addNode(type: PerformanceUseCase.self)
+        resolver.dependencyGraph.addNode(type: PresetRepository.self)
+        resolver.dependencyGraph.addNode(type: PresetUseCase.self)
         
         resolver.dependencyGraph.connect(a: RemoteManager.self, b: PresetRepository.self)
         resolver.dependencyGraph.connect(a: RemoteManager.self, b: UserRepository.self)
@@ -75,6 +76,7 @@ final class DIContainer {
         resolver.typeToClosure[ObjectIdentifier(UserUseCase.self)] = injectionUserUseCase
         resolver.typeToClosure[ObjectIdentifier(AuthUseCase.self)] = injectionAuthUseCase
         resolver.typeToClosure[ObjectIdentifier(PerformanceUseCase.self)] = injectionPerformanceUseCase
+        resolver.typeToClosure[ObjectIdentifier(PresetUseCase.self)] = injectionPresetUseCase
        
         resolver.dependencyInjection()
     }

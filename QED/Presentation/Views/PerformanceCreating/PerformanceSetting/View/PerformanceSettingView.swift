@@ -32,113 +32,62 @@ struct PerformanceSettingView: View {
                 ScrollViewReader { proxy in
                     ScrollView {
                         VStack {
-                            DisclosureGroup(
-                                isExpanded: $viewModel.isExpanded1,
-                                content: {
-                                    inputTitleTextField
-                                },
-                                label: {
-                                    if viewModel.isExpanded1 {
-                                        inputTitleLabelClosed
-                                    } else {
-                                        inputTitleLabelOpen
+                            ForEach(1..<4) { index in
+                                DisclosureGroup(
+                                    isExpanded: bindingForIndex(index),
+                                    content: {
+                                        disclosureContent(for: index)
+                                    },
+                                    label: {
+                                        disclosureLabel(for: index)
                                     }
-                                }
-                            )
-                            .disclosureGroupBackground()
-                            .simultaneousGesture(
-                                DragGesture().onChanged({
-                                    if $0.translation.height != 0 {
-                                        isFocused = false
-                                    }
-                                })
-                            )
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    isFocused = true
-                                }
+//                                        .id(Int(index))
+                                )
+                                .disclosureGroupBackground()
+                                .id(Int(index))
                             }
-                            .id(1)
-                            
-                            DisclosureGroup(
-                                isExpanded: $viewModel.isExpanded2,
-                                content: {
-                                    musicContent
-                                }
-                                ,
-                                label: {
-                                    if viewModel.isExpanded2 {
-                                        inputMusicLabelClosed
-                                    } else {
-                                        inputMusicLabelOpened
-                                    }
-                                })
-                            .disclosureGroupBackground()
-                            .simultaneousGesture(
-                                DragGesture().onChanged({
-                                    if $0.translation.height != 0 {
-                                        isFocused = false
-                                    }
-                                })
-                            )
-                            .id(2)
-                            
-                            DisclosureGroup(
-                                isExpanded: $viewModel.isExpanded3,
-                                content: {
-                                    inputHeadcountContent
-                                },
-                                
-                                label: {
-                                    if viewModel.isExpanded3 {
-                                        inputHeadcountlabelClosed
-                                    } else {
-                                        inputHeadcountlabelOpened
-                                    }
-                                }
-                            )
-                            .disclosureGroupBackground()
-                            .id(3)
                         }
                     }
-                    .onChange(of: scrollToID) { value in
+                    .onChange(of: scrollToID) { newID in
                         withAnimation {
-                            proxy.scrollTo(value, anchor: .top)
+                            proxy.scrollTo(newID, anchor: .center)
                         }
                     }
                     .onTapGesture {
-                        self.endTextEditing()
+                        endTextEditing()
                     }
                 }
-            }
-            VStack {
-                Spacer()
-                HStack {
-                    Button {
-                        viewModel.allClear()
-                    } label: {
-                        Text("다시입력")
-                            .underline()
-                            .foregroundStyle(Color.monoNormal2)
-                            .font(.title3)
-                            .kerning(0.35)
-                            .bold()
-                            .padding(.bottom, 25)
-                    }
+       
+                VStack {
                     Spacer()
-                    //                    buildNextButton()
+                    HStack {
+                        Button {
+                            viewModel.allClear()
+                        } label: {
+                            Text("다시입력")
+                                .underline()
+                                .foregroundStyle(Color.monoNormal2)
+                                .font(.title3)
+                                .kerning(0.35)
+                                .bold()
+                                .padding(.bottom, 25)
+                        }
+                        
+                        Spacer()
+                        //                    buildNextButton()
+                    }
+                    .background(
+                        Rectangle()
+                            .frame(width: geometry.size.width, height: geometry.size.height/6.2)
+                            .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
+                            .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
+                    )
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
+                    .padding(.horizontal, 25)
                 }
-                .background(
-                    Rectangle()
-                        .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                        .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
-                        .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
-                )
-                .padding(.top, 5)
-                .padding(.bottom, 20)
-                .padding(.horizontal, 25)
+                .ignoresSafeArea(.all)
             }
-            .ignoresSafeArea(.all)
         }
         .background(
             Image("background")
@@ -151,6 +100,46 @@ struct PerformanceSettingView: View {
             leftItem
         }
         .padding(.top)
+    }
+    
+    func bindingForIndex(_ index: Int) -> Binding<Bool> {
+        switch index {
+        case 1:
+            return $viewModel.isExpanded1
+        case 2:
+            return $viewModel.isExpanded2
+        case 3:
+            return $viewModel.isExpanded3
+        default:
+            return .constant(false)
+        }
+    }
+    
+    @ViewBuilder
+    func disclosureContent(for index: Int) -> some View {
+        switch index {
+        case 1:
+            AnyView(inputTitleTextField)
+        case 2:
+            AnyView(musicContent)
+        case 3:
+            AnyView(inputHeadcountContent)
+        default:
+            AnyView(EmptyView())
+        }
+    }
+    @ViewBuilder
+    func disclosureLabel(for index: Int) -> some View {
+        switch index {
+        case 1:
+            viewModel.isExpanded1 ? AnyView(inputTitleLabelClosed) :  AnyView(inputTitleLabelOpen)
+        case 2:
+            viewModel.isExpanded2 ? AnyView(inputMusicLabelClosed) : AnyView(inputMusicLabelOpened)
+        case 3:
+            viewModel.isExpanded3 ? AnyView(inputHeadcountlabelClosed) : AnyView(inputHeadcountlabelOpened)
+        default:
+            AnyView(EmptyView())
+        }
     }
     
     var inputTitleTextField: some View {
@@ -210,12 +199,12 @@ struct PerformanceSettingView: View {
     
     //music
     
-    private var inputMusicLabelClosed: some View {
+    var inputMusicLabelClosed: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
     }
     
-    private var inputMusicLabelOpened: some View {
+    var inputMusicLabelOpened: some View {
         HStack {
             Text("노래")
                 .foregroundStyle(Color.gray)
@@ -229,7 +218,7 @@ struct PerformanceSettingView: View {
     }
     
     @ViewBuilder
-    private func buildCell(music: Music) -> some View {
+    func buildCell(music: Music) -> some View {
         HStack {
             AsyncImage(url: music.albumCoverURL) { image in
                 image
@@ -286,32 +275,32 @@ struct PerformanceSettingView: View {
     }
     
     var musicContent: some View {
-            VStack {
-                musicSearchFieldView()
+        VStack {
+            musicSearchFieldView()
+            Spacer()
+            if viewModel.isSearchingMusic {
+                ProgressView()
+                    .tint(Color.blueNormal)
                 Spacer()
-                if viewModel.isSearchingMusic {
-                    ProgressView()
-                        .tint(Color.blueNormal)
-                    Spacer()
-                } else if isSearchFromEmptyText {
-                    emptyMusic
-                    Spacer()
-                } else {
-                    buildSearchResultScrollView()
-                }
+            } else if isSearchFromEmptyText {
+                emptyMusic
+                Spacer()
+            } else {
+                buildSearchResultScrollView()
             }
-            .onTapGesture {
-                isFocused = true
+        }
+        .onTapGesture {
+            isFocused = true
+        }
+        .onChange(of: viewModel.musicTitle, perform: { _ in
+            if viewModel.musicTitle.isEmpty {
+                isSearchFromEmptyText = true
+                viewModel.selectedMusic = nil
             }
-            .onChange(of: viewModel.musicTitle, perform: { _ in
-                if viewModel.musicTitle.isEmpty {
-                    isSearchFromEmptyText = true
-                    viewModel.selectedMusic = nil
-                }
-            })
+        })
     }
     
-    private func buildSearchResultScrollView() -> some View {
+    func buildSearchResultScrollView() -> some View {
         ScrollView {
             VStack {
                 ForEach(viewModel.searchedMusics) { music in
@@ -322,7 +311,7 @@ struct PerformanceSettingView: View {
         }
     }
     
-    private func musicSearchFieldView() -> some View {
+    func musicSearchFieldView() -> some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Color.gray)
@@ -368,14 +357,14 @@ struct PerformanceSettingView: View {
         .padding()
     }
     
-    private func buildEmptyMusicView() -> some View {
+    func buildEmptyMusicView() -> some View {
         Text("노래를 검색하세요")
             .foregroundStyle(Color.monoWhite2)
             .font(.headline)
             .bold()
     }
     
-    private var emptyMusic: some View {
+    var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
@@ -385,7 +374,7 @@ struct PerformanceSettingView: View {
         }
     }
     
-    private func searchMusic() {
+    func searchMusic() {
         viewModel.search()
         isSearchFromEmptyText = false
         isFocused = false

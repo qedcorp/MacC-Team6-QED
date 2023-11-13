@@ -4,23 +4,25 @@ import SwiftUI
 
 struct MemoButtonView: View {
     let memo: String?
+    let isHighlighted: Bool
+    private let cornerRadius: CGFloat = 6
 
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
             Text(memo ?? "탭해서 가사 입력")
-                .foregroundStyle(hasMemo ? Color.monoWhite3 : Color.monoNormal2)
-                .font(.title2.weight(.bold))
+                .foregroundStyle(isHighlighted || hasMemo ? Color.monoWhite3 : Color.monoNormal2)
+                .font(.headline.weight(.regular))
                 .lineLimit(1)
             Spacer()
         }
         .frame(height: 64)
         .background(
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.monoNormal1)
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(isHighlighted ? Color.blueLight2 : Color.monoNormal1)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 6)
+            RoundedRectangle(cornerRadius: cornerRadius)
                 .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
         )
     }
@@ -31,5 +33,5 @@ struct MemoButtonView: View {
 }
 
 #Preview {
-    MemoButtonView(memo: "Pop pop")
+    MemoButtonView(memo: "Pop pop", isHighlighted: false)
 }
