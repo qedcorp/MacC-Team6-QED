@@ -14,47 +14,62 @@ struct MainView: View {
 
     var body: some View {
         NavigationView {
-            GeometryReader { geometry in
+            VStack {
+                HStack {
+                    leftItem()
+                    Spacer()
+                    rightItem()
+                }
+                .padding(.horizontal, 24)
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        mainTitle()
+                        buildMakeFormationButtonView()
+                        if viewModel.myRecentPerformances.isEmpty {
+                            buildEmptyView()
+                        } else {
+                            LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
+                                Section {
+                                    buildPerformanceListScrollView()
+                                } header: {
+                                    buildPerformanceListHeaderView()
+                                }
+                            }
+                            .padding(.horizontal, 7)
+                        }
+                    }
+                    .padding(.top, 130)
+                }
+            }
+            .background(
                 ZStack {
+                    Image("background")
+                        .resizable()
+                        .ignoresSafeArea(.all)
                     VStack {
                         buildMainTopView()
                         Spacer()
                     }
-                    VStack {
-                        Spacer()
-                            .frame(height: geometry.size.height * 0.27)
-                        mainTitle()
-                        buildMakeFormationButtonView()
-                        buildPerformanceListHeaderView()
-                        if viewModel.myRecentPerformances.isEmpty {
-                            buildEmptyView()
-                        } else {
-                            buildPerformanceListScrollView()
-                        }
-                    }
-                }
-                .background(
-                    Image("background")
-                        .resizable()
-                        .ignoresSafeArea(.all)
-                )
-                .ignoresSafeArea(.all)
-                .toolbar {
-                    leftItem()
-                    rightItem()
-                }
-                .onAppear {
-                    viewModel.fetchUser()
-                }
-                .navigationBarBackButtonHidden()
+                }.ignoresSafeArea()
+            )
+            .onAppear {
+                viewModel.fetchUser()
             }
+            .navigationBarBackButtonHidden()
+
         }
     }
 
     private func buildMainTopView() -> some View {
-        Image("Main")
+        Image("lese")
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .scaledToFit()
+            .mask(
+                LinearGradient(gradient:
+                                Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+            )
     }
 
     private func mainTitle() -> some View {
@@ -121,6 +136,10 @@ struct MainView: View {
 
     private func buildEmptyView() -> some View {
         Image("mainlistEmpty")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 300, height: 300)
+            .opacity(0.5)
     }
 
     let columns: [GridItem] = [
@@ -128,37 +147,31 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-                ForEach(viewModel.myRecentPerformances) { performance in
-                    NavigationLink {
-                        PerformanceWatchingListView(
-                            performance: performance.entity,
-                            performanceUseCase: viewModel.performanceUseCase)
-                    } label: {
-                        PerformanceListCardView(performance: performance)
-                    }
-                }
-            }
-            .padding(.horizontal, 7)
-        }
-    }
-
-    private func leftItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Image("FodiIcon")
-                .resizable()
-        }
-    }
-
-    private func rightItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ForEach(viewModel.myRecentPerformances) { performance in
             NavigationLink {
-                MyPageView()
+                PerformanceWatchingListView(
+                    performance: performance.entity,
+                    performanceUseCase: viewModel.performanceUseCase)
             } label: {
-                Image("profile")
-                    .resizable()
+                PerformanceListCardView(performance: performance)
             }
+        }
+    }
+
+    private func leftItem() -> some View {
+        Image("FodiIcon")
+            .resizable()
+            .frame(width: 50, height: 28)
+
+    }
+
+    private func rightItem() -> some View {
+        NavigationLink {
+            MyPageView()
+        } label: {
+            Image("profile")
+                .resizable()
+                .frame(width: 24, height: 24)
         }
     }
 }
