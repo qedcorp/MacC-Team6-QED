@@ -89,10 +89,15 @@ struct PerformanceSettingView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea(.all)
         )
-        .navigationTitle("New project")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem
+            ToolbarItem(placement: .principal) {
+                Text("새 프로젝트")
+                    .font(.body)
+                    .bold()
+                    .foregroundStyle(Color.monoWhite3)
+            }
         }
         .padding(.top)
     }
