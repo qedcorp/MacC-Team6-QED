@@ -8,9 +8,9 @@
 import Foundation
 
 enum AuthProviderType: String {
-    case kakao
-    case apple
-    case google
+    case kakao = "KAKAO"
+    case apple = "APPLE"
+    case google = "GOOGLE"
 
     var description: String {
         self.rawValue.uppercased()

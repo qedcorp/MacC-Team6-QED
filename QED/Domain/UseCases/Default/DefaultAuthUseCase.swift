@@ -30,4 +30,38 @@ struct DefaultAuthUseCase: AuthUseCase {
             return false
         }
     }
+
+    func logout(authType: AuthProviderType) async throws {
+        do {
+            switch authType {
+            case .kakao:
+                return try await kakaoAuthRepository.logout()
+            case .apple:
+                return try await appleAuthRepository.logout()
+            case .google:
+                return try await googleAuthRepository.logout()
+            }
+        } catch {
+            print("--------------------")
+            print("Fail to social logout")
+            print("--------------------")
+        }
+    }
+
+    func withdraw(authType: AuthProviderType) async throws {
+        do {
+            switch authType {
+            case .kakao:
+                return try await kakaoAuthRepository.withdraw()
+            case .apple:
+                return try await appleAuthRepository.withdraw()
+            case .google:
+                return try await googleAuthRepository.withdraw()
+            }
+        } catch {
+            print("--------------------")
+            print("Fail to delete account")
+            print("--------------------")
+        }
+    }
 }

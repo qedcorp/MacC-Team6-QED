@@ -27,7 +27,7 @@ final class DefaultKakaoAuthRepository: KakaoAuthRepository {
 
         if firebaseAuthResult != nil {
             do {
-                try registerKeyChain(with: firebaseAuthResult!)
+                try registerKeyChain(with: firebaseAuthResult!, provider: .kakao)
                 return true
             } catch {
                 return false
@@ -37,7 +37,7 @@ final class DefaultKakaoAuthRepository: KakaoAuthRepository {
     }
 
     func logout() async throws {
-        try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
+        try unregisterKeyChain(accounts: KeyChainAccount.allCases)
     }
 }
 

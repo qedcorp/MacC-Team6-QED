@@ -37,7 +37,7 @@ final class DefaultGoogleAuthRepository: GoogleAuthRepository {
         guard let firebaseAuthResult = try? await Auth.auth().signIn(with: credential) else { return false }
 
         do {
-            try registerKeyChain(with: firebaseAuthResult)
+            try registerKeyChain(with: firebaseAuthResult, provider: .google)
             return true
         } catch {
             return false
@@ -48,7 +48,7 @@ final class DefaultGoogleAuthRepository: GoogleAuthRepository {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
+            try unregisterKeyChain(accounts: KeyChainAccount.allCases)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
