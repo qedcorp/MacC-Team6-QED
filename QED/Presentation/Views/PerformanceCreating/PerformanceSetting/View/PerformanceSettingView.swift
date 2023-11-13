@@ -17,7 +17,7 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-    @State private var scrollToID: Int?
+//    @State private var scrollToID: Int?
     //    @State private var revealDetails = false
     
     init(performanceUseCase: PerformanceUseCase) {
@@ -45,7 +45,7 @@ struct PerformanceSettingView: View {
                             }
                     }
                     .frame(height: geometry.size.height)
-                    .onChange(of: scrollToID) { newID in
+                    .onChange(of: viewModel.scrollToID) { newID in
                         print("New scrollToID: \(String(describing: newID))")
                             proxy.scrollTo(newID, anchor: .top)
                     }
@@ -147,7 +147,7 @@ struct PerformanceSettingView: View {
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
-                    scrollToID = 2
+                    viewModel.scrollToID = 2
                 }
             }
             .focused($isFocused)
@@ -268,6 +268,9 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             } else {
                 viewModel.selectedMusic = music
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    viewModel.toggleDisclosureGroup3()
+                }
             }
         }
         .id(music.id)
@@ -363,7 +366,7 @@ struct PerformanceSettingView: View {
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
-            scrollToID = 3
+            viewModel.scrollToID = 3
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
         } label: {
             Image("emptyMusic")
@@ -453,7 +456,7 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(Color.gray)
             Spacer()
             
-            Text("performaceinputheadcount")
+            Text("\(viewModel.headcount) 명")
                 .foregroundStyle(Color.gray)
         }
         .padding(.horizontal)
