@@ -208,13 +208,6 @@
 			remoteGlobalIDString = 3AE0CCBB2ADD0CE1001FE371;
 			remoteInfo = QED;
 		};
-		3AE0CCD72ADD0CE4001FE371 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AE0CCB42ADD0CE1001FE371 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3AE0CCBB2ADD0CE1001FE371;
-			remoteInfo = QED;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -257,7 +250,6 @@
 		3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerViewModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE701A62AE4450A00C48403 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButtonView.swift; sourceTree = "<group>"; };
 		3AE701AE2AE59DE100C48403 /* MemoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoFormView.swift; sourceTree = "<group>"; };
@@ -432,13 +424,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3AE0CCD32ADD0CE4001FE371 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -604,7 +589,6 @@
 			children = (
 				3AE0CCBC2ADD0CE1001FE371 /* QED.app */,
 				3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */,
-				3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1422,24 +1406,6 @@
 			productReference = 3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3AE0CCD52ADD0CE4001FE371 /* QEDUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3AE0CCE62ADD0CE4001FE371 /* Build configuration list for PBXNativeTarget "QEDUITests" */;
-			buildPhases = (
-				3AE0CCD22ADD0CE4001FE371 /* Sources */,
-				3AE0CCD32ADD0CE4001FE371 /* Frameworks */,
-				3AE0CCD42ADD0CE4001FE371 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3AE0CCD82ADD0CE4001FE371 /* PBXTargetDependency */,
-			);
-			name = QEDUITests;
-			productName = QEDUITests;
-			productReference = 3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1454,10 +1420,6 @@
 						CreatedOnToolsVersion = 14.3;
 					};
 					3AE0CCCB2ADD0CE4001FE371 = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 3AE0CCBB2ADD0CE1001FE371;
-					};
-					3AE0CCD52ADD0CE4001FE371 = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 3AE0CCBB2ADD0CE1001FE371;
 					};
@@ -1485,7 +1447,6 @@
 			targets = (
 				3AE0CCBB2ADD0CE1001FE371 /* QED */,
 				3AE0CCCB2ADD0CE4001FE371 /* QEDTests */,
-				3AE0CCD52ADD0CE4001FE371 /* QEDUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1503,13 +1464,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3AE0CCCA2ADD0CE4001FE371 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3AE0CCD42ADD0CE4001FE371 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1616,7 +1570,7 @@
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
 				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
 				3AC325122AFB75EF002B6682 /* Animate.swift in Sources */,
-				D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
@@ -1681,7 +1635,6 @@
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
 				3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */,
-				510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
@@ -1741,13 +1694,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3AE0CCD22ADD0CE4001FE371 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1755,11 +1701,6 @@
 			isa = PBXTargetDependency;
 			target = 3AE0CCBB2ADD0CE1001FE371 /* QED */;
 			targetProxy = 3AE0CCCD2ADD0CE4001FE371 /* PBXContainerItemProxy */;
-		};
-		3AE0CCD82ADD0CE4001FE371 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3AE0CCBB2ADD0CE1001FE371 /* QED */;
-			targetProxy = 3AE0CCD72ADD0CE4001FE371 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1888,13 +1829,15 @@
 				CODE_SIGN_ENTITLEMENTS = QED/QED.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Presentation/Preview Content\"";
 				DEVELOPMENT_TEAM = ULM4SQD73B;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QED/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FODI;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = yes;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1905,7 +1848,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.2;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = qed.QED.forma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1923,13 +1866,15 @@
 				CODE_SIGN_ENTITLEMENTS = QED/QED.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Presentation/Preview Content\"";
 				DEVELOPMENT_TEAM = ULM4SQD73B;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QED/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FODI;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = yes;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1940,7 +1885,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.2;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = qed.QED.forma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1990,42 +1935,6 @@
 			};
 			name = Release;
 		};
-		3AE0CCE72ADD0CE4001FE371 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = qed.QEDUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = QED;
-			};
-			name = Debug;
-		};
-		3AE0CCE82ADD0CE4001FE371 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = qed.QEDUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = QED;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2052,15 +1961,6 @@
 			buildConfigurations = (
 				3AE0CCE42ADD0CE4001FE371 /* Debug */,
 				3AE0CCE52ADD0CE4001FE371 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3AE0CCE62ADD0CE4001FE371 /* Build configuration list for PBXNativeTarget "QEDUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3AE0CCE72ADD0CE4001FE371 /* Debug */,
-				3AE0CCE82ADD0CE4001FE371 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
