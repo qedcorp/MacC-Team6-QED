@@ -22,9 +22,9 @@ final class ScrollObservableViewController: UIViewController {
 
     private var offset: CGFloat = 0.0
     private var performance: Performance
-    private var cellForStartOffset: [Int: CGFloat] = [:]
-    private var cellForStartIndex: [ClosedRange<CGFloat>: Int] = [:]
-    private var defaultOffset: CGFloat = 0
+    private var indexToStartOffset: [Int: CGFloat] = [:]
+    private var offSetToIndex: [ClosedRange<CGFloat>: Int] = [:]
+    private var baseOffset: CGFloat = 0
     private var currentIndex: Int = 0 {
         didSet {
             for index in 0..<performance.formations.count {
@@ -87,9 +87,6 @@ final class ScrollObservableViewController: UIViewController {
                 switch purpose {
                 case let .setOffset(offset):
                     self.setCollectionViewOffset(offset)
-                case let .setSelctedIndex(index):
-                    self.currentIndex = index
-                    moveToIndex(index)
                 default:
                     break
                 }
@@ -100,7 +97,7 @@ final class ScrollObservableViewController: UIViewController {
 
     private func moveToIndex(_ index: Int) {
         var point = collectionView.contentOffset
-        point.x = cellForStartOffset[index] ?? 0
+        point.x = indexToStartOffset[index] ?? 100
         collectionView.setContentOffset(point, animated: true)
     }
 
@@ -171,13 +168,11 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
         if indexPath.row == currentIndex {
             cell.isCurrentFormation = true
         }
-        if indexPath.row == 0 {
-            defaultOffset = cell.frame.origin.x
-        }
-        let startX = cell.frame.origin.x - defaultOffset
+        if indexPath.row == 0 { baseOffset = cell.frame.origin.x }
+        let startX = cell.frame.origin.x - baseOffset
         let endX = startX + cell.frame.size.width - 1
-        cellForStartOffset[indexPath.row] = startX
-        cellForStartIndex[startX...endX] = indexPath.row
+        indexToStartOffset[indexPath.row] = startX
+        offSetToIndex[startX...endX] = indexPath.row
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -187,13 +182,9 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         action.send(.getOffset(scrollView.contentOffset.x))
-        if let index = cellForStartIndex[scrollView.contentOffset.x] {
+        if let index = offSetToIndex[scrollView.contentOffset.x] {
             currentIndex = index
             action.send(.getSelctedIndex(index))
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didLongPressItemAt indexPath: IndexPath) {
-
     }
 }

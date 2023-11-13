@@ -11,13 +11,11 @@ import Foundation
 class PerformanceWatchingListViewModel: ObservableObject {
     @Published var performance: PerformanceModel
     let performanceSettingManager: PerformanceSettingManager
-    let performanceUseCase: PerformanceUseCase
     private var cancellables: Set<AnyCancellable> = []
 
-    init(performanceSettingManager: PerformanceSettingManager, performanceUseCase: PerformanceUseCase) {
+    init(performanceSettingManager: PerformanceSettingManager) {
         self.performance = .build(entity: performanceSettingManager.performance)
         self.performanceSettingManager = performanceSettingManager
-        self.performanceUseCase = performanceUseCase
         subscribePerformanceSettingManager()
     }
 

@@ -22,14 +22,14 @@ struct PathToPointCalculator {
         var answer: [CGPoint] = []
         
         if controllPoint1 == CGPoint(x: -1, y: -1) {
-            for percent in stride(from: 0.0, through: totalPercent, by: 1.0) {
+            for percent in stride(from: 0.0, through: totalPercent - 1, by: 1.0) {
                 
                 let pathPoint = getPercentPoint(start: startPoint, end: endPoint, percent: percent)
                 answer.append(pathPoint)
             }
         }
         else {
-            for percent in stride(from: 0.0, through: totalPercent, by: 1.0) {
+            for percent in stride(from: 0.0, through: totalPercent - 1, by: 1.0) {
                 let firstPoint = getPercentPoint(start: startPoint, end: controllPoint1, percent: percent)
                 let sencondPoint = getPercentPoint(start: controllPoint1, end: controllPoint2, percent: percent)
                 let thirdPoint = getPercentPoint(start: controllPoint2, end: endPoint, percent: percent)

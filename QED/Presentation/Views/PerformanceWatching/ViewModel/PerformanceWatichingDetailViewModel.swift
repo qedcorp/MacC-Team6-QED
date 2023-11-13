@@ -11,15 +11,16 @@ import Combine
 class PerformanceWatichingDetailViewModel: ObservableObject {
     typealias ValuePurpose = ScrollObservableView.ValuePurpose
     typealias Constants = ScrollObservableView.Constants
+    typealias FrameInfo = ScrollObservableView.FrameInfo
 
     private var bag = Set<AnyCancellable>()
+
     var performance: Performance
     var movementsMap: MovementsMap {
         // TODO: 함수형으로 바꾸기
         var map = MovementsMap()
         guard let memberInfos = performance.memberInfos else { return [:] }
         let movementsMap = performance.formations.map({ $0.movementMap })
-        let ett = movementsMap.first
         for movementMap in movementsMap {
             for info in memberInfos {
                 guard let path = movementMap?[info.color] else { continue }
@@ -34,16 +35,12 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         }
         return map
     }
-    var indexDictionary: [ClosedRange<CGFloat>: Int] = [:]
-    var isTrasition: [ClosedRange<CGFloat>: Int] = [:]
-    var isFormation: [ClosedRange<CGFloat>: Int] = [:]
-    var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
+
+    private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
     @Published var offset: CGFloat = 0.0
-    @Published var playableIndex: Int = 0
     @Published var selectedIndex: Int = 0
-    @Published var formationIndex: Int = 0
-    @Published var isShowingPreview: Bool = false
-    private var indexToOffset: [Int: CGFloat] = [:]
+    @Published var isPlaying = false
+    private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
     private var player = PlayTimer(timeInterval: 0.03)
 
     init(performance: Performance) {
@@ -59,43 +56,56 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
                 switch purpose {
                 case let .getOffset(offset):
                     self.offset = offset
-                    // self.changeSelectedIndex(offset: offset)
-                case let .getSelctedIndex(index):
-                    self.formationIndex = index
                 default:
                     break
                 }
             }
             .store(in: &bag)
-    }
 
-    private func changeSelectedIndex(offset: CGFloat) {
-        self.selectedIndex = indexDictionary[offset] ?? 0
+        $selectedIndex
+            .sink { index in
+                for element in self.offsetMap {
+                    let framInfo = element.value
+                    if framInfo == .formation(index: index) {
+                        self.action.send(.setOffset(element.key.lowerBound))
+                    }
+                }
+            }
+            .store(in: &bag)
     }
 
     private func mappingIndexFromOffest() {
         var lastX: CGFloat = 0.0
         for formationIndex in performance.formations.indices {
-            indexToOffset[formationIndex] = lastX
             let formatationLength = Constants.formationFrame.width + Constants.trasitionFrame.width
-            let range = lastX...(lastX + formatationLength)
             let formationRange = lastX...(lastX + Constants.formationFrame.width)
-            let transtionRange = (lastX + Constants.formationFrame.width + 1)...(lastX + formatationLength)
-            indexDictionary[range] = formationIndex
-            isFormation[formationRange] = formationIndex
-            isTrasition[transtionRange] = formationIndex
-            lastX += formatationLength + 1.0
+            let transtionRange = (lastX + Constants.formationFrame.width)...(lastX + formatationLength)
+            offsetMap[formationRange] = .formation(index: formationIndex)
+            offsetMap[transtionRange] = .transition(index: formationIndex)
+            lastX += formatationLength
         }
     }
 
     func play() {
         player.startTimer {
-            if self.isFormation[self.offset] == nil {
+            guard let currentFramInfo = self.offsetMap[self.offset] else {
+                self.player.resetTimer()
+                self.isPlaying = false
+                return
+            }
+            if currentFramInfo.isSameFrame(.transition()) {
                 self.offset += 0.5
                 self.action.send(.setOffset(self.offset))
             } else {
                 self.offset += 1
                 self.action.send(.setOffset(self.offset))
+            }
+            let totalFormationLength = Constants.formationFrame.width * CGFloat(self.performance.formations.count)
+            let totalTransitionLength = Constants.trasitionFrame.width * CGFloat(self.performance.formations.count - 1)
+            if self.offset >  totalFormationLength + totalTransitionLength {
+                self.player.resetTimer()
+                self.offset = totalFormationLength + totalTransitionLength
+                self.isPlaying = false
             }
         }
     }

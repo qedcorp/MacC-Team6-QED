@@ -41,7 +41,7 @@ final class DefaultAppleAuthRepository: NSObject, AppleAuthRepository {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            try unregisterKeyChain(accounts: [.id, .name, .email, .refreshToken])
+            try unregisterKeyChain(accounts: KeyChainAccount.allCases)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -64,7 +64,7 @@ extension DefaultAppleAuthRepository: ASAuthorizationControllerDelegate {
             Task {
                 do {
                     let firebaseAuthResult = try await Auth.auth().signIn(with: credential)
-                    try registerKeyChain(with: firebaseAuthResult)
+                    try registerKeyChain(with: firebaseAuthResult, provider: .apple)
                     authcontinuation?.resume(returning: true)
                 } catch {
                     authcontinuation?.resume(returning: false)

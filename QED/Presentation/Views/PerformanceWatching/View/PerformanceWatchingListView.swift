@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct PerformanceWatchingListView: View {
-    @ObservedObject private var viewModel: PerformanceWatchingListViewModel
+    @Binding var selectedIndex: Int
+    @Binding var isAllFormationVisible: Bool
+    var performance: Performance
 
     init(performance: Performance,
-         performanceUseCase: PerformanceUseCase) {
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            performanceUseCase: performanceUseCase
-        )
+         isAllFormationVisible: Binding<Bool>,
+         selectedIndex: Binding<Int>) {
 
-        self.viewModel = PerformanceWatchingListViewModel(
-            performanceSettingManager: performanceSettingManager,
-            performanceUseCase: performanceUseCase
-        )
+        self.performance = performance
+        self._isAllFormationVisible = isAllFormationVisible
+        self._selectedIndex = selectedIndex
+        print(selectedIndex)
     }
 
     var body: some View {
@@ -42,15 +41,16 @@ struct PerformanceWatchingListView: View {
                 .font(.title3)
                 .foregroundStyle(Color.monoWhite3)
             Spacer()
-            Button {} label: {
+            Button {
+                isAllFormationVisible = false
+            } label: {
                 Image("close")
             }
         }
     }
 
     private func buildPerformanceScrollView() -> some View {
-        @State var selectedIndex: Int?
-        let formations = viewModel.performanceSettingManager.performance.formations
+        let formations = performance.formations
         let chunkNumber = 2
 
         return ScrollView {
@@ -58,16 +58,22 @@ struct PerformanceWatchingListView: View {
                 ForEach(Array(
                     stride(from: 0, to: formations.count, by: chunkNumber)
                 ), id: \.self) { rowIndex in
-                    GridRow {
+                    HStack {
                         ForEach(0..<chunkNumber, id: \.self) { columnIndex in
-                            if rowIndex + columnIndex < formations.count - 1 {
+                            if rowIndex + columnIndex < formations.count {
                                 DanceFormationView(
                                     formation: formations[rowIndex + columnIndex],
                                     index: rowIndex + columnIndex,
                                     width: 163,
                                     height: 123
                                 )
+                                .onTapGesture {
+                                    selectedIndex = rowIndex + columnIndex
+                                    isAllFormationVisible = false
+                                }
+
                             }
+                            Spacer()
                         }
                     }
                     .padding(.bottom)

@@ -11,6 +11,8 @@ enum KeyChainAccount: CaseIterable {
     case id
     case name
     case email
+    case provider
+    case signUpdate
     case refreshToken
 
     // 더 필요한 Account 추가
@@ -20,15 +22,6 @@ enum KeyChainAccount: CaseIterable {
     }
 
     var keyChainClass: CFString {
-        switch self {
-        case .id:
-            return kSecClassGenericPassword
-        case .name:
-            return kSecClassGenericPassword
-        case .email:
-            return kSecClassGenericPassword
-        case .refreshToken:
-            return kSecClassGenericPassword
-        }
+        kSecClassGenericPassword
     }
 }

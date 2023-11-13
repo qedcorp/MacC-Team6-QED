@@ -12,7 +12,7 @@ struct PerformanceWatchingDetailView: View {
     typealias PlayBarConstants = ScrollObservableView.Constants
     @Environment(\.dismiss) private var dismiss
 
-    @StateObject var viewModel: PerformanceWatichingDetailViewModel
+    @ObservedObject var viewModel: PerformanceWatichingDetailViewModel
 
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
@@ -22,7 +22,6 @@ struct PerformanceWatchingDetailView: View {
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
-    @State private var isPlaying = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -31,9 +30,12 @@ struct PerformanceWatchingDetailView: View {
                 VStack(spacing: 8) {
                     VStack {
                         buildMemo()
-                        buildObjectPlayView()
+
                         if isTransitionEditable {
+                            // TODO: 여기 뵤꺼 수정하는 그 ObjectMovementAssignView
                             buildDetailControlButtons()
+                        } else {
+                            buildObjectPlayView()
                         }
                     }
                     .padding(.horizontal, 24)
@@ -47,23 +49,30 @@ struct PerformanceWatchingDetailView: View {
                 buildSettingSheetView()
             }
             .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
-                VStack {}
+                PerformanceWatchingListView(performance: viewModel.performance,
+                                            isAllFormationVisible: $isAllFormationVisible,
+                                            selectedIndex: $viewModel.selectedIndex
+                )
             })
             .navigationBarBackButtonHidden()
-            .navigationTitle(viewModel.performance.title ?? "")
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 buildLeftItem()
+                buildTitleItem()
                 buildRightItem()
             }
         }
     }
 
     private func buildObjectPlayView() -> some View {
-        ObjectPlayableView(movementsMap: viewModel.movementsMap,
-                           totalCount: viewModel.performance.formations.count,
-                           offset: $viewModel.offset,
-                           isShowingPreview: $viewModel.isShowingPreview
-        )
+        ZStack {
+            Image(isLineVisible ? "stage" : "stage_nongrid")
+            ObjectPlayableView(movementsMap: viewModel.movementsMap,
+                               totalCount: viewModel.performance.formations.count,
+                               offset: $viewModel.offset,
+                               isShowingPreview: $isBeforeVisible
+            )
+        }
         .frame(height: 216)
     }
 
@@ -166,7 +175,7 @@ struct PerformanceWatchingDetailView: View {
                 Image(isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
             }
             Spacer()
-            if isPlaying {
+            if viewModel.isPlaying {
                 buildPuaseButton()
             } else {
                 buildPlayButton()
@@ -217,7 +226,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPlayButton() -> some View {
         Button {
-            isPlaying = true
+            viewModel.isPlaying = true
             viewModel.play()
         } label: {
             Image("play_on")
@@ -226,7 +235,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPuaseButton() -> some View {
         Button {
-            isPlaying = false
+            viewModel.isPlaying = false
             viewModel.pause()
         } label: {
             Image("play_off")
@@ -309,6 +318,14 @@ struct PerformanceWatchingDetailView: View {
                 }
                 .foregroundColor(Color.blueLight3)
             }
+        }
+    }
+
+    private func buildTitleItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .principal) {
+           Text("대형보기")
+                .foregroundStyle(.white)
+                .bold()
         }
     }
 

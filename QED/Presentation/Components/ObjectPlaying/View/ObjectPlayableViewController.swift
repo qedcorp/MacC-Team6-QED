@@ -13,6 +13,12 @@ class ObjectPlayableViewController: ObjectStageViewController {
 
     typealias Constants = PlayableConstants
 
+    private var converter: BezierPathConverter {
+        let converter =  BezierPathConverter(pixelMargin: 10)
+        converter.relativeCoordinateConverter = relativeCoordinateConverter
+        return converter
+    }
+
     private var movementsMap: MovementsMap
     private var totalCount: Int
     private var isShowingPreview: Bool = false
@@ -53,7 +59,6 @@ class ObjectPlayableViewController: ObjectStageViewController {
         super.viewDidAppear(animated)
         mappingIndex()
         settingAppearance()
-        setupCenterLines()
         initFormation()
         render()
     }
@@ -104,12 +109,10 @@ class ObjectPlayableViewController: ObjectStageViewController {
             }
         }
     }
-
     private func settingAppearance() {
-        view.backgroundColor = .monoNormal2
+        view.backgroundColor = .clear
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 8
-        view.layer.removeAllAnimations()
     }
 
     private func render() {
@@ -130,9 +133,8 @@ class ObjectPlayableViewController: ObjectStageViewController {
                     )
                     let previewArray = [framPostion] + nilArray
                     let pathPoints = pathToPointCalculator.getAllPoints(path)
-                    renderPreview(info: member.key, points: previewArray, isFrame: true)
-                    renderPreview(info: member.key, points: pathPoints, isFrame: false)
-
+                    renderPreview(info: member.key, points: previewArray, isFrame: true, bezierPath)
+                    renderPreview(info: member.key, points: pathPoints, isFrame: false, bezierPath)
                     endPoint = relativeCoordinateConverter.getAbsoluteValue(of: bezierPath.endPosition)
                     return framPostions + pathPoints
                 }
@@ -166,14 +168,14 @@ class ObjectPlayableViewController: ObjectStageViewController {
         let transitionIndexCount = Int(CGFloat(PlayableConstants.transitionLength) * PlayableConstants.scale)
 
         for index in 0..<totalCount {
-            let length = index != totalCount - 1 ? framIndexCount + transitionIndexCount : framIndexCount
+            let length = index != totalCount - 1 ? framIndexCount + transitionIndexCount - 1 : framIndexCount - 1
             let range = lastX...(lastX + length)
             rangeToIndex[range] = index
-            lastX += (length)
+            lastX += (length+1)
         }
     }
 
-    private func renderPreview(info: Member.Info, points: [CGPoint?], isFrame: Bool) {
+    private func renderPreview(info: Member.Info, points: [CGPoint?], isFrame: Bool, _ arrowPath: BezierPath? = nil) {
         var answer: [ForamationPreview?] = []
         if isFrame {
             for point in points {
@@ -188,7 +190,9 @@ class ObjectPlayableViewController: ObjectStageViewController {
                 }
             }
         } else {
-            for point in points {
+            var newPoints = points
+            _ = newPoints.popLast()
+            for point in newPoints {
                 if let point = point {
                     let transitionView = PreviewLineView()
                     transitionView.value = info.color
@@ -199,8 +203,14 @@ class ObjectPlayableViewController: ObjectStageViewController {
                     answer.append(nil)
                 }
             }
+            let arrowView = PreviewArrowView()
+            arrowView.path = converter.buildArrowHeadPath(
+                arrowPath!,
+                tMargin: 0
+            ).cgPath
+            arrowView.value = info.color
+            answer.append(arrowView)
         }
-
         guard let array = memeberRoad[info] else {
             memeberRoad[info] = answer
             return
@@ -228,14 +238,32 @@ class ObjectPlayableViewController: ObjectStageViewController {
 
         return objectView
     }
-
-    private func setupCenterLines() {
-        let renderer = CenterLinesRenderer(color: .blueLight3)
-        renderer.render(in: view)
-    }
 }
 
 extension ObjectPlayableViewController {
+
+    final class PreviewArrowView: CAShapeLayer, ForamationPreview {
+
+        var radius: CGFloat = 0
+        var value: String = "" {
+            didSet {
+                fillColor = UIColor.clear.cgColor
+            }
+        }
+
+        func assignPosition(_ point: CGPoint) {
+            let newPoint = CGPoint(x: point.x - frame.width / 2, y: point.y - frame.height / 2)
+            self.frame = CGRect(x: newPoint.x, y: newPoint.y, width: frame.width, height: frame.height)
+        }
+
+        func setting(color: UIColor?, isForce: Bool) {
+            if let setColor = color {
+                fillColor = setColor.cgColor
+            } else {
+                fillColor = UIColor.clear.cgColor
+            }
+        }
+    }
 
     final class PreviewDotView: CALayer, ForamationPreview {
 
