@@ -17,14 +17,15 @@ struct PerformanceWatchingDetailView: View {
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
 
-    @State private var isAllFormationVisible = false
+    @State private var isAllFormationVisible: Bool
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
     @State private var isLoading = true
 
-    init(performance: Performance) {
+    init(performance: Performance, isAllFormationVisible: Bool = false) {
+        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
         self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
     }
 
@@ -53,12 +54,12 @@ struct PerformanceWatchingDetailView: View {
             .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
                 buildSettingSheetView()
             }
-            .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
+            .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
                 PerformanceWatchingListView(performance: viewModel.performance,
                                             isAllFormationVisible: $isAllFormationVisible,
                                             selectedIndex: $viewModel.selectedIndex
                 )
-            })
+            }
             .navigationBarBackButtonHidden()
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
