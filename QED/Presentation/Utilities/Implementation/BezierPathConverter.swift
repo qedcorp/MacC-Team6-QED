@@ -46,6 +46,14 @@ class BezierPathConverter {
         layer.addSublayer(circleLayer)
         return layer
     }
+    
+    private func buildArrowHeadLayer(_ bezierPath: BezierPath, tMargin: CGFloat, color: CGColor) -> CAShapeLayer {
+        let layer = CAShapeLayer()
+        let path = buildArrowHeadPath(bezierPath, tMargin: tMargin)
+        layer.path = path.cgPath
+        layer.fillColor = color
+        return layer
+    }
 
     private func buildArrowLayer(_ bezierPath: BezierPath, tMargin: CGFloat, color: CGColor) -> CAShapeLayer {
         let layer = CAShapeLayer()
@@ -53,14 +61,6 @@ class BezierPathConverter {
         layer.strokeColor = color
         layer.fillColor = UIColor.clear.cgColor
         layer.lineWidth = 1
-        return layer
-    }
-    
-    private func buildArrowHeadLayer(_ bezierPath: BezierPath, tMargin: CGFloat, color: CGColor) -> CAShapeLayer {
-        let layer = CAShapeLayer()
-        let path = buildArrowHeadPath(bezierPath, tMargin: tMargin)
-        layer.path = path.cgPath
-        layer.fillColor = color
         return layer
     }
 
@@ -84,7 +84,7 @@ class BezierPathConverter {
         return path
     }
     
-    private func buildArrowHeadPath(_ bezierPath: BezierPath, tMargin: CGFloat) -> UIBezierPath {
+    func buildArrowHeadPath(_ bezierPath: BezierPath, tMargin: CGFloat) -> UIBezierPath {
         let path = UIBezierPath()
         let height: CGFloat = 8
         let endPoint = getEndPoint(bezierPath: bezierPath, tMargin: tMargin)
