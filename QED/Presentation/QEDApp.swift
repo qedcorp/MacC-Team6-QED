@@ -17,6 +17,8 @@ struct QEDApp: App {
                     MainView()
                 } else {
                     AuthView(loginViewModel: LoginViewModel(isLogin: $isLogin))
+                        .background(content: { Color.black })
+                        .ignoresSafeArea()
                 }
                 ToastContainerView()
             }

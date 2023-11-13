@@ -26,6 +26,7 @@ struct AuthView: UIViewControllerRepresentable {
     }
 }
 
+@MainActor
 class LoginViewModel: ObservableObject {
 
     var bag = Set<AnyCancellable>()
