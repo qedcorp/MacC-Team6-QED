@@ -56,6 +56,7 @@ struct MainView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
     }
+
     private func mainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
