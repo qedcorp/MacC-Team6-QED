@@ -17,7 +17,6 @@ struct MyPageView: View {
     let customerSupport: MyPageList = .customerSupport
     let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
     let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
-    let appStoreURL = ""
     let qedEmail = "Q.E.D@gmail.com"
 
     @State private var isTermsVisible = false
@@ -201,7 +200,7 @@ struct MyPageView: View {
         VStack(spacing: 5) {
             HStack {
                 Button {
-//                     TODO: 메일앱 열기
+                    EmailController.shared.sendEmail(qedEmail)
                 } label: {
                     Text(verbatim: qedEmail)
                         .tint(Color.blueLight3)
@@ -280,12 +279,6 @@ struct MyPageView: View {
                 .bold()
                 .foregroundColor(.white)
         }
-    }
-}
-
-extension UIApplication {
-    static var appVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 }
 

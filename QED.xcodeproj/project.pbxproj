@@ -76,6 +76,7 @@
 		5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */; };
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
 		51908CD02B0346B600C8F602 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51908CCF2B0346B600C8F602 /* AccountInfoView.swift */; };
+		51908CD42B03CB1200C8F602 /* EmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51908CD32B03CB1200C8F602 /* EmailController.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
 		51D03BFB2B028C5D001F05FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03BFA2B028C5D001F05FD /* LaunchScreen.storyboard */; };
 		A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */; };
@@ -288,6 +289,7 @@
 		5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
 		51908CCF2B0346B600C8F602 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		51908CD32B03CB1200C8F602 /* EmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailController.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
 		51D03BFA2B028C5D001F05FD /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
 				5173278F2AFCD5C700386A40 /* AlertManager.swift */,
 				3AC325112AFB75EF002B6682 /* Animate.swift */,
+				51908CD32B03CB1200C8F602 /* EmailController.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -1627,6 +1630,7 @@
 				D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
+				51908CD42B03CB1200C8F602 /* EmailController.swift in Sources */,
 				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
