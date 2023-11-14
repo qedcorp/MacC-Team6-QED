@@ -24,7 +24,7 @@ struct AuthView: UIViewControllerRepresentable {
     }
 }
 
- @MainActor
+@MainActor
 class LoginViewModel: ObservableObject {
     static let shared = LoginViewModel()
 
