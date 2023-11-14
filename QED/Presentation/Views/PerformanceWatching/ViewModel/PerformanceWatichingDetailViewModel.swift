@@ -72,10 +72,10 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         var movementMap = MovementMap()
         for memberInfo in memberInfos {
             guard let startPoint = startFormation.members
-                .first { $0.info?.color == memberInfo.color }?
+                .first(where: { $0.info?.color == memberInfo.color })?
                 .relativePosition,
             let endPoint = endFormation.members
-                .first { $0.info?.color == memberInfo.color }?
+                .first(where: { $0.info?.color == memberInfo.color })?
                 .relativePosition else { continue }
 
             movementMap[memberInfo] = BezierPath(
