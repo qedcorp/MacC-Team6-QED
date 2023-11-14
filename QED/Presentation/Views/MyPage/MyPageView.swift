@@ -4,12 +4,13 @@
 //
 //  Created by chaekie on 10/18/23.
 //
-
+import StoreKit
 import SwiftUI
 
 struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
+    @Environment(\.requestReview) var requestReview
     @ObservedObject var viewModel = MyPageViewModel()
     let toastContainerViewModel: ToastContainerViewModel
     let termsAndConditions: MyPageList = .termsAndConditions
@@ -167,7 +168,8 @@ struct MyPageView: View {
             openURL(personalInfoURL)
         })
         case .appReview: buildChevronButton({
-//            TODO: 인앱 리뷰
+//            TODO: 인앱 리뷰 기능 출시 후 확인
+            requestReview()
         })
         }
     }
