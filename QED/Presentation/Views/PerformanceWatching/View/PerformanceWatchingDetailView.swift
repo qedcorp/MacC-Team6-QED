@@ -36,7 +36,6 @@ struct PerformanceWatchingDetailView: View {
                 VStack(spacing: 8) {
                     VStack {
                         buildMemo()
-
                         if isTransitionEditable {
                             // TODO: 여기 뵤꺼 수정하는 그 ObjectMovementAssignView
                             buildDetailControlButtons()
