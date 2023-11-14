@@ -10,57 +10,99 @@ import SwiftUI
 struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel = MyPageViewModel()
-    let defaultInfo: MyPageList = .defaultInfo
     let termsAndConditions: MyPageList = .termsAndConditions
-    let manageAccount: MyPageList = .manageAccount
+    let customerSupport: MyPageList = .customerSupport
 
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
     @State private var message: Message?
+    @State private var version: String? = "1.0.0"
 
     var body: some View {
-        ScrollView {
-            VStack {
-                buildProfileView()
-                buildSectionView(section: defaultInfo)
-                buildSectionView(section: termsAndConditions)
-                buildSectionView(section: manageAccount)
+        ZStack {
+            Image("background")
+                .resizable()
+                .ignoresSafeArea()
+            VStack(spacing: 0) {
+                VStack(spacing: 0) {
+                    buildProfileView()
+                    buildDivider()
+                    buildSectionView(section: termsAndConditions)
+                    buildDivider()
+                    buildSectionView(section: customerSupport)
+                }
+                buildContectView()
+                buildLogoutButton()
+                buildVersionInfoView()
+                Spacer()
             }
         }
-        .background(Color.monoBlack)
         .navigationBarBackButtonHidden()
         .toolbar {
             buildLeftItem()
             buildCenterItem()
         }
-        .sheet(isPresented: $isTermsVisible, content: {
+        .sheet(isPresented: $isTermsVisible) {
             buildTermsSheetView()
-        })
-        .sheet(isPresented: $isPersonalInfoVisble, content: {
+        }
+        .sheet(isPresented: $isPersonalInfoVisble) {
             buildPersonalInfoSheetView()
-        })
+        }
         .onAppear {
             viewModel.getMe()
         }
     }
 
     private func buildProfileView() -> some View {
-        VStack(spacing: 10) {
-            Image("profile")
-                .padding(.bottom, 5)
-
-            Text(viewModel.user.nickname ?? "-")
-                .fontWeight(.heavy)
-                .foregroundStyle(Color.monoWhite3)
-
-                .font(.system(size: 25))
-            Text("포디와 함께한지 \(viewModel.signUpPeriod)일")
-                .foregroundStyle(Color.monoNormal2)
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 7) {
+                    Text("안녕하세요")
+                    HStack(spacing: 0) {
+                        if let nickname = viewModel.user.nickname {
+                            Text("\(nickname) ")
+                                .fontWeight(.heavy)
+                                .font(.system(size: 25))
+                        }
+                        Text("디렉터님")
+                    }
+                }
+                Spacer()
+            }
+            .font(.title3)
+            buildEmailRowView()
         }
-        .padding(.top, 28)
-        .padding(.bottom, 30)
-        .frame(maxWidth: .infinity)
-        .background(Color.monoDarker)
+        .foregroundStyle(Color.monoWhite3)
+        .padding(.vertical, 34)
+        .padding(.horizontal, 24)
+    }
+
+    private func buildDivider() -> some View {
+        Rectangle()
+            .frame(height: 10)
+            .foregroundStyle(Color.monoBlack)
+    }
+
+    private func buildEmailRowView() -> some View {
+        HStack(spacing: 4) {
+            if let email = viewModel.user.email {
+                Text(verbatim: email)
+            }
+            ZStack {
+                Circle()
+                    .frame(width: 15, height: 15)
+                    .foregroundStyle(.yellow)
+                Image("kakao")
+            }
+            Spacer()
+            NavigationLink {
+                AccountInfoView(viewModel: viewModel)
+            } label: {
+                Image(systemName: "chevron.right")
+            }
+        }
+        .frame(height: 34)
+        .font(.subheadline)
     }
 
     private func buildSectionView(section: MyPageList) -> some View {
@@ -70,9 +112,8 @@ struct MyPageView: View {
                 buildListRowView(label: $0)
             }
         }
-        .padding(.top, 30)
-        .padding(.bottom, 20)
-        .background(Color.monoDarker)
+        .padding(.top, 28)
+        .padding(.bottom, 18)
     }
 
     private func buildSectionHeaderView(title: String) -> some View {
@@ -94,36 +135,21 @@ struct MyPageView: View {
             buildListContentView(label: label)
         }
         .font(.subheadline)
+        .padding(.vertical, 14)
         .padding(.horizontal, 36)
-        .padding(.vertical, 12)
     }
 
     @ViewBuilder
     private func buildListContentView(label: MyPageList.Label) -> some View {
-        let user = viewModel.user
         switch label {
-        case .name: buildTextListItem(
-            user.nickname ?? "-"
-        )
-        case .email: buildTextListItem(
-            user.email ?? "-"
-        )
         case .terms: buildChevronButton({
             isTermsVisible = true
         })
         case .personalInfo: buildChevronButton({
             isPersonalInfoVisble = true
         })
-        case .logout: buildChevronButton({
-            if let alertMessage = viewModel.alertMessage.first {
-                message = alertMessage
-            }
-        })
-        case .withdrawal: buildChevronButton({
-            if let alertMessage = viewModel.alertMessage.last {
-                message = alertMessage
-            }
-        })
+        case .announcement: buildChevronButton({})
+        case .appReview: buildChevronButton({})
         }
     }
 
@@ -156,6 +182,67 @@ struct MyPageView: View {
 
     private func buildPersonalInfoSheetView() -> some View {
         Text("개인정보 처리 방침")
+    }
+
+    private func buildContectView() -> some View {
+        VStack(spacing: 5) {
+            HStack {
+                Text("Q.E.D@gmail.com")
+                    .tint(Color.blueLight3)
+                    .font(.subheadline)
+                    .underline()
+                Spacer()
+                Button {
+
+                } label: {
+                    Text("복사")
+                        .foregroundStyle(Color.monoWhite3)
+                        .font(.caption2)
+                        .underline()
+                }
+            }
+
+            HStack {
+                Text("성함과 연락처를 알려주셔야 정확한 답변이 가능합니다")
+                    .foregroundStyle(Color.monoNormal2)
+                    .font(.caption2)
+                Spacer()
+            }
+        }
+        .padding(.top, 14)
+        .padding(.bottom, 19)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 24)
+    }
+
+    private func buildLogoutButton() -> some View {
+        Button {
+            if let alertMessage = viewModel.alertMessage.first {
+                message = alertMessage
+            }
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundStyle(Color.monoNormal1)
+
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+
+                Text("로그아웃")
+                    .foregroundStyle(Color.monoNormal2)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .padding(.horizontal, 24)
+        }
+    }
+
+    private func buildVersionInfoView() -> some View {
+        Text("버전정보 \(version ?? "")")
+            .foregroundStyle(Color.monoNormal2)
+            .font(.subheadline)
+            .bold()
+            .padding(.top, 19)
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {

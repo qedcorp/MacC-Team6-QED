@@ -16,11 +16,11 @@ class MyPageViewModel: ObservableObject {
     init() {
         self.authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)
         alertMessage = [
-            .destruction(title: AlertMessage.logout.title,
+            .confirmation(title: AlertMessage.logout.title,
                          body: AlertMessage.logout.body,
                          label: AlertMessage.logout.lebel,
                          action: logout),
-            .destruction(title: AlertMessage.withdrawal.title,
+            .confirmation(title: AlertMessage.withdrawal.title,
                          body: AlertMessage.withdrawal.body,
                          label: AlertMessage.withdrawal.lebel,
                          action: withdraw)
