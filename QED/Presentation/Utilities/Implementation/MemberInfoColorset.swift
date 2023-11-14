@@ -12,6 +12,10 @@ struct MemberInfoColorset {
     init(colorHexes: [String] = defaultColorHexes) {
         self.colorHexes = colorHexes
     }
+    
+    static func getAllColors() -> [String] {
+        MemberInfoColorset.defaultColorHexes
+    }
 
     func getColorHex(index: Int) -> String {
         colorHexes[safe: index] ?? Self.getRandomHex()
