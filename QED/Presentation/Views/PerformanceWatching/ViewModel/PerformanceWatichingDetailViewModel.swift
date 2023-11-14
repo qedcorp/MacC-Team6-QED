@@ -48,6 +48,20 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         binding()
         mappingIndexFromOffest()
     }
+    
+    private func makeLinearMovementMap(_ memberInfos: [Member.Info], startFormation: Formation, endFormation: Formation) -> MovementMap {
+        var movementMap = MovementMap()
+        for memberInfo in memberInfos {
+            guard let startPoint = startFormation.members.first { $0.info?.color == memberInfo.color }?.relativePosition,
+            let endPoint = endFormation.members.first { $0.info?.color == memberInfo.color }?.relativePosition else { continue }
+            movementMap[memberInfo] = BezierPath(
+                startPosition: startPoint,
+                endPosition: endPoint
+            )
+        }
+        
+        return movementMap
+    }
 
     private func binding() {
         action
