@@ -25,17 +25,23 @@ struct MainView: View {
                     VStack {
                         mainTitle()
                         buildMakeFormationButtonView()
-                        if viewModel.myRecentPerformances.isEmpty {
-                            buildEmptyView()
-                        } else {
-                            LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
-                                Section {
-                                    buildPerformanceListScrollView()
-                                } header: {
-                                    buildPerformanceListHeaderView()
+                        if !viewModel.isLoading {
+                            if viewModel.myRecentPerformances.isEmpty {
+                                buildEmptyView()
+                            } else {
+                                LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
+                                    Section {
+                                        buildPerformanceListScrollView()
+                                    } header: {
+                                        buildPerformanceListHeaderView()
+                                    }
                                 }
+                                .padding(.horizontal, 7)
                             }
-                            .padding(.horizontal, 7)
+                        } else {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
                         }
                     }
                     .padding(.top, 130)

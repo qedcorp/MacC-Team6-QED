@@ -36,6 +36,7 @@ struct PerformanceListCardView: View {
                         ProgressView()
                         Spacer()
                     }
+                    .backgroundStyle(.white)
                 case .success(let image):
                     image
                         .resizable()

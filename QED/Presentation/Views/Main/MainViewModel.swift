@@ -4,14 +4,14 @@
 //
 //  Created by chaekie on 10/22/23.
 //
-
-import Combine
-import Foundation
+import SwiftUI
 
 @MainActor
 class MainViewModel: ObservableObject {
     @Published var nickname: String = ""
     @Published var myRecentPerformances: [PerformanceModel] = []
+
+    @Published var isLoading: Bool = true
     let performanceUseCase: PerformanceUseCase
 
     init( performanceUseCase: PerformanceUseCase) {
@@ -20,8 +20,10 @@ class MainViewModel: ObservableObject {
 
     func fetchMyRecentPerformances() {
         Task {
+            isLoading = true
             let performances = try await performanceUseCase.getMyRecentPerformances()
             myRecentPerformances = performances.map({ PerformanceModel.build(entity: $0) })
+            isLoading = false
         }
     }
 
