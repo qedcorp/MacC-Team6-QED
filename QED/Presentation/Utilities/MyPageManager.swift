@@ -25,14 +25,13 @@ enum MyPageList: String, CaseIterable {
         case .termsAndConditions:
             return [.terms, .personalInfo]
         case .customerSupport:
-            return [.announcement, .appReview]
+            return [.appReview]
         }
     }
 
     enum Label: String {
         case terms = "이용약관"
         case personalInfo = "개인정보 처리 방침"
-        case announcement = "공지사항"
         case appReview = "앱 평가하기"
     }
 }

@@ -25,6 +25,7 @@ struct AccountInfoView: View {
             }
             .font(.subheadline)
         }
+        .navigationBarBackButtonHidden()
         .toolbar {
             buildLeftItem()
             buildCenterItem()
@@ -56,6 +57,7 @@ struct AccountInfoView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 58)
+        .padding(.top, 30)
         .padding(.horizontal, 24)
     }
 

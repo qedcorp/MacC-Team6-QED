@@ -20,7 +20,7 @@ class MyPageViewModel: ObservableObject {
                          body: AlertMessage.logout.body,
                          label: AlertMessage.logout.lebel,
                          action: logout),
-            .confirmation(title: AlertMessage.withdrawal.title,
+            .destruction(title: AlertMessage.withdrawal.title,
                          body: AlertMessage.withdrawal.body,
                          label: AlertMessage.withdrawal.lebel,
                          action: withdraw)
