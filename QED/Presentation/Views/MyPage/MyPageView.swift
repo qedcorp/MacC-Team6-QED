@@ -102,12 +102,16 @@ struct MyPageView: View {
             if let email = viewModel.user.email {
                 Text(verbatim: email)
             }
-            ZStack {
-                Circle()
-                    .frame(width: 15, height: 15)
-                    .foregroundStyle(.yellow)
-                Image("kakao")
+
+            if let loginProvider = viewModel.loginProvider {
+                ZStack {
+                    Circle()
+                        .frame(width: 15, height: 15)
+                        .foregroundStyle(loginProvider == "kakao" ? .KakaoYellow : Color.monoWhite3)
+                    Image(loginProvider)
+                }
             }
+
             Spacer()
             NavigationLink {
                 AccountInfoView(viewModel: viewModel)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountInfoView: View {
-    let viewModel: MyPageViewModel
+    @ObservedObject var viewModel: MyPageViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var message: Message?
 

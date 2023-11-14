@@ -7,10 +7,11 @@
 
 import Foundation
 
+@MainActor
 class MyPageViewModel: ObservableObject {
     let authUseCase: AuthUseCase
     @Published var user = User(id: "")
-    @Published var signUpPeriod = 1
+    @Published var loginProvider: String?
     @Published var alertMessage: [Message?] = []
 
     init() {
@@ -33,6 +34,7 @@ class MyPageViewModel: ObservableObject {
                 user.id = try KeyChainManager.shared.read(account: .id)
                 user.nickname = try KeyChainManager.shared.read(account: .name)
                 user.email = try KeyChainManager.shared.read(account: .email)
+                loginProvider = try KeyChainManager.shared.read(account: .provider).lowercased()
             } catch {
                 print(error)
             }
@@ -48,7 +50,7 @@ class MyPageViewModel: ObservableObject {
             let provider = try KeyChainManager.shared.read(account: .provider)
             if let authType = AuthProviderType(rawValue: provider) {
                 try await authUseCase.logout(authType: authType)
-                await LoginViewModel.shared.logout()
+                LoginViewModel.shared.logout()
             }
         }
     }
@@ -58,7 +60,7 @@ class MyPageViewModel: ObservableObject {
             let provider = try KeyChainManager.shared.read(account: .provider)
             if let authType = AuthProviderType(rawValue: provider) {
                 try await authUseCase.withdraw(authType: authType)
-                await LoginViewModel.shared.logout()
+                LoginViewModel.shared.logout()
             }
         }
     }
