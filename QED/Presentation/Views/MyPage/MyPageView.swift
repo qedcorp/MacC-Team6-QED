@@ -9,9 +9,12 @@ import SwiftUI
 
 struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) var openURL
     @ObservedObject var viewModel = MyPageViewModel()
     let termsAndConditions: MyPageList = .termsAndConditions
     let customerSupport: MyPageList = .customerSupport
+    let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
+    let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
 
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
@@ -23,34 +26,39 @@ struct MyPageView: View {
             Image("background")
                 .resizable()
                 .ignoresSafeArea()
-            VStack(spacing: 0) {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    buildProfileView()
-                    buildDivider()
-                    buildSectionView(section: termsAndConditions)
-                    buildDivider()
-                    buildSectionView(section: customerSupport)
+                    VStack(spacing: 0) {
+                        buildProfileView()
+                        buildDivider()
+                        buildSectionView(section: termsAndConditions)
+                        buildDivider()
+                        buildSectionView(section: customerSupport)
+                    }
+                    buildContectView()
+                    buildLogoutButton()
+                    buildVersionInfoView()
+                    Spacer()
                 }
-                buildContectView()
-                buildLogoutButton()
-                buildVersionInfoView()
-                Spacer()
+
             }
         }
         .navigationBarBackButtonHidden()
+        .toolbarBackground(Color.monoDarker, for: .navigationBar)
         .toolbar {
             buildLeftItem()
             buildCenterItem()
         }
-        .sheet(isPresented: $isTermsVisible) {
-            buildTermsSheetView()
-        }
-        .sheet(isPresented: $isPersonalInfoVisble) {
-            buildPersonalInfoSheetView()
-        }
         .onAppear {
             viewModel.getMe()
         }
+    }
+
+    private func openURL(_ url: String) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        openURL(url)
     }
 
     private func buildProfileView() -> some View {
@@ -143,12 +151,11 @@ struct MyPageView: View {
     private func buildListContentView(label: MyPageList.Label) -> some View {
         switch label {
         case .terms: buildChevronButton({
-            isTermsVisible = true
+            openURL(termsURL)
         })
         case .personalInfo: buildChevronButton({
-            isPersonalInfoVisble = true
+            openURL(personalInfoURL)
         })
-        case .announcement: buildChevronButton({})
         case .appReview: buildChevronButton({})
         }
     }
@@ -176,14 +183,6 @@ struct MyPageView: View {
         }
     }
 
-    private func buildTermsSheetView() -> some View {
-        Text("이용약관")
-    }
-
-    private func buildPersonalInfoSheetView() -> some View {
-        Text("개인정보 처리 방침")
-    }
-
     private func buildContectView() -> some View {
         VStack(spacing: 5) {
             HStack {
@@ -209,10 +208,9 @@ struct MyPageView: View {
                 Spacer()
             }
         }
-        .padding(.top, 14)
-        .padding(.bottom, 19)
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
+        .padding(.top, -4)
+        .padding(.bottom, 73)
+        .padding(.horizontal, 36)
     }
 
     private func buildLogoutButton() -> some View {
@@ -243,6 +241,7 @@ struct MyPageView: View {
             .font(.subheadline)
             .bold()
             .padding(.top, 19)
+            .padding(.bottom, 40)
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
