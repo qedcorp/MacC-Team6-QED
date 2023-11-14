@@ -44,13 +44,17 @@ struct AccountInfoView: View {
                 Text("연동된 소셜계정")
                     .foregroundStyle(Color.monoNormal2)
                 Spacer()
-                Text("카카오톡")
-                    .foregroundStyle(Color.monoWhite3)
-                ZStack {
-                    Circle()
-                        .frame(width: 15, height: 15)
-                        .foregroundStyle(.yellow)
-                    Image("kakao")
+                if let loginProvider = viewModel.loginProvider {
+                    Text(loginProvider == "kakao" ? "카카오톡"
+                         : loginProvider == "apple" ? "애플"
+                         : "구글")
+                        .foregroundStyle(Color.monoWhite3)
+                    ZStack {
+                        Circle()
+                            .frame(width: 15, height: 15)
+                            .foregroundStyle(loginProvider == "kakao" ? .KakaoYellow : Color.monoWhite3)
+                        Image(loginProvider)
+                    }
                 }
             }
             .padding(.horizontal, 20)
