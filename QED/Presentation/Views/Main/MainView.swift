@@ -111,7 +111,7 @@ struct MainView: View {
             HStack(spacing: 15) {
                 let myRecentPerformances = viewModel.myRecentPerformances
                     .sorted { lhs, rhs in
-                        lhs.entity.createdAt < rhs.entity.createdAt
+                        lhs.createdAt < rhs.createdAt
                     }
                 ForEach(myRecentPerformances) { performance in
                     NavigationLink {
