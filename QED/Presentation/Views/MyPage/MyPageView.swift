@@ -11,15 +11,21 @@ struct MyPageView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
     @ObservedObject var viewModel = MyPageViewModel()
+    let toastContainerViewModel: ToastContainerViewModel
     let termsAndConditions: MyPageList = .termsAndConditions
     let customerSupport: MyPageList = .customerSupport
     let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
     let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
+    let appStoreURL = ""
+    let qedEmail = "Q.E.D@gmail.com"
 
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
     @State private var message: Message?
-    @State private var version: String? = "1.0.0"
+
+    init(toastContainerViewModel: ToastContainerViewModel = .shared) {
+        self.toastContainerViewModel = toastContainerViewModel
+    }
 
     var body: some View {
         ZStack {
@@ -156,7 +162,9 @@ struct MyPageView: View {
         case .personalInfo: buildChevronButton({
             openURL(personalInfoURL)
         })
-        case .appReview: buildChevronButton({})
+        case .appReview: buildChevronButton({
+//            TODO: 인앱 리뷰
+        })
         }
     }
 
@@ -186,13 +194,18 @@ struct MyPageView: View {
     private func buildContectView() -> some View {
         VStack(spacing: 5) {
             HStack {
-                Text("Q.E.D@gmail.com")
-                    .tint(Color.blueLight3)
-                    .font(.subheadline)
-                    .underline()
+                Button {
+//                     TODO: 메일앱 열기
+                } label: {
+                    Text(verbatim: qedEmail)
+                        .tint(Color.blueLight3)
+                        .font(.subheadline)
+                        .underline()
+                }
                 Spacer()
                 Button {
-
+                    UIPasteboard.general.setValue(qedEmail, forPasteboardType: "public.plain-text")
+                    toastContainerViewModel.presentMessage("이메일 주소가 복사되었습니다")
                 } label: {
                     Text("복사")
                         .foregroundStyle(Color.monoWhite3)
@@ -236,7 +249,7 @@ struct MyPageView: View {
     }
 
     private func buildVersionInfoView() -> some View {
-        Text("버전정보 \(version ?? "")")
+        Text("버전정보 \(UIApplication.appVersion ?? "")")
             .foregroundStyle(Color.monoNormal2)
             .font(.subheadline)
             .bold()
@@ -261,6 +274,12 @@ struct MyPageView: View {
                 .bold()
                 .foregroundColor(.white)
         }
+    }
+}
+
+extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 }
 
