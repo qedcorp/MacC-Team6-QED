@@ -81,9 +81,7 @@ struct MainView: View {
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(performance):
-                    PerformanceWatchingDetailView(
-                        viewModel: PerformanceWatichingDetailViewModel(performance: performance)
-                    )
+                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true)
                 }
             }
             .navigationBarBackButtonHidden()
@@ -178,20 +176,16 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
-                let myRecentPerformances = viewModel.myRecentPerformances
-                    .sorted { lhs, rhs in
-                        lhs.createdAt < rhs.createdAt
-                    }
-                ForEach(myRecentPerformances) { performance in
-                    NavigationLink {
-                        PerformanceWatchingDetailView(performance: performance)
-                    } label: {
-                        PerformanceListCardView(performance: performance)
-                    }
-                }
+        let myRecentPerformances = viewModel.myRecentPerformances
+            .sorted { lhs, rhs in
+                lhs.createdAt < rhs.createdAt
+            }
+        return ForEach(myRecentPerformances) { performance in
+            NavigationLink {
+                PerformanceWatchingDetailView(performance: performance)
+            } label: {
+                PerformanceListCardView(performance: performance)
+            }
         }
     }
 

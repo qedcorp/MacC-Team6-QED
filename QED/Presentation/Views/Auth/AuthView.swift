@@ -8,7 +8,6 @@
 import Combine
 import SwiftUI
 
-
 @MainActor
 struct AuthView: UIViewControllerRepresentable {
     @ObservedObject var loginViewModel: LoginViewModel
