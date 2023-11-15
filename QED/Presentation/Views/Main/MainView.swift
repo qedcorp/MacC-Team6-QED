@@ -107,6 +107,7 @@ struct MainView: View {
     }
 
     private func buildPerformanceListScrollView() -> some View {
+        
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 let myRecentPerformances = viewModel.myRecentPerformances
@@ -115,9 +116,7 @@ struct MainView: View {
                     }
                 ForEach(myRecentPerformances) { performance in
                     NavigationLink {
-                        PerformanceWatchingDetailView(
-                            viewModel: PerformanceWatichingDetailViewModel(performance: performance)
-                        )
+                        PerformanceWatchingDetailView(performance: performance)
                     } label: {
                         PerformanceListCardView(performance: performance)
                     }
