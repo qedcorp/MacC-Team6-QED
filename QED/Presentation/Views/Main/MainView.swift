@@ -102,11 +102,11 @@ struct MainView: View {
     private func mainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("당신의")
+                Text("내 손안에")
                     .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(Color.monoWhite3)
-                Text("든든한 서포터")
+                Text("포메이션 디렉터")
                     .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
                     .bold()
                     .multilineTextAlignment(.leading)

@@ -16,7 +16,7 @@ struct PerformanceListCardView: View {
     var image: UIImage?
     var headcount: Int
     @State private var isLoading = true
-    @State private var isMusic = false
+    @State private var isMusic = true
 
     init(performance: Performance) {
         self.performance = performance
@@ -54,7 +54,7 @@ struct PerformanceListCardView: View {
                     }
                     .frame(height: 170)
                 } else {
-                    //TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
+                    // TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
                     Rectangle()
                         .frame(height: 170)
                 }
