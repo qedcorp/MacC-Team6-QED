@@ -3,20 +3,8 @@
 import SwiftUI
 
 struct MemberSettingView: View {
-    @ObservedObject private var viewModel: MemberSettingViewModel
+    @ObservedObject var viewModel: MemberSettingViewModel
     @Binding var path: [PresentType]
-
-    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            performanceUseCase: performanceUseCase
-        )
-        self.viewModel = MemberSettingViewModel(
-            performanceSettingManager: performanceSettingManager,
-            performanceUseCase: performanceUseCase
-        )
-        self._path = path
-    }
 
     var body: some View {
         ZStack {
@@ -64,18 +52,19 @@ struct MemberSettingView: View {
                 PerformanceSettingTitleView(step: 2, title: "인물지정")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink("세부동선") {
-                    buildMovementSettingView()
-                }
-                .disabled(!viewModel.isEnabledToSave)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
                 Text("완료")
-                    .foregroundStyle(viewModel.isEnabledToSave ? .blue : .gray)
+                    .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                     .onTapGesture {
                         if viewModel.isEnabledToSave {
-                            print(path)
-                            path = [.performanceWatching(viewModel.performance.entity, true)]
+                            if viewModel.performance.entity.isCompleted {
+                                let transfer = PerformanceWatchingTransferModel(
+                                    performanceSettingManager: viewModel.performanceSettingManager,
+                                    isAllFormationVisible: true
+                                )
+                                path = [.performanceWatching(transfer)]
+                            } else {
+                                path = [.formationSetting(viewModel.performance.entity)]
+                            }
                         }
                     }
             }

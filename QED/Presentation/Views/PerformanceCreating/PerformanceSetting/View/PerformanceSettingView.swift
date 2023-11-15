@@ -8,11 +8,7 @@
 import Foundation
 import SwiftUI
 
-
-
 struct PerformanceSettingView: View {
-    
-    @State private var yameNextView: FormationSettingView? = nil
     @ObservedObject private var viewModel: PerformanceSettingViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
@@ -155,16 +151,17 @@ struct PerformanceSettingView: View {
     }
     
     var nextButton: some View {
-        
-        NavigationLink {
-            PerformanceLoadingView(viewModel: viewModel, path: $path)
-        } label: {
-            Image(true ? "go_able" : "go_disable")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 86, height: 44)
-        }
-        .disabled(!viewModel.isAllSet)
+        Image(true ? "go_able" : "go_disable")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 86, height: 44)
+            .disabled(!viewModel.isAllSet)
+            .onTapGesture {
+                let transfer = PerformanceLoadingTransferModel {
+                    viewModel.getTaskForCreatePerformance()
+                }
+                path.append(.performanceLoading(transfer))
+            }
     }
     
     var inputTitleTextField: some View {

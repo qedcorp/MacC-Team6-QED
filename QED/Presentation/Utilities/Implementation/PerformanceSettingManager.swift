@@ -17,7 +17,10 @@ class PerformanceSettingManager {
             .eraseToAnyPublisher()
     }()
 
-    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
+    init(
+        performance: Performance,
+        performanceUseCase: PerformanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
+    ) {
         self.performance = performance
         self.performanceUseCase = performanceUseCase
         subscribeChangingPublisher()

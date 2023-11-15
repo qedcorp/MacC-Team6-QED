@@ -23,7 +23,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private lazy var multiSelectBoxView = {
         let box = MultiSelectBoxView()
-        box.layer.zPosition = .greatestFiniteMagnitude - 1
+        box.layer.zPosition = 100
         view.addSubview(box)
         return box
     }()

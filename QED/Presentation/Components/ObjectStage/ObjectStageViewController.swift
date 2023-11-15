@@ -4,7 +4,7 @@ import UIKit
 
 class ObjectStageViewController: UIViewController {
     private(set) lazy var relativeCoordinateConverter = {
-        return RelativeCoordinateConverter(sizeable: view)
+        RelativeCoordinateConverter(sizeable: view)
     }()
 
     var isColorAssignable = true
@@ -38,8 +38,8 @@ class ObjectStageViewController: UIViewController {
         }
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         isViewAppeared = false
         copiedFormable = nil
     }
