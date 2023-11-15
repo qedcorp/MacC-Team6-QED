@@ -120,7 +120,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     lazy var kakaoButton: UIButton = {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapKakaoSignInView(_:)))
-        object.backgroundColor = .yellow
+        object.backgroundColor = UIColor.KakaoYellow
         object.layer.cornerRadius = screenWidth * 0.075
         object.setImage(UIImage(named: "kakao_login"), for: .normal)
         object.addGestureRecognizer(gesture)

@@ -61,7 +61,7 @@ enum AlertMessage: CaseIterable {
         case .logout:
             return "로그아웃"
         case .withdrawal:
-            return "회원 탈퇴"
+            return "탈퇴하기"
         case .escape:
             return "정말로 나가시겠어요?"
         }
@@ -70,9 +70,9 @@ enum AlertMessage: CaseIterable {
     var body: String {
         switch self {
         case .logout:
-            return "정말로 로그아웃 하시겠어요?"
+            return "정말 로그아웃 하시겠어요?"
         case .withdrawal:
-            return "정말로 회원 탈퇴 하시겠어요?"
+            return "FODI 탈퇴 시, 모든 내역이\n삭제되며 복구 할 수 없습니다.\n정말 탈퇴 하시겠습니까?"
         case .escape:
             return "입력된 내용은 저장되지 않아요"
         }
@@ -83,7 +83,7 @@ enum AlertMessage: CaseIterable {
         case .logout:
             return "로그아웃"
         case .withdrawal:
-            return "회원탈퇴"
+            return "탈퇴"
         case .escape:
             return "나가기"
         }
