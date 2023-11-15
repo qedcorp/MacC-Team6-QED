@@ -73,6 +73,8 @@ struct MainView: View {
                         performanceUseCase: viewModel.performanceUseCase,
                         path: $path
                     )
+                case let .performanceLoading(data):
+                    PerformanceLoadingView(data: data, path: $path)
                 case let .formationSetting(performance, index):
                     let viewModel = FormationSettingViewModel(
                         performance: performance,
@@ -143,16 +145,15 @@ struct MainView: View {
     }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-
             Image("performanceSetting")
                 .onTapGesture {
                     path.append(.performanceSetting)
                 }
-            .onAppear {
-                DispatchQueue.global().async {
-                    viewModel.fetchMyRecentPerformances()
+                .onAppear {
+                    DispatchQueue.global().async {
+                        viewModel.fetchMyRecentPerformances()
+                    }
                 }
-            }
             Spacer()
         }
         .padding(.horizontal, 20)

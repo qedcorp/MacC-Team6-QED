@@ -9,6 +9,7 @@ import Foundation
 
 enum PresentType: Hashable {
     case performanceSetting
+    case performanceLoading(PerformanceLoadingData)
     case performanceWatching(Performance, Bool)
     case myPage
     case performanceListReading([Performance])

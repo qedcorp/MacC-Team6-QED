@@ -107,16 +107,27 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-    func generatePerformance() async {
+    func getTaskForCreatePerformance() -> Task<Performance?, Never> {
+        Task {
+            await createPerformance()
+        }
+    }
+
+    private func createPerformance() async -> Performance? {
         let memberInfo = zip(inputMemberInfo, MemberInfoColorset.getAllColors())
             .map { Member.Info(name: $0, color: $1) }
         guard let id = try? KeyChainManager.shared.read(account: .id),
               let email = try? KeyChainManager.shared.read(account: .email),
-              let nickname = try? KeyChainManager.shared.read(account: .name) else { return }
-        let tempPerformance = Performance(id: "",
-                                          author: User(id: id, email: email, nickname: nickname), music: selectedMusic ?? Music(id: "", title: "", artistName: ""),
-                                          headcount: headcount, title: performanceTitle, memberInfos: memberInfo)
-        self.performance = try? await performanceUseCase.createPerformance(performance: tempPerformance)
+              let nickname = try? KeyChainManager.shared.read(account: .name) else { return nil }
+        let tempPerformance = Performance(
+            id: "",
+            author: User(id: id, email: email, nickname: nickname),
+            music: selectedMusic ?? Music(id: "", title: "", artistName: ""),
+            headcount: headcount,
+            title: performanceTitle,
+            memberInfos: memberInfo
+        )
+        return try? await performanceUseCase.createPerformance(performance: tempPerformance)
     }
 
     func toggleDisclosureGroup1() {
