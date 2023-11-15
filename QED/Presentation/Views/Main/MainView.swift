@@ -177,6 +177,29 @@ struct MainView: View {
         .padding(.leading, 20)
     }
 
+<<<<<<< HEAD
+=======
+    private func leftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Text("Fodi")
+                .fontWeight(.bold)
+                .kerning(0.4)
+        }
+    }
+
+    private func rightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            NavigationLink {
+                PerformanceWatchingListView(
+                    performance: performance.entity,
+                    performanceUseCase: viewModel.performanceUseCase)
+            } label: {
+                PerformanceListCardView(performance: performance)
+            }
+        }
+    }
+
+>>>>>>> d90e69a52403cdbffd665325dffd574041b4e9cc
     private func leftItem() -> some View {
         Image("FodiIcon")
             .resizable()
