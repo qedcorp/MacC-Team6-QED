@@ -58,9 +58,6 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
-                    .onAppear {
-                        print("ScrollView height: \(geometry.size.height)")
-                    }
                     .onTapGesture {
                         endTextEditing()
                     }

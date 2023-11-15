@@ -112,6 +112,7 @@
 		A9D279F12AE68CF6002B00DA /* MockAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */; };
 		A9DB97382AF2746400703732 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97372AF2746400703732 /* Color+.swift */; };
 		A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97392AF2751200703732 /* CustomFont.swift */; };
+		A9EBC2332B04AEC300B812B4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EBC2322B04AEC300B812B4 /* ProgressView.swift */; };
 		D400CF912B04924300457F68 /* PresentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400CF902B04924300457F68 /* PresentType.swift */; };
 		D400CF952B04ADA200457F68 /* PerformanceLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
@@ -334,6 +335,7 @@
 		A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockAssets.xcassets; sourceTree = "<group>"; };
 		A9DB97372AF2746400703732 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		A9DB97392AF2751200703732 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		A9EBC2322B04AEC300B812B4 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		D400CF902B04924300457F68 /* PresentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentType.swift; sourceTree = "<group>"; };
 		D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingView.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				3AC325032AF40BDB002B6682 /* MemberInfoEditing */,
+				A9EBC2312B04AEA900B812B4 /* Progress */,
 				3AC325152AFC0F3B002B6682 /* ToastContainer */,
 				D4F19A292AF8DE3300F2F013 /* ScrollObservable */,
 				D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */,
@@ -897,6 +900,14 @@
 				D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */,
 			);
 			path = PerformanceLoading;
+      sourceTree = "<group>";
+     };
+		A9EBC2312B04AEA900B812B4 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				A9EBC2322B04AEC300B812B4 /* ProgressView.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
@@ -1624,6 +1635,7 @@
 				D460F00D2AE18DF700A5966A /* DefaultMemberUseCase.swift in Sources */,
 				D42AA11A2AEC1B5F0053E2A8 /* TypeDictionary.swift in Sources */,
 				D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */,
+				A9EBC2332B04AEC300B812B4 /* ProgressView.swift in Sources */,
 				D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */,
 				D460F0132AE18DF700A5966A /* FormationTransitionUseCase.swift in Sources */,
 				3A5328B92AEBED6A0051A09C /* RelativeCoordinateConverter.swift in Sources */,
