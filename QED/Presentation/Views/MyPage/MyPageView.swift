@@ -17,7 +17,7 @@ struct MyPageView: View {
     let customerSupport: MyPageList = .customerSupport
     let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
     let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
-    let qedEmail = "Q.E.D@gmail.com"
+    let qedEmail = "teamqedofficial@gmail.com"
 
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
