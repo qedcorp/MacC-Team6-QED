@@ -19,6 +19,7 @@ struct PerformanceWatchingDetailView: View {
     @State private var isToastVisiable = false
 
     @State private var isAllFormationVisible: Bool
+    @State private var isAutoShowAllForamation: Bool = false
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
@@ -28,6 +29,7 @@ struct PerformanceWatchingDetailView: View {
     init(performance: Performance, isAllFormationVisible: Bool = false, path: Binding<[PresentType]>) {
         self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
         self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
+        self._isAutoShowAllForamation = State(initialValue: isAllFormationVisible)
         self._path = path
     }
 
@@ -69,6 +71,13 @@ struct PerformanceWatchingDetailView: View {
                 buildRightItem()
             }
         }
+        .onAppear {
+            if isAutoShowAllForamation {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.isAllFormationVisible = true
+                }
+            }
+        }
     }
 
     private func buildObjectPlayView() -> some View {
@@ -82,7 +91,6 @@ struct PerformanceWatchingDetailView: View {
                                offset: $viewModel.offset,
                                isShowingPreview: $isBeforeVisible,
                                isLoading: $isLoading
-
             )
         }
         .frame(height: 216)

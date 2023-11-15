@@ -82,8 +82,18 @@ struct MainView: View {
                     FormationSettingView(viewModel: viewModel, path: $path)
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
-                case let .performanceWatching(performance):
-                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true, path: $path)
+                case let .performanceWatching(performance, isAllFormationVisible):
+                    if performance.isCompleted {
+                        PerformanceWatchingDetailView(performance: performance,
+                                                      isAllFormationVisible: isAllFormationVisible,
+                                                      path: $path)
+                    } else {
+                        let viewModel = FormationSettingViewModel(
+                            performance: performance,
+                            performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
+                        )
+                        FormationSettingView(viewModel: viewModel, path: $path)
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
@@ -183,12 +193,13 @@ struct MainView: View {
                 lhs.createdAt < rhs.createdAt
             }
         return ForEach(myRecentPerformances) { performance in
-            NavigationLink {
-                PerformanceWatchingDetailView(performance: performance, path: $path)
-            } label: {
-                PerformanceListCardView(performance: performance)
-            }
+            PerformanceListCardView(performance: performance)
+                .onTapGesture {
+                    path.append(.performanceWatching(performance, false))
+                }
+                .frame(width: 163, height: 198)
         }
+        .padding(.horizontal, 24)
     }
 
     private func leftItem() -> some View {
