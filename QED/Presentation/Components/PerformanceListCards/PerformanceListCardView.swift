@@ -17,7 +17,6 @@ struct PerformanceListCardView: View {
     var headcount: Int
     @State private var isLoading = true
     @State private var isMusic = true
-    @State private var notCompletedPerformance = false
 
     init(performance: Performance) {
         self.performance = performance
@@ -46,7 +45,7 @@ struct PerformanceListCardView: View {
                         case.success(let image):
                             image
                                 .resizable()
-                                .scaledToFill()
+                                .aspectRatio(contentMode: .fill)
                         case.failure:
                             Image(systemName: "exclamationmark.circle.fill")
                         @unknown default:
@@ -55,7 +54,7 @@ struct PerformanceListCardView: View {
                     }
                     .frame(height: 170)
                     .overlay {
-                        if notCompletedPerformance {
+                        if performance.isCompleted {
                             Rectangle()
                                 .foregroundStyle(.black.opacity(0.8))
                         } else {
@@ -109,7 +108,7 @@ struct PerformanceListCardView: View {
             }
             VStack {
                 // TODO: 코드가 이상하지만 일단 리팩을 위해... 남겨주세요... 너무 찝찝하면 고쳐도 됩니다...- 올인턴 -
-                if notCompletedPerformance {
+                if performance.isCompleted {
                     Image("yetComplete")
                         .padding(.bottom, 40)
                 } else {
