@@ -48,7 +48,7 @@ class Performance: Codable {
         }
     }
 
-    var isCompleted: Bool {
+    var isCompleted: Bool {a
         self.formations.allSatisfy { !$0.colors.contains(nil) } &&
         self.formations.allSatisfy { $0.members.count == self.headcount }
     }
