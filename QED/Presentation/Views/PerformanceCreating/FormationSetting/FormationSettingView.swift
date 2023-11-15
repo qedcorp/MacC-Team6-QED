@@ -3,13 +3,8 @@
 import SwiftUI
 
 struct FormationSettingView: View {
-    @ObservedObject private var viewModel: FormationSettingViewModel
+    @ObservedObject var viewModel: FormationSettingViewModel
     @Binding var path: [PresentType]
-
-    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
-        self.viewModel = FormationSettingViewModel(performance: performance, performanceUseCase: performanceUseCase)
-        self._path = path
-    }
 
     var body: some View {
         ZStack {

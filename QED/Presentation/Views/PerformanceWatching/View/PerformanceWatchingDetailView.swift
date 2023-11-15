@@ -13,6 +13,7 @@ struct PerformanceWatchingDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var viewModel: PerformanceWatichingDetailViewModel
+    @Binding var path: [PresentType]
 
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
@@ -24,9 +25,10 @@ struct PerformanceWatchingDetailView: View {
     @State private var isLineVisible = false
     @State private var isLoading = true
 
-    init(performance: Performance, isAllFormationVisible: Bool = false) {
-        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
+    init(performance: Performance, isAllFormationVisible: Bool = false, path: Binding<[PresentType]>) {
         self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
+        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
+        self._path = path
     }
 
     var body: some View {
@@ -341,8 +343,8 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildRightItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                //  TODO: 상세 동선 수정 기능
+            NavigationLink {
+                FormationSettingView(viewModel: viewModel.formationSettingViewModel, path: $path)
             } label: {
                 Text("수정")
                     .foregroundStyle(Color.blueLight3)

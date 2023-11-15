@@ -4,7 +4,7 @@ import UIKit
 
 class ObjectStageViewController: UIViewController {
     private(set) lazy var relativeCoordinateConverter = {
-        return RelativeCoordinateConverter(sizeable: view)
+        RelativeCoordinateConverter(sizeable: view)
     }()
 
     var isColorAssignable = true
