@@ -24,7 +24,7 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         for index in movementsMap.indices {
             var movementMap = movementsMap[index]
             if movementMap == nil {
-                if index < movementsMap.count - 2 {
+                if index <= movementsMap.count - 2 {
                     movementMap = makeLinearMovementMap(memberInfos,
                                                         startFormation: performance.formations[index],
                                                         endFormation: performance.formations[index + 1]
