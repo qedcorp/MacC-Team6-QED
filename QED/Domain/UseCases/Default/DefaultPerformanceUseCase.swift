@@ -17,4 +17,8 @@ struct DefaultPerformanceUseCase: PerformanceUseCase {
     func updatePerformance(_ performance: Performance) async throws -> Performance {
         try await performanceRepository.updatePerformance(performance)
     }
+
+    func removePerformance(_ performanceID: String) async throws -> Bool {
+        try await performanceRepository.removePerformance(performanceID)
+    }
 }

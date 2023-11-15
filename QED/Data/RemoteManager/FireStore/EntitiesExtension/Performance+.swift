@@ -29,20 +29,6 @@ extension Performance: FireStoreEntityConvertable {
         }
         do {
             let performance = try JSONDecoder().decode(Performance.self, from: jsonData)
-//            for formation in performance.formations {
-//                guard let memeberInfos = performance.memberInfos else { continue }
-//                let tempKeys = formation.movementMap?.map { key, _ in key }
-//                guard let keys = tempKeys else { continue }
-//                for memberInfo in memeberInfos {
-//                    for key in keys {
-//                        if memberInfo.color == key.color && memberInfo.name == key.name {
-//                            let path = formation.movementMap?[key]
-//                            formation.movementMap?[memberInfo] = path
-//                            formation.movementMap?.removeValue(forKey: key)
-//                        }
-//                    }
-//                }
-//            }
             self.init(
                 id: performance.id,
                 author: performance.author,
