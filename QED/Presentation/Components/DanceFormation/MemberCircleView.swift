@@ -17,8 +17,8 @@ struct MemberCircleView: View {
             if let color = member.info?.color {
                 Circle()
                     .fill(Color(hex: color))
-                    .frame(width: geometry.size.width * 0.11,
-                           height: geometry.size.height * 0.11)
+                    .frame(width: geometry.size.width * 0.054,
+                           height: geometry.size.width * 0.054)
             }
             if let name = member.info?.name {
                 Text(isNameVisiable ? name.prefix(2) : "")

@@ -18,20 +18,16 @@ struct PerformanceListReadingView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     var body: some View {
-        VStack {
-            subline
-            ScrollView(.vertical) {
-                LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-                    ForEach(viewModel.myRecentPerformances) { performance in
-                        NavigationLink {
-                            PerformanceWatchingListView(performance: performance.entity,
-                                                        performanceUseCase: viewModel.performanceUseCase)
-                        } label: {
-                            PerformanceListCardView(performance: performance)
-                        }
-                    }
-                }
-                .padding(.horizontal, 15)
+        ScrollView(.vertical) {
+            LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
+//                ForEach(viewModel.myRecentPerformances) { performance in
+//                    NavigationLink {
+//                        PerformanceWatchingListView(performance: performance.entity,
+//                                                    performanceUseCase: viewModel.performanceUseCase)
+//                    } label: {
+//                        PerformanceListCardView(performance: performance)
+//                    }
+//                }
             }
         }
         .background(

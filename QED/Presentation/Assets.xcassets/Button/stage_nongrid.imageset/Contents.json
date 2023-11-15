@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "state=state2@1x.png",
+      "filename" : "Stage.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "state=state2@2x.png",
+      "filename" : "Stage@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "state=state2@3x.png",
+      "filename" : "Stage@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -69,8 +69,8 @@ struct MainView: View {
                     PerformanceListReadingView()
                 case let .performanceWatching(performance):
                     PerformanceWatchingDetailView(
-                        viewModel: <#T##PerformanceWatchingDetailViewModel#>,
-                        index: <#T##Int#>)
+                        viewModel: PerformanceWatichingDetailViewModel(performance: performance)
+                    )
                     
                 }
             }
@@ -166,7 +166,32 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ForEach(viewModel.myRecentPerformances) { performance in
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                ForEach(viewModel.myRecentPerformances) { performance in
+                    NavigationLink {
+                        PerformanceWatchingDetailView(
+                            viewModel: PerformanceWatichingDetailViewModel(performance: performance)
+                        )
+                    } label: {
+                        PerformanceListCardView(performance: performance)
+                    }
+                }
+            }
+        }
+        .padding(.leading, 20)
+    }
+
+    private func leftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Text("Fodi")
+                .fontWeight(.bold)
+                .kerning(0.4)
+        }
+    }
+
+    private func rightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
             NavigationLink {
                 PerformanceWatchingListView(
                     performance: performance.entity,
@@ -215,3 +240,9 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         return viewControllers.count > 1
     }
 }
+
+#Preview {
+    MainView()
+}
+
+extension Performance: Identifiable { }
