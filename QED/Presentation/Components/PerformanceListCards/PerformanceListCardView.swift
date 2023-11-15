@@ -45,7 +45,7 @@ struct PerformanceListCardView: View {
                         case.success(let image):
                             image
                                 .resizable()
-                                .scaledToFill()
+                                .aspectRatio(contentMode: .fill)
                         case.failure:
                             Image(systemName: "exclamationmark.circle.fill")
                         @unknown default:
@@ -53,6 +53,16 @@ struct PerformanceListCardView: View {
                         }
                     }
                     .frame(height: 170)
+                    .overlay {
+                        if performance.isCompleted {
+                            Rectangle()
+                                .foregroundStyle(.black.opacity(0.8))
+                        } else {
+                            Rectangle()
+                                .foregroundStyle(.clear)
+                        }
+                    }
+
                 } else {
                     // TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
                     Rectangle()
@@ -94,6 +104,18 @@ struct PerformanceListCardView: View {
 
                 Spacer()
                     .padding()
+
+            }
+            VStack {
+                // TODO: 코드가 이상하지만 일단 리팩을 위해... 남겨주세요... 너무 찝찝하면 고쳐도 됩니다...- 올인턴 -
+                if performance.isCompleted {
+                    Image("yetComplete")
+                        .padding(.bottom, 40)
+                } else {
+                    Image("yetComplete")
+                        .opacity(0)
+                        .padding(.bottom, 40)
+                }
 
             }
 
