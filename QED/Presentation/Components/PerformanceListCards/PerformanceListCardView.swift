@@ -27,32 +27,31 @@ struct PerformanceListCardView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            AsyncImage(url: performance.music.albumCoverURL) { phase in
-                switch phase {
-                case .empty:
-                    VStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
-                    }
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .onAppear {
-                            isLoading = false
+        GeometryReader { geometry in
+            VStack(alignment: .leading) {
+                AsyncImage(url: performance.music.albumCoverURL) { phase in
+                    switch phase {
+                    case.empty:
+                        VStack(alignment: .center) {
+                            HStack(alignment: .center) {
+                                Spacer()
+                                ProgressView()
+                                Spacer()
+                            }
                         }
-
-                case .failure:
-                    Image(systemName: "exclamationmark.circle.fill")
-                @unknown default:
-                    Image(systemName: "exclamationmark.circle.fill")
+                    case.success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    case.failure:
+                        Image(systemName: "exclamationmark.circle.fill")
+                    @unknown default:
+                        Image(systemName: "exclamationmark.circle.fill")
+                    }
                 }
-            }
+                .frame(height: geometry.size.height * 0.18)
 
-            if !isLoading {
-                HStack {
+                HStack(alignment: .center) {
                     VStack(alignment: .leading) {
                         Text("\(performanceTitle)")
                             .font(.footnote)
@@ -77,16 +76,21 @@ struct PerformanceListCardView: View {
                                 .frame(width: 27, height: 27)
                         )
                 }
-                .padding(.top, 5)
+                .padding(.top, 15)
                 .padding(.horizontal)
-            }
 
-            Spacer()
-                .padding()
+                Spacer()
+                    .padding()
+
+            }
+            .frame(width: geometry.size.width * 0.418, height: geometry.size.height * 0.235)
+            .background(Gradient.blueGradation2)
+            .foregroundStyle(Color.monoWhite3)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .frame(width: 163, height: 198)
-        .background(Gradient.blueGradation2)
-        .foregroundStyle(Color.monoWhite3)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
+}
+
+#Preview {
+    PerformanceListCardView(performance: mockPerformance1)
 }
