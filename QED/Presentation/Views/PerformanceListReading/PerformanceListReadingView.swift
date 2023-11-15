@@ -23,13 +23,9 @@ struct PerformanceListReadingView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 20) {
                 buildPerformanceCountView()
-                LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-                    ForEach(viewModel.performances) { performance in
-                        PerformanceListCardView(performance: performance.entity)
-                    }
-                }
+                buildPerformaceListView()
             }
             .padding(.horizontal, 24)
         }
@@ -43,6 +39,14 @@ struct PerformanceListReadingView: View {
         .toolbar {
             buildLeftItem()
             buildCenterItem()
+        }
+    }
+
+    private func buildPerformaceListView() -> some View {
+        LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
+            ForEach(viewModel.performances) { performance in
+                PerformanceListCardView(performance: performance.entity)
+            }
         }
     }
 
