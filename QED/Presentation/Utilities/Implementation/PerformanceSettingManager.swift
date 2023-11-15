@@ -101,6 +101,13 @@ class PerformanceSettingManager {
         didChange()
     }
 
+    func updatePerformanceTitle(title: String) {
+        if !title.isEmpty {
+            performance.title = title
+            didChange()
+        }
+    }
+
     private func didChange() {
         let performance = PerformanceModel.build(entity: performance)
         changingSubject.send(performance)
