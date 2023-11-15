@@ -54,7 +54,7 @@ struct PerformanceSettingView: View {
                     }
                     .onChange(of: viewModel.scrollToID) { newID in
                         print("New scrollToID: \(String(describing: newID))")
-                        DispatchQueue.main.async {
+                        withAnimation {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
@@ -172,7 +172,6 @@ struct PerformanceSettingView: View {
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
-                    viewModel.scrollToID = 2
                 }
             }
             .focused($isFocused)
@@ -338,9 +337,9 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             } else {
                 viewModel.selectedMusic = music
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    viewModel.toggleDisclosureGroup3()
-                }
+                
+                viewModel.toggleDisclosureGroup3()
+                
             }
         }
         .id(music.id)
@@ -378,6 +377,14 @@ struct PerformanceSettingView: View {
                 .multilineTextAlignment(.center)
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .tint(Color.blueLight2)
+                .onTapGesture {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        withAnimation {
+                            viewModel.scrollToID = 2
+                        }
+//                    }
+                }
+                
             
             Spacer()
             

@@ -133,7 +133,6 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded2 = true
             isExpanded1 = false
             isExpanded3 = false
-            scrollToID = 2
         }
     }
 
@@ -142,7 +141,6 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded3 = true
             isExpanded1 = false
             isExpanded2 = false
-            scrollToID = 3
         }
     }
 
