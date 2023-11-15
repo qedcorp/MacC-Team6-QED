@@ -13,6 +13,7 @@ class FormationSettingViewModel: ObservableObject {
     let presetContainerViewModel: PresetContainerViewModel
     let performanceSettingManager: PerformanceSettingManager
     let performanceUseCase: PerformanceUseCase
+    let memberSettingTransferModel: MemberSettingTransferModel
     private let toastContainerViewModel: ToastContainerViewModel
     private let hapticManager: HapticManager
 
@@ -39,6 +40,10 @@ class FormationSettingViewModel: ObservableObject {
         let canvasController = Controller()
         let zoomableCanvasController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
+        let performanceSettingManager = PerformanceSettingManager(
+            performance: performance,
+            performanceUseCase: performanceUseCase
+        )
 
         canvasController.objectHistoryArchiver = objectHistoryArchiver
         zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
@@ -54,11 +59,12 @@ class FormationSettingViewModel: ObservableObject {
         )
         self.toastContainerViewModel = toastContainerViewModel
         self.hapticManager = hapticManager
-        self.performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
+        self.performanceSettingManager = performanceSettingManager
+        self.performanceUseCase = performanceUseCase
+        self.memberSettingTransferModel = MemberSettingTransferModel(
+            performanceSettingManager: performanceSettingManager,
             performanceUseCase: performanceUseCase
         )
-        self.performanceUseCase = performanceUseCase
 
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()

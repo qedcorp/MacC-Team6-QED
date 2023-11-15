@@ -9,10 +9,10 @@ import Foundation
 
 enum PresentType: Hashable {
     case performanceSetting
-    case performanceLoading(PerformanceLoadingData)
+    case performanceLoading(PerformanceLoadingTransferModel)
     case performanceWatching(Performance, Bool)
     case myPage
     case performanceListReading([Performance])
     case formationSetting(Performance, Int? = nil)
-    // case memberSetting
+    case memberSetting(MemberSettingTransferModel)
 }

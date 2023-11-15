@@ -2,8 +2,9 @@
 
 import Foundation
 
-struct PerformanceLoadingData: Equatable, Hashable {
-    let task: () -> Task<Performance?, Never>
+struct MemberSettingTransferModel: Equatable, Hashable {
+    let performanceSettingManager: PerformanceSettingManager
+    let performanceUseCase: PerformanceUseCase
     private let uuid = UUID()
 
     func hash(into hasher: inout Hasher) {

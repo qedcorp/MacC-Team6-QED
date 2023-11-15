@@ -44,10 +44,12 @@ struct FormationSettingView: View {
                     PerformanceSettingTitleView(step: 1, title: "대형짜기")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink("다음") {
-                        buildMemberSettingView()
-                    }
-                    .disabled(!viewModel.isEnabledToSave)
+                    Text("다음")
+                        .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
+                        .disabled(!viewModel.isEnabledToSave)
+                        .onTapGesture {
+                            path.append(.memberSetting(viewModel.memberSettingTransferModel))
+                        }
                 }
             }
         }
@@ -312,13 +314,5 @@ struct FormationSettingView: View {
             }
         }
         .ignoresSafeArea()
-    }
-
-    private func buildMemberSettingView() -> some View {
-        MemberSettingView(
-            performance: viewModel.performanceSettingManager.performance,
-            performanceUseCase: viewModel.performanceUseCase,
-            path: $path
-        )
     }
 }

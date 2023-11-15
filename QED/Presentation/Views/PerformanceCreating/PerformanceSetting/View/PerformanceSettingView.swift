@@ -161,10 +161,10 @@ struct PerformanceSettingView: View {
             .frame(width: 86, height: 44)
             .disabled(!viewModel.isAllSet)
             .onTapGesture {
-                let data = PerformanceLoadingData {
+                let transfer = PerformanceLoadingTransferModel {
                     viewModel.getTaskForCreatePerformance()
                 }
-                path.append(.performanceLoading(data))
+                path.append(.performanceLoading(transfer))
             }
     }
     

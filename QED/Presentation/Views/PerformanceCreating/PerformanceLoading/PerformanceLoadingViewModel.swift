@@ -5,7 +5,7 @@ import Foundation
 
 @MainActor
 class PerformanceLoadingViewModel: ObservableObject {
-    var data: PerformanceLoadingData?
+    var transfer: PerformanceLoadingTransferModel?
     @Published private(set) var isLoading: Bool
     private(set) var performance: Performance?
 
@@ -14,7 +14,7 @@ class PerformanceLoadingViewModel: ObservableObject {
     }
 
     func executeTask() async {
-        let task = data?.task()
+        let task = transfer?.task()
         performance = await task?.value
     }
 

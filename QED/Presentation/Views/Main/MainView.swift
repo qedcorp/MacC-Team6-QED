@@ -73,8 +73,8 @@ struct MainView: View {
                         performanceUseCase: viewModel.performanceUseCase,
                         path: $path
                     )
-                case let .performanceLoading(data):
-                    PerformanceLoadingView(data: data, path: $path)
+                case let .performanceLoading(transfer):
+                    PerformanceLoadingView(transfer: transfer, path: $path)
                 case let .formationSetting(performance, index):
                     let viewModel = FormationSettingViewModel(
                         performance: performance,
@@ -96,6 +96,12 @@ struct MainView: View {
                         )
                         FormationSettingView(viewModel: viewModel, path: $path)
                     }
+                case let .memberSetting(transfer):
+                    let viewModel = MemberSettingViewModel(
+                        performanceSettingManager: transfer.performanceSettingManager,
+                        performanceUseCase: transfer.performanceUseCase
+                    )
+                    MemberSettingView(viewModel: viewModel, path: $path)
                 }
             }
             .navigationBarBackButtonHidden()
