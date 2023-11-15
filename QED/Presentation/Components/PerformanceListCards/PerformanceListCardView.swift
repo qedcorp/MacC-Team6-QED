@@ -58,7 +58,6 @@ struct PerformanceListCardView: View {
                     Rectangle()
                         .frame(height: 170)
                 }
-                .frame(height: 136)
 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
