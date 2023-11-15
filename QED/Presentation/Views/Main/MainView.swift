@@ -80,8 +80,15 @@ struct MainView: View {
                     )
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
-                case let .performanceWatching(performance):
-                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true)
+                case let .performanceWatching(performance, isAllFormationVisible):
+                    if performance.isCompleted {
+                        PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: isAllFormationVisible)
+                    } else {
+                        FormationSettingView(performance: performance,
+                                             performanceUseCase: viewModel.performanceUseCase,
+                                             path: $path
+                        )
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
@@ -183,9 +190,11 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    path.append(.performanceWatching(performance))
+                    path.append(.performanceWatching(performance, false))
                 }
+                .frame(width: 163, height: 198)
         }
+        .padding(.horizontal, 24)
     }
 
     private func leftItem() -> some View {

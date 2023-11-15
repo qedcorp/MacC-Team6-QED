@@ -47,8 +47,9 @@ class Performance: Codable {
             )
         }
     }
-    
-    var isEnabledToWatching: Bool {
-        self.formations.allSatisfy { !$0.colors.contains(nil) }
+
+    var isCompleted: Bool {
+        self.formations.allSatisfy { !$0.colors.contains(nil) } &&
+        self.formations.allSatisfy { $0.members.count == self.headcount }
     }
 }
