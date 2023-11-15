@@ -11,9 +11,10 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
+    @State var voidPath: [PresentType] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $voidPath) {
             VStack {
                 HStack {
                     leftItem()
@@ -54,6 +55,24 @@ struct MainView: View {
             )
             .onAppear {
                 viewModel.fetchUser()
+            }
+            .navigationDestination(for: PresentType.self) { persentType in
+                switch persentType {
+                case .myPage:
+                    MyPageView()
+                case .performanceSetting:
+                    PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
+                case let .formationSetting(performance):
+                    FormationSettingView(performance: performance,
+                                         performanceUseCase: viewModel.performanceUseCase)
+                case let .performanceListReading(performances):
+                    PerformanceListReadingView()
+                case let .performanceWatching(performance):
+                    PerformanceWatchingDetailView(
+                        viewModel: <#T##PerformanceWatchingDetailViewModel#>,
+                        index: <#T##Int#>)
+                    
+                }
             }
             .navigationBarBackButtonHidden()
 
@@ -195,8 +214,4 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
     }
-}
-
-#Preview {
-    MainView()
 }
