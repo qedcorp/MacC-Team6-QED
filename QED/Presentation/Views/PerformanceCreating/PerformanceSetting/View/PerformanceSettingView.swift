@@ -493,7 +493,7 @@ struct PerformanceSettingView: View {
             }
         }
     }
-    
+   
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
