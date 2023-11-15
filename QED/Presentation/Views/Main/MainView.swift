@@ -23,7 +23,7 @@ struct MainView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     leftItem()
                     Spacer()
@@ -44,7 +44,7 @@ struct MainView: View {
                                     buildPerformanceListHeaderView()
                                 }
                             }
-                            .padding(.horizontal, 7)
+                            .padding(.horizontal, 20)
                         }
                     }
                     .padding(.top, 130)
@@ -131,7 +131,6 @@ struct MainView: View {
     }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-
             Image("performanceSetting")
                 .onTapGesture {
                     path.append(.performanceSetting)
@@ -147,19 +146,20 @@ struct MainView: View {
     }
 
     private func buildPerformanceListHeaderView() -> some View {
-        HStack {
+        HStack(alignment: .center) {
             Text("최근 프로젝트")
                 .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
                 .kerning(0.38)
                 .foregroundStyle(Color.monoWhite3)
 
             Spacer()
+
             Image("listReading")
                 .onTapGesture {
                     path.append(.performanceListReading(viewModel.myRecentPerformances))
                 }
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 7)
         .padding(.top, 20)
     }
 
@@ -172,8 +172,8 @@ struct MainView: View {
     }
 
     let columns: [GridItem] = [
-        GridItem(spacing: 0, alignment: nil),
-        GridItem(spacing: 0, alignment: nil)]
+        GridItem(spacing: 10, alignment: nil),
+        GridItem(spacing: 10, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
         let myRecentPerformances = viewModel.myRecentPerformances
@@ -181,11 +181,10 @@ struct MainView: View {
                 lhs.createdAt < rhs.createdAt
             }
         return ForEach(myRecentPerformances) { performance in
-            NavigationLink {
-                PerformanceWatchingDetailView(performance: performance)
-            } label: {
-                PerformanceListCardView(performance: performance)
-            }
+            PerformanceListCardView(performance: performance)
+                .onTapGesture {
+                    path.append(.performanceWatching(performance))
+                }
         }
     }
 
