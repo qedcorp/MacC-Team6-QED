@@ -11,138 +11,198 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
+    @State var path: [PresentType] = [] {
+        didSet {
+            if path.isEmpty {
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
+            }
+        }
+    }
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 30) {
-                buildMainTopView()
-                buildMakeFormationButtonView()
-                buildPerformanceListHeaderView()
-                if viewModel.myRecentPerformances.isEmpty {
-                    buildEmptyView()
-                } else {
-                    buildPerformanceListScrollView()
+        NavigationStack(path: $path) {
+            VStack {
+                HStack {
+                    leftItem()
+                    Spacer()
+                    rightItem()
                 }
-                Spacer()
+                .padding(.horizontal, 24)
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        mainTitle()
+                        buildMakeFormationButtonView()
+                        if viewModel.myRecentPerformances.isEmpty {
+                            buildEmptyView()
+                        } else {
+                            LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
+                                Section {
+                                    buildPerformanceListScrollView()
+                                } header: {
+                                    buildPerformanceListHeaderView()
+                                }
+                            }
+                            .padding(.horizontal, 7)
+                        }
+                    }
+                    .padding(.top, 130)
+                }
             }
-            .ignoresSafeArea()
-            .toolbar {
-                leftItem()
-                rightItem()
+            .background(
+                ZStack {
+                    Image("background")
+                        .resizable()
+                        .ignoresSafeArea(.all)
+                    VStack {
+                        buildMainTopView()
+                        Spacer()
+                    }
+                }.ignoresSafeArea()
+            )
+            .onAppear {
+                viewModel.fetchUser()
             }
+            .navigationDestination(for: PresentType.self) { persentType in
+                switch persentType {
+                case .myPage:
+                    MyPageView()
+                case .performanceSetting:
+                    PerformanceSettingView(
+                        performanceUseCase: viewModel.performanceUseCase,
+                        path: $path
+                    )
+                case let .formationSetting(performance):
+                    FormationSettingView(performance: performance,
+                                         performanceUseCase: viewModel.performanceUseCase,
+                                         path: $path
+                    )
+                case let .performanceListReading(performances):
+                    PerformanceListReadingView(performances: performances)
+                case let .performanceWatching(performance):
+                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true)
+                }
+            }
+            .navigationBarBackButtonHidden()
         }
-        .onAppear {
-            viewModel.fetchUser()
-        }
-        .navigationBarBackButtonHidden()
     }
 
     private func buildMainTopView() -> some View {
-        Image("MockMain")
+        Image("lese")
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .scaledToFit()
+            .mask(
+                LinearGradient(gradient:
+                                Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+            )
     }
 
+    private func mainTitle() -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("당신의")
+                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(Color.monoWhite3)
+                Text("든든한 서포터")
+                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                    .bold()
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(Color.monoWhite3)
+                HStack(alignment: .center, spacing: 0) {
+                    Text("FODI")
+                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(Color.blueLight3)
+                    Text(" 와 함께,")
+                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(Color.monoWhite3)
+                }
+            }
+            Spacer()
+        }
+        .padding(.vertical)
+        .padding(.horizontal, 20)
+
+    }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-            Text("동선 만들기")
-                .font(.title)
-                .bold()
-                .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-            Spacer()
-            NavigationLink {
-                TitleSetupView(performanceUseCase: viewModel.performanceUseCase)
-            } label: {
-                Text("Go")
-                    .font(.title2)
-                    .bold()
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
-                    .foregroundColor(.white)
-                    .background(Color(red: 0, green: 0.97, blue: 0.04))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-            }
+
+            Image("performanceSetting")
+                .onTapGesture {
+                    path.append(.performanceSetting)
+                }
             .onAppear {
-                viewModel.fetchMyRecentPerformances()
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
             }
+            Spacer()
         }
         .padding(.horizontal, 20)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
         HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("최근 제작한 동선")
-                    .font(.title3)
-                    .bold()
-                Text("동선 만들기를 완료한 후 디렉팅하세요")
-                    .font(.caption)
-            }
+            Text("최근 프로젝트")
+                .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
+                .kerning(0.38)
+                .foregroundStyle(Color.monoWhite3)
+
             Spacer()
-            NavigationLink {
-                PerformanceListReadingView()
-            } label: {
-                Image(systemName: "chevron.right")
-                    .font(.title2)
-                    .foregroundColor(Color(red: 0, green: 0.97, blue: 0.04))
-            }
+            Image("listReading")
+                .onTapGesture {
+                    path.append(.performanceListReading(viewModel.myRecentPerformances))
+                }
         }
-        .bold()
         .padding(.horizontal, 20)
+        .padding(.top, 20)
     }
 
     private func buildEmptyView() -> some View {
-        VStack {
-            Image("MainListEmpty")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100)
-            Text("만들어진 동선이 없어요")
-                .font(.headline)
-                .bold()
-                .foregroundStyle(Color(red: 0.45, green: 0.87, blue: 0.98))
-        }
-        .padding(.top, 30)
-        .opacity(0.5)
+        Image("mainlistEmpty")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 300, height: 300)
+            .opacity(0.5)
     }
+
+    let columns: [GridItem] = [
+        GridItem(spacing: 0, alignment: nil),
+        GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
-                let myRecentPerformances = viewModel.myRecentPerformances
-                    .sorted { lhs, rhs in
-                        lhs.createdAt < rhs.createdAt
-                    }
-                ForEach(myRecentPerformances) { performance in
-                    NavigationLink {
-                        PerformanceWatchingDetailView(performance: performance)
-                    } label: {
-                        PerformanceListCardView(performance: performance)
-                    }
-                }
+        let myRecentPerformances = viewModel.myRecentPerformances
+            .sorted { lhs, rhs in
+                lhs.createdAt < rhs.createdAt
             }
-        }
-        .padding(.leading, 20)
-    }
-
-    private func leftItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Text("Fodi")
-                .fontWeight(.bold)
-                .kerning(0.4)
-        }
-    }
-
-    private func rightItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        return ForEach(myRecentPerformances) { performance in
             NavigationLink {
-                MyPageView()
+                PerformanceWatchingDetailView(performance: performance)
             } label: {
-                Image(systemName: "person.circle")
-                    .foregroundColor(Color.green)
+                PerformanceListCardView(performance: performance)
             }
         }
+    }
+
+    private func leftItem() -> some View {
+        Image("FodiIcon")
+            .resizable()
+            .frame(width: 50, height: 28)
+
+    }
+
+    private func rightItem() -> some View {
+        Image("profile")
+            .resizable()
+            .frame(width: 24, height: 24)
+            .onTapGesture {
+                path.append(.myPage)
+            }
     }
 }
 

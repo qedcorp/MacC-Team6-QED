@@ -13,6 +13,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
+// @MainActor
 final class DefaultKakaoAuthRepository: KakaoAuthRepository {
 
     func login() async throws -> Bool {

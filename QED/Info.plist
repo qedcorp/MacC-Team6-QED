@@ -27,5 +27,17 @@
 	</array>
 	<key>GIDClinetID</key>
 	<string>993731843797-h1lnr1k4qv30upbji6f4g5m5iu70s4a9.apps.googleusercontent.com</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pretendard-Black.otf</string>
+		<string>Pretendard-Bold.otf</string>
+		<string>Pretendard-ExtraBold.otf</string>
+		<string>Pretendard-ExtraLight.otf</string>
+		<string>Pretendard-Light.otf</string>
+		<string>Pretendard-Medium.otf</string>
+		<string>Pretendard-Regular.otf</string>
+		<string>Pretendard-SemiBold.otf</string>
+		<string>Pretendard-Thin.otf</string>
+	</array>
 </dict>
 </plist>
