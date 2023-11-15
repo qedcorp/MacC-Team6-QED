@@ -15,7 +15,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var performance: Performance? = Performance(id: "",
                                                            author: User(),
                                                            music: Music(id: "", title: "", artistName: ""),
-                                                           headcount: 1)
+                                                           headcount: 2)
 
     init(performanceUseCase: PerformanceUseCase) {
         self.performanceUseCase = performanceUseCase
@@ -72,8 +72,6 @@ class PerformanceSettingViewModel: ObservableObject {
             isSearchingMusic = false
         }
     }
-
-    // headcount func
 
     func decrementHeadcount() {
         if headcount > range.lowerBound {

@@ -24,7 +24,7 @@ struct PerformanceSettingView: View {
         self.viewModel = PerformanceSettingViewModel(
             performanceUseCase: performanceUseCase)
         self._path = path
-        viewModel.headcount = 2
+        viewModel.headcount = 1
     }
     
     var body: some View {
@@ -374,11 +374,9 @@ struct PerformanceSettingView: View {
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .tint(Color.blueLight2)
                 .onTapGesture {
-                    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     withAnimation {
                         viewModel.scrollToID = 2
                     }
-                    //                    }
                 }
             
             
@@ -490,6 +488,7 @@ struct PerformanceSettingView: View {
     var inputMemperinfoTextFiledsView: some View {
         VStack {
             ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
+                if index < viewModel.inputMemberInfo.count {
                     TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
                         .focused($isFocused)
                         .foregroundStyle(Color.monoNormal2)
@@ -508,9 +507,9 @@ struct PerformanceSettingView: View {
                     
                     Spacer()
                 }
-                Spacer()
             }
         }
+    }
     
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
