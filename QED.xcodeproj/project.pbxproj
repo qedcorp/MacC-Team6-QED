@@ -219,6 +219,8 @@
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
+		D4C9B2352B0505BB007B7D46 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B2342B0505BB007B7D46 /* UserDefaultsWrapper.swift */; };
+		D4C9B2372B0505D9007B7D46 /* UserDefaultSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B2362B0505D9007B7D46 /* UserDefaultSetting.swift */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -435,6 +437,8 @@
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
+		D4C9B2342B0505BB007B7D46 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		D4C9B2362B0505D9007B7D46 /* UserDefaultSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSetting.swift; sourceTree = "<group>"; };
 		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
 		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
 		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -955,7 +959,7 @@
 		D460EF602AE18DF700A5966A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				D460EF752AE18DF700A5966A /* KeyChain */,
+				D4C9B2332B05059A007B7D46 /* Local */,
 				D460F0362AE2578600A5966A /* RemoteManager */,
 				D460EF642AE18DF700A5966A /* Repositories */,
 			);
@@ -1410,6 +1414,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D4C9B2322B05058D007B7D46 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				D4C9B2342B0505BB007B7D46 /* UserDefaultsWrapper.swift */,
+				D4C9B2362B0505D9007B7D46 /* UserDefaultSetting.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		D4C9B2332B05059A007B7D46 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				D4C9B2322B05058D007B7D46 /* UserDefaults */,
+				D460EF752AE18DF700A5966A /* KeyChain */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
 		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
 			isa = PBXGroup;
 			children = (
@@ -1659,6 +1681,7 @@
 				D42AA1152AEC121B0053E2A8 /* DefaultAuthUseCase.swift in Sources */,
 				D460F00B2AE18DF700A5966A /* DefaultFormationUseCase.swift in Sources */,
 				3AC3251B2AFC1049002B6682 /* ToastContainerViewModel.swift in Sources */,
+				D4C9B2372B0505D9007B7D46 /* UserDefaultSetting.swift in Sources */,
 				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
 				D460F0122AE18DF700A5966A /* FormationUseCase.swift in Sources */,
 				D460F01F2AE18DF700A5966A /* AuthUIProtocol.swift in Sources */,
@@ -1748,6 +1771,7 @@
 				3AE701C62AE66AB800C48403 /* ObjectColorAssigningViewController.swift in Sources */,
 				D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */,
 				D460F0142AE18DF700A5966A /* MusicUseCase.swift in Sources */,
+				D4C9B2352B0505BB007B7D46 /* UserDefaultsWrapper.swift in Sources */,
 				3AE701B52AE5D07700C48403 /* Rect+Contains.swift in Sources */,
 				3AE701A82AE4450A00C48403 /* Int+.swift in Sources */,
 				D460F0022AE18DF700A5966A /* KakaoAuthRepository.swift in Sources */,

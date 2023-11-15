@@ -342,7 +342,7 @@ struct PerformanceWatchingDetailView: View {
     private func buildRightItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                //  TODO: 상세 동선 수정 기능
+
             } label: {
                 Text("수정")
                     .foregroundStyle(Color.blueLight3)

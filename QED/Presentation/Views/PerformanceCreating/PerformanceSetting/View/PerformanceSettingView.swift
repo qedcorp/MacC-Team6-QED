@@ -140,6 +140,7 @@ struct PerformanceSettingView: View {
             AnyView(EmptyView())
         }
     }
+    
     @ViewBuilder
     func disclosureLabel(for groupNum: Int) -> some View {
         switch groupNum {
@@ -155,16 +156,13 @@ struct PerformanceSettingView: View {
     }
     
     var nextButton: some View {
-        
-        NavigationLink {
-            PerformanceLoadingView(viewModel: viewModel, path: $path)
-        } label: {
-            Image(true ? "go_able" : "go_disable")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 86, height: 44)
-        }
-        .disabled(!viewModel.isAllSet)
+        Image(true ? "go_able" : "go_disable")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 86, height: 44)
+            .onTapGesture {
+                path.append(.formationSetting(viewModel.performance!))
+            }
     }
     
     var inputTitleTextField: some View {
