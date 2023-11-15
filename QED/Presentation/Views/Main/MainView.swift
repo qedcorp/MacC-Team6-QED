@@ -75,10 +75,9 @@ struct MainView: View {
                     )
                 case let .performanceLoading(transfer):
                     PerformanceLoadingView(transfer: transfer, path: $path)
-                case let .formationSetting(performance, index):
+                case let .formationSetting(performance, _):
                     let viewModel = FormationSettingViewModel(
                         performance: performance,
-                        currentFormationIndex: index ?? -1,
                         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
                     )
                     FormationSettingView(viewModel: viewModel, path: $path)

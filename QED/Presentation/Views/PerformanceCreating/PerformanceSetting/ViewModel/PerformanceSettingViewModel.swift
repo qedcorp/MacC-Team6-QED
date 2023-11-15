@@ -11,7 +11,6 @@ import SwiftUI
 class PerformanceSettingViewModel: ObservableObject {
     //    @Published var performance: PerformanceModel
     let performanceUseCase: PerformanceUseCase
-    private(set) var yameNextView: FormationSettingView?
     @Published var performance: Performance? = Performance(id: "",
                                                            author: User(),
                                                            music: Music(id: "", title: "", artistName: ""),

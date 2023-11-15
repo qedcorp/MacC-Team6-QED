@@ -8,11 +8,7 @@
 import Foundation
 import SwiftUI
 
-
-
 struct PerformanceSettingView: View {
-    
-    @State private var yameNextView: FormationSettingView? = nil
     @ObservedObject private var viewModel: PerformanceSettingViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
