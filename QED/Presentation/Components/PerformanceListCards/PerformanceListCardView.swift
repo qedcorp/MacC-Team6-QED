@@ -54,7 +54,7 @@ struct PerformanceListCardView: View {
                     }
                     .frame(height: 170)
                     .overlay {
-                        if performance.isCompleted {
+                        if !performance.isCompleted {
                             Rectangle()
                                 .foregroundStyle(.black.opacity(0.8))
                         } else {
@@ -108,7 +108,7 @@ struct PerformanceListCardView: View {
             }
             VStack {
                 // TODO: 코드가 이상하지만 일단 리팩을 위해... 남겨주세요... 너무 찝찝하면 고쳐도 됩니다...- 올인턴 -
-                if performance.isCompleted {
+                if !performance.isCompleted {
                     Image("yetComplete")
                         .padding(.bottom, 40)
                 } else {

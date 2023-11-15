@@ -120,7 +120,7 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildMemo() -> some View {
-        let memo = viewModel.performance.formations[viewModel.selectedIndex].memo ?? "대형 \(viewModel.selectedIndex)"
+        let memo = viewModel.performance.formations[safe: viewModel.selectedIndex]?.memo ?? "대형 \(viewModel.selectedIndex)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
