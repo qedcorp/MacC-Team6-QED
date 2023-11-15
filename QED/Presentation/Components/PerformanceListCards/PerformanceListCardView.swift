@@ -17,6 +17,7 @@ struct PerformanceListCardView: View {
     var headcount: Int
     @State private var isLoading = true
     @State private var isMusic = true
+    @State private var notCompletedPerformance = false
 
     init(performance: Performance) {
         self.performance = performance
@@ -53,6 +54,16 @@ struct PerformanceListCardView: View {
                         }
                     }
                     .frame(height: 170)
+                    .overlay {
+                        if notCompletedPerformance {
+                            Rectangle()
+                                .foregroundStyle(.black.opacity(0.8))
+                        } else {
+                            Rectangle()
+                                .foregroundStyle(.clear)
+                        }
+                    }
+
                 } else {
                     // TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
                     Rectangle()
@@ -94,6 +105,18 @@ struct PerformanceListCardView: View {
 
                 Spacer()
                     .padding()
+
+            }
+            VStack {
+                // TODO: 코드가 이상하지만 일단 리팩을 위해... 남겨주세요... 너무 찝찝하면 고쳐도 됩니다...- 올인턴 -
+                if notCompletedPerformance {
+                    Image("yetComplete")
+                        .padding(.bottom, 40)
+                } else {
+                    Image("yetComplete")
+                        .opacity(0)
+                        .padding(.bottom, 40)
+                }
 
             }
 
