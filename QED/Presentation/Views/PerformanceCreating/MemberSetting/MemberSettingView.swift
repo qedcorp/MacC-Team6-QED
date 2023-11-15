@@ -56,7 +56,15 @@ struct MemberSettingView: View {
                     .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                     .onTapGesture {
                         if viewModel.isEnabledToSave {
-                            path = [.performanceWatching(viewModel.performance.entity, true)]
+                            if viewModel.performance.entity.isCompleted {
+                                let transfer = PerformanceWatchingTransferModel(
+                                    performanceSettingManager: viewModel.performanceSettingManager,
+                                    isAllFormationVisible: true
+                                )
+                                path = [.performanceWatching(transfer)]
+                            } else {
+                                path = [.formationSetting(viewModel.performance.entity)]
+                            }
                         }
                     }
             }

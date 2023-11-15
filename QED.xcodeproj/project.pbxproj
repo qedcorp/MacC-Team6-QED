@@ -10,6 +10,7 @@
 		3A0088192B0517D300C9C643 /* PerformanceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */; };
 		3A00881B2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */; };
 		3A00881D2B053CA400C9C643 /* MemberSettingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881C2B053CA400C9C643 /* MemberSettingTransferModel.swift */; };
+		3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */; };
 		3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE62AE25B860099C008 /* Music+Stub.swift */; };
 		3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9832AF2716900BFE0EA /* HistoryControllableDelegate.swift */; };
 		3A26C9872AF2722F00BFE0EA /* MovementSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */; };
@@ -242,6 +243,7 @@
 		3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingViewModel.swift; sourceTree = "<group>"; };
 		3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingTransferModel.swift; sourceTree = "<group>"; };
 		3A00881C2B053CA400C9C643 /* MemberSettingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingTransferModel.swift; sourceTree = "<group>"; };
+		3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingTransferModel.swift; sourceTree = "<group>"; };
 		3A021EE62AE25B860099C008 /* Music+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Music+Stub.swift"; sourceTree = "<group>"; };
 		3A26C9832AF2716900BFE0EA /* HistoryControllableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryControllableDelegate.swift; sourceTree = "<group>"; };
 		3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSettingView.swift; sourceTree = "<group>"; };
@@ -820,6 +822,7 @@
 			children = (
 				5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */,
 				5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */,
+				3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1627,6 +1630,7 @@
 				3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */,
 				D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */,
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
+				3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */,
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
 				3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */,
 				D460EFDB2AE18DF700A5966A /* MockPresetRepository.swift in Sources */,

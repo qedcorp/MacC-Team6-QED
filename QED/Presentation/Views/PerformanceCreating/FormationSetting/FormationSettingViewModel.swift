@@ -35,7 +35,7 @@ class FormationSettingViewModel: ObservableObject {
         currentFormationIndex: Int = -1,
         toastContainerViewModel: ToastContainerViewModel = .shared,
         hapticManager: HapticManager = .shared,
-        performanceUseCase: PerformanceUseCase
+        performanceUseCase: PerformanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     ) {
         let canvasController = Controller()
         let zoomableCanvasController = Controller()
