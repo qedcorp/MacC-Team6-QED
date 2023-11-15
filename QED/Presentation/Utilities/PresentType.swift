@@ -13,4 +13,5 @@ enum PresentType: Hashable {
     case myPage
     case performanceListReading([Performance])
     case formationSetting(Performance)
+    // case memberSetting
 }

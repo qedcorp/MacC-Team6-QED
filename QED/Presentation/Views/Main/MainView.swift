@@ -11,7 +11,13 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
-    @State var path: [PresentType] = []
+    @State var path: [PresentType] = [] {
+        didSet {
+            if path.isEmpty {
+                viewModel.fetchMyRecentPerformances()
+            }
+        }
+    }
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -61,10 +67,15 @@ struct MainView: View {
                 case .myPage:
                     MyPageView()
                 case .performanceSetting:
-                    PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
+                    PerformanceSettingView(
+                        performanceUseCase: viewModel.performanceUseCase,
+                        path: $path
+                    )
                 case let .formationSetting(performance):
                     FormationSettingView(performance: performance,
-                                         performanceUseCase: viewModel.performanceUseCase)
+                                         performanceUseCase: viewModel.performanceUseCase,
+                                         path: $path
+                    )
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(performance):
@@ -74,7 +85,6 @@ struct MainView: View {
                 }
             }
             .navigationBarBackButtonHidden()
-
         }
     }
 
@@ -177,29 +187,6 @@ struct MainView: View {
         .padding(.leading, 20)
     }
 
-<<<<<<< HEAD
-=======
-    private func leftItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Text("Fodi")
-                .fontWeight(.bold)
-                .kerning(0.4)
-        }
-    }
-
-    private func rightItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink {
-                PerformanceWatchingListView(
-                    performance: performance.entity,
-                    performanceUseCase: viewModel.performanceUseCase)
-            } label: {
-                PerformanceListCardView(performance: performance)
-            }
-        }
-    }
-
->>>>>>> d90e69a52403cdbffd665325dffd574041b4e9cc
     private func leftItem() -> some View {
         Image("FodiIcon")
             .resizable()

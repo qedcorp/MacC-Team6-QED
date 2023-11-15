@@ -4,9 +4,11 @@ import SwiftUI
 
 struct FormationSettingView: View {
     @ObservedObject private var viewModel: FormationSettingViewModel
+    @Binding var path: [PresentType]
 
-    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
+    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
         self.viewModel = FormationSettingViewModel(performance: performance, performanceUseCase: performanceUseCase)
+        self._path = path
     }
 
     var body: some View {
@@ -315,16 +317,8 @@ struct FormationSettingView: View {
     private func buildMemberSettingView() -> some View {
         MemberSettingView(
             performance: viewModel.performanceSettingManager.performance,
-            performanceUseCase: viewModel.performanceUseCase
-        )
-    }
-}
-
-#Preview {
-    NavigationView {
-        FormationSettingView(
-            performance: mockPerformance1,
-            performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
+            performanceUseCase: viewModel.performanceUseCase,
+            path: $path
         )
     }
 }

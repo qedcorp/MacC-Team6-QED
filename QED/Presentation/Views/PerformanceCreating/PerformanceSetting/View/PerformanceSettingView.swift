@@ -83,7 +83,7 @@ struct PerformanceSettingView: View {
                         }
                         
                         Spacer()
-                        // buildNextButton()
+                        nextButton
                     
                     }
                     .background(
@@ -155,6 +155,20 @@ struct PerformanceSettingView: View {
         default:
             AnyView(EmptyView())
         }
+    }
+    
+    var nextButton: some View {
+        Image(true ? "go_able" : "go_disable")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .onTapGesture {
+                if viewModel.performance != nil {
+                    Task {
+                        await viewModel.generatePerformance()
+                        path = [.formationSetting(viewModel.performance!)]
+                    }
+                }
+            }
     }
     
     var inputTitleTextField: some View {
