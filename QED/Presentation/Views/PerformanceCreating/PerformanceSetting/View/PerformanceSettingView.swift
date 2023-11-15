@@ -80,7 +80,7 @@ struct PerformanceSettingView: View {
                         }
                         
                         Spacer()
-                        // buildNextButton()
+                        nextButton
                     
                     }
                     .background(
@@ -152,6 +152,19 @@ struct PerformanceSettingView: View {
         default:
             AnyView(EmptyView())
         }
+    }
+    
+    var nextButton: some View {
+        
+        NavigationLink {
+            PerformanceLoadingView(viewModel: viewModel, path: $path)
+        } label: {
+            Image(true ? "go_able" : "go_disable")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 86, height: 44)
+        }
+        .disabled(!viewModel.isAllSet)
     }
     
     var inputTitleTextField: some View {

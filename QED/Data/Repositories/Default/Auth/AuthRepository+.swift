@@ -9,13 +9,16 @@ import FirebaseAuth
 import FirebaseCore
 
 extension AuthRepository {
-    func registerKeyChain(with authDataResult: AuthDataResult) throws {
+    func registerKeyChain(with authDataResult: AuthDataResult, provider: AuthProviderType) throws {
         let accounts: [KeyChainAccount] = KeyChainAccount.allCases
         let results: [String] = [
             authDataResult.user.uid,
             authDataResult.user.displayName ?? "anonymous",
             authDataResult.user.email ?? "no-email",
+            provider.description,
+            authDataResult.user.metadata.creationDate?.description ?? "no-creationDate",
             authDataResult.user.refreshToken ?? "no-refreshToken"
+
         ]
         let zip = zip(accounts, results)
         for (account, data) in zip {

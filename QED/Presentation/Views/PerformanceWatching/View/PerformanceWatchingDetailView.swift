@@ -17,11 +17,17 @@ struct PerformanceWatchingDetailView: View {
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
 
-    @State private var isAllFormationVisible = false
+    @State private var isAllFormationVisible: Bool
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
+    @State private var isLoading = true
+
+    init(performance: Performance, isAllFormationVisible: Bool = false) {
+        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
+        self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -30,7 +36,6 @@ struct PerformanceWatchingDetailView: View {
                 VStack(spacing: 8) {
                     VStack {
                         buildMemo()
-
                         if isTransitionEditable {
                             // TODO: 여기 뵤꺼 수정하는 그 ObjectMovementAssignView
                             buildDetailControlButtons()
@@ -48,12 +53,12 @@ struct PerformanceWatchingDetailView: View {
             .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
                 buildSettingSheetView()
             }
-            .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet, content: {
+            .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
                 PerformanceWatchingListView(performance: viewModel.performance,
                                             isAllFormationVisible: $isAllFormationVisible,
                                             selectedIndex: $viewModel.selectedIndex
                 )
-            })
+            }
             .navigationBarBackButtonHidden()
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
@@ -67,10 +72,15 @@ struct PerformanceWatchingDetailView: View {
     private func buildObjectPlayView() -> some View {
         ZStack {
             Image(isLineVisible ? "stage" : "stage_nongrid")
+            if isLoading {
+                ProgressView()
+            }
             ObjectPlayableView(movementsMap: viewModel.movementsMap,
                                totalCount: viewModel.performance.formations.count,
                                offset: $viewModel.offset,
-                               isShowingPreview: $isBeforeVisible
+                               isShowingPreview: $isBeforeVisible,
+                               isLoading: $isLoading
+
             )
         }
         .frame(height: 216)
@@ -323,7 +333,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildTitleItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
-           Text("대형보기")
+            Text("대형보기")
                 .foregroundStyle(.white)
                 .bold()
         }

@@ -31,6 +31,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
     private var beforeRoadIndex: Int = -1
     private var beforeIndex: Int = 0
     private var rangeToIndex: [ClosedRange<Int>: Int] = [:]
+    private var loadingAction: () -> Void = {}
 
     private lazy var bezierPathConverter = {
         let converter = BezierPathConverter(pixelMargin: objectViewRadius)
@@ -42,12 +43,13 @@ class ObjectPlayableViewController: ObjectStageViewController {
         9
     }
 
-    init(movementsMap: MovementsMap, totalCount: Int) {
+    init(movementsMap: MovementsMap, totalCount: Int, _ loadingAction: @escaping () -> Void) {
         self.movementsMap = movementsMap
         self.totalCount = totalCount
         self.pathToPointCalculator = PathToPointCalculator(
             totalPercent: PlayableConstants.transitionLength * PlayableConstants.scale
         )
+        self.loadingAction = loadingAction
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -61,6 +63,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
         settingAppearance()
         initFormation()
         render()
+        loadingAction()
     }
 
     func setNewMemberFormation(offset: CGFloat, isShowingPreview: Bool = false) {

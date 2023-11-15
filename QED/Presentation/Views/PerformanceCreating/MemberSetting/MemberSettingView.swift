@@ -4,8 +4,9 @@ import SwiftUI
 
 struct MemberSettingView: View {
     @ObservedObject private var viewModel: MemberSettingViewModel
+    @Binding var path: [PresentType]
 
-    init(performance: Performance, performanceUseCase: PerformanceUseCase) {
+    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
         let performanceSettingManager = PerformanceSettingManager(
             performance: performance,
             performanceUseCase: performanceUseCase
@@ -14,6 +15,7 @@ struct MemberSettingView: View {
             performanceSettingManager: performanceSettingManager,
             performanceUseCase: performanceUseCase
         )
+        self._path = path
     }
 
     var body: some View {
@@ -68,10 +70,11 @@ struct MemberSettingView: View {
                 .disabled(!viewModel.isEnabledToSave)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink("완료") {
-                    buildPerformanceWatchingView()
-                }
-                .disabled(!viewModel.isEnabledToSave)
+                Text("완료")
+                    .foregroundStyle(viewModel.isEnabledToSave ? .blue : .gray)
+                    .onTapGesture {
+                        path = [.performanceWatching(viewModel.performance.entity)]
+                    }
             }
         }
     }

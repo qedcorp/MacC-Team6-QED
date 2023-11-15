@@ -11,7 +11,15 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
-    @State var path: [PresentType] = []
+    @State var path: [PresentType] = [] {
+        didSet {
+            if path.isEmpty {
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
+            }
+        }
+    }
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -61,21 +69,22 @@ struct MainView: View {
                 case .myPage:
                     MyPageView()
                 case .performanceSetting:
-                    Text("")
-                    // PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
+                    PerformanceSettingView(
+                        performanceUseCase: viewModel.performanceUseCase,
+                        path: $path
+                    )
                 case let .formationSetting(performance):
                     FormationSettingView(performance: performance,
-                                         performanceUseCase: viewModel.performanceUseCase)
+                                         performanceUseCase: viewModel.performanceUseCase,
+                                         path: $path
+                    )
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(performance):
-                    PerformanceWatchingDetailView(
-                        viewModel: PerformanceWatichingDetailViewModel(performance: performance)
-                    )
+                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true)
                 }
             }
             .navigationBarBackButtonHidden()
-
         }
     }
 
@@ -128,7 +137,9 @@ struct MainView: View {
                     path.append(.performanceSetting)
                 }
             .onAppear {
-                viewModel.fetchMyRecentPerformances()
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
             }
             Spacer()
         }
@@ -165,17 +176,17 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
-                ForEach(viewModel.myRecentPerformances) { performance in
-                    PerformanceListCardView(performance: performance)
-                        .onTapGesture {
-                            path.append(.performanceWatching(performance))
-                        }
-                }
+        let myRecentPerformances = viewModel.myRecentPerformances
+            .sorted { lhs, rhs in
+                lhs.createdAt < rhs.createdAt
+            }
+        return ForEach(myRecentPerformances) { performance in
+            NavigationLink {
+                PerformanceWatchingDetailView(performance: performance)
+            } label: {
+                PerformanceListCardView(performance: performance)
             }
         }
-        .padding(.leading, 20)
     }
 
     private func leftItem() -> some View {
