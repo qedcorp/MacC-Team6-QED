@@ -11,10 +11,10 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
-    @State var voidPath: [PresentType] = []
+    @State var path: [PresentType] = []
 
     var body: some View {
-        NavigationStack(path: $voidPath) {
+        NavigationStack(path: $path) {
             VStack {
                 HStack {
                     leftItem()
@@ -66,12 +66,11 @@ struct MainView: View {
                     FormationSettingView(performance: performance,
                                          performanceUseCase: viewModel.performanceUseCase)
                 case let .performanceListReading(performances):
-                    PerformanceListReadingView()
+                    PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(performance):
                     PerformanceWatchingDetailView(
-                        viewModel: <#T##PerformanceWatchingDetailViewModel#>,
-                        index: <#T##Int#>)
-                    
+                        viewModel: PerformanceWatichingDetailViewModel(performance: performance)
+                    )
                 }
             }
             .navigationBarBackButtonHidden()
@@ -122,11 +121,11 @@ struct MainView: View {
     }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-            NavigationLink {
-                PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
-            } label: {
-                Image("performanceSetting")
-            }
+
+            Image("performanceSetting")
+                .onTapGesture {
+                    path.append(.performanceSetting)
+                }
             .onAppear {
                 viewModel.fetchMyRecentPerformances()
             }
@@ -143,11 +142,10 @@ struct MainView: View {
                 .foregroundStyle(Color.monoWhite3)
 
             Spacer()
-            NavigationLink {
-                PerformanceListReadingView()
-            } label: {
-                Image("listReading")
-            }
+            Image("listReading")
+                .onTapGesture {
+                    path.append(.performanceListReading(viewModel.myRecentPerformances))
+                }
         }
         .padding(.horizontal, 20)
         .padding(.top, 20)
@@ -166,15 +164,17 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ForEach(viewModel.myRecentPerformances) { performance in
-            NavigationLink {
-                PerformanceWatchingListView(
-                    performance: performance.entity,
-                    performanceUseCase: viewModel.performanceUseCase)
-            } label: {
-                PerformanceListCardView(performance: performance)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                ForEach(viewModel.myRecentPerformances) { performance in
+                    PerformanceListCardView(performance: performance)
+                        .onTapGesture {
+                            path.append(.performanceWatching(performance))
+                        }
+                }
             }
         }
+        .padding(.leading, 20)
     }
 
     private func leftItem() -> some View {
@@ -185,13 +185,12 @@ struct MainView: View {
     }
 
     private func rightItem() -> some View {
-        NavigationLink {
-            MyPageView()
-        } label: {
-            Image("profile")
-                .resizable()
-                .frame(width: 24, height: 24)
-        }
+        Image("profile")
+            .resizable()
+            .frame(width: 24, height: 24)
+            .onTapGesture {
+                path.append(.myPage)
+            }
     }
 }
 
@@ -215,3 +214,9 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         return viewControllers.count > 1
     }
 }
+
+#Preview {
+    MainView()
+}
+
+extension Performance: Identifiable { }

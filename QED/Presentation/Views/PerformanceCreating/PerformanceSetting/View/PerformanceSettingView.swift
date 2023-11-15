@@ -18,11 +18,13 @@ struct PerformanceSettingView: View {
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
     @State private var scrollOffset: CGFloat = 0
+    @Binding var path: [PresentType]
     
     
-    init(performanceUseCase: PerformanceUseCase) {
+    init(performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
         self.viewModel = PerformanceSettingViewModel(
             performanceUseCase: performanceUseCase)
+        self._path = path
         viewModel.headcount = 2
     }
     
@@ -81,7 +83,8 @@ struct PerformanceSettingView: View {
                         }
                         
                         Spacer()
-                        //                        buildNextButton()
+                        // buildNextButton()
+                    
                     }
                     .background(
                         Rectangle()

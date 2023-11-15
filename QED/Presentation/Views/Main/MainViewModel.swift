@@ -11,7 +11,7 @@ import Foundation
 @MainActor
 class MainViewModel: ObservableObject {
     @Published var nickname: String = ""
-    @Published var myRecentPerformances: [PerformanceModel] = []
+    @Published var myRecentPerformances: [Performance] = []
     let performanceUseCase: PerformanceUseCase
 
     init( performanceUseCase: PerformanceUseCase) {
@@ -21,7 +21,7 @@ class MainViewModel: ObservableObject {
     func fetchMyRecentPerformances() {
         Task {
             let performances = try await performanceUseCase.getMyRecentPerformances()
-            myRecentPerformances = performances.map({ PerformanceModel.build(entity: $0) })
+            myRecentPerformances = performances
         }
     }
 
