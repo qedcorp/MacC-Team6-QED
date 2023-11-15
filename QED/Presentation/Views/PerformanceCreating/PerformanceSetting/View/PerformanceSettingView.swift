@@ -17,8 +17,8 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-//    @State private var scrollToID: Int?
-    //    @State private var revealDetails = false
+    @State private var scrollOffset: CGFloat = 0
+    
     
     init(performanceUseCase: PerformanceUseCase) {
         self.viewModel = PerformanceSettingViewModel(
@@ -28,9 +28,11 @@ struct PerformanceSettingView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            ZStack {
                 ScrollViewReader { proxy in
                     ScrollView(.vertical) {
-                            ForEach(1..<4) { groupNum in
+                        VStack {
+                            ForEach(1..<4, id: \.self) { groupNum in
                                 DisclosureGroup(
                                     isExpanded: bindingForIndex(groupNum),
                                     content: {
@@ -43,21 +45,30 @@ struct PerformanceSettingView: View {
                                 .disclosureGroupBackground()
                                 .id(groupNum)
                             }
+                            Rectangle()
+                                .foregroundStyle(.clear)
+                                .frame(height: 600)
+                        }
                     }
-                    .frame(height: geometry.size.height)
                     .onChange(of: viewModel.scrollToID) { newID in
                         print("New scrollToID: \(String(describing: newID))")
+                        DispatchQueue.main.async {
                             proxy.scrollTo(newID, anchor: .top)
+                        }
+                    }
+                    .onAppear {
+                        print("ScrollView height: \(geometry.size.height)")
                     }
                     .onTapGesture {
                         endTextEditing()
                     }
                 }
-            
+                
                 VStack {
                     Spacer()
                     HStack {
                         Button {
+                            viewModel.scrollToID = 1
                             viewModel.allClear()
                         } label: {
                             Text("다시입력")
@@ -70,7 +81,7 @@ struct PerformanceSettingView: View {
                         }
                         
                         Spacer()
-                        //                    buildNextButton()
+                        //                        buildNextButton()
                     }
                     .background(
                         Rectangle()
@@ -83,6 +94,7 @@ struct PerformanceSettingView: View {
                     .padding(.horizontal, 25)
                 }
                 .ignoresSafeArea(.all)
+            }
         }
         .background(
             Image("background")
@@ -168,6 +180,8 @@ struct PerformanceSettingView: View {
             .tint(Color.blueLight2)
     }
     
+    //    DisclosureGroupLabel("")
+    
     var inputTitleLabelClosed: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
@@ -193,11 +207,9 @@ struct PerformanceSettingView: View {
                     .font(.subheadline)
             }
         }
-        .padding(.horizontal)
-        .padding(.vertical, 20)
+        . disclosureGroupLabelOpend()
     }
     
-    //music
     var inputMusicLabelClosed: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
@@ -212,8 +224,50 @@ struct PerformanceSettingView: View {
             Text("\(viewModel.artist) - \(viewModel.musicTitle)")
                 .foregroundStyle(Color.gray)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 20)
+        .disclosureGroupLabelOpend()
+    }
+    
+    var inputHeadcountlabelClosed: some View {
+        Text("인원수를 입력하세요")
+            .disclosureGroupLabelStyle()
+    }
+    
+    var inputHeadcountlabelOpened: some View {
+        HStack {
+            Text("인원 수")
+                .foregroundStyle(Color.gray)
+            Spacer()
+            
+            Text("\(viewModel.headcount) 명")
+                .foregroundStyle(Color.gray)
+        }
+        .disclosureGroupLabelOpend()
+    }
+    
+    var musicContent: some View {
+        VStack {
+            musicSearchFieldView()
+            Spacer()
+            if viewModel.isSearchingMusic {
+                ProgressView()
+                    .tint(Color.blueNormal)
+                Spacer()
+            } else if isSearchFromEmptyText {
+                emptyMusic
+                Spacer()
+            } else {
+                buildSearchResultScrollView()
+            }
+        }
+        .onTapGesture {
+            isFocused = true
+        }
+        .onChange(of: viewModel.musicTitle, perform: { _ in
+            if viewModel.musicTitle.isEmpty {
+                isSearchFromEmptyText = true
+                viewModel.selectedMusic = nil
+            }
+        })
     }
     
     @ViewBuilder
@@ -276,32 +330,6 @@ struct PerformanceSettingView: View {
         .id(music.id)
     }
     
-    var musicContent: some View {
-        VStack {
-            musicSearchFieldView()
-            Spacer()
-            if viewModel.isSearchingMusic {
-                ProgressView()
-                    .tint(Color.blueNormal)
-                Spacer()
-            } else if isSearchFromEmptyText {
-                emptyMusic
-                Spacer()
-            } else {
-                buildSearchResultScrollView()
-            }
-        }
-        .onTapGesture {
-            isFocused = true
-        }
-        .onChange(of: viewModel.musicTitle, perform: { _ in
-            if viewModel.musicTitle.isEmpty {
-                isSearchFromEmptyText = true
-                viewModel.selectedMusic = nil
-            }
-        })
-    }
-    
     func buildSearchResultScrollView() -> some View {
         ScrollView {
             VStack {
@@ -324,7 +352,7 @@ struct PerformanceSettingView: View {
                 .onAppear {
                     viewModel.toggleDisclosureGroup2()
                 }
-                .font(.body)
+                .font(.headline)
                 .bold()
                 .onSubmit(of: .text) {
                     searchMusic()
@@ -356,13 +384,6 @@ struct PerformanceSettingView: View {
         .padding()
     }
     
-    func buildEmptyMusicView() -> some View {
-        Text("노래를 검색하세요")
-            .foregroundStyle(Color.monoWhite2)
-            .font(.headline)
-            .bold()
-    }
-    
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
@@ -379,23 +400,6 @@ struct PerformanceSettingView: View {
         isSearchFromEmptyText = false
         isFocused = false
     }
-    
-    
-    //    private func buildNextButton() -> some View {
-    //        NavigationLink {
-    //            buildYameNextView(
-    //                performance: viewModel.performance ?? Performance(id: "",
-    //                                                        author: User(),
-    //                                                        music: Music(id: "",
-    //                                                                     title: "",
-    //                                                                     artistName: ""),
-    //                                                        headcount: viewModel.headcount)
-    //            )
-    //        } label: {
-    //            Image("go_able")
-    //                .padding(.bottom, 25)
-    //        }
-    //    }
     
     var inputHeadcountContent: some View {
         ScrollView {
@@ -431,11 +435,11 @@ struct PerformanceSettingView: View {
             .onAppear {
                 viewModel.toggleDisclosureGroup3()
             }
+            .foregroundColor(viewModel.headcount < 2 ? .gray : .black)
             .multilineTextAlignment(.center)
-            .font(.title2)
+            .font(.title3)
             .bold()
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
-            .foregroundColor(viewModel.headcount < 2 ? .gray : .black)
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundStyle(Color.monoNormal1)
@@ -443,24 +447,6 @@ struct PerformanceSettingView: View {
             )
             .tint(Color.blueLight2)
         
-    }
-    
-    var inputHeadcountlabelClosed: some View {
-        Text("인원수를 입력하세요")
-            .disclosureGroupLabelStyle()
-    }
-    
-    var inputHeadcountlabelOpened: some View {
-        HStack {
-            Text("인원 수")
-                .foregroundStyle(Color.gray)
-            Spacer()
-            
-            Text("\(viewModel.headcount) 명")
-                .foregroundStyle(Color.gray)
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 20)
     }
     
     var headcountText: some View {
@@ -508,18 +494,6 @@ struct PerformanceSettingView: View {
         }
     }
     
-    //    func buildYameNextView(performance: Performance) -> some View {
-    //        Task  {
-    //            viewModel.createPerformance()
-    //        }
-    //        if yameNextView == nil {
-    //            yameNextView = FormationSettingView(
-    //                performance: performance, performanceUseCase: viewModel.performanceUseCase
-    //            )
-    //        }
-    //        return yameNextView!
-    //    }
-    
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
@@ -532,3 +506,4 @@ struct PerformanceSettingView: View {
     }
     
 }
+

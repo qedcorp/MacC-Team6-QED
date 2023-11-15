@@ -11,8 +11,11 @@ import SwiftUI
 class PerformanceSettingViewModel: ObservableObject {
     //    @Published var performance: PerformanceModel
     let performanceUseCase: PerformanceUseCase
-    //    private(set) var yameNextView: FormationSettingView?
-    @Published var performance: Performance?
+    private(set) var yameNextView: FormationSettingView?
+    @Published var performance: Performance? = Performance(id: "",
+                                                           author: User(),
+                                                           music: Music(id: "", title: "", artistName: ""),
+                                                           headcount: 2)
 
     init(performanceUseCase: PerformanceUseCase) {
         self.performanceUseCase = performanceUseCase
@@ -20,6 +23,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var isExpanded1: Bool = true
     @Published var isExpanded2: Bool = false
     @Published var isExpanded3: Bool = false
+    @Published var scrollToID: Int?
 
     @Published var performanceTitle: String = ""
     @Published var musicSearch: String = ""
@@ -27,7 +31,6 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
     @Published var selectedMusic: Music?
-    //    @Published var artist: String = ""
 
     @Published var headcount: Int = 2 {
         didSet(newValue) {
@@ -36,12 +39,7 @@ class PerformanceSettingViewModel: ObservableObject {
     }
     @Published var range: ClosedRange<Int> = 2...13
     @Published var inputMemberInfo: [String] = []
-//    @Published var inputMemberDefault: String = ""
-    @Published var isCreateButton: Bool = false {
-        didSet {
-            createPerformance()
-        }
-    }
+
     @Published var isShowingNextView: Bool = false
     // 빠져도 됌
     @Published var canPressNextButton: Bool = false
@@ -106,11 +104,23 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
+    func generatePerformance() -> Performance {
+        let memberInfo = zip(inputMemberInfo, MemberInfoColorset.getAllColors())
+            .map { Member.Info(name: $0, color: $1) }
+        guard let id = try? KeyChainManager.shared.read(account: .id),
+              let email = try? KeyChainManager.shared.read(account: .email),
+              let nickname = try? KeyChainManager.shared.read(account: .name) else { return mockPerformance1 }
+        return Performance(id: "",
+                           author: User(id: id, email: email, nickname: nickname), music: selectedMusic ?? Music(id: "", title: "", artistName: ""),
+                           headcount: headcount, title: performanceTitle, memberInfos: memberInfo)
+    }
+
     func toggleDisclosureGroup1() {
         withAnimation {
             isExpanded1 = true
             isExpanded2 = false
             isExpanded3 = false
+            scrollToID = 1
         }
     }
 
@@ -119,6 +129,7 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded2 = true
             isExpanded1 = false
             isExpanded3 = false
+            scrollToID = 2
         }
     }
 
@@ -127,6 +138,7 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded3 = true
             isExpanded1 = false
             isExpanded2 = false
+            scrollToID = 3
         }
     }
 
@@ -138,31 +150,17 @@ class PerformanceSettingViewModel: ObservableObject {
     }
 
     // TODO: 다음뷰로 넘어가면서 create되어야함
-    func createPerformance() {
-        isShowingNextView = false
-        Task {
-            do {
-                if isCreateButton {
-                    let performance = try await performanceUseCase.createPerformance(music: selectedMusic ?? Music(id: "_", title: "_", artistName: "_"), headcount: headcount)
-                    self.performance = performance
-                    isShowingNextView = true
-                }
-            } catch {
-                print("error")
-            }
-        }
-    }
 
     // TODO: 이거 알쥐??
-    //    func buildYameNextView(performance: Performance) -> some View {
-    //        if yameNextView == nil {
-    //            yameNextView = FormationSettingView(
-    //                performance: performance,
-    //                performanceUseCase: performanceUseCase
-    //            )
-    //        }
-    //        return yameNextView!
-    //    }
+    func buildYameNextView(performance: Performance) -> some View {
+        if yameNextView == nil {
+            yameNextView = FormationSettingView(
+                performance: performance,
+                performanceUseCase: performanceUseCase
+            )
+        }
+        return yameNextView!
+    }
 }
 
 struct DisclosureGroupBackground: ViewModifier {
@@ -194,6 +192,14 @@ struct DisclosureGroupLabelStyle: ViewModifier {
     }
 }
 
+struct DisclosureGroupLabelOpend: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal)
+            .padding(.vertical, 20)
+    }
+}
+
 extension View {
     func disclosureGroupBackground() -> some View {
         modifier(DisclosureGroupBackground())
@@ -207,5 +213,9 @@ extension View {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                         to: nil, from: nil, for: nil
         )
+    }
+
+    func disclosureGroupLabelOpend() -> some View {
+        modifier(DisclosureGroupLabelOpend())
     }
 }
