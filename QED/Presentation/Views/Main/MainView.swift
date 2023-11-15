@@ -11,9 +11,10 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
+    @State var path: [PresentType] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack {
                 HStack {
                     leftItem()
@@ -54,6 +55,23 @@ struct MainView: View {
             )
             .onAppear {
                 viewModel.fetchUser()
+            }
+            .navigationDestination(for: PresentType.self) { persentType in
+                switch persentType {
+                case .myPage:
+                    MyPageView()
+                case .performanceSetting:
+                    PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
+                case let .formationSetting(performance):
+                    FormationSettingView(performance: performance,
+                                         performanceUseCase: viewModel.performanceUseCase)
+                case let .performanceListReading(performances):
+                    PerformanceListReadingView(performances: performances)
+                case let .performanceWatching(performance):
+                    PerformanceWatchingDetailView(
+                        viewModel: PerformanceWatichingDetailViewModel(performance: performance)
+                    )
+                }
             }
             .navigationBarBackButtonHidden()
 
@@ -103,11 +121,11 @@ struct MainView: View {
     }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-            NavigationLink {
-                PerformanceSettingView(performanceUseCase: viewModel.performanceUseCase)
-            } label: {
-                Image("performanceSetting")
-            }
+
+            Image("performanceSetting")
+                .onTapGesture {
+                    path.append(.performanceSetting)
+                }
             .onAppear {
                 viewModel.fetchMyRecentPerformances()
             }
@@ -124,11 +142,10 @@ struct MainView: View {
                 .foregroundStyle(Color.monoWhite3)
 
             Spacer()
-            NavigationLink {
-                PerformanceListReadingView()
-            } label: {
-                Image("listReading")
-            }
+            Image("listReading")
+                .onTapGesture {
+                    path.append(.performanceListReading(viewModel.myRecentPerformances))
+                }
         }
         .padding(.horizontal, 20)
         .padding(.top, 20)
@@ -147,7 +164,31 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ForEach(viewModel.myRecentPerformances) { performance in
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                ForEach(viewModel.myRecentPerformances) { performance in
+                    PerformanceListCardView(performance: performance)
+                        .onTapGesture {
+                            path.append(.performanceWatching(performance))
+                        }
+                }
+            }
+        }
+        .padding(.leading, 20)
+    }
+
+<<<<<<< HEAD
+=======
+    private func leftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Text("Fodi")
+                .fontWeight(.bold)
+                .kerning(0.4)
+        }
+    }
+
+    private func rightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
             NavigationLink {
                 PerformanceWatchingListView(
                     performance: performance.entity,
@@ -158,6 +199,7 @@ struct MainView: View {
         }
     }
 
+>>>>>>> d90e69a52403cdbffd665325dffd574041b4e9cc
     private func leftItem() -> some View {
         Image("FodiIcon")
             .resizable()
@@ -166,13 +208,12 @@ struct MainView: View {
     }
 
     private func rightItem() -> some View {
-        NavigationLink {
-            MyPageView()
-        } label: {
-            Image("profile")
-                .resizable()
-                .frame(width: 24, height: 24)
-        }
+        Image("profile")
+            .resizable()
+            .frame(width: 24, height: 24)
+            .onTapGesture {
+                path.append(.myPage)
+            }
     }
 }
 
@@ -200,3 +241,5 @@ extension UINavigationController: UIGestureRecognizerDelegate {
 #Preview {
     MainView()
 }
+
+extension Performance: Identifiable { }

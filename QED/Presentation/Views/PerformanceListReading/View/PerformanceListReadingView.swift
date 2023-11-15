@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct PerformanceListReadingView: View {
-    @StateObject private var viewModel = MainViewModel(
-        performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
-    )
+    private(set) var performances: [Performance]
     @Environment(\.dismiss) private var dismiss
 
     let columns: [GridItem] = [
@@ -18,20 +16,11 @@ struct PerformanceListReadingView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     var body: some View {
-        VStack {
-            subline
-            ScrollView(.vertical) {
-                LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-                    ForEach(viewModel.myRecentPerformances) { performance in
-                        NavigationLink {
-                            PerformanceWatchingListView(performance: performance.entity,
-                                                        performanceUseCase: viewModel.performanceUseCase)
-                        } label: {
-                            PerformanceListCardView(performance: performance)
-                        }
-                    }
+        ScrollView(.vertical) {
+            LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
+                ForEach(performances) { _ in
+
                 }
-                .padding(.horizontal, 15)
             }
         }
         .background(
@@ -39,9 +28,6 @@ struct PerformanceListReadingView: View {
                 .resizable()
                 .ignoresSafeArea(.all)
         )
-        .onAppear {
-            viewModel.fetchMyRecentPerformances()
-        }
         .foregroundStyle(Color.monoWhite3)
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -78,8 +64,4 @@ struct PerformanceListReadingView: View {
             }
         }
     }
-}
-
-#Preview {
-    PerformanceListReadingView()
 }
