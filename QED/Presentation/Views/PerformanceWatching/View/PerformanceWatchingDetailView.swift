@@ -138,7 +138,8 @@ struct PerformanceWatchingDetailView: View {
                                totalCount: viewModel.performance.formations.count,
                                offset: $viewModel.offset,
                                isShowingPreview: $isBeforeVisible,
-                               isLoading: $isLoading
+                               isLoading: $isLoading,
+                               isNameVisiable: $isNameVisiable
             )
         }
         .frame(height: 216)

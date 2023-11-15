@@ -78,6 +78,12 @@ class ObjectPlayableViewController: ObjectStageViewController {
         followLine(index: index)
     }
 
+    func showAllDotName(isNameVisiable: Bool) {
+        for memberDot in memberDots {
+            memberDot.value.name = isNameVisiable ? memberDot.key.name : nil
+        }
+    }
+
     private func followLine(index: Int) {
         guard let currentRoadIndex = rangeToIndex[index],
               let currentRoadRange = rangeToIndex.getKeyRange(number: index) else { return }

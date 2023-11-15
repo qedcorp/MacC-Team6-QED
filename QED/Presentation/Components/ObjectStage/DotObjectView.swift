@@ -2,6 +2,8 @@
 
 import UIKit
 
+import SnapKit
+
 class DotObjectView: UIView {
     var radius: CGFloat? {
         didSet {
@@ -23,7 +25,23 @@ class DotObjectView: UIView {
         didSet { borderLayer.borderColor = (borderColor ?? .clear).cgColor }
     }
 
+    var name: String? {
+        didSet { nameLabel.text = name ?? "" }
+    }
+
     private var lastCenter: CGPoint?
+
+    private lazy var nameLabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 6)
+        addSubview(label)
+        label.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+        }
+
+        return label
+    }()
 
     private lazy var borderLayer = {
         let border = CALayer()
