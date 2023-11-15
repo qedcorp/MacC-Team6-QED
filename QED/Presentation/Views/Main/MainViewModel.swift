@@ -19,10 +19,16 @@ class MainViewModel: ObservableObject {
     }
 
     func fetchMyRecentPerformances() {
-        Task {
-            let performances = try await performanceUseCase.getMyRecentPerformances()
-            myRecentPerformances = performances
+
+        DispatchQueue.global().async {
+            Task {
+                let performances = try await self.performanceUseCase.getMyRecentPerformances()
+                DispatchQueue.main.async {
+                    self.myRecentPerformances = performances
+                }
+            }
         }
+
     }
 
     func fetchUser() {

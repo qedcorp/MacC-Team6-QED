@@ -31,6 +31,9 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
     @Published var selectedMusic: Music?
+    var isAllSet: Bool {
+        selectedMusic != nil && performanceTitle != ""
+    }
 
     @Published var headcount: Int = 2 {
         didSet(newValue) {

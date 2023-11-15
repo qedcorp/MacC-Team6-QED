@@ -14,7 +14,9 @@ struct MainView: View {
     @State var path: [PresentType] = [] {
         didSet {
             if path.isEmpty {
-                viewModel.fetchMyRecentPerformances()
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
             }
         }
     }
@@ -137,7 +139,9 @@ struct MainView: View {
                     path.append(.performanceSetting)
                 }
             .onAppear {
-                viewModel.fetchMyRecentPerformances()
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
             }
             Spacer()
         }
@@ -174,17 +178,12 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
-                ForEach(viewModel.myRecentPerformances) { performance in
-                    PerformanceListCardView(performance: performance)
-                        .onTapGesture {
-                            path.append(.performanceWatching(performance))
-                        }
+        ForEach(viewModel.myRecentPerformances) { performance in
+            PerformanceListCardView(performance: performance)
+                .onTapGesture {
+                    path.append(.performanceWatching(performance))
                 }
-            }
         }
-        .padding(.leading, 20)
     }
 
     private func leftItem() -> some View {

@@ -107,6 +107,7 @@
 		A9DB97382AF2746400703732 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97372AF2746400703732 /* Color+.swift */; };
 		A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97392AF2751200703732 /* CustomFont.swift */; };
 		D400CF912B04924300457F68 /* PresentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400CF902B04924300457F68 /* PresentType.swift */; };
+		D400CF952B04ADA200457F68 /* PerformanceLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
@@ -330,6 +331,7 @@
 		A9DB97372AF2746400703732 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		A9DB97392AF2751200703732 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		D400CF902B04924300457F68 /* PresentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentType.swift; sourceTree = "<group>"; };
+		D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingView.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 			isa = PBXGroup;
 			children = (
 				A974EA122AE440C600302C9D /* PerformanceSetting */,
+				D400CF932B04AD7900457F68 /* PerformanceLoading */,
 				3AF617CE2AE1961D0052FC90 /* FormationSetting */,
 				3AE701BB2AE65F3500C48403 /* MemberSetting */,
 				3A26C9852AF2721F00BFE0EA /* MovementSetting */,
@@ -894,6 +897,14 @@
 				A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */,
 			);
 			path = PerformanceListCards;
+			sourceTree = "<group>";
+		};
+		D400CF932B04AD7900457F68 /* PerformanceLoading */ = {
+			isa = PBXGroup;
+			children = (
+				D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */,
+			);
+			path = PerformanceLoading;
 			sourceTree = "<group>";
 		};
 		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
@@ -1759,6 +1770,7 @@
 				3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
+				D400CF952B04ADA200457F68 /* PerformanceLoadingView.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
 				3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */,
 				3AE701D42AE6C2FF00C48403 /* MemberModel.swift in Sources */,
