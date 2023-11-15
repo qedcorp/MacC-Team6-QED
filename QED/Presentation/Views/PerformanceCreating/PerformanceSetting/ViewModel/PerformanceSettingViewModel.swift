@@ -15,7 +15,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var performance: Performance? = Performance(id: "",
                                                            author: User(),
                                                            music: Music(id: "", title: "", artistName: ""),
-                                                           headcount: 2)
+                                                           headcount: 1)
 
     init(performanceUseCase: PerformanceUseCase) {
         self.performanceUseCase = performanceUseCase
@@ -35,12 +35,12 @@ class PerformanceSettingViewModel: ObservableObject {
         selectedMusic != nil && performanceTitle != ""
     }
 
-    @Published var headcount: Int = 2 {
+    @Published var headcount: Int = 1 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
         }
     }
-    @Published var range: ClosedRange<Int> = 2...13
+    @Published var range: ClosedRange<Int> = 1...13
     @Published var inputMemberInfo: [String] = []
 
     @Published var isShowingNextView: Bool = false
@@ -147,7 +147,7 @@ class PerformanceSettingViewModel: ObservableObject {
     func allClear() {
         performanceTitle = ""
         selectedMusic = nil
-        headcount = 2
+        headcount = 1
         inputMemberInfo = ["", ""]
     }
 }

@@ -17,7 +17,6 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-    //    @State private var scrollOffset: CGFloat = 0
     @Binding var path: [PresentType]
     
     
@@ -65,7 +64,7 @@ struct PerformanceSettingView: View {
                 
                 VStack {
                     Spacer()
-                    HStack {
+                    HStack(alignment: .center) {
                         Button {
                             viewModel.scrollToID = 1
                             viewModel.allClear()
@@ -76,22 +75,21 @@ struct PerformanceSettingView: View {
                                 .font(.title3)
                                 .kerning(0.35)
                                 .bold()
-                                .padding(.bottom, 25)
                         }
                         
                         Spacer()
                         nextButton
                         
                     }
+                    .padding(.bottom, 30)
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
                             .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
                             .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
                     )
-                    .padding(.top, 5)
-                    .padding(.bottom, 20)
                     .padding(.horizontal, 25)
+                    .padding(.vertical, 10)
                 }
                 .ignoresSafeArea(.all)
             }
@@ -192,8 +190,6 @@ struct PerformanceSettingView: View {
             .tint(Color.blueLight2)
     }
     
-    //    DisclosureGroupLabel("")
-    
     var inputTitleLabelClosed: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
@@ -235,7 +231,7 @@ struct PerformanceSettingView: View {
             
             Text(viewModel.musicTitle == ""
                  ? "\(viewModel.artist) - \(viewModel.musicTitle)"
-                 : "노래를 만들어요"
+                 : "선택해주세요"
             )
             .foregroundStyle(Color.gray)
         }
@@ -484,7 +480,7 @@ struct PerformanceSettingView: View {
                 get: { Double(viewModel.headcount) },
                 set: { viewModel.headcount = Int($0) }
             ),
-            in: 2 ... 13,
+            in: 1 ... 13,
             step: 1
         )
         .tint(Color.blueLight3)
