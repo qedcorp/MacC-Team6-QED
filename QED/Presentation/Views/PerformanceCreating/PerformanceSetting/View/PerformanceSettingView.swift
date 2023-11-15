@@ -17,7 +17,7 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-    @State private var scrollOffset: CGFloat = 0
+    //    @State private var scrollOffset: CGFloat = 0
     @Binding var path: [PresentType]
     
     
@@ -81,7 +81,7 @@ struct PerformanceSettingView: View {
                         
                         Spacer()
                         nextButton
-                    
+                        
                     }
                     .background(
                         Rectangle()
@@ -234,8 +234,11 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(Color.gray)
             Spacer()
             
-            Text("\(viewModel.artist) - \(viewModel.musicTitle)")
-                .foregroundStyle(Color.gray)
+            Text(viewModel.musicTitle == ""
+                 ? "\(viewModel.artist) - \(viewModel.musicTitle)"
+                 : "노래를 만들어요"
+            )
+            .foregroundStyle(Color.gray)
         }
         .disclosureGroupLabelOpend()
     }
@@ -506,7 +509,7 @@ struct PerformanceSettingView: View {
             }
         }
     }
-   
+    
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
