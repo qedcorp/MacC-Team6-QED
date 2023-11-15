@@ -1,5 +1,5 @@
 //
-//  ProgressView.swift
+//  FodiProgressView.swift
 //  QED
 //
 //  Created by OLING on 11/15/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProgressView: View {
+struct FodiProgressView: View {
     @State var isRotating = 0.0
 
     var body: some View {

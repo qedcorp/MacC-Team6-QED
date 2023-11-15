@@ -17,7 +17,7 @@ struct PerformanceLoadingView: View {
     var body: some View {
         VStack {
             if isLoading {
-                ProgressView()
+                FodiProgressView()
                     .frame(width: 50, height: 50)
                 Text("프로젝트 생성중 ...")
                     .foregroundStyle(Color.blueLight3)
