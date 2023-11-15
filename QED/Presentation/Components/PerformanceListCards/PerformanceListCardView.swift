@@ -16,6 +16,7 @@ struct PerformanceListCardView: View {
     var image: UIImage?
     var headcount: Int
     @State private var isLoading = true
+    @State private var isMusic = true
 
     init(performance: Performance) {
         self.performance = performance
@@ -27,29 +28,46 @@ struct PerformanceListCardView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
             VStack(alignment: .leading) {
-                AsyncImage(url: performance.music.albumCoverURL) { phase in
-                    switch phase {
-                    case.empty:
-                        VStack(alignment: .center) {
-                            HStack(alignment: .center) {
-                                Spacer()
-                                ProgressView()
-                                Spacer()
+                if isMusic {
+                    AsyncImage(url: performance.music.albumCoverURL) { phase in
+                        switch phase {
+                        case.empty:
+                            VStack {
+                                HStack(alignment: .center) {
+                                    Spacer()
+                                    FodiProgressView()
+                                    Spacer()
+                                }
                             }
+                            .padding(.top, 20)
+                        case.success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        case.failure:
+                            Image(systemName: "exclamationmark.circle.fill")
+                        @unknown default:
+                            Image(systemName: "exclamationmark.circle.fill")
                         }
-                    case.success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case.failure:
-                        Image(systemName: "exclamationmark.circle.fill")
-                    @unknown default:
-                        Image(systemName: "exclamationmark.circle.fill")
                     }
+                    .frame(height: 170)
+                    .overlay {
+                        if performance.isCompleted {
+                            Rectangle()
+                                .foregroundStyle(.black.opacity(0.8))
+                        } else {
+                            Rectangle()
+                                .foregroundStyle(.clear)
+                        }
+                    }
+
+                } else {
+                    // TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
+                    Rectangle()
+                        .frame(height: 170)
                 }
-                .frame(height: geometry.size.height * 0.18)
 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -59,11 +77,16 @@ struct PerformanceListCardView: View {
                             .opacity(0.8)
                             .lineLimit(1)
                             .padding(.bottom, 1)
+                            .truncationMode(.tail)
 
-                        Text("\(creator) - \(musicTitle)")
-                            .font(.caption2)
-                            .opacity(0.6)
-                            .lineLimit(1)
+                        Text(isMusic
+                             ?"\(musicTitle)"
+                             :"선택한 노래없음"
+                        )
+                        .font(.caption2)
+                        .opacity(0.6)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                     }
                     Spacer()
                     Text("\(headcount)")
@@ -76,18 +99,42 @@ struct PerformanceListCardView: View {
                                 .frame(width: 27, height: 27)
                         )
                 }
-                .padding(.top, 15)
-                .padding(.horizontal)
+                .padding(.top, 5)
+                .padding(.horizontal, 30)
 
                 Spacer()
                     .padding()
 
             }
-            .frame(width: geometry.size.width * 0.418, height: geometry.size.height * 0.235)
-            .background(Gradient.blueGradation2)
-            .foregroundStyle(Color.monoWhite3)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            VStack {
+                // TODO: 코드가 이상하지만 일단 리팩을 위해... 남겨주세요... 너무 찝찝하면 고쳐도 됩니다...- 올인턴 -
+                if performance.isCompleted {
+                    Image("yetComplete")
+                        .padding(.bottom, 40)
+                } else {
+                    Image("yetComplete")
+                        .opacity(0)
+                        .padding(.bottom, 40)
+                }
+
+            }
+
+            VStack {
+                Spacer()
+                    Button {
+                        // TODO: 수정버튼
+                    } label: {
+                        Image("ellipsis")
+                    }
+                Spacer()
+            }
+            .padding(.leading, 125)
+            .padding(.bottom, 150)
         }
+        .frame(width: 163, height: 198)
+        .background(Gradient.blueGradation2)
+        .foregroundStyle(Color.monoWhite3)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 

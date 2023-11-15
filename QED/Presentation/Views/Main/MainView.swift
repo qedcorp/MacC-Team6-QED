@@ -23,7 +23,7 @@ struct MainView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     leftItem()
                     Spacer()
@@ -34,17 +34,16 @@ struct MainView: View {
                     VStack {
                         mainTitle()
                         buildMakeFormationButtonView()
+                        buildPerformanceListHeaderView()
                         if viewModel.myRecentPerformances.isEmpty {
                             buildEmptyView()
                         } else {
                             LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
                                 Section {
                                     buildPerformanceListScrollView()
-                                } header: {
-                                    buildPerformanceListHeaderView()
                                 }
                             }
-                            .padding(.horizontal, 7)
+                            .padding(.horizontal, 20)
                         }
                     }
                     .padding(.top, 130)
@@ -80,8 +79,15 @@ struct MainView: View {
                     )
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
-                case let .performanceWatching(performance):
-                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true)
+                case let .performanceWatching(performance, isAllFormationVisible):
+                    if performance.isCompleted {
+                        PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: isAllFormationVisible)
+                    } else {
+                        FormationSettingView(performance: performance,
+                                             performanceUseCase: viewModel.performanceUseCase,
+                                             path: $path
+                        )
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
@@ -103,11 +109,11 @@ struct MainView: View {
     private func mainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("당신의")
+                Text("내 손안에")
                     .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(Color.monoWhite3)
-                Text("든든한 서포터")
+                Text("포메이션 디렉터")
                     .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
                     .bold()
                     .multilineTextAlignment(.leading)
@@ -131,7 +137,6 @@ struct MainView: View {
     }
     private func buildMakeFormationButtonView() -> some View {
         HStack {
-
             Image("performanceSetting")
                 .onTapGesture {
                     path.append(.performanceSetting)
@@ -144,16 +149,18 @@ struct MainView: View {
             Spacer()
         }
         .padding(.horizontal, 20)
+        .padding(.bottom, 10)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
-        HStack {
+        HStack(alignment: .center) {
             Text("최근 프로젝트")
                 .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
                 .kerning(0.38)
                 .foregroundStyle(Color.monoWhite3)
 
             Spacer()
+
             Image("listReading")
                 .onTapGesture {
                     path.append(.performanceListReading(viewModel.myRecentPerformances))
@@ -172,8 +179,8 @@ struct MainView: View {
     }
 
     let columns: [GridItem] = [
-        GridItem(spacing: 0, alignment: nil),
-        GridItem(spacing: 0, alignment: nil)]
+        GridItem(spacing: 10, alignment: nil),
+        GridItem(spacing: 10, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
         let myRecentPerformances = viewModel.myRecentPerformances
@@ -181,12 +188,12 @@ struct MainView: View {
                 lhs.createdAt < rhs.createdAt
             }
         return ForEach(myRecentPerformances) { performance in
-            NavigationLink {
-                PerformanceWatchingDetailView(performance: performance)
-            } label: {
-                PerformanceListCardView(performance: performance)
-            }
+            PerformanceListCardView(performance: performance)
+                .onTapGesture {
+                    path.append(.performanceWatching(performance, false))
+                }
         }
+        .padding(.horizontal, 24)
     }
 
     private func leftItem() -> some View {

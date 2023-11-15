@@ -18,6 +18,7 @@ struct PerformanceWatchingDetailView: View {
     @State private var isToastVisiable = false
 
     @State private var isAllFormationVisible: Bool
+    @State private var isAutoShowAllForamation: Bool = false
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
@@ -25,7 +26,8 @@ struct PerformanceWatchingDetailView: View {
     @State private var isLoading = true
 
     init(performance: Performance, isAllFormationVisible: Bool = false) {
-        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
+        self._isAllFormationVisible = State(initialValue: false)
+        self._isAutoShowAllForamation = State(initialValue: isAllFormationVisible)
         self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
     }
 
@@ -67,6 +69,13 @@ struct PerformanceWatchingDetailView: View {
                 buildRightItem()
             }
         }
+        .onAppear {
+            if isAutoShowAllForamation {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.isAllFormationVisible = true
+                }
+            }
+        }
     }
 
     private func buildObjectPlayView() -> some View {
@@ -81,7 +90,6 @@ struct PerformanceWatchingDetailView: View {
                                isShowingPreview: $isBeforeVisible,
                                isLoading: $isLoading,
                                isNameVisiable: $isNameVisiable
-
             )
         }
         .frame(height: 216)
