@@ -79,8 +79,15 @@ struct MainView: View {
                     )
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
-                case let .performanceWatching(performance):
-                    PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: true)
+                case let .performanceWatching(performance, isAllFormationVisible):
+                    if performance.isCompleted {
+                        PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: isAllFormationVisible)
+                    } else {
+                        FormationSettingView(performance: performance,
+                                             performanceUseCase: viewModel.performanceUseCase,
+                                             path: $path
+                        )
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
@@ -186,6 +193,7 @@ struct MainView: View {
                     path.append(.performanceWatching(performance))
                 }
         }
+        .padding(.horizontal, 24)
     }
 
     private func leftItem() -> some View {

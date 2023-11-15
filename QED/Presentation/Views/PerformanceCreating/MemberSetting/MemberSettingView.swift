@@ -73,7 +73,10 @@ struct MemberSettingView: View {
                 Text("완료")
                     .foregroundStyle(viewModel.isEnabledToSave ? .blue : .gray)
                     .onTapGesture {
-                        path = [.performanceWatching(viewModel.performance.entity)]
+                        if viewModel.isEnabledToSave {
+                            print(path)
+                            path = [.performanceWatching(viewModel.performance.entity, true)]
+                        }
                     }
             }
         }
