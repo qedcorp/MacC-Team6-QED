@@ -73,7 +73,6 @@
 		514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */; };
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
-		51BB29952AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */; };
 		A958E30F2B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */; };
 		A958E3102B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */; };
 		A958E3112B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */; };
@@ -107,6 +106,7 @@
 		A9D279F12AE68CF6002B00DA /* MockAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */; };
 		A9DB97382AF2746400703732 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97372AF2746400703732 /* Color+.swift */; };
 		A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB97392AF2751200703732 /* CustomFont.swift */; };
+		A9EBC2332B04AEC300B812B4 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EBC2322B04AEC300B812B4 /* ProgressView.swift */; };
 		D400CF912B04924300457F68 /* PresentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400CF902B04924300457F68 /* PresentType.swift */; };
 		D41333622ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */; };
 		D41333692ADE619700BDE1BB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D41333682ADE619700BDE1BB /* Alamofire */; };
@@ -315,7 +315,6 @@
 		514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
-		51BB29942AE5AFE0002CAFAA /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
 		A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		A958E3072B0131C700C9FF3F /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		A958E3082B0131C700C9FF3F /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -331,6 +330,7 @@
 		A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MockAssets.xcassets; sourceTree = "<group>"; };
 		A9DB97372AF2746400703732 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		A9DB97392AF2751200703732 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		A9EBC2322B04AEC300B812B4 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		D400CF902B04924300457F68 /* PresentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentType.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -588,6 +588,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A9EBC2312B04AEA900B812B4 /* Progress */,
 				3AC325152AFC0F3B002B6682 /* ToastContainer */,
 				D4F19A292AF8DE3300F2F013 /* ScrollObservable */,
 				D42AA1232AF3B4D70053E2A8 /* ObjectPlaying */,
@@ -896,6 +897,14 @@
 				A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */,
 			);
 			path = PerformanceListCards;
+			sourceTree = "<group>";
+		};
+		A9EBC2312B04AEA900B812B4 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				A9EBC2322B04AEC300B812B4 /* ProgressView.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 		D413335F2ADE4E7600BDE1BB /* DataTest */ = {
@@ -1640,6 +1649,7 @@
 				D460F00D2AE18DF700A5966A /* DefaultMemberUseCase.swift in Sources */,
 				D42AA11A2AEC1B5F0053E2A8 /* TypeDictionary.swift in Sources */,
 				D460EFE02AE18DF700A5966A /* KeyChainManager.swift in Sources */,
+				A9EBC2332B04AEC300B812B4 /* ProgressView.swift in Sources */,
 				D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */,
 				D460F0132AE18DF700A5966A /* FormationTransitionUseCase.swift in Sources */,
 				3A5328B92AEBED6A0051A09C /* RelativeCoordinateConverter.swift in Sources */,
@@ -1696,7 +1706,7 @@
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
 				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
 				3AC325122AFB75EF002B6682 /* Animate.swift in Sources */,
-				D49B04E72AFA389A00AD38A9 /* TestPerformanceWatchingViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
@@ -1716,8 +1726,6 @@
 				D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
-				D48797B82AF7D915004EFEDA /* TestView.swift in Sources */,
-				A974EA212AE440C600302C9D /* HeadcountSetupView.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
 				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
@@ -1761,7 +1769,6 @@
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
 				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
 				3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */,
-				510502CD2AF4C6B700C653B2 /* PlayBarView.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,
 				D460F04F2AE50F1400A5966A /* FireStoreEntityConvertable.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
