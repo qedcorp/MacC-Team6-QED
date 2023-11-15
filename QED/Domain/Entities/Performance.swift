@@ -7,6 +7,7 @@ class Performance: Codable {
     let author: User
     let music: Music
     let headcount: Int
+    var createdAt: Date
     var title: String?
     var memberInfos: [Member.Info]?
     var formations: [Formation]
@@ -20,7 +21,8 @@ class Performance: Codable {
         title: String? = nil,
         memberInfos: [Member.Info]? = nil,
         formations: [Formation] = [],
-        transitions: [FormationTransition?] = []
+        transitions: [FormationTransition?] = [],
+        createdAt: Date? = nil
     ) {
         self.id = id
         self.author = author
@@ -30,6 +32,7 @@ class Performance: Codable {
         self.memberInfos = memberInfos ?? Self.buildDefaultMemberInfos(headcount: headcount)
         self.formations = formations
         self.transitions = transitions
+        self.createdAt = createdAt ?? Date()
     }
 
     private static func buildDefaultMemberInfos(headcount: Int) -> [Member.Info] {

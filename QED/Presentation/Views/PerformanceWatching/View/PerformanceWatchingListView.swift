@@ -19,7 +19,6 @@ struct PerformanceWatchingListView: View {
         self.performance = performance
         self._isAllFormationVisible = isAllFormationVisible
         self._selectedIndex = selectedIndex
-        print(selectedIndex)
     }
 
     var body: some View {

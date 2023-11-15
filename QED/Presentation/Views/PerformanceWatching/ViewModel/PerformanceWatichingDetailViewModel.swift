@@ -21,7 +21,22 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         var map = MovementsMap()
         guard let memberInfos = performance.memberInfos else { return [:] }
         let movementsMap = performance.formations.map({ $0.movementMap })
-        for movementMap in movementsMap {
+        for index in movementsMap.indices {
+            var movementMap = movementsMap[index]
+            if movementMap == nil {
+                if index < movementsMap.count - 2 {
+                    movementMap = makeLinearMovementMap(memberInfos,
+                                                        startFormation: performance.formations[index],
+                                                        endFormation: performance.formations[index + 1]
+                    )
+                } else {
+                    movementMap = makeLinearMovementMap(memberInfos,
+                                                        startFormation: performance.formations[index],
+                                                        endFormation: performance.formations[index]
+                    )
+                }
+
+            }
             for info in memberInfos {
                 guard let path = movementMap?[info.color] else { continue }
                 if map[info.color] != nil {
@@ -47,6 +62,29 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
         self.performance = performance
         binding()
         mappingIndexFromOffest()
+    }
+
+    private func makeLinearMovementMap(
+        _ memberInfos: [Member.Info],
+        startFormation: Formation,
+        endFormation: Formation
+    ) -> MovementMap {
+        var movementMap = MovementMap()
+        for memberInfo in memberInfos {
+            guard let startPoint = startFormation.members
+                .first(where: { $0.info?.color == memberInfo.color })?
+                .relativePosition,
+            let endPoint = endFormation.members
+                .first(where: { $0.info?.color == memberInfo.color })?
+                .relativePosition else { continue }
+
+            movementMap[memberInfo] = BezierPath(
+                startPosition: startPoint,
+                endPosition: endPoint
+            )
+        }
+
+        return movementMap
     }
 
     private func binding() {

@@ -71,7 +71,12 @@
 		5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFB92AE58610006F0C4A /* MemberCircleView.swift */; };
 		5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */; };
 		514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */; };
+		517327902AFCD5C700386A40 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5173278F2AFCD5C700386A40 /* AlertManager.swift */; };
+		517327922AFD099C00386A40 /* MyPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517327912AFD099C00386A40 /* MyPageManager.swift */; };
+		5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */; };
 		5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */; };
+		51908CD02B0346B600C8F602 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51908CCF2B0346B600C8F602 /* AccountInfoView.swift */; };
+		51908CD42B03CB1200C8F602 /* EmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51908CD32B03CB1200C8F602 /* EmailController.swift */; };
 		51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */; };
 		A958E30F2B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */; };
 		A958E3102B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */; };
@@ -100,6 +105,7 @@
 		A958E3272B0131C800C9FF3F /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */; };
 		A958E3282B0131C800C9FF3F /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */; };
 		A958E3292B0131C800C9FF3F /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */; };
+		51D03BFB2B028C5D001F05FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03BFA2B028C5D001F05FD /* LaunchScreen.storyboard */; };
 		A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */; };
 		A9ABC1462AEC159D00E28EEE /* PerformanceListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */; };
 		A9CF3E6D2B0479C20013312D /* PerformanceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CF3E6C2B0479C20013312D /* PerformanceSettingView.swift */; };
@@ -235,13 +241,6 @@
 			remoteGlobalIDString = 3AE0CCBB2ADD0CE1001FE371;
 			remoteInfo = QED;
 		};
-		3AE0CCD72ADD0CE4001FE371 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3AE0CCB42ADD0CE1001FE371 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3AE0CCBB2ADD0CE1001FE371;
-			remoteInfo = QED;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -284,7 +283,6 @@
 		3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerViewModel.swift; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE701A62AE4450A00C48403 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoButtonView.swift; sourceTree = "<group>"; };
 		3AE701AE2AE59DE100C48403 /* MemoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoFormView.swift; sourceTree = "<group>"; };
@@ -313,7 +311,12 @@
 		5149AFB92AE58610006F0C4A /* MemberCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCircleView.swift; sourceTree = "<group>"; };
 		5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailView.swift; sourceTree = "<group>"; };
 		514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		5173278F2AFCD5C700386A40 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		517327912AFD099C00386A40 /* MyPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageManager.swift; sourceTree = "<group>"; };
+		5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListView.swift; sourceTree = "<group>"; };
+		51908CCF2B0346B600C8F602 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		51908CD32B03CB1200C8F602 /* EmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailController.swift; sourceTree = "<group>"; };
 		51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingListViewModel.swift; sourceTree = "<group>"; };
 		A958E3062B0131C700C9FF3F /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		A958E3072B0131C700C9FF3F /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -324,6 +327,7 @@
 		A958E30C2B0131C800C9FF3F /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		A958E30D2B0131C800C9FF3F /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		A958E30E2B0131C800C9FF3F /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		51D03BFA2B028C5D001F05FD /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A974EA142AE440C600302C9D /* PerformanceSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewModel.swift; sourceTree = "<group>"; };
 		A9ABC1452AEC159D00E28EEE /* PerformanceListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceListCardView.swift; sourceTree = "<group>"; };
 		A9CF3E6C2B0479C20013312D /* PerformanceSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceSettingView.swift; sourceTree = "<group>"; };
@@ -333,7 +337,7 @@
 		D400CF902B04924300457F68 /* PresentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentType.swift; sourceTree = "<group>"; };
 		D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingView.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
-		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicRepository.swift; sourceTree = "<group>"; };
 		D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
@@ -468,13 +472,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3AE0CCD32ADD0CE4001FE371 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -554,7 +551,9 @@
 				3AC325132AFBB702002B6682 /* CaptionRenderer.swift */,
 				51449D742AF68FDD008DFE9E /* HapticManager.swift */,
 				3AC325012AF3AEE2002B6682 /* MemberInfoColorset.swift */,
+				5173278F2AFCD5C700386A40 /* AlertManager.swift */,
 				3AC325112AFB75EF002B6682 /* Animate.swift */,
+				51908CD32B03CB1200C8F602 /* EmailController.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -641,7 +640,6 @@
 			children = (
 				3AE0CCBC2ADD0CE1001FE371 /* QED.app */,
 				3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */,
-				3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -784,17 +782,11 @@
 		5136BFAE2ADFB15800882B6B /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				5136BFAF2ADFB16200882B6B /* View */,
+				5136BFAC2ADFB0B100882B6B /* MyPageView.swift */,
+				5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */,
+				51908CCF2B0346B600C8F602 /* AccountInfoView.swift */,
 			);
 			path = MyPage;
-			sourceTree = "<group>";
-		};
-		5136BFAF2ADFB16200882B6B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5136BFAC2ADFB0B100882B6B /* MyPageView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		5136BFB02ADFB1B700882B6B /* PerformanceListReading */ = {
@@ -1052,6 +1044,7 @@
 				D460EF832AE18DF700A5966A /* QEDApp.swift */,
 				D460EF842AE18DF700A5966A /* Assets.xcassets */,
 				A9D279F02AE68CF6002B00DA /* MockAssets.xcassets */,
+				51D03BFA2B028C5D001F05FD /* LaunchScreen.storyboard */,
 				D460EF892AE18DF700A5966A /* Preview Content */,
 			);
 			path = Presentation;
@@ -1123,6 +1116,7 @@
 				D460EF922AE18DF700A5966A /* Interfaces */,
 				3AE701B32AE5D06D00C48403 /* Extensions */,
 				D400CF902B04924300457F68 /* PresentType.swift */,
+				517327912AFD099C00386A40 /* MyPageManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1483,24 +1477,6 @@
 			productReference = 3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3AE0CCD52ADD0CE4001FE371 /* QEDUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3AE0CCE62ADD0CE4001FE371 /* Build configuration list for PBXNativeTarget "QEDUITests" */;
-			buildPhases = (
-				3AE0CCD22ADD0CE4001FE371 /* Sources */,
-				3AE0CCD32ADD0CE4001FE371 /* Frameworks */,
-				3AE0CCD42ADD0CE4001FE371 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3AE0CCD82ADD0CE4001FE371 /* PBXTargetDependency */,
-			);
-			name = QEDUITests;
-			productName = QEDUITests;
-			productReference = 3AE0CCD62ADD0CE4001FE371 /* QEDUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1515,10 +1491,6 @@
 						CreatedOnToolsVersion = 14.3;
 					};
 					3AE0CCCB2ADD0CE4001FE371 = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 3AE0CCBB2ADD0CE1001FE371;
-					};
-					3AE0CCD52ADD0CE4001FE371 = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 3AE0CCBB2ADD0CE1001FE371;
 					};
@@ -1546,7 +1518,6 @@
 			targets = (
 				3AE0CCBB2ADD0CE1001FE371 /* QED */,
 				3AE0CCCB2ADD0CE4001FE371 /* QEDTests */,
-				3AE0CCD52ADD0CE4001FE371 /* QEDUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1567,6 +1538,7 @@
 				A958E30F2B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */,
 				D460EFEC2AE18DF700A5966A /* Preview Assets.xcassets in Resources */,
 				D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */,
+				51D03BFB2B028C5D001F05FD /* LaunchScreen.storyboard in Resources */,
 				D460EFE92AE18DF700A5966A /* Assets.xcassets in Resources */,
 				A958E31B2B0131C800C9FF3F /* Pretendard-Light.otf in Resources */,
 			);
@@ -1641,8 +1613,11 @@
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
 				3A533A3B2AEFAE48007E76F7 /* ZoomableViewModel.swift in Sources */,
 				D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */,
+				5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
+				517327922AFD099C00386A40 /* MyPageManager.swift in Sources */,
 				D460EFEE2AE18DF700A5966A /* PresetManagingViewModel.swift in Sources */,
+				517327902AFCD5C700386A40 /* AlertManager.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* DefaultKakaoAuthRepository.swift in Sources */,
 				3A5328AF2AEB7FF20051A09C /* PerformanceSettingManager.swift in Sources */,
 				D460EFD92AE18DF700A5966A /* DefaultKakaoAuthRepository.swift in Sources */,
@@ -1749,6 +1724,7 @@
 				D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */,
 				3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */,
 				D460EFFC2AE18DF700A5966A /* UserStore.swift in Sources */,
+				51908CD42B03CB1200C8F602 /* EmailController.swift in Sources */,
 				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
 				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
@@ -1791,6 +1767,9 @@
 				D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */,
 				3A533A442AF144A9007E76F7 /* RelativeCoordinatable.swift in Sources */,
 				3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */,
+				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
+				51908CD02B0346B600C8F602 /* AccountInfoView.swift in Sources */,
+				A974EA202AE440C600302C9D /* TitleSetupView.swift in Sources */,
 				3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */,
@@ -1826,13 +1805,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3AE0CCD22ADD0CE4001FE371 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1840,11 +1812,6 @@
 			isa = PBXTargetDependency;
 			target = 3AE0CCBB2ADD0CE1001FE371 /* QED */;
 			targetProxy = 3AE0CCCD2ADD0CE4001FE371 /* PBXContainerItemProxy */;
-		};
-		3AE0CCD82ADD0CE4001FE371 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3AE0CCBB2ADD0CE1001FE371 /* QED */;
-			targetProxy = 3AE0CCD72ADD0CE4001FE371 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1973,24 +1940,26 @@
 				CODE_SIGN_ENTITLEMENTS = QED/QED.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Presentation/Preview Content\"";
 				DEVELOPMENT_TEAM = ULM4SQD73B;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QED/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FODI;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = yes;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.2;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = qed.QED.forma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2008,24 +1977,26 @@
 				CODE_SIGN_ENTITLEMENTS = QED/QED.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"QED/Presentation/Preview Content\"";
 				DEVELOPMENT_TEAM = ULM4SQD73B;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QED/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FODI;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = yes;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.2;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = qed.QED.forma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2075,42 +2046,6 @@
 			};
 			name = Release;
 		};
-		3AE0CCE72ADD0CE4001FE371 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = qed.QEDUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = QED;
-			};
-			name = Debug;
-		};
-		3AE0CCE82ADD0CE4001FE371 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3BWEDXDT2H;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = qed.QEDUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = QED;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2137,15 +2072,6 @@
 			buildConfigurations = (
 				3AE0CCE42ADD0CE4001FE371 /* Debug */,
 				3AE0CCE52ADD0CE4001FE371 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3AE0CCE62ADD0CE4001FE371 /* Build configuration list for PBXNativeTarget "QEDUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3AE0CCE72ADD0CE4001FE371 /* Debug */,
-				3AE0CCE82ADD0CE4001FE371 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -178,10 +178,19 @@ struct MainView: View {
         GridItem(spacing: 0, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
-        ForEach(viewModel.myRecentPerformances) { performance in
-            PerformanceListCardView(performance: performance)
-                .onTapGesture {
-                    path.append(.performanceWatching(performance))
+        
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                let myRecentPerformances = viewModel.myRecentPerformances
+                    .sorted { lhs, rhs in
+                        lhs.createdAt < rhs.createdAt
+                    }
+                ForEach(myRecentPerformances) { performance in
+                    NavigationLink {
+                        PerformanceWatchingDetailView(performance: performance)
+                    } label: {
+                        PerformanceListCardView(performance: performance)
+                    }
                 }
         }
     }
