@@ -16,6 +16,7 @@ struct PerformanceListCardView: View {
     var image: UIImage?
     var headcount: Int
     @State private var isLoading = true
+    @State private var isMusic = false
 
     init(performance: Performance) {
         self.performance = performance
@@ -49,7 +50,7 @@ struct PerformanceListCardView: View {
                         Image(systemName: "exclamationmark.circle.fill")
                     }
                 }
-                .frame(height: geometry.size.height * 0.18)
+                .frame(height: 180)
 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -60,7 +61,7 @@ struct PerformanceListCardView: View {
                             .lineLimit(1)
                             .padding(.bottom, 1)
 
-                        Text("\(creator) - \(musicTitle)")
+                        Text("\(musicTitle)")
                             .font(.caption2)
                             .opacity(0.6)
                             .lineLimit(1)
@@ -76,14 +77,29 @@ struct PerformanceListCardView: View {
                                 .frame(width: 27, height: 27)
                         )
                 }
-                .padding(.top, 15)
-                .padding(.horizontal)
+                .background {
+                    Rectangle()
+                        .frame(width: geometry.size.width, height: 61)
+                        .foregroundStyle(LinearGradient(
+                            stops: [
+                            Gradient.Stop(color: Color(red: 0.45, green: 0.87, blue: 0.98).opacity(0.4), location: 0.00),
+                            Gradient.Stop(color: Color(red: 0.04, green: 0.8, blue: 1).opacity(0.4), location: 1.00)
+                            ],
+                            startPoint: UnitPoint(x: -0.01, y: 0),
+                            endPoint: UnitPoint(x: 0.97, y: 0.94)
+                            )
+                            )
+                            .background(.white.opacity(0.4))
+                }
+                .padding(.top, 5)
+                .padding(.leading, 20)
+                .padding(.trailing, 10)
 
                 Spacer()
                     .padding()
 
             }
-            .frame(width: geometry.size.width * 0.418, height: geometry.size.height * 0.235)
+            .frame(width: 163, height: 198)
             .background(Gradient.blueGradation2)
             .foregroundStyle(Color.monoWhite3)
             .clipShape(RoundedRectangle(cornerRadius: 10))
