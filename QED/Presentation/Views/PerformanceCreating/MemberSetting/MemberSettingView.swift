@@ -74,6 +74,7 @@ struct MemberSettingView: View {
                     .foregroundStyle(viewModel.isEnabledToSave ? .blue : .gray)
                     .onTapGesture {
                         if viewModel.isEnabledToSave {
+                            viewModel.updateFormationForce()
                             print(path)
                             path = [.performanceWatching(viewModel.performance.entity, true)]
                         }

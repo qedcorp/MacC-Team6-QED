@@ -82,6 +82,17 @@ class MemberSettingViewModel: ObservableObject {
             }
         }
     }
+    
+    func updateFormationForce() {
+        Task {
+            do {
+                try await performanceUseCase.updatePerformance(performance.entity)
+            }
+            catch {
+                print("Can't update!")
+            }
+        }
+    }
 
     func updateMembers(colors: [String?], formationIndex: Int) {
         performanceSettingManager.updateMembers(colors: colors, formationIndex: formationIndex)
