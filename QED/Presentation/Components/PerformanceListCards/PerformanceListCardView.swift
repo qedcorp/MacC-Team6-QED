@@ -27,7 +27,6 @@ struct PerformanceListCardView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
             VStack(alignment: .leading) {
                 AsyncImage(url: performance.music.albumCoverURL) { phase in
                     switch phase {
@@ -49,7 +48,7 @@ struct PerformanceListCardView: View {
                         Image(systemName: "exclamationmark.circle.fill")
                     }
                 }
-                .frame(height: geometry.size.height * 0.18)
+                .frame(height: 136)
 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -83,11 +82,11 @@ struct PerformanceListCardView: View {
                     .padding()
 
             }
-            .frame(width: geometry.size.width * 0.418, height: geometry.size.height * 0.235)
+            .frame(width: 163, height: 198)
             .background(Gradient.blueGradation2)
             .foregroundStyle(Color.monoWhite3)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
+
     }
 }
 
