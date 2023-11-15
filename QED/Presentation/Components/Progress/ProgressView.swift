@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct ProgressView: View {
+    @State var isRotating = 0.0
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image("Progress")
+            .rotationEffect(.degrees(isRotating))
+            .onAppear {
+                withAnimation(.linear(duration: 1)
+                    .speed(0.25).repeatForever(autoreverses: false)) {
+                        isRotating = 360.0
+                    }
+            }
     }
 }
 
