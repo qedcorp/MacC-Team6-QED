@@ -181,11 +181,10 @@ struct MainView: View {
                 lhs.createdAt < rhs.createdAt
             }
         return ForEach(myRecentPerformances) { performance in
-            NavigationLink {
-                PerformanceWatchingDetailView(performance: performance)
-            } label: {
-                PerformanceListCardView(performance: performance)
-            }
+            PerformanceListCardView(performance: performance)
+                .onTapGesture {
+                    path.append(.performanceWatching(performance))
+                }
         }
     }
 
