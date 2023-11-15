@@ -16,7 +16,7 @@ struct PerformanceListCardView: View {
     var image: UIImage?
     var headcount: Int
     @State private var isLoading = true
-    @State private var isMusic = false
+    @State private var isMusic = true
 
     init(performance: Performance) {
         self.performance = performance
@@ -28,29 +28,35 @@ struct PerformanceListCardView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
             VStack(alignment: .leading) {
-                AsyncImage(url: performance.music.albumCoverURL) { phase in
-                    switch phase {
-                    case.empty:
-                        VStack(alignment: .center) {
-                            HStack(alignment: .center) {
-                                Spacer()
-                                ProgressView()
-                                Spacer()
+                if isMusic {
+                    AsyncImage(url: performance.music.albumCoverURL) { phase in
+                        switch phase {
+                        case.empty:
+                            VStack {
+                                HStack(alignment: .center) {
+                                    Spacer()
+                                    FodiProgressView()
+                                    Spacer()
+                                }
                             }
+                            .padding(.top, 20)
+                        case.success(let image):
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        case.failure:
+                            Image(systemName: "exclamationmark.circle.fill")
+                        @unknown default:
+                            Image(systemName: "exclamationmark.circle.fill")
                         }
-                    case.success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case.failure:
-                        Image(systemName: "exclamationmark.circle.fill")
-                    @unknown default:
-                        Image(systemName: "exclamationmark.circle.fill")
                     }
+                    .frame(height: 170)
+                } else {
+                    EmptyView()
+                        .frame(height: 170)
                 }
-                .frame(height: 180)
 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -60,11 +66,16 @@ struct PerformanceListCardView: View {
                             .opacity(0.8)
                             .lineLimit(1)
                             .padding(.bottom, 1)
+                            .truncationMode(.tail)
 
-                        Text("\(musicTitle)")
-                            .font(.caption2)
-                            .opacity(0.6)
-                            .lineLimit(1)
+                        Text(isMusic
+                             ?"\(musicTitle)"
+                             :"선택한 노래없음"
+                        )
+                        .font(.caption2)
+                        .opacity(0.6)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                     }
                     Spacer()
                     Text("\(headcount)")
@@ -77,33 +88,32 @@ struct PerformanceListCardView: View {
                                 .frame(width: 27, height: 27)
                         )
                 }
-                .background {
-                    Rectangle()
-                        .frame(width: geometry.size.width, height: 61)
-                        .foregroundStyle(LinearGradient(
-                            stops: [
-                            Gradient.Stop(color: Color(red: 0.45, green: 0.87, blue: 0.98).opacity(0.4), location: 0.00),
-                            Gradient.Stop(color: Color(red: 0.04, green: 0.8, blue: 1).opacity(0.4), location: 1.00)
-                            ],
-                            startPoint: UnitPoint(x: -0.01, y: 0),
-                            endPoint: UnitPoint(x: 0.97, y: 0.94)
-                            )
-                            )
-                            .background(.white.opacity(0.4))
-                }
                 .padding(.top, 5)
-                .padding(.leading, 20)
-                .padding(.trailing, 10)
+                .padding(.horizontal, 30)
+//                .padding(.leading, 15)
+//                .padding(.trailing, 15)
 
                 Spacer()
                     .padding()
 
             }
-            .frame(width: 163, height: 198)
-            .background(Gradient.blueGradation2)
-            .foregroundStyle(Color.monoWhite3)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+            VStack {
+                Spacer()
+                    Button {
+                        // TODO: 수정버튼
+                    } label: {
+                        Image("ellipsis")
+                    }
+                Spacer()
+            }
+            .padding(.leading, 125)
+            .padding(.bottom, 150)
         }
+        .frame(width: 163, height: 198)
+        .background(Gradient.blueGradation2)
+        .foregroundStyle(Color.monoWhite3)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
