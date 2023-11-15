@@ -24,6 +24,10 @@ class MockPerformanceRepository: PerformanceRepository {
     func updatePerformance(_ performance: Performance) async throws -> Performance {
         performance
     }
+
+    func removePerformance(_ performanceID: String) async throws -> Bool {
+        return true
+    }
 }
 
 let info1 = Member.Info(name: "쥬쥬", color: "F06292")
