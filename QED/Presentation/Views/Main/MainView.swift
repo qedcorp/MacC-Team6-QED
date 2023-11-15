@@ -34,14 +34,13 @@ struct MainView: View {
                     VStack {
                         mainTitle()
                         buildMakeFormationButtonView()
+                        buildPerformanceListHeaderView()
                         if viewModel.myRecentPerformances.isEmpty {
                             buildEmptyView()
                         } else {
                             LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
                                 Section {
                                     buildPerformanceListScrollView()
-                                } header: {
-                                    buildPerformanceListHeaderView()
                                 }
                             }
                             .padding(.horizontal, 20)
@@ -143,6 +142,7 @@ struct MainView: View {
             Spacer()
         }
         .padding(.horizontal, 20)
+        .padding(.bottom, 10)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
@@ -159,7 +159,7 @@ struct MainView: View {
                     path.append(.performanceListReading(viewModel.myRecentPerformances))
                 }
         }
-        .padding(.horizontal, 7)
+        .padding(.horizontal, 20)
         .padding(.top, 20)
     }
 
