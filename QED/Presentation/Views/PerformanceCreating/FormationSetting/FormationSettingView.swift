@@ -15,13 +15,13 @@ struct FormationSettingView: View {
         ZStack {
             buildBackgroundView()
             VStack(spacing: 22) {
-                GeometryReader { geometry in
+                GeometryReader { proxy in
                     VStack(spacing: 0) {
                         buildMusicHeadcountView()
                         buildMemoButtonView()
                         Spacer(minLength: 18)
                         if !viewModel.isZoomed {
-                            buildObjectCanvasContainerView(width: geometry.size.width)
+                            buildObjectCanvasContainerView(width: proxy.size.width)
                         }
                         Spacer()
                     }
@@ -56,6 +56,17 @@ struct FormationSettingView: View {
                 }
             }
         }
+        .addTutorial(tutorial: .isTouchingToAddMemeber) {
+            if let firstFormation = viewModel.currentFormation {
+                return firstFormation.entity.memo != nil && !firstFormation.entity.members.isEmpty
+            }
+            return false
+        } condition: {
+            if let firstFormation = viewModel.currentFormation {
+                return firstFormation.entity.memo != nil && firstFormation.entity.members.isEmpty
+            }
+            return false
+        }
     }
 
     private var disabledOpacityModifier: DisabledOpacityModifier {
@@ -74,7 +85,8 @@ struct FormationSettingView: View {
     }
 
     private func buildMemoButtonView() -> some View {
-        MemoButtonView(memo: viewModel.currentFormation?.memo, isHighlighted: !viewModel.hasMemoBeenInputted)
+        MemoButtonView(memo: viewModel.currentFormation?.memo,
+                       isHighlighted: !viewModel.hasMemoBeenInputted)
             .modifier(disabledOpacityModifier)
             .onTapGesture {
                 viewModel.presentMemoForm()

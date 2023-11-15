@@ -221,6 +221,9 @@
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
 		D4C9B2352B0505BB007B7D46 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B2342B0505BB007B7D46 /* UserDefaultsWrapper.swift */; };
 		D4C9B2372B0505D9007B7D46 /* UserDefaultSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B2362B0505D9007B7D46 /* UserDefaultSetting.swift */; };
+		D4C9B23A2B050EB6007B7D46 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B2392B050EB6007B7D46 /* TutorialView.swift */; };
+		D4C9B23C2B051220007B7D46 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B23B2B051220007B7D46 /* Tutorial.swift */; };
+		D4C9B23E2B051817007B7D46 /* TutorialModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C9B23D2B051817007B7D46 /* TutorialModifier.swift */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -439,6 +442,9 @@
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
 		D4C9B2342B0505BB007B7D46 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		D4C9B2362B0505D9007B7D46 /* UserDefaultSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSetting.swift; sourceTree = "<group>"; };
+		D4C9B2392B050EB6007B7D46 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		D4C9B23B2B051220007B7D46 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
+		D4C9B23D2B051817007B7D46 /* TutorialModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModifier.swift; sourceTree = "<group>"; };
 		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
 		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
 		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -577,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */,
+				D4C9B23D2B051817007B7D46 /* TutorialModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -584,6 +591,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D4C9B2382B050EAA007B7D46 /* Tutorial */,
 				3AC325032AF40BDB002B6682 /* MemberInfoEditing */,
 				A9EBC2312B04AEA900B812B4 /* FodiProgress */,
 				3AC325152AFC0F3B002B6682 /* ToastContainer */,
@@ -1432,6 +1440,15 @@
 			path = Local;
 			sourceTree = "<group>";
 		};
+		D4C9B2382B050EAA007B7D46 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				D4C9B2392B050EB6007B7D46 /* TutorialView.swift */,
+				D4C9B23B2B051220007B7D46 /* Tutorial.swift */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
 		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
 			isa = PBXGroup;
 			children = (
@@ -1621,6 +1638,7 @@
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
 				3A533A3B2AEFAE48007E76F7 /* ZoomableViewModel.swift in Sources */,
 				D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */,
+				D4C9B23C2B051220007B7D46 /* Tutorial.swift in Sources */,
 				5175E7302AFA7599003C7203 /* MyPageViewModel.swift in Sources */,
 				D460F01A2AE18DF700A5966A /* Member.swift in Sources */,
 				517327922AFD099C00386A40 /* MyPageManager.swift in Sources */,
@@ -1668,6 +1686,7 @@
 				D460F0182AE18DF700A5966A /* Preset.swift in Sources */,
 				3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */,
 				3AC325142AFBB702002B6682 /* CaptionRenderer.swift in Sources */,
+				D4C9B23A2B050EB6007B7D46 /* TutorialView.swift in Sources */,
 				3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */,
 				3AC325192AFC103A002B6682 /* ToastContainerView.swift in Sources */,
 				3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */,
@@ -1759,6 +1778,7 @@
 				D400CF952B04ADA200457F68 /* PerformanceLoadingView.swift in Sources */,
 				D460F0032AE18DF700A5966A /* GoogleAuthRepository.swift in Sources */,
 				3AC325022AF3AEE2002B6682 /* MemberInfoColorset.swift in Sources */,
+				D4C9B23E2B051817007B7D46 /* TutorialModifier.swift in Sources */,
 				3AE701D42AE6C2FF00C48403 /* MemberModel.swift in Sources */,
 				3AE701BA2AE6595100C48403 /* MusicHeadcountView.swift in Sources */,
 				D460F00F2AE18DF700A5966A /* DefaultPerformanceUseCase.swift in Sources */,

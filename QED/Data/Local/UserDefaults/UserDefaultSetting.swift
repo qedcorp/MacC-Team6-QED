@@ -9,15 +9,15 @@ import Foundation
 
 enum UserDefaultsSetting {
 
-    @UserDefaultsWrapper(key: "isTouchingToAddMemeber", defaultValue: false)
+    @UserDefaultsWrapper(key: "isTouchingToAddMemeber", defaultValue: true)
     static var isTouchingToAddMemeber
 
-    @UserDefaultsWrapper(key: "isAdddingPreset", defaultValue: false)
+    @UserDefaultsWrapper(key: "isAdddingPreset", defaultValue: true)
     static var isAddPreset
 
-    @UserDefaultsWrapper(key: "isDragingGroup", defaultValue: false)
+    @UserDefaultsWrapper(key: "isDragingGroup", defaultValue: true)
     static var isDragingGroup
 
-    @UserDefaultsWrapper(key: "isSettingColor", defaultValue: false)
+    @UserDefaultsWrapper(key: "isSettingColor", defaultValue: true)
     static var isSettingColor
 }

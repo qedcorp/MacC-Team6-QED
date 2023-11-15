@@ -193,6 +193,12 @@ struct MainView: View {
         Image("FodiIcon")
             .resizable()
             .frame(width: 50, height: 28)
+            .onTapGesture {
+                UserDefaultsSetting.isAddPreset = true
+                UserDefaultsSetting.isDragingGroup = true
+                UserDefaultsSetting.isSettingColor = true
+                UserDefaultsSetting.isTouchingToAddMemeber = true
+            }
 
     }
 

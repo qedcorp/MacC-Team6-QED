@@ -156,13 +156,14 @@ struct PerformanceSettingView: View {
     }
     
     var nextButton: some View {
-        Image(true ? "go_able" : "go_disable")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 86, height: 44)
-            .onTapGesture {
-                path.append(.formationSetting(viewModel.performance!))
-            }
+        NavigationLink {
+            PerformanceLoadingView(viewModel: viewModel, path: $path)
+        } label: {
+            Image(true ? "go_able" : "go_disable")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 86, height: 44)
+        }
     }
     
     var inputTitleTextField: some View {
