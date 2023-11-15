@@ -144,6 +144,11 @@ struct FormationSettingView: View {
                         .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
                         .padding(.top, 12)
                     }
+                    .onAppear {
+                        animate {
+                            scrollView.scrollTo(viewModel.currentFormationIndex, anchor: .center)
+                        }
+                    }
                     .onChange(of: viewModel.currentFormationIndex) { id in
                         animate {
                             scrollView.scrollTo(id, anchor: .center)

@@ -59,17 +59,14 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
     private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
     private var player = PlayTimer(timeInterval: 0.03)
 
-    private(set) lazy var formationSettingViewModel = {
-        FormationSettingViewModel(
-            performance: performance,
-            performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
-        )
-    }()
-
     init(performance: Performance) {
         self.performance = performance
         binding()
         mappingIndexFromOffest()
+    }
+
+    var currentIndex: Int {
+        offsetMap[offset]?.index ?? -1
     }
 
     private func makeLinearMovementMap(

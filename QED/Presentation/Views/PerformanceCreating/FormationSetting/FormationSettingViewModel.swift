@@ -7,30 +7,31 @@ import Foundation
 class FormationSettingViewModel: ObservableObject {
     typealias Controller = ObjectCanvasViewController
 
+    let canvasController: Controller
+    let zoomableCanvasController: Controller
+    let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
+    let presetContainerViewModel: PresetContainerViewModel
+    let performanceSettingManager: PerformanceSettingManager
+    let performanceUseCase: PerformanceUseCase
+    private let toastContainerViewModel: ToastContainerViewModel
+    private let hapticManager: HapticManager
+
     @Published private(set) var performance: PerformanceModel
+    @Published private(set) var currentFormationIndex: Int
     @Published private(set) var isMemoFormPresented = false
-    @Published private(set) var currentFormationIndex = -1
     @Published private(set) var controllingFormationIndex: Int?
     @Published private(set) var hasMemoBeenInputted = false
 
     @Published private(set) var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
-
-    let canvasController: Controller
-    let zoomableCanvasController: Controller
-    let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
-    let presetContainerViewModel: PresetContainerViewModel
-    let toastContainerViewModel: ToastContainerViewModel
-    let hapticManager: HapticManager
-    let performanceSettingManager: PerformanceSettingManager
-    let performanceUseCase: PerformanceUseCase
     private(set) var formationItemFrameMap: [Int: CGRect] = [:]
     private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
     init(
         performance: Performance,
+        currentFormationIndex: Int = -1,
         toastContainerViewModel: ToastContainerViewModel = .shared,
         hapticManager: HapticManager = .shared,
         performanceUseCase: PerformanceUseCase
@@ -43,6 +44,7 @@ class FormationSettingViewModel: ObservableObject {
         zoomableCanvasController.objectHistoryArchiver = objectHistoryArchiver
 
         self.performance = .build(entity: performance)
+        self.currentFormationIndex = currentFormationIndex
         self.canvasController = canvasController
         self.zoomableCanvasController = zoomableCanvasController
         self.objectHistoryArchiver = objectHistoryArchiver

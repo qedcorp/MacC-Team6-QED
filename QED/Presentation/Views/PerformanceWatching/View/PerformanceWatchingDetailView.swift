@@ -343,12 +343,11 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildRightItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink {
-                FormationSettingView(viewModel: viewModel.formationSettingViewModel, path: $path)
-            } label: {
-                Text("수정")
-                    .foregroundStyle(Color.blueLight3)
-            }
+            Text("수정")
+                .foregroundStyle(Color.blueLight3)
+                .onTapGesture {
+                    path.append(.formationSetting(viewModel.performance, viewModel.currentIndex))
+                }
         }
     }
 }
