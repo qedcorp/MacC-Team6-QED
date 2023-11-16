@@ -168,6 +168,7 @@ struct PerformanceSettingView: View {
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
+                    viewModel.scrollToID = 1
                 }
             }
             .focused($isFocused)
@@ -356,9 +357,6 @@ struct PerformanceSettingView: View {
             
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
                 .focused($isFocused)
-                .onAppear {
-                    viewModel.toggleDisclosureGroup2()
-                }
                 .font(.headline)
                 .bold()
                 .onSubmit(of: .text) {
@@ -400,7 +398,7 @@ struct PerformanceSettingView: View {
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
-            viewModel.scrollToID = 3
+            viewModel.scrollToID = 1
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
         } label: {
             Image("emptyMusic")
@@ -491,8 +489,14 @@ struct PerformanceSettingView: View {
                             TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
                                 .focused($focusedIndex, equals: index)
                                 .onSubmit {
-                                    proxy.scrollTo(index, anchor: .top)
+                                    proxy.scrollTo(index + 1, anchor: .top)
                                     focusedIndex = index + 1
+                                    viewModel.scrollToID = (index + 1 < viewModel.headcount)
+                                    ? 3
+                                    : 1
+                                    if index == viewModel.headcount - 1 {
+                                        viewModel.isExpanded3 = false
+                                    }
                                 }
                                 .onTapGesture {
                                     viewModel.scrollToID = 3

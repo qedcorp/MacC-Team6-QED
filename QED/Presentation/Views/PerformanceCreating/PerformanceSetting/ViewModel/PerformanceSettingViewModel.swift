@@ -159,6 +159,9 @@ class PerformanceSettingViewModel: ObservableObject {
         selectedMusic = nil
         headcount = 1
         inputMemberInfo = ["", ""]
+        isExpanded1 = true
+        isExpanded2 = false
+        isExpanded3 = false
     }
 }
 
