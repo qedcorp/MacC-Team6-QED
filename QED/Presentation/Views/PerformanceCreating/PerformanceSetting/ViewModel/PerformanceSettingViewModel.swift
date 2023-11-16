@@ -35,7 +35,6 @@ class PerformanceSettingViewModel: ObservableObject {
     var isAllSet: Bool {
         selectedMusic != nil && performanceTitle != "" && headcount != 1
     }
-
     @Published var headcount: Int = 1 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
@@ -45,8 +44,6 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var inputMemberInfo: [String] = []
 
     @Published var isShowingNextView: Bool = false
-    // 빠져도 됌
-    @Published var canPressNextButton: Bool = false
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
         musicRepository: DefaultMusicRepository()
@@ -57,14 +54,12 @@ class PerformanceSettingViewModel: ObservableObject {
     }
 
     var musicTitle: String {
-        selectedMusic?.title ?? "_"
+        selectedMusic?.title ?? ""
     }
 
     var artist: String {
-        selectedMusic?.artistName ?? "_"
+        selectedMusic?.artistName ?? ""
     }
-
-    // music func
 
     func search() {
         Task {

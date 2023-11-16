@@ -238,8 +238,12 @@ struct PerformanceSettingView: View {
                 .font(.subheadline)
             Spacer()
             
-            if viewModel.musicTitle == "_" {
+            if viewModel.musicTitle == "" {
                 Text("선택해주세요")
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            } else if viewModel.musicTitle == "_" {
+                Text("자체 노래 선택")
                     .foregroundStyle(Color.monoWhite3)
                     .font(.subheadline)
             } else {
@@ -248,7 +252,6 @@ struct PerformanceSettingView: View {
                     .foregroundStyle(Color.monoWhite3)
                     .font(.subheadline)
             }
-            
         }
         .disclosureGroupLabelOpend()
     }
