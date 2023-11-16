@@ -190,7 +190,7 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    path.append(.performanceWatching(performance))
+                    path.append(.performanceWatching(performance, false))
                 }
         }
         .padding(.horizontal, 24)

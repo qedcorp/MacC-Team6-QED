@@ -12,6 +12,7 @@ import Combine
 class ObjectPlayableViewController: ObjectStageViewController {
 
     typealias Constants = PlayableConstants
+    typealias FrameInfo = ScrollObservableView.FrameInfo
 
     private var converter: BezierPathConverter {
         let converter =  BezierPathConverter(pixelMargin: 10)
@@ -30,8 +31,25 @@ class ObjectPlayableViewController: ObjectStageViewController {
     private var beforeRoadRange: ClosedRange = 0...0
     private var beforeRoadIndex: Int = -1
     private var beforeIndex: Int = 0
-    private var rangeToIndex: [ClosedRange<Int>: Int] = [:]
+    private var offMap: [ClosedRange<Int>: FrameInfo] = [:]
     private var loadingAction: () -> Void = {}
+    private var currentIndex: Int = 0 {
+        willSet {
+            if newValue - 1 >= 0,
+               currentIndex != newValue,
+               let range = offMap.getKeyRange(number: newValue - 1) {
+                for member in memeberRoad {
+                    let roads = member.value
+                    for index in range {
+                        CATransaction.begin()
+                        CATransaction.setAnimationDuration(0)
+                        roads[index]?.setting(color: UIColor(hex: roads[index]?.value ?? ""), isForce: true)
+                        CATransaction.commit()
+                    }
+                }
+            }
+        }
+    }
 
     private lazy var bezierPathConverter = {
         let converter = BezierPathConverter(pixelMargin: objectViewRadius)
@@ -78,23 +96,67 @@ class ObjectPlayableViewController: ObjectStageViewController {
         followLine(index: index)
     }
 
-    private func followLine(index: Int) {
-        guard let currentRoadIndex = rangeToIndex[index],
-              let currentRoadRange = rangeToIndex.getKeyRange(number: index) else { return }
+    private func mappingIndex() {
+        var lastX = 0
+        let framIndexCount = Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale)
+        let transitionIndexCount = Int(CGFloat(PlayableConstants.transitionLength) * PlayableConstants.scale)
 
-        if beforeRoadIndex != currentRoadIndex {
+        for index in 0..<totalCount {
+            let length = index != totalCount - 1 ? framIndexCount + transitionIndexCount - 1 : framIndexCount - 1
+            let firstPoint = lastX
+            let secondPoint = lastX + framIndexCount
+            let thirdPoint = lastX + (framIndexCount + transitionIndexCount - 1)
+            if index != totalCount - 1 {
+                let frameRange = firstPoint...secondPoint
+                let trasitionRange = (secondPoint + 1)...thirdPoint
+                offMap[frameRange] = .formation(index: index)
+                offMap[trasitionRange] = .transition(index: index)
+                lastX += (length+1)
+            } else {
+                let frameRange = firstPoint...secondPoint
+                offMap[frameRange] = .formation(index: index)
+                lastX += (length+1)
+            }
+        }
+    }
+
+    private func followLine(index: Int) {
+        guard let currentRoadInfo = offMap[index],
+              let currentRoadRange = offMap.getKeyRange(number: index) else { return }
+
+        switch currentRoadInfo {
+        case let .formation(formationIndex):
+            showBeforeMovement(formationIndex)
+        case let .transition(formationIndex):
+            move(index, currentRoadIndex: formationIndex, currentRoadRange: currentRoadRange)
+            showBeforeMovement()
+        }
+    }
+
+    private func showBeforeMovement(_ index: Int = -1) {
+        if index - 1 >= 0 {
+            guard let currentRoadRange = offMap.getKeyRange(number: index - 1) else { return }
+
             for member in memeberRoad {
                 let roads = member.value
-                for hideIndex in beforeRoadRange {
-                    CATransaction.begin()
-                    CATransaction.setAnimationDuration(0)
-                    roads[hideIndex]?.setting(color: nil, isForce: true)
-                    CATransaction.commit()
+                for checkIndex in currentRoadRange {
+                    if isShowingPreview && index != -1 {
+                        CATransaction.begin()
+                        CATransaction.setAnimationDuration(0)
+                        roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]!.value), isForce: false)
+                        CATransaction.commit()
+                    } else {
+                        CATransaction.begin()
+                        CATransaction.setAnimationDuration(0)
+                        roads[checkIndex]?.setting(color: nil, isForce: !isShowingPreview)
+                        CATransaction.commit()
+                    }
                 }
             }
-            beforeRoadIndex = currentRoadIndex
-            beforeRoadRange = currentRoadRange
         }
+    }
+
+    private func move(_ index: Int, currentRoadIndex: Int, currentRoadRange: ClosedRange<Int>) {
         for member in memeberRoad {
             let roads = member.value
             for checkIndex in currentRoadRange {
@@ -112,6 +174,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
             }
         }
     }
+
     private func settingAppearance() {
         view.backgroundColor = .clear
         view.layer.masksToBounds = true
@@ -162,19 +225,6 @@ class ObjectPlayableViewController: ObjectStageViewController {
                     view.layer.addSublayer(newLayer)
                 }
             }
-        }
-    }
-
-    private func mappingIndex() {
-        var lastX = 0
-        let framIndexCount = Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale)
-        let transitionIndexCount = Int(CGFloat(PlayableConstants.transitionLength) * PlayableConstants.scale)
-
-        for index in 0..<totalCount {
-            let length = index != totalCount - 1 ? framIndexCount + transitionIndexCount - 1 : framIndexCount - 1
-            let range = lastX...(lastX + length)
-            rangeToIndex[range] = index
-            lastX += (length+1)
         }
     }
 
