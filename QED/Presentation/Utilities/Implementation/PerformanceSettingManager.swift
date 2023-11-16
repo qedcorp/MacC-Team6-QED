@@ -101,7 +101,7 @@ class PerformanceSettingManager {
         didChange()
     }
 
-    func updatePerformanceTitle(title: String) {
+    func updatePerformanceTitle(with title: String) {
         if !title.isEmpty {
             performance.title = title
             didChange()

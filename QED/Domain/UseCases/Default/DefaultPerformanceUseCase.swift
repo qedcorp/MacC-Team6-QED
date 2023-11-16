@@ -14,7 +14,7 @@ struct DefaultPerformanceUseCase: PerformanceUseCase {
         try await performanceRepository.readMyPerformances()
     }
 
-    func updatePerformance(_ performance: Performance) async throws -> Performance {
+    func updatePerformance(_ performance: Performance) async throws {
         try await performanceRepository.updatePerformance(performance)
     }
 

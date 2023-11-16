@@ -21,9 +21,7 @@ class MockPerformanceRepository: PerformanceRepository {
         return performances
     }
 
-    func updatePerformance(_ performance: Performance) async throws -> Performance {
-        performance
-    }
+    func updatePerformance(_ performance: Performance) async throws {}
 
     func removePerformance(_ performanceID: String) async throws -> Bool {
         return true

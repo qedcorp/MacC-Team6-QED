@@ -53,24 +53,22 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         return [Performance(jsonString: "Read My Performances Error")]
     }
 
-    func updatePerformance(_ performance: Performance) async throws -> Performance {
+    func updatePerformance(_ performance: Performance) async throws {
         do {
             let updateResult = try await remoteManager.update(performance)
             switch updateResult {
-            case .success(let success):
-                return success
+            case .success(_):
+                print("Successfully Update Performance")
             case .failure(let error):
                 throw error
             }
         } catch {
             print("Update Performance Error")
         }
-        return Performance(jsonString: "Update Performance Error")
     }
     
     func removePerformance(_ performanceID: String) async throws -> Bool {
         do {
-            let myID = try KeyChainManager.shared.read(account: .id)
             let deleteResult = try await remoteManager.delete(at: "PERFORMANCE", pk: performanceID)
             switch deleteResult {
             case .success(let success):
