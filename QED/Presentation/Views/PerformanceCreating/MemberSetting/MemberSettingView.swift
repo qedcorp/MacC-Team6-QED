@@ -63,7 +63,8 @@ struct MemberSettingView: View {
                                 )
                                 path = [.performanceWatching(transfer)]
                             } else {
-                                path = [.formationSetting(viewModel.performance.entity)]
+                                let dependency = FormationSettingViewDependency(performance: viewModel.performance.entity)
+                                path = [.formationSetting(dependency)]
                             }
                         }
                     }

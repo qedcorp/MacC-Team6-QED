@@ -403,7 +403,11 @@ struct PerformanceWatchingDetailView: View {
             Text("수정")
                 .foregroundStyle(Color.blueLight3)
                 .onTapGesture {
-                    path.append(.formationSetting(viewModel.performance.entity, viewModel.currentIndex))
+                    let dependency = FormationSettingViewDependency(
+                        performance: viewModel.performance.entity,
+                        currentFormationIndex: viewModel.currentIndex
+                    )
+                    path.append(.formationSetting(dependency))
                 }
         }
     }

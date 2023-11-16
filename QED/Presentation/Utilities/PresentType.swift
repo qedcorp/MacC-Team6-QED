@@ -13,6 +13,6 @@ enum PresentType: Hashable {
     case performanceWatching(PerformanceWatchingTransferModel)
     case myPage
     case performanceListReading([Performance])
-    case formationSetting(Performance, Int? = nil)
+    case formationSetting(FormationSettingViewDependency)
     case memberSetting(MemberSettingTransferModel)
 }

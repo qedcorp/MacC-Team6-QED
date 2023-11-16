@@ -74,9 +74,8 @@ struct MainView: View {
                     )
                 case let .performanceLoading(transfer):
                     PerformanceLoadingView(transfer: transfer, path: $path)
-                case let .formationSetting(performance, _):
-                    let viewModel = FormationSettingViewModel(performance: performance)
-                    FormationSettingView(viewModel: viewModel, path: $path)
+                case let .formationSetting(dependency):
+                    FormationSettingView(dependency: dependency, path: $path)
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(transfer):
@@ -196,15 +195,16 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    let manager = PerformanceSettingManager(performance: performance)
-                    let transfer = PerformanceWatchingTransferModel(
-                        performanceSettingManager: manager,
-                        isAllFormationVisible: false
-                    )
                     if performance.isCompleted {
+                        let manager = PerformanceSettingManager(performance: performance)
+                        let transfer = PerformanceWatchingTransferModel(
+                            performanceSettingManager: manager,
+                            isAllFormationVisible: false
+                        )
                         path.append(.performanceWatching(transfer))
                     } else {
-                        path.append(.formationSetting(performance))
+                        let dependency = FormationSettingViewDependency(performance: performance)
+                        path.append(.formationSetting(dependency))
                     }
                 }
         }
