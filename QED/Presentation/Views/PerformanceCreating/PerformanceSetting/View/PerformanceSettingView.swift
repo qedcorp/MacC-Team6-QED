@@ -489,10 +489,12 @@ struct PerformanceSettingView: View {
         VStack {
             ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
                 if index < viewModel.inputMemberInfo.count {
-                    let text = viewModel.inputMemberInfo[safe: index] == nil
+                    
+                    let text = viewModel.inputMemberInfo[safe: index] == ""
                     ? "인원 \(index + 1)"
                     : viewModel.inputMemberInfo[index]
                     
+              //아 마 30분?
                     TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
                         .focused($isFocused)
                         .foregroundStyle(Color.monoNormal2)
