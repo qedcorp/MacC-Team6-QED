@@ -33,7 +33,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var isSearchingMusic: Bool = false
     @Published var selectedMusic: Music?
     var isAllSet: Bool {
-        selectedMusic != nil && performanceTitle != ""
+        selectedMusic != nil && performanceTitle != "" && headcount != 1
     }
 
     @Published var headcount: Int = 1 {

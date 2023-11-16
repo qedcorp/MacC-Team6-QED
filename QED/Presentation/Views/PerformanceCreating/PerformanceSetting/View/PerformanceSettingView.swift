@@ -82,6 +82,7 @@ struct PerformanceSettingView: View {
                         
                         Spacer()
                         nextButton
+                            .disabled(!viewModel.isAllSet)
                         
                     }
                     .padding(.bottom, 30)
@@ -156,11 +157,12 @@ struct PerformanceSettingView: View {
     }
     
     var nextButton: some View {
-        Image(true ? "go_able" : "go_disable")
+        Image(viewModel.isAllSet
+              ? "go_able"
+              : "go_disabled")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 86, height: 44)
-            .disabled(!viewModel.isAllSet)
             .onTapGesture {
                 let transfer = PerformanceLoadingTransferModel {
                     viewModel.getTaskForCreatePerformance()
@@ -445,7 +447,7 @@ struct PerformanceSettingView: View {
                     Button {
                         viewModel.decrementHeadcount()
                     } label: {
-                        if viewModel.headcount == 2 {
+                        if viewModel.headcount == 1 {
                             Image("minus_off")
                         } else {
                             Image("minus_on")
@@ -455,7 +457,7 @@ struct PerformanceSettingView: View {
                     Button {
                         viewModel.incrementHeadcount()
                     } label: {
-                        if viewModel.headcount == 12 {
+                        if viewModel.headcount == 13 {
                             Image("plus_off")
                         } else {
                             Image("plus_on")
