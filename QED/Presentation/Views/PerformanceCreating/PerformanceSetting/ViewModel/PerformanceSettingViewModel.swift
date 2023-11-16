@@ -25,6 +25,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var isExpanded2: Bool = false
     @Published var isExpanded3: Bool = false
     @Published var scrollToID: Int?
+    @State private var focusedIndex: Int?
 
     @Published var performanceTitle: String = ""
     @Published var musicSearch: String = ""
@@ -104,36 +105,6 @@ class PerformanceSettingViewModel: ObservableObject {
                 inputMemberInfo.removeLast()
             }
         }
-    }
-
-//    func focusNextMemberInfoTextField(after currentIndex: Int = inputMemberInfo.count) {
-//        let nextIndex = currentIndex + 1
-//        print("@LOG \(nextIndex)")
-//        guard nextIndex < inputMemberInfo.count else {
-//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//            return
-//        }
-//        print("@LOG \(inputMemberInfo.count)")
-//        isFocused = true
-//        inputMemberInfo[safe: nextIndex].map { $0 }
-//        .map { inputMemberInfo[nextIndex] = $0 }
-//    }
-
-    func focusNextMemberInfoTextField(after currentIndex: Int = 1) {
-        let nextIndex = currentIndex + 1
-        print("@LOG \(nextIndex)")
-        guard nextIndex < inputMemberInfo.count else {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            return
-        }
-        print("@LOG \(inputMemberInfo.count), \(currentIndex)")
-        isFocused = true
-        inputMemberInfo[safe: nextIndex].map { $0 }
-            .map { inputMemberInfo[nextIndex] = $0 }
-    }
-
-    func focusNextMemberInfoTextField() {
-        focusNextMemberInfoTextField(after: inputMemberInfo.count)
     }
 
     func generatePerformance() async {

@@ -17,6 +17,7 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
+    @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
     
     
@@ -489,14 +490,10 @@ struct PerformanceSettingView: View {
         VStack {
             ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
                 if index < viewModel.inputMemberInfo.count {
-                    let text = viewModel.inputMemberInfo[safe: index] == ""
-                    ? "인원 \(index + 1)"
-                    : viewModel.inputMemberInfo[index]
-                    
                     TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
-                        .focused($isFocused)
+                        .focused($focusedIndex, equals: index)
                         .onSubmit {
-                            viewModel.focusNextMemberInfoTextField(after: index)
+                            focusedIndex = index + 2
                         }
                         .foregroundStyle(Color.monoNormal2)
                         .multilineTextAlignment(.center)
