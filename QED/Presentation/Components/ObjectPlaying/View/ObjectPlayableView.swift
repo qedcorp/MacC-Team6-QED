@@ -14,6 +14,7 @@ struct ObjectPlayableView: UIViewControllerRepresentable {
     @Binding var offset: CGFloat
     @Binding var isShowingPreview: Bool
     @Binding var isLoading: Bool
+    @Binding var isNameVisiable: Bool
 
     func makeUIViewController(context: Context) -> ObjectPlayableViewController {
         return ObjectPlayableViewController(movementsMap: movementsMap, totalCount: totalCount) {
@@ -23,5 +24,6 @@ struct ObjectPlayableView: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: ObjectPlayableViewController, context: Context) {
         uiViewController.setNewMemberFormation(offset: offset, isShowingPreview: isShowingPreview)
+        uiViewController.showAllDotName(isNameVisiable: isNameVisiable)
     }
 }

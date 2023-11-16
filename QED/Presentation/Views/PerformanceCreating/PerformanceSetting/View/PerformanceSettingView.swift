@@ -8,16 +8,12 @@
 import Foundation
 import SwiftUI
 
-
-
 struct PerformanceSettingView: View {
-    
-    @State private var yameNextView: FormationSettingView? = nil
     @ObservedObject private var viewModel: PerformanceSettingViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-    @State private var scrollOffset: CGFloat = 0
+    @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
     
     
@@ -25,7 +21,7 @@ struct PerformanceSettingView: View {
         self.viewModel = PerformanceSettingViewModel(
             performanceUseCase: performanceUseCase)
         self._path = path
-        viewModel.headcount = 2
+        viewModel.headcount = 1
     }
     
     var body: some View {
@@ -54,7 +50,7 @@ struct PerformanceSettingView: View {
                     }
                     .onChange(of: viewModel.scrollToID) { newID in
                         print("New scrollToID: \(String(describing: newID))")
-                        DispatchQueue.main.async {
+                        withAnimation {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
@@ -65,7 +61,7 @@ struct PerformanceSettingView: View {
                 
                 VStack {
                     Spacer()
-                    HStack {
+                    HStack(alignment: .center) {
                         Button {
                             viewModel.scrollToID = 1
                             viewModel.allClear()
@@ -76,22 +72,21 @@ struct PerformanceSettingView: View {
                                 .font(.title3)
                                 .kerning(0.35)
                                 .bold()
-                                .padding(.bottom, 25)
                         }
                         
                         Spacer()
                         nextButton
-                    
+                        
                     }
+                    .padding(.bottom, 30)
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
                             .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
                             .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
                     )
-                    .padding(.top, 5)
-                    .padding(.bottom, 20)
                     .padding(.horizontal, 25)
+                    .padding(.vertical, 10)
                 }
                 .ignoresSafeArea(.all)
             }
@@ -155,16 +150,17 @@ struct PerformanceSettingView: View {
     }
     
     var nextButton: some View {
-        
-        NavigationLink {
-            PerformanceLoadingView(viewModel: viewModel, path: $path)
-        } label: {
-            Image(true ? "go_able" : "go_disable")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 86, height: 44)
-        }
-        .disabled(!viewModel.isAllSet)
+        Image(true ? "go_able" : "go_disable")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 86, height: 44)
+            .disabled(!viewModel.isAllSet)
+            .onTapGesture {
+                let transfer = PerformanceLoadingTransferModel {
+                    viewModel.getTaskForCreatePerformance()
+                }
+                path.append(.performanceLoading(transfer))
+            }
     }
     
     var inputTitleTextField: some View {
@@ -172,7 +168,6 @@ struct PerformanceSettingView: View {
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
-                    viewModel.scrollToID = 2
                 }
             }
             .focused($isFocused)
@@ -192,8 +187,6 @@ struct PerformanceSettingView: View {
             .padding()
             .tint(Color.blueLight2)
     }
-    
-    //    DisclosureGroupLabel("")
     
     var inputTitleLabelClosed: some View {
         Text("프로젝트 제목을 입력하세요")
@@ -234,8 +227,11 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(Color.gray)
             Spacer()
             
-            Text("\(viewModel.artist) - \(viewModel.musicTitle)")
-                .foregroundStyle(Color.gray)
+            Text(viewModel.musicTitle == ""
+                 ? "\(viewModel.artist) - \(viewModel.musicTitle)"
+                 : "선택해주세요"
+            )
+            .foregroundStyle(Color.gray)
         }
         .disclosureGroupLabelOpend()
     }
@@ -335,9 +331,9 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             } else {
                 viewModel.selectedMusic = music
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    viewModel.toggleDisclosureGroup3()
-                }
+                
+                viewModel.toggleDisclosureGroup3()
+                
             }
         }
         .id(music.id)
@@ -375,6 +371,12 @@ struct PerformanceSettingView: View {
                 .multilineTextAlignment(.center)
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .tint(Color.blueLight2)
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.scrollToID = 2
+                    }
+                }
+            
             
             Spacer()
             
@@ -415,7 +417,7 @@ struct PerformanceSettingView: View {
     }
     
     var inputHeadcountContent: some View {
-        ScrollView {
+//        ScrollView {
             VStack {
                 ZStack {
                     inputHeadcountTextField
@@ -439,8 +441,9 @@ struct PerformanceSettingView: View {
                 headcountText
                 inputMemperinfoTextFiledsView
             }
-        }
-        .frame(maxHeight: 411)
+            .frame(maxHeight: 411)
+//        }
+        
     }
     
     var inputHeadcountTextField: some View {
@@ -474,7 +477,7 @@ struct PerformanceSettingView: View {
                 get: { Double(viewModel.headcount) },
                 set: { viewModel.headcount = Int($0) }
             ),
-            in: 2 ... 13,
+            in: 1 ... 13,
             step: 1
         )
         .tint(Color.blueLight3)
@@ -482,31 +485,38 @@ struct PerformanceSettingView: View {
     }
     
     var inputMemperinfoTextFiledsView: some View {
-        VStack {
-            ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
-                if index < viewModel.inputMemberInfo.count {
-                    TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
-                        .focused($isFocused)
-                        .foregroundStyle(Color.monoNormal2)
-                        .multilineTextAlignment(.center)
-                        .font(.headline)
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
-                                                 ? Color.monoNormal1
-                                                 : Color.blueLight2)
-                        )
-                        .padding(.horizontal)
-                        .padding(.vertical, 3)
-                        .tint(Color.blueLight2)
-                    
-                    Spacer()
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack {
+                    ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
+                        if index < viewModel.inputMemberInfo.count {
+                            TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
+                                .focused($focusedIndex, equals: index)
+                                .onSubmit {
+                                    proxy.scrollTo(index, anchor: .top)
+                                    focusedIndex = index + 1
+                                }
+                                .foregroundStyle(Color.monoNormal2)
+                                .multilineTextAlignment(.center)
+                                .font(.headline)
+                                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
+                                                         ? Color.monoNormal1
+                                                         : Color.blueLight2)
+                                )
+                                .padding(.horizontal)
+                                .padding(.vertical, 3)
+                                .tint(Color.blueLight2)
+                            Spacer()
+                        }
+                    }
                 }
             }
         }
     }
-   
+    
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {

@@ -72,22 +72,28 @@ struct MainView: View {
                         performanceUseCase: viewModel.performanceUseCase,
                         path: $path
                     )
-                case let .formationSetting(performance):
-                    FormationSettingView(performance: performance,
-                                         performanceUseCase: viewModel.performanceUseCase,
-                                         path: $path
-                    )
+                case let .performanceLoading(transfer):
+                    PerformanceLoadingView(transfer: transfer, path: $path)
+                case let .formationSetting(performance, _):
+                    let viewModel = FormationSettingViewModel(performance: performance)
+                    FormationSettingView(viewModel: viewModel, path: $path)
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
-                case let .performanceWatching(performance, isAllFormationVisible):
-                    if performance.isCompleted {
-                        PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: isAllFormationVisible)
-                    } else {
-                        FormationSettingView(performance: performance,
-                                             performanceUseCase: viewModel.performanceUseCase,
-                                             path: $path
-                        )
-                    }
+                case let .performanceWatching(transfer):
+                    let viewModel = PerformanceWatchingDetailViewModel(
+                        performanceSettingManager: transfer.performanceSettingManager
+                    )
+                    PerformanceWatchingDetailView(
+                        viewModel: viewModel,
+                        isAllFormationVisible: transfer.isAllFormationVisible,
+                        path: $path
+                    )
+                case let .memberSetting(transfer):
+                    let viewModel = MemberSettingViewModel(
+                        performanceSettingManager: transfer.performanceSettingManager,
+                        performanceUseCase: transfer.performanceUseCase
+                    )
+                    MemberSettingView(viewModel: viewModel, path: $path)
                 }
             }
             .navigationBarBackButtonHidden()
@@ -141,11 +147,11 @@ struct MainView: View {
                 .onTapGesture {
                     path.append(.performanceSetting)
                 }
-            .onAppear {
-                DispatchQueue.global().async {
-                    viewModel.fetchMyRecentPerformances()
+                .onAppear {
+                    DispatchQueue.global().async {
+                        viewModel.fetchMyRecentPerformances()
+                    }
                 }
-            }
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -190,7 +196,12 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    path.append(.performanceWatching(performance, false))
+                    let manager = PerformanceSettingManager(performance: performance)
+                    let transfer = PerformanceWatchingTransferModel(
+                        performanceSettingManager: manager,
+                        isAllFormationVisible: false
+                    )
+                    path.append(.performanceWatching(transfer))
                 }
         }
         .padding(.horizontal, 24)

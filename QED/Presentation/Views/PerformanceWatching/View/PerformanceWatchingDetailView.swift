@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  WatchingPerformanceWatchingDetailView.swift
 //  QED
 //
@@ -12,23 +12,25 @@ struct PerformanceWatchingDetailView: View {
     typealias PlayBarConstants = ScrollObservableView.Constants
     @Environment(\.dismiss) private var dismiss
 
-    @ObservedObject var viewModel: PerformanceWatichingDetailViewModel
+    @ObservedObject var viewModel: PerformanceWatchingDetailViewModel
+    @Binding var path: [PresentType]
 
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
 
     @State private var isAllFormationVisible: Bool
-    @State private var isAutoShowAllForamation: Bool = false
+    @State private var isAutoShowAllForamation = false
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = false
     @State private var isBeforeVisible = false
     @State private var isLineVisible = false
     @State private var isLoading = true
 
-    init(performance: Performance, isAllFormationVisible: Bool = false) {
-        self._isAllFormationVisible = State(initialValue: false)
+    init(viewModel: PerformanceWatchingDetailViewModel, isAllFormationVisible: Bool = false, path: Binding<[PresentType]>) {
+        self.viewModel = viewModel
+        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
         self._isAutoShowAllForamation = State(initialValue: isAllFormationVisible)
-        self.viewModel = PerformanceWatichingDetailViewModel(performance: performance)
+        self._path = path
     }
 
     var body: some View {
@@ -39,8 +41,8 @@ struct PerformanceWatchingDetailView: View {
                     VStack {
                         buildMemo()
                         if isTransitionEditable {
-                            // TODO: 여기 뵤꺼 수정하는 그 ObjectMovementAssignView
-                            buildDetailControlButtons()
+                            buildMovementView(controller: viewModel.movementController, width: geometry.size.width - 48)
+                            buildHistoryControlsView()
                         } else {
                             buildObjectPlayView()
                         }
@@ -56,7 +58,7 @@ struct PerformanceWatchingDetailView: View {
                 buildSettingSheetView()
             }
             .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-                PerformanceWatchingListView(performance: viewModel.performance,
+                PerformanceWatchingListView(performance: viewModel.performance.entity,
                                             isAllFormationVisible: $isAllFormationVisible,
                                             selectedIndex: $viewModel.selectedIndex
                 )
@@ -69,11 +71,59 @@ struct PerformanceWatchingDetailView: View {
                 buildRightItem()
             }
         }
+        .overlay(
+            viewModel.isZoomed ?
+            buildZoomableView()
+            : nil
+        )
         .onAppear {
             if isAutoShowAllForamation {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.isAllFormationVisible = true
                 }
+            }
+        }
+    }
+
+    private func buildMovementView(controller: ObjectMovementAssigningViewController, width: CGFloat) -> some View {
+        let height = width * CGFloat(12 / Float(19))
+        return ZStack {
+            if let beforeFormation = viewModel.beforeFormation,
+               let afterFormation = viewModel.afterFormation {
+                ObjectMovementAssigningView(
+                    controller: controller,
+                    beforeFormation: beforeFormation,
+                    afterFormation: afterFormation,
+                    onChange: {
+                        viewModel.updateMembers(movementMap: $0)
+                    }
+                )
+            }
+        }
+        .frame(width: width, height: height)
+    }
+
+    private func buildZoomableView() -> some View {
+        ZStack(alignment: .bottom) {
+            GeometryReader { geometry in
+                ZoomableView {
+                    buildMovementView(controller: viewModel.zoomableMovementController, width: geometry.size.width)
+                }
+            }
+            buildHistoryControlsView()
+                .padding()
+        }
+    }
+
+    private func buildHistoryControlsView() -> some View {
+        HStack {
+            HistoryControlsView(
+                historyControllable: viewModel.objectHistoryArchiver,
+                tag: viewModel.currentFormationTag
+            )
+            Spacer()
+            Button("Zoom") {
+                viewModel.toggleZoom()
             }
         }
     }
@@ -88,7 +138,8 @@ struct PerformanceWatchingDetailView: View {
                                totalCount: viewModel.performance.formations.count,
                                offset: $viewModel.offset,
                                isShowingPreview: $isBeforeVisible,
-                               isLoading: $isLoading
+                               isLoading: $isLoading,
+                               isNameVisiable: $isNameVisiable
             )
         }
         .frame(height: 216)
@@ -120,7 +171,7 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildMemo() -> some View {
-        let memo = viewModel.performance.formations[viewModel.selectedIndex].memo ?? "대형 \(viewModel.selectedIndex)"
+        let memo = viewModel.performance.formations[safe: viewModel.selectedIndex]?.memo ?? "대형 \(viewModel.selectedIndex)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
@@ -169,7 +220,7 @@ struct PerformanceWatchingDetailView: View {
     private func buildPlayerView() -> some View {
         ZStack {
             GeometryReader { _ in
-                ScrollObservableView(performance: viewModel.performance, action: viewModel.action)
+                ScrollObservableView(performance: viewModel.performance.entity, action: viewModel.action)
                 buildAllFormationButton()
             }
             .frame(height: PlayBarConstants.playBarHeight + 25)
@@ -349,12 +400,11 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildRightItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                //  TODO: 상세 동선 수정 기능
-            } label: {
-                Text("수정")
-                    .foregroundStyle(Color.blueLight3)
-            }
+            Text("수정")
+                .foregroundStyle(Color.blueLight3)
+                .onTapGesture {
+                    path.append(.formationSetting(viewModel.performance.entity, viewModel.currentIndex))
+                }
         }
     }
 }

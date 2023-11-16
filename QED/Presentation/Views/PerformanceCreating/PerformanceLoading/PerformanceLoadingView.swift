@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct PerformanceLoadingView: View {
-
-    @State var isLoading: Bool = true
-
-    var viewModel: PerformanceSettingViewModel
+    let transfer: PerformanceLoadingTransferModel
     @Binding var path: [PresentType]
+    @StateObject private var viewModel = PerformanceLoadingViewModel()
 
     var body: some View {
         VStack {
-            if isLoading {
+            if viewModel.isLoading {
                 FodiProgressView()
                     .frame(width: 50, height: 50)
                 Text("프로젝트 생성중 ...")
@@ -30,7 +28,9 @@ struct PerformanceLoadingView: View {
                     .foregroundStyle(Color.blueLight3)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            path = [.formationSetting(viewModel.performance!)]
+                            if let performance = viewModel.performance {
+                                path = [.formationSetting(performance)]
+                            }
                         }
                     }
             }
@@ -42,8 +42,9 @@ struct PerformanceLoadingView: View {
         }
         .navigationBarBackButtonHidden()
         .task {
-            await viewModel.generatePerformance()
-            self.isLoading = false
+            viewModel.transfer = transfer
+            await viewModel.executeTask()
+            viewModel.endLoading()
         }
     }
 }

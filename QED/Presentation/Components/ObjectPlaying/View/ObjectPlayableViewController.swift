@@ -78,6 +78,12 @@ class ObjectPlayableViewController: ObjectStageViewController {
         followLine(index: index)
     }
 
+    func showAllDotName(isNameVisiable: Bool) {
+        for memberDot in memberDots {
+            memberDot.value.name = isNameVisiable ? memberDot.key.name : nil
+        }
+    }
+
     private func mappingIndex() {
         var lastX = 0
         let framIndexCount = Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale)
