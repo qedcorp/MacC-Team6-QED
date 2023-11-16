@@ -18,8 +18,8 @@ struct PerformanceListReadingView: View {
     }
 
     let columns: [GridItem] = [
-        GridItem(spacing: 0, alignment: nil),
-        GridItem(spacing: 0, alignment: nil)]
+        GridItem(spacing: 10, alignment: nil),
+        GridItem(spacing: 10, alignment: nil)]
 
     var body: some View {
         ScrollView {
@@ -45,7 +45,7 @@ struct PerformanceListReadingView: View {
     private func buildPerformaceListView() -> some View {
         LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
             ForEach(viewModel.performances) { performance in
-                PerformanceListCardView(performance: performance.entity)
+                PerformanceListCardView(performance: performance.entity, viewModel: viewModel, isMyPerformance: true)
             }
         }
     }

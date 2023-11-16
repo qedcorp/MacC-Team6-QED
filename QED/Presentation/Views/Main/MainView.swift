@@ -11,6 +11,7 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
+
     @State var path: [PresentType] = [] {
         didSet {
             if path.isEmpty {
@@ -23,46 +24,45 @@ struct MainView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            VStack(alignment: .leading) {
-                HStack {
-                    leftItem()
-                    Spacer()
-                    rightItem()
-                }
-                .padding(.horizontal, 24)
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
                         mainTitle()
                         buildMakeFormationButtonView()
                         buildPerformanceListHeaderView()
                         if viewModel.myRecentPerformances.isEmpty {
                             buildEmptyView()
                         } else {
-                            LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
-                                Section {
-                                    buildPerformanceListScrollView()
-                                }
+                            LazyVGrid(columns: columns,
+                                      alignment: .center,
+                                      spacing: 25,
+                                      pinnedViews: .sectionHeaders) {
+                                buildPerformanceListScrollView()
                             }
-                            .padding(.horizontal, 20)
                         }
                     }
                     .padding(.top, 130)
                 }
             }
+            .padding(.horizontal, 24)
             .background(
                 ZStack {
                     Image("background")
                         .resizable()
-                        .ignoresSafeArea(.all)
                     VStack {
                         buildMainTopView()
                         Spacer()
                     }
-                }.ignoresSafeArea()
+                }.ignoresSafeArea(.all)
             )
             .onAppear {
                 viewModel.fetchUser()
             }
+            .toolbar {
+                buildLeftItem()
+                buildRightItem()
+            }
+            .navigationBarBackButtonHidden()
             .navigationDestination(for: PresentType.self) { persentType in
                 switch persentType {
                 case .myPage:
@@ -73,24 +73,27 @@ struct MainView: View {
                         path: $path
                     )
                 case let .formationSetting(performance):
-                    FormationSettingView(performance: performance,
-                                         performanceUseCase: viewModel.performanceUseCase,
-                                         path: $path
+                    FormationSettingView(
+                        performance: performance,
+                        performanceUseCase: viewModel.performanceUseCase,
+                        path: $path
                     )
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(performance, isAllFormationVisible):
                     if performance.isCompleted {
-                        PerformanceWatchingDetailView(performance: performance, isAllFormationVisible: isAllFormationVisible)
+                        PerformanceWatchingDetailView(
+                            performance: performance,
+                            isAllFormationVisible: isAllFormationVisible)
                     } else {
-                        FormationSettingView(performance: performance,
-                                             performanceUseCase: viewModel.performanceUseCase,
-                                             path: $path
+                        FormationSettingView(
+                            performance: performance,
+                            performanceUseCase: viewModel.performanceUseCase,
+                            path: $path
                         )
                     }
                 }
             }
-            .navigationBarBackButtonHidden()
         }
     }
 
@@ -99,10 +102,11 @@ struct MainView: View {
             .resizable()
             .scaledToFit()
             .mask(
-                LinearGradient(gradient:
-                                Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
-                               startPoint: .top,
-                               endPoint: .bottom)
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
             )
     }
 
@@ -110,46 +114,36 @@ struct MainView: View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text("내 손안에")
-                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(Color.monoWhite3)
                 Text("포메이션 디렉터")
-                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                    .bold()
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(Color.monoWhite3)
-                HStack(alignment: .center, spacing: 0) {
+                HStack(spacing: 0) {
                     Text("FODI")
-                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                        .multilineTextAlignment(.leading)
                         .foregroundStyle(Color.blueLight3)
                     Text(" 와 함께,")
-                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                        .multilineTextAlignment(.leading)
-                        .foregroundStyle(Color.monoWhite3)
+                    Spacer()
                 }
             }
+            .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+            .multilineTextAlignment(.leading)
+            .foregroundStyle(Color.monoWhite3)
             Spacer()
         }
-        .padding(.vertical)
-        .padding(.horizontal, 20)
-
+        .padding(.bottom, 34)
     }
+
     private func buildMakeFormationButtonView() -> some View {
         HStack {
             Image("performanceSetting")
                 .onTapGesture {
                     path.append(.performanceSetting)
                 }
-            .onAppear {
-                DispatchQueue.global().async {
-                    viewModel.fetchMyRecentPerformances()
+                .onAppear {
+                    DispatchQueue.global().async {
+                        viewModel.fetchMyRecentPerformances()
+                    }
                 }
-            }
             Spacer()
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 10)
+        .padding(.bottom, 46)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
@@ -166,8 +160,7 @@ struct MainView: View {
                     path.append(.performanceListReading(viewModel.myRecentPerformances))
                 }
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 20)
+        .padding(.bottom, 18)
     }
 
     private func buildEmptyView() -> some View {
@@ -190,30 +183,30 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    path.append(.performanceWatching(performance))
+                    path.append(.performanceWatching(performance, false))
                 }
         }
-        .padding(.horizontal, 24)
     }
 
-    private func leftItem() -> some View {
-        Image("FodiIcon")
-            .resizable()
-            .frame(width: 50, height: 28)
-
+    private func buildLeftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Image("FodiIcon")
+                .padding(.leading, 8)
+        }
     }
 
-    private func rightItem() -> some View {
-        Image("profile")
-            .resizable()
-            .frame(width: 24, height: 24)
-            .onTapGesture {
-                path.append(.myPage)
-            }
+    private func buildRightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Image("profile")
+                .padding(.trailing, 8)
+                .onTapGesture {
+                    path.append(.myPage)
+                }
+        }
     }
 }
 
-extension Performance: Hashable {
+extension Performance: Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(self))
     }
@@ -237,5 +230,3 @@ extension UINavigationController: UIGestureRecognizerDelegate {
 #Preview {
     MainView()
 }
-
-extension Performance: Identifiable { }
