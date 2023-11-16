@@ -57,6 +57,12 @@ struct PerformanceSettingView: View {
                     .onTapGesture {
                         endTextEditing()
                     }
+                    .simultaneousGesture(
+                        DragGesture().onChanged({
+                            if $0.translation.height != 0 {
+                                isFocused = false
+                            }
+                        }))
                 }
                 
                 VStack {
@@ -164,7 +170,7 @@ struct PerformanceSettingView: View {
     }
     
     var inputTitleTextField: some View {
-        TextField("입력하세요", text: $viewModel.performanceTitle)
+        TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
@@ -177,7 +183,7 @@ struct PerformanceSettingView: View {
                              : Color.monoWhite3)
             .multilineTextAlignment(.center)
             .font(.headline)
-            .bold()
+            .bold(!viewModel.performanceTitle.isEmpty)
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
             .background(
                 RoundedRectangle(cornerRadius: 10)
@@ -199,13 +205,14 @@ struct PerformanceSettingView: View {
     
     var inputTitleLabelOpen: some View {
         HStack {
-            Text("프로젝트 제목")
+            Text("프로젝트 이름")
+                .lineLimit(1)
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
             
             if viewModel.performanceTitle.isEmpty {
-                Text("_")
+                Text("입력해주세요")
                     .foregroundStyle(Color.monoWhite3)
                     .font(.subheadline)
             } else {
@@ -225,14 +232,21 @@ struct PerformanceSettingView: View {
     var inputMusicLabelOpened: some View {
         HStack {
             Text("노래")
-                .foregroundStyle(Color.gray)
+                .foregroundStyle(Color.monoWhite2)
+                .font(.subheadline)
             Spacer()
             
-            Text(viewModel.musicTitle == ""
-                 ? "\(viewModel.artist) - \(viewModel.musicTitle)"
-                 : "선택해주세요"
-            )
-            .foregroundStyle(Color.gray)
+            if viewModel.musicTitle == "_" {
+                Text("선택해주세요")
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            } else {
+                Text("\(viewModel.artist) - \(viewModel.musicTitle)")
+                    .lineLimit(1)
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            }
+            
         }
         .disclosureGroupLabelOpend()
     }
@@ -245,11 +259,19 @@ struct PerformanceSettingView: View {
     var inputHeadcountlabelOpened: some View {
         HStack {
             Text("인원 수")
-                .foregroundStyle(Color.gray)
+                .foregroundStyle(Color.monoWhite2)
+                .font(.subheadline)
             Spacer()
             
-            Text("\(viewModel.headcount) 명")
-                .foregroundStyle(Color.gray)
+            if viewModel.headcount == 1 {
+                Text("- 명")
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            } else {
+                Text("\(viewModel.headcount) 명")
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            }
         }
         .disclosureGroupLabelOpend()
     }
@@ -268,6 +290,7 @@ struct PerformanceSettingView: View {
                 buildSearchResultScrollView()
             }
         }
+        .frame(maxHeight: 550)
         .onTapGesture {
             isFocused = true
         }
@@ -358,12 +381,17 @@ struct PerformanceSettingView: View {
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
                 .focused($isFocused)
                 .font(.headline)
-                .bold()
+                .bold(!viewModel.musicSearch.isEmpty)
                 .onSubmit(of: .text) {
                     searchMusic()
                 }
+                .onAppear {
+                    viewModel.isExpanded2 = true
+                }
                 .submitLabel(.search)
-                .foregroundStyle(Color.monoWhite2)
+                .foregroundStyle(viewModel.musicSearch == ""
+                                 ? Color.monoNormal2
+                                 : Color.monoWhite3)
                 .multilineTextAlignment(.center)
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .tint(Color.blueLight2)
@@ -372,10 +400,7 @@ struct PerformanceSettingView: View {
                         viewModel.scrollToID = 2
                     }
                 }
-            
-            
             Spacer()
-            
             Button {
                 viewModel.musicSearch = ""
                 isSearchFromEmptyText = true
@@ -413,33 +438,38 @@ struct PerformanceSettingView: View {
     }
     
     var inputHeadcountContent: some View {
-//        ScrollView {
-            VStack {
-                ZStack {
-                    inputHeadcountTextField
-                    HStack {
-                        Button {
-                            viewModel.decrementHeadcount()
-                        } label: {
+        VStack {
+            ZStack {
+                inputHeadcountTextField
+                HStack {
+                    Button {
+                        viewModel.decrementHeadcount()
+                    } label: {
+                        if viewModel.headcount == 2 {
+                            Image("minus_off")
+                        } else {
                             Image("minus_on")
                         }
-                        Spacer()
-                        Button {
-                            viewModel.incrementHeadcount()
-                        } label: {
+                    }
+                    Spacer()
+                    Button {
+                        viewModel.incrementHeadcount()
+                    } label: {
+                        if viewModel.headcount == 12 {
+                            Image("plus_off")
+                        } else {
                             Image("plus_on")
                         }
                     }
-                    .padding(.vertical)
                 }
-                .padding(.horizontal)
-                slider
-                headcountText
-                inputMemperinfoTextFiledsView
+                .padding(.vertical)
             }
-            .frame(maxHeight: 411)
-//        }
-        
+            .padding(.horizontal)
+            slider
+            headcountText
+            inputMemperinfoTextFiledsView
+        }
+        .frame(maxHeight: 360)
     }
     
     var inputHeadcountTextField: some View {
@@ -447,7 +477,7 @@ struct PerformanceSettingView: View {
             .onAppear {
                 viewModel.toggleDisclosureGroup3()
             }
-            .foregroundColor(viewModel.headcount < 2 ? .gray : .black)
+            .foregroundColor(viewModel.headcount < 2 ? .monoWhite2 : .monoWhite3)
             .multilineTextAlignment(.center)
             .font(.title3)
             .bold()
