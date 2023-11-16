@@ -28,28 +28,10 @@ class ObjectPlayableViewController: ObjectStageViewController {
     private var memberPositions: [Member.Info: [CGPoint]] = [:]
     private var pathToPointCalculator: PathToPointCalculator
 
-    private var beforeRoadRange: ClosedRange = 0...0
-    private var beforeRoadIndex: Int = -1
+    private var offMap: [Range<Int>: FrameInfo] = [:]
+    private var currentPlayingFrameType: PlayingFrameType = .formation
     private var beforeIndex: Int = 0
-    private var offMap: [ClosedRange<Int>: FrameInfo] = [:]
     private var loadingAction: () -> Void = {}
-    private var currentIndex: Int = 0 {
-        willSet {
-            if newValue - 1 >= 0,
-               currentIndex != newValue,
-               let range = offMap.getKeyRange(number: newValue - 1) {
-                for member in memeberRoad {
-                    let roads = member.value
-                    for index in range {
-                        CATransaction.begin()
-                        CATransaction.setAnimationDuration(0)
-                        roads[index]?.setting(color: UIColor(hex: roads[index]?.value ?? ""), isForce: true)
-                        CATransaction.commit()
-                    }
-                }
-            }
-        }
-    }
 
     private lazy var bezierPathConverter = {
         let converter = BezierPathConverter(pixelMargin: objectViewRadius)
@@ -102,73 +84,84 @@ class ObjectPlayableViewController: ObjectStageViewController {
         let transitionIndexCount = Int(CGFloat(PlayableConstants.transitionLength) * PlayableConstants.scale)
 
         for index in 0..<totalCount {
-            let length = index != totalCount - 1 ? framIndexCount + transitionIndexCount - 1 : framIndexCount - 1
+            let length = index != totalCount - 1 ? framIndexCount + transitionIndexCount: framIndexCount
             let firstPoint = lastX
             let secondPoint = lastX + framIndexCount
-            let thirdPoint = lastX + (framIndexCount + transitionIndexCount - 1)
+            let thirdPoint = lastX + (framIndexCount + transitionIndexCount)
             if index != totalCount - 1 {
-                let frameRange = firstPoint...secondPoint
-                let trasitionRange = (secondPoint + 1)...thirdPoint
+                let frameRange = firstPoint..<secondPoint
+                let trasitionRange = (secondPoint)..<thirdPoint
                 offMap[frameRange] = .formation(index: index)
                 offMap[trasitionRange] = .transition(index: index)
-                lastX += (length+1)
+                lastX += (length)
             } else {
-                let frameRange = firstPoint...secondPoint
+                let frameRange = firstPoint..<secondPoint
                 offMap[frameRange] = .formation(index: index)
-                lastX += (length+1)
+                lastX += (length)
             }
         }
     }
-
-    private func followLine(index: Int) {
-        guard let currentRoadInfo = offMap[index],
-              let currentRoadRange = offMap.getKeyRange(number: index) else { return }
-
-        switch currentRoadInfo {
-        case let .formation(formationIndex):
-            showBeforeMovement(formationIndex)
-        case let .transition(formationIndex):
-            move(index, currentRoadIndex: formationIndex, currentRoadRange: currentRoadRange)
-            showBeforeMovement()
-        }
-    }
-
-    private func showBeforeMovement(_ index: Int = -1) {
-        if index - 1 >= 0 {
-            guard let currentRoadRange = offMap.getKeyRange(number: index - 1) else { return }
-
-            for member in memeberRoad {
-                let roads = member.value
-                for checkIndex in currentRoadRange {
-                    if isShowingPreview && index != -1 {
-                        CATransaction.begin()
-                        CATransaction.setAnimationDuration(0)
-                        roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]!.value), isForce: false)
-                        CATransaction.commit()
-                    } else {
-                        CATransaction.begin()
-                        CATransaction.setAnimationDuration(0)
-                        roads[checkIndex]?.setting(color: nil, isForce: !isShowingPreview)
-                        CATransaction.commit()
-                    }
+    
+    private func getIndexToAllRange(index: Int) -> Range<Int> {
+        var startRange = 0..<0
+        var endRange = 0..<0
+        for element in offMap {
+            if element.value.index == index {
+                if element.value.id == "FORMATION" {
+                    startRange = element.key
+                } else {
+                    endRange = element.key
                 }
             }
         }
+        if totalCount - 1 == index {
+            return startRange
+        }
+        let currentRoadRange = startRange.lowerBound..<endRange.upperBound
+        return currentRoadRange
     }
 
-    private func move(_ index: Int, currentRoadIndex: Int, currentRoadRange: ClosedRange<Int>) {
+    private func followLine(index: Int) {
+        guard let currentInfo = offMap[index] else { return }
+        switch currentInfo {
+        case let .formation(framIndex):
+            if framIndex > 0 && currentPlayingFrameType == .transition {
+                if framIndex > 0 {
+                    line(frameInfo: .formation(index: framIndex - 1), linePresentType: .show)
+                }
+                line(index: index, linePresentType: .clear)
+            }
+            currentPlayingFrameType = .formation
+        case let .transition(framIndex):
+            if framIndex > 0 && currentPlayingFrameType == .formation {
+                line(frameInfo: .formation(index: framIndex - 1), linePresentType: .clear)
+            }
+            line(index: index, linePresentType: .action)
+            currentPlayingFrameType = .transition
+        }
+    }
+
+    private func line(index: Int = -1, frameInfo: FrameInfo? = nil, linePresentType: LinePresentType) {
+        let optionalInfo = frameInfo == nil ? offMap[index] : frameInfo
+        guard let currentInfo = optionalInfo else { return }
+        let currentRoadRange = getIndexToAllRange(index: currentInfo.index)
         for member in memeberRoad {
             let roads = member.value
             for checkIndex in currentRoadRange {
-                if checkIndex < index || !isShowingPreview {
+                if (checkIndex >= index && linePresentType == .action) || linePresentType == .show {
                     CATransaction.begin()
                     CATransaction.setAnimationDuration(0)
-                    roads[checkIndex]?.setting(color: nil, isForce: !isShowingPreview)
+                    roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]!.value), isForce: false)
+                    CATransaction.commit()
+                } else if linePresentType == .action {
+                    CATransaction.begin()
+                    CATransaction.setAnimationDuration(0)
+                    roads[checkIndex]?.setting(color: nil, isForce: false)
                     CATransaction.commit()
                 } else {
                     CATransaction.begin()
                     CATransaction.setAnimationDuration(0)
-                    roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]!.value), isForce: false)
+                    roads[checkIndex]?.setting(color: nil, isForce: true)
                     CATransaction.commit()
                 }
             }
@@ -191,7 +184,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
                     let framPostion = relativeCoordinateConverter.getAbsoluteValue(of: bezierPath.startPosition)
                     let nilArray = [CGPoint?](
                         repeating: nil,
-                        count: (Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale)) - 1
+                        count: Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale) - 1
                     )
                     let framPostions = Array(
                         repeating: framPostion,
@@ -212,7 +205,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
             )
             let framPostions = Array(
                 repeating: endPoint,
-                count: (Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale)) - 1
+                count: (Int(round(PlayableConstants.frameLength)) * Int(PlayableConstants.scale))
             )
             let previewArray = [endPoint] + nilArray
             absolutePostions += framPostions
@@ -245,8 +238,8 @@ class ObjectPlayableViewController: ObjectStageViewController {
         } else {
             var newPoints = points
             _ = newPoints.popLast()
-            for point in newPoints {
-                if let point = point {
+            for index in 0..<newPoints.count {
+                if let point = newPoints[index] {
                     let transitionView = PreviewLineView()
                     transitionView.value = info.color
                     transitionView.radius = 1
@@ -276,7 +269,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
             guard let firstPostion = member.value.first?.startPosition else { return }
             let point = relativeCoordinateConverter.getAbsoluteValue(of: firstPostion)
             let memberDot = placeDotObject(point: point, color: UIColor(hex: member.key.color))
-            memberDot.layer.zPosition = 1
+            memberDot.layer.zPosition = 2
             memberDots[member.key] = memberDot
         }
     }
@@ -294,6 +287,17 @@ class ObjectPlayableViewController: ObjectStageViewController {
 }
 
 extension ObjectPlayableViewController {
+
+    enum LinePresentType {
+        case show
+        case action
+        case clear
+    }
+
+    enum PlayingFrameType {
+        case formation
+        case transition
+    }
 
     final class PreviewArrowView: CAShapeLayer, ForamationPreview {
 
@@ -324,6 +328,9 @@ extension ObjectPlayableViewController {
         var value: String = ""
 
         func assignPosition(_ point: CGPoint) {
+            zPosition = 1
+            borderWidth = 1
+            borderColor = UIColor.clear.cgColor
             masksToBounds = true
             self.cornerRadius = radius
             let layerSize = CGSize(width: radius * 2, height: radius * 2)
@@ -334,10 +341,13 @@ extension ObjectPlayableViewController {
         func setting(color: UIColor? = nil, isForce: Bool) {
             if isForce {
                 backgroundColor = UIColor.clear.cgColor
+                borderColor = UIColor.clear.cgColor
             } else if let setColor = color {
-                backgroundColor = UIColor(hex: value).cgColor
+                borderColor = UIColor.monoDark.cgColor
+                backgroundColor = UIColor.monoDarker.cgColor
             } else {
-                backgroundColor = UIColor(hex: value).cgColor
+                borderColor = UIColor.monoDark.cgColor
+                backgroundColor = UIColor.monoDarker.cgColor
             }
         }
     }
