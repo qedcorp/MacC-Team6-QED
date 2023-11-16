@@ -201,7 +201,11 @@ struct MainView: View {
                         performanceSettingManager: manager,
                         isAllFormationVisible: false
                     )
-                    path.append(.performanceWatching(transfer))
+                    if performance.isCompleted {
+                        path.append(.performanceWatching(transfer))
+                    } else {
+                        path.append(.formationSetting(performance))
+                    }
                 }
         }
         .padding(.horizontal, 24)
