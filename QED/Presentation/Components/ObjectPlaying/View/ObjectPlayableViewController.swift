@@ -15,7 +15,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
     typealias FrameInfo = ScrollObservableView.FrameInfo
 
     private var converter: BezierPathConverter {
-        let converter =  BezierPathConverter(pixelMargin: 10)
+        let converter =  BezierPathConverter(pixelMargin: 9)
         converter.relativeCoordinateConverter = relativeCoordinateConverter
         return converter
     }
@@ -101,7 +101,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
             }
         }
     }
-    
+
     private func getIndexToAllRange(index: Int) -> Range<Int> {
         var startRange = 0..<0
         var endRange = 0..<0
@@ -125,18 +125,27 @@ class ObjectPlayableViewController: ObjectStageViewController {
         guard let currentInfo = offMap[index] else { return }
         switch currentInfo {
         case let .formation(framIndex):
-            if framIndex > 0 && currentPlayingFrameType == .transition {
-                if framIndex > 0 {
+            if currentPlayingFrameType == .transition {
+                if framIndex > 0 && isShowingPreview {
                     line(frameInfo: .formation(index: framIndex - 1), linePresentType: .show)
                 }
                 line(index: index, linePresentType: .clear)
             }
+            if !isShowingPreview {
+                line(index: index, linePresentType: .clear)
+                if framIndex > 0 {
+                    line(frameInfo: .formation(index: framIndex - 1), linePresentType: .clear)
+                }
+
+            }
             currentPlayingFrameType = .formation
         case let .transition(framIndex):
-            if framIndex > 0 && currentPlayingFrameType == .formation {
+            if (framIndex > 0 && currentPlayingFrameType == .formation) || !isShowingPreview {
                 line(frameInfo: .formation(index: framIndex - 1), linePresentType: .clear)
             }
-            line(index: index, linePresentType: .action)
+            if isShowingPreview {
+                line(index: index, linePresentType: .action)
+            }
             currentPlayingFrameType = .transition
         }
     }
@@ -238,8 +247,23 @@ class ObjectPlayableViewController: ObjectStageViewController {
         } else {
             var newPoints = points
             _ = newPoints.popLast()
+            let arrowView = PreviewArrowView()
+            let tMargin = converter.getRelativeMargin(bezierPath: arrowPath!)
+            arrowView.path = converter.buildArrowHeadPath(
+                arrowPath!,
+                tMargin: tMargin
+            ).cgPath
+            let arrowPoint = converter.getEndPoint(bezierPath: arrowPath!, tMargin: tMargin)
+            arrowView.value = info.color
+            arrowView.fillColor = UIColor.clear.cgColor
+            var isNilPath = false
             for index in 0..<newPoints.count {
-                if let point = newPoints[index] {
+                if let point = newPoints[index], !isNilPath {
+                    if point ~= arrowPoint {
+                        isNilPath = true
+                        answer.append(nil)
+                        continue
+                    }
                     let transitionView = PreviewLineView()
                     transitionView.value = info.color
                     transitionView.radius = 1
@@ -249,12 +273,6 @@ class ObjectPlayableViewController: ObjectStageViewController {
                     answer.append(nil)
                 }
             }
-            let arrowView = PreviewArrowView()
-            arrowView.path = converter.buildArrowHeadPath(
-                arrowPath!,
-                tMargin: 0
-            ).cgPath
-            arrowView.value = info.color
             answer.append(arrowView)
         }
         guard let array = memeberRoad[info] else {
@@ -302,11 +320,7 @@ extension ObjectPlayableViewController {
     final class PreviewArrowView: CAShapeLayer, ForamationPreview {
 
         var radius: CGFloat = 0
-        var value: String = "" {
-            didSet {
-                fillColor = UIColor.clear.cgColor
-            }
-        }
+        var value: String = ""
 
         func assignPosition(_ point: CGPoint) {
             let newPoint = CGPoint(x: point.x - frame.width / 2, y: point.y - frame.height / 2)
@@ -372,7 +386,6 @@ extension ObjectPlayableViewController {
                 backgroundColor = UIColor.clear.cgColor
             }
         }
-
     }
 }
 
