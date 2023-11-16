@@ -420,7 +420,7 @@ struct PerformanceSettingView: View {
     }
     
     var inputHeadcountContent: some View {
-        ScrollView {
+//        ScrollView {
             VStack {
                 ZStack {
                     inputHeadcountTextField
@@ -444,8 +444,9 @@ struct PerformanceSettingView: View {
                 headcountText
                 inputMemperinfoTextFiledsView
             }
-        }
-        .frame(maxHeight: 411)
+            .frame(maxHeight: 411)
+//        }
+        
     }
     
     var inputHeadcountTextField: some View {
@@ -487,28 +488,33 @@ struct PerformanceSettingView: View {
     }
     
     var inputMemperinfoTextFiledsView: some View {
-        VStack {
-            ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
-                if index < viewModel.inputMemberInfo.count {
-                    TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
-                        .focused($focusedIndex, equals: index)
-                        .onSubmit {
-                            focusedIndex = index + 2
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack {
+                    ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
+                        if index < viewModel.inputMemberInfo.count {
+                            TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
+                                .focused($focusedIndex, equals: index)
+                                .onSubmit {
+                                    proxy.scrollTo(index, anchor: .top)
+                                    focusedIndex = index + 1
+                                }
+                                .foregroundStyle(Color.monoNormal2)
+                                .multilineTextAlignment(.center)
+                                .font(.headline)
+                                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
+                                                         ? Color.monoNormal1
+                                                         : Color.blueLight2)
+                                )
+                                .padding(.horizontal)
+                                .padding(.vertical, 3)
+                                .tint(Color.blueLight2)
+                            Spacer()
                         }
-                        .foregroundStyle(Color.monoNormal2)
-                        .multilineTextAlignment(.center)
-                        .font(.headline)
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
-                                                 ? Color.monoNormal1
-                                                 : Color.blueLight2)
-                        )
-                        .padding(.horizontal)
-                        .padding(.vertical, 3)
-                        .tint(Color.blueLight2)
-                    Spacer()
+                    }
                 }
             }
         }
