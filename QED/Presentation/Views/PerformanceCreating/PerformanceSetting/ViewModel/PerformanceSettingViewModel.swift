@@ -19,10 +19,12 @@ class PerformanceSettingViewModel: ObservableObject {
     init(performanceUseCase: PerformanceUseCase) {
         self.performanceUseCase = performanceUseCase
     }
+    @FocusState var isFocused: Bool
     @Published var isExpanded1: Bool = true
     @Published var isExpanded2: Bool = false
     @Published var isExpanded3: Bool = false
     @Published var scrollToID: Int?
+    @State private var focusedIndex: Int?
 
     @Published var performanceTitle: String = ""
     @Published var musicSearch: String = ""
@@ -34,12 +36,12 @@ class PerformanceSettingViewModel: ObservableObject {
         selectedMusic != nil && performanceTitle != ""
     }
 
-    @Published var headcount: Int = 2 {
+    @Published var headcount: Int = 1 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
         }
     }
-    @Published var range: ClosedRange<Int> = 2...13
+    @Published var range: ClosedRange<Int> = 1...13
     @Published var inputMemberInfo: [String] = []
 
     @Published var isShowingNextView: Bool = false
@@ -71,8 +73,6 @@ class PerformanceSettingViewModel: ObservableObject {
             isSearchingMusic = false
         }
     }
-
-    // headcount func
 
     func decrementHeadcount() {
         if headcount > range.lowerBound {
@@ -143,7 +143,6 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded2 = true
             isExpanded1 = false
             isExpanded3 = false
-            scrollToID = 2
         }
     }
 
@@ -152,14 +151,13 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded3 = true
             isExpanded1 = false
             isExpanded2 = false
-            scrollToID = 3
         }
     }
 
     func allClear() {
         performanceTitle = ""
         selectedMusic = nil
-        headcount = 2
+        headcount = 1
         inputMemberInfo = ["", ""]
     }
 }
