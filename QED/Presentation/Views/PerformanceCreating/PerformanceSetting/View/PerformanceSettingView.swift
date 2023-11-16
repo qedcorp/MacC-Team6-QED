@@ -258,8 +258,7 @@ struct PerformanceSettingView: View {
             musicSearchFieldView()
             Spacer()
             if viewModel.isSearchingMusic {
-                ProgressView()
-                    .tint(Color.blueNormal)
+                FodiProgressView()
                 Spacer()
             } else if isSearchFromEmptyText {
                 emptyMusic
@@ -331,9 +330,8 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             } else {
                 viewModel.selectedMusic = music
-                
                 viewModel.toggleDisclosureGroup3()
-                
+                viewModel.scrollToID = 1
             }
         }
         .id(music.id)
@@ -495,6 +493,9 @@ struct PerformanceSettingView: View {
                                 .onSubmit {
                                     proxy.scrollTo(index, anchor: .top)
                                     focusedIndex = index + 1
+                                }
+                                .onTapGesture {
+                                    viewModel.scrollToID = 3
                                 }
                                 .foregroundStyle(Color.monoNormal2)
                                 .multilineTextAlignment(.center)
