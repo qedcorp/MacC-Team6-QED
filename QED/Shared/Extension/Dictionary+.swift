@@ -19,7 +19,7 @@ extension Dictionary where Key == ClosedRange<CGFloat> {
     }
 }
 
-extension Dictionary where Key == ClosedRange<Int> {
+extension Dictionary where Key == Range<Int> {
 
     public subscript(number: Int) -> Value? {
         for element in self {

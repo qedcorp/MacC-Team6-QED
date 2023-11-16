@@ -3,8 +3,13 @@
 import SwiftUI
 
 struct FormationSettingView: View {
-    @ObservedObject var viewModel: FormationSettingViewModel
+    @ObservedObject private var viewModel: FormationSettingViewModel
     @Binding var path: [PresentType]
+
+    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
+        self.viewModel = FormationSettingViewModel(performance: performance, performanceUseCase: performanceUseCase)
+        self._path = path
+    }
 
     var body: some View {
         ZStack {
@@ -44,12 +49,10 @@ struct FormationSettingView: View {
                     PerformanceSettingTitleView(step: 1, title: "대형짜기")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Text("다음")
-                        .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
-                        .disabled(!viewModel.isEnabledToSave)
-                        .onTapGesture {
-                            path.append(.memberSetting(viewModel.memberSettingTransferModel))
-                        }
+                    NavigationLink("다음") {
+                        buildMemberSettingView()
+                    }
+                    .disabled(!viewModel.isEnabledToSave)
                 }
             }
         }
@@ -145,11 +148,6 @@ struct FormationSettingView: View {
                         .frame(height: 79)
                         .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
                         .padding(.top, 12)
-                    }
-                    .onAppear {
-                        animate {
-                            scrollView.scrollTo(viewModel.currentFormationIndex, anchor: .center)
-                        }
                     }
                     .onChange(of: viewModel.currentFormationIndex) { id in
                         animate {
@@ -314,5 +312,13 @@ struct FormationSettingView: View {
             }
         }
         .ignoresSafeArea()
+    }
+
+    private func buildMemberSettingView() -> some View {
+        MemberSettingView(
+            performance: viewModel.performanceSettingManager.performance,
+            performanceUseCase: viewModel.performanceUseCase,
+            path: $path
+        )
     }
 }

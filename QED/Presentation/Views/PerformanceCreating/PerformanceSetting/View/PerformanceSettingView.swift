@@ -8,12 +8,16 @@
 import Foundation
 import SwiftUI
 
+
+
 struct PerformanceSettingView: View {
+    
+    @State private var yameNextView: FormationSettingView? = nil
     @ObservedObject private var viewModel: PerformanceSettingViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-    @FocusState private var focusedIndex: Int?
+    @State private var scrollOffset: CGFloat = 0
     @Binding var path: [PresentType]
     
     
@@ -21,7 +25,7 @@ struct PerformanceSettingView: View {
         self.viewModel = PerformanceSettingViewModel(
             performanceUseCase: performanceUseCase)
         self._path = path
-        viewModel.headcount = 1
+        viewModel.headcount = 2
     }
     
     var body: some View {
@@ -50,24 +54,18 @@ struct PerformanceSettingView: View {
                     }
                     .onChange(of: viewModel.scrollToID) { newID in
                         print("New scrollToID: \(String(describing: newID))")
-                        withAnimation {
+                        DispatchQueue.main.async {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
                     .onTapGesture {
                         endTextEditing()
                     }
-                    .simultaneousGesture(
-                        DragGesture().onChanged({
-                            if $0.translation.height != 0 {
-                                isFocused = false
-                            }
-                        }))
                 }
                 
                 VStack {
                     Spacer()
-                    HStack(alignment: .center) {
+                    HStack {
                         Button {
                             viewModel.scrollToID = 1
                             viewModel.allClear()
@@ -78,22 +76,22 @@ struct PerformanceSettingView: View {
                                 .font(.title3)
                                 .kerning(0.35)
                                 .bold()
+                                .padding(.bottom, 25)
                         }
                         
                         Spacer()
                         nextButton
-                            .disabled(!viewModel.isAllSet)
-                        
+                    
                     }
-                    .padding(.bottom, 30)
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
                             .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
                             .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
                     )
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
                     .padding(.horizontal, 25)
-                    .padding(.vertical, 10)
                 }
                 .ignoresSafeArea(.all)
             }
@@ -157,26 +155,24 @@ struct PerformanceSettingView: View {
     }
     
     var nextButton: some View {
-        Image(viewModel.isAllSet
-              ? "go_able"
-              : "go_disabled")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 86, height: 44)
-            .onTapGesture {
-                let transfer = PerformanceLoadingTransferModel {
-                    viewModel.getTaskForCreatePerformance()
-                }
-                path.append(.performanceLoading(transfer))
-            }
+        
+        NavigationLink {
+            PerformanceLoadingView(viewModel: viewModel, path: $path)
+        } label: {
+            Image(true ? "go_able" : "go_disable")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 86, height: 44)
+        }
+        .disabled(!viewModel.isAllSet)
     }
     
     var inputTitleTextField: some View {
-        TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
+        TextField("입력하세요", text: $viewModel.performanceTitle)
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
-                    viewModel.scrollToID = 1
+                    viewModel.scrollToID = 2
                 }
             }
             .focused($isFocused)
@@ -185,7 +181,7 @@ struct PerformanceSettingView: View {
                              : Color.monoWhite3)
             .multilineTextAlignment(.center)
             .font(.headline)
-            .bold(!viewModel.performanceTitle.isEmpty)
+            .bold()
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
             .background(
                 RoundedRectangle(cornerRadius: 10)
@@ -197,6 +193,8 @@ struct PerformanceSettingView: View {
             .tint(Color.blueLight2)
     }
     
+    //    DisclosureGroupLabel("")
+    
     var inputTitleLabelClosed: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
@@ -207,14 +205,13 @@ struct PerformanceSettingView: View {
     
     var inputTitleLabelOpen: some View {
         HStack {
-            Text("프로젝트 이름")
-                .lineLimit(1)
+            Text("프로젝트 제목")
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
             
             if viewModel.performanceTitle.isEmpty {
-                Text("입력해주세요")
+                Text("_")
                     .foregroundStyle(Color.monoWhite3)
                     .font(.subheadline)
             } else {
@@ -234,24 +231,11 @@ struct PerformanceSettingView: View {
     var inputMusicLabelOpened: some View {
         HStack {
             Text("노래")
-                .foregroundStyle(Color.monoWhite2)
-                .font(.subheadline)
+                .foregroundStyle(Color.gray)
             Spacer()
             
-            if viewModel.musicTitle == "" {
-                Text("선택해주세요")
-                    .foregroundStyle(Color.monoWhite3)
-                    .font(.subheadline)
-            } else if viewModel.musicTitle == "_" {
-                Text("자체 노래 선택")
-                    .foregroundStyle(Color.monoWhite3)
-                    .font(.subheadline)
-            } else {
-                Text("\(viewModel.artist) - \(viewModel.musicTitle)")
-                    .lineLimit(1)
-                    .foregroundStyle(Color.monoWhite3)
-                    .font(.subheadline)
-            }
+            Text("\(viewModel.artist) - \(viewModel.musicTitle)")
+                .foregroundStyle(Color.gray)
         }
         .disclosureGroupLabelOpend()
     }
@@ -264,19 +248,11 @@ struct PerformanceSettingView: View {
     var inputHeadcountlabelOpened: some View {
         HStack {
             Text("인원 수")
-                .foregroundStyle(Color.monoWhite2)
-                .font(.subheadline)
+                .foregroundStyle(Color.gray)
             Spacer()
             
-            if viewModel.headcount == 1 {
-                Text("- 명")
-                    .foregroundStyle(Color.monoWhite3)
-                    .font(.subheadline)
-            } else {
-                Text("\(viewModel.headcount) 명")
-                    .foregroundStyle(Color.monoWhite3)
-                    .font(.subheadline)
-            }
+            Text("\(viewModel.headcount) 명")
+                .foregroundStyle(Color.gray)
         }
         .disclosureGroupLabelOpend()
     }
@@ -286,7 +262,8 @@ struct PerformanceSettingView: View {
             musicSearchFieldView()
             Spacer()
             if viewModel.isSearchingMusic {
-                FodiProgressView()
+                ProgressView()
+                    .tint(Color.blueNormal)
                 Spacer()
             } else if isSearchFromEmptyText {
                 emptyMusic
@@ -295,7 +272,6 @@ struct PerformanceSettingView: View {
                 buildSearchResultScrollView()
             }
         }
-        .frame(maxHeight: 550)
         .onTapGesture {
             isFocused = true
         }
@@ -359,8 +335,9 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             } else {
                 viewModel.selectedMusic = music
-                viewModel.toggleDisclosureGroup3()
-                viewModel.scrollToID = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    viewModel.toggleDisclosureGroup3()
+                }
             }
         }
         .id(music.id)
@@ -385,27 +362,22 @@ struct PerformanceSettingView: View {
             
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
                 .focused($isFocused)
+                .onAppear {
+                    viewModel.toggleDisclosureGroup2()
+                }
                 .font(.headline)
-                .bold(!viewModel.musicSearch.isEmpty)
+                .bold()
                 .onSubmit(of: .text) {
                     searchMusic()
                 }
-                .onAppear {
-                    viewModel.isExpanded2 = true
-                }
                 .submitLabel(.search)
-                .foregroundStyle(viewModel.musicSearch == ""
-                                 ? Color.monoNormal2
-                                 : Color.monoWhite3)
+                .foregroundStyle(Color.monoWhite2)
                 .multilineTextAlignment(.center)
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 .tint(Color.blueLight2)
-                .onTapGesture {
-                    withAnimation {
-                        viewModel.scrollToID = 2
-                    }
-                }
+            
             Spacer()
+            
             Button {
                 viewModel.musicSearch = ""
                 isSearchFromEmptyText = true
@@ -428,7 +400,7 @@ struct PerformanceSettingView: View {
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
-            viewModel.scrollToID = 1
+            viewModel.scrollToID = 3
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
         } label: {
             Image("emptyMusic")
@@ -443,38 +415,32 @@ struct PerformanceSettingView: View {
     }
     
     var inputHeadcountContent: some View {
-        VStack {
-            ZStack {
-                inputHeadcountTextField
-                HStack {
-                    Button {
-                        viewModel.decrementHeadcount()
-                    } label: {
-                        if viewModel.headcount == 1 {
-                            Image("minus_off")
-                        } else {
+        ScrollView {
+            VStack {
+                ZStack {
+                    inputHeadcountTextField
+                    HStack {
+                        Button {
+                            viewModel.decrementHeadcount()
+                        } label: {
                             Image("minus_on")
                         }
-                    }
-                    Spacer()
-                    Button {
-                        viewModel.incrementHeadcount()
-                    } label: {
-                        if viewModel.headcount == 13 {
-                            Image("plus_off")
-                        } else {
+                        Spacer()
+                        Button {
+                            viewModel.incrementHeadcount()
+                        } label: {
                             Image("plus_on")
                         }
                     }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
+                .padding(.horizontal)
+                slider
+                headcountText
+                inputMemperinfoTextFiledsView
             }
-            .padding(.horizontal)
-            slider
-            headcountText
-            inputMemperinfoTextFiledsView
         }
-        .frame(maxHeight: 360)
+        .frame(maxHeight: 411)
     }
     
     var inputHeadcountTextField: some View {
@@ -482,7 +448,7 @@ struct PerformanceSettingView: View {
             .onAppear {
                 viewModel.toggleDisclosureGroup3()
             }
-            .foregroundColor(viewModel.headcount < 2 ? .monoWhite2 : .monoWhite3)
+            .foregroundColor(viewModel.headcount < 2 ? .gray : .black)
             .multilineTextAlignment(.center)
             .font(.title3)
             .bold()
@@ -508,7 +474,7 @@ struct PerformanceSettingView: View {
                 get: { Double(viewModel.headcount) },
                 set: { viewModel.headcount = Int($0) }
             ),
-            in: 1 ... 13,
+            in: 2 ... 13,
             step: 1
         )
         .tint(Color.blueLight3)
@@ -516,47 +482,31 @@ struct PerformanceSettingView: View {
     }
     
     var inputMemperinfoTextFiledsView: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                VStack {
-                    ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
-                        if index < viewModel.inputMemberInfo.count {
-                            TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
-                                .focused($focusedIndex, equals: index)
-                                .onSubmit {
-                                    proxy.scrollTo(index + 1, anchor: .top)
-                                    focusedIndex = index + 1
-                                    viewModel.scrollToID = (index + 1 < viewModel.headcount)
-                                    ? 3
-                                    : 1
-                                    if index == viewModel.headcount - 1 {
-                                        viewModel.isExpanded3 = false
-                                    }
-                                }
-                                .onTapGesture {
-                                    viewModel.scrollToID = 3
-                                }
-                                .foregroundStyle(Color.monoNormal2)
-                                .multilineTextAlignment(.center)
-                                .font(.headline)
-                                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
-                                                         ? Color.monoNormal1
-                                                         : Color.blueLight2)
-                                )
-                                .padding(.horizontal)
-                                .padding(.vertical, 3)
-                                .tint(Color.blueLight2)
-                            Spacer()
-                        }
-                    }
+        VStack {
+            ForEach(Array(0..<viewModel.headcount), id: \.self) { index in
+                if index < viewModel.inputMemberInfo.count {
+                    TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
+                        .focused($isFocused)
+                        .foregroundStyle(Color.monoNormal2)
+                        .multilineTextAlignment(.center)
+                        .font(.headline)
+                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
+                                                 ? Color.monoNormal1
+                                                 : Color.blueLight2)
+                        )
+                        .padding(.horizontal)
+                        .padding(.vertical, 3)
+                        .tint(Color.blueLight2)
+                    
+                    Spacer()
                 }
             }
         }
     }
-    
+   
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {

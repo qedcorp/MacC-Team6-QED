@@ -11,6 +11,7 @@ import SwiftUI
 class PerformanceSettingViewModel: ObservableObject {
     //    @Published var performance: PerformanceModel
     let performanceUseCase: PerformanceUseCase
+    private(set) var yameNextView: FormationSettingView?
     @Published var performance: Performance? = Performance(id: "",
                                                            author: User(),
                                                            music: Music(id: "", title: "", artistName: ""),
@@ -19,12 +20,10 @@ class PerformanceSettingViewModel: ObservableObject {
     init(performanceUseCase: PerformanceUseCase) {
         self.performanceUseCase = performanceUseCase
     }
-    @FocusState var isFocused: Bool
     @Published var isExpanded1: Bool = true
     @Published var isExpanded2: Bool = false
     @Published var isExpanded3: Bool = false
     @Published var scrollToID: Int?
-    @State private var focusedIndex: Int?
 
     @Published var performanceTitle: String = ""
     @Published var musicSearch: String = ""
@@ -33,17 +32,20 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var isSearchingMusic: Bool = false
     @Published var selectedMusic: Music?
     var isAllSet: Bool {
-        selectedMusic != nil && performanceTitle != "" && headcount != 1
+        selectedMusic != nil && performanceTitle != ""
     }
-    @Published var headcount: Int = 1 {
+
+    @Published var headcount: Int = 2 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
         }
     }
-    @Published var range: ClosedRange<Int> = 1...13
+    @Published var range: ClosedRange<Int> = 2...13
     @Published var inputMemberInfo: [String] = []
 
     @Published var isShowingNextView: Bool = false
+    // 빠져도 됌
+    @Published var canPressNextButton: Bool = false
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
         musicRepository: DefaultMusicRepository()
@@ -54,12 +56,14 @@ class PerformanceSettingViewModel: ObservableObject {
     }
 
     var musicTitle: String {
-        selectedMusic?.title ?? ""
+        selectedMusic?.title ?? "_"
     }
 
     var artist: String {
-        selectedMusic?.artistName ?? ""
+        selectedMusic?.artistName ?? "_"
     }
+
+    // music func
 
     func search() {
         Task {
@@ -68,6 +72,8 @@ class PerformanceSettingViewModel: ObservableObject {
             isSearchingMusic = false
         }
     }
+
+    // headcount func
 
     func decrementHeadcount() {
         if headcount > range.lowerBound {
@@ -101,27 +107,16 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-    func getTaskForCreatePerformance() -> Task<Performance?, Never> {
-        Task {
-            await createPerformance()
-        }
-    }
-
-    private func createPerformance() async -> Performance? {
+    func generatePerformance() async {
         let memberInfo = zip(inputMemberInfo, MemberInfoColorset.getAllColors())
             .map { Member.Info(name: $0, color: $1) }
         guard let id = try? KeyChainManager.shared.read(account: .id),
               let email = try? KeyChainManager.shared.read(account: .email),
-              let nickname = try? KeyChainManager.shared.read(account: .name) else { return nil }
-        let tempPerformance = Performance(
-            id: "",
-            author: User(id: id, email: email, nickname: nickname),
-            music: selectedMusic ?? Music(id: "", title: "", artistName: ""),
-            headcount: headcount,
-            title: performanceTitle,
-            memberInfos: memberInfo
-        )
-        return try? await performanceUseCase.createPerformance(performance: tempPerformance)
+              let nickname = try? KeyChainManager.shared.read(account: .name) else { return }
+        let tempPerformance = Performance(id: "",
+                                          author: User(id: id, email: email, nickname: nickname), music: selectedMusic ?? Music(id: "", title: "", artistName: ""),
+                                          headcount: headcount, title: performanceTitle, memberInfos: memberInfo)
+        self.performance = try? await performanceUseCase.createPerformance(performance: tempPerformance)
     }
 
     func toggleDisclosureGroup1() {
@@ -138,6 +133,7 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded2 = true
             isExpanded1 = false
             isExpanded3 = false
+            scrollToID = 2
         }
     }
 
@@ -146,17 +142,15 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded3 = true
             isExpanded1 = false
             isExpanded2 = false
+            scrollToID = 3
         }
     }
 
     func allClear() {
         performanceTitle = ""
         selectedMusic = nil
-        headcount = 1
+        headcount = 2
         inputMemberInfo = ["", ""]
-        isExpanded1 = true
-        isExpanded2 = false
-        isExpanded3 = false
     }
 }
 

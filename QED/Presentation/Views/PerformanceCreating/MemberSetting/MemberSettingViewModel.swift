@@ -5,23 +5,23 @@ import Foundation
 
 @MainActor
 class MemberSettingViewModel: ObservableObject {
-    let performanceSettingManager: PerformanceSettingManager
-    let performanceUseCase: PerformanceUseCase
-    private let hapticManager: HapticManager
     @Published private(set) var performance: PerformanceModel
     @Published private(set) var selectedMemberInfoIndex: Int?
     @Published private(set) var editingMemberInfoIndex: Int?
+    let hapticManager: HapticManager
+    let performanceSettingManager: PerformanceSettingManager
+    let performanceUseCase: PerformanceUseCase
     private var cancellables: Set<AnyCancellable> = []
 
     init(
+        hapticManager: HapticManager = .shared,
         performanceSettingManager: PerformanceSettingManager,
-        performanceUseCase: PerformanceUseCase,
-        hapticManager: HapticManager = .shared
+        performanceUseCase: PerformanceUseCase
     ) {
         self.performance = .build(entity: performanceSettingManager.performance)
+        self.hapticManager = hapticManager
         self.performanceSettingManager = performanceSettingManager
         self.performanceUseCase = performanceUseCase
-        self.hapticManager = hapticManager
         subscribePerformanceSettingManager()
     }
 
