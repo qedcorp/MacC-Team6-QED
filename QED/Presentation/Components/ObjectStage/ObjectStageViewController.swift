@@ -8,7 +8,7 @@ class ObjectStageViewController: UIViewController {
     }()
 
     var isColorAssignable = true
-    private var isViewAppeared = false
+    private(set) var isViewAppeared = false
     private var copiedFormable: Formable?
 
     var objectViewRadius: CGFloat {
