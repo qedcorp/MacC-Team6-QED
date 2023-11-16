@@ -35,7 +35,7 @@ class PerformanceSettingViewModel: ObservableObject {
         selectedMusic != nil && performanceTitle != ""
     }
 
-    @Published var headcount: Int = 2 {
+    @Published var headcount: Int = 1 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
         }

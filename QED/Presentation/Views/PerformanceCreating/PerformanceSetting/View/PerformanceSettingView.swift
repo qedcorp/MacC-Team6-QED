@@ -234,8 +234,17 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(Color.gray)
             Spacer()
             
-            Text("\(viewModel.artist) - \(viewModel.musicTitle)")
-                .foregroundStyle(Color.gray)
+            if viewModel.musicTitle == "_" {
+                Text("선택해주세요")
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            } else {
+                Text("\(viewModel.artist) - \(viewModel.musicTitle)")
+                    .lineLimit(1)
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            }
+            
         }
         .disclosureGroupLabelOpend()
     }
