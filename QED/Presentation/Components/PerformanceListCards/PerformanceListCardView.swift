@@ -54,13 +54,8 @@ struct PerformanceListCardView: View {
                     }
                     .frame(height: 170)
                     .overlay {
-                        if performance.isCompleted {
-                            Rectangle()
-                                .foregroundStyle(.black.opacity(0.8))
-                        } else {
-                            Rectangle()
-                                .foregroundStyle(.clear)
-                        }
+                        Rectangle()
+                            .foregroundStyle(performance.isCompleted ? .clear : .black.opacity(0.8))
                     }
 
                 } else {
