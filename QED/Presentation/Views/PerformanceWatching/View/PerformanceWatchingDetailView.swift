@@ -21,8 +21,8 @@ struct PerformanceWatchingDetailView: View {
     @State private var isAllFormationVisible: Bool
     @State private var isAutoShowAllForamation = false
     @State private var isSheetVisiable = false
-    @State private var isNameVisiable = false
-    @State private var isBeforeVisible = false
+    @State private var isNameVisiable = true
+    @State private var isBeforeVisible = true
     @State private var isLineVisible = false
     @State private var isLoading = true
 
@@ -53,7 +53,6 @@ struct PerformanceWatchingDetailView: View {
                 buildPlayerView()
                 buildTabBar(geometry: geometry)
             }
-            .background(.black)
             .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
                 buildSettingSheetView()
             }
@@ -82,6 +81,10 @@ struct PerformanceWatchingDetailView: View {
                     self.isAllFormationVisible = true
                 }
             }
+        }
+        .background {
+            Image("background")
+                .ignoresSafeArea()
         }
     }
 
@@ -269,7 +272,6 @@ struct PerformanceWatchingDetailView: View {
                 .frame(height: PlayBarConstants.playBarHeight + 25)
                 .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 14))
         }
-        .background(Color.monoBlack)
     }
 
     private func buildToast() -> some View {
@@ -306,7 +308,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPuaseButton() -> some View {
         Button {
-            if viewModel.isPlaying {
+            if !viewModel.isPlaying {
                 viewModel.isPlaying = false
                 viewModel.pause()
             }
