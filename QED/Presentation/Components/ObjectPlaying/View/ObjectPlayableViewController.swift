@@ -68,6 +68,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
 
     func setNewMemberFormation(offset: CGFloat, isShowingPreview: Bool = false) {
         let index = Int(round(offset * PlayableConstants.scale))
+        let forceShowing = self.isShowingPreview != isShowingPreview ? true : false
         self.isShowingPreview = isShowingPreview
         for memberDot in memberDots {
             let dotObject = memberDot.value
@@ -75,7 +76,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
                   let newPoint = points[safe: index] else { return }
             dotObject.assignPosition(newPoint)
         }
-        followLine(index: index)
+        followLine(index: index, forceShowing: forceShowing)
     }
 
     func showAllDotName(isNameVisiable: Bool) {
@@ -127,7 +128,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
         return currentRoadRange
     }
 
-    private func followLine(index: Int) {
+    private func followLine(index: Int, forceShowing: Bool = false) {
         guard let currentInfo = offMap[index] else { return }
         switch currentInfo {
         case let .formation(framIndex):
@@ -142,7 +143,11 @@ class ObjectPlayableViewController: ObjectStageViewController {
                 if framIndex > 0 {
                     line(frameInfo: .formation(index: framIndex - 1), linePresentType: .clear)
                 }
-
+            }
+            if forceShowing {
+                if framIndex > 0 && isShowingPreview {
+                    line(frameInfo: .formation(index: framIndex - 1), linePresentType: .show)
+                }
             }
             currentPlayingFrameType = .formation
         case let .transition(framIndex):
@@ -151,6 +156,9 @@ class ObjectPlayableViewController: ObjectStageViewController {
             }
             if isShowingPreview {
                 line(index: index, linePresentType: .action)
+            }
+            if forceShowing && !isShowingPreview {
+                line(index: index, linePresentType: .clear)
             }
             currentPlayingFrameType = .transition
         }
