@@ -18,8 +18,8 @@ struct PerformanceListReadingView: View {
     }
 
     let columns: [GridItem] = [
-        GridItem(spacing: 10, alignment: nil),
-        GridItem(spacing: 10, alignment: nil)]
+        GridItem(spacing: 16, alignment: nil),
+        GridItem(spacing: 16, alignment: nil)]
 
     var body: some View {
         ScrollView {

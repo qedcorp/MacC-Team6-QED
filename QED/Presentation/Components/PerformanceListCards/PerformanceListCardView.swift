@@ -15,11 +15,14 @@ struct PerformanceListCardView: View {
     let onUpdate: ((String, String) -> Void)?
     let index: Int?
 
-    @State private var isMusic = true
+    var hasMusic: Bool
+
     @State private var isPresented = false
     @State private var isEditable = false
     @State private var message: Message?
     @State private var newTitle = ""
+    @State private var cardWidth = CGFloat.zero
+    @State private var cardHeight = CGFloat.zero
 
     init(performance: Performance,
          viewModel: PerformanceListReadingViewModel? = nil,
@@ -31,71 +34,81 @@ struct PerformanceListCardView: View {
         self.isMyPerformance = isMyPerformance
         self.index = index
         self.onUpdate = onUpdate
+        self.hasMusic = performance.music.title != "_" ? true : false
     }
 
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading) {
-                if isMusic {
-                    buildFetchMusicView()
-                } else {
-                    buildNoMusicView()
-                }
-                buildMusicInfoView()
-                Spacer().padding()
-            }
+            GeometryReader { geometry in
+                ZStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        if hasMusic {
+                            buildFetchMusicView()
+                        } else {
+                            buildFetchStateView("music.note")
+                        }
+                        buildMusicInfoView()
+                    }
 
-            if isMyPerformance {
-                buildEditButton()
+                    if isMyPerformance {
+                        buildEditButton()
+                    }
+                }
+                .onAppear {
+                    cardWidth = geometry.size.width
+                    cardHeight = geometry.size.height
+                }
             }
-        }
-        .frame(width: 163, height: 198)
-        .background(Gradient.blueGradation2)
-        .foregroundStyle(Color.monoWhite3)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+            .aspectRatio(163/198, contentMode: .fit)
+            .background(Gradient.blueGradation2)
+            .foregroundStyle(Color.monoWhite3)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 
     private func buildFetchMusicView() -> some View {
-        AsyncImage(url: performance.music.albumCoverURL) { phase in
+        return AsyncImage(url: performance.music.albumCoverURL) { phase in
             switch phase {
-            case.empty:
-                VStack {
-                    HStack(alignment: .center) {
-                        Spacer()
-                        FodiProgressView()
-                        Spacer()
-                    }
-                }
-                .padding(.top, 20)
-            case.success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-            case.failure:
-                buildFetchFailureView()
+            case .empty:
+                buildLodingView()
+            case .success(let image):
+                buildAlbumCoverView(image: image)
+            case .failure:
+                buildFetchStateView("exclamationmark.circle.fill")
             @unknown default:
-                buildFetchFailureView()
+                buildFetchStateView("exclamationmark.circle.fill")
             }
         }
-        .frame(height: 170)
     }
 
-    private func buildFetchFailureView() -> some View {
+    private func buildLodingView() -> some View {
         VStack {
             HStack(alignment: .center) {
                 Spacer()
-                Image(systemName: "exclamationmark.circle.fill")
+                FodiProgressView()
+                Spacer()
+            }
+        }
+        .frame(height: cardHeight)
+    }
+
+    private func buildAlbumCoverView(image: Image) -> some View {
+        image
+            .resizable()
+            .scaledToFill()
+            .frame(height: cardHeight * 0.7)
+            .clipped()
+    }
+
+    private func buildFetchStateView(_ image: String) -> some View {
+        VStack {
+            HStack(alignment: .center) {
+                Spacer()
+                Image(systemName: image)
                     .font(.title)
                 Spacer()
             }
         }
-        .padding(.top, 20)
-    }
-
-    private func buildNoMusicView() -> some View {
-        // TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
-        Rectangle()
-            .frame(height: 170)
+        .frame(height: cardHeight * 0.7)
+        .background(Color.monoWhite1)
     }
 
     private func buildMusicInfoView() -> some View {
@@ -103,56 +116,54 @@ struct PerformanceListCardView: View {
             VStack(alignment: .leading) {
                 Text("\(performance.title ?? "")")
                     .bold()
-                    .opacity(0.8)
-                    .padding(.bottom, 1)
 
-                Text(isMusic
-                     ?"\(performance.music.title)"
+                Text(hasMusic
+                     ? "\(performance.music.title)"
                      :"선택한 노래없음"
                 )
                 .font(.caption2)
-                .opacity(0.6)
             }
             .lineLimit(1)
-            .truncationMode(.tail)
-
             Spacer()
+            ZStack {
+                Circle()
+                    .fill(Color.monoWhite3)
+                    .frame(width: cardWidth * 0.16, height: cardWidth * 0.16)
 
-            Text("\(performance.headcount)")
-                .foregroundStyle(Color.blueDark)
-                .bold()
-                .background(
-                    Circle()
-                        .fill(Color.monoWhite3)
-                        .frame(width: 27, height: 27)
-                )
+                Text("\(performance.headcount)")
+                    .foregroundStyle(Color.blueDark)
+                    .bold()
+            }
         }
         .font(.footnote)
-        .padding(.top, 5)
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 13)
+        .frame(height: cardHeight * 0.3)
     }
 
     private func buildEditButton() -> some View {
         VStack {
-            Spacer()
-            Button {
-                isPresented = true
-            } label: {
-                Image("ellipsis")
-            }
-            .confirmationDialog(
-                "EditPerformance", isPresented: $isPresented, actions: {
-                    buildConfirmationDialog()
+            HStack {
+                Spacer()
+                Button {
+                    isPresented = true
+                } label: {
+                    Image("ellipsis")
+                        .padding(.vertical, 12)
+                        .padding(.horizontal)
                 }
-            )
-            .alert(with: $message)
-            .alert("프로젝트 이름 수정", isPresented: $isEditable) {
-                buildTextFeildAlertView()
+                .confirmationDialog(
+                    "EditPerformance", isPresented: $isPresented, actions: {
+                        buildConfirmationDialog()
+                    }
+                )
+                .alert(with: $message)
+                .alert("프로젝트 이름 수정", isPresented: $isEditable) {
+                    buildTextFeildAlertView()
+                }
             }
             Spacer()
         }
-        .padding(.leading, 125)
-        .padding(.bottom, 150)
+        .frame(width: cardWidth, height: cardHeight)
     }
 
     private func buildConfirmationDialog() -> some View {

@@ -63,6 +63,7 @@ struct MainView: View {
                 buildRightItem()
             }
             .navigationBarBackButtonHidden()
+            .toolbarBackground(.hidden, for: .navigationBar)
             .navigationDestination(for: PresentType.self) { persentType in
                 switch persentType {
                 case .myPage:
@@ -147,7 +148,7 @@ struct MainView: View {
     }
 
     private func buildPerformanceListHeaderView() -> some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .top) {
             Text("최근 프로젝트")
                 .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
                 .kerning(0.38)
@@ -156,11 +157,12 @@ struct MainView: View {
             Spacer()
 
             Image("listReading")
+                .padding(.bottom, 18)
                 .onTapGesture {
                     path.append(.performanceListReading(viewModel.myRecentPerformances))
                 }
         }
-        .padding(.bottom, 18)
+
     }
 
     private func buildEmptyView() -> some View {
@@ -172,8 +174,8 @@ struct MainView: View {
     }
 
     let columns: [GridItem] = [
-        GridItem(spacing: 10, alignment: nil),
-        GridItem(spacing: 10, alignment: nil)]
+        GridItem(spacing: 16, alignment: nil),
+        GridItem(spacing: 16, alignment: nil)]
 
     private func buildPerformanceListScrollView() -> some View {
         let myRecentPerformances = viewModel.myRecentPerformances
