@@ -9,7 +9,6 @@ import SwiftUI
 
 @MainActor
 class PerformanceSettingViewModel: ObservableObject {
-    //    @Published var performance: PerformanceModel
     let performanceUseCase: PerformanceUseCase
     @Published var performance: Performance? = Performance(id: "",
                                                            author: User(),
@@ -44,6 +43,7 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var inputMemberInfo: [String] = []
 
     @Published var isShowingNextView: Bool = false
+    @Published var alertMessage: [Message?] = []
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
         musicRepository: DefaultMusicRepository()
@@ -149,7 +149,7 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
 
-    func allClear() {
+    func delete() {
         performanceTitle = ""
         selectedMusic = nil
         headcount = 1
