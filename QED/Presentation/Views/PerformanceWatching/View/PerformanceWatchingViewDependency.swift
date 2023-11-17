@@ -3,11 +3,11 @@
 import Foundation
 
 final class PerformanceWatchingViewDependency: ViewDependency {
-    let performanceSettingManager: PerformanceSettingManager
     let isAllFormationVisible: Bool
+    let performanceSettingManager: PerformanceSettingManager?
 
-    init(performanceSettingManager: PerformanceSettingManager, isAllFormationVisible: Bool) {
-        self.performanceSettingManager = performanceSettingManager
+    init(isAllFormationVisible: Bool, performanceSettingManager: PerformanceSettingManager?) {
         self.isAllFormationVisible = isAllFormationVisible
+        self.performanceSettingManager = performanceSettingManager
     }
 }

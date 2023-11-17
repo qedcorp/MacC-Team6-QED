@@ -4,9 +4,9 @@
 //
 //  Created by changgyo seo on 11/7/23.
 //
-import Foundation
 
 import Combine
+import Foundation
 
 @MainActor
 class PerformanceWatchingDetailViewModel: ObservableObject {
@@ -15,15 +15,63 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     typealias FrameInfo = ScrollObservableView.FrameInfo
     typealias Controller = ObjectMovementAssigningViewController
 
-    let movementController: Controller
-    let zoomableMovementController: Controller
-    let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
-    let performanceSettingManager: PerformanceSettingManager
+    private var performanceSettingManager: PerformanceSettingManager?
+
+    private(set) lazy var movementController = {
+        let controller = Controller()
+        controller.objectHistoryArchiver = objectHistoryArchiver
+        return controller
+    }()
+
+    private(set) lazy var zoomableMovementController = {
+        let controller = Controller()
+        controller.objectHistoryArchiver = objectHistoryArchiver
+        return controller
+    }()
+
+    private(set) lazy var objectHistoryArchiver = {
+        ObjectHistoryArchiver<Controller.History>()
+    }()
+
+    @Published private(set) var performance: PerformanceModel?
+    @Published var isAllFormationVisible = false
+    @Published var isAutoShowAllForamation = false
+    @Published var offset: CGFloat = 0.0
+    @Published var selectedIndex: Int = 0
+    @Published var isPlaying = false
+
+    @Published private(set) var isZoomed = false {
+        didSet { assignControllerToArchiverByZoomed() }
+    }
+
+    private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
+    private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
+    private var player = PlayTimer(timeInterval: 0.03)
+    private var bag = Set<AnyCancellable>()
+
+    var beforeFormation: Formation? {
+        performance?.formations[safe: currentIndex]?.entity
+    }
+
+    var afterFormation: Formation? {
+        performance?.formations[safe: currentIndex + 1]?.entity
+    }
+
+    var currentFormationTag: String {
+        String(describing: performance?.formations[safe: currentIndex]?.movementMap)
+    }
+
+    var currentIndex: Int {
+        offsetMap[offset]?.index ?? -1
+    }
 
     var movementsMap: MovementsMap {
         // TODO: 함수형으로 바꾸기
         var map = MovementsMap()
-        guard let memberInfos = performance.entity.memberInfos else { return [:] }
+        guard let performance = performance,
+              let memberInfos = performance.entity.memberInfos else {
+            return [:]
+        }
         let movementsMap = performance.entity.formations.map({ $0.movementMap })
         for index in movementsMap.indices {
             var movementMap = movementsMap[index]
@@ -55,87 +103,16 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         return map
     }
 
-    private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
-
-    @Published private(set) var isZoomed = false {
-        didSet { assignControllerToArchiverByZoomed() }
-    }
-
-    @Published var performance: PerformanceModel
-    @Published var offset: CGFloat = 0.0
-    @Published var selectedIndex: Int = 0
-    @Published var isPlaying = false
-    private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
-    private var player = PlayTimer(timeInterval: 0.03)
-    private var bag = Set<AnyCancellable>()
-
-    init(performanceSettingManager: PerformanceSettingManager) {
-        let movementController = Controller()
-        let zoomableMovementController = Controller()
-        let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
-
-        movementController.objectHistoryArchiver = objectHistoryArchiver
-        zoomableMovementController.objectHistoryArchiver = objectHistoryArchiver
-
-        self.movementController = movementController
-        self.zoomableMovementController = zoomableMovementController
-        self.objectHistoryArchiver = objectHistoryArchiver
-        self.performanceSettingManager = performanceSettingManager
-        self.performance = .build(entity: performanceSettingManager.performance)
-
+    func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
+        isAllFormationVisible = dependency.isAllFormationVisible
+        if let entity = dependency.performanceSettingManager?.performance {
+            performance = .build(entity: entity)
+        }
+        performanceSettingManager = dependency.performanceSettingManager
         binding()
         mappingIndexFromOffest()
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
-    }
-
-    private func subscribePerformanceSettingManager() {
-        performanceSettingManager.changingPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { [unowned self] in
-                performance = $0
-            }
-            .store(in: &bag)
-    }
-
-    var beforeFormation: Formation? {
-        performance.formations[safe: currentIndex]?.entity
-    }
-
-    var afterFormation: Formation? {
-        performance.formations[safe: currentIndex + 1]?.entity
-    }
-
-    var currentFormationTag: String {
-        String(describing: performance.formations[safe: currentIndex]?.movementMap)
-    }
-
-    var currentIndex: Int {
-        offsetMap[offset]?.index ?? -1
-    }
-
-    private func makeLinearMovementMap(
-        _ memberInfos: [Member.Info],
-        startFormation: Formation,
-        endFormation: Formation
-    ) -> MovementMap {
-        var movementMap = MovementMap()
-        for memberInfo in memberInfos {
-            guard let startPoint = startFormation.members
-                .first(where: { $0.info?.color == memberInfo.color })?
-                .relativePosition,
-            let endPoint = endFormation.members
-                .first(where: { $0.info?.color == memberInfo.color })?
-                .relativePosition else { continue }
-
-            movementMap[memberInfo] = BezierPath(
-                startPosition: startPoint,
-                endPosition: endPoint
-            )
-        }
-
-        return movementMap
     }
 
     private func binding() {
@@ -164,6 +141,9 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     private func mappingIndexFromOffest() {
+        guard let performance = performance else {
+            return
+        }
         var lastX: CGFloat = 0.0
         for formationIndex in performance.formations.indices {
             let formatationLength = Constants.formationFrame.width + Constants.trasitionFrame.width
@@ -175,7 +155,20 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         }
     }
 
+    private func subscribePerformanceSettingManager() {
+        performanceSettingManager?.changingPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [unowned self] in
+                performance = $0
+            }
+            .store(in: &bag)
+    }
+
     func play() {
+        guard let performance = performance else {
+            return
+        }
         player.startTimer {
             guard let currentFramInfo = self.offsetMap[self.offset] else {
                 self.player.resetTimer()
@@ -189,8 +182,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
                 self.offset += 1
                 self.action.send(.setOffset(self.offset))
             }
-            let totalFormationLength = Constants.formationFrame.width * CGFloat(self.performance.formations.count)
-            let totalTransitionLength = Constants.trasitionFrame.width * CGFloat(self.performance.formations.count - 1)
+            let totalFormationLength = Constants.formationFrame.width * CGFloat(performance.formations.count)
+            let totalTransitionLength = Constants.trasitionFrame.width * CGFloat(performance.formations.count - 1)
             if self.offset >  totalFormationLength + totalTransitionLength {
                 self.player.resetTimer()
                 self.offset = totalFormationLength + totalTransitionLength
@@ -204,13 +197,36 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     func updateMembers(movementMap: MovementMap) {
-        performanceSettingManager.updateMembers(movementMap: movementMap, formationIndex: currentIndex)
+        performanceSettingManager?.updateMembers(movementMap: movementMap, formationIndex: currentIndex)
     }
 
     func toggleZoom() {
         animate {
             isZoomed.toggle()
         }
+    }
+
+    private func makeLinearMovementMap(
+        _ memberInfos: [Member.Info],
+        startFormation: Formation,
+        endFormation: Formation
+    ) -> MovementMap {
+        var movementMap = MovementMap()
+        for memberInfo in memberInfos {
+            guard let startPoint = startFormation.members
+                .first(where: { $0.info?.color == memberInfo.color })?
+                .relativePosition,
+            let endPoint = endFormation.members
+                .first(where: { $0.info?.color == memberInfo.color })?
+                .relativePosition else { continue }
+
+            movementMap[memberInfo] = BezierPath(
+                startPosition: startPoint,
+                endPosition: endPoint
+            )
+        }
+
+        return movementMap
     }
 
     private func assignControllerToArchiverByZoomed() {

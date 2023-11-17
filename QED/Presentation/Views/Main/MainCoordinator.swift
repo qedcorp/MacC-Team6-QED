@@ -25,16 +25,8 @@ struct MainCoordinator {
         case let .memberSetting(dependency):
             MemberSettingView(dependency: dependency, path: path)
 
-        case let .performanceWatching(depepndency):
-            // TODO: 수정
-            let viewModel = PerformanceWatchingDetailViewModel(
-                performanceSettingManager: depepndency.performanceSettingManager
-            )
-            PerformanceWatchingDetailView(
-                viewModel: viewModel,
-                isAllFormationVisible: depepndency.isAllFormationVisible,
-                path: path
-            )
+        case let .performanceWatching(dependency):
+            PerformanceWatchingDetailView(dependency: dependency, path: path)
 
         case .myPage:
             MyPageView()

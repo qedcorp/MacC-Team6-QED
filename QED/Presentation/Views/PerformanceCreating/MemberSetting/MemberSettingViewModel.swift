@@ -72,8 +72,8 @@ class MemberSettingViewModel: ObservableObject {
         }
         if performance.isCompleted {
             let depepndency = PerformanceWatchingViewDependency(
-                performanceSettingManager: performanceSettingManager!,
-                isAllFormationVisible: true
+                isAllFormationVisible: true,
+                performanceSettingManager: performanceSettingManager
             )
             return .performanceWatching(depepndency)
         } else {

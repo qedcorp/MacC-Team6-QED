@@ -8,31 +8,20 @@
 import SwiftUI
 
 struct PerformanceWatchingDetailView: View {
-
     typealias PlayBarConstants = ScrollObservableView.Constants
-    @Environment(\.dismiss) private var dismiss
-
-    @ObservedObject var viewModel: PerformanceWatchingDetailViewModel
+    
+    let dependency: PerformanceWatchingViewDependency
     @Binding var path: [PresentType]
-
+    @StateObject private var viewModel = PerformanceWatchingDetailViewModel()
+    @Environment(\.dismiss) private var dismiss
     @State private var isTransitionEditable = false
     @State private var isToastVisiable = false
-
-    @State private var isAllFormationVisible: Bool
-    @State private var isAutoShowAllForamation = false
     @State private var isSheetVisiable = false
     @State private var isNameVisiable = true
     @State private var isBeforeVisible = true
     @State private var isLineVisible = false
     @State private var isLoading = true
-
-    init(viewModel: PerformanceWatchingDetailViewModel, isAllFormationVisible: Bool = false, path: Binding<[PresentType]>) {
-        self.viewModel = viewModel
-        self._isAllFormationVisible = State(initialValue: isAllFormationVisible)
-        self._isAutoShowAllForamation = State(initialValue: isAllFormationVisible)
-        self._path = path
-    }
-
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -56,11 +45,13 @@ struct PerformanceWatchingDetailView: View {
             .sheet(isPresented: $isSheetVisiable, onDismiss: onDismissSettingSheet) {
                 buildSettingSheetView()
             }
-            .sheet(isPresented: $isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-                PerformanceWatchingListView(performance: viewModel.performance.entity,
-                                            isAllFormationVisible: $isAllFormationVisible,
-                                            selectedIndex: $viewModel.selectedIndex
-                )
+            .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
+                if let performance = viewModel.performance?.entity {
+                    PerformanceWatchingListView(performance: performance,
+                                                isAllFormationVisible: $viewModel.isAllFormationVisible,
+                                                selectedIndex: $viewModel.selectedIndex
+                    )
+                }
             }
             .navigationBarBackButtonHidden()
             .toolbarBackground(.hidden, for: .navigationBar)
@@ -75,10 +66,13 @@ struct PerformanceWatchingDetailView: View {
             buildZoomableView()
             : nil
         )
+        .task {
+            viewModel.setupWithDependency(dependency)
+        }
         .onAppear {
-            if isAutoShowAllForamation {
+            if viewModel.isAutoShowAllForamation {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.isAllFormationVisible = true
+                    self.viewModel.isAllFormationVisible = true
                 }
             }
         }
@@ -138,7 +132,7 @@ struct PerformanceWatchingDetailView: View {
                 ProgressView()
             }
             ObjectPlayableView(movementsMap: viewModel.movementsMap,
-                               totalCount: viewModel.performance.formations.count,
+                               totalCount: viewModel.performance?.formations.count ?? 0,
                                offset: $viewModel.offset,
                                isShowingPreview: $isBeforeVisible,
                                isLoading: $isLoading,
@@ -153,15 +147,15 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func onDismissAllFormationSheet() {
-        isAllFormationVisible = false
+        viewModel.isAllFormationVisible = false
     }
 
     private func buildTitleAndHeadcountView(geometry: GeometryProxy) -> some View {
         HStack {
-            Text("\(viewModel.performance.music.title)")
+            Text(viewModel.performance?.music.title ?? "")
                 .bold()
                 .lineLimit(1)
-            Text("\(viewModel.performance.headcount)인")
+            Text("\(viewModel.performance?.headcount ?? 0)인")
                 .padding(.vertical, 3)
                 .padding(.horizontal, 8)
                 .background(Color(.systemGray5))
@@ -174,7 +168,7 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildMemo() -> some View {
-        let memo = viewModel.performance.formations[safe: viewModel.selectedIndex]?.memo ?? "대형 \(viewModel.selectedIndex)"
+        let memo = viewModel.performance?.formations[safe: viewModel.selectedIndex]?.memo ?? "대형 \(viewModel.selectedIndex)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
@@ -190,45 +184,17 @@ struct PerformanceWatchingDetailView: View {
         }
     }
 
-    private func buildDetailControlButtons() -> some View {
-        HStack {
-            buildUndoButton()
-            buildRedoButton()
-            Spacer()
-            buildZoomInButton()
-        }
-        .padding(.horizontal, 25)
-    }
-
-    private func buildUndoButton() -> some View {
-        Button {} label: {
-            Image("back_off")
-        }
-    }
-
-    private func buildRedoButton() -> some View {
-        Button {} label: {
-            Image("forward_off")
-        }
-    }
-
-    private func buildZoomInButton() -> some View {
-        Button {
-            //  TODO: 확대 기능
-        } label: {
-            Image("zoom_off")
-        }
-    }
-
     private func buildPlayerView() -> some View {
         ZStack {
-            GeometryReader { _ in
-                ScrollObservableView(performance: viewModel.performance.entity, action: viewModel.action)
-                buildAllFormationButton()
-            }
-            .frame(height: PlayBarConstants.playBarHeight + 25)
-            if isToastVisiable {
-                buildToast()
+            if let performance = viewModel.performance?.entity {
+                GeometryReader { _ in
+                    ScrollObservableView(performance: performance, action: viewModel.action)
+                    buildAllFormationButton()
+                }
+                .frame(height: PlayBarConstants.playBarHeight + 25)
+                if isToastVisiable {
+                    buildToast()
+                }
             }
         }
         .padding(.bottom)
@@ -266,7 +232,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildAllFormationButton() -> some View {
         Button {
-            isAllFormationVisible = true
+            viewModel.isAllFormationVisible = true
         } label: {
             Image("showAllFrames")
                 .frame(height: PlayBarConstants.playBarHeight + 25)
@@ -409,8 +375,11 @@ struct PerformanceWatchingDetailView: View {
             Text("수정")
                 .foregroundStyle(Color.blueLight3)
                 .onTapGesture {
+                    guard let performance = viewModel.performance?.entity else {
+                        return
+                    }
                     let dependency = FormationSettingViewDependency(
-                        performance: viewModel.performance.entity,
+                        performance: performance,
                         currentFormationIndex: viewModel.currentIndex
                     )
                     path.append(.formationSetting(dependency))

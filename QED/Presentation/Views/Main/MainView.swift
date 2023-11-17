@@ -149,8 +149,8 @@ struct MainView: View {
                         if performance.isCompleted {
                             let manager = PerformanceSettingManager(performance: performance)
                             let depepndency = PerformanceWatchingViewDependency(
-                                performanceSettingManager: manager,
-                                isAllFormationVisible: false
+                                isAllFormationVisible: false,
+                                performanceSettingManager: manager
                             )
                             path.append(.performanceWatching(depepndency))
                         } else {
