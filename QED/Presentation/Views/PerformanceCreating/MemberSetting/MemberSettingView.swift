@@ -84,7 +84,7 @@ struct MemberSettingView: View {
                 .fill(Color(hex: memberInfo.color))
                 .frame(height: 18)
                 .aspectRatio(contentMode: .fit)
-            Text(memberInfo.name)
+            Text(memberInfo.name ?? "인물 \(index + 1)")
                 .foregroundStyle(Color.monoWhite3)
                 .font(.subheadline)
         }

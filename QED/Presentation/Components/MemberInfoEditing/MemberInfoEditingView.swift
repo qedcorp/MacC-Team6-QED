@@ -42,7 +42,7 @@ struct MemberInfoEditingView: View {
                         .frame(height: 64)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(viewModel.isEnabledToComplete ? Color.blueLight2 : Color.build(hex: .unknown2))
+                                .fill(viewModel.hasName ? Color.blueLight2 : Color.build(hex: .unknown2))
                         )
                     }
                     .font(.title2.weight(.bold))

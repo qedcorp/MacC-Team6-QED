@@ -97,7 +97,7 @@ class PerformanceSettingManager {
         didChange()
     }
 
-    func updateMemberInfo(name: String, color: String, memberInfoIndex: Int) {
+    func updateMemberInfo(name: String?, color: String, memberInfoIndex: Int) {
         guard let memberInfo = performance.memberInfos?[safe: memberInfoIndex] else {
             return
         }
