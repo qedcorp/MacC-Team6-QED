@@ -108,7 +108,7 @@ struct PerformanceListCardView: View {
             }
         }
         .frame(height: cardHeight * 0.7)
-        .background(Color.monoWhite1)
+        .background(Color.monoWhite2)
     }
 
     private func buildMusicInfoView() -> some View {
@@ -138,6 +138,7 @@ struct PerformanceListCardView: View {
         .font(.footnote)
         .padding(.horizontal, 13)
         .frame(height: cardHeight * 0.3)
+        .background(.ultraThinMaterial)
     }
 
     private func buildEditButton() -> some View {
