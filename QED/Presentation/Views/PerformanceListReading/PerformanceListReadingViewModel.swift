@@ -11,11 +11,15 @@ import Foundation
 @MainActor
 class PerformanceListReadingViewModel: ObservableObject {
     let performanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
+    let toastContainerViewModel: ToastContainerViewModel
     @Published var performances: [PerformanceModel]
     @Published var message: [Message] = []
 
-    init(performances: [Performance]) {
+    init(performances: [Performance],
+         toastContainerViewModel: ToastContainerViewModel = .shared
+    ) {
         self.performances = performances.map { .build(entity: $0) }
+        self.toastContainerViewModel = toastContainerViewModel
     }
 
     func updatePerformanceTitle(id: String, title: String) {
@@ -29,6 +33,7 @@ class PerformanceListReadingViewModel: ObservableObject {
             try await performanceUseCase.updatePerformance(selectePerformance)
             performances.replaceSubrange(selecteIndex...selecteIndex,
                                          with: [PerformanceModel.build(entity: selectePerformance)])
+            toastContainerViewModel.presentMessage("프로젝트 이름이 수정되었습니다")
         }
     }
 
@@ -46,6 +51,7 @@ class PerformanceListReadingViewModel: ObservableObject {
             let deleteResult = try await performanceUseCase.removePerformance(performanceID)
             if deleteResult {
                 performances.remove(at: index)
+                toastContainerViewModel.presentMessage("프로젝트가 삭제되었습니다")
             }
         }
     }
