@@ -295,8 +295,10 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPlayButton() -> some View {
         Button {
-            viewModel.isPlaying = true
-            viewModel.play()
+            if !viewModel.isPlaying {
+                viewModel.isPlaying = true
+                viewModel.play()
+            }
         } label: {
             Image("play_on")
         }
@@ -304,8 +306,10 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPuaseButton() -> some View {
         Button {
-            viewModel.isPlaying = false
-            viewModel.pause()
+            if viewModel.isPlaying {
+                viewModel.isPlaying = false
+                viewModel.pause()
+            }
         } label: {
             Image("play_off")
         }
