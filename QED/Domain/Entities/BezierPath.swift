@@ -4,8 +4,8 @@
 import Foundation
 
 struct BezierPath: Codable, Equatable {
-    let startPosition: RelativePosition
-    let endPosition: RelativePosition
+    var startPosition: RelativePosition
+    var endPosition: RelativePosition
     var controlPoint: ControlPoint?
 
     init(startPosition: RelativePosition, endPosition: RelativePosition, controlPoint: ControlPoint? = nil) {

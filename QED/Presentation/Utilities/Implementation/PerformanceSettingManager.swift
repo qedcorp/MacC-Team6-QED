@@ -73,6 +73,7 @@ class PerformanceSettingManager {
                 formation.members.append(member)
             }
         }
+        updateStartEndOfMovementMap(formationIndex: formationIndex)
         didChange()
     }
 
@@ -84,6 +85,7 @@ class PerformanceSettingManager {
             let memberInfo = performance.memberInfos?.first { $0.color == color }
             formation.members[safe: index]?.info = memberInfo
         }
+        updateStartEndOfMovementMap(formationIndex: formationIndex)
         didChange()
     }
 
@@ -95,13 +97,31 @@ class PerformanceSettingManager {
         didChange()
     }
 
-    func updateMemberInfo(name: String, color: String, memberInfoIndex: Int) {
+    func updateMemberInfo(name: String?, color: String, memberInfoIndex: Int) {
         guard let memberInfo = performance.memberInfos?[safe: memberInfoIndex] else {
             return
         }
         memberInfo.name = name
         memberInfo.color = color
         didChange()
+    }
+
+    private func updateStartEndOfMovementMap(formationIndex: Int) {
+        guard let formation = performance.formations[safe: formationIndex],
+              let afterFormation = performance.formations[safe: formationIndex + 1] else {
+            return
+        }
+        var movementMap = formation.movementMap
+        formation.members.forEach { member in
+            guard let memberInfo = member.info else {
+                return
+            }
+            movementMap?[memberInfo]?.startPosition = member.relativePosition
+            if let afterMember = afterFormation.members.first(where: { $0.info === memberInfo }) {
+                movementMap?[memberInfo]?.endPosition = afterMember.relativePosition
+            }
+        }
+        formation.movementMap = movementMap
     }
 
     private func didChange() {

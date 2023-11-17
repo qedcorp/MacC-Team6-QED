@@ -107,16 +107,9 @@ struct PerformanceListCardView: View {
 
             }
             VStack {
-                // TODO: 코드가 이상하지만 일단 리팩을 위해... 남겨주세요... 너무 찝찝하면 고쳐도 됩니다...- 올인턴 -
-                if performance.isCompleted {
-                    Image("yetComplete")
-                        .padding(.bottom, 40)
-                } else {
-                    Image("yetComplete")
-                        .opacity(0)
-                        .padding(.bottom, 40)
-                }
-
+                Image("yetComplete")
+                    .opacity(performance.isCompleted ? 0 : 1)
+                    .padding(.bottom, 40)
             }
 
             VStack {

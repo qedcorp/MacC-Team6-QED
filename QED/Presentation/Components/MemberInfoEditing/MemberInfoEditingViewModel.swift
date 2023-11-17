@@ -33,8 +33,8 @@ class MemberInfoEditingViewModel: ObservableObject {
         colorset.colorHexes
     }
 
-    var isEnabledToComplete: Bool {
-        memberInfo?.name.isEmpty == false
+    var hasName: Bool {
+        memberInfo?.name?.isEmpty == false
     }
 
     func updateName(_ name: String) {
@@ -59,8 +59,7 @@ class MemberInfoEditingViewModel: ObservableObject {
     }
 
     func complete() {
-        guard let info = memberInfo,
-              isEnabledToComplete else {
+        guard let info = memberInfo else {
             return
         }
         onComplete(info)

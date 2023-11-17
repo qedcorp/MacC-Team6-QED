@@ -109,7 +109,7 @@ class PerformanceSettingViewModel: ObservableObject {
 
     private func createPerformance() async -> Performance? {
         let memberInfo = zip(inputMemberInfo, MemberInfoColorset.getAllColors())
-            .map { Member.Info(name: $0, color: $1) }
+            .map { Member.Info(name: $0.isEmpty ? nil : $0, color: $1) }
         guard let id = try? KeyChainManager.shared.read(account: .id),
               let email = try? KeyChainManager.shared.read(account: .email),
               let nickname = try? KeyChainManager.shared.read(account: .name) else { return nil }

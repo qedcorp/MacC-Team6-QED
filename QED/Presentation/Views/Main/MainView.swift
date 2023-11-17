@@ -74,9 +74,6 @@ struct MainView: View {
                     )
                 case let .performanceLoading(transfer):
                     PerformanceLoadingView(transfer: transfer, path: $path)
-                case let .formationSetting(performance, _):
-                    let viewModel = FormationSettingViewModel(performance: performance)
-                    FormationSettingView(viewModel: viewModel, path: $path)
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(transfer):
@@ -88,12 +85,10 @@ struct MainView: View {
                         isAllFormationVisible: transfer.isAllFormationVisible,
                         path: $path
                     )
-                case let .memberSetting(transfer):
-                    let viewModel = MemberSettingViewModel(
-                        performanceSettingManager: transfer.performanceSettingManager,
-                        performanceUseCase: transfer.performanceUseCase
-                    )
-                    MemberSettingView(viewModel: viewModel, path: $path)
+                case let .formationSetting(dependency):
+                    FormationSettingView(dependency: dependency, path: $path)
+                case let .memberSetting(dependency):
+                    MemberSettingView(dependency: dependency, path: $path)
                 }
             }
             .navigationBarBackButtonHidden()
@@ -196,12 +191,17 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    let manager = PerformanceSettingManager(performance: performance)
-                    let transfer = PerformanceWatchingTransferModel(
-                        performanceSettingManager: manager,
-                        isAllFormationVisible: false
-                    )
-                    path.append(.performanceWatching(transfer))
+                    if performance.isCompleted {
+                        let manager = PerformanceSettingManager(performance: performance)
+                        let transfer = PerformanceWatchingTransferModel(
+                            performanceSettingManager: manager,
+                            isAllFormationVisible: false
+                        )
+                        path.append(.performanceWatching(transfer))
+                    } else {
+                        let dependency = FormationSettingViewDependency(performance: performance)
+                        path.append(.formationSetting(dependency))
+                    }
                 }
         }
         .padding(.horizontal, 24)

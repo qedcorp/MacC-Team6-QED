@@ -3,8 +3,9 @@
 import SwiftUI
 
 struct FormationSettingView: View {
-    @ObservedObject var viewModel: FormationSettingViewModel
+    let dependency: FormationSettingViewDependency
     @Binding var path: [PresentType]
+    @StateObject private var viewModel = FormationSettingViewModel()
 
     var body: some View {
         ZStack {
@@ -23,7 +24,9 @@ struct FormationSettingView: View {
                 }
                 .padding(.horizontal, 22)
                 VStack(spacing: 20) {
-                    buildPresetContainerView()
+                    if let viewModel = viewModel.presetContainerViewModel {
+                        buildPresetContainerView(viewModel: viewModel)
+                    }
                     buildFormationContainerView()
                 }
             }
@@ -48,10 +51,21 @@ struct FormationSettingView: View {
                         .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                         .disabled(!viewModel.isEnabledToSave)
                         .onTapGesture {
-                            path.append(.memberSetting(viewModel.memberSettingTransferModel))
+                            guard let performanceSettingManager = viewModel.performanceSettingManager,
+                                  let performanceUseCase = viewModel.performanceUseCase else {
+                                return
+                            }
+                            let dependency = MemberSettingViewDependency(
+                                performanceSettingManager: performanceSettingManager,
+                                performanceUseCase: performanceUseCase
+                            )
+                            path.append(.memberSetting(dependency))
                         }
                 }
             }
+        }
+        .task {
+            viewModel.setupWithDependency(dependency)
         }
     }
 
@@ -121,8 +135,8 @@ struct FormationSettingView: View {
         }
     }
 
-    private func buildPresetContainerView() -> some View {
-        PresetContainerView(viewModel: viewModel.presetContainerViewModel)
+    private func buildPresetContainerView(viewModel: PresetContainerViewModel) -> some View {
+        PresetContainerView(viewModel: viewModel)
             .modifier(disabledOpacityModifier)
     }
 
