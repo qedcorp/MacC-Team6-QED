@@ -36,6 +36,7 @@ struct PerformanceListReadingView: View {
         )
         .foregroundStyle(Color.monoWhite3)
         .navigationBarBackButtonHidden()
+        .toolbarBackground(Color.monoDarker, for: .navigationBar)
         .toolbar {
             buildLeftItem()
             buildCenterItem()
@@ -43,9 +44,16 @@ struct PerformanceListReadingView: View {
     }
 
     private func buildPerformaceListView() -> some View {
-        LazyVGrid(columns: columns, alignment: .center, spacing: 25) {
-            ForEach(viewModel.performances) { performance in
-                PerformanceListCardView(performance: performance.entity, viewModel: viewModel, isMyPerformance: true)
+        let performances = viewModel.performances
+
+        return LazyVGrid(columns: columns, alignment: .center, spacing: 24) {
+            ForEach(Array(performances.enumerated()), id: \.offset) { (index, performance) in
+                PerformanceListCardView(
+                    performance: performance.entity,
+                    viewModel: viewModel,
+                    isMyPerformance: true,
+                    index: index,
+                    onUpdate: viewModel.updatePerformanceTitle)
             }
         }
     }

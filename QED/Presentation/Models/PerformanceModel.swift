@@ -4,6 +4,7 @@ import Foundation
 
 struct PerformanceModel: Identifiable, Equatable {
     let entity: Performance
+    let title: String?
     let music: MusicModel
     let headcount: Int
     let memberInfos: [MemberInfoModel]
@@ -16,6 +17,7 @@ struct PerformanceModel: Identifiable, Equatable {
     static func build(entity: Performance) -> Self {
         PerformanceModel(
             entity: entity,
+            title: entity.title,
             music: .build(entity: entity.music),
             headcount: entity.headcount,
             memberInfos: entity.memberInfos?.map { .build(entity: $0) } ?? [],
