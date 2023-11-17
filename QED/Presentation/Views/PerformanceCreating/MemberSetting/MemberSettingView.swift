@@ -3,8 +3,9 @@
 import SwiftUI
 
 struct MemberSettingView: View {
-    @ObservedObject var viewModel: MemberSettingViewModel
+    let dependency: MemberSettingViewDependency
     @Binding var path: [PresentType]
+    @StateObject private var viewModel = MemberSettingViewModel()
 
     var body: some View {
         ZStack {
@@ -55,20 +56,14 @@ struct MemberSettingView: View {
                 Text("완료")
                     .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                     .onTapGesture {
-                        if viewModel.isEnabledToSave {
-                            if viewModel.performance.entity.isCompleted {
-                                let transfer = PerformanceWatchingTransferModel(
-                                    performanceSettingManager: viewModel.performanceSettingManager,
-                                    isAllFormationVisible: true
-                                )
-                                path = [.performanceWatching(transfer)]
-                            } else {
-                                let dependency = FormationSettingViewDependency(performance: viewModel.performance.entity)
-                                path = [.formationSetting(dependency)]
-                            }
+                        if let nextPath = viewModel.nextPath {
+                            path = [nextPath]
                         }
                     }
             }
+        }
+        .task {
+            viewModel.setupWithDependency(dependency)
         }
     }
 
@@ -152,18 +147,6 @@ struct MemberSettingView: View {
             onComplete: {
                 viewModel.updateEditingMemberInfo($0)
             }
-        )
-    }
-
-    private func buildPerformanceWatchingView() -> some View {
-        let performance = viewModel.performanceSettingManager.performance
-        return PerformanceWatchingListView(performance: performance, isAllFormationVisible: .constant(false), selectedIndex: .constant(1))
-    }
-
-    private func buildMovementSettingView() -> some View {
-        MovementSettingView(
-            performance: viewModel.performanceSettingManager.performance,
-            performanceUseCase: viewModel.performanceUseCase
         )
     }
 }

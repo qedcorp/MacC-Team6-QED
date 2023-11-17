@@ -51,11 +51,15 @@ struct FormationSettingView: View {
                         .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                         .disabled(!viewModel.isEnabledToSave)
                         .onTapGesture {
-                            let transfer = MemberSettingTransferModel(
-                                performanceSettingManager: viewModel.performanceSettingManager!,
-                                performanceUseCase: viewModel.performanceUseCase!
+                            guard let performanceSettingManager = viewModel.performanceSettingManager,
+                                  let performanceUseCase = viewModel.performanceUseCase else {
+                                return
+                            }
+                            let dependency = MemberSettingViewDependency(
+                                performanceSettingManager: performanceSettingManager,
+                                performanceUseCase: performanceUseCase
                             )
-                            path.append(.memberSetting(transfer))
+                            path.append(.memberSetting(dependency))
                         }
                 }
             }

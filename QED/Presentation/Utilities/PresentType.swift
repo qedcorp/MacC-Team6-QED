@@ -14,5 +14,5 @@ enum PresentType: Hashable {
     case myPage
     case performanceListReading([Performance])
     case formationSetting(FormationSettingViewDependency)
-    case memberSetting(MemberSettingTransferModel)
+    case memberSetting(MemberSettingViewDependency)
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A0088192B0517D300C9C643 /* PerformanceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */; };
 		3A00881B2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */; };
-		3A00881D2B053CA400C9C643 /* MemberSettingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881C2B053CA400C9C643 /* MemberSettingTransferModel.swift */; };
+		3A00881D2B053CA400C9C643 /* MemberSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */; };
 		3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */; };
 		3A0088212B06907C00C9C643 /* ViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088202B06907C00C9C643 /* ViewDependency.swift */; };
 		3A0088232B0690F500C9C643 /* FormationSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */; };
@@ -245,7 +245,7 @@
 /* Begin PBXFileReference section */
 		3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingViewModel.swift; sourceTree = "<group>"; };
 		3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingTransferModel.swift; sourceTree = "<group>"; };
-		3A00881C2B053CA400C9C643 /* MemberSettingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingTransferModel.swift; sourceTree = "<group>"; };
+		3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingViewDependency.swift; sourceTree = "<group>"; };
 		3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingTransferModel.swift; sourceTree = "<group>"; };
 		3A0088202B06907C00C9C643 /* ViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDependency.swift; sourceTree = "<group>"; };
 		3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationSettingViewDependency.swift; sourceTree = "<group>"; };
@@ -732,7 +732,7 @@
 			children = (
 				3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */,
 				3A5329092AED92B40051A09C /* MemberSettingViewModel.swift */,
-				3A00881C2B053CA400C9C643 /* MemberSettingTransferModel.swift */,
+				3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */,
 			);
 			path = MemberSetting;
 			sourceTree = "<group>";
@@ -1644,7 +1644,7 @@
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
 				3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */,
 				D460EFDB2AE18DF700A5966A /* MockPresetRepository.swift in Sources */,
-				3A00881D2B053CA400C9C643 /* MemberSettingTransferModel.swift in Sources */,
+				3A00881D2B053CA400C9C643 /* MemberSettingViewDependency.swift in Sources */,
 				A9DB97382AF2746400703732 /* Color+.swift in Sources */,
 				D460F0042AE18DF700A5966A /* AppleAuthRepository.swift in Sources */,
 				D460F0072AE18DF700A5966A /* PresetUseCase.swift in Sources */,
