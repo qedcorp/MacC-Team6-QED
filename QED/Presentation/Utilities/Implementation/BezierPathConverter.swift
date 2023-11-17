@@ -108,7 +108,7 @@ class BezierPathConverter {
         getPointInPath(bezierPath: bezierPath, t: tMargin)
     }
     
-    private func getEndPoint(bezierPath: BezierPath, tMargin: CGFloat) -> CGPoint {
+    func getEndPoint(bezierPath: BezierPath, tMargin: CGFloat) -> CGPoint {
         getPointInPath(bezierPath: bezierPath, t: 1 - tMargin)
     }
     
@@ -151,7 +151,7 @@ class BezierPathConverter {
         return CGPoint(x: x, y: y)
     }
     
-    private func getRelativeMargin(bezierPath: BezierPath) -> CGFloat {
+    func getRelativeMargin(bezierPath: BezierPath) -> CGFloat {
         let lineLength = getLineLength(bezierPath: bezierPath)
         return pixelMargin / lineLength
     }

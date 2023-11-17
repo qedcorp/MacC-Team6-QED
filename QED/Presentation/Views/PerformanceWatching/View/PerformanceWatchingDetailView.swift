@@ -344,7 +344,7 @@ struct PerformanceWatchingDetailView: View {
                 .bold()
                 .foregroundStyle(.white)
                 buildSectionView(label: "팀원 이름 보기", isOn: $isNameVisiable)
-                buildSectionView(label: "다음 동선 미리보기", isOn: $isBeforeVisible)
+                buildSectionView(label: "이전 동선 미리보기", isOn: $isBeforeVisible)
                 buildSectionView(label: "점선 보기", isOn: $isLineVisible)
             }
             .padding(.horizontal, 24)
