@@ -43,7 +43,6 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var inputMemberInfo: [String] = []
 
     @Published var isShowingNextView: Bool = false
-    @Published var alertMessage: [Message?] = []
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
         musicRepository: DefaultMusicRepository()
