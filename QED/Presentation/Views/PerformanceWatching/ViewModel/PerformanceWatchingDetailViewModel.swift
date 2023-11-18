@@ -16,6 +16,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     typealias Controller = ObjectMovementAssigningViewController
 
     private var performanceSettingManager: PerformanceSettingManager?
+    private var toastContainerViewModel: ToastContainerViewModel?
+    private let player = PlayTimer(timeInterval: 0.03)
 
     private(set) lazy var movementController = {
         let controller = Controller()
@@ -33,20 +35,25 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         ObjectHistoryArchiver<Controller.History>()
     }()
 
-    @Published private(set) var performance: PerformanceModel?
+    @Published var performance: PerformanceModel?
     @Published var isAllFormationVisible = false
     @Published var isAutoShowAllForamation = false
-    @Published var offset: CGFloat = 0.0
-    @Published var selectedIndex: Int = 0
+    @Published var isTransitionEditable = false
+    @Published var isSettingSheetVisible = false
+    @Published var isNameVisiable = true
+    @Published var isBeforeVisible = true
+    @Published var isLineVisible = false
+    @Published var isLoading = true
     @Published var isPlaying = false
+    @Published var offset: CGFloat = 0
+    @Published var selectedIndex = 0
 
-    @Published private(set) var isZoomed = false {
+    @Published var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
     }
 
     private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
     private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
-    private var player = PlayTimer(timeInterval: 0.03)
     private var bag = Set<AnyCancellable>()
 
     var beforeFormation: Formation? {
@@ -104,18 +111,19 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
-        isAllFormationVisible = dependency.isAllFormationVisible
         if let entity = dependency.performanceSettingManager?.performance {
             performance = .build(entity: entity)
         }
+        isAllFormationVisible = dependency.isAllFormationVisible
         performanceSettingManager = dependency.performanceSettingManager
-        binding()
-        mappingIndexFromOffest()
+        toastContainerViewModel = dependency.toastContainerViewModel
+        bindingPublishers()
+        mappingIndexFromOffset()
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
     }
 
-    private func binding() {
+    private func bindingPublishers() {
         action
             .sink { [weak self] purpose in
                 guard let self = self else { return }
@@ -140,7 +148,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             .store(in: &bag)
     }
 
-    private func mappingIndexFromOffest() {
+    private func mappingIndexFromOffset() {
         guard let performance = performance else {
             return
         }
@@ -196,14 +204,18 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         player.resetTimer()
     }
 
-    func updateMembers(movementMap: MovementMap) {
-        performanceSettingManager?.updateMembers(movementMap: movementMap, formationIndex: currentIndex)
-    }
-
     func toggleZoom() {
         animate {
             isZoomed.toggle()
         }
+    }
+
+    func presentEditingModeToastMessage() {
+        toastContainerViewModel?.presentMessage("동선추가 기능이 켜졌습니다")
+    }
+
+    func updateMembers(movementMap: MovementMap) {
+        performanceSettingManager?.updateMembers(movementMap: movementMap, formationIndex: currentIndex)
     }
 
     private func makeLinearMovementMap(
@@ -235,9 +247,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 }
 
-extension Dictionary where Key == Member.Info {
-
-    internal subscript(color: String) ->  Value? {
+fileprivate extension Dictionary where Key == Member.Info {
+    subscript(color: String) -> Value? {
         get {
             for element in self where element.key.color == color {
                 return element.value

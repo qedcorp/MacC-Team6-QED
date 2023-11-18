@@ -223,7 +223,7 @@
 		D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */; };
 		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
 		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
-		D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */; };
+		D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */; };
 		D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */; };
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
@@ -449,7 +449,7 @@
 		D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableModel.swift; sourceTree = "<group>"; };
 		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
 		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
-		D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatichingDetailViewModel.swift; sourceTree = "<group>"; };
+		D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
 		D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimer.swift; sourceTree = "<group>"; };
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
@@ -850,7 +850,7 @@
 			children = (
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
 				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
-				D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */,
+				D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1692,9 +1692,9 @@
 				514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */,
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
-				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				3AC325122AFB75EF002B6682 /* Animate.swift in Sources */,
-				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
