@@ -83,7 +83,7 @@ struct PerformanceListReadingView: View {
 
     private func buildCenterItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
-            Text("제작한 프로젝트")
+            Text("전체 프로젝트")
                 .bold()
                 .foregroundStyle(Color.monoWhite3)
         }
