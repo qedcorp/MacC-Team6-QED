@@ -12,6 +12,7 @@ struct MainView: View {
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
 
+    @State var isFetchingPerformances = true
     @State var path: [PresentType] = [] {
         didSet {
             if path.isEmpty {
@@ -22,14 +23,13 @@ struct MainView: View {
             }
         }
     }
-    @State var isFetchingPerformances = true
 
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
-                        mainTitle()
+                        buildMainTitle()
                         buildMakeFormationButtonView()
                         buildPerformanceListHeaderView()
                         if viewModel.myRecentPerformances.isEmpty && !isFetchingPerformances {
@@ -38,12 +38,7 @@ struct MainView: View {
                             FodiProgressView()
                                 .padding(.top, 100)
                         } else {
-                            LazyVGrid(columns: columns,
-                                      alignment: .center,
-                                      spacing: 25,
-                                      pinnedViews: .sectionHeaders) {
-                                buildPerformanceListScrollView()
-                            }
+                            buildPerformanceListScrollView()
                         }
                     }
                     .padding(.top, 130)
@@ -51,14 +46,7 @@ struct MainView: View {
             }
             .padding(.horizontal, 24)
             .background(
-                ZStack {
-                    Image("background")
-                        .resizable()
-                    VStack {
-                        buildMainTopView()
-                        Spacer()
-                    }
-                }.ignoresSafeArea(.all)
+                buildBackgroundView()
             )
             .onAppear {
                 viewModel.fetchUser()
@@ -68,7 +56,7 @@ struct MainView: View {
                 buildRightItem()
             }
             .navigationBarBackButtonHidden()
-            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarBackground(Material.ultraThin, for: .navigationBar)
             .navigationDestination(for: PresentType.self) { persentType in
                 switch persentType {
                 case .myPage:
@@ -99,20 +87,15 @@ struct MainView: View {
         }
     }
 
-    private func buildMainTopView() -> some View {
-        Image("lese")
-            .resizable()
-            .scaledToFit()
-            .mask(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
+    private let columns: [GridItem] = [
+        GridItem(spacing: 16, alignment: nil),
+        GridItem(spacing: 16, alignment: nil)]
+
+    private func isFetchingDone() {
+        isFetchingPerformances = false
     }
 
-    private func mainTitle() -> some View {
+    private func buildMainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text("내 손안에")
@@ -174,31 +157,59 @@ struct MainView: View {
             .opacity(0.5)
     }
 
-    let columns: [GridItem] = [
-        GridItem(spacing: 16, alignment: nil),
-        GridItem(spacing: 16, alignment: nil)]
-
     private func buildPerformanceListScrollView() -> some View {
         let myRecentPerformances = viewModel.myRecentPerformances
             .sorted { lhs, rhs in
                 lhs.createdAt < rhs.createdAt
             }
-        return ForEach(myRecentPerformances) { performance in
-            PerformanceListCardView(performance: performance)
-                .onTapGesture {
-                    if performance.isCompleted {
-                        let manager = PerformanceSettingManager(performance: performance)
-                        let transfer = PerformanceWatchingTransferModel(
-                            performanceSettingManager: manager,
-                            isAllFormationVisible: false
-                        )
-                        path.append(.performanceWatching(transfer))
-                    } else {
-                        let dependency = FormationSettingViewDependency(performance: performance)
-                        path.append(.formationSetting(dependency))
+
+        return LazyVGrid(columns: columns,
+                         alignment: .center,
+                         spacing: 24,
+                         pinnedViews: .sectionHeaders) {
+            ForEach(myRecentPerformances) { performance in
+                PerformanceListCardView(performance: performance)
+                    .onTapGesture {
+                        if performance.isCompleted {
+                            let manager = PerformanceSettingManager(performance: performance)
+                            let transfer = PerformanceWatchingTransferModel(
+                                performanceSettingManager: manager,
+                                isAllFormationVisible: false
+                            )
+                            path.append(.performanceWatching(transfer))
+                        } else {
+                            let dependency = FormationSettingViewDependency(performance: performance)
+                            path.append(.formationSetting(dependency))
+                        }
                     }
-                }
+            }
         }
+                         .padding(.bottom, 40)
+    }
+
+    private func buildBackgroundView() -> some View {
+        ZStack {
+            Image("background")
+                .resizable()
+            VStack {
+                buildMainTopView()
+                Spacer()
+            }
+        }
+        .ignoresSafeArea(.all)
+    }
+
+    private func buildMainTopView() -> some View {
+        Image("lese")
+            .resizable()
+            .scaledToFit()
+            .mask(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
@@ -216,10 +227,6 @@ struct MainView: View {
                     path.append(.myPage)
                 }
         }
-    }
-
-    private func isFetchingDone() {
-        isFetchingPerformances = false
     }
 }
 

@@ -56,6 +56,7 @@ struct PerformanceListReadingView: View {
                     onUpdate: viewModel.updatePerformanceTitle)
             }
         }
+        .padding(.bottom, 40)
     }
 
     private func buildPerformanceCountView() -> some View {

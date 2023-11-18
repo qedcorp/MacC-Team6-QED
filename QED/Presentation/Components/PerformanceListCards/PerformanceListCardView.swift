@@ -122,7 +122,7 @@ struct PerformanceListCardView: View {
 
     private func buildMusicInfoView() -> some View {
         HStack(alignment: .center) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 3) {
                 Text("\(performance.title ?? "")")
                     .bold()
 
@@ -137,7 +137,7 @@ struct PerformanceListCardView: View {
             ZStack {
                 Circle()
                     .fill(Color.monoWhite3)
-                    .frame(width: cardWidth * 0.16, height: cardWidth * 0.16)
+                    .frame(width: cardWidth * 0.165, height: cardWidth * 0.165)
 
                 Text("\(performance.headcount)")
                     .foregroundStyle(Color.blueDark)
@@ -159,7 +159,7 @@ struct PerformanceListCardView: View {
                 } label: {
                     Image("ellipsis")
                         .padding(.vertical, 12)
-                        .padding(.horizontal)
+                        .padding(.horizontal, 20)
                 }
                 .confirmationDialog(
                     "EditPerformance", isPresented: $isPresented, actions: {
