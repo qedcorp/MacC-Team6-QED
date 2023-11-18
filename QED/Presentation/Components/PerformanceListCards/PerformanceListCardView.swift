@@ -91,11 +91,20 @@ struct PerformanceListCardView: View {
     }
 
     private func buildAlbumCoverView(image: Image) -> some View {
-        image
-            .resizable()
-            .scaledToFill()
-            .frame(height: cardHeight * 0.7)
-            .clipped()
+        ZStack {
+            image
+                .resizable()
+                .scaledToFill()
+                .frame(height: cardHeight * 0.7)
+                .clipped()
+
+            if !performance.isCompleted {
+                Rectangle()
+                    .fill(.black.opacity(0.8))
+                Image("yetComplete")
+            }
+
+        }
     }
 
     private func buildFetchStateView(_ image: String) -> some View {

@@ -3,13 +3,9 @@
 import SwiftUI
 
 struct FormationSettingView: View {
-    @ObservedObject private var viewModel: FormationSettingViewModel
+    let dependency: FormationSettingViewDependency
     @Binding var path: [PresentType]
-
-    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
-        self.viewModel = FormationSettingViewModel(performance: performance, performanceUseCase: performanceUseCase)
-        self._path = path
-    }
+    @StateObject private var viewModel = FormationSettingViewModel()
 
     var body: some View {
         ZStack {
@@ -28,7 +24,9 @@ struct FormationSettingView: View {
                 }
                 .padding(.horizontal, 22)
                 VStack(spacing: 20) {
-                    buildPresetContainerView()
+                    if let viewModel = viewModel.presetContainerViewModel {
+                        buildPresetContainerView(viewModel: viewModel)
+                    }
                     buildFormationContainerView()
                 }
             }
@@ -49,12 +47,25 @@ struct FormationSettingView: View {
                     PerformanceSettingTitleView(step: 1, title: "대형짜기")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink("다음") {
-                        buildMemberSettingView()
-                    }
-                    .disabled(!viewModel.isEnabledToSave)
+                    Text("다음")
+                        .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
+                        .disabled(!viewModel.isEnabledToSave)
+                        .onTapGesture {
+                            guard let performanceSettingManager = viewModel.performanceSettingManager,
+                                  let performanceUseCase = viewModel.performanceUseCase else {
+                                return
+                            }
+                            let dependency = MemberSettingViewDependency(
+                                performanceSettingManager: performanceSettingManager,
+                                performanceUseCase: performanceUseCase
+                            )
+                            path.append(.memberSetting(dependency))
+                        }
                 }
             }
+        }
+        .task {
+            viewModel.setupWithDependency(dependency)
         }
     }
 
@@ -124,8 +135,8 @@ struct FormationSettingView: View {
         }
     }
 
-    private func buildPresetContainerView() -> some View {
-        PresetContainerView(viewModel: viewModel.presetContainerViewModel)
+    private func buildPresetContainerView(viewModel: PresetContainerViewModel) -> some View {
+        PresetContainerView(viewModel: viewModel)
             .modifier(disabledOpacityModifier)
     }
 
@@ -148,6 +159,11 @@ struct FormationSettingView: View {
                         .frame(height: 79)
                         .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
                         .padding(.top, 12)
+                    }
+                    .onAppear {
+                        animate {
+                            scrollView.scrollTo(viewModel.currentFormationIndex, anchor: .center)
+                        }
                     }
                     .onChange(of: viewModel.currentFormationIndex) { id in
                         animate {
@@ -312,13 +328,5 @@ struct FormationSettingView: View {
             }
         }
         .ignoresSafeArea()
-    }
-
-    private func buildMemberSettingView() -> some View {
-        MemberSettingView(
-            performance: viewModel.performanceSettingManager.performance,
-            performanceUseCase: viewModel.performanceUseCase,
-            path: $path
-        )
     }
 }

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0088192B0517D300C9C643 /* PerformanceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */; };
+		3A00881B2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */; };
+		3A00881D2B053CA400C9C643 /* MemberSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */; };
+		3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */; };
+		3A0088212B06907C00C9C643 /* ViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088202B06907C00C9C643 /* ViewDependency.swift */; };
+		3A0088232B0690F500C9C643 /* FormationSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */; };
 		3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE62AE25B860099C008 /* Music+Stub.swift */; };
 		3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9832AF2716900BFE0EA /* HistoryControllableDelegate.swift */; };
 		3A26C9872AF2722F00BFE0EA /* MovementSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */; };
@@ -220,6 +226,7 @@
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
+		D4BB05532B069A2E0058A658 /* CGPoint+OperationOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -237,6 +244,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingViewModel.swift; sourceTree = "<group>"; };
+		3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingTransferModel.swift; sourceTree = "<group>"; };
+		3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingViewDependency.swift; sourceTree = "<group>"; };
+		3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingTransferModel.swift; sourceTree = "<group>"; };
+		3A0088202B06907C00C9C643 /* ViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDependency.swift; sourceTree = "<group>"; };
+		3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationSettingViewDependency.swift; sourceTree = "<group>"; };
 		3A021EE62AE25B860099C008 /* Music+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Music+Stub.swift"; sourceTree = "<group>"; };
 		3A26C9832AF2716900BFE0EA /* HistoryControllableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryControllableDelegate.swift; sourceTree = "<group>"; };
 		3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSettingView.swift; sourceTree = "<group>"; };
@@ -437,6 +450,7 @@
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
+		D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+OperationOverloading.swift"; sourceTree = "<group>"; };
 		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
 		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
 		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -549,6 +563,7 @@
 				5173278F2AFCD5C700386A40 /* AlertManager.swift */,
 				3AC325112AFB75EF002B6682 /* Animate.swift */,
 				51908CD32B03CB1200C8F602 /* EmailController.swift */,
+				3A0088202B06907C00C9C643 /* ViewDependency.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -700,6 +715,7 @@
 				3A5328B22AEBA3A50051A09C /* UIView+Sizeable.swift */,
 				3A53290B2AEDA2DC0051A09C /* GeometryProxy+Sizeable.swift */,
 				3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */,
+				D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -718,6 +734,7 @@
 			children = (
 				3AE701BC2AE65F4F00C48403 /* MemberSettingView.swift */,
 				3A5329092AED92B40051A09C /* MemberSettingViewModel.swift */,
+				3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */,
 			);
 			path = MemberSetting;
 			sourceTree = "<group>";
@@ -753,6 +770,7 @@
 			children = (
 				3AF617CF2AE1961D0052FC90 /* FormationSettingView.swift */,
 				3A5329052AED37C10051A09C /* FormationSettingViewModel.swift */,
+				3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */,
 			);
 			path = FormationSetting;
 			sourceTree = "<group>";
@@ -808,6 +826,7 @@
 			children = (
 				5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */,
 				5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */,
+				3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -892,6 +911,8 @@
 			isa = PBXGroup;
 			children = (
 				D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */,
+				3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */,
+				3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */,
 			);
 			path = PerformanceLoading;
 			sourceTree = "<group>";
@@ -1591,6 +1612,7 @@
 				5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */,
 				5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */,
 				5136BFA92ADF9D0600882B6B /* PerformanceListReadingView.swift in Sources */,
+				3A0088232B0690F500C9C643 /* FormationSettingViewDependency.swift in Sources */,
 				D460EFFD2AE18DF700A5966A /* DefaultUserStore.swift in Sources */,
 				3A533A3B2AEFAE48007E76F7 /* ZoomableViewModel.swift in Sources */,
 				D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */,
@@ -1613,9 +1635,11 @@
 				3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */,
 				D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */,
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
+				3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */,
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
 				3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */,
 				D460EFDB2AE18DF700A5966A /* MockPresetRepository.swift in Sources */,
+				3A00881D2B053CA400C9C643 /* MemberSettingViewDependency.swift in Sources */,
 				A9DB97382AF2746400703732 /* Color+.swift in Sources */,
 				D460F0042AE18DF700A5966A /* AppleAuthRepository.swift in Sources */,
 				D460F0072AE18DF700A5966A /* PresetUseCase.swift in Sources */,
@@ -1644,6 +1668,7 @@
 				3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */,
 				3AC325192AFC103A002B6682 /* ToastContainerView.swift in Sources */,
 				3AF617D52AE1A8680052FC90 /* PresetContainerViewModel.swift in Sources */,
+				D4BB05532B069A2E0058A658 /* CGPoint+OperationOverloading.swift in Sources */,
 				D460EFDC2AE18DF700A5966A /* MockPerformanceRepository.swift in Sources */,
 				D460EFE32AE18DF700A5966A /* ObjectHistoryArchiver.swift in Sources */,
 				D460EFF02AE18DF700A5966A /* TouchedViewDetector.swift in Sources */,
@@ -1695,7 +1720,9 @@
 				3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
+				3A00881B2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift in Sources */,
 				D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */,
+				3A0088192B0517D300C9C643 /* PerformanceLoadingViewModel.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
 				D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */,
 				D460F0012AE18DF700A5966A /* AuthRepository.swift in Sources */,
@@ -1725,6 +1752,7 @@
 				D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */,
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,
 				D460EFF82AE18DF700A5966A /* MinMax.swift in Sources */,
+				3A0088212B06907C00C9C643 /* ViewDependency.swift in Sources */,
 				3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */,
 				3AC3250B2AFA5456002B6682 /* BezierPathLayer.swift in Sources */,
 				D460EFE52AE18DF700A5966A /* ObjectCanvasViewController.swift in Sources */,

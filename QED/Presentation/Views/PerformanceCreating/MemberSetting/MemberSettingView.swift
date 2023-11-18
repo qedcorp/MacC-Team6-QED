@@ -3,20 +3,9 @@
 import SwiftUI
 
 struct MemberSettingView: View {
-    @ObservedObject private var viewModel: MemberSettingViewModel
+    let dependency: MemberSettingViewDependency
     @Binding var path: [PresentType]
-
-    init(performance: Performance, performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
-        let performanceSettingManager = PerformanceSettingManager(
-            performance: performance,
-            performanceUseCase: performanceUseCase
-        )
-        self.viewModel = MemberSettingViewModel(
-            performanceSettingManager: performanceSettingManager,
-            performanceUseCase: performanceUseCase
-        )
-        self._path = path
-    }
+    @StateObject private var viewModel = MemberSettingViewModel()
 
     var body: some View {
         ZStack {
@@ -64,21 +53,17 @@ struct MemberSettingView: View {
                 PerformanceSettingTitleView(step: 2, title: "인물지정")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink("세부동선") {
-                    buildMovementSettingView()
-                }
-                .disabled(!viewModel.isEnabledToSave)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
                 Text("완료")
-                    .foregroundStyle(viewModel.isEnabledToSave ? .blue : .gray)
+                    .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                     .onTapGesture {
-                        if viewModel.isEnabledToSave {
-                            print(path)
-                            path = [.performanceWatching(viewModel.performance.entity, true)]
+                        if let nextPath = viewModel.nextPath {
+                            path = [nextPath]
                         }
                     }
             }
+        }
+        .task {
+            viewModel.setupWithDependency(dependency)
         }
     }
 
@@ -99,7 +84,7 @@ struct MemberSettingView: View {
                 .fill(Color(hex: memberInfo.color))
                 .frame(height: 18)
                 .aspectRatio(contentMode: .fit)
-            Text(memberInfo.name)
+            Text(memberInfo.name ?? "인물 \(index + 1)")
                 .foregroundStyle(Color.monoWhite3)
                 .font(.subheadline)
         }
@@ -162,18 +147,6 @@ struct MemberSettingView: View {
             onComplete: {
                 viewModel.updateEditingMemberInfo($0)
             }
-        )
-    }
-
-    private func buildPerformanceWatchingView() -> some View {
-        let performance = viewModel.performanceSettingManager.performance
-        return PerformanceWatchingListView(performance: performance, isAllFormationVisible: .constant(false), selectedIndex: .constant(1))
-    }
-
-    private func buildMovementSettingView() -> some View {
-        MovementSettingView(
-            performance: viewModel.performanceSettingManager.performance,
-            performanceUseCase: viewModel.performanceUseCase
         )
     }
 }

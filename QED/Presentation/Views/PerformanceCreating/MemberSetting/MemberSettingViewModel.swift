@@ -5,28 +5,24 @@ import Foundation
 
 @MainActor
 class MemberSettingViewModel: ObservableObject {
-    @Published private(set) var performance: PerformanceModel
+    private(set) var performanceSettingManager: PerformanceSettingManager?
+    private(set) var performanceUseCase: PerformanceUseCase?
+    private var hapticManager: HapticManager?
+    @Published private(set) var performance: PerformanceModel?
     @Published private(set) var selectedMemberInfoIndex: Int?
     @Published private(set) var editingMemberInfoIndex: Int?
-    let hapticManager: HapticManager
-    let performanceSettingManager: PerformanceSettingManager
-    let performanceUseCase: PerformanceUseCase
     private var cancellables: Set<AnyCancellable> = []
 
-    init(
-        hapticManager: HapticManager = .shared,
-        performanceSettingManager: PerformanceSettingManager,
-        performanceUseCase: PerformanceUseCase
-    ) {
-        self.performance = .build(entity: performanceSettingManager.performance)
-        self.hapticManager = hapticManager
-        self.performanceSettingManager = performanceSettingManager
-        self.performanceUseCase = performanceUseCase
+    func setupWithDependency(_ dependency: MemberSettingViewDependency) {
+        performance = .build(entity: dependency.performanceSettingManager.performance)
+        performanceSettingManager = dependency.performanceSettingManager
+        performanceUseCase = dependency.performanceUseCase
+        hapticManager = dependency.hapticManager
         subscribePerformanceSettingManager()
     }
 
     private func subscribePerformanceSettingManager() {
-        performanceSettingManager.changingPublisher
+        performanceSettingManager?.changingPublisher
             .receive(on: DispatchQueue.main)
             .sink { _ in
             } receiveValue: { [unowned self] in
@@ -36,41 +32,58 @@ class MemberSettingViewModel: ObservableObject {
     }
 
     var musicTitle: String {
-        performance.music.title
+        performance?.music.title ?? ""
     }
 
     var headcount: Int {
-        performance.headcount
+        performance?.headcount ?? 0
     }
 
     var memberInfos: [MemberInfoModel] {
-        performance.memberInfos
+        performance?.memberInfos ?? []
     }
 
     var selectedMemberInfo: MemberInfoModel? {
         guard let index = selectedMemberInfoIndex else {
             return nil
         }
-        return performance.memberInfos[safe: index]
+        return performance?.memberInfos[safe: index]
     }
 
     var editingMemberInfo: MemberInfoModel? {
         guard let index = editingMemberInfoIndex else {
             return nil
         }
-        return performance.memberInfos[safe: index]
+        return performance?.memberInfos[safe: index]
     }
 
     var formations: [FormationModel] {
-        performance.formations
+        performance?.formations ?? []
     }
 
     var isEnabledToSave: Bool {
-        performance.formations.allSatisfy { !$0.colors.contains(nil) }
+        performance?.formations.allSatisfy { !$0.colors.contains(nil) } == true
+    }
+
+    var nextPath: PresentType? {
+        guard let performance = performance?.entity,
+              isEnabledToSave else {
+            return nil
+        }
+        if performance.isCompleted {
+            let transfer = PerformanceWatchingTransferModel(
+                performanceSettingManager: performanceSettingManager!,
+                isAllFormationVisible: true
+            )
+            return .performanceWatching(transfer)
+        } else {
+            let dependency = FormationSettingViewDependency(performance: performance)
+            return .formationSetting(dependency)
+        }
     }
 
     func selectMember(index: Int) {
-        hapticManager.hapticImpact(style: .light)
+        hapticManager?.hapticImpact(style: .light)
         animate {
             if editingMemberInfoIndex == index {
                 editingMemberInfoIndex = nil
@@ -84,15 +97,15 @@ class MemberSettingViewModel: ObservableObject {
     }
 
     func updateMembers(colors: [String?], formationIndex: Int) {
-        performanceSettingManager.updateMembers(colors: colors, formationIndex: formationIndex)
+        performanceSettingManager?.updateMembers(colors: colors, formationIndex: formationIndex)
     }
 
     func updateEditingMemberInfo(_ info: MemberInfoModel) {
         guard let index = editingMemberInfoIndex else {
             return
         }
-        performanceSettingManager.updateMemberInfo(name: info.name, color: info.color, memberInfoIndex: index)
-        hapticManager.hapticImpact(style: .medium)
+        performanceSettingManager?.updateMemberInfo(name: info.name, color: info.color, memberInfoIndex: index)
+        hapticManager?.hapticImpact(style: .medium)
         animate {
             editingMemberInfoIndex = nil
         }

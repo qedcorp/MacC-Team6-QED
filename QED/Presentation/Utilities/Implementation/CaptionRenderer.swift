@@ -10,7 +10,7 @@ class CaptionRenderer {
         label.text = text
         label.font = .systemFont(ofSize: 7, weight: .semibold)
         label.textColor = .monoWhite3
-        label.layer.zPosition = .greatestFiniteMagnitude - 1
+        label.layer.zPosition = 100
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

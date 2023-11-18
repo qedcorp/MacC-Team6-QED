@@ -11,7 +11,6 @@ class Performance: Codable {
     var title: String?
     var memberInfos: [Member.Info]?
     var formations: [Formation]
-    var transitions: [FormationTransition?]
 
     init(
         id: String,
@@ -21,7 +20,6 @@ class Performance: Codable {
         title: String? = nil,
         memberInfos: [Member.Info]? = nil,
         formations: [Formation] = [],
-        transitions: [FormationTransition?] = [],
         createdAt: Date? = nil
     ) {
         self.id = id
@@ -31,7 +29,6 @@ class Performance: Codable {
         self.title = title ?? music.title
         self.memberInfos = memberInfos ?? Self.buildDefaultMemberInfos(headcount: headcount)
         self.formations = formations
-        self.transitions = transitions
         self.createdAt = createdAt ?? Date()
     }
 

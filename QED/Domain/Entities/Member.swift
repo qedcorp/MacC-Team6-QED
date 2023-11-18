@@ -12,12 +12,12 @@ class Member: Codable {
     }
 
     class Info: Hashable, Equatable, Codable {
-        var name: String
+        var name: String?
 
         @HexString
         var color: String
 
-        init(name: String, color: String) {
+        init(name: String?, color: String) {
             self.name = name
             self.color = color
         }

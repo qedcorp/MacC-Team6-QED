@@ -1,5 +1,5 @@
 //
-//  PerformanceWatichingDetailViewModel.swift
+//  PerformanceWatchingDetailViewModel.swift
 //  QED
 //
 //  Created by changgyo seo on 11/7/23.
@@ -8,31 +8,35 @@ import Foundation
 
 import Combine
 
-class PerformanceWatichingDetailViewModel: ObservableObject {
+@MainActor
+class PerformanceWatchingDetailViewModel: ObservableObject {
     typealias ValuePurpose = ScrollObservableView.ValuePurpose
     typealias Constants = ScrollObservableView.Constants
     typealias FrameInfo = ScrollObservableView.FrameInfo
+    typealias Controller = ObjectMovementAssigningViewController
 
-    private var bag = Set<AnyCancellable>()
+    let movementController: Controller
+    let zoomableMovementController: Controller
+    let objectHistoryArchiver: ObjectHistoryArchiver<Controller.History>
+    let performanceSettingManager: PerformanceSettingManager
 
-    var performance: Performance
     var movementsMap: MovementsMap {
         // TODO: 함수형으로 바꾸기
         var map = MovementsMap()
-        guard let memberInfos = performance.memberInfos else { return [:] }
-        let movementsMap = performance.formations.map({ $0.movementMap })
+        guard let memberInfos = performance.entity.memberInfos else { return [:] }
+        let movementsMap = performance.entity.formations.map({ $0.movementMap })
         for index in movementsMap.indices {
             var movementMap = movementsMap[index]
             if movementMap == nil {
                 if index <= movementsMap.count - 2 {
                     movementMap = makeLinearMovementMap(memberInfos,
-                                                        startFormation: performance.formations[index],
-                                                        endFormation: performance.formations[index + 1]
+                                                        startFormation: performance.entity.formations[index],
+                                                        endFormation: performance.entity.formations[index + 1]
                     )
                 } else {
                     movementMap = makeLinearMovementMap(memberInfos,
-                                                        startFormation: performance.formations[index],
-                                                        endFormation: performance.formations[index]
+                                                        startFormation: performance.entity.formations[index],
+                                                        endFormation: performance.entity.formations[index]
                     )
                 }
 
@@ -52,16 +56,63 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
     }
 
     private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
+
+    @Published private(set) var isZoomed = false {
+        didSet { assignControllerToArchiverByZoomed() }
+    }
+
+    @Published var performance: PerformanceModel
     @Published var offset: CGFloat = 0.0
     @Published var selectedIndex: Int = 0
     @Published var isPlaying = false
     private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
     private var player = PlayTimer(timeInterval: 0.03)
+    private var bag = Set<AnyCancellable>()
 
-    init(performance: Performance) {
-        self.performance = performance
+    init(performanceSettingManager: PerformanceSettingManager) {
+        let movementController = Controller()
+        let zoomableMovementController = Controller()
+        let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
+
+        movementController.objectHistoryArchiver = objectHistoryArchiver
+        zoomableMovementController.objectHistoryArchiver = objectHistoryArchiver
+
+        self.movementController = movementController
+        self.zoomableMovementController = zoomableMovementController
+        self.objectHistoryArchiver = objectHistoryArchiver
+        self.performanceSettingManager = performanceSettingManager
+        self.performance = .build(entity: performanceSettingManager.performance)
+
         binding()
         mappingIndexFromOffest()
+        subscribePerformanceSettingManager()
+        assignControllerToArchiverByZoomed()
+    }
+
+    private func subscribePerformanceSettingManager() {
+        performanceSettingManager.changingPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [unowned self] in
+                performance = $0
+            }
+            .store(in: &bag)
+    }
+
+    var beforeFormation: Formation? {
+        performance.formations[safe: currentIndex]?.entity
+    }
+
+    var afterFormation: Formation? {
+        performance.formations[safe: currentIndex + 1]?.entity
+    }
+
+    var currentFormationTag: String {
+        String(describing: performance.formations[safe: currentIndex]?.movementMap)
+    }
+
+    var currentIndex: Int {
+        offsetMap[offset]?.index ?? -1
     }
 
     private func makeLinearMovementMap(
@@ -150,6 +201,21 @@ class PerformanceWatichingDetailViewModel: ObservableObject {
 
     func pause() {
         player.resetTimer()
+    }
+
+    func updateMembers(movementMap: MovementMap) {
+        performanceSettingManager.updateMembers(movementMap: movementMap, formationIndex: currentIndex)
+    }
+
+    func toggleZoom() {
+        animate {
+            isZoomed.toggle()
+        }
+    }
+
+    private func assignControllerToArchiverByZoomed() {
+        let controller = isZoomed ? zoomableMovementController : movementController
+        objectHistoryArchiver.delegate = controller
     }
 }
 
