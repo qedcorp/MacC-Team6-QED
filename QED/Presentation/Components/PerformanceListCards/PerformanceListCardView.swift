@@ -7,125 +7,204 @@
 
 import SwiftUI
 
+@MainActor
 struct PerformanceListCardView: View {
-    let performance: Performance
-    var performanceTitle: String
-    var musicTitle: String
-    var creator: String
-    var albumCoverURL: URL?
-    var image: UIImage?
-    var headcount: Int
-    @State private var isLoading = true
-    @State private var isMusic = true
+    var performance: PerformanceModel
+    @ObservedObject var viewModel: PerformanceListReadingViewModel
+    let isMyPerformance: Bool
+    let onUpdate: ((String, String) -> Void)?
+    let index: Int?
 
-    init(performance: Performance) {
-        self.performance = performance
-        performanceTitle = performance.title ?? "_"
-        musicTitle = performance.music.title
-        creator = performance.music.artistName
-        albumCoverURL = performance.music.albumCoverURL
-        headcount = performance.headcount
+    var hasMusic: Bool
+
+    @State private var isPresented = false
+    @State private var isEditable = false
+    @State private var message: Message?
+    @State private var newTitle = ""
+    @State private var cardWidth = CGFloat.zero
+    @State private var cardHeight = CGFloat.zero
+
+    init(performance: Performance,
+         viewModel: PerformanceListReadingViewModel? = nil,
+         isMyPerformance: Bool = false,
+         index: Int? = nil,
+         onUpdate: @escaping ((String, String) -> Void) = { _, _ in }) {
+        self.performance = .build(entity: performance)
+        self.viewModel = viewModel ?? PerformanceListReadingViewModel(performances: [performance])
+        self.isMyPerformance = isMyPerformance
+        self.index = index
+        self.onUpdate = onUpdate
+        self.hasMusic = performance.music.title != "_" ? true : false
     }
 
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading) {
-                if isMusic {
-                    AsyncImage(url: performance.music.albumCoverURL) { phase in
-                        switch phase {
-                        case.empty:
-                            VStack {
-                                HStack(alignment: .center) {
-                                    Spacer()
-                                    FodiProgressView()
-                                    Spacer()
-                                }
-                            }
-                            .padding(.top, 20)
-                        case.success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        case.failure:
-                            Image(systemName: "exclamationmark.circle.fill")
-                        @unknown default:
-                            Image(systemName: "exclamationmark.circle.fill")
+            GeometryReader { geometry in
+                ZStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        if hasMusic {
+                            buildFetchMusicView()
+                        } else {
+                            buildFetchStateView("music.note")
                         }
-                    }
-                    .frame(height: 170)
-                    .overlay {
-                        Rectangle()
-                            .foregroundStyle(performance.isCompleted ? .clear : .black.opacity(0.8))
+                        buildMusicInfoView()
                     }
 
-                } else {
-                    // TODO: 여기에 이제 노래없을때 빈화면 넣으면 됨
-                    Rectangle()
-                        .frame(height: 170)
+                    if isMyPerformance {
+                        buildEditButton()
+                    }
                 }
-
-                HStack(alignment: .center) {
-                    VStack(alignment: .leading) {
-                        Text("\(performanceTitle)")
-                            .font(.footnote)
-                            .bold()
-                            .opacity(0.8)
-                            .lineLimit(1)
-                            .padding(.bottom, 1)
-                            .truncationMode(.tail)
-
-                        Text(isMusic
-                             ?"\(musicTitle)"
-                             :"선택한 노래없음"
-                        )
-                        .font(.caption2)
-                        .opacity(0.6)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                    }
-                    Spacer()
-                    Text("\(headcount)")
-                        .foregroundStyle(Color.blueDark)
-                        .font(.footnote)
-                        .bold()
-                        .background(
-                            Circle()
-                                .fill(Color.monoWhite3)
-                                .frame(width: 27, height: 27)
-                        )
+                .onAppear {
+                    cardWidth = geometry.size.width
+                    cardHeight = geometry.size.height
                 }
-                .padding(.top, 5)
-                .padding(.horizontal, 30)
-
-                Spacer()
-                    .padding()
-
             }
-            VStack {
-                Image("yetComplete")
-                    .opacity(performance.isCompleted ? 0 : 1)
-                    .padding(.bottom, 40)
-            }
-
-            VStack {
-                Spacer()
-                    Button {
-                        // TODO: 수정버튼
-                    } label: {
-                        Image("ellipsis")
-                    }
-                Spacer()
-            }
-            .padding(.leading, 125)
-            .padding(.bottom, 150)
-        }
-        .frame(width: 163, height: 198)
-        .background(Gradient.blueGradation2)
-        .foregroundStyle(Color.monoWhite3)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+            .aspectRatio(163/198, contentMode: .fit)
+            .background(Gradient.blueGradation2)
+            .foregroundStyle(Color.monoWhite3)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
     }
-}
 
-#Preview {
-    PerformanceListCardView(performance: mockPerformance1)
+    private func buildFetchMusicView() -> some View {
+        return AsyncImage(url: performance.music.albumCoverURL) { phase in
+            switch phase {
+            case .empty:
+                buildLodingView()
+            case .success(let image):
+                buildAlbumCoverView(image: image)
+            case .failure:
+                buildFetchStateView("exclamationmark.circle.fill")
+            @unknown default:
+                buildFetchStateView("exclamationmark.circle.fill")
+            }
+        }
+    }
+
+    private func buildLodingView() -> some View {
+        VStack {
+            HStack(alignment: .center) {
+                Spacer()
+                FodiProgressView()
+                Spacer()
+            }
+        }
+        .frame(height: cardHeight)
+    }
+
+    private func buildAlbumCoverView(image: Image) -> some View {
+        ZStack {
+            image
+                .resizable()
+                .scaledToFill()
+                .frame(height: cardHeight * 0.7)
+                .clipped()
+
+            if !performance.isCompleted {
+                Rectangle()
+                    .fill(.black.opacity(0.8))
+                Image("yetComplete")
+            }
+
+        }
+    }
+
+    private func buildFetchStateView(_ image: String) -> some View {
+        VStack {
+            HStack(alignment: .center) {
+                Spacer()
+                Image(systemName: image)
+                    .font(.title)
+                Spacer()
+            }
+        }
+        .frame(height: cardHeight * 0.7)
+        .background(Color.monoWhite2)
+    }
+
+    private func buildMusicInfoView() -> some View {
+        HStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text("\(performance.title ?? "")")
+                    .bold()
+
+                Text(hasMusic
+                     ? "\(performance.music.title)"
+                     :"선택한 노래없음"
+                )
+                .font(.caption2)
+            }
+            .lineLimit(1)
+            Spacer()
+            ZStack {
+                Circle()
+                    .fill(Color.monoWhite3)
+                    .frame(width: cardWidth * 0.165, height: cardWidth * 0.165)
+
+                Text("\(performance.headcount)")
+                    .foregroundStyle(Color.blueDark)
+                    .bold()
+            }
+        }
+        .font(.footnote)
+        .padding(.horizontal, 13)
+        .frame(height: cardHeight * 0.3)
+        .background(.ultraThinMaterial)
+    }
+
+    private func buildEditButton() -> some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    isPresented = true
+                } label: {
+                    Image("ellipsis")
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 20)
+                }
+                .confirmationDialog(
+                    "EditPerformance", isPresented: $isPresented, actions: {
+                        buildConfirmationDialog()
+                    }
+                )
+                .alert(with: $message)
+                .alert("프로젝트 이름 수정", isPresented: $isEditable) {
+                    buildTextFeildAlertView()
+                }
+            }
+            Spacer()
+        }
+        .frame(width: cardWidth, height: cardHeight)
+    }
+
+    private func buildConfirmationDialog() -> some View {
+        VStack {
+            Button("삭제", role: .destructive) {
+                if let index = index {
+                    viewModel.selectDeletion(index: index, performanceID: performance.id)
+                    message = viewModel.message.first
+                }
+            }
+            Button("이름 수정") {
+                isEditable = true
+            }
+            Button("취소", role: .cancel) {}
+        }
+    }
+
+    private func buildTextFeildAlertView() -> some View {
+        VStack {
+            if let title = self.performance.title {
+                TextField(title, text: $newTitle)
+                    .foregroundStyle(.black)
+                Button("완료", action: {
+                    guard let onUpdate = onUpdate else { return }
+                    onUpdate(performance.id, newTitle)
+                    newTitle = ""
+                })
+                Button("취소", role: .cancel) {
+                    newTitle = ""
+                }
+            }
+        }
+    }
 }

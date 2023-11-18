@@ -11,6 +11,8 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel(
         performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     )
+
+    @State var isFetchingPerformances = true
     @State var path: [PresentType] = [] {
         didSet {
             if path.isEmpty {
@@ -21,20 +23,13 @@ struct MainView: View {
             }
         }
     }
-    @State var isFetchingPerformances = true
 
     var body: some View {
         NavigationStack(path: $path) {
-            VStack(alignment: .leading) {
-                HStack {
-                    leftItem()
-                    Spacer()
-                    rightItem()
-                }
-                .padding(.horizontal, 24)
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
-                        mainTitle()
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        buildMainTitle()
                         buildMakeFormationButtonView()
                         buildPerformanceListHeaderView()
                         if viewModel.myRecentPerformances.isEmpty && !isFetchingPerformances {
@@ -43,31 +38,25 @@ struct MainView: View {
                             FodiProgressView()
                                 .padding(.top, 100)
                         } else {
-                            LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
-                                Section {
-                                    buildPerformanceListScrollView()
-                                }
-                            }
-                            .padding(.horizontal, 20)
+                            buildPerformanceListScrollView()
                         }
                     }
                     .padding(.top, 130)
                 }
             }
+            .padding(.horizontal, 24)
             .background(
-                ZStack {
-                    Image("background")
-                        .resizable()
-                        .ignoresSafeArea(.all)
-                    VStack {
-                        buildMainTopView()
-                        Spacer()
-                    }
-                }.ignoresSafeArea()
+                buildBackgroundView()
             )
             .onAppear {
                 viewModel.fetchUser()
             }
+            .toolbar {
+                buildLeftItem()
+                buildRightItem()
+            }
+            .navigationBarBackButtonHidden()
+            .toolbarBackground(Material.ultraThin, for: .navigationBar)
             .navigationDestination(for: PresentType.self) { persentType in
                 switch persentType {
                 case .myPage:
@@ -93,54 +82,39 @@ struct MainView: View {
                 case let .formationSetting(dependency):
                     FormationSettingView(dependency: dependency, path: $path)
                 case let .memberSetting(dependency):
-                    MemberSettingView(dependency: dependency, path: $path)
-                }
+                    MemberSettingView(dependency: dependency, path: $path)                }
             }
-            .navigationBarBackButtonHidden()
         }
     }
 
-    private func buildMainTopView() -> some View {
-        Image("lese")
-            .resizable()
-            .scaledToFit()
-            .mask(
-                LinearGradient(gradient:
-                                Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
-                               startPoint: .top,
-                               endPoint: .bottom)
-            )
+    private let columns: [GridItem] = [
+        GridItem(spacing: 16, alignment: nil),
+        GridItem(spacing: 16, alignment: nil)]
+
+    private func isFetchingDone() {
+        isFetchingPerformances = false
     }
 
-    private func mainTitle() -> some View {
+    private func buildMainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text("내 손안에")
-                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(Color.monoWhite3)
                 Text("포메이션 디렉터")
-                    .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                    .bold()
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(Color.monoWhite3)
-                HStack(alignment: .center, spacing: 0) {
+                HStack(spacing: 0) {
                     Text("FODI")
-                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                        .multilineTextAlignment(.leading)
                         .foregroundStyle(Color.blueLight3)
                     Text(" 와 함께,")
-                        .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-                        .multilineTextAlignment(.leading)
-                        .foregroundStyle(Color.monoWhite3)
+                    Spacer()
                 }
             }
+            .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
+            .multilineTextAlignment(.leading)
+            .foregroundStyle(Color.monoWhite3)
             Spacer()
         }
-        .padding(.vertical)
-        .padding(.horizontal, 20)
-
+        .padding(.bottom, 34)
     }
+
     private func buildMakeFormationButtonView() -> some View {
         HStack {
             Image("performanceSetting")
@@ -154,12 +128,11 @@ struct MainView: View {
                 }
             Spacer()
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 10)
+        .padding(.bottom, 46)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .top) {
             Text("최근 프로젝트")
                 .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
                 .kerning(0.38)
@@ -168,12 +141,12 @@ struct MainView: View {
             Spacer()
 
             Image("listReading")
+                .padding(.bottom, 18)
                 .onTapGesture {
                     path.append(.performanceListReading(viewModel.myRecentPerformances))
                 }
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 20)
+
     }
 
     private func buildEmptyView() -> some View {
@@ -184,56 +157,80 @@ struct MainView: View {
             .opacity(0.5)
     }
 
-    let columns: [GridItem] = [
-        GridItem(spacing: 10, alignment: nil),
-        GridItem(spacing: 10, alignment: nil)]
-
     private func buildPerformanceListScrollView() -> some View {
         let myRecentPerformances = viewModel.myRecentPerformances
             .sorted { lhs, rhs in
                 lhs.createdAt < rhs.createdAt
             }
-        return ForEach(myRecentPerformances) { performance in
-            PerformanceListCardView(performance: performance)
-                .onTapGesture {
-                    if performance.isCompleted {
-                        let manager = PerformanceSettingManager(performance: performance)
-                        let transfer = PerformanceWatchingTransferModel(
-                            performanceSettingManager: manager,
-                            isAllFormationVisible: false
-                        )
-                        path.append(.performanceWatching(transfer))
-                    } else {
-                        let dependency = FormationSettingViewDependency(performance: performance)
-                        path.append(.formationSetting(dependency))
+
+        return LazyVGrid(columns: columns,
+                         alignment: .center,
+                         spacing: 24,
+                         pinnedViews: .sectionHeaders) {
+            ForEach(myRecentPerformances) { performance in
+                PerformanceListCardView(performance: performance)
+                    .onTapGesture {
+                        if performance.isCompleted {
+                            let manager = PerformanceSettingManager(performance: performance)
+                            let transfer = PerformanceWatchingTransferModel(
+                                performanceSettingManager: manager,
+                                isAllFormationVisible: false
+                            )
+                            path.append(.performanceWatching(transfer))
+                        } else {
+                            let dependency = FormationSettingViewDependency(performance: performance)
+                            path.append(.formationSetting(dependency))
+                        }
                     }
+            }
+        }
+                         .padding(.bottom, 40)
+    }
+
+    private func buildBackgroundView() -> some View {
+        ZStack {
+            Image("background")
+                .resizable()
+            VStack {
+                buildMainTopView()
+                Spacer()
+            }
+        }
+        .ignoresSafeArea(.all)
+    }
+
+    private func buildMainTopView() -> some View {
+        Image("lese")
+            .resizable()
+            .scaledToFit()
+            .mask(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+    }
+
+    private func buildLeftItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Image("FodiIcon")
+                .padding(.leading, 8)
+        }
+    }
+
+    private func buildRightItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Image("profile")
+                .padding(.trailing, 8)
+                .onTapGesture {
+                    path.append(.myPage)
                 }
         }
-        .padding(.horizontal, 24)
-    }
-
-    private func leftItem() -> some View {
-        Image("FodiIcon")
-            .resizable()
-            .frame(width: 50, height: 28)
-
-    }
-
-    private func rightItem() -> some View {
-        Image("profile")
-            .resizable()
-            .frame(width: 24, height: 24)
-            .onTapGesture {
-                path.append(.myPage)
-            }
-    }
-
-    private func isFetchingDone() {
-        isFetchingPerformances = false
     }
 }
 
-extension Performance: Hashable {
+extension Performance: Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(self))
     }
@@ -257,5 +254,3 @@ extension UINavigationController: UIGestureRecognizerDelegate {
 #Preview {
     MainView()
 }
-
-extension Performance: Identifiable { }

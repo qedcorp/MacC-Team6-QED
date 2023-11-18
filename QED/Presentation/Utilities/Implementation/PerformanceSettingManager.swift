@@ -106,6 +106,13 @@ class PerformanceSettingManager {
         didChange()
     }
 
+    func updatePerformanceTitle(with title: String) {
+        if !title.isEmpty {
+            performance.title = title
+            didChange()
+        }
+    }
+
     private func updateStartEndOfMovementMap(formationIndex: Int) {
         guard let formation = performance.formations[safe: formationIndex],
               let afterFormation = performance.formations[safe: formationIndex + 1] else {

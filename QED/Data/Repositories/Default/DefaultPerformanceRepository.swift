@@ -8,7 +8,7 @@
 import Foundation
 
 final class DefaultPerformanceRepository: PerformanceRepository {
-    
+
     var remoteManager: RemoteManager
     
     init(remoteManager: RemoteManager) {
@@ -21,13 +21,13 @@ final class DefaultPerformanceRepository: PerformanceRepository {
             switch createResult {
             case .success(let success):
                 return success
-            case .failure:
-                print("Create Error")
+            case .failure(let error):
+                throw error
             }
         } catch {
-            print("Create Error")
+            print("Create Performance Error")
         }
-        return Performance(jsonString: "Create Error")
+        return Performance(jsonString: "Create Performance Error")
     }
     
     func readPerformance() async throws -> Performance {
@@ -44,28 +44,41 @@ final class DefaultPerformanceRepository: PerformanceRepository {
             switch readResult {
             case .success(let success):
                 return success
-            case .failure:
-                print("Create Error")
+            case .failure(let error):
+                throw(error)
             }
         } catch {
-            print("Create Error")
+            print("Read My Performances Error")
         }
-        return [Performance(jsonString: "Create Error")]
+        return [Performance(jsonString: "Read My Performances Error")]
     }
-    
-    func updatePerformance(_ performance: Performance) async throws -> Performance {
+
+    func updatePerformance(_ performance: Performance) async throws {
         do {
             let updateResult = try await remoteManager.update(performance)
             switch updateResult {
-            case .success(let success):
-                return success
-            case .failure:
-                print("Update Error")
+            case .success(_):
+                print("Successfully Update Performance")
+            case .failure(let error):
+                throw error
             }
         } catch {
-            print("Update Error")
+            print("Update Performance Error")
         }
-        return Performance(jsonString: "Update Error")
     }
     
+    func removePerformance(_ performanceID: String) async throws -> Bool {
+        do {
+            let deleteResult = try await remoteManager.delete(at: "PERFORMANCE", pk: performanceID)
+            switch deleteResult {
+            case .success(let success):
+                return success
+            case .failure(let error):
+                throw error
+            }
+        } catch {
+            print("Remove Performance Error")
+        }
+        return false
+    }
 }
