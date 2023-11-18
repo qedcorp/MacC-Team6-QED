@@ -61,7 +61,7 @@ class ScrollObservableCollectionViewCell: UICollectionViewCell {
         } else {
             formationFrame.layer.borderWidth = 2
             formationFrame.backgroundColor = .monoNormal2
-            formationFrame.layer.borderColor = UIColor.black.cgColor
+            formationFrame.layer.borderColor = UIColor.clear.cgColor
             numberRectangle.backgroundColor = .white
             numberLabel.textColor = .black
             lyricsLabel.textColor = .white

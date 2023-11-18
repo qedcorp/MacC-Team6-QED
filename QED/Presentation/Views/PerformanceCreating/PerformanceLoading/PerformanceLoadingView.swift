@@ -29,7 +29,8 @@ struct PerformanceLoadingView: View {
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             if let performance = viewModel.performance {
-                                path = [.formationSetting(performance)]
+                                let dependency = FormationSettingViewDependency(performance: performance)
+                                path = [.formationSetting(dependency)]
                             }
                         }
                     }

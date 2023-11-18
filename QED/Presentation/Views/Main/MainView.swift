@@ -15,11 +15,13 @@ struct MainView: View {
         didSet {
             if path.isEmpty {
                 DispatchQueue.global().async {
-                    viewModel.fetchMyRecentPerformances()
+                    isFetchingPerformances = true
+                    viewModel.fetchMyRecentPerformances(isFetchingDone)
                 }
             }
         }
     }
+    @State var isFetchingPerformances = true
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -35,8 +37,11 @@ struct MainView: View {
                         mainTitle()
                         buildMakeFormationButtonView()
                         buildPerformanceListHeaderView()
-                        if viewModel.myRecentPerformances.isEmpty {
+                        if viewModel.myRecentPerformances.isEmpty && !isFetchingPerformances {
                             buildEmptyView()
+                        } else if isFetchingPerformances {
+                            FodiProgressView()
+                                .padding(.top, 100)
                         } else {
                             LazyVGrid(columns: columns, alignment: .center, spacing: 25, pinnedViews: .sectionHeaders) {
                                 Section {
@@ -74,9 +79,6 @@ struct MainView: View {
                     )
                 case let .performanceLoading(transfer):
                     PerformanceLoadingView(transfer: transfer, path: $path)
-                case let .formationSetting(performance, _):
-                    let viewModel = FormationSettingViewModel(performance: performance)
-                    FormationSettingView(viewModel: viewModel, path: $path)
                 case let .performanceListReading(performances):
                     PerformanceListReadingView(performances: performances)
                 case let .performanceWatching(transfer):
@@ -88,12 +90,10 @@ struct MainView: View {
                         isAllFormationVisible: transfer.isAllFormationVisible,
                         path: $path
                     )
-                case let .memberSetting(transfer):
-                    let viewModel = MemberSettingViewModel(
-                        performanceSettingManager: transfer.performanceSettingManager,
-                        performanceUseCase: transfer.performanceUseCase
-                    )
-                    MemberSettingView(viewModel: viewModel, path: $path)
+                case let .formationSetting(dependency):
+                    FormationSettingView(dependency: dependency, path: $path)
+                case let .memberSetting(dependency):
+                    MemberSettingView(dependency: dependency, path: $path)
                 }
             }
             .navigationBarBackButtonHidden()
@@ -149,7 +149,7 @@ struct MainView: View {
                 }
                 .onAppear {
                     DispatchQueue.global().async {
-                        viewModel.fetchMyRecentPerformances()
+                        viewModel.fetchMyRecentPerformances(isFetchingDone)
                     }
                 }
             Spacer()
@@ -196,12 +196,17 @@ struct MainView: View {
         return ForEach(myRecentPerformances) { performance in
             PerformanceListCardView(performance: performance)
                 .onTapGesture {
-                    let manager = PerformanceSettingManager(performance: performance)
-                    let transfer = PerformanceWatchingTransferModel(
-                        performanceSettingManager: manager,
-                        isAllFormationVisible: false
-                    )
-                    path.append(.performanceWatching(transfer))
+                    if performance.isCompleted {
+                        let manager = PerformanceSettingManager(performance: performance)
+                        let transfer = PerformanceWatchingTransferModel(
+                            performanceSettingManager: manager,
+                            isAllFormationVisible: false
+                        )
+                        path.append(.performanceWatching(transfer))
+                    } else {
+                        let dependency = FormationSettingViewDependency(performance: performance)
+                        path.append(.formationSetting(dependency))
+                    }
                 }
         }
         .padding(.horizontal, 24)
@@ -221,6 +226,10 @@ struct MainView: View {
             .onTapGesture {
                 path.append(.myPage)
             }
+    }
+
+    private func isFetchingDone() {
+        isFetchingPerformances = false
     }
 }
 

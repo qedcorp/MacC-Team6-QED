@@ -49,8 +49,7 @@ extension Performance: FireStoreEntityConvertable {
                 music: performance.music,
                 headcount: performance.headcount,
                 title: performance.title,
-                formations: performance.formations,
-                transitions: performance.transitions
+                formations: performance.formations
             )
         } catch let jsonError {
             print("-----------------")

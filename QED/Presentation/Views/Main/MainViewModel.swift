@@ -18,13 +18,13 @@ class MainViewModel: ObservableObject {
         self.performanceUseCase = performanceUseCase
     }
 
-    func fetchMyRecentPerformances() {
-
+    func fetchMyRecentPerformances(_ completion: @escaping () -> Void) {
         DispatchQueue.global().async {
             Task {
                 let performances = try await self.performanceUseCase.getMyRecentPerformances()
                 DispatchQueue.main.async {
                     self.myRecentPerformances = performances
+                    completion()
                 }
             }
         }

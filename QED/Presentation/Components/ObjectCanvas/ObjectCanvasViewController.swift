@@ -204,6 +204,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
     }
 
     private func didChange() {
+        guard isViewAppeared else {
+            return
+        }
         let positions = objectViews.map { $0.center }
         onChange?(positions)
     }
