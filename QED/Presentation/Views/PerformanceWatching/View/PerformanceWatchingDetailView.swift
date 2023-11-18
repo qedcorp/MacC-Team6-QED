@@ -274,7 +274,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildPuaseButton() -> some View {
         Button {
-            if !viewModel.isPlaying {
+            if viewModel.isPlaying {
                 viewModel.isPlaying = false
                 viewModel.pause()
             }
