@@ -13,9 +13,10 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
+//    @State private var message: Message?
+    @State private var presentAlert = false
     @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
-    
     
     init(performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
         self.viewModel = PerformanceSettingViewModel(
@@ -23,6 +24,7 @@ struct PerformanceSettingView: View {
         self._path = path
         viewModel.headcount = 1
     }
+    var dismissAction: (() -> Void)? = {}
     
     var body: some View {
         GeometryReader { geometry in
@@ -70,7 +72,7 @@ struct PerformanceSettingView: View {
                     HStack(alignment: .center) {
                         Button {
                             viewModel.scrollToID = 1
-                            viewModel.allClear()
+                            viewModel.delete()
                         } label: {
                             Text("다시입력")
                                 .underline()
@@ -556,17 +558,21 @@ struct PerformanceSettingView: View {
             }
         }
     }
-    
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
-                dismiss()
+                presentAlert = true
             } label: {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(Color.blueLight3)
             }
+            .alert("홈으로 나가기", isPresented: $presentAlert ,actions: {
+                Button("아니오", role: .cancel, action: {})
+                Button("네", role: .destructive, action: { dismiss()})
+            }, message: {
+                Text("지금까지 작성한 프로젝트 내용이\n모두 삭제됩니다. 홈으로 나가시겠어요?")
+            })
         }
     }
-    
 }
 
