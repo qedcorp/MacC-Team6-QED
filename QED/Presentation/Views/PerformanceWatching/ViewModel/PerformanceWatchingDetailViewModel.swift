@@ -38,15 +38,29 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var performance: PerformanceModel?
     @Published var isAllFormationVisible = false
     @Published var isAutoShowAllForamation = false
-    @Published var isTransitionEditable = false
     @Published var isSettingSheetVisible = false
     @Published var isNameVisiable = true
     @Published var isBeforeVisible = true
     @Published var isLineVisible = false
     @Published var isLoading = true
-    @Published var isPlaying = false
     @Published var offset: CGFloat = 0
     @Published var selectedIndex = 0
+
+    @Published var isTransitionEditable = false {
+        didSet {
+            if isTransitionEditable {
+                pause()
+            }
+        }
+    }
+
+    @Published var isPlaying = false {
+        didSet {
+            if isPlaying {
+                isTransitionEditable = false
+            }
+        }
+    }
 
     @Published var isZoomed = false {
         didSet { assignControllerToArchiverByZoomed() }
@@ -56,45 +70,44 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
     private var bag = Set<AnyCancellable>()
 
-    var beforeFormation: Formation? {
-        performance?.formations[safe: currentIndex]?.entity
-    }
-
-    var afterFormation: Formation? {
-        performance?.formations[safe: currentIndex + 1]?.entity
-    }
-
-    var currentFormationTag: String {
-        String(describing: performance?.formations[safe: currentIndex]?.movementMap)
-    }
-
     var currentIndex: Int {
         offsetMap[offset]?.index ?? -1
     }
 
-    var movementsMap: MovementsMap {
+    var currentFormation: Formation? {
+        performance?.formations[safe: currentIndex]?.entity
+    }
+
+    var nextFormation: Formation? {
+        performance?.formations[safe: currentIndex + 1]?.entity
+    }
+
+    var movementMapTag: String {
+        String(describing: currentFormation?.movementMap)
+    }
+
+    var movementsMap: MovementsMap? {
         // TODO: 함수형으로 바꾸기
-        var map = MovementsMap()
         guard let performance = performance,
               let memberInfos = performance.entity.memberInfos else {
-            return [:]
+            return nil
         }
-        let movementsMap = performance.entity.formations.map({ $0.movementMap })
+        var map = MovementsMap()
+        let movementsMap = performance.formations.map { $0.movementMap }
         for index in movementsMap.indices {
             var movementMap = movementsMap[index]
-            if movementMap == nil {
-                if index <= movementsMap.count - 2 {
+            if movementMap?.isEmpty ?? true {
+                if index < movementsMap.count - 1 {
                     movementMap = makeLinearMovementMap(memberInfos,
-                                                        startFormation: performance.entity.formations[index],
-                                                        endFormation: performance.entity.formations[index + 1]
+                                                        startFormation: performance.formations[index],
+                                                        endFormation: performance.formations[index + 1]
                     )
                 } else {
                     movementMap = makeLinearMovementMap(memberInfos,
-                                                        startFormation: performance.entity.formations[index],
-                                                        endFormation: performance.entity.formations[index]
+                                                        startFormation: performance.formations[index],
+                                                        endFormation: performance.formations[index]
                     )
                 }
-
             }
             for info in memberInfos {
                 guard let path = movementMap?[info.color] else { continue }
@@ -137,11 +150,11 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             .store(in: &bag)
 
         $selectedIndex
-            .sink { index in
-                for element in self.offsetMap {
+            .sink { [unowned self] index in
+                for element in offsetMap {
                     let framInfo = element.value
                     if framInfo == .formation(index: index) {
-                        self.action.send(.setOffset(element.key.lowerBound))
+                        action.send(.setOffset(element.key.lowerBound))
                     }
                 }
             }
@@ -177,30 +190,30 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         guard let performance = performance else {
             return
         }
-        player.startTimer {
-            guard let currentFramInfo = self.offsetMap[self.offset] else {
-                self.player.resetTimer()
-                self.isPlaying = false
+        isPlaying = true
+        player.startTimer { [unowned self] in
+            guard let currentFramInfo = offsetMap[offset] else {
+                pause()
                 return
             }
             if currentFramInfo.isSameFrame(.transition()) {
-                self.offset += 0.5
-                self.action.send(.setOffset(self.offset))
+                offset += 0.5
+                action.send(.setOffset(offset))
             } else {
-                self.offset += 1
-                self.action.send(.setOffset(self.offset))
+                offset += 1
+                action.send(.setOffset(offset))
             }
             let totalFormationLength = Constants.formationFrame.width * CGFloat(performance.formations.count)
             let totalTransitionLength = Constants.trasitionFrame.width * CGFloat(performance.formations.count - 1)
-            if self.offset >  totalFormationLength + totalTransitionLength {
-                self.player.resetTimer()
-                self.offset = totalFormationLength + totalTransitionLength
-                self.isPlaying = false
+            if offset > totalFormationLength + totalTransitionLength {
+                offset = totalFormationLength + totalTransitionLength
+                pause()
             }
         }
     }
 
     func pause() {
+        isPlaying = false
         player.resetTimer()
     }
 
@@ -220,24 +233,22 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     private func makeLinearMovementMap(
         _ memberInfos: [Member.Info],
-        startFormation: Formation,
-        endFormation: Formation
+        startFormation: FormationModel,
+        endFormation: FormationModel
     ) -> MovementMap {
         var movementMap = MovementMap()
         for memberInfo in memberInfos {
             guard let startPoint = startFormation.members
-                .first(where: { $0.info?.color == memberInfo.color })?
+                .first(where: { $0.color == memberInfo.color })?
                 .relativePosition,
             let endPoint = endFormation.members
-                .first(where: { $0.info?.color == memberInfo.color })?
+                .first(where: { $0.color == memberInfo.color })?
                 .relativePosition else { continue }
-
             movementMap[memberInfo] = BezierPath(
                 startPosition: startPoint,
                 endPosition: endPoint
             )
         }
-
         return movementMap
     }
 

@@ -69,6 +69,9 @@ struct PerformanceWatchingDetailView: View {
         .task {
             viewModel.setupWithDependency(dependency)
         }
+        .onChange(of: viewModel.currentIndex) { _ in
+            viewModel.objectHistoryArchiver.reset()
+        }
         .onAppear {
             if viewModel.isAutoShowAllForamation {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -84,8 +87,8 @@ struct PerformanceWatchingDetailView: View {
     ) -> some View {
         let height = width * CGFloat(12 / Float(19))
         return ZStack {
-            if let beforeFormation = viewModel.beforeFormation,
-               let afterFormation = viewModel.afterFormation {
+            if let beforeFormation = viewModel.currentFormation,
+               let afterFormation = viewModel.nextFormation {
                 ObjectMovementAssigningView(
                     controller: controller,
                     beforeFormation: beforeFormation,
@@ -118,7 +121,7 @@ struct PerformanceWatchingDetailView: View {
         HStack {
             HistoryControlsView(
                 historyControllable: viewModel.objectHistoryArchiver,
-                tag: viewModel.currentFormationTag
+                tag: viewModel.movementMapTag
             )
             Spacer()
             Button {
@@ -136,13 +139,15 @@ struct PerformanceWatchingDetailView: View {
             if viewModel.isLoading {
                 ProgressView()
             }
-            ObjectPlayableView(movementsMap: viewModel.movementsMap,
-                               totalCount: viewModel.performance?.formations.count ?? 0,
-                               offset: $viewModel.offset,
-                               isShowingPreview: $viewModel.isBeforeVisible,
-                               isLoading: $viewModel.isLoading,
-                               isNameVisiable: $viewModel.isNameVisiable
-            )
+            if let movementsMap = viewModel.movementsMap {
+                ObjectPlayableView(movementsMap: movementsMap,
+                                   totalCount: viewModel.performance?.formations.count ?? 0,
+                                   offset: $viewModel.offset,
+                                   isShowingPreview: $viewModel.isBeforeVisible,
+                                   isLoading: $viewModel.isLoading,
+                                   isNameVisiable: $viewModel.isNameVisiable
+                )
+            }
         }
         .frame(height: 216)
     }
@@ -238,7 +243,6 @@ struct PerformanceWatchingDetailView: View {
     private func buildPlayButton() -> some View {
         Button {
             if !viewModel.isPlaying {
-                viewModel.isPlaying = true
                 viewModel.play()
             }
         } label: {
@@ -249,7 +253,6 @@ struct PerformanceWatchingDetailView: View {
     private func buildPuaseButton() -> some View {
         Button {
             if viewModel.isPlaying {
-                viewModel.isPlaying = false
                 viewModel.pause()
             }
         } label: {
