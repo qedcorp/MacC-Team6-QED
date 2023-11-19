@@ -37,12 +37,14 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var headcount: Int = 1 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
+            updateSliderColor()
         }
     }
     @Published var range: ClosedRange<Int> = 1...13
-    @Published var inputMemberInfo: [String] = []
 
-    @Published var isShowingNextView: Bool = false
+    @Published var inputMemberInfo: [String] = []
+    @Published var sliderCustomColor: Color = .blueLight3.opacity(0.3)
+//    @Published var isShowingNextView: Bool = false
     @Published var alertMessage: [Message?] = []
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
@@ -99,6 +101,15 @@ class PerformanceSettingViewModel: ObservableObject {
                 inputMemberInfo.removeLast()
             }
         }
+    }
+
+    func updateSliderColor() {
+        let nowHeadcount = range.upperBound - headcount
+
+        sliderCustomColor = (1...nowHeadcount).isEmpty
+        ? .blueLight3
+        : .blueLight1
+
     }
 
     func getTaskForCreatePerformance() -> Task<Performance?, Never> {

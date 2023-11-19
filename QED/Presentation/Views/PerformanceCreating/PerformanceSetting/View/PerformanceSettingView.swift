@@ -419,7 +419,9 @@ struct PerformanceSettingView: View {
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .foregroundColor(.black)
-                    .opacity(viewModel.musicTitle.isEmpty ? 0 : 0.1)
+                    .opacity(viewModel.musicTitle.isEmpty 
+                             ? 1
+                             : 0)
             }
         }
         .font(.title3)
@@ -450,32 +452,33 @@ struct PerformanceSettingView: View {
     
     var inputHeadcountContent: some View {
         VStack {
-            ZStack {
-                inputHeadcountTextField
                 HStack {
                     Button {
                         viewModel.decrementHeadcount()
                     } label: {
-                        if viewModel.headcount == 1 {
-                            Image("minus_off")
-                        } else {
-                            Image("minus_on")
-                        }
+                        Image (viewModel.headcount == 1
+                            ? "minus_off"
+                            : "minus_on"
+                        )
                     }
+                    Spacer()
+                    inputHeadcountTextField
                     Spacer()
                     Button {
                         viewModel.incrementHeadcount()
                     } label: {
-                        if viewModel.headcount == 13 {
-                            Image("plus_off")
-                        } else {
-                            Image("plus_on")
-                        }
+                        Image (viewModel.headcount == 13
+                            ? "plus_off"
+                            : "plus_on"
+                        )
                     }
                 }
-                .padding(.vertical)
-            }
-            .padding(.horizontal)
+                .background(
+                RoundedRectangle(cornerRadius: 35)
+                    .foregroundStyle(Color.monoNormal1)
+                    .frame(width: 320)
+                )
+                .padding(.horizontal, 20)
             slider
             headcountText
             inputMemperinfoTextFiledsView
@@ -488,18 +491,13 @@ struct PerformanceSettingView: View {
             .onAppear {
                 viewModel.toggleDisclosureGroup3()
             }
-            .foregroundColor(viewModel.headcount < 2 ? .monoWhite2 : .monoWhite3)
+            .foregroundColor(viewModel.headcount < 2 
+                             ? .monoWhite2
+                             : .monoWhite3)
             .multilineTextAlignment(.center)
             .font(.title3)
             .bold()
-            .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .foregroundStyle(Color.monoNormal1)
-                    .frame(width: 310)
-            )
-            .tint(Color.blueLight2)
-        
+            .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
     }
     
     var headcountText: some View {
@@ -517,8 +515,14 @@ struct PerformanceSettingView: View {
             in: 1 ... 13,
             step: 1
         )
-        .tint(Color.blueLight3)
+        .tint(Color.clear)
         .frame(width: 320)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 30)
+                    .fill(viewModel.sliderCustomColor)
+            }
+        )
     }
     
     var inputMemperinfoTextFiledsView: some View {
