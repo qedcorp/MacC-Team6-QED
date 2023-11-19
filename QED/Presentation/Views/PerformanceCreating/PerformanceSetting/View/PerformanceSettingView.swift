@@ -13,7 +13,6 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-//    @State private var message: Message?
     @State private var presentAlert = false
     @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
@@ -65,6 +64,11 @@ struct PerformanceSettingView: View {
                                 isFocused = false
                             }
                         }))
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            self.isFocused = true
+                        }
+                    }
                 }
                 
                 VStack {
