@@ -56,7 +56,7 @@ struct PerformanceSettingView: View {
                         }
                     }
                     .onTapGesture {
-                        endTextEditing()
+                            endTextEditing()
                     }
                     .simultaneousGesture(
                         DragGesture().onChanged({
@@ -498,6 +498,7 @@ struct PerformanceSettingView: View {
             .font(.title3)
             .bold()
             .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
+        
     }
     
     var headcountText: some View {
@@ -515,14 +516,8 @@ struct PerformanceSettingView: View {
             in: 1 ... 13,
             step: 1
         )
-        .tint(Color.clear)
+        .tint(Color.blueLight3)
         .frame(width: 320)
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 30)
-                    .fill(viewModel.sliderCustomColor)
-            }
-        )
     }
     
     var inputMemperinfoTextFiledsView: some View {

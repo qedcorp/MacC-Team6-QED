@@ -37,7 +37,6 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var headcount: Int = 1 {
         didSet(newValue) {
             updateHeadcount(newCount: newValue)
-            updateSliderColor()
         }
     }
     @Published var range: ClosedRange<Int> = 1...13
@@ -101,15 +100,6 @@ class PerformanceSettingViewModel: ObservableObject {
                 inputMemberInfo.removeLast()
             }
         }
-    }
-
-    func updateSliderColor() {
-        let nowHeadcount = range.upperBound - headcount
-
-        sliderCustomColor = (1...nowHeadcount).isEmpty
-        ? .blueLight3
-        : .blueLight1
-
     }
 
     func getTaskForCreatePerformance() -> Task<Performance?, Never> {
@@ -224,6 +214,10 @@ extension View {
             from: nil,
             for: nil
         )
+    }
+
+    func isKeyboardVisible() -> Bool {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0 > 0
     }
 
     func disclosureGroupLabelOpend() -> some View {
