@@ -101,7 +101,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
             afterFormation: afterFormation
         )
         objectViews.forEach { $0.removeFromSuperview() }
-        placeObjectViews(formation: beforeFormation, alpha: 0.3)
+        placeObjectViews(formation: beforeFormation, isBefore: true)
         placeObjectViews(formation: afterFormation)
         placeBezierPathLayers()
         addHistory()
@@ -115,11 +115,23 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         hapticManager.hapticImpact(style: .rigid)
     }
 
-    private func placeObjectViews(formation: Formation, alpha: CGFloat = 1) {
+    private func placeObjectViews(formation: Formation, isBefore: Bool = false) {
         formation.relativePositions.enumerated().forEach {
             let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
-            let color = formation.colors[safe: $0.offset]?.map { UIColor(hex: $0) } ?? .monoWhite3
-            placeObjectView(position: position, color: color.withAlphaComponent(alpha))
+            if isBefore {
+                let viewModel = DotObjectViewModel(
+                    radius: objectViewRadius - 1,
+                    color: .monoDarker,
+                    borderColor: .monoDark,
+                    borderWidth: 1
+                )
+                placeObjectView(position: position, viewModel: viewModel)
+            } else {
+                let viewModel = DotObjectViewModel(
+                    color: formation.colors[safe: $0.offset]?.map { UIColor(hex: $0) } ?? .monoWhite3
+                )
+                placeObjectView(position: position, viewModel: viewModel)
+            }
         }
     }
 
