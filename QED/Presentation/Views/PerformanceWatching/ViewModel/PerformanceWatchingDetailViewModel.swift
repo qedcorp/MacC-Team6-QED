@@ -170,7 +170,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
         $selectedIndex
             .sink { [unowned self] index in
-                currentMemo = performance?.entity.formations[index].memo ?? "메모없음"
+                currentMemo = performance?.entity.formations[index].memo ?? "대형 \(index + 1)"
             }
             .store(in: &bag)
     }
