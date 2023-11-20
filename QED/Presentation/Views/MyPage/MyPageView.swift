@@ -51,7 +51,7 @@ struct MyPageView: View {
             buildLeftItem()
             buildCenterItem()
         }
-        .onAppear {
+        .task {
             viewModel.getMe()
         }
     }
@@ -76,6 +76,7 @@ struct MyPageView: View {
                         }
                         Text("디렉터님")
                     }
+                    .frame(height: 34)
                 }
                 Spacer()
             }
@@ -98,7 +99,6 @@ struct MyPageView: View {
             if let email = viewModel.user.email {
                 Text(verbatim: email)
             }
-
             if let loginProvider = viewModel.loginProvider {
                 ZStack {
                     Circle()
@@ -107,7 +107,6 @@ struct MyPageView: View {
                     Image(loginProvider)
                 }
             }
-
             Spacer()
             Image(systemName: "chevron.right")
                 .onTapGesture {
