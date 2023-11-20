@@ -10,6 +10,7 @@ class PresetContainerViewModel: ObservableObject {
     let presetUseCase: PresetUseCase
     @Published private(set) var presets: [Preset] = []
     @Published private(set) var isGridPresented = false
+    @Published var isManaging = false
 
     init(
         headcount: Int?,
@@ -21,6 +22,7 @@ class PresetContainerViewModel: ObservableObject {
         self.canvasController = canvasController
         self.hapticManager = hapticManager
         self.presetUseCase = presetUseCase
+        fetchPresets()
     }
 
     func fetchPresets() {

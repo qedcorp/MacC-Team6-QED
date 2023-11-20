@@ -24,7 +24,7 @@ struct MemberCircleView: View {
                 Text(isNameVisiable ? name.prefix(2) : "")
                     .foregroundStyle(.white)
                     .font(.caption2)
-                    .bold()
+                    .fontWeight(.bold)
             }
         }
     }

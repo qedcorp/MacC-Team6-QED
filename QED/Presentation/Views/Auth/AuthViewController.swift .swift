@@ -46,20 +46,20 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     lazy var stepLabel: UILabel = {
         let object = UILabel()
         object.textColor = .white
-        object.font = .systemFont(ofSize: 20)
+        object.font = UIFont(name: "Pretendard-Regular", size: 20)
         return object
     }()
 
     lazy var titleBoldLabel: UILabel = {
         let object = UILabel()
-        object.font = .boldSystemFont(ofSize: 30)
+        object.font = UIFont(name: "Pretendard-Bold", size: 30)
         object.textColor = .white
         return object
     }()
 
     lazy var titleRegularLabel: UILabel = {
         let object = UILabel()
-        object.font = .systemFont(ofSize: 30)
+        object.font = UIFont(name: "Pretendard-Regular", size: 30)
         object.textColor = .white
         return object
     }()
@@ -71,7 +71,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     lazy var scrollView: UIScrollView = {
         let object = UIScrollView()
-        object.contentSize = CGSize(width: Int(scrollWidth) * pages.count, height: Int(scrollHeight))
+        object.contentSize = CGSize(width: scrollWidth * CGFloat(pages.count), height: scrollHeight)
         object.delegate = self
         object.alwaysBounceVertical = false
         object.showsHorizontalScrollIndicator = false
@@ -175,12 +175,12 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         view.layoutIfNeeded()
 
         for page in pages {
-            let image = UIImage(named: page.image)
+            let image = UIImage.gifImageWithName(page.image)
             let imageView = UIImageView(image: image)
             scrollView.addSubview(imageView)
             imageView.snp.makeConstraints {
-                $0.width.equalTo(scrollView.snp.width)
-                $0.height.equalTo(scrollView.snp.height)
+                $0.width.equalTo(scrollWidth)
+                $0.height.equalTo(scrollHeight)
                 $0.leading.equalTo(scrollView.snp.leading)
                     .offset(scrollView.bounds.width * CGFloat(page.rawValue))
             }
@@ -268,9 +268,9 @@ enum LoginPages: Int, CaseIterable {
 
     var image: String {
         switch self {
-        case .pageZero: return "MockMain"
-        case .pageFirst: return "splash"
-        case .pageSecond: return "background"
+        case .pageZero: return "login1"
+        case .pageFirst: return "login2"
+        case .pageSecond: return "login3"
         }
     }
 }

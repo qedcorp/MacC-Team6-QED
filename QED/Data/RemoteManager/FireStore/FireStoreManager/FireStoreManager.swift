@@ -47,13 +47,14 @@ final class FireStoreManager: RemoteManager {
                 dataDic[label] = child.value
             }
         }
-
+        
         do {
             switch createType {
             case .noneKey:
-                fireStroeDB
+                try! await fireStroeDB
                     .collection(fireStoreData.collectionName)
-                    .addDocument(data: dataDic)
+                    .document(entityConvertable.fireStoreID)
+                    .setData(dataDic)
                 
             case .hasKey:
                 let document = fireStroeDB
@@ -69,7 +70,6 @@ final class FireStoreManager: RemoteManager {
             guard let result = entityConvertable as? T else {
                 return .failure(FireStoreError.fetchFailure)
             }
-            
             return .success(result)
         }
         catch {

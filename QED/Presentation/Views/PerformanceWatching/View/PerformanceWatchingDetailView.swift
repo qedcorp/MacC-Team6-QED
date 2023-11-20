@@ -17,7 +17,7 @@ struct PerformanceWatchingDetailView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack {
+            VStack(spacing: 0) {
                 buildTitleAndHeadcountView(geometry: geometry)
                 VStack(spacing: 8) {
                     VStack {
@@ -38,24 +38,6 @@ struct PerformanceWatchingDetailView: View {
                 buildPlayerView()
                 buildTabBar(geometry: geometry)
             }
-            .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
-                buildSettingSheetView()
-            }
-            .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-                if let performance = viewModel.performance?.entity {
-                    PerformanceWatchingListView(performance: performance,
-                                                isAllFormationVisible: $viewModel.isAllFormationVisible,
-                                                selectedIndex: $viewModel.selectedIndex
-                    )
-                }
-            }
-            .navigationBarBackButtonHidden()
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                buildLeftItem()
-                buildTitleItem()
-                buildRightItem()
-            }
         }
         .background {
             Image("background")
@@ -66,6 +48,13 @@ struct PerformanceWatchingDetailView: View {
             buildZoomableMovementEditingView()
             : nil
         )
+        .navigationBarBackButtonHidden()
+        .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
+        .toolbar {
+            buildLeftItem()
+            buildTitleItem()
+            buildRightItem()
+        }
         .task {
             viewModel.setupWithDependency(dependency)
         }
@@ -79,6 +68,18 @@ struct PerformanceWatchingDetailView: View {
                 }
             }
         }
+        .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
+            buildSettingSheetView()
+        }
+        .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
+            if let performance = viewModel.performance?.entity {
+                PerformanceWatchingListView(performance: performance,
+                                            isAllFormationVisible: $viewModel.isAllFormationVisible,
+                                            selecteIndex: viewModel.selectedIndex,
+                                            action: viewModel.action
+                )
+            }
+        }
     }
 
     private func buildMovementEditingView(
@@ -87,8 +88,8 @@ struct PerformanceWatchingDetailView: View {
     ) -> some View {
         let height = width * CGFloat(12 / Float(19))
         return ZStack {
-            if let beforeFormation = viewModel.currentFormation,
-               let afterFormation = viewModel.nextFormation {
+            if let beforeFormation = viewModel.beforeFormation,
+               let afterFormation = viewModel.currentFormation {
                 ObjectMovementAssigningView(
                     controller: controller,
                     beforeFormation: beforeFormation,
@@ -154,24 +155,24 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildTitleAndHeadcountView(geometry: GeometryProxy) -> some View {
         HStack {
-            Text(viewModel.performance?.music.title ?? "")
-                .bold()
-                .lineLimit(1)
+            if let title = viewModel.performance?.music.title {
+                Text(title == "_" ? "선택한 노래없음" : title)
+                    .lineLimit(1)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Color.monoWhite3)
+            }
             Text("\(viewModel.performance?.headcount ?? 0)인")
-                .padding(.vertical, 3)
-                .padding(.horizontal, 8)
-                .background(Color(.systemGray5))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .bold()
+                .font(.caption2)
+                .padding(.vertical, 2)
+                .padding(.horizontal, 7)
+                .background(Color.monoWhite3)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
         }
-        .font(.subheadline)
-        .foregroundStyle(.gray)
-        .padding(.horizontal, 20)
         .padding(.bottom, geometry.size.height * 0.1)
     }
 
     private func buildMemo() -> some View {
-        let memo = viewModel.performance?.formations[safe: viewModel.selectedIndex]?.memo
-        ?? "대형 \(viewModel.selectedIndex)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
@@ -181,7 +182,7 @@ struct PerformanceWatchingDetailView: View {
                         .strokeBorder(Gradient.strokeGlass3, lineWidth: 1)
                 )
 
-            Text(memo)
+            Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
                 .font(.title3)
         }
@@ -190,40 +191,42 @@ struct PerformanceWatchingDetailView: View {
     private func buildPlayerView() -> some View {
         ZStack {
             if let performance = viewModel.performance?.entity {
-                GeometryReader { _ in
-                    ScrollObservableView(performance: performance, action: viewModel.action)
-                    buildAllFormationButton()
-                }
-                .frame(height: PlayBarConstants.playBarHeight + 25)
+                ScrollObservableView(performance: performance, action: viewModel.action)
+                .frame(height: PlayBarConstants.playBarHeight)
             }
         }
         .padding(.bottom)
     }
-
     private func buildTabBar(geometry: GeometryProxy) -> some View {
+       ZStack {
         HStack {
             Button {
                 withAnimation(.spring) {
                     viewModel.isTransitionEditable.toggle()
                     if viewModel.isTransitionEditable {
+                      if viewModel.selectedIndex == 0 {
+                                viewModel.action.send(.setSelctedIndex(1))
+                       }
                         viewModel.isPlaying = false
                         viewModel.presentEditingModeToastMessage()
                     }
+                    }
+                } label: {
+                    Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
                 }
-            } label: {
-                Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
+                Rectangle().foregroundStyle(.clear).frame(height: 1)
+                buildAllFormationButton()
+                Spacer(minLength: 20)
+                Button {
+                    viewModel.isSettingSheetVisible.toggle()
+                } label: {
+                    Image("setting")
+                }
             }
-            Spacer()
             if viewModel.isPlaying {
                 buildPuaseButton()
             } else {
                 buildPlayButton()
-            }
-            Spacer()
-            Button {
-                viewModel.isSettingSheetVisible.toggle()
-            } label: {
-                Image("setting")
             }
         }
         .padding(.horizontal, 24)
@@ -235,9 +238,7 @@ struct PerformanceWatchingDetailView: View {
         Button {
             viewModel.isAllFormationVisible = true
         } label: {
-            Image("showAllFrames")
-                .frame(height: PlayBarConstants.playBarHeight + 25)
-                .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 14))
+            Image("showAllFormationButton")
         }
     }
 
@@ -291,7 +292,7 @@ struct PerformanceWatchingDetailView: View {
                     }
                 }
                 .font(.title2)
-                .bold()
+                .fontWeight(.bold)
                 .foregroundStyle(.white)
                 buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
                 buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
@@ -344,7 +345,7 @@ struct PerformanceWatchingDetailView: View {
         ToolbarItem(placement: .principal) {
             Text("대형보기")
                 .foregroundStyle(.white)
-                .bold()
+                .fontWeight(.heavy)
         }
     }
 

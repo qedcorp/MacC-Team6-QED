@@ -45,6 +45,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var offset: CGFloat = 0
     @Published var selectedIndex = 0
+    @Published var currentMemo = ""
 
     @Published var isTransitionEditable = false {
         didSet {
@@ -78,8 +79,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         performance?.formations[safe: currentIndex]?.entity
     }
 
-    var nextFormation: Formation? {
-        performance?.formations[safe: currentIndex + 1]?.entity
+    var beforeFormation: Formation? {
+        performance?.formations[safe: currentIndex - 1]?.entity
     }
 
     var movementMapTag: String {
@@ -123,17 +124,24 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         return map
     }
 
+    var isNavigationBarHidden: Bool {
+        isZoomed
+    }
+
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
-        if let entity = dependency.performanceSettingManager?.performance {
-            performance = .build(entity: entity)
+        performance = nil
+        DispatchQueue.main.async { [unowned self] in
+            if let entity = dependency.performanceSettingManager?.performance {
+                performance = .build(entity: entity)
+            }
+            isAllFormationVisible = dependency.isAllFormationVisible
+            performanceSettingManager = dependency.performanceSettingManager
+            toastContainerViewModel = dependency.toastContainerViewModel
+            bindingPublishers()
+            mappingIndexFromOffset()
+            subscribePerformanceSettingManager()
+            assignControllerToArchiverByZoomed()
         }
-        isAllFormationVisible = dependency.isAllFormationVisible
-        performanceSettingManager = dependency.performanceSettingManager
-        toastContainerViewModel = dependency.toastContainerViewModel
-        bindingPublishers()
-        mappingIndexFromOffset()
-        subscribePerformanceSettingManager()
-        assignControllerToArchiverByZoomed()
     }
 
     private func bindingPublishers() {
@@ -141,8 +149,19 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             .sink { [weak self] purpose in
                 guard let self = self else { return }
                 switch purpose {
+                case let .getSelctedIndex(index):
+                    self.selectedIndex = index
                 case let .getOffset(offset):
                     self.offset = offset
+                    guard let currentIndex = offsetMap[offset] else { return }
+                    action.send(.getSelctedIndex(currentIndex.index))
+                case let .setSelctedIndex(index):
+                    for element in offsetMap {
+                        let framInfo = element.value
+                        if framInfo == .formation(index: index) {
+                            action.send(.setOffset(element.key.lowerBound))
+                        }
+                    }
                 default:
                     break
                 }
@@ -151,12 +170,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
         $selectedIndex
             .sink { [unowned self] index in
-                for element in offsetMap {
-                    let framInfo = element.value
-                    if framInfo == .formation(index: index) {
-                        action.send(.setOffset(element.key.lowerBound))
-                    }
-                }
+                currentMemo = performance?.entity.formations[index].memo ?? "메모없음"
             }
             .store(in: &bag)
     }

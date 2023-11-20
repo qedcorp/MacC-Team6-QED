@@ -44,10 +44,13 @@ class ObjectStageViewController: UIViewController {
         copiedFormable = nil
     }
 
-    func placeObjectView(position: CGPoint, color: UIColor) {
+    func placeObjectView(position: CGPoint, viewModel: DotObjectViewModel) {
         let objectView = DotObjectView()
-        objectView.radius = objectViewRadius
-        objectView.color = color
+        objectView.radius = viewModel.radius ?? objectViewRadius
+        objectView.color = viewModel.color
+        objectView.borderColor = viewModel.borderColor
+        objectView.borderWidth = viewModel.borderWidth
+        objectView.alpha = viewModel.alpha ?? 1
         objectView.assignPosition(position)
         replaceObjectViewAtRelativePosition(objectView)
         view.addSubview(objectView)
@@ -71,8 +74,10 @@ class ObjectStageViewController: UIViewController {
         let colors = (formable as? ColorArrayable)?.colors ?? []
         formable.relativePositions.enumerated().forEach {
             let position = relativeCoordinateConverter.getAbsoluteValue(of: $0.element)
-            let color = (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .monoWhite3
-            placeObjectView(position: position, color: color)
+            let viewModel = DotObjectViewModel(
+                color: (isColorAssignable ? colors[safe: $0.offset]?.map { UIColor(hex: $0) } : nil) ?? .monoWhite3
+            )
+            placeObjectView(position: position, viewModel: viewModel)
         }
     }
 

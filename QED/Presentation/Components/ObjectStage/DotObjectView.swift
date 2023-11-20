@@ -6,15 +6,7 @@ import SnapKit
 
 class DotObjectView: UIView {
     var radius: CGFloat? {
-        didSet {
-            guard let radius = radius else {
-                return
-            }
-            frame.size = .init(width: radius * 2, height: radius * 2)
-            layer.cornerRadius = radius
-            borderLayer.frame = bounds.insetBy(dx: -borderLayer.borderWidth, dy: -borderLayer.borderWidth)
-            borderLayer.cornerRadius = radius + borderLayer.borderWidth
-        }
+        didSet { updateRadius() }
     }
 
     var color: UIColor? {
@@ -23,6 +15,13 @@ class DotObjectView: UIView {
 
     var borderColor: UIColor? {
         didSet { borderLayer.borderColor = (borderColor ?? .clear).cgColor }
+    }
+
+    var borderWidth: CGFloat? {
+        didSet {
+            borderLayer.borderWidth = borderWidth ?? 0
+            updateRadius()
+        }
     }
 
     var name: String? {
@@ -45,8 +44,8 @@ class DotObjectView: UIView {
 
     private lazy var borderLayer = {
         let border = CALayer()
-        border.borderWidth = 2.5
         border.borderColor = UIColor.clear.cgColor
+        border.borderWidth = 0
         layer.addSublayer(border)
         return border
     }()
@@ -73,5 +72,15 @@ class DotObjectView: UIView {
             x: last.x + diff.x,
             y: last.y + diff.y
         )
+    }
+
+    private func updateRadius() {
+        guard let radius = radius else {
+            return
+        }
+        frame.size = .init(width: radius * 2, height: radius * 2)
+        layer.cornerRadius = radius
+        borderLayer.frame = bounds.insetBy(dx: -borderLayer.borderWidth, dy: -borderLayer.borderWidth)
+        borderLayer.cornerRadius = radius + borderLayer.borderWidth
     }
 }

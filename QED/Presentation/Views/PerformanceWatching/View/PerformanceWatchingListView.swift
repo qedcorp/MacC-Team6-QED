@@ -5,20 +5,26 @@
 //  Created by chaekie on 10/18/23.
 //
 
+import Combine
 import SwiftUI
 
 struct PerformanceWatchingListView: View {
-    @Binding var selectedIndex: Int
+    typealias ValuePurpose = ScrollObservableView.ValuePurpose
+
     @Binding var isAllFormationVisible: Bool
+    var selectedIndex: Int
+    var action: CurrentValueSubject<ValuePurpose, Never>
     var performance: Performance
 
     init(performance: Performance,
          isAllFormationVisible: Binding<Bool>,
-         selectedIndex: Binding<Int>) {
+         selecteIndex: Int,
+         action: CurrentValueSubject<ValuePurpose, Never>) {
 
         self.performance = performance
         self._isAllFormationVisible = isAllFormationVisible
-        self._selectedIndex = selectedIndex
+        self.selectedIndex = selecteIndex
+        self.action = action
     }
 
     var body: some View {
@@ -28,15 +34,20 @@ struct PerformanceWatchingListView: View {
                 buildHeaderView()
                 buildPerformanceScrollView()
             }
-            .padding(.horizontal, 24)
+            .padding(24)
         }
         .presentationDragIndicator(.visible)
     }
 
+    private let columns: [GridItem] = [
+        GridItem(spacing: 16, alignment: nil),
+        GridItem(spacing: 16, alignment: nil)
+    ]
+
     private func buildHeaderView() -> some View {
         HStack {
             Text("전체 대형 보기")
-                .bold()
+                .fontWeight(.bold)
                 .font(.title3)
                 .foregroundStyle(Color.monoWhite3)
             Spacer()
@@ -50,32 +61,22 @@ struct PerformanceWatchingListView: View {
 
     private func buildPerformanceScrollView() -> some View {
         let formations = performance.formations
-        let chunkNumber = 2
 
         return ScrollView {
-            Grid {
-                ForEach(Array(
-                    stride(from: 0, to: formations.count, by: chunkNumber)
-                ), id: \.self) { rowIndex in
-                    HStack {
-                        ForEach(0..<chunkNumber, id: \.self) { columnIndex in
-                            if rowIndex + columnIndex < formations.count {
-                                DanceFormationView(
-                                    formation: formations[rowIndex + columnIndex],
-                                    index: rowIndex + columnIndex,
-                                    width: 163,
-                                    height: 123
-                                )
-                                .onTapGesture {
-                                    selectedIndex = rowIndex + columnIndex
-                                    isAllFormationVisible = false
-                                }
-
-                            }
-                            Spacer()
-                        }
+            LazyVGrid(columns: columns,
+                      alignment: .center,
+                      spacing: 10,
+                      pinnedViews: .sectionHeaders) {
+                ForEach(Array(formations.enumerated()), id: \.offset) { (index, _) in
+                    DanceFormationView(
+                        formation: formations[index],
+                        index: index,
+                        selectedIndex: selectedIndex
+                    )
+                    .onTapGesture {
+                        action.send(.setSelctedIndex(index))
+                        isAllFormationVisible = false
                     }
-                    .padding(.bottom)
                 }
             }
         }

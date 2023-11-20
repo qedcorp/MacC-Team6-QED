@@ -13,24 +13,6 @@ class MemberSettingViewModel: ObservableObject {
     @Published private(set) var editingMemberInfoIndex: Int?
     private var cancellables: Set<AnyCancellable> = []
 
-    func setupWithDependency(_ dependency: MemberSettingViewDependency) {
-        performance = .build(entity: dependency.performanceSettingManager.performance)
-        performanceSettingManager = dependency.performanceSettingManager
-        performanceUseCase = dependency.performanceUseCase
-        hapticManager = dependency.hapticManager
-        subscribePerformanceSettingManager()
-    }
-
-    private func subscribePerformanceSettingManager() {
-        performanceSettingManager?.changingPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { [unowned self] in
-                performance = $0
-            }
-            .store(in: &cancellables)
-    }
-
     var musicTitle: String {
         performance?.music.title ?? ""
     }
@@ -61,6 +43,10 @@ class MemberSettingViewModel: ObservableObject {
         performance?.formations ?? []
     }
 
+    var isNavigationBarHidden: Bool {
+        editingMemberInfoIndex != nil
+    }
+
     var isEnabledToSave: Bool {
         performance?.formations.allSatisfy { !$0.colors.contains(nil) } == true
     }
@@ -72,7 +58,7 @@ class MemberSettingViewModel: ObservableObject {
         }
         if performance.isCompleted {
             let depepndency = PerformanceWatchingViewDependency(
-                isAllFormationVisible: false,
+                isAllFormationVisible: true,
                 performanceSettingManager: performanceSettingManager
             )
             return .performanceWatching(depepndency)
@@ -80,6 +66,24 @@ class MemberSettingViewModel: ObservableObject {
             let dependency = FormationSettingViewDependency(performance: performance)
             return .formationSetting(dependency)
         }
+    }
+
+    func setupWithDependency(_ dependency: MemberSettingViewDependency) {
+        performance = .build(entity: dependency.performanceSettingManager.performance)
+        performanceSettingManager = dependency.performanceSettingManager
+        performanceUseCase = dependency.performanceUseCase
+        hapticManager = dependency.hapticManager
+        subscribePerformanceSettingManager()
+    }
+
+    private func subscribePerformanceSettingManager() {
+        performanceSettingManager?.changingPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [unowned self] in
+                performance = $0
+            }
+            .store(in: &cancellables)
     }
 
     func selectMember(index: Int) {

@@ -13,6 +13,7 @@ enum PresentType: Hashable {
     case formationSetting(FormationSettingViewDependency)
     case memberSetting(MemberSettingViewDependency)
     case performanceWatching(PerformanceWatchingViewDependency)
-    case myPage
-    case performanceListReading([Performance])
+    case myPage(MyPageViewDependency)
+    case accountInfo(AccountInfoViewDependency)
+    case performanceListReading(PerformanceListReadingViewDependency)
 }

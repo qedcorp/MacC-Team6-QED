@@ -12,25 +12,17 @@ struct DanceFormationView: View {
     var formation: Formation
     var index: Int
     var selectedIndex: Int = -1
-    var width: CGFloat
-    var height: CGFloat
     var isNameVisible: Bool = false
-    var hideLine: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 2) {
             GeometryReader { geometry in
                 ZStack {
                     buildDanceFormationBackground()
-
-                    if !self.hideLine {
-                        buildCenterline()
-                    }
-
                     buildSetCircleView(geometry: geometry)
                 }
             }
-            .frame(width: width, height: height)
+            .aspectRatio(163/123, contentMode: .fit)
             .clipped()
 
             buildLyric()
@@ -41,7 +33,7 @@ struct DanceFormationView: View {
         Rectangle()
             .fill(Color.monoNormal1)
             .clipShape(RoundedRectangle(cornerRadius: 5))
-            .frame(width: width, height: height)
+            .aspectRatio(163/123, contentMode: .fit)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .strokeBorder(
@@ -51,23 +43,11 @@ struct DanceFormationView: View {
             )
     }
 
-    private func buildCenterline() -> some View {
-        ZStack {
-            Divider()
-                .background(Color.blueLight3)
-            HStack {
-                Divider()
-                    .background(Color.blueLight3)
-            }
-        }
-        .frame(width: width, height: height)
-    }
-
     private func buildSetCircleView(geometry: GeometryProxy) -> some View {
         ForEach(formation.members, id: \.self) { member in
             let viewSize: UIView = {
                 let view = UIView()
-                view.frame.size = CGSize(width: width, height: height)
+                view.frame.size = CGSize(width: geometry.size.width, height: geometry.size.height)
                 return view
             }()
 
@@ -82,22 +62,21 @@ struct DanceFormationView: View {
     }
 
     private func buildLyric() -> some View {
-        HStack(spacing: 3) {
+        HStack(alignment: .center, spacing: 3) {
             Text("\(index + 1)")
                 .frame(width: 13, height: 12)
                 .background(index == selectedIndex ? Color.blueLight3 : .white)
                 .foregroundStyle(index == selectedIndex ? Color.monoWhite3 : Color.monoBlack)
                 .clipShape(RoundedRectangle(cornerRadius: 2))
 
-            Text(formation.memo ?? "")
+            Text(formation.memo ?? "대형 \(index + 1)")
                 .lineLimit(1)
                 .foregroundStyle(index == selectedIndex ? Color.blueLight3 : .white)
 
             Spacer()
         }
-        .frame(width: width)
         .font(.caption2)
-        .bold()
+        .fontWeight(.bold)
     }
 }
 

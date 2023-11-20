@@ -14,13 +14,13 @@ class MyPageViewModel: ObservableObject {
     @Published var loginProvider: String?
     @Published var alertMessage: [Message?] = []
 
-    init() {
-        self.authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)
-        alertMessage = [
+    init(authUseCase: AuthUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)) {
+        self.authUseCase = authUseCase
+        self.alertMessage = [
             .confirmation(title: AlertMessage.logout.title,
-                         body: AlertMessage.logout.body,
-                         label: AlertMessage.logout.lebel,
-                         action: logout),
+                          body: AlertMessage.logout.body,
+                          label: AlertMessage.logout.lebel,
+                          action: logout),
             .destruction(title: AlertMessage.withdrawal.title,
                          body: AlertMessage.withdrawal.body,
                          label: AlertMessage.withdrawal.lebel,
