@@ -53,10 +53,12 @@ class PerformanceListReadingViewModel: ObservableObject {
     func deletePerformance(index: Int, performanceID: String) {
         Task {
             do {
-                let deleteResult = try await performanceUseCase.removePerformance(performanceID)
-                if deleteResult {
-                    performances.remove(at: index)
-                    toastContainerViewModel.presentMessage("프로젝트가 삭제되었습니다")
+                if !performanceID.isEmpty {
+                    let deleteResult = try await performanceUseCase.removePerformance(performanceID)
+                    if deleteResult {
+                        performances.removeAll { $0.entity.id == performanceID }
+                        toastContainerViewModel.presentMessage("프로젝트가 삭제되었습니다")
+                    }
                 }
             } catch {
                 toastContainerViewModel.presentMessage("프로젝트 삭제에 실패했습니다")

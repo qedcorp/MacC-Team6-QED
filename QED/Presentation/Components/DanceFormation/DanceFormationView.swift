@@ -11,7 +11,7 @@ import UIKit
 struct DanceFormationView: View {
     var formation: Formation
     var index: Int
-    var selectedIndex: Int = -1
+    var selectedIndex: Int = 0
     var isNameVisible: Bool = false
 
     var body: some View {
@@ -68,6 +68,7 @@ struct DanceFormationView: View {
                 .background(index == selectedIndex ? Color.blueLight3 : .white)
                 .foregroundStyle(index == selectedIndex ? Color.monoWhite3 : Color.monoBlack)
                 .clipShape(RoundedRectangle(cornerRadius: 2))
+                .font(.system(size: 8))
 
             Text(formation.memo ?? "대형 \(index + 1)")
                 .lineLimit(1)

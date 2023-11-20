@@ -28,7 +28,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     init(authProvider: Binding<AuthProviderType>) {
         scrollWidth = screenWidth * 0.66
-        scrollHeight = screenHeight * 0.43
+        scrollHeight = scrollWidth * 1.52
         self._authProvider = authProvider
         super.init(nibName: nil, bundle: nil)
     }
