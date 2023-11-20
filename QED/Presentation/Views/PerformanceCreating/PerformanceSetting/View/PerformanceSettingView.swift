@@ -54,9 +54,6 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
-                    .onDisappear {
-                    presentAlert = true
-                    }
 //                    .onTapGesture {
 //                            endTextEditing()
 //                    }
@@ -194,7 +191,7 @@ struct PerformanceSettingView: View {
             .multilineTextAlignment(.center)
             .font(.headline)
             .bold(!viewModel.performanceTitle.isEmpty)
-            .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
+            .padding(EdgeInsets(top: 13, leading: 10, bottom: 13, trailing: 10))
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundStyle(viewModel.performanceTitle.isEmpty
@@ -316,6 +313,9 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             }
         })
+        .onAppear {
+            isSearchFromEmptyText = true
+        }
     }
     
     @ViewBuilder
@@ -409,7 +409,7 @@ struct PerformanceSettingView: View {
                                  ? Color.monoNormal2
                                  : Color.monoWhite3)
                 .multilineTextAlignment(.center)
-                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
+                .padding(EdgeInsets(top: 13, leading: 7, bottom: 13, trailing: 7))
                 .tint(Color.blueLight2)
                 .onTapGesture {
                     withAnimation {
@@ -418,14 +418,9 @@ struct PerformanceSettingView: View {
                 }
             Spacer()
             Button {
-                viewModel.musicSearch = ""
-                isSearchFromEmptyText = true
-                
+                searchMusic()
             } label: {
-                Image("xmark")
-                    .opacity(viewModel.musicTitle.isEmpty
-                             ? 1
-                             : 0)
+                Image("musicSearch")
             }
         }
         .font(.title3)
