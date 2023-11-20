@@ -38,6 +38,14 @@ class PerformanceSettingManager {
             .store(in: &cancellables)
     }
 
+    func updateImmediately() async throws {
+        do {
+            try await performanceUseCase.updatePerformance(performance)
+        } catch {
+            throw error
+        }
+    }
+
     func addFormation(_ formation: Formation, index: Int) {
         performance.formations.insert(formation, at: index)
         didChange()
