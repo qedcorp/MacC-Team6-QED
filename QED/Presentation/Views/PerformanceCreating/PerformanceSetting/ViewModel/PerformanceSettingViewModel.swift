@@ -23,11 +23,9 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var isExpanded2: Bool = false
     @Published var isExpanded3: Bool = false
     @Published var scrollToID: Int?
-    @State private var focusedIndex: Int?
 
     @Published var performanceTitle: String = ""
     @Published var musicSearch: String = ""
-    @Published var allMusics: [Music] = []
     @Published var searchedMusics: [Music] = []
     @Published var isSearchingMusic: Bool = false
     @Published var selectedMusic: Music?
@@ -42,9 +40,6 @@ class PerformanceSettingViewModel: ObservableObject {
     @Published var range: ClosedRange<Int> = 1...13
 
     @Published var inputMemberInfo: [String] = []
-    @Published var sliderCustomColor: Color = .blueLight3.opacity(0.3)
-//    @Published var isShowingNextView: Bool = false
-    @Published var alertMessage: [Message?] = []
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
         musicRepository: DefaultMusicRepository()
