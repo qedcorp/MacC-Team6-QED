@@ -72,7 +72,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
 
     var currentIndex: Int {
-        offsetMap[offset]?.index ?? -1
+        min(offsetMap[offset]?.index ?? 0, performance?.formations.count ?? 0)
     }
 
     var currentFormation: Formation? {
@@ -130,7 +130,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
         performance = nil
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
             if let entity = dependency.performanceSettingManager?.performance {
                 performance = .build(entity: entity)
             }
@@ -146,11 +146,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     private func bindingPublishers() {
         action
-            .sink { [weak self] purpose in
-                guard let self = self else { return }
+            .sink { [unowned self] purpose in
                 switch purpose {
                 case let .getSelctedIndex(index):
-                    self.selectedIndex = index
+                    selectedIndex = index
                 case let .getOffset(offset):
                     self.offset = offset
                     guard let currentIndex = offsetMap[offset] else { return }

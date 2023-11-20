@@ -26,7 +26,7 @@ struct PerformanceWatchingDetailView: View {
                 VStack(spacing: 8) {
                     VStack {
                         buildMemo()
-                        if viewModel.isTransitionEditable {
+                        if viewModel.isTransitionEditable && viewModel.currentIndex > 0 {
                             buildMovementEditingView(
                                 controller: viewModel.movementController,
                                 width: geometry.size.width - 48
