@@ -397,10 +397,6 @@ struct PerformanceSettingView: View {
     
     func musicSearchFieldView() -> some View {
         HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundStyle(Color.gray)
-                .bold()
-            
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
                 .focused($isFocused)
                 .font(.headline)
@@ -415,7 +411,7 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(viewModel.musicSearch == ""
                                  ? Color.monoNormal2
                                  : Color.monoWhite3)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
                 .padding(EdgeInsets(top: 13, leading: 7, bottom: 13, trailing: 7))
                 .tint(Color.blueLight2)
                 .onTapGesture {
