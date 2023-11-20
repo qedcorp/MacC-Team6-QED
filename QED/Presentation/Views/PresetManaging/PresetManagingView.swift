@@ -21,6 +21,7 @@ struct PresetManagingView: View {
                     ),
                     in: 2 ... 13
                 )
+
                 Text("\(viewModel.headcount)인")
                 ObjectCanvasView(
                     controller: viewModel.canvasController,

@@ -28,7 +28,6 @@ class MainViewModel: ObservableObject {
                 }
             }
         }
-
     }
 
     func fetchUser() {
