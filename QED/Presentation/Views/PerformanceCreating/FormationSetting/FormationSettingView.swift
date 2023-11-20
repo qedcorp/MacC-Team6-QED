@@ -48,20 +48,18 @@ struct FormationSettingView: View {
                     PerformanceSettingTitleView(step: 1, title: "대형짜기")
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Text("다음")
-                        .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
-                        .disabled(!viewModel.isEnabledToSave)
-                        .onTapGesture {
-                            guard let performanceSettingManager = viewModel.performanceSettingManager,
-                                  let performanceUseCase = viewModel.performanceUseCase else {
-                                return
-                            }
-                            let dependency = MemberSettingViewDependency(
-                                performanceSettingManager: performanceSettingManager,
-                                performanceUseCase: performanceUseCase
-                            )
-                            path.append(.memberSetting(dependency))
+                    Button("다음") {
+                        guard let performanceSettingManager = viewModel.performanceSettingManager,
+                              let performanceUseCase = viewModel.performanceUseCase else {
+                            return
                         }
+                        let dependency = MemberSettingViewDependency(
+                            performanceSettingManager: performanceSettingManager,
+                            performanceUseCase: performanceUseCase
+                        )
+                        path.append(.memberSetting(dependency))
+                    }
+                    .disabled(!viewModel.isEnabledToSave)
                 }
             }
         }
@@ -86,11 +84,12 @@ struct FormationSettingView: View {
     }
 
     private func buildMemoButtonView() -> some View {
-        MemoButtonView(memo: viewModel.currentFormation?.memo, isHighlighted: !viewModel.hasMemoBeenInputted)
-            .modifier(disabledOpacityModifier)
-            .onTapGesture {
-                viewModel.presentMemoForm()
-            }
+        Button {
+            viewModel.presentMemoForm()
+        } label: {
+            MemoButtonView(memo: viewModel.currentFormation?.memo, isHighlighted: !viewModel.hasMemoBeenInputted)
+        }
+        .modifier(disabledOpacityModifier)
     }
 
     private func buildObjectCanvasContainerView(width: CGFloat) -> some View {
@@ -200,60 +199,61 @@ struct FormationSettingView: View {
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {
         let isSelected = index == viewModel.currentFormationIndex
         let cornerRadius: CGFloat = 5
-        return GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 4) {
-                ObjectStageView(formable: formation)
-                    .frame(width: 94, height: 61)
-                    .background(
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(isSelected ? Color.blueLight2 : Color.monoNormal2)
-                            .blur(radius: 50)
-                    )
-                    .overlay(
-                        ZStack {
-                            if isSelected {
-                                RoundedRectangle(cornerRadius: cornerRadius)
-                                    .strokeBorder(Color.blueLight3, lineWidth: 1)
-                            } else {
-                                RoundedRectangle(cornerRadius: cornerRadius)
-                                    .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
-                            }
-                        }
-                    )
-                    .mask {
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                    }
-                HStack(spacing: 3) {
-                    Text("\(index + 1)")
-                        .foregroundStyle(Color.monoWhite3)
-                        .multilineTextAlignment(.center)
-                        .frame(minWidth: 13)
-                        .background(
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(isSelected ? Color.blueLight3 : Color.monoNormal2)
-                        )
-                    Text(formation.memo ?? "대형 \(index + 1)")
-                        .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoNormal2)
-                        .lineLimit(1)
-                }
-                .font(.caption2.weight(isSelected ? .bold : .regular))
-                .frame(height: 13)
-                .transaction {
-                    $0.animation = nil
-                }
-            }
-            .id(index)
-            .onAppear {
-                let frame = geometry.frame(in: .global)
-                viewModel.updateFormationItemFrameMap(frame, index: index)
-            }
-            .onChange(of: geometry.frame(in: .global)) {
-                viewModel.updateFormationItemFrameMap($0, index: index)
-            }
-        }
-        .aspectRatio(94 / 79, contentMode: .fit)
-        .onTapGesture {
+        return Button {
             viewModel.selectFormation(index: index)
+        } label: {
+            GeometryReader { geometry in
+                VStack(alignment: .leading, spacing: 4) {
+                    ObjectStageView(formable: formation)
+                        .frame(width: 94, height: 61)
+                        .background(
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .fill(isSelected ? Color.blueLight2 : Color.monoNormal2)
+                                .blur(radius: 50)
+                        )
+                        .overlay(
+                            ZStack {
+                                if isSelected {
+                                    RoundedRectangle(cornerRadius: cornerRadius)
+                                        .strokeBorder(Color.blueLight3, lineWidth: 1)
+                                } else {
+                                    RoundedRectangle(cornerRadius: cornerRadius)
+                                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                                }
+                            }
+                        )
+                        .mask {
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                        }
+                    HStack(spacing: 3) {
+                        Text("\(index + 1)")
+                            .foregroundStyle(Color.monoWhite3)
+                            .multilineTextAlignment(.center)
+                            .frame(minWidth: 13)
+                            .background(
+                                RoundedRectangle(cornerRadius: 2)
+                                    .fill(isSelected ? Color.blueLight3 : Color.monoNormal2)
+                            )
+                        Text(formation.memo ?? "대형 \(index + 1)")
+                            .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoNormal2)
+                            .lineLimit(1)
+                    }
+                    .font(.caption2.weight(isSelected ? .bold : .regular))
+                    .frame(height: 13)
+                    .transaction {
+                        $0.animation = nil
+                    }
+                }
+                .id(index)
+                .onAppear {
+                    let frame = geometry.frame(in: .global)
+                    viewModel.updateFormationItemFrameMap(frame, index: index)
+                }
+                .onChange(of: geometry.frame(in: .global)) {
+                    viewModel.updateFormationItemFrameMap($0, index: index)
+                }
+            }
+            .aspectRatio(94 / 79, contentMode: .fit)
         }
     }
 

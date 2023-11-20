@@ -48,22 +48,23 @@ struct PresetContainerView: View {
 
     private func buildObjectStageView(preset: Preset) -> some View {
         let cornerRadius: CGFloat = 8
-        return ObjectStageView(formable: preset)
-            .aspectRatio(138 / 89, contentMode: .fit)
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.monoNormal2)
-                    .blur(radius: 50)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
-            )
-            .mask {
-                RoundedRectangle(cornerRadius: cornerRadius)
-            }
-            .onTapGesture {
-                viewModel.canvasController.copyFormable(preset)
-            }
+        return Button {
+            viewModel.canvasController.copyFormable(preset)
+        } label: {
+            ObjectStageView(formable: preset)
+                .aspectRatio(138 / 89, contentMode: .fit)
+                .background(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(Color.monoNormal2)
+                        .blur(radius: 50)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                )
+                .mask {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                }
+        }
     }
 }

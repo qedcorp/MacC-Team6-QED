@@ -108,11 +108,12 @@ struct MyPageView: View {
                 }
             }
             Spacer()
-            Image(systemName: "chevron.right")
-                .onTapGesture {
-                    let dependency = AccountInfoViewDependency(myPageViewModel: viewModel)
-                    path.append(.accountInfo(dependency))
-                }
+            Button {
+                let dependency = AccountInfoViewDependency(myPageViewModel: viewModel)
+                path.append(.accountInfo(dependency))
+            } label: {
+                Image(systemName: "chevron.right")
+            }
         }
         .frame(height: 34)
         .font(.subheadline)

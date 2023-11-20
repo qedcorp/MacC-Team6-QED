@@ -54,13 +54,13 @@ struct MemberSettingView: View {
                 PerformanceSettingTitleView(step: 2, title: "인물지정")
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Text("완료")
-                    .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
-                    .onTapGesture {
-                        if let nextPath = viewModel.nextPath {
-                            path = [nextPath]
-                        }
+                Button("완료") {
+                    guard let nextPath = viewModel.nextPath else {
+                        return
                     }
+                    path = [nextPath]
+                }
+                .disabled(!viewModel.isEnabledToSave)
             }
         }
         .task {
@@ -80,36 +80,37 @@ struct MemberSettingView: View {
 
     private func buildMemberInfoButton(index: Int, memberInfo: MemberInfoModel) -> some View {
         let cornerRadius: CGFloat = 10
-        return HStack(spacing: 3) {
-            Circle()
-                .fill(Color(hex: memberInfo.color))
-                .frame(height: 18)
-                .aspectRatio(contentMode: .fit)
-            Text(memberInfo.name ?? "인물 \(index + 1)")
-                .foregroundStyle(Color.monoWhite3)
-                .font(.subheadline)
-        }
-        .frame(height: 40)
-        .padding(.horizontal, 9)
-        .background(
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(index == viewModel.selectedMemberInfoIndex ? Color.blueLight2 : Color.monoNormal1)
-        )
-        .overlay(
-            ZStack {
-                if index == viewModel.selectedMemberInfoIndex {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .strokeBorder(Gradient.blueGradation2, lineWidth: 1)
-                } else {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
-                }
-            }
-        )
-        .id(index)
-        .onTapGesture {
+        return Button {
             viewModel.selectMember(index: index)
+        } label: {
+            HStack(spacing: 3) {
+                Circle()
+                    .fill(Color(hex: memberInfo.color))
+                    .frame(height: 18)
+                    .aspectRatio(contentMode: .fit)
+                Text(memberInfo.name ?? "인물 \(index + 1)")
+                    .foregroundStyle(Color.monoWhite3)
+                    .font(.subheadline)
+            }
+            .frame(height: 40)
+            .padding(.horizontal, 9)
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(index == viewModel.selectedMemberInfoIndex ? Color.blueLight2 : Color.monoNormal1)
+            )
+            .overlay(
+                ZStack {
+                    if index == viewModel.selectedMemberInfoIndex {
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .strokeBorder(Gradient.blueGradation2, lineWidth: 1)
+                    } else {
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                    }
+                }
+            )
         }
+        .id(index)
     }
 
     private func buildFormationItemView(index: Int, formation: FormationModel) -> some View {

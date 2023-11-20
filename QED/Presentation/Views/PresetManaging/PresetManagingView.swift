@@ -60,15 +60,16 @@ struct PresetManagingView: View {
     }
 
     private func buildObjectStageView(formable: Formable) -> some View {
-        ObjectStageView(formable: formable)
-            .frame(width: 80, height: 60)
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(.gray.opacity(0.1))
-            )
-            .clipped()
-            .onTapGesture {
-                viewModel.canvasController.copyFormable(formable)
-            }
+        Button {
+            viewModel.canvasController.copyFormable(formable)
+        } label: {
+            ObjectStageView(formable: formable)
+                .frame(width: 80, height: 60)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(.gray.opacity(0.1))
+                )
+                .clipped()
+        }
     }
 }
