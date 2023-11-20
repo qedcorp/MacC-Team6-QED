@@ -16,10 +16,10 @@ struct PerformanceSettingView: View {
     @State private var presentAlert = false
     @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
+    var dismissAction: (() -> Void)? = {}
     
-    init(performanceUseCase: PerformanceUseCase, path: Binding<[PresentType]>) {
-        self.viewModel = PerformanceSettingViewModel(
-            performanceUseCase: performanceUseCase)
+    init(viewModel: PerformanceSettingViewModel, path: Binding<[PresentType]>) {
+        self.viewModel = viewModel
         self._path = path
         viewModel.headcount = 1
     }
@@ -160,10 +160,10 @@ struct PerformanceSettingView: View {
             .aspectRatio(contentMode: .fit)
             .frame(width: 86, height: 44)
             .onTapGesture {
-                let transfer = PerformanceLoadingTransferModel {
+                let dependency = PerformanceLoadingViewDependency {
                     viewModel.getTaskForCreatePerformance()
                 }
-                path.append(.performanceLoading(transfer))
+                path.append(.performanceLoading(dependency))
             }
     }
     

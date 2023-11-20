@@ -71,11 +71,11 @@ class MemberSettingViewModel: ObservableObject {
             return nil
         }
         if performance.isCompleted {
-            let transfer = PerformanceWatchingTransferModel(
-                performanceSettingManager: performanceSettingManager!,
-                isAllFormationVisible: true
+            let depepndency = PerformanceWatchingViewDependency(
+                isAllFormationVisible: false,
+                performanceSettingManager: performanceSettingManager
             )
-            return .performanceWatching(transfer)
+            return .performanceWatching(depepndency)
         } else {
             let dependency = FormationSettingViewDependency(performance: performance)
             return .formationSetting(dependency)

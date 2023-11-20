@@ -5,17 +5,16 @@ import Foundation
 
 @MainActor
 class PerformanceLoadingViewModel: ObservableObject {
-    var transfer: PerformanceLoadingTransferModel?
-    @Published private(set) var isLoading: Bool
+    private(set) var task: (() -> Task<Performance?, Never>)?
     private(set) var performance: Performance?
+    @Published private(set) var isLoading: Bool = true
 
-    init(isLoading: Bool = true) {
-        self.isLoading = isLoading
+    func setupWithDependency(_ dependency: PerformanceLoadingViewDependency) {
+        task = dependency.task
     }
 
     func executeTask() async {
-        let task = transfer?.task()
-        performance = await task?.value
+        performance = await task?().value
     }
 
     func endLoading() {

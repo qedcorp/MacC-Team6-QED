@@ -12,9 +12,6 @@ struct PresetContainerView: View {
             HStack {
                 Text("동선 프리셋")
                     .font(.headline.weight(.bold))
-                NavigationLink(" ") {
-                    PresetManagingView()
-                }
                 Spacer()
                 Button {
                     viewModel.toggleGrid()

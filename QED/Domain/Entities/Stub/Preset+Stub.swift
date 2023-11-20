@@ -3,5 +3,5 @@
 import Foundation
 
 extension Preset {
-    static let empty = Preset(headcount: 0, relativePositions: [])
+    static let empty = Preset(id: "", headcount: 0, relativePositions: [])
 }

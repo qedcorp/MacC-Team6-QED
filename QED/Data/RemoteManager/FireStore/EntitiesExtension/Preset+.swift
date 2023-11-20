@@ -10,9 +10,10 @@ import Foundation
 extension Preset: FireStoreEntityConvertable {
     var fireStoreID: String {
         get {
-            UUID().uuidString
+            self.id
         }
         set {
+            self.id = newValue
         }
     }
 
@@ -24,11 +25,12 @@ extension Preset: FireStoreEntityConvertable {
     init(jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8),
               let preset = try? JSONDecoder().decode(Preset.self, from: jsonData) else {
-            self.init(headcount: 0, relativePositions: [])
+            self.init(id: "", headcount: 0, relativePositions: [])
             return
         }
 
         self.init(
+            id: preset.id,
             headcount: preset.headcount,
             relativePositions: preset.relativePositions
         )

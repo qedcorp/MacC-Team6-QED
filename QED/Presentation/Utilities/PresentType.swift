@@ -8,11 +8,11 @@
 import Foundation
 
 enum PresentType: Hashable {
-    case performanceSetting
-    case performanceLoading(PerformanceLoadingTransferModel)
-    case performanceWatching(PerformanceWatchingTransferModel)
-    case myPage
-    case performanceListReading([Performance])
+    case performanceSetting(PerformanceSettingViewDependency)
+    case performanceLoading(PerformanceLoadingViewDependency)
     case formationSetting(FormationSettingViewDependency)
     case memberSetting(MemberSettingViewDependency)
+    case performanceWatching(PerformanceWatchingViewDependency)
+    case myPage
+    case performanceListReading([Performance])
 }

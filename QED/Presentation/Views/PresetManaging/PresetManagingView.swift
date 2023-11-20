@@ -21,6 +21,7 @@ struct PresetManagingView: View {
                     ),
                     in: 2 ... 13
                 )
+
                 Text("\(viewModel.headcount)인")
                 ObjectCanvasView(
                     controller: viewModel.canvasController,
@@ -52,7 +53,10 @@ struct PresetManagingView: View {
                 HStack {
                     buildObjectStageView(formable: Preset.empty)
                     ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
-                        buildObjectStageView(formable: preset)
+                        VStack {
+                            buildObjectStageView(formable: preset)
+                            Text(preset.id)
+                        }
                     }
                 }
             }

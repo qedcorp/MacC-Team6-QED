@@ -55,34 +55,10 @@ struct MainView: View {
                 buildLeftItem()
                 buildRightItem()
             }
-            .navigationBarBackButtonHidden()
             .toolbarBackground(Material.ultraThin, for: .navigationBar)
-            .navigationDestination(for: PresentType.self) { persentType in
-                switch persentType {
-                case .myPage:
-                    MyPageView()
-                case .performanceSetting:
-                    PerformanceSettingView(
-                        performanceUseCase: viewModel.performanceUseCase,
-                        path: $path
-                    )
-                case let .performanceLoading(transfer):
-                    PerformanceLoadingView(transfer: transfer, path: $path)
-                case let .performanceListReading(performances):
-                    PerformanceListReadingView(performances: performances)
-                case let .performanceWatching(transfer):
-                    let viewModel = PerformanceWatchingDetailViewModel(
-                        performanceSettingManager: transfer.performanceSettingManager
-                    )
-                    PerformanceWatchingDetailView(
-                        viewModel: viewModel,
-                        isAllFormationVisible: transfer.isAllFormationVisible,
-                        path: $path
-                    )
-                case let .formationSetting(dependency):
-                    FormationSettingView(dependency: dependency, path: $path)
-                case let .memberSetting(dependency):
-                    MemberSettingView(dependency: dependency, path: $path)                }
+            .navigationBarBackButtonHidden()
+            .navigationDestination(for: PresentType.self) {
+                MainCoordinator(path: $path).buildView(presentType: $0)
             }
         }
     }
@@ -98,7 +74,12 @@ struct MainView: View {
     private func buildMainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("내 손안에")
+                HStack {
+                    Text("내 손안에")
+                    NavigationLink(" ") {
+                        PresetManagingView()
+                    }
+                }
                 Text("포메이션 디렉터")
                 HStack(spacing: 0) {
                     Text("FODI")
@@ -119,7 +100,8 @@ struct MainView: View {
         HStack {
             Image("performanceSetting")
                 .onTapGesture {
-                    path.append(.performanceSetting)
+                    let dependency = PerformanceSettingViewDependency()
+                    path.append(.performanceSetting(dependency))
                 }
                 .onAppear {
                     DispatchQueue.global().async {
@@ -162,7 +144,6 @@ struct MainView: View {
             .sorted { lhs, rhs in
                 lhs.createdAt < rhs.createdAt
             }
-
         return LazyVGrid(columns: columns,
                          alignment: .center,
                          spacing: 24,
@@ -172,11 +153,11 @@ struct MainView: View {
                     .onTapGesture {
                         if performance.isCompleted {
                             let manager = PerformanceSettingManager(performance: performance)
-                            let transfer = PerformanceWatchingTransferModel(
-                                performanceSettingManager: manager,
-                                isAllFormationVisible: false
+                            let depepndency = PerformanceWatchingViewDependency(
+                                isAllFormationVisible: false,
+                                performanceSettingManager: manager
                             )
-                            path.append(.performanceWatching(transfer))
+                            path.append(.performanceWatching(depepndency))
                         } else {
                             let dependency = FormationSettingViewDependency(performance: performance)
                             path.append(.formationSetting(dependency))
@@ -184,7 +165,6 @@ struct MainView: View {
                     }
             }
         }
-                         .padding(.bottom, 40)
     }
 
     private func buildBackgroundView() -> some View {
