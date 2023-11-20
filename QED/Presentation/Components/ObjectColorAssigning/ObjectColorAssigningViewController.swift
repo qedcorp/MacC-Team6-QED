@@ -15,6 +15,10 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
         TouchedViewDetector(container: view, allowedTypes: [DotObjectView.self])
     }()
 
+    override var objectViewRadius: CGFloat {
+        super.objectViewRadius + 2
+    }
+
     override func loadView() {
         super.loadView()
         setupViews()
