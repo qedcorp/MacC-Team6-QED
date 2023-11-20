@@ -54,6 +54,12 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
+//                    .simultaneousGesture(
+//                        DragGesture()
+//                            .onChanged { value in
+//                                presentAlert = true
+//                            }
+//                    )
 //                    .onTapGesture {
 //                            endTextEditing()
 //                    }
@@ -528,13 +534,15 @@ struct PerformanceSettingView: View {
                             TextField("인원 \(index + 1)", text: $viewModel.inputMemberInfo[index])
                                 .focused($focusedIndex, equals: index)
                                 .onSubmit {
-                                    proxy.scrollTo(index + 1, anchor: .top)
-                                    focusedIndex = index + 1
-                                    viewModel.scrollToID = (index + 1 < viewModel.headcount)
-                                    ? 3
-                                    : 1
-                                    if index == viewModel.headcount - 1 {
-                                        viewModel.isExpanded3 = false
+                                    withAnimation {
+                                        proxy.scrollTo(index + 1, anchor: .top)
+                                        focusedIndex = index + 1
+                                        viewModel.scrollToID = (index + 1 < viewModel.headcount)
+                                        ? 3
+                                        : 1
+                                        if index == viewModel.headcount - 1 {
+                                            viewModel.isExpanded3 = false
+                                        }
                                     }
                                 }
                                 .onTapGesture {
