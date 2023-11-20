@@ -88,8 +88,8 @@ struct PerformanceWatchingDetailView: View {
     ) -> some View {
         let height = width * CGFloat(12 / Float(19))
         return ZStack {
-            if let beforeFormation = viewModel.currentFormation,
-               let afterFormation = viewModel.nextFormation {
+            if let beforeFormation = viewModel.beforeFormation,
+               let afterFormation = viewModel.currentFormation {
                 ObjectMovementAssigningView(
                     controller: controller,
                     beforeFormation: beforeFormation,

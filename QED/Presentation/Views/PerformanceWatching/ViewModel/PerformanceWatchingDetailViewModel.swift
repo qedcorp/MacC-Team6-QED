@@ -79,8 +79,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         performance?.formations[safe: currentIndex]?.entity
     }
 
-    var nextFormation: Formation? {
-        performance?.formations[safe: currentIndex + 1]?.entity
+    var beforeFormation: Formation? {
+        performance?.formations[safe: currentIndex - 1]?.entity
     }
 
     var movementMapTag: String {
