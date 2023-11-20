@@ -28,7 +28,7 @@ struct PresetManagingView: View {
                     formable: nil,
                     headcount: viewModel.headcount,
                     onChange: {
-                        viewModel.historyTag = String(describing: $0)git
+                        viewModel.historyTag = String(describing: $0)
                     }
                 )
                 .aspectRatio(19 / 12, contentMode: .fit)
