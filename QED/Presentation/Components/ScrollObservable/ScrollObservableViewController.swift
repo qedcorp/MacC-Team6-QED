@@ -23,7 +23,7 @@ final class ScrollObservableViewController: UIViewController {
     private var offset: CGFloat = 0.0
     private var performance: Performance
     private var indexToStartOffset: [Int: CGFloat] = [:]
-    private var offSetToIndex: [ClosedRange<CGFloat>: Int] = [:]
+    private var offSetToIndex: [Range<CGFloat>: Int] = [:]
     private var baseOffset: CGFloat = 0
     private var currentIndex: Int = 0 {
         didSet {
@@ -170,9 +170,9 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
         }
         if indexPath.row == 0 { baseOffset = cell.frame.origin.x }
         let startX = cell.frame.origin.x - baseOffset
-        let endX = startX + cell.frame.size.width - 1
+        let endX = startX + cell.frame.size.width
         indexToStartOffset[indexPath.row] = startX
-        offSetToIndex[startX...endX] = indexPath.row
+        offSetToIndex[startX..<endX] = indexPath.row
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
