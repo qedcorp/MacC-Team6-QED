@@ -68,7 +68,7 @@ struct PerformanceWatchingDetailView: View {
         .onAppear {
             if viewModel.isAutoShowAllForamation {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.viewModel.isAllFormationVisible = true
+                    self.viewModel.isAllFormationVisible = !true
                 }
             }
         }
@@ -176,25 +176,26 @@ struct PerformanceWatchingDetailView: View {
     private func buildPlayerView() -> some View {
         ZStack {
             if let performance = viewModel.performance?.entity {
-                ScrollObservableView(performance: performance, action: viewModel.action)
-                .frame(height: PlayBarConstants.playBarHeight)
+                ScrollObservableView(performance: performance,
+                                     action: viewModel.action
+                ).frame(height: PlayBarConstants.playBarHeight)
             }
         }
         .padding(.bottom)
     }
     private func buildTabBar(geometry: GeometryProxy) -> some View {
-       ZStack {
-        HStack {
-            Button {
-                withAnimation(.spring) {
-                    viewModel.isTransitionEditable.toggle()
-                    if viewModel.isTransitionEditable {
-                      if viewModel.selectedIndex == 0 {
+        ZStack {
+            HStack {
+                Button {
+                    withAnimation(.spring) {
+                        viewModel.isTransitionEditable.toggle()
+                        if viewModel.isTransitionEditable {
+                            if viewModel.selectedIndex == 0 {
                                 viewModel.action.send(.setSelctedIndex(1))
-                       }
-                        viewModel.isPlaying = false
-                        viewModel.presentEditingModeToastMessage()
-                    }
+                            }
+                            viewModel.isPlaying = false
+                            viewModel.presentEditingModeToastMessage()
+                        }
                     }
                 } label: {
                     Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
