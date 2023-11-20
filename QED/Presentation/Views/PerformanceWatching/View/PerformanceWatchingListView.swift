@@ -5,20 +5,26 @@
 //  Created by chaekie on 10/18/23.
 //
 
+import Combine
 import SwiftUI
 
 struct PerformanceWatchingListView: View {
-    @Binding var selectedIndex: Int
+    typealias ValuePurpose = ScrollObservableView.ValuePurpose
+
     @Binding var isAllFormationVisible: Bool
+    var selectedIndex: Int
+    var action: CurrentValueSubject<ValuePurpose, Never>
     var performance: Performance
 
     init(performance: Performance,
          isAllFormationVisible: Binding<Bool>,
-         selectedIndex: Binding<Int>) {
+         selecteIndex: Int,
+         action: CurrentValueSubject<ValuePurpose, Never>) {
 
         self.performance = performance
         self._isAllFormationVisible = isAllFormationVisible
-        self._selectedIndex = selectedIndex
+        self.selectedIndex = selecteIndex
+        self.action = action
     }
 
     var body: some View {
@@ -28,7 +34,7 @@ struct PerformanceWatchingListView: View {
                 buildHeaderView()
                 buildPerformanceScrollView()
             }
-            .padding(.horizontal, 24)
+            .padding(24)
         }
         .presentationDragIndicator(.visible)
     }
@@ -63,11 +69,12 @@ struct PerformanceWatchingListView: View {
                                 DanceFormationView(
                                     formation: formations[rowIndex + columnIndex],
                                     index: rowIndex + columnIndex,
+                                    selectedIndex: selectedIndex,
                                     width: 163,
                                     height: 123
                                 )
                                 .onTapGesture {
-                                    selectedIndex = rowIndex + columnIndex
+                                    action.send(.setSelctedIndex(rowIndex + columnIndex))
                                     isAllFormationVisible = false
                                 }
 

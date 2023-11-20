@@ -130,10 +130,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         isAllFormationVisible = dependency.isAllFormationVisible
         performanceSettingManager = dependency.performanceSettingManager
         toastContainerViewModel = dependency.toastContainerViewModel
-        bindingPublishers()
         mappingIndexFromOffset()
         subscribePerformanceSettingManager()
         assignControllerToArchiverByZoomed()
+        bindingPublishers()
     }
 
     private func bindingPublishers() {
@@ -141,21 +141,21 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             .sink { [weak self] purpose in
                 guard let self = self else { return }
                 switch purpose {
+                case let .getSelctedIndex(index):
+                    self.selectedIndex = index
                 case let .getOffset(offset):
                     self.offset = offset
+                    guard let currentIndex = offsetMap[offset] else { return }
+                    action.send(.getSelctedIndex(currentIndex.index))
+                case let .setSelctedIndex(index):
+                    for element in offsetMap {
+                        let framInfo = element.value
+                        if framInfo == .formation(index: index) {
+                            action.send(.setOffset(element.key.lowerBound))
+                        }
+                    }
                 default:
                     break
-                }
-            }
-            .store(in: &bag)
-
-        $selectedIndex
-            .sink { [unowned self] index in
-                for element in offsetMap {
-                    let framInfo = element.value
-                    if framInfo == .formation(index: index) {
-                        action.send(.setOffset(element.key.lowerBound))
-                    }
                 }
             }
             .store(in: &bag)

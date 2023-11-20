@@ -45,7 +45,8 @@ struct PerformanceWatchingDetailView: View {
                 if let performance = viewModel.performance?.entity {
                     PerformanceWatchingListView(performance: performance,
                                                 isAllFormationVisible: $viewModel.isAllFormationVisible,
-                                                selectedIndex: $viewModel.selectedIndex
+                                                selecteIndex: viewModel.selectedIndex,
+                                                action: viewModel.action
                     )
                 }
             }
@@ -171,7 +172,7 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildMemo() -> some View {
         let memo = viewModel.performance?.formations[safe: viewModel.selectedIndex]?.memo
-        ?? "대형 \(viewModel.selectedIndex)"
+        ?? "대형 \(viewModel.selectedIndex + 1)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
