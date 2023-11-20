@@ -172,7 +172,10 @@ final class FireStoreManager: RemoteManager {
     func delete<T, U>(at endPoint: T, pk key: U) async throws -> Result<Bool, Error> {
         guard let collectionName = endPoint as? String,
               let pk = key as? String else { return .failure(FireStoreError.keyTypeError) }
-        try await fireStroeDB.collection(collectionName).document(pk).delete()
+        try await fireStroeDB
+            .collection(collectionName)
+            .document(pk)
+            .delete()
         return .success(true)
     }
     
