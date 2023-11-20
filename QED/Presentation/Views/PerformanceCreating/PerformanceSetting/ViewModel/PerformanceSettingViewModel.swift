@@ -40,9 +40,10 @@ class PerformanceSettingViewModel: ObservableObject {
         }
     }
     @Published var range: ClosedRange<Int> = 1...13
-    @Published var inputMemberInfo: [String] = []
 
-    @Published var isShowingNextView: Bool = false
+    @Published var inputMemberInfo: [String] = []
+    @Published var sliderCustomColor: Color = .blueLight3.opacity(0.3)
+//    @Published var isShowingNextView: Bool = false
     @Published var alertMessage: [Message?] = []
 
     let musicUseCase: MusicUseCase = DefaultMusicUseCase(
@@ -138,6 +139,7 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded2 = true
             isExpanded1 = false
             isExpanded3 = false
+            scrollToID = 1
         }
     }
 
@@ -146,6 +148,7 @@ class PerformanceSettingViewModel: ObservableObject {
             isExpanded3 = true
             isExpanded1 = false
             isExpanded2 = false
+            scrollToID = 1
         }
     }
 
@@ -213,6 +216,10 @@ extension View {
             from: nil,
             for: nil
         )
+    }
+
+    func isKeyboardVisible() -> Bool {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0 > 0
     }
 
     func disclosureGroupLabelOpend() -> some View {
