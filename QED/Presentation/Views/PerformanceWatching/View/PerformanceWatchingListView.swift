@@ -30,11 +30,10 @@ struct PerformanceWatchingListView: View {
     var body: some View {
         ZStack {
             Color.monoBlack.ignoresSafeArea(.all)
-            VStack(spacing: 30) {
+            VStack(spacing: 0) {
                 buildHeaderView()
                 buildPerformanceScrollView()
             }
-            .padding(24)
         }
         .presentationDragIndicator(.visible)
     }
@@ -57,6 +56,7 @@ struct PerformanceWatchingListView: View {
                 Image("close")
             }
         }
+        .padding(24)
     }
 
     private func buildPerformanceScrollView() -> some View {
@@ -79,6 +79,7 @@ struct PerformanceWatchingListView: View {
                     }
                 }
             }
+                      .padding(.horizontal, 24)
         }
     }
 }
