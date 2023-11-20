@@ -48,6 +48,7 @@ struct MemberSettingView: View {
             : nil
         )
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 PerformanceSettingTitleView(step: 2, title: "인물지정")

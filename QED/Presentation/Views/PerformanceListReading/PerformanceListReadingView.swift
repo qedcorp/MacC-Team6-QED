@@ -8,14 +8,9 @@
 import SwiftUI
 
 struct PerformanceListReadingView: View {
-    let performances: [Performance]
     @ObservedObject var viewModel: PerformanceListReadingViewModel
+    @Binding var path: [PresentType]
     @Environment(\.dismiss) private var dismiss
-
-    init(performances: [Performance]) {
-        self.performances = performances
-        self.viewModel = PerformanceListReadingViewModel(performances: performances)
-    }
 
     let columns: [GridItem] = [
         GridItem(spacing: 16, alignment: nil),
@@ -53,7 +48,12 @@ struct PerformanceListReadingView: View {
                     viewModel: viewModel,
                     isMyPerformance: true,
                     index: index,
-                    onUpdate: viewModel.updatePerformanceTitle)
+                    onUpdate: viewModel.updatePerformanceTitle
+                )
+                .onTapGesture {
+                    let nextPath = PerformanceRouter(performance: performance.entity).getItemPath()
+                    path.append(nextPath)
+                }
             }
         }
         .padding(.bottom, 40)
@@ -89,7 +89,3 @@ struct PerformanceListReadingView: View {
         }
     }
 }
-
- #Preview {
-    PerformanceListReadingView(performances: [mockPerformance1])
- }

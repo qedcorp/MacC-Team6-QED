@@ -38,30 +38,30 @@ struct PerformanceListCardView: View {
     }
 
     var body: some View {
-            GeometryReader { geometry in
-                ZStack {
-                    VStack(alignment: .leading, spacing: 0) {
-                        if hasMusic {
-                            buildFetchMusicView()
-                        } else {
-                            buildFetchStateView("music.note")
-                        }
-                        buildMusicInfoView()
+        GeometryReader { geometry in
+            ZStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    if hasMusic {
+                        buildFetchMusicView()
+                    } else {
+                        buildFetchStateView("music.note")
                     }
-
-                    if isMyPerformance {
-                        buildEditButton()
-                    }
+                    buildMusicInfoView()
                 }
-                .onAppear {
-                    cardWidth = geometry.size.width
-                    cardHeight = geometry.size.height
+
+                if isMyPerformance {
+                    buildEditButton()
                 }
             }
-            .aspectRatio(163/198, contentMode: .fit)
-            .background(Gradient.blueGradation2)
-            .foregroundStyle(Color.monoWhite3)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .onAppear {
+                cardWidth = geometry.size.width
+                cardHeight = geometry.size.height
+            }
+        }
+        .aspectRatio(163/198, contentMode: .fit)
+        .background(Gradient.blueGradation2)
+        .foregroundStyle(Color.monoWhite3)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 
     private func buildFetchMusicView() -> some View {

@@ -38,6 +38,10 @@
 		3A533A4C2AF21BCF007E76F7 /* MovementMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */; };
 		3A62A1A92B0746D700F34C28 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1A82B0746D700F34C28 /* MainCoordinator.swift */; };
 		3A62A1AB2B0747F700F34C28 /* PerformanceSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1AA2B0747F700F34C28 /* PerformanceSettingViewDependency.swift */; };
+		3A62A1AE2B0B2F3300F34C28 /* AccountInfoViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1AD2B0B2F3300F34C28 /* AccountInfoViewDependency.swift */; };
+		3A62A1B02B0B2FC700F34C28 /* MyPageViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1AF2B0B2FC700F34C28 /* MyPageViewDependency.swift */; };
+		3A62A1B22B0B309200F34C28 /* PerformanceListReadingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1B12B0B309200F34C28 /* PerformanceListReadingViewDependency.swift */; };
+		3A62A1B42B0B337B00F34C28 /* PerformanceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1B32B0B337B00F34C28 /* PerformanceRouter.swift */; };
 		3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FC92AE2CF4E0031E6BE /* Formable.swift */; };
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
@@ -278,6 +282,10 @@
 		3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementMap.swift; sourceTree = "<group>"; };
 		3A62A1A82B0746D700F34C28 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		3A62A1AA2B0747F700F34C28 /* PerformanceSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewDependency.swift; sourceTree = "<group>"; };
+		3A62A1AD2B0B2F3300F34C28 /* AccountInfoViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoViewDependency.swift; sourceTree = "<group>"; };
+		3A62A1AF2B0B2FC700F34C28 /* MyPageViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewDependency.swift; sourceTree = "<group>"; };
+		3A62A1B12B0B309200F34C28 /* PerformanceListReadingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceListReadingViewDependency.swift; sourceTree = "<group>"; };
+		3A62A1B32B0B337B00F34C28 /* PerformanceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceRouter.swift; sourceTree = "<group>"; };
 		3A897FC92AE2CF4E0031E6BE /* Formable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formable.swift; sourceTree = "<group>"; };
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
@@ -530,6 +538,7 @@
 				5136BFB02ADFB1B700882B6B /* PerformanceListReading */,
 				5136BFB22ADFB83400882B6B /* PerformanceWatching */,
 				5136BFAE2ADFB15800882B6B /* MyPage */,
+				3A62A1AC2B0B2F0E00F34C28 /* AccountInfo */,
 				D460EF8B2AE18DF700A5966A /* PresetManaging */,
 			);
 			path = Views;
@@ -568,6 +577,7 @@
 				3AC325112AFB75EF002B6682 /* Animate.swift */,
 				51908CD32B03CB1200C8F602 /* EmailController.swift */,
 				3A0088202B06907C00C9C643 /* ViewDependency.swift */,
+				3A62A1B32B0B337B00F34C28 /* PerformanceRouter.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -588,6 +598,15 @@
 				3A533A412AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift */,
 			);
 			path = ObjectMovementAssigning;
+			sourceTree = "<group>";
+		};
+		3A62A1AC2B0B2F0E00F34C28 /* AccountInfo */ = {
+			isa = PBXGroup;
+			children = (
+				51908CCF2B0346B600C8F602 /* AccountInfoView.swift */,
+				3A62A1AD2B0B2F3300F34C28 /* AccountInfoViewDependency.swift */,
+			);
+			path = AccountInfo;
 			sourceTree = "<group>";
 		};
 		3A897FCF2AE2E7150031E6BE /* ViewModifiers */ = {
@@ -803,7 +822,7 @@
 			children = (
 				5136BFAC2ADFB0B100882B6B /* MyPageView.swift */,
 				5175E72F2AFA7599003C7203 /* MyPageViewModel.swift */,
-				51908CCF2B0346B600C8F602 /* AccountInfoView.swift */,
+				3A62A1AF2B0B2FC700F34C28 /* MyPageViewDependency.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -813,6 +832,7 @@
 			children = (
 				5136BFA82ADF9D0600882B6B /* PerformanceListReadingView.swift */,
 				517644A52B05131E00743F86 /* PerformanceListReadingViewModel.swift */,
+				3A62A1B12B0B309200F34C28 /* PerformanceListReadingViewDependency.swift */,
 			);
 			path = PerformanceListReading;
 			sourceTree = "<group>";
@@ -1660,6 +1680,7 @@
 				D400CF912B04924300457F68 /* PresentType.swift in Sources */,
 				3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */,
 				3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */,
+				3A62A1B22B0B309200F34C28 /* PerformanceListReadingViewDependency.swift in Sources */,
 				D460EFF92AE18DF700A5966A /* HexString.swift in Sources */,
 				3A533A402AF0F79C007E76F7 /* ObjectMovementAssigningView.swift in Sources */,
 				D460F0452AE41A0F00A5966A /* FireStoreDTO+Performance.swift in Sources */,
@@ -1704,6 +1725,7 @@
 				517644A62B05131E00743F86 /* PerformanceListReadingViewModel.swift in Sources */,
 				D460EFE82AE18DF700A5966A /* QEDApp.swift in Sources */,
 				D460F00C2AE18DF700A5966A /* DefaultUserUseCase.swift in Sources */,
+				3A62A1B42B0B337B00F34C28 /* PerformanceRouter.swift in Sources */,
 				D460EFF72AE18DF700A5966A /* AppDelegate.swift in Sources */,
 				D460F01E2AE18DF700A5966A /* Playable.swift in Sources */,
 				D460F0062AE18DF700A5966A /* MusicRepository.swift in Sources */,
@@ -1718,8 +1740,10 @@
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
 				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
+				3A62A1B02B0B2FC700F34C28 /* MyPageViewDependency.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
+				3A62A1AE2B0B2F3300F34C28 /* AccountInfoViewDependency.swift in Sources */,
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */,

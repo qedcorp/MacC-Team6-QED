@@ -43,6 +43,45 @@ class FormationSettingViewModel: ObservableObject {
     private var tasksQueue: [() -> Void] = []
     private var cancellables: Set<AnyCancellable> = []
 
+    var musicTitle: String {
+        performance?.music.title ?? ""
+    }
+
+    var headcount: Int {
+        performance?.headcount ?? 0
+    }
+
+    var formations: [FormationModel] {
+        performance?.formations ?? []
+    }
+
+    var currentFormation: FormationModel? {
+        guard let index = currentFormationIndex else {
+            return nil
+        }
+        return performance?.formations[safe: index]
+    }
+
+    var currentFormationTag: String {
+        String(describing: currentFormation?.relativePositions)
+    }
+
+    var isNavigationBarHidden: Bool {
+        isMemoFormPresented || isZoomed
+    }
+
+    var isEnabledToEdit: Bool {
+        guard let index = currentFormationIndex else {
+            return false
+        }
+        return index >= 0
+    }
+
+    var isEnabledToSave: Bool {
+        !formations.isEmpty &&
+        formations.allSatisfy { $0.relativePositions.count == headcount }
+    }
+
     func setupWithDependency(_ dependency: FormationSettingViewDependency) {
         performance = PerformanceModel.build(entity: dependency.performance)
         currentFormationIndex = dependency.currentFormationIndex
@@ -87,41 +126,6 @@ class FormationSettingViewModel: ObservableObject {
             return
         }
         addFormation()
-    }
-
-    var musicTitle: String {
-        performance?.music.title ?? ""
-    }
-
-    var headcount: Int {
-        performance?.headcount ?? 0
-    }
-
-    var formations: [FormationModel] {
-        performance?.formations ?? []
-    }
-
-    var currentFormation: FormationModel? {
-        guard let index = currentFormationIndex else {
-            return nil
-        }
-        return performance?.formations[safe: index]
-    }
-
-    var currentFormationTag: String {
-        String(describing: currentFormation?.relativePositions)
-    }
-
-    var isEnabledToEdit: Bool {
-        guard let index = currentFormationIndex else {
-            return false
-        }
-        return index >= 0
-    }
-
-    var isEnabledToSave: Bool {
-        !formations.isEmpty &&
-        formations.allSatisfy { $0.relativePositions.count == headcount }
     }
 
     func presentMemoForm() {

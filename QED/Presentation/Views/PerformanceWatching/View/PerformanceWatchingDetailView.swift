@@ -38,24 +38,6 @@ struct PerformanceWatchingDetailView: View {
                 buildPlayerView()
                 buildTabBar(geometry: geometry)
             }
-            .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
-                buildSettingSheetView()
-            }
-            .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-                if let performance = viewModel.performance?.entity {
-                    PerformanceWatchingListView(performance: performance,
-                                                isAllFormationVisible: $viewModel.isAllFormationVisible,
-                                                selectedIndex: $viewModel.selectedIndex
-                    )
-                }
-            }
-            .navigationBarBackButtonHidden()
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                buildLeftItem()
-                buildTitleItem()
-                buildRightItem()
-            }
         }
         .background {
             Image("background")
@@ -66,6 +48,13 @@ struct PerformanceWatchingDetailView: View {
             buildZoomableMovementEditingView()
             : nil
         )
+        .navigationBarBackButtonHidden()
+        .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
+        .toolbar {
+            buildLeftItem()
+            buildTitleItem()
+            buildRightItem()
+        }
         .task {
             viewModel.setupWithDependency(dependency)
         }
@@ -77,6 +66,17 @@ struct PerformanceWatchingDetailView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.viewModel.isAllFormationVisible = true
                 }
+            }
+        }
+        .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
+            buildSettingSheetView()
+        }
+        .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
+            if let performance = viewModel.performance?.entity {
+                PerformanceWatchingListView(performance: performance,
+                                            isAllFormationVisible: $viewModel.isAllFormationVisible,
+                                            selectedIndex: $viewModel.selectedIndex
+                )
             }
         }
     }

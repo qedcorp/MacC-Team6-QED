@@ -123,6 +123,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         return map
     }
 
+    var isNavigationBarHidden: Bool {
+        isZoomed
+    }
+
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
         if let entity = dependency.performanceSettingManager?.performance {
             performance = .build(entity: entity)

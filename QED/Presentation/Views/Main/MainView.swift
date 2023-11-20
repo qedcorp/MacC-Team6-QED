@@ -120,7 +120,8 @@ struct MainView: View {
             Image("listReading")
                 .padding(.bottom, 18)
                 .onTapGesture {
-                    path.append(.performanceListReading(viewModel.myRecentPerformances))
+                    let dependency = PerformanceListReadingViewDependency(performances: viewModel.myRecentPerformances)
+                    path.append(.performanceListReading(dependency))
                 }
         }
 
@@ -146,17 +147,8 @@ struct MainView: View {
             ForEach(myRecentPerformances) { performance in
                 PerformanceListCardView(performance: performance)
                     .onTapGesture {
-                        if performance.isCompleted {
-                            let manager = PerformanceSettingManager(performance: performance)
-                            let depepndency = PerformanceWatchingViewDependency(
-                                isAllFormationVisible: false,
-                                performanceSettingManager: manager
-                            )
-                            path.append(.performanceWatching(depepndency))
-                        } else {
-                            let dependency = FormationSettingViewDependency(performance: performance)
-                            path.append(.formationSetting(dependency))
-                        }
+                        let nextPath = PerformanceRouter(performance: performance).getItemPath()
+                        path.append(nextPath)
                     }
             }
         }
@@ -199,7 +191,8 @@ struct MainView: View {
             Image("profile")
                 .padding(.trailing, 8)
                 .onTapGesture {
-                    path.append(.myPage)
+                    let dependency = MyPageViewDependency()
+                    path.append(.myPage(dependency))
                 }
         }
     }
