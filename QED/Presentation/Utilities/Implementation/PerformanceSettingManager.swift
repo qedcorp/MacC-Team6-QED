@@ -82,6 +82,7 @@ class PerformanceSettingManager {
             }
         }
         updateStartEndOfMovementMap(formationIndex: formationIndex)
+        updateStartEndOfMovementMap(formationIndex: formationIndex + 1)
         didChange()
     }
 
@@ -94,6 +95,7 @@ class PerformanceSettingManager {
             formation.members[safe: index]?.info = memberInfo
         }
         updateStartEndOfMovementMap(formationIndex: formationIndex)
+        updateStartEndOfMovementMap(formationIndex: formationIndex + 1)
         didChange()
     }
 
@@ -122,21 +124,22 @@ class PerformanceSettingManager {
     }
 
     private func updateStartEndOfMovementMap(formationIndex: Int) {
-        guard let formation = performance.formations[safe: formationIndex],
-              let afterFormation = performance.formations[safe: formationIndex + 1] else {
+        guard let beforeFormation = performance.formations[safe: formationIndex - 1],
+              let formation = performance.formations[safe: formationIndex] else {
             return
         }
-        var movementMap = formation.movementMap
+        var movementMap = beforeFormation.movementMap
         formation.members.forEach { member in
-            guard let memberInfo = member.info else {
+            guard let info = member.info else {
                 return
             }
-            movementMap?[memberInfo]?.startPosition = member.relativePosition
-            if let afterMember = afterFormation.members.first(where: { $0.info === memberInfo }) {
-                movementMap?[memberInfo]?.endPosition = afterMember.relativePosition
+            if let beforeMember = beforeFormation.members.first(where: { $0.info?.color == info.color }) {
+                movementMap?[info]?.startPosition = beforeMember.relativePosition
             }
+            movementMap?[info]?.endPosition = member.relativePosition
         }
-        formation.movementMap = movementMap
+        beforeFormation.movementMap = movementMap
+        didChange()
     }
 
     private func didChange() {

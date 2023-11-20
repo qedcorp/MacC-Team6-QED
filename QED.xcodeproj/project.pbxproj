@@ -15,8 +15,6 @@
 		3A0088232B0690F500C9C643 /* FormationSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */; };
 		3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE62AE25B860099C008 /* Music+Stub.swift */; };
 		3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9832AF2716900BFE0EA /* HistoryControllableDelegate.swift */; };
-		3A26C9872AF2722F00BFE0EA /* MovementSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */; };
-		3A26C9892AF2726F00BFE0EA /* MovementSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C9882AF2726F00BFE0EA /* MovementSettingViewModel.swift */; };
 		3A47F4872ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */; };
 		3A5328AF2AEB7FF20051A09C /* PerformanceSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */; };
 		3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5328B02AEBA3890051A09C /* Sizeable.swift */; };
@@ -264,8 +262,6 @@
 		3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationSettingViewDependency.swift; sourceTree = "<group>"; };
 		3A021EE62AE25B860099C008 /* Music+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Music+Stub.swift"; sourceTree = "<group>"; };
 		3A26C9832AF2716900BFE0EA /* HistoryControllableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryControllableDelegate.swift; sourceTree = "<group>"; };
-		3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSettingView.swift; sourceTree = "<group>"; };
-		3A26C9882AF2726F00BFE0EA /* MovementSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSettingViewModel.swift; sourceTree = "<group>"; };
 		3A47F43B2ADE5AEC000E3272 /* QED.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = QED.xctestplan; sourceTree = "<group>"; };
 		3A47F4862ADEA6A1000E3272 /* DefaultMusicUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicUseCaseTests.swift; sourceTree = "<group>"; };
 		3A5328AE2AEB7FF20051A09C /* PerformanceSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingManager.swift; sourceTree = "<group>"; };
@@ -508,15 +504,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A26C9852AF2721F00BFE0EA /* MovementSetting */ = {
-			isa = PBXGroup;
-			children = (
-				3A26C9862AF2722F00BFE0EA /* MovementSettingView.swift */,
-				3A26C9882AF2726F00BFE0EA /* MovementSettingViewModel.swift */,
-			);
-			path = MovementSetting;
-			sourceTree = "<group>";
-		};
 		3A47F43C2ADE5F7B000E3272 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,7 +550,6 @@
 				D400CF932B04AD7900457F68 /* PerformanceLoading */,
 				3AF617CE2AE1961D0052FC90 /* FormationSetting */,
 				3AE701BB2AE65F3500C48403 /* MemberSetting */,
-				3A26C9852AF2721F00BFE0EA /* MovementSetting */,
 			);
 			path = PerformanceCreating;
 			sourceTree = "<group>";
@@ -1759,7 +1745,6 @@
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
 				3A533A422AF0F7A9007E76F7 /* ObjectMovementAssigningViewController.swift in Sources */,
-				3A26C9872AF2722F00BFE0EA /* MovementSettingView.swift in Sources */,
 				D460EFE42AE18DF700A5966A /* ObjectCanvasView.swift in Sources */,
 				517644A62B05131E00743F86 /* PerformanceListReadingViewModel.swift in Sources */,
 				D460EFE82AE18DF700A5966A /* QEDApp.swift in Sources */,
@@ -1837,7 +1822,6 @@
 				D460EFEB2AE18DF700A5966A /* DraggingModel.swift in Sources */,
 				3A5328B12AEBA3890051A09C /* Sizeable.swift in Sources */,
 				D460F01D2AE18DF700A5966A /* Preset+Stub.swift in Sources */,
-				3A26C9892AF2726F00BFE0EA /* MovementSettingViewModel.swift in Sources */,
 				D460F0112AE18DF700A5966A /* UserUseCase.swift in Sources */,
 				D460F01C2AE18DF700A5966A /* FormationTransition.swift in Sources */,
 				3AE701C62AE66AB800C48403 /* ObjectColorAssigningViewController.swift in Sources */,
