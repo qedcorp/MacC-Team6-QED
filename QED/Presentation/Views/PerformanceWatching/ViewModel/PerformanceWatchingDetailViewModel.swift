@@ -36,7 +36,11 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }()
 
     @Published var performance: PerformanceModel?
-    @Published var isAllFormationVisible = false
+    @Published var isAllFormationVisible = false {
+        didSet {
+            action.send(.setOffset(offset))
+        }
+    }
     @Published var isAutoShowAllForamation = false
     @Published var isSettingSheetVisible = false
     @Published var isNameVisiable = true
@@ -130,7 +134,6 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
         performance = nil
-        action.send(.setOffset(offset))
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
             if let entity = dependency.performanceSettingManager?.performance {
                 performance = .build(entity: entity)
@@ -138,11 +141,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             isAllFormationVisible = dependency.isAllFormationVisible
             performanceSettingManager = dependency.performanceSettingManager
             toastContainerViewModel = dependency.toastContainerViewModel
-            bindingPublishers()
             mappingIndexFromOffset()
+            bindingPublishers()
             subscribePerformanceSettingManager()
             assignControllerToArchiverByZoomed()
-            action.send(.setOffset(offset))
         }
     }
 
@@ -161,6 +163,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
                     for element in offsetMap {
                         let framInfo = element.value
                         if framInfo == .formation(index: index) {
+                            print(element.key.lowerBound + 1)
                             action.send(.setOffset(element.key.lowerBound + 1))
                         }
                     }

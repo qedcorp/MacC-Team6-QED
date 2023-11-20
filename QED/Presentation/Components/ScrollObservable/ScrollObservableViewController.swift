@@ -21,6 +21,8 @@ final class ScrollObservableViewController: UIViewController {
     var action: CurrentValueSubject<ValuePurpose, Never>
 
     var offset: CGFloat = 0.0
+    // TODO: 이거 맞냐???
+    private var initYame = true
     private var performance: Performance
     private var indexToStartOffset: [Int: CGFloat] = [:]
     private var offSetToIndex: [Range<CGFloat>: Int] = [:]
@@ -187,11 +189,14 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        action.send(.getOffset(scrollView.contentOffset.x))
-        if let index = offSetToIndex[scrollView.contentOffset.x] {
-            if index != currentIndex {
-                currentIndex = index
+        if !initYame {
+            action.send(.getOffset(scrollView.contentOffset.x))
+            if let index = offSetToIndex[scrollView.contentOffset.x] {
+                if index != currentIndex {
+                    currentIndex = index
+                }
             }
         }
+        initYame = false
     }
 }
