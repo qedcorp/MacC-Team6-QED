@@ -57,7 +57,10 @@ struct MemberSettingView: View {
                     .foregroundStyle(viewModel.isEnabledToSave ? Color.blueLight3 : .gray)
                     .onTapGesture {
                         if let nextPath = viewModel.nextPath {
-                            path = [nextPath]
+                            Task {
+                                try await viewModel.performanceSettingManager?.updateImmediately()
+                                path = [nextPath]
+                            }
                         }
                     }
             }

@@ -124,16 +124,19 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
-        if let entity = dependency.performanceSettingManager?.performance {
-            performance = .build(entity: entity)
+        performance = nil
+        DispatchQueue.main.async { [unowned self] in
+            if let entity = dependency.performanceSettingManager?.performance {
+                performance = .build(entity: entity)
+            }
+            isAllFormationVisible = dependency.isAllFormationVisible
+            performanceSettingManager = dependency.performanceSettingManager
+            toastContainerViewModel = dependency.toastContainerViewModel
+            bindingPublishers()
+            mappingIndexFromOffset()
+            subscribePerformanceSettingManager()
+            assignControllerToArchiverByZoomed()
         }
-        isAllFormationVisible = dependency.isAllFormationVisible
-        performanceSettingManager = dependency.performanceSettingManager
-        toastContainerViewModel = dependency.toastContainerViewModel
-        bindingPublishers()
-        mappingIndexFromOffset()
-        subscribePerformanceSettingManager()
-        assignControllerToArchiverByZoomed()
     }
 
     private func bindingPublishers() {
