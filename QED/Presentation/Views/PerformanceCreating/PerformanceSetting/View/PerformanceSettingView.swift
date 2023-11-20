@@ -54,6 +54,11 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
+                    .gesture(
+                        DragGesture().onChanged { value in
+                            presentAlert = true
+                        }
+                    )
 //                    .onTapGesture {
 //                            endTextEditing()
 //                    }
