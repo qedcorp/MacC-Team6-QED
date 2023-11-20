@@ -54,21 +54,6 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
-//                    .simultaneousGesture(
-//                        DragGesture()
-//                            .onChanged { value in
-//                                presentAlert = true
-//                            }
-//                    )
-//                    .onTapGesture {
-//                            endTextEditing()
-//                    }
-//                    .simultaneousGesture(
-//                        DragGesture().onChanged({
-//                            if $0.translation.height != 0 {
-//                                isFocused = false
-//                            }
-//                        }))
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             self.isFocused = true
@@ -378,7 +363,11 @@ struct PerformanceSettingView: View {
                 viewModel.selectedMusic = nil
             } else {
                 viewModel.selectedMusic = music
-                viewModel.toggleDisclosureGroup3()
+                withAnimation {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        viewModel.toggleDisclosureGroup3()
+                    }
+                }
             }
         }
         .id(music.id)
