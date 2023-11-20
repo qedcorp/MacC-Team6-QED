@@ -29,7 +29,7 @@ struct PresetContainerView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHGrid(rows: rows) {
                         buildObjectStageView(preset: .empty)
-                        ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
+                        ForEach(Array(viewModel.presets.sorted { $0.id < $1.id }.enumerated()), id: \.offset) { _, preset in
                             buildObjectStageView(preset: preset)
                         }
                     }

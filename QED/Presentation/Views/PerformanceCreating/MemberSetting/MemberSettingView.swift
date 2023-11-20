@@ -58,7 +58,10 @@ struct MemberSettingView: View {
                     guard let nextPath = viewModel.nextPath else {
                         return
                     }
-                    path = [nextPath]
+                    Task {
+                        try await viewModel.performanceSettingManager?.updateImmediately()
+                        path = [nextPath]
+                    }
                 }
                 .disabled(!viewModel.isEnabledToSave)
             }
