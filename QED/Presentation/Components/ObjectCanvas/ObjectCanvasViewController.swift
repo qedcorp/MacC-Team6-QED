@@ -191,7 +191,9 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     func getPreset() -> Preset {
         let positions = getRelativePositions()
+        Preset.presetID += 1
         return Preset(
+            id: "\(Preset.presetID)",
             headcount: objectViews.count,
             relativePositions: positions
         )
