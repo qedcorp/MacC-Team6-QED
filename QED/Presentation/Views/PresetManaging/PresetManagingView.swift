@@ -3,13 +3,7 @@
 import SwiftUI
 
 struct PresetManagingView: View {
-    @StateObject private var viewModel = PresetManagingViewModel(
-        presetUseCase: DefaultPresetUseCase(
-            presetRepository: DefaultPresetRepository(
-                remoteManager: FireStoreManager()
-            )
-        )
-    )
+    @StateObject private var viewModel = PresetManagingViewModel()
 
     var body: some View {
         VStack {

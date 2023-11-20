@@ -12,9 +12,9 @@ struct PresetContainerView: View {
             HStack {
                 Text("동선 프리셋")
                     .font(.headline.weight(.bold))
-                NavigationLink(" ") {
-                    PresetManagingView()
-                }
+                    .onTapGesture(count: 7) {
+                        viewModel.isManaging = true
+                    }
                 Spacer()
                 Button {
                     viewModel.toggleGrid()
@@ -38,8 +38,11 @@ struct PresetContainerView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             viewModel.fetchPresets()
+        }
+        .sheet(isPresented: $viewModel.isManaging) {
+            PresetManagingView()
         }
     }
 
