@@ -198,17 +198,18 @@ struct PerformanceWatchingDetailView: View {
         .padding(.bottom)
     }
     private func buildTabBar(geometry: GeometryProxy) -> some View {
-        ZStack {
-            HStack {
-                Button {
-                    withAnimation(.spring) {
-                        viewModel.isTransitionEditable.toggle()
-                        if viewModel.isTransitionEditable {
-                            if viewModel.selectedIndex == 0 {
+       ZStack {
+        HStack {
+            Button {
+                withAnimation(.spring) {
+                    viewModel.isTransitionEditable.toggle()
+                    if viewModel.isTransitionEditable {
+                      if viewModel.selectedIndex == 0 {
                                 viewModel.action.send(.setSelctedIndex(1))
-                            }
-                            viewModel.presentEditingModeToastMessage()
-                        }
+                       }
+                        viewModel.isPlaying = false
+                        viewModel.presentEditingModeToastMessage()
+                    }
                     }
                 } label: {
                     Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
