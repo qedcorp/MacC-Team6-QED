@@ -53,7 +53,10 @@ struct PresetManagingView: View {
                 HStack {
                     buildObjectStageView(formable: Preset.empty)
                     ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
-                        buildObjectStageView(formable: preset)
+                        VStack {
+                            buildObjectStageView(formable: preset)
+                            Text(preset.id)
+                        }
                     }
                 }
             }

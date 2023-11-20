@@ -74,7 +74,12 @@ struct MainView: View {
     private func buildMainTitle() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("내 손안에")
+                HStack {
+                    Text("내 손안에")
+                    NavigationLink(" ") {
+                        PresetManagingView()
+                    }
+                }
                 Text("포메이션 디렉터")
                 HStack(spacing: 0) {
                     Text("FODI")
