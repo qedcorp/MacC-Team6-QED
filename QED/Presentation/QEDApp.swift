@@ -25,4 +25,4 @@ struct QEDApp: App {
             .tint(.blueLight3)
         }
     }
-}
+ }

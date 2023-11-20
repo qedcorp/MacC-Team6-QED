@@ -68,7 +68,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     private(set) var action = CurrentValueSubject<ValuePurpose, Never>(.setOffset(0))
-    private var offsetMap: [ClosedRange<CGFloat>: FrameInfo] = [:]
+    private var offsetMap: [Range<CGFloat>: FrameInfo] = [:]
     private var bag = Set<AnyCancellable>()
 
     var currentIndex: Int {
@@ -159,7 +159,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
                     for element in offsetMap {
                         let framInfo = element.value
                         if framInfo == .formation(index: index) {
-                            action.send(.setOffset(element.key.lowerBound))
+                            action.send(.setOffset(element.key.lowerBound + 1))
                         }
                     }
                 default:
@@ -182,8 +182,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         var lastX: CGFloat = 0.0
         for formationIndex in performance.formations.indices {
             let formatationLength = Constants.formationFrame.width + Constants.trasitionFrame.width
-            let formationRange = lastX...(lastX + Constants.formationFrame.width)
-            let transtionRange = (lastX + Constants.formationFrame.width)...(lastX + formatationLength)
+            let formationRange = lastX..<(lastX + Constants.formationFrame.width)
+            let transtionRange = (lastX + Constants.formationFrame.width)..<(lastX + formatationLength)
             offsetMap[formationRange] = .formation(index: formationIndex)
             offsetMap[transtionRange] = .transition(index: formationIndex)
             lastX += formatationLength

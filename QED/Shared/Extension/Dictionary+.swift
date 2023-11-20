@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Dictionary where Key == ClosedRange<CGFloat> {
+extension Dictionary where Key == Range<CGFloat> {
 
     public subscript(number: CGFloat) -> Value? {
         for element in self {
