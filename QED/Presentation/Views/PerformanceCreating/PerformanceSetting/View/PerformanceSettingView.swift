@@ -166,12 +166,12 @@ struct PerformanceSettingView: View {
 
     var inputTitleTextField: some View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
+            .focused($isFocused)
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
                 }
             }
-            .focused($isFocused)
             .foregroundStyle(viewModel.performanceTitle.isEmpty
                              ? Color.monoNormal2
                              : Color.monoWhite3)
