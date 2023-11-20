@@ -173,8 +173,6 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildMemo() -> some View {
-        let memo = viewModel.performance?.formations[safe: viewModel.selectedIndex]?.memo
-        ?? "대형 \(viewModel.selectedIndex + 1)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
@@ -184,7 +182,7 @@ struct PerformanceWatchingDetailView: View {
                         .strokeBorder(Gradient.strokeGlass3, lineWidth: 1)
                 )
 
-            Text(memo)
+            Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
                 .font(.title3)
         }
@@ -242,7 +240,7 @@ struct PerformanceWatchingDetailView: View {
         } label: {
             Image("showAllFrames")
                 .padding(EdgeInsets(top: 0, leading: 24, bottom: 16, trailing: 19))
-//                .background(Color.monoDarker)
+
         }
     }
 

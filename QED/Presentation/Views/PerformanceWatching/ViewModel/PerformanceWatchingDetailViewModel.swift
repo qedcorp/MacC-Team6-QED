@@ -45,6 +45,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var offset: CGFloat = 0
     @Published var selectedIndex = 0
+    @Published var currentMemo = ""
 
     @Published var isTransitionEditable = false {
         didSet {
@@ -157,6 +158,12 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
                 default:
                     break
                 }
+            }
+            .store(in: &bag)
+
+        $selectedIndex
+            .sink { [unowned self] index in
+                currentMemo = performance?.entity.formations[index].memo ?? "메모없음"
             }
             .store(in: &bag)
     }
