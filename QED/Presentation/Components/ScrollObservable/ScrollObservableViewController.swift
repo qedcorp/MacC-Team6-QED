@@ -120,8 +120,8 @@ final class ScrollObservableViewController: UIViewController {
         }
 
         currentBar.snp.makeConstraints {
-            $0.top.centerX.bottom.equalToSuperview()
-            $0.width.equalTo(48)
+            $0.top.equalToSuperview().offset(-6)
+            $0.centerX.bottom.equalToSuperview()
         }
     }
 

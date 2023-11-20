@@ -45,6 +45,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var offset: CGFloat = 0
     @Published var selectedIndex = 0
+    @Published var currentMemo = ""
 
     @Published var isTransitionEditable = false {
         didSet {
@@ -144,8 +145,19 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             .sink { [weak self] purpose in
                 guard let self = self else { return }
                 switch purpose {
+                case let .getSelctedIndex(index):
+                    self.selectedIndex = index
                 case let .getOffset(offset):
                     self.offset = offset
+                    guard let currentIndex = offsetMap[offset] else { return }
+                    action.send(.getSelctedIndex(currentIndex.index))
+                case let .setSelctedIndex(index):
+                    for element in offsetMap {
+                        let framInfo = element.value
+                        if framInfo == .formation(index: index) {
+                            action.send(.setOffset(element.key.lowerBound))
+                        }
+                    }
                 default:
                     break
                 }
@@ -154,12 +166,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
         $selectedIndex
             .sink { [unowned self] index in
-                for element in offsetMap {
-                    let framInfo = element.value
-                    if framInfo == .formation(index: index) {
-                        action.send(.setOffset(element.key.lowerBound))
-                    }
-                }
+                currentMemo = performance?.entity.formations[index].memo ?? "메모없음"
             }
             .store(in: &bag)
     }
