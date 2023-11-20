@@ -40,7 +40,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var isAutoShowAllForamation = false
     @Published var isSettingSheetVisible = false
     @Published var isNameVisiable = true
-    @Published var isBeforeVisible = true
+    @Published var isBeforeVisible = false
     @Published var isLineVisible = false
     @Published var isLoading = true
     @Published var offset: CGFloat = 0
