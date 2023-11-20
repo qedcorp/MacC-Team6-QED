@@ -218,10 +218,6 @@ extension View {
         )
     }
 
-    func isKeyboardVisible() -> Bool {
-        return UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0 > 0
-    }
-
     func disclosureGroupLabelOpend() -> some View {
         modifier(DisclosureGroupLabelOpend())
     }
