@@ -30,10 +30,14 @@ class PerformanceListReadingViewModel: ObservableObject {
                   let selecteIndex = performances
                 .firstIndex(where: { $0.id == id }) else { return }
             selectePerformance.title = title
-            try await performanceUseCase.updatePerformance(selectePerformance)
-            performances.replaceSubrange(selecteIndex...selecteIndex,
-                                         with: [PerformanceModel.build(entity: selectePerformance)])
-            toastContainerViewModel.presentMessage("프로젝트 이름이 수정되었습니다")
+            do {
+                try await performanceUseCase.updatePerformance(selectePerformance)
+                performances.replaceSubrange(selecteIndex...selecteIndex,
+                                             with: [PerformanceModel.build(entity: selectePerformance)])
+                toastContainerViewModel.presentMessage("프로젝트 이름이 수정되었습니다")
+            } catch {
+                toastContainerViewModel.presentMessage("프로젝트 수정에 실패했습니다")
+            }
         }
     }
 
@@ -48,10 +52,14 @@ class PerformanceListReadingViewModel: ObservableObject {
 
     func deletePerformance(index: Int, performanceID: String) {
         Task {
-            let deleteResult = try await performanceUseCase.removePerformance(performanceID)
-            if deleteResult {
-                performances.remove(at: index)
-                toastContainerViewModel.presentMessage("프로젝트가 삭제되었습니다")
+            do {
+                let deleteResult = try await performanceUseCase.removePerformance(performanceID)
+                if deleteResult {
+                    performances.remove(at: index)
+                    toastContainerViewModel.presentMessage("프로젝트가 삭제되었습니다")
+                }
+            } catch {
+                toastContainerViewModel.presentMessage("프로젝트 삭제에 실패했습니다")
             }
         }
     }

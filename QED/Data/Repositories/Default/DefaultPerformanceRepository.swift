@@ -1,4 +1,4 @@
-// swiftlint:disable all
+// 
 //  DefaultPerformanceRepository.swift
 //  QED
 //
@@ -59,8 +59,8 @@ final class DefaultPerformanceRepository: PerformanceRepository {
             switch updateResult {
             case .success(_):
                 print("Successfully Update Performance")
-            case .failure(let error):
-                throw error
+            case .failure(_):
+                throw DataError(message: "프로젝트 수정에 실패했습니다")
             }
         } catch {
             print("Update Performance Error")
@@ -73,8 +73,8 @@ final class DefaultPerformanceRepository: PerformanceRepository {
             switch deleteResult {
             case .success(let success):
                 return success
-            case .failure(let error):
-                throw error
+            case .failure(_):
+                throw DataError(message: "프로젝트 삭제에 실패했습니다")
             }
         } catch {
             print("Remove Performance Error")
