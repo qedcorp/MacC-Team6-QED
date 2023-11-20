@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PerformanceLoadingView: View {
-    let transfer: PerformanceLoadingTransferModel
+    let dependency: PerformanceLoadingViewDependency
     @Binding var path: [PresentType]
     @StateObject private var viewModel = PerformanceLoadingViewModel()
 
@@ -43,7 +43,7 @@ struct PerformanceLoadingView: View {
         }
         .navigationBarBackButtonHidden()
         .task {
-            viewModel.transfer = transfer
+            viewModel.setupWithDependency(dependency)
             await viewModel.executeTask()
             viewModel.endLoading()
         }

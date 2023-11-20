@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3A0088192B0517D300C9C643 /* PerformanceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */; };
-		3A00881B2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */; };
+		3A00881B2B05306C00C9C643 /* PerformanceLoadingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881A2B05306C00C9C643 /* PerformanceLoadingViewDependency.swift */; };
 		3A00881D2B053CA400C9C643 /* MemberSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */; };
-		3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */; };
+		3A00881F2B0553A400C9C643 /* PerformanceWatchingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00881E2B0553A400C9C643 /* PerformanceWatchingViewDependency.swift */; };
 		3A0088212B06907C00C9C643 /* ViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088202B06907C00C9C643 /* ViewDependency.swift */; };
 		3A0088232B0690F500C9C643 /* FormationSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */; };
 		3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A021EE62AE25B860099C008 /* Music+Stub.swift */; };
@@ -36,6 +36,8 @@
 		3A533A462AF15ECF007E76F7 /* BezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A452AF15ECF007E76F7 /* BezierPath.swift */; };
 		3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */; };
 		3A533A4C2AF21BCF007E76F7 /* MovementMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */; };
+		3A62A1A92B0746D700F34C28 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1A82B0746D700F34C28 /* MainCoordinator.swift */; };
+		3A62A1AB2B0747F700F34C28 /* PerformanceSettingViewDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A62A1AA2B0747F700F34C28 /* PerformanceSettingViewDependency.swift */; };
 		3A897FCA2AE2CF4E0031E6BE /* Formable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FC92AE2CF4E0031E6BE /* Formable.swift */; };
 		3A897FCE2AE2E2F30031E6BE /* User+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */; };
 		3A897FD12AE2E74E0031E6BE /* DisabledOpacityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */; };
@@ -221,7 +223,7 @@
 		D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */; };
 		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
 		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
-		D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */; };
+		D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */; };
 		D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */; };
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
@@ -245,9 +247,9 @@
 
 /* Begin PBXFileReference section */
 		3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingViewModel.swift; sourceTree = "<group>"; };
-		3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingTransferModel.swift; sourceTree = "<group>"; };
+		3A00881A2B05306C00C9C643 /* PerformanceLoadingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingViewDependency.swift; sourceTree = "<group>"; };
 		3A00881C2B053CA400C9C643 /* MemberSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSettingViewDependency.swift; sourceTree = "<group>"; };
-		3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingTransferModel.swift; sourceTree = "<group>"; };
+		3A00881E2B0553A400C9C643 /* PerformanceWatchingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingViewDependency.swift; sourceTree = "<group>"; };
 		3A0088202B06907C00C9C643 /* ViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDependency.swift; sourceTree = "<group>"; };
 		3A0088222B0690F500C9C643 /* FormationSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormationSettingViewDependency.swift; sourceTree = "<group>"; };
 		3A021EE62AE25B860099C008 /* Music+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Music+Stub.swift"; sourceTree = "<group>"; };
@@ -274,6 +276,8 @@
 		3A533A452AF15ECF007E76F7 /* BezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPath.swift; sourceTree = "<group>"; };
 		3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierPathConverter.swift; sourceTree = "<group>"; };
 		3A533A4B2AF21BCF007E76F7 /* MovementMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementMap.swift; sourceTree = "<group>"; };
+		3A62A1A82B0746D700F34C28 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		3A62A1AA2B0747F700F34C28 /* PerformanceSettingViewDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceSettingViewDependency.swift; sourceTree = "<group>"; };
 		3A897FC92AE2CF4E0031E6BE /* Formable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formable.swift; sourceTree = "<group>"; };
 		3A897FCD2AE2E2F30031E6BE /* User+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Stub.swift"; sourceTree = "<group>"; };
 		3A897FD02AE2E74E0031E6BE /* DisabledOpacityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledOpacityModifier.swift; sourceTree = "<group>"; };
@@ -445,7 +449,7 @@
 		D48797722AF4C796004EFEDA /* ObjectPlayableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableModel.swift; sourceTree = "<group>"; };
 		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
 		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
-		D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatichingDetailViewModel.swift; sourceTree = "<group>"; };
+		D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
 		D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimer.swift; sourceTree = "<group>"; };
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
@@ -789,6 +793,7 @@
 			children = (
 				5136BFA02ADE7F5C00882B6B /* MainView.swift */,
 				514BDE5F2AE47A5400AAFE2C /* MainViewModel.swift */,
+				3A62A1A82B0746D700F34C28 /* MainCoordinator.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -826,7 +831,7 @@
 			children = (
 				5186C6AB2AE40C0B002E4D3E /* PerformanceWatchingListView.swift */,
 				5149AFBB2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift */,
-				3A00881E2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift */,
+				3A00881E2B0553A400C9C643 /* PerformanceWatchingViewDependency.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -845,7 +850,7 @@
 			children = (
 				D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */,
 				51A26C2F2AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift */,
-				D49B04E62AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift */,
+				D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -871,6 +876,7 @@
 			children = (
 				A974EA132AE440C600302C9D /* ViewModel */,
 				A974EA182AE440C600302C9D /* View */,
+				3A62A1AA2B0747F700F34C28 /* PerformanceSettingViewDependency.swift */,
 			);
 			path = PerformanceSetting;
 			sourceTree = "<group>";
@@ -912,7 +918,7 @@
 			children = (
 				D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */,
 				3A0088182B0517D300C9C643 /* PerformanceLoadingViewModel.swift */,
-				3A00881A2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift */,
+				3A00881A2B05306C00C9C643 /* PerformanceLoadingViewDependency.swift */,
 			);
 			path = PerformanceLoading;
 			sourceTree = "<group>";
@@ -1635,7 +1641,7 @@
 				3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */,
 				D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */,
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
-				3A00881F2B0553A400C9C643 /* PerformanceWatchingTransferModel.swift in Sources */,
+				3A00881F2B0553A400C9C643 /* PerformanceWatchingViewDependency.swift in Sources */,
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
 				3AC325072AF4C08A002B6682 /* GridRenderer.swift in Sources */,
 				D460EFDB2AE18DF700A5966A /* MockPresetRepository.swift in Sources */,
@@ -1661,6 +1667,7 @@
 				D460EFFB2AE18DF700A5966A /* AuthProviderType.swift in Sources */,
 				D460EFDD2AE18DF700A5966A /* MockMusicRepository.swift in Sources */,
 				D460EFDF2AE18DF700A5966A /* KeyChainError.swift in Sources */,
+				3A62A1AB2B0747F700F34C28 /* PerformanceSettingViewDependency.swift in Sources */,
 				5149AFB82AE58529006F0C4A /* DanceFormationView.swift in Sources */,
 				D460F0182AE18DF700A5966A /* Preset.swift in Sources */,
 				3A021EE72AE25B860099C008 /* Music+Stub.swift in Sources */,
@@ -1685,9 +1692,9 @@
 				514BDE602AE47A5400AAFE2C /* MainViewModel.swift in Sources */,
 				5149AFBA2AE58610006F0C4A /* MemberCircleView.swift in Sources */,
 				3A53290A2AED92B40051A09C /* MemberSettingViewModel.swift in Sources */,
-				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				3AC325122AFB75EF002B6682 /* Animate.swift in Sources */,
-				D49B04E72AFA389A00AD38A9 /* PerformanceWatichingDetailViewModel.swift in Sources */,
+				D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */,
 				3AE701D62AE6E22700C48403 /* ColorArrayable.swift in Sources */,
 				D460EFFF2AE18DF700A5966A /* PerformanceRepository.swift in Sources */,
 				D460F0492AE429A900A5966A /* Performance+.swift in Sources */,
@@ -1720,7 +1727,7 @@
 				3AC3250D2AFA7473002B6682 /* CGPoint+Distance.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
-				3A00881B2B05306C00C9C643 /* PerformanceLoadingTransferModel.swift in Sources */,
+				3A00881B2B05306C00C9C643 /* PerformanceLoadingViewDependency.swift in Sources */,
 				D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */,
 				3A0088192B0517D300C9C643 /* PerformanceLoadingViewModel.swift in Sources */,
 				D460F04B2AE42EE000A5966A /* DefaultPerformanceRepository.swift in Sources */,
@@ -1782,6 +1789,7 @@
 				3A5329062AED37C10051A09C /* FormationSettingViewModel.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				3AC325052AF40BF2002B6682 /* MemberInfoEditingViewModel.swift in Sources */,
+				3A62A1A92B0746D700F34C28 /* MainCoordinator.swift in Sources */,
 				D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */,
 				D460EFF32AE18DF700A5966A /* TouchPositionConverter.swift in Sources */,
 				A9CF3E6D2B0479C20013312D /* PerformanceSettingView.swift in Sources */,
