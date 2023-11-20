@@ -155,7 +155,7 @@ struct PerformanceWatchingDetailView: View {
     private func buildTitleAndHeadcountView(geometry: GeometryProxy) -> some View {
         HStack {
             Text(viewModel.performance?.music.title ?? "")
-                .bold()
+                .fontWeight(.bold)
                 .lineLimit(1)
             Text("\(viewModel.performance?.headcount ?? 0)인")
                 .padding(.vertical, 3)
@@ -290,7 +290,7 @@ struct PerformanceWatchingDetailView: View {
                     }
                 }
                 .font(.title2)
-                .bold()
+                .fontWeight(.bold)
                 .foregroundStyle(.white)
                 buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
                 buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
@@ -343,7 +343,7 @@ struct PerformanceWatchingDetailView: View {
         ToolbarItem(placement: .principal) {
             Text("대형보기")
                 .foregroundStyle(.white)
-                .bold()
+                .fontWeight(.bold)
         }
     }
 

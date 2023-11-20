@@ -252,7 +252,7 @@ struct MyPageView: View {
         Text("버전정보 \(UIApplication.appVersion ?? "")")
             .foregroundStyle(Color.monoNormal2)
             .font(.subheadline)
-            .bold()
+            .fontWeight(.bold)
             .padding(.top, 19)
             .padding(.bottom, 40)
     }
@@ -271,7 +271,7 @@ struct MyPageView: View {
     private func buildCenterItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
             Text("나의 프로필")
-                .bold()
+                .fontWeight(.bold)
                 .foregroundColor(.white)
         }
     }

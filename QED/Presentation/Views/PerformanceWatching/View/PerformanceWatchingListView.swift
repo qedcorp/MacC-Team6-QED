@@ -36,7 +36,7 @@ struct PerformanceWatchingListView: View {
     private func buildHeaderView() -> some View {
         HStack {
             Text("전체 대형 보기")
-                .bold()
+                .fontWeight(.bold)
                 .font(.title3)
                 .foregroundStyle(Color.monoWhite3)
             Spacer()

@@ -97,7 +97,7 @@ struct DanceFormationView: View {
         }
         .frame(width: width)
         .font(.caption2)
-        .bold()
+        .fontWeight(.bold)
     }
 }
 

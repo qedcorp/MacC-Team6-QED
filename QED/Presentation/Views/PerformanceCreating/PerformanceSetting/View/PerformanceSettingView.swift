@@ -78,7 +78,7 @@ struct PerformanceSettingView: View {
                                 .foregroundStyle(Color.monoNormal2)
                                 .font(.title3)
                                 .kerning(0.35)
-                                .bold()
+                                .fontWeight(.bold)
                         }
                         
                         Spacer()
@@ -110,7 +110,7 @@ struct PerformanceSettingView: View {
             ToolbarItem(placement: .principal) {
                 Text("새 프로젝트")
                     .font(.body)
-                    .bold()
+                    .fontWeight(.bold)
                     .foregroundStyle(Color.monoWhite3)
             }
         }
@@ -382,7 +382,7 @@ struct PerformanceSettingView: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Color.gray)
-                .bold()
+                .fontWeight(.bold)
             
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
                 .focused($isFocused)
@@ -486,7 +486,7 @@ struct PerformanceSettingView: View {
             .foregroundColor(viewModel.headcount < 2 ? .monoWhite2 : .monoWhite3)
             .multilineTextAlignment(.center)
             .font(.title3)
-            .bold()
+            .fontWeight(.bold)
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
             .background(
                 RoundedRectangle(cornerRadius: 20)
