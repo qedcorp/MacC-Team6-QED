@@ -191,9 +191,10 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     func getPreset() -> Preset {
         let positions = getRelativePositions()
-        Preset.presetID += 1
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMddHHmmSS"
         return Preset(
-            id: "\(Preset.presetID)",
+            id: dateFormatter.string(from: Date()),
             headcount: objectViews.count,
             relativePositions: positions
         )
