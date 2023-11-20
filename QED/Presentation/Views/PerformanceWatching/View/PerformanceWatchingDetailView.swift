@@ -173,8 +173,6 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildMemo() -> some View {
-        let memo = viewModel.performance?.formations[safe: viewModel.selectedIndex]?.memo
-        ?? "대형 \(viewModel.selectedIndex + 1)"
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.monoNormal1)
@@ -184,7 +182,7 @@ struct PerformanceWatchingDetailView: View {
                         .strokeBorder(Gradient.strokeGlass3, lineWidth: 1)
                 )
 
-            Text(memo)
+            Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
                 .font(.title3)
         }
@@ -193,42 +191,41 @@ struct PerformanceWatchingDetailView: View {
     private func buildPlayerView() -> some View {
         ZStack {
             if let performance = viewModel.performance?.entity {
-                GeometryReader { _ in
-                    ScrollObservableView(performance: performance, action: viewModel.action)
-                    buildAllFormationButton()
-                }
+                ScrollObservableView(performance: performance, action: viewModel.action)
                 .frame(height: PlayBarConstants.playBarHeight)
             }
         }
         .padding(.bottom)
     }
-
     private func buildTabBar(geometry: GeometryProxy) -> some View {
-        HStack {
-            Button {
-                withAnimation(.spring) {
-                    viewModel.isTransitionEditable.toggle()
-                    if viewModel.isTransitionEditable {
-                        if viewModel.selectedIndex == 0 {
-                            viewModel.action.send(.setSelctedIndex(1))
+        ZStack {
+            HStack {
+                Button {
+                    withAnimation(.spring) {
+                        viewModel.isTransitionEditable.toggle()
+                        if viewModel.isTransitionEditable {
+                            if viewModel.selectedIndex == 0 {
+                                viewModel.action.send(.setSelctedIndex(1))
+                            }
+                            viewModel.presentEditingModeToastMessage()
                         }
-                        viewModel.presentEditingModeToastMessage()
                     }
+                } label: {
+                    Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
                 }
-            } label: {
-                Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
+                Rectangle().foregroundStyle(.clear).frame(height: 1)
+                buildAllFormationButton()
+                Spacer(minLength: 20)
+                Button {
+                    viewModel.isSettingSheetVisible.toggle()
+                } label: {
+                    Image("setting")
+                }
             }
-            Spacer()
             if viewModel.isPlaying {
                 buildPuaseButton()
             } else {
                 buildPlayButton()
-            }
-            Spacer()
-            Button {
-                viewModel.isSettingSheetVisible.toggle()
-            } label: {
-                Image("setting")
             }
         }
         .padding(.horizontal, 24)
@@ -240,9 +237,7 @@ struct PerformanceWatchingDetailView: View {
         Button {
             viewModel.isAllFormationVisible = true
         } label: {
-            Image("showAllFrames")
-                .padding(EdgeInsets(top: 0, leading: 24, bottom: 16, trailing: 19))
-//                .background(Color.monoDarker)
+            Image("showAllFormationButton")
         }
     }
 
