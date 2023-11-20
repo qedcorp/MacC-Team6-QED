@@ -28,7 +28,7 @@ struct PresetManagingView: View {
                     formable: nil,
                     headcount: viewModel.headcount,
                     onChange: {
-                        viewModel.historyTag = String(describing: $0)
+                        viewModel.historyTag = String(describing: $0)git
                     }
                 )
                 .aspectRatio(19 / 12, contentMode: .fit)
@@ -52,7 +52,7 @@ struct PresetManagingView: View {
             ScrollView(.horizontal) {
                 HStack {
                     buildObjectStageView(formable: Preset.empty)
-                    ForEach(Array(viewModel.presets.enumerated()), id: \.offset) { _, preset in
+                    ForEach(Array(viewModel.presets.sorted { $0.id < $1.id } .enumerated()), id: \.offset) { _, preset in
                         VStack {
                             buildObjectStageView(formable: preset)
                             Text(preset.id)
