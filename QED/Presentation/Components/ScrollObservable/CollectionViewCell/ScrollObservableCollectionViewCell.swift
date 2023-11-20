@@ -100,7 +100,7 @@ class ScrollObservableCollectionViewCell: UICollectionViewCell {
         numberLabel.text = "\(index)"
         numberLabel.font = UIFont.boldSystemFont(ofSize: 8)
 
-        lyricsLabel.text = formation?.memo ?? "대형 \(index + 1)"
+        lyricsLabel.text = formation?.memo ?? "대형 \(index)"
         lyricsLabel.minimumScaleFactor = 0.3
         lyricsLabel.font = UIFont.boldSystemFont(ofSize: 11)
         lyricsLabel.snp.makeConstraints {

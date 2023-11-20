@@ -12,11 +12,11 @@ struct MainView: View {
 
     @State private var path: [PresentType] = [] {
         didSet {
-            guard path.isEmpty else {
+            if path == [] {
+                DispatchQueue.global().async {
+                    viewModel.fetchMyRecentPerformances()
+                }
                 return
-            }
-            DispatchQueue.global().async {
-                viewModel.fetchMyRecentPerformances()
             }
         }
     }
@@ -41,6 +41,9 @@ struct MainView: View {
             .navigationBarBackButtonHidden()
             .navigationDestination(for: PresentType.self) {
                 MainCoordinator(path: $path).buildView(presentType: $0)
+                    .onDisappear {
+                        viewModel.fetchMyRecentPerformances()
+                    }
             }
         }
         .task {

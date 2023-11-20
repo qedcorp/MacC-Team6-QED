@@ -86,7 +86,7 @@ struct PerformanceListReadingView: View {
     private func buildLeftItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
-                dismiss()
+                path = []
             } label: {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(Color.blueLight3)
