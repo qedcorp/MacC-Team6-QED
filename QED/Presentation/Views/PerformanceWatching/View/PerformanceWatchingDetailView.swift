@@ -17,7 +17,7 @@ struct PerformanceWatchingDetailView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack {
+            VStack(spacing: 0) {
                 buildTitleAndHeadcountView(geometry: geometry)
                 VStack(spacing: 8) {
                     VStack {
@@ -155,18 +155,20 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildTitleAndHeadcountView(geometry: GeometryProxy) -> some View {
         HStack {
-            Text(viewModel.performance?.music.title ?? "")
-                .bold()
-                .lineLimit(1)
+            if let title = viewModel.performance?.music.title {
+                Text(title == "_" ? "선택한 노래없음" : title)
+                    .lineLimit(1)
+                    .font(.caption)
+                    .foregroundStyle(Color.monoWhite3)
+            }
             Text("\(viewModel.performance?.headcount ?? 0)인")
-                .padding(.vertical, 3)
-                .padding(.horizontal, 8)
-                .background(Color(.systemGray5))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .bold()
+                .font(.caption2)
+                .padding(.vertical, 2)
+                .padding(.horizontal, 7)
+                .background(Color.monoWhite3)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
         }
-        .font(.subheadline)
-        .foregroundStyle(.gray)
-        .padding(.horizontal, 20)
         .padding(.bottom, geometry.size.height * 0.1)
     }
 
@@ -195,7 +197,7 @@ struct PerformanceWatchingDetailView: View {
                     ScrollObservableView(performance: performance, action: viewModel.action)
                     buildAllFormationButton()
                 }
-                .frame(height: PlayBarConstants.playBarHeight + 25)
+                .frame(height: PlayBarConstants.playBarHeight)
             }
         }
         .padding(.bottom)
@@ -207,6 +209,9 @@ struct PerformanceWatchingDetailView: View {
                 withAnimation(.spring) {
                     viewModel.isTransitionEditable.toggle()
                     if viewModel.isTransitionEditable {
+                        if viewModel.selectedIndex == 0 {
+                            viewModel.action.send(.setSelctedIndex(1))
+                        }
                         viewModel.presentEditingModeToastMessage()
                     }
                 }
@@ -236,8 +241,8 @@ struct PerformanceWatchingDetailView: View {
             viewModel.isAllFormationVisible = true
         } label: {
             Image("showAllFrames")
-                .frame(height: PlayBarConstants.playBarHeight + 25)
-                .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 14))
+                .padding(EdgeInsets(top: 0, leading: 24, bottom: 16, trailing: 19))
+//                .background(Color.monoDarker)
         }
     }
 
@@ -344,7 +349,7 @@ struct PerformanceWatchingDetailView: View {
         ToolbarItem(placement: .principal) {
             Text("대형보기")
                 .foregroundStyle(.white)
-                .bold()
+                .fontWeight(.heavy)
         }
     }
 

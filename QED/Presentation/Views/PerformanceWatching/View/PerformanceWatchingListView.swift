@@ -38,7 +38,7 @@ struct PerformanceWatchingListView: View {
         }
         .presentationDragIndicator(.visible)
     }
-    
+
     private let columns: [GridItem] = [
         GridItem(spacing: 16, alignment: nil),
         GridItem(spacing: 16, alignment: nil)
