@@ -187,7 +187,6 @@ struct PerformanceSettingView: View {
             .onSubmit {
                 withAnimation {
                     viewModel.toggleDisclosureGroup2()
-                    viewModel.scrollToID = 1
                 }
             }
             .focused($isFocused)
@@ -292,6 +291,9 @@ struct PerformanceSettingView: View {
                     .font(.subheadline)
             }
         }
+        .onAppear {
+            viewModel.scrollToID = 1
+        }
         .disclosureGroupLabelOpend()
     }
     
@@ -377,7 +379,6 @@ struct PerformanceSettingView: View {
             } else {
                 viewModel.selectedMusic = music
                 viewModel.toggleDisclosureGroup3()
-                viewModel.scrollToID = 1
             }
         }
         .id(music.id)
@@ -441,7 +442,6 @@ struct PerformanceSettingView: View {
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
-            viewModel.scrollToID = 1
             viewModel.selectedMusic = Music(id: "_", title: "_", artistName: "_")
         } label: {
             Image("emptyMusic")
