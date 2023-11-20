@@ -18,7 +18,11 @@ struct PerformanceWatchingDetailView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                buildTitleAndHeadcountView(geometry: geometry)
+                if let performance = viewModel.performance {
+                    MusicHeadcountView(title: performance.music.title,
+                                       headcount: performance.headcount)
+                    .padding(.bottom, geometry.size.height * 0.1)
+                }
                 VStack(spacing: 8) {
                     VStack {
                         buildMemo()
@@ -151,25 +155,6 @@ struct PerformanceWatchingDetailView: View {
             }
         }
         .frame(height: 216)
-    }
-
-    private func buildTitleAndHeadcountView(geometry: GeometryProxy) -> some View {
-        HStack {
-            if let title = viewModel.performance?.music.title {
-                Text(title == "_" ? "선택한 노래없음" : title)
-                    .lineLimit(1)
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(Color.monoWhite3)
-            }
-            Text("\(viewModel.performance?.headcount ?? 0)인")
-                .bold()
-                .font(.caption2)
-                .padding(.vertical, 2)
-                .padding(.horizontal, 7)
-                .background(Color.monoWhite3)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-        }
-        .padding(.bottom, geometry.size.height * 0.1)
     }
 
     private func buildMemo() -> some View {
