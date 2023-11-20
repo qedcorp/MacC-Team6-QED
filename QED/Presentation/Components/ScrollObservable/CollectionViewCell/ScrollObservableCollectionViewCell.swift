@@ -54,7 +54,6 @@ class ScrollObservableCollectionViewCell: UICollectionViewCell {
             formationFrame.backgroundColor = .blueLight1
             formationFrame.layer.borderColor = UIColor.blueLight3.cgColor
             numberRectangle.backgroundColor = .blueLight3
-            numberLabel.textColor = .white
             lyricsLabel.textColor = .blueLight3
             transitionFrame.strokeColor = UIColor.blueLight3.cgColor
             transitionFrame.path = path(in: transitionFrameWrapperView.frame).cgPath
@@ -63,7 +62,6 @@ class ScrollObservableCollectionViewCell: UICollectionViewCell {
             formationFrame.backgroundColor = .monoNormal2
             formationFrame.layer.borderColor = UIColor.clear.cgColor
             numberRectangle.backgroundColor = .white
-            numberLabel.textColor = .black
             lyricsLabel.textColor = .white
             transitionFrame.strokeColor = UIColor.monoDark.cgColor
             transitionFrame.path = path(in: transitionFrameWrapperView.frame).cgPath
@@ -96,13 +94,18 @@ class ScrollObservableCollectionViewCell: UICollectionViewCell {
         numberLabel.snp.makeConstraints {
             $0.centerY.centerX.equalToSuperview()
         }
-        numberLabel.minimumScaleFactor = 0.3
         numberLabel.text = "\(index)"
-        numberLabel.font = UIFont.boldSystemFont(ofSize: 8)
+        numberLabel.textColor = .monoBlack
+        numberLabel.minimumScaleFactor = 0.3
+        numberLabel.font = .preferredFont(forTextStyle: .caption2)
 
         lyricsLabel.text = formation?.memo ?? "대형 \(index)"
+        lyricsLabel.textColor = .monoBlack
         lyricsLabel.minimumScaleFactor = 0.3
-        lyricsLabel.font = UIFont.boldSystemFont(ofSize: 11)
+        lyricsLabel.font = .preferredFont(
+            forTextStyle: .caption2,
+            compatibleWith: .init(legibilityWeight: .bold)
+        )
         lyricsLabel.snp.makeConstraints {
             $0.centerY.equalTo(numberRectangle.snp.centerY)
             $0.leading.equalTo(numberRectangle.snp.trailing).offset(3)
