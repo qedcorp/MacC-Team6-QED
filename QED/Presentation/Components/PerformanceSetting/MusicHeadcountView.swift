@@ -8,7 +8,7 @@ struct MusicHeadcountView: View {
 
     var body: some View {
         HStack(spacing: 7) {
-            Text(title)
+            Text(title == "_" ? "선택한 노래없음" : title)
                 .foregroundStyle(Color.monoWhite3)
                 .font(.caption)
             Text("\(headcount)인")
