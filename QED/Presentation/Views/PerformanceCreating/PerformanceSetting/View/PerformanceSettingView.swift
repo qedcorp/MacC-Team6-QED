@@ -70,7 +70,7 @@ struct PerformanceSettingView: View {
                                 .foregroundStyle(Color.monoNormal2)
                                 .font(.title3)
                                 .kerning(0.35)
-                                .bold()
+                                .fontWeight(.bold)
                         }
 
                         Spacer()
@@ -102,7 +102,7 @@ struct PerformanceSettingView: View {
             ToolbarItem(placement: .principal) {
                 Text("새 프로젝트")
                     .font(.body)
-                    .bold()
+                    .fontWeight(.bold)
                     .foregroundStyle(Color.monoWhite3)
             }
         }
@@ -484,9 +484,8 @@ struct PerformanceSettingView: View {
                              : .monoWhite3)
             .multilineTextAlignment(.center)
             .font(.title3)
-            .bold()
+            .fontWeight(.bold)
             .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
-
     }
 
     var headcountText: some View {

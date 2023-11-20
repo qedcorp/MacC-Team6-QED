@@ -10,10 +10,7 @@ struct MainCoordinator {
     func buildView(presentType: PresentType) -> some View {
         switch presentType {
         case let .performanceSetting(dependency):
-            // TODO: 수정
-            let viewModel = PerformanceSettingViewModel(
-                performanceUseCase: dependency.performanceUseCase
-            )
+            let viewModel = PerformanceSettingViewModel(performanceUseCase: dependency.performanceUseCase)
             PerformanceSettingView(viewModel: viewModel, path: path)
 
         case let .performanceLoading(dependency):
@@ -28,11 +25,18 @@ struct MainCoordinator {
         case let .performanceWatching(dependency):
             PerformanceWatchingDetailView(dependency: dependency, path: path)
 
-        case .myPage:
-            MyPageView()
+        case let .myPage(dependency):
+            MyPageView(toastContainerViewModel: dependency.toastContainerViewModel, path: path)
 
-        case let .performanceListReading(performances):
-            PerformanceListReadingView(performances: performances)
+        case let .accountInfo(dependency):
+            AccountInfoView(viewModel: dependency.myPageViewModel)
+
+        case let .performanceListReading(dependency):
+            let viewModel = PerformanceListReadingViewModel(
+                performances: dependency.performances,
+                toastContainerViewModel: dependency.toastContainerViewModel
+            )
+            PerformanceListReadingView(viewModel: viewModel, path: path)
         }
     }
 }

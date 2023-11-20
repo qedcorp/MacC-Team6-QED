@@ -50,3 +50,13 @@ class Performance: Codable {
         self.formations.allSatisfy { $0.members.count == self.headcount }
     }
 }
+
+extension Performance: Identifiable, Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+
+    static func == (lhs: Performance, rhs: Performance) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+}

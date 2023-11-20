@@ -8,7 +8,7 @@ import Combine
 @main
 struct QEDApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var loginViewModel = LoginViewModel.shared
+    @StateObject private var loginViewModel = LoginViewModel.shared
 
     var body: some Scene {
         WindowGroup {
@@ -21,6 +21,7 @@ struct QEDApp: App {
                 }
                 ToastContainerView()
             }
+            .preferredColorScheme(.dark)
             .tint(.blueLight3)
         }
     }

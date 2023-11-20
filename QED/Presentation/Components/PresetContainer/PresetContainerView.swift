@@ -12,6 +12,9 @@ struct PresetContainerView: View {
             HStack {
                 Text("동선 프리셋")
                     .font(.headline.weight(.bold))
+                    .onTapGesture(count: 7) {
+                        viewModel.isManaging = true
+                    }
                 Spacer()
                 Button {
                     viewModel.toggleGrid()
@@ -35,29 +38,33 @@ struct PresetContainerView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             viewModel.fetchPresets()
+        }
+        .sheet(isPresented: $viewModel.isManaging) {
+            PresetManagingView()
         }
     }
 
     private func buildObjectStageView(preset: Preset) -> some View {
         let cornerRadius: CGFloat = 8
-        return ObjectStageView(formable: preset)
-            .aspectRatio(138 / 89, contentMode: .fit)
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.monoNormal2)
-                    .blur(radius: 50)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
-            )
-            .mask {
-                RoundedRectangle(cornerRadius: cornerRadius)
-            }
-            .onTapGesture {
-                viewModel.canvasController.copyFormable(preset)
-            }
+        return Button {
+            viewModel.canvasController.copyFormable(preset)
+        } label: {
+            ObjectStageView(formable: preset)
+                .aspectRatio(138 / 89, contentMode: .fit)
+                .background(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(Color.monoNormal2)
+                        .blur(radius: 50)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                )
+                .mask {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                }
+        }
     }
 }

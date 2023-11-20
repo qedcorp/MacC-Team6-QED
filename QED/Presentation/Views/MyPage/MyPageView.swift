@@ -8,24 +8,20 @@ import StoreKit
 import SwiftUI
 
 struct MyPageView: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) var openURL
-    @Environment(\.requestReview) var requestReview
-    @ObservedObject var viewModel = MyPageViewModel()
     let toastContainerViewModel: ToastContainerViewModel
-    let termsAndConditions: MyPageList = .termsAndConditions
-    let customerSupport: MyPageList = .customerSupport
-    let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
-    let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
-    let qedEmail = "teamqedofficial@gmail.com"
-
+    @Binding var path: [PresentType]
+    @StateObject private var viewModel = MyPageViewModel()
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
+    @Environment(\.requestReview) private var requestReview
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
     @State private var message: Message?
-
-    init(toastContainerViewModel: ToastContainerViewModel = .shared) {
-        self.toastContainerViewModel = toastContainerViewModel
-    }
+    private let termsAndConditions: MyPageList = .termsAndConditions
+    private let customerSupport: MyPageList = .customerSupport
+    private let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
+    private let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
+    private let qedEmail = "teamqedofficial@gmail.com"
 
     var body: some View {
         ZStack {
@@ -50,12 +46,12 @@ struct MyPageView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .toolbarBackground(Color.monoDarker, for: .navigationBar)
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbar {
             buildLeftItem()
             buildCenterItem()
         }
-        .onAppear {
+        .task {
             viewModel.getMe()
         }
     }
@@ -80,6 +76,7 @@ struct MyPageView: View {
                         }
                         Text("디렉터님")
                     }
+                    .frame(height: 34)
                 }
                 Spacer()
             }
@@ -102,7 +99,6 @@ struct MyPageView: View {
             if let email = viewModel.user.email {
                 Text(verbatim: email)
             }
-
             if let loginProvider = viewModel.loginProvider {
                 ZStack {
                     Circle()
@@ -111,10 +107,10 @@ struct MyPageView: View {
                     Image(loginProvider)
                 }
             }
-
             Spacer()
-            NavigationLink {
-                AccountInfoView(viewModel: viewModel)
+            Button {
+                let dependency = AccountInfoViewDependency(myPageViewModel: viewModel)
+                path.append(.accountInfo(dependency))
             } label: {
                 Image(systemName: "chevron.right")
             }
@@ -257,7 +253,7 @@ struct MyPageView: View {
         Text("버전정보 \(UIApplication.appVersion ?? "")")
             .foregroundStyle(Color.monoNormal2)
             .font(.subheadline)
-            .bold()
+            .fontWeight(.bold)
             .padding(.top, 19)
             .padding(.bottom, 40)
     }
@@ -276,12 +272,8 @@ struct MyPageView: View {
     private func buildCenterItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
             Text("나의 프로필")
-                .bold()
+                .fontWeight(.bold)
                 .foregroundColor(.white)
         }
     }
-}
-
-#Preview {
-    MyPageView()
 }

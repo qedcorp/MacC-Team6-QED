@@ -10,6 +10,7 @@ struct PerformanceModel: Identifiable, Equatable {
     let memberInfos: [MemberInfoModel]
     let formations: [FormationModel]
     let isCompleted: Bool
+    let createdAt: Date
 
     var id: String {
         entity.id
@@ -23,7 +24,8 @@ struct PerformanceModel: Identifiable, Equatable {
             headcount: entity.headcount,
             memberInfos: entity.memberInfos?.map { .build(entity: $0) } ?? [],
             formations: entity.formations.map { .build(entity: $0) },
-            isCompleted: entity.isCompleted
+            isCompleted: entity.isCompleted,
+            createdAt: entity.createdAt
         )
     }
 }

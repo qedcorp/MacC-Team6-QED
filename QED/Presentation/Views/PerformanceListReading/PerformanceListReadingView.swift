@@ -8,66 +8,79 @@
 import SwiftUI
 
 struct PerformanceListReadingView: View {
-    let performances: [Performance]
     @ObservedObject var viewModel: PerformanceListReadingViewModel
+    @Binding var path: [PresentType]
     @Environment(\.dismiss) private var dismiss
 
-    init(performances: [Performance]) {
-        self.performances = performances
-        self.viewModel = PerformanceListReadingViewModel(performances: performances)
-    }
-
-    let columns: [GridItem] = [
-        GridItem(spacing: 16, alignment: nil),
-        GridItem(spacing: 16, alignment: nil)]
+    private let columns: [GridItem] = .init(repeating: .init(spacing: 16), count: 2)
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                buildPerformanceCountView()
-                buildPerformaceListView()
+        ZStack {
+            if viewModel.performances.isEmpty {
+                buildPerformanceListEmptyView()
+            } else {
+                ScrollView {
+                    VStack(spacing: 20) {
+                        buildPerformanceCountView()
+                        buildPerformanceListView()
+                    }
+                    .padding(.horizontal, 24)
+                }
             }
-            .padding(.horizontal, 24)
         }
-        .background(
-            Image("background")
-                .resizable()
-                .ignoresSafeArea(.all)
-        )
         .foregroundStyle(Color.monoWhite3)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            buildBackgroundView()
+        )
         .navigationBarBackButtonHidden()
-        .toolbarBackground(Color.monoDarker, for: .navigationBar)
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbar {
             buildLeftItem()
             buildCenterItem()
         }
     }
 
-    private func buildPerformaceListView() -> some View {
-        let performances = viewModel.performances
+    private func buildPerformanceCountView() -> some View {
+        HStack {
+            Text("전체(\(viewModel.performances.count))")
+                .font(.headline.weight(.bold))
+                .foregroundStyle(Color.monoWhite3)
+            Spacer()
+        }
+        .padding(.top, 20)
+    }
 
+    private func buildPerformanceListView() -> some View {
+        let performances = viewModel.performances
+            .sorted { $0.createdAt > $1.createdAt }
         return LazyVGrid(columns: columns, alignment: .center, spacing: 24) {
             ForEach(Array(performances.enumerated()), id: \.offset) { (index, performance) in
-                PerformanceListCardView(
-                    performance: performance.entity,
-                    viewModel: viewModel,
-                    isMyPerformance: true,
-                    index: index,
-                    onUpdate: viewModel.updatePerformanceTitle)
+                Button {
+                    let nextPath = PerformanceRouter(performance: performance.entity).getItemPath()
+                    path.append(nextPath)
+                } label: {
+                    PerformanceListCardView(
+                        performance: performance.entity,
+                        viewModel: viewModel,
+                        isMyPerformance: true,
+                        index: index,
+                        onUpdate: viewModel.updatePerformanceTitle
+                    )
+                }
             }
         }
         .padding(.bottom, 40)
     }
 
-    private func buildPerformanceCountView() -> some View {
-        HStack {
-            Text("전체(\(viewModel.performances.count))")
-                .font(.headline)
-                .bold()
-                .foregroundStyle(Color.monoWhite3)
-            Spacer()
-        }
-        .padding(.top, 20)
+    private func buildPerformanceListEmptyView() -> some View {
+        Image("mainlistEmpty")
+    }
+
+    private func buildBackgroundView() -> some View {
+        Image("background")
+            .resizable()
+            .ignoresSafeArea(.all)
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
@@ -84,12 +97,8 @@ struct PerformanceListReadingView: View {
     private func buildCenterItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
             Text("전체 프로젝트")
-                .bold()
+                .font(.body.weight(.bold))
                 .foregroundStyle(Color.monoWhite3)
         }
     }
 }
-
- #Preview {
-    PerformanceListReadingView(performances: [mockPerformance1])
- }

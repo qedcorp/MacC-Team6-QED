@@ -38,37 +38,76 @@ struct PerformanceListCardView: View {
     }
 
     var body: some View {
-            GeometryReader { geometry in
-                ZStack {
-                    VStack(alignment: .leading, spacing: 0) {
-                        if hasMusic {
-                            buildFetchMusicView()
-                        } else {
-                            buildFetchStateView("music.note")
-                        }
-                        buildMusicInfoView()
-                    }
-
-                    if isMyPerformance {
-                        buildEditButton()
-                    }
+        GeometryReader { geometry in
+            ZStack(alignment: .topTrailing) {
+                VStack(spacing: 0) {
+                    buildMusicImageView()
+                    buildPerformanceInfoView()
                 }
-                .onAppear {
-                    cardWidth = geometry.size.width
-                    cardHeight = geometry.size.height
+                if isMyPerformance {
+                    buildEditButton()
                 }
             }
-            .aspectRatio(163/198, contentMode: .fit)
-            .background(Gradient.blueGradation2)
-            .foregroundStyle(Color.monoWhite3)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .onAppear {
+                cardWidth = geometry.size.width
+                cardHeight = geometry.size.height
+            }
+        }
+        .foregroundStyle(Color.monoWhite3)
+        .aspectRatio(163 / 198, contentMode: .fit)
+        .background(Gradient.blueGradation2)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+    }
+
+    private func buildMusicImageView() -> some View {
+        ZStack {
+            if hasMusic {
+                buildFetchMusicView()
+            } else {
+                buildFetchStateView("music.note")
+            }
+            if !performance.isCompleted {
+                Color.black.opacity(0.8)
+                Image("yetComplete")
+            }
+        }
+        .frame(height: cardHeight * 0.7)
+        .clipped()
+    }
+
+    private func buildPerformanceInfoView() -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 3) {
+                Text("\(performance.title ?? "")")
+                    .font(.footnote.weight(.bold))
+                Text(hasMusic
+                     ? "\(performance.music.title)"
+                     :"선택한 노래없음"
+                )
+                .font(.caption2)
+            }
+            Spacer()
+            ZStack {
+                Circle()
+                    .fill(Color.monoWhite3)
+                    .frame(width: cardWidth * 0.165, height: cardWidth * 0.165)
+                Text("\(performance.headcount)")
+                    .foregroundStyle(Color.blueDark)
+                    .font(.footnote.weight(.bold))
+            }
+        }
+        .lineLimit(1)
+        .padding(.leading, 13)
+        .padding(.trailing, 12)
+        .frame(height: cardHeight * 0.3)
+        .background(.ultraThinMaterial)
     }
 
     private func buildFetchMusicView() -> some View {
-        return AsyncImage(url: performance.music.albumCoverURL) { phase in
+        return AsyncImage(url: performance.music.albumCoverURL, transaction: .init(animation: .easeInOut)) { phase in
             switch phase {
             case .empty:
-                buildLodingView()
+                buildLoadingView()
             case .success(let image):
                 buildAlbumCoverView(image: image)
             case .failure:
@@ -77,103 +116,46 @@ struct PerformanceListCardView: View {
                 buildFetchStateView("exclamationmark.circle.fill")
             }
         }
-    }
-
-    private func buildLodingView() -> some View {
-        VStack {
-            HStack(alignment: .center) {
-                Spacer()
-                FodiProgressView()
-                Spacer()
-            }
-        }
-        .frame(height: cardHeight)
-    }
-
-    private func buildAlbumCoverView(image: Image) -> some View {
-        ZStack {
-            image
-                .resizable()
-                .scaledToFill()
-                .frame(height: cardHeight * 0.7)
-                .clipped()
-
-            if !performance.isCompleted {
-                Rectangle()
-                    .fill(.black.opacity(0.8))
-                Image("yetComplete")
-            }
-
-        }
-    }
-
-    private func buildFetchStateView(_ image: String) -> some View {
-        VStack {
-            HStack(alignment: .center) {
-                Spacer()
-                Image(systemName: image)
-                    .font(.title)
-                Spacer()
-            }
-        }
-        .frame(height: cardHeight * 0.7)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.monoWhite2)
     }
 
-    private func buildMusicInfoView() -> some View {
-        HStack(alignment: .center) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text("\(performance.title ?? "")")
-                    .bold()
-
-                Text(hasMusic
-                     ? "\(performance.music.title)"
-                     :"선택한 노래없음"
-                )
-                .font(.caption2)
-            }
-            .lineLimit(1)
-            Spacer()
-            ZStack {
-                Circle()
-                    .fill(Color.monoWhite3)
-                    .frame(width: cardWidth * 0.165, height: cardWidth * 0.165)
-
-                Text("\(performance.headcount)")
-                    .foregroundStyle(Color.blueDark)
-                    .bold()
-            }
+    private func buildLoadingView() -> some View {
+        ZStack {
+            FodiProgressView()
         }
-        .font(.footnote)
-        .padding(.horizontal, 13)
-        .frame(height: cardHeight * 0.3)
-        .background(.ultraThinMaterial)
+    }
+
+    private func buildAlbumCoverView(image: Image) -> some View {
+        image
+            .resizable()
+            .scaledToFill()
+            .clipped()
+    }
+
+    private func buildFetchStateView(_ image: String) -> some View {
+        ZStack {
+            Image(systemName: image)
+                .font(.title)
+        }
     }
 
     private func buildEditButton() -> some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    isPresented = true
-                } label: {
-                    Image("ellipsis")
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 20)
-                }
-                .confirmationDialog(
-                    "EditPerformance", isPresented: $isPresented, actions: {
-                        buildConfirmationDialog()
-                    }
-                )
-                .alert(with: $message)
-                .alert("프로젝트 이름 수정", isPresented: $isEditable) {
-                    buildTextFeildAlertView()
-                }
-            }
-            Spacer()
+        Button {
+            isPresented = true
+        } label: {
+            Image("ellipsis")
+                .padding(8)
         }
-        .frame(width: cardWidth, height: cardHeight)
+        .confirmationDialog(
+            "EditPerformance", isPresented: $isPresented, actions: {
+                buildConfirmationDialog()
+            }
+        )
+        .alert(with: $message)
+        .alert("프로젝트 이름 수정", isPresented: $isEditable) {
+            buildTextFeildAlertView()
+        }
     }
 
     private func buildConfirmationDialog() -> some View {
@@ -196,11 +178,11 @@ struct PerformanceListCardView: View {
             if let title = self.performance.title {
                 TextField(title, text: $newTitle)
                     .foregroundStyle(.black)
-                Button("완료", action: {
+                Button("완료") {
                     guard let onUpdate = onUpdate else { return }
                     onUpdate(performance.id, newTitle)
                     newTitle = ""
-                })
+                }
                 Button("취소", role: .cancel) {
                     newTitle = ""
                 }

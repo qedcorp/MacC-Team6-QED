@@ -124,6 +124,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         return map
     }
 
+    var isNavigationBarHidden: Bool {
+        isZoomed
+    }
+
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
         performance = nil
         DispatchQueue.main.async { [unowned self] in

@@ -96,7 +96,7 @@ struct AccountInfoView: View {
     private func buildCenterItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
             Text("계정 정보")
-                .bold()
+                .fontWeight(.bold)
                 .foregroundColor(.white)
         }
     }

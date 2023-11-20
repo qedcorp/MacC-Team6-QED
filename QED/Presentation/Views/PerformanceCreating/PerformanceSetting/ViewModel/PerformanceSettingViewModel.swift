@@ -186,7 +186,7 @@ struct DisclosureGroupLabelStyle: ViewModifier {
         content
             .foregroundStyle(Color.blueLight3)
             .font(.title3)
-            .bold()
+            .fontWeight(.bold)
             .padding(.horizontal)
             .padding(.vertical, 20)
     }

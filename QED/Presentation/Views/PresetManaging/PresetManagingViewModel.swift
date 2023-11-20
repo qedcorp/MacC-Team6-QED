@@ -13,7 +13,7 @@ class PresetManagingViewModel: ObservableObject {
     @Published var historyTag = ""
     @Published private(set) var presets: [Preset] = []
 
-    init(presetUseCase: PresetUseCase) {
+    init(presetUseCase: PresetUseCase = DIContainer.shared.resolver.resolve(PresetUseCase.self)) {
         let canvasController = Controller()
         let objectHistoryArchiver = ObjectHistoryArchiver<Controller.History>()
         canvasController.objectHistoryArchiver = objectHistoryArchiver

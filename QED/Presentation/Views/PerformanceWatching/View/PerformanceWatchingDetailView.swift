@@ -38,25 +38,6 @@ struct PerformanceWatchingDetailView: View {
                 buildPlayerView()
                 buildTabBar(geometry: geometry)
             }
-            .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
-                buildSettingSheetView()
-            }
-            .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-                if let performance = viewModel.performance?.entity {
-                    PerformanceWatchingListView(performance: performance,
-                                                isAllFormationVisible: $viewModel.isAllFormationVisible,
-                                                selecteIndex: viewModel.selectedIndex,
-                                                action: viewModel.action
-                    )
-                }
-            }
-            .navigationBarBackButtonHidden()
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                buildLeftItem()
-                buildTitleItem()
-                buildRightItem()
-            }
         }
         .background {
             Image("background")
@@ -67,6 +48,13 @@ struct PerformanceWatchingDetailView: View {
             buildZoomableMovementEditingView()
             : nil
         )
+        .navigationBarBackButtonHidden()
+        .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
+        .toolbar {
+            buildLeftItem()
+            buildTitleItem()
+            buildRightItem()
+        }
         .task {
             viewModel.setupWithDependency(dependency)
         }
@@ -78,6 +66,18 @@ struct PerformanceWatchingDetailView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.viewModel.isAllFormationVisible = true
                 }
+            }
+        }
+        .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
+            buildSettingSheetView()
+        }
+        .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
+            if let performance = viewModel.performance?.entity {
+                PerformanceWatchingListView(performance: performance,
+                                            isAllFormationVisible: $viewModel.isAllFormationVisible,
+                                            selecteIndex: viewModel.selectedIndex,
+                                            action: viewModel.action
+                )
             }
         }
     }
@@ -158,7 +158,7 @@ struct PerformanceWatchingDetailView: View {
             if let title = viewModel.performance?.music.title {
                 Text(title == "_" ? "선택한 노래없음" : title)
                     .lineLimit(1)
-                    .font(.caption)
+                    .font(.caption.weight(.bold))
                     .foregroundStyle(Color.monoWhite3)
             }
             Text("\(viewModel.performance?.headcount ?? 0)인")
@@ -291,7 +291,7 @@ struct PerformanceWatchingDetailView: View {
                     }
                 }
                 .font(.title2)
-                .bold()
+                .fontWeight(.bold)
                 .foregroundStyle(.white)
                 buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
                 buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
