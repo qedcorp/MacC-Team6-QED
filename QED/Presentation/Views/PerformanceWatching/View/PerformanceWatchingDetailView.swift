@@ -206,6 +206,7 @@ struct PerformanceWatchingDetailView: View {
                 withAnimation(.spring) {
                     viewModel.isTransitionEditable.toggle()
                     if viewModel.isTransitionEditable {
+                        viewModel.isPlaying = false
                         viewModel.presentEditingModeToastMessage()
                     }
                 }
