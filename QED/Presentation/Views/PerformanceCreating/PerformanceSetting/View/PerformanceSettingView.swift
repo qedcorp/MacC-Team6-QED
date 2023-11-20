@@ -54,11 +54,9 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
-                    .gesture(
-                        DragGesture().onChanged { value in
-                            presentAlert = true
-                        }
-                    )
+                    .onDisappear {
+                    presentAlert = true
+                    }
 //                    .onTapGesture {
 //                            endTextEditing()
 //                    }
@@ -264,6 +262,9 @@ struct PerformanceSettingView: View {
             }
         }
         .disclosureGroupLabelOpend()
+        .onTapGesture {
+            viewModel.toggleDisclosureGroup2()
+        }
     }
     
     var inputHeadcountlabelClosed: some View {
@@ -421,9 +422,8 @@ struct PerformanceSettingView: View {
                 isSearchFromEmptyText = true
                 
             } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundColor(.black)
-                    .opacity(viewModel.musicTitle.isEmpty 
+                Image("xmark")
+                    .opacity(viewModel.musicTitle.isEmpty
                              ? 1
                              : 0)
             }
