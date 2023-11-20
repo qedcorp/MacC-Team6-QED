@@ -10,31 +10,31 @@ import Foundation
 
 @MainActor
 class MainViewModel: ObservableObject {
-    @Published var nickname: String = ""
-    @Published var myRecentPerformances: [Performance] = []
     let performanceUseCase: PerformanceUseCase
+    @Published private(set) var isFetchingPerformances = true
+    @Published private(set) var myPerformances: [Performance] = []
 
-    init( performanceUseCase: PerformanceUseCase) {
+    init(performanceUseCase: PerformanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self)) {
         self.performanceUseCase = performanceUseCase
     }
 
-    func fetchMyRecentPerformances(_ completion: @escaping () -> Void) {
-        DispatchQueue.global().async {
-            Task {
-                let performances = try await self.performanceUseCase.getMyRecentPerformances()
-                DispatchQueue.main.async {
-                    self.myRecentPerformances = performances
-                    completion()
-                }
-            }
-        }
+    var myRecentPerformances: [Performance] {
+        myPerformances
+            .sorted { $0.createdAt > $1.createdAt }
+            .prefix(8)
+            .map { $0 }
     }
 
-    func fetchUser() {
-        do {
-            nickname = try KeyChainManager.shared.read(account: .name)
-        } catch {
-            print(error)
+    func fetchMyRecentPerformances() {
+        isFetchingPerformances = true
+        Task {
+            let performances = try await self.performanceUseCase.getMyRecentPerformances()
+            DispatchQueue.main.async { [unowned self] in
+                animate {
+                    myPerformances = performances
+                    isFetchingPerformances = false
+                }
+            }
         }
     }
 }

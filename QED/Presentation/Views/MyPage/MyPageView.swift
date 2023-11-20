@@ -46,7 +46,7 @@ struct MyPageView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .toolbarBackground(Color.monoDarker, for: .navigationBar)
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         .toolbar {
             buildLeftItem()
             buildCenterItem()

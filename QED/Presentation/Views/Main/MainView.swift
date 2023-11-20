@@ -8,203 +8,156 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var viewModel = MainViewModel(
-        performanceUseCase: DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
-    )
+    @StateObject private var viewModel = MainViewModel()
 
-    @State var isFetchingPerformances = true
-    @State var path: [PresentType] = [] {
+    @State private var path: [PresentType] = [] {
         didSet {
-            if path.isEmpty {
-                DispatchQueue.global().async {
-                    isFetchingPerformances = true
-                    viewModel.fetchMyRecentPerformances(isFetchingDone)
-                }
+            guard path.isEmpty else {
+                return
+            }
+            DispatchQueue.global().async {
+                viewModel.fetchMyRecentPerformances()
             }
         }
     }
 
+    private let horizontalPadding: CGFloat = 24
+
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        buildMainTitle()
-                        buildMakeFormationButtonView()
-                        buildPerformanceListHeaderView()
-                        if viewModel.myRecentPerformances.isEmpty && !isFetchingPerformances {
-                            buildEmptyView()
-                        } else if isFetchingPerformances {
-                            FodiProgressView()
-                                .padding(.top, 100)
-                        } else {
-                            buildPerformanceListScrollView()
-                        }
-                    }
-                    .padding(.top, 130)
+            ZStack(alignment: .topTrailing) {
+                VStack(spacing: 34) {
+                    Spacer()
+                    buildHeaderView()
+                    buildContentView()
                 }
+                .padding(.bottom, 40)
+                buildMyPageButton()
+                    .padding([.top, .trailing], 24)
             }
-            .padding(.horizontal, 24)
             .background(
                 buildBackgroundView()
             )
-            .onAppear {
-                viewModel.fetchUser()
-            }
-            .toolbar {
-                buildLeftItem()
-                buildRightItem()
-            }
-            .toolbarBackground(Material.ultraThin, for: .navigationBar)
             .navigationBarBackButtonHidden()
             .navigationDestination(for: PresentType.self) {
                 MainCoordinator(path: $path).buildView(presentType: $0)
             }
         }
+        .task {
+            viewModel.fetchMyRecentPerformances()
+        }
     }
 
-    private let columns: [GridItem] = [
-        GridItem(spacing: 16, alignment: nil),
-        GridItem(spacing: 16, alignment: nil)]
-
-    private func isFetchingDone() {
-        isFetchingPerformances = false
+    private func buildHeaderView() -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            buildMainTitleView()
+            buildMakeFormationButtonView()
+        }
+        .padding(.horizontal, horizontalPadding)
     }
 
-    private func buildMainTitle() -> some View {
-        HStack {
+    private func buildContentView() -> some View {
+        VStack(spacing: 19) {
+            buildPerformanceListHeaderView()
+            ZStack {
+                if viewModel.isFetchingPerformances {
+                    FodiProgressView()
+                } else if viewModel.myRecentPerformances.isEmpty {
+                    buildPerformanceListEmptyView()
+                } else {
+                    buildPerformanceListScrollView()
+                }
+            }
+            .frame(height: 198)
+        }
+    }
+
+    private func buildMainTitleView() -> some View {
+        let fontSize: CGFloat = 26
+        return HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("내 손안에")
+                HStack(spacing: 0) {
+                    Text("내 ")
+                    Text("손")
+                        .font(.fodiFont(.pretendardBlack, size: fontSize))
+                    Text(" 안의")
+                }
                 Text("포메이션 디렉터")
+                    .font(.fodiFont(.pretendardBlack, size: fontSize))
                 HStack(spacing: 0) {
                     Text("FODI")
                         .foregroundStyle(Color.blueLight3)
-                    Text(" 와 함께,")
-                    Spacer()
+                        .font(.fodiFont(.pretendardBlack, size: fontSize))
+                    Text(" 와 함께")
                 }
             }
-            .font(.fodiFont(Font.FodiFont.pretendardBold, size: 26))
-            .multilineTextAlignment(.leading)
             .foregroundStyle(Color.monoWhite3)
+            .font(.fodiFont(.pretendardSemiBold, size: fontSize))
+            .kerning(-0.38)
             Spacer()
         }
-        .padding(.bottom, 34)
     }
 
     private func buildMakeFormationButtonView() -> some View {
-        HStack {
+        Button {
+            let dependency = PerformanceSettingViewDependency()
+            path.append(.performanceSetting(dependency))
+        } label: {
             Image("performanceSetting")
-                .onTapGesture {
-                    let dependency = PerformanceSettingViewDependency()
-                    path.append(.performanceSetting(dependency))
-                }
-                .onAppear {
-                    DispatchQueue.global().async {
-                        viewModel.fetchMyRecentPerformances(isFetchingDone)
-                    }
-                }
-            Spacer()
         }
-        .padding(.bottom, 46)
     }
 
     private func buildPerformanceListHeaderView() -> some View {
-        HStack(alignment: .top) {
+        HStack {
             Text("최근 프로젝트")
-                .font(.fodiFont(Font.FodiFont.pretendardBlack, size: 20))
-                .kerning(0.38)
                 .foregroundStyle(Color.monoWhite3)
-
+                .font(.fodiFont(.pretendardBlack, size: 20))
+                .kerning(0.38)
             Spacer()
-
-            Image("listReading")
-                .padding(.bottom, 18)
-                .onTapGesture {
-                    let dependency = PerformanceListReadingViewDependency(performances: viewModel.myRecentPerformances)
-                    path.append(.performanceListReading(dependency))
-                }
+            Button {
+                let dependency = PerformanceListReadingViewDependency(performances: viewModel.myPerformances)
+                path.append(.performanceListReading(dependency))
+            } label: {
+                Image("listReading")
+            }
         }
-
+        .padding(.horizontal, horizontalPadding)
+        .frame(height: 42)
     }
 
-    private func buildEmptyView() -> some View {
+    private func buildPerformanceListEmptyView() -> some View {
         Image("mainlistEmpty")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 300, height: 300)
-            .opacity(0.5)
     }
 
     private func buildPerformanceListScrollView() -> some View {
-        let myRecentPerformances = viewModel.myRecentPerformances
-            .sorted { lhs, rhs in
-                lhs.createdAt < rhs.createdAt
-            }
-        return LazyVGrid(columns: columns,
-                         alignment: .center,
-                         spacing: 24,
-                         pinnedViews: .sectionHeaders) {
-            ForEach(myRecentPerformances) { performance in
-                PerformanceListCardView(performance: performance)
-                    .onTapGesture {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 10) {
+                ForEach(viewModel.myRecentPerformances) { performance in
+                    Button {
                         let nextPath = PerformanceRouter(performance: performance).getItemPath()
                         path.append(nextPath)
+                    } label: {
+                        PerformanceListCardView(performance: performance)
                     }
+                }
             }
+            .padding(.horizontal, horizontalPadding)
         }
     }
 
     private func buildBackgroundView() -> some View {
-        ZStack {
-            Image("background")
-                .resizable()
-            VStack {
-                buildMainTopView()
-                Spacer()
-            }
-        }
-        .ignoresSafeArea(.all)
-    }
-
-    private func buildMainTopView() -> some View {
-        Image("lese")
+        Image("mainBackground")
             .resizable()
-            .scaledToFit()
-            .mask(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.black, Color.black, Color.black, Color.black.opacity(0)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
+            .ignoresSafeArea(.all)
     }
 
-    private func buildLeftItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Image("FodiIcon")
-                .padding(.leading, 8)
-        }
-    }
-
-    private func buildRightItem() -> ToolbarItem<(), some View> {
-        ToolbarItem(placement: .navigationBarTrailing) {
+    private func buildMyPageButton() -> some View {
+        Button {
+            let dependency = MyPageViewDependency()
+            path.append(.myPage(dependency))
+        } label: {
             Image("profile")
-                .padding(.trailing, 8)
-                .onTapGesture {
-                    let dependency = MyPageViewDependency()
-                    path.append(.myPage(dependency))
-                }
         }
-    }
-}
-
-extension Performance: Identifiable, Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
-    }
-
-    static func == (lhs: Performance, rhs: Performance) -> Bool {
-        lhs.hashValue == rhs.hashValue
     }
 }
 
