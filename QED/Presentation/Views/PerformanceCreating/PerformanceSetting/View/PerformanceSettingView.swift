@@ -23,7 +23,6 @@ struct PerformanceSettingView: View {
         self._path = path
         viewModel.headcount = 1
     }
-    var dismissAction: (() -> Void)? = {}
     
     var body: some View {
         GeometryReader { geometry in
@@ -55,15 +54,15 @@ struct PerformanceSettingView: View {
                             proxy.scrollTo(newID, anchor: .top)
                         }
                     }
-                    .onTapGesture {
-                            endTextEditing()
-                    }
-                    .simultaneousGesture(
-                        DragGesture().onChanged({
-                            if $0.translation.height != 0 {
-                                isFocused = false
-                            }
-                        }))
+//                    .onTapGesture {
+//                            endTextEditing()
+//                    }
+//                    .simultaneousGesture(
+//                        DragGesture().onChanged({
+//                            if $0.translation.height != 0 {
+//                                isFocused = false
+//                            }
+//                        }))
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             self.isFocused = true
@@ -101,7 +100,6 @@ struct PerformanceSettingView: View {
                     .padding(.horizontal, 25)
                     .padding(.vertical, 10)
                 }
-                .ignoresSafeArea(.all)
             }
         }
         .background(
@@ -109,6 +107,7 @@ struct PerformanceSettingView: View {
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea(.all)
         )
+        .ignoresSafeArea(.all)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem
