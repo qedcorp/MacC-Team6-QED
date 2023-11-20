@@ -1,5 +1,5 @@
-//  swiftlint:disable all
-//  PerformanceSettingView.swift
+// swiftlint:disable all
+// PerformanceSettingView.swift
 //  QED
 //
 //  Created by OLING on 11/6/23.
@@ -16,14 +16,13 @@ struct PerformanceSettingView: View {
     @State private var presentAlert = false
     @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
-    var dismissAction: (() -> Void)? = {}
-    
+
     init(viewModel: PerformanceSettingViewModel, path: Binding<[PresentType]>) {
         self.viewModel = viewModel
         self._path = path
         viewModel.headcount = 1
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -49,7 +48,6 @@ struct PerformanceSettingView: View {
                         }
                     }
                     .onChange(of: viewModel.scrollToID) { newID in
-                        print("New scrollToID: \(String(describing: newID))")
                         withAnimation {
                             proxy.scrollTo(newID, anchor: .top)
                         }
@@ -60,7 +58,6 @@ struct PerformanceSettingView: View {
                         }
                     }
                 }
-                
                 VStack {
                     Spacer()
                     HStack(alignment: .center) {
@@ -75,17 +72,17 @@ struct PerformanceSettingView: View {
                                 .kerning(0.35)
                                 .bold()
                         }
-                        
+
                         Spacer()
                         nextButton
                             .disabled(!viewModel.isAllSet)
-                        
+
                     }
                     .padding(.bottom, 30)
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                            .foregroundStyle(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.24))
+                            .foregroundStyle(Color.background1)
                             .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
                     )
                     .padding(.horizontal, 25)
@@ -111,7 +108,7 @@ struct PerformanceSettingView: View {
         }
         .padding(.top)
     }
-    
+
     func bindingForIndex(_ groupNum: Int) -> Binding<Bool> {
         switch groupNum {
         case 1:
@@ -124,7 +121,7 @@ struct PerformanceSettingView: View {
             return .constant(false)
         }
     }
-    
+
     @ViewBuilder
     func disclosureContent(for groupNum: Int) -> some View {
         switch groupNum {
@@ -151,7 +148,7 @@ struct PerformanceSettingView: View {
             AnyView(EmptyView())
         }
     }
-    
+
     var nextButton: some View {
         Image(viewModel.isAllSet
               ? "go_able"
@@ -166,7 +163,7 @@ struct PerformanceSettingView: View {
                 path.append(.performanceLoading(dependency))
             }
     }
-    
+
     var inputTitleTextField: some View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .onSubmit {
@@ -192,6 +189,7 @@ struct PerformanceSettingView: View {
             .tint(Color.blueLight2)
     }
     
+
     var inputTitleLabelClosed: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
@@ -199,7 +197,7 @@ struct PerformanceSettingView: View {
                 viewModel.toggleDisclosureGroup1()
             }
     }
-    
+
     var inputTitleLabelOpen: some View {
         HStack {
             Text("프로젝트 이름")
@@ -207,7 +205,7 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
-            
+
             if viewModel.performanceTitle.isEmpty {
                 Text("입력해주세요")
                     .foregroundStyle(Color.monoWhite3)
@@ -220,19 +218,19 @@ struct PerformanceSettingView: View {
         }
         . disclosureGroupLabelOpend()
     }
-    
+
     var inputMusicLabelClosed: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
     }
-    
+
     var inputMusicLabelOpened: some View {
         HStack {
             Text("노래")
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
-            
+
             if viewModel.musicTitle == "" {
                 Text("선택해주세요")
                     .foregroundStyle(Color.monoWhite3)
@@ -253,19 +251,19 @@ struct PerformanceSettingView: View {
             viewModel.toggleDisclosureGroup2()
         }
     }
-    
+
     var inputHeadcountlabelClosed: some View {
         Text("인원수를 입력하세요")
             .disclosureGroupLabelStyle()
     }
-    
+
     var inputHeadcountlabelOpened: some View {
         HStack {
             Text("인원 수")
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
-            
+
             if viewModel.headcount == 1 {
                 Text("- 명")
                     .foregroundStyle(Color.monoWhite3)
@@ -281,7 +279,7 @@ struct PerformanceSettingView: View {
         }
         .disclosureGroupLabelOpend()
     }
-    
+
     var musicContent: some View {
         VStack {
             musicSearchFieldView()
@@ -310,7 +308,7 @@ struct PerformanceSettingView: View {
             isSearchFromEmptyText = true
         }
     }
-    
+
     @ViewBuilder
     func buildCell(music: Music) -> some View {
         HStack {
@@ -325,14 +323,14 @@ struct PerformanceSettingView: View {
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.all)
-            
+
             VStack(alignment: .leading) {
                 Text(music.artistName)
                     .font(.caption2)
                 Text(music.title)
             }
             Spacer()
-            
+
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(
                     viewModel.selectedMusic?.id ?? "-1" == music.id
@@ -372,7 +370,7 @@ struct PerformanceSettingView: View {
         }
         .id(music.id)
     }
-    
+
     func buildSearchResultScrollView() -> some View {
         ScrollView {
             VStack {
@@ -383,7 +381,7 @@ struct PerformanceSettingView: View {
             .padding(.vertical)
         }
     }
-    
+
     func musicSearchFieldView() -> some View {
         HStack {
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
@@ -423,7 +421,7 @@ struct PerformanceSettingView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding()
     }
-    
+
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
@@ -433,20 +431,20 @@ struct PerformanceSettingView: View {
                 .padding()
         }
     }
-    
+
     func searchMusic() {
         viewModel.search()
         isSearchFromEmptyText = false
         isFocused = false
     }
-    
+
     var inputHeadcountContent: some View {
         VStack {
                 HStack {
                     Button {
                         viewModel.decrementHeadcount()
                     } label: {
-                        Image (viewModel.headcount == 1
+                        Image(viewModel.headcount == 1
                             ? "minus_off"
                             : "minus_on"
                         )
@@ -457,7 +455,7 @@ struct PerformanceSettingView: View {
                     Button {
                         viewModel.incrementHeadcount()
                     } label: {
-                        Image (viewModel.headcount == 13
+                        Image(viewModel.headcount == 13
                             ? "plus_off"
                             : "plus_on"
                         )
@@ -475,28 +473,28 @@ struct PerformanceSettingView: View {
         }
         .frame(maxHeight: 360)
     }
-    
+
     var inputHeadcountTextField: some View {
         Text("\(viewModel.headcount)")
             .onAppear {
                 viewModel.toggleDisclosureGroup3()
             }
-            .foregroundColor(viewModel.headcount < 2 
+            .foregroundColor(viewModel.headcount < 2
                              ? .monoWhite2
                              : .monoWhite3)
             .multilineTextAlignment(.center)
             .font(.title3)
             .bold()
             .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
-        
+
     }
-    
+
     var headcountText: some View {
         Text("이름을 입력해서 동선을 확인할 수 있어요")
             .foregroundStyle(Color.monoWhite2)
             .font(.subheadline)
     }
-    
+
     var slider: some View {
         Slider(
             value: .init(
@@ -509,7 +507,7 @@ struct PerformanceSettingView: View {
         .tint(Color.blueLight3)
         .frame(width: 320)
     }
-    
+
     var inputMemperinfoTextFiledsView: some View {
         ScrollViewReader { proxy in
             ScrollView {
@@ -561,7 +559,7 @@ struct PerformanceSettingView: View {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(Color.blueLight3)
             }
-            .alert("홈으로 나가기", isPresented: $presentAlert ,actions: {
+            .alert("홈으로 나가기", isPresented: $presentAlert, actions: {
                 Button("아니오", role: .cancel, action: {})
                 Button("네", role: .destructive, action: { dismiss()})
             }, message: {
@@ -570,4 +568,3 @@ struct PerformanceSettingView: View {
         }
     }
 }
-
