@@ -38,9 +38,6 @@ struct PresetContainerView: View {
                 }
             }
         }
-        .task {
-            viewModel.fetchPresets()
-        }
         .sheet(isPresented: $viewModel.isManaging) {
             PresetManagingView()
         }

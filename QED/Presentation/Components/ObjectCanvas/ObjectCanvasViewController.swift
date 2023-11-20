@@ -37,6 +37,7 @@ class ObjectCanvasViewController: ObjectStageViewController {
             }
             objectViews.forEach {
                 $0.borderColor = selectedObjectViews.contains($0) ? .blueNormal : nil
+                $0.borderWidth = 2.5
             }
             hapticManager.hapticImpact(style: .rigid)
         }
@@ -145,7 +146,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
             return
         }
         if let position = lastPositionTouchedInEmptySpace, canPlaceObject, isNotDragged {
-            placeObjectView(position: position, color: UIColor.monoWhite3)
+            let viewModel = DotObjectViewModel(color: .monoWhite3)
+            placeObjectView(position: position, viewModel: viewModel)
             hapticManager.hapticImpact(style: .rigid)
         }
         replaceSelectedObjectViews()
@@ -157,8 +159,8 @@ class ObjectCanvasViewController: ObjectStageViewController {
         draggingHandler.endDragging()
     }
 
-    override func placeObjectView(position: CGPoint, color: UIColor) {
-        super.placeObjectView(position: position, color: color)
+    override func placeObjectView(position: CGPoint, viewModel: DotObjectViewModel) {
+        super.placeObjectView(position: position, viewModel: viewModel)
         replaceSelectedObjectViews()
     }
 

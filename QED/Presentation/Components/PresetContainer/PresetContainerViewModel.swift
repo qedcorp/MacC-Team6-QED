@@ -22,6 +22,7 @@ class PresetContainerViewModel: ObservableObject {
         self.canvasController = canvasController
         self.hapticManager = hapticManager
         self.presetUseCase = presetUseCase
+        fetchPresets()
     }
 
     func fetchPresets() {
