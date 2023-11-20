@@ -76,7 +76,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     private var bag = Set<AnyCancellable>()
 
     var currentIndex: Int {
-        offsetMap[offset]?.index ?? -1
+        min(offsetMap[offset]?.index ?? 0, performance?.formations.count ?? 0)
     }
 
     var currentFormation: Formation? {
@@ -150,11 +150,10 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     private func bindingPublishers() {
         action
-            .sink { [weak self] purpose in
-                guard let self = self else { return }
+            .sink { [unowned self] purpose in
                 switch purpose {
                 case let .getSelctedIndex(index):
-                    self.selectedIndex = index
+                    selectedIndex = index
                 case let .getOffset(offset):
                     self.offset = offset
                     guard let currentIndex = offsetMap[offset] else { return }
@@ -277,7 +276,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 }
 
-fileprivate extension Dictionary where Key == Member.Info {
+extension Dictionary where Key == Member.Info {
     subscript(color: String) -> Value? {
         get {
             for element in self where element.key.color == color {

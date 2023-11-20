@@ -21,12 +21,10 @@ struct PerformanceWatchingDetailView: View {
                 if let performance = viewModel.performance {
                     MusicHeadcountView(title: performance.music.title,
                                        headcount: performance.headcount)
-                    .padding(.bottom, geometry.size.height * 0.1)
-                }
-                VStack(spacing: 8) {
-                    VStack {
+                    .padding(.bottom, geometry.size.height * 0.15)
+                    VStack(spacing: 8) {
                         buildMemo()
-                        if viewModel.isTransitionEditable {
+                        if viewModel.isTransitionEditable && viewModel.currentIndex > 0 {
                             buildMovementEditingView(
                                 controller: viewModel.movementController,
                                 width: geometry.size.width - 48
@@ -37,15 +35,16 @@ struct PerformanceWatchingDetailView: View {
                         }
                     }
                     .padding(.horizontal, 24)
+                    Spacer()
+                    buildPlayerView(performance: performance.entity)
+                } else {
+                    Spacer()
                 }
-                Spacer()
-                buildPlayerView()
                 buildTabBar(geometry: geometry)
             }
         }
         .background {
-            Image("background")
-                .ignoresSafeArea()
+            buildBackgroundView()
         }
         .overlay(
             viewModel.isZoomed ?
@@ -169,20 +168,18 @@ struct PerformanceWatchingDetailView: View {
 
             Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
-                .font(.title3)
+                .font(.title3.weight(.bold))
         }
     }
 
-    private func buildPlayerView() -> some View {
+    private func buildPlayerView(performance: Performance) -> some View {
         ZStack {
-            if let performance = viewModel.performance?.entity {
-                ScrollObservableView(performance: performance,
-                                     action: viewModel.action
-                ).frame(height: PlayBarConstants.playBarHeight)
-            }
+            ScrollObservableView(performance: performance, action: viewModel.action)
+                .frame(height: PlayBarConstants.playBarHeight)
         }
         .padding(.bottom)
     }
+
     private func buildTabBar(geometry: GeometryProxy) -> some View {
         ZStack {
             HStack {
@@ -248,22 +245,6 @@ struct PerformanceWatchingDetailView: View {
         }
     }
 
-    private func buildMoveToFirstButton() -> some View {
-        Button {
-
-        } label: {
-            Image(systemName: "chevron.left")
-        }
-    }
-
-    private func buildMoveToLastButton() -> some View {
-        Button {
-
-        } label: {
-            Image(systemName: "chevron.right")
-        }
-    }
-
     private func buildSettingSheetView() -> some View {
         ZStack {
             Color.monoBlack.ignoresSafeArea(.all)
@@ -296,7 +277,6 @@ struct PerformanceWatchingDetailView: View {
                 .fill(.shadow(.inner(color: Color.monoBlack, radius: 10, y: 5)))
                 .foregroundStyle(Color.monoNormal1)
                 .frame(height: 46)
-
             HStack {
                 Text(label)
                     .foregroundStyle(Color.monoWhite3)
@@ -308,9 +288,7 @@ struct PerformanceWatchingDetailView: View {
                 }
             }
             .padding(.horizontal, 20)
-
         }
-
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
@@ -331,7 +309,7 @@ struct PerformanceWatchingDetailView: View {
         ToolbarItem(placement: .principal) {
             Text("대형보기")
                 .foregroundStyle(.white)
-                .fontWeight(.heavy)
+                .font(.body.weight(.bold))
         }
     }
 
@@ -350,6 +328,12 @@ struct PerformanceWatchingDetailView: View {
                     path.append(.formationSetting(dependency))
                 }
         }
+    }
+
+    private func buildBackgroundView() -> some View {
+        Image("background")
+            .resizable()
+            .ignoresSafeArea()
     }
 
     private func onDismissSettingSheet() {
