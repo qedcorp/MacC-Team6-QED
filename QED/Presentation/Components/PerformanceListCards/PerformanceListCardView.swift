@@ -39,7 +39,7 @@ struct PerformanceListCardView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
+            ZStack(alignment: .topTrailing) {
                 VStack(spacing: 0) {
                     buildMusicImageView()
                     buildPerformanceInfoView()
@@ -141,29 +141,21 @@ struct PerformanceListCardView: View {
     }
 
     private func buildEditButton() -> some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    isPresented = true
-                } label: {
-                    Image("ellipsis")
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 20)
-                }
-                .confirmationDialog(
-                    "EditPerformance", isPresented: $isPresented, actions: {
-                        buildConfirmationDialog()
-                    }
-                )
-                .alert(with: $message)
-                .alert("프로젝트 이름 수정", isPresented: $isEditable) {
-                    buildTextFeildAlertView()
-                }
-            }
-            Spacer()
+        Button {
+            isPresented = true
+        } label: {
+            Image("ellipsis")
+                .padding(8)
         }
-        .frame(width: cardWidth, height: cardHeight)
+        .confirmationDialog(
+            "EditPerformance", isPresented: $isPresented, actions: {
+                buildConfirmationDialog()
+            }
+        )
+        .alert(with: $message)
+        .alert("프로젝트 이름 수정", isPresented: $isEditable) {
+            buildTextFeildAlertView()
+        }
     }
 
     private func buildConfirmationDialog() -> some View {
