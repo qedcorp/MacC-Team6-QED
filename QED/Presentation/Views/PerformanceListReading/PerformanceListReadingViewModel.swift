@@ -56,7 +56,7 @@ class PerformanceListReadingViewModel: ObservableObject {
                 if !performanceID.isEmpty {
                     let deleteResult = try await performanceUseCase.removePerformance(performanceID)
                     if deleteResult {
-                        performances.remove(at: index)
+                        performances.removeAll { $0.entity.id == performanceID }
                         toastContainerViewModel.presentMessage("프로젝트가 삭제되었습니다")
                     }
                 }
