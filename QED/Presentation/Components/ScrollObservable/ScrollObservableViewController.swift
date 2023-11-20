@@ -20,7 +20,7 @@ final class ScrollObservableViewController: UIViewController {
 
     var action: CurrentValueSubject<ValuePurpose, Never>
 
-    private var offset: CGFloat = 0.0
+    var offset: CGFloat = 0.0
     private var performance: Performance
     private var indexToStartOffset: [Int: CGFloat] = [:]
     private var offSetToIndex: [Range<CGFloat>: Int] = [:]
@@ -35,7 +35,6 @@ final class ScrollObservableViewController: UIViewController {
                 } else {
                     cell.changeColorWithSelection(false)
                 }
-
             }
         }
     }
@@ -45,7 +44,10 @@ final class ScrollObservableViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
-        flowLayout.itemSize = CGSize(width: Constants.formationFrame.width + Constants.trasitionFrame.width, height: Constants.playBarHeight)
+        flowLayout.itemSize = CGSize(
+            width: Constants.formationFrame.width + Constants.trasitionFrame.width,
+            height: Constants.playBarHeight
+        )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
@@ -87,6 +89,8 @@ final class ScrollObservableViewController: UIViewController {
                 switch purpose {
                 case let .setOffset(offset):
                     self.setCollectionViewOffset(offset)
+                case let .setSelctedIndex(index):
+                    self.currentIndex = index
                 default:
                     break
                 }
@@ -97,7 +101,7 @@ final class ScrollObservableViewController: UIViewController {
 
     private func moveToIndex(_ index: Int) {
         var point = collectionView.contentOffset
-        point.x = indexToStartOffset[index] ?? 100
+        point.x = (indexToStartOffset[index] ?? 100) + 1
         collectionView.setContentOffset(point, animated: true)
     }
 
@@ -144,7 +148,10 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: view.frame.width / 2, bottom: 0, right: view.frame.width / 2 - Constants.trasitionFrame.width)
+        UIEdgeInsets(
+            top: 0, left: view.frame.width / 2,
+            bottom: 0, right: view.frame.width / 2 - Constants.trasitionFrame.width
+        )
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -177,14 +184,14 @@ extension ScrollObservableViewController: UICollectionViewDataSource,
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         moveToIndex(indexPath.row)
-        action.send(.getSelctedIndex(indexPath.row))
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         action.send(.getOffset(scrollView.contentOffset.x))
         if let index = offSetToIndex[scrollView.contentOffset.x] {
-            currentIndex = index
-            action.send(.getSelctedIndex(index))
+            if index != currentIndex {
+                currentIndex = index
+            }
         }
     }
 }

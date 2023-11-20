@@ -130,7 +130,8 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
 
     func setupWithDependency(_ dependency: PerformanceWatchingViewDependency) {
         performance = nil
-        DispatchQueue.main.async { [unowned self] in
+        action.send(.setOffset(offset))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
             if let entity = dependency.performanceSettingManager?.performance {
                 performance = .build(entity: entity)
             }
@@ -141,6 +142,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             mappingIndexFromOffset()
             subscribePerformanceSettingManager()
             assignControllerToArchiverByZoomed()
+            action.send(.setOffset(offset))
         }
     }
 
