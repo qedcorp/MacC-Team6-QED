@@ -84,7 +84,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     var movementMapTag: String {
-        String(describing: currentFormation?.movementMap)
+        String(describing: beforeFormation?.movementMap)
     }
 
     var movementsMap: MovementsMap? {
@@ -242,7 +242,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 
     func updateMembers(movementMap: MovementMap) {
-        performanceSettingManager?.updateMembers(movementMap: movementMap, formationIndex: currentIndex)
+        performanceSettingManager?.updateMembers(movementMap: movementMap, formationIndex: currentIndex - 1)
     }
 
     private func makeLinearMovementMap(

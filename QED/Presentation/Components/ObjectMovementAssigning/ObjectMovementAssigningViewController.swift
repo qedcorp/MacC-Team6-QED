@@ -96,10 +96,15 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
     }
 
     func copy(beforeFormation: Formation, afterFormation: Formation) {
-        movementMap = Self.buildLinearMovementMap(
+        // TODO: 깔끔하게 만들자
+        let newMovementMap = Self.buildMovementMap(
             beforeFormation: beforeFormation,
             afterFormation: afterFormation
         )
+        guard movementMap != newMovementMap else {
+            return
+        }
+        movementMap = newMovementMap
         objectViews.forEach { $0.removeFromSuperview() }
         placeObjectViews(formation: beforeFormation, isBefore: true)
         placeObjectViews(formation: afterFormation)
@@ -156,17 +161,17 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         onChange?(movementMap)
     }
 
-    private static func buildLinearMovementMap(
+    private static func buildMovementMap(
         beforeFormation: Formation,
         afterFormation: Formation
     ) -> MovementMap {
         beforeFormation.members
             .compactMap { beforeMember in
-                afterFormation.members.first(where: { $0.info == beforeMember.info })?.info
+                afterFormation.members.first(where: { $0.info?.color == beforeMember.info?.color })?.info
             }
             .reduce([:]) { map, info in
-                guard let beforeMember = beforeFormation.members.first(where: { $0.info == info }),
-                      let afterMember = afterFormation.members.first(where: { $0.info == info }) else {
+                guard let beforeMember = beforeFormation.members.first(where: { $0.info?.color == info.color }),
+                      let afterMember = afterFormation.members.first(where: { $0.info?.color == info.color }) else {
                     return map
                 }
                 let path = BezierPath(
