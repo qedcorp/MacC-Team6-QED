@@ -38,6 +38,11 @@ struct PerformanceWatchingListView: View {
         }
         .presentationDragIndicator(.visible)
     }
+    
+    private let columns: [GridItem] = [
+        GridItem(spacing: 16, alignment: nil),
+        GridItem(spacing: 16, alignment: nil)
+    ]
 
     private func buildHeaderView() -> some View {
         HStack {
@@ -56,33 +61,22 @@ struct PerformanceWatchingListView: View {
 
     private func buildPerformanceScrollView() -> some View {
         let formations = performance.formations
-        let chunkNumber = 2
 
         return ScrollView {
-            Grid {
-                ForEach(Array(
-                    stride(from: 0, to: formations.count, by: chunkNumber)
-                ), id: \.self) { rowIndex in
-                    HStack {
-                        ForEach(0..<chunkNumber, id: \.self) { columnIndex in
-                            if rowIndex + columnIndex < formations.count {
-                                DanceFormationView(
-                                    formation: formations[rowIndex + columnIndex],
-                                    index: rowIndex + columnIndex,
-                                    selectedIndex: selectedIndex,
-                                    width: 163,
-                                    height: 123
-                                )
-                                .onTapGesture {
-                                    action.send(.setSelctedIndex(rowIndex + columnIndex))
-                                    isAllFormationVisible = false
-                                }
-
-                            }
-                            Spacer()
-                        }
+            LazyVGrid(columns: columns,
+                      alignment: .center,
+                      spacing: 10,
+                      pinnedViews: .sectionHeaders) {
+                ForEach(Array(formations.enumerated()), id: \.offset) { (index, _) in
+                    DanceFormationView(
+                        formation: formations[index],
+                        index: index,
+                        selectedIndex: selectedIndex
+                    )
+                    .onTapGesture {
+                        action.send(.setSelctedIndex(index))
+                        isAllFormationVisible = false
                     }
-                    .padding(.bottom)
                 }
             }
         }
