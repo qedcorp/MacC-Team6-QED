@@ -35,6 +35,7 @@ extension Performance: FireStoreEntityConvertable {
                 music: performance.music,
                 headcount: performance.headcount,
                 title: performance.title,
+                memberInfos: performance.memberInfos,
                 formations: performance.formations,
                 createdAt: performance.createdAt
             )

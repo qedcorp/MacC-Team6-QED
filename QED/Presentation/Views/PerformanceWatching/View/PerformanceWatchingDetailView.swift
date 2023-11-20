@@ -67,7 +67,7 @@ struct PerformanceWatchingDetailView: View {
         .onAppear {
             if viewModel.isAutoShowAllForamation {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.viewModel.isAllFormationVisible = true
+                    self.viewModel.isAllFormationVisible = !true
                 }
             }
         }
