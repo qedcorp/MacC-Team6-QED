@@ -48,11 +48,13 @@ class PerformanceSettingManager {
 
     func addFormation(_ formation: Formation, index: Int) {
         performance.formations.insert(formation, at: index)
+        refreshMovementMaps()
         didChange()
     }
 
     func removeFormation(index: Int) {
         performance.formations.remove(at: index)
+        refreshMovementMaps()
         didChange()
     }
 
@@ -81,8 +83,7 @@ class PerformanceSettingManager {
                 formation.members.append(member)
             }
         }
-        updateStartEndOfMovementMap(formationIndex: formationIndex)
-        updateStartEndOfMovementMap(formationIndex: formationIndex + 1)
+        refreshMovementMaps()
         didChange()
     }
 
@@ -94,8 +95,7 @@ class PerformanceSettingManager {
             let memberInfo = performance.memberInfos?.first { $0.color == color }
             formation.members[safe: index]?.info = memberInfo
         }
-        updateStartEndOfMovementMap(formationIndex: formationIndex)
-        updateStartEndOfMovementMap(formationIndex: formationIndex + 1)
+        refreshMovementMaps()
         didChange()
     }
 
@@ -123,6 +123,12 @@ class PerformanceSettingManager {
         }
     }
 
+    private func refreshMovementMaps() {
+        for index in 0 ..< performance.formations.count {
+            updateStartEndOfMovementMap(formationIndex: index)
+        }
+    }
+
     private func updateStartEndOfMovementMap(formationIndex: Int) {
         guard let beforeFormation = performance.formations[safe: formationIndex - 1],
               let formation = performance.formations[safe: formationIndex] else {
@@ -134,12 +140,11 @@ class PerformanceSettingManager {
                 return
             }
             if let beforeMember = beforeFormation.members.first(where: { $0.info?.color == info.color }) {
-                movementMap?[info]?.startPosition = beforeMember.relativePosition
+                movementMap?[info.color]?.startPosition = beforeMember.relativePosition
             }
-            movementMap?[info]?.endPosition = member.relativePosition
+            movementMap?[info.color]?.endPosition = member.relativePosition
         }
         beforeFormation.movementMap = movementMap
-        didChange()
     }
 
     private func didChange() {

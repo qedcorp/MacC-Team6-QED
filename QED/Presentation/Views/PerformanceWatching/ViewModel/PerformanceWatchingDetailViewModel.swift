@@ -272,7 +272,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     }
 }
 
-fileprivate extension Dictionary where Key == Member.Info {
+extension Dictionary where Key == Member.Info {
     subscript(color: String) -> Value? {
         get {
             for element in self where element.key.color == color {

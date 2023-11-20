@@ -65,7 +65,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
             of: dragging.currentPosition,
             type: BezierPath.ControlPoint.self
         )
-        movementMap[memberInfo]?.controlPoint = controlPoint
+        movementMap[memberInfo.color]?.controlPoint = controlPoint
         placeBezierPathLayers()
         hapticManager.hapticImpact(style: .soft)
     }
@@ -177,7 +177,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
                 let path = BezierPath(
                     startPosition: beforeMember.relativePosition,
                     endPosition: afterMember.relativePosition,
-                    controlPoint: beforeFormation.movementMap?[info]?.controlPoint
+                    controlPoint: beforeFormation.movementMap?[info.color]?.controlPoint
                 )
                 return map.merging([info: path]) { $1 }
             }
