@@ -43,15 +43,18 @@ class LoginViewModel: ObservableObject {
             .dropFirst()
             .sink { provider in
                 Task {
+                    guard let authUseCase = self.authUseCase else {
+                        return
+                    }
                     switch provider {
                     case .kakao:
-                        guard let loginResult = try? await self.authUseCase!.login(authType: .kakao) else { return }
+                        guard let loginResult = try? await authUseCase.login(authType: .kakao) else { return }
                         self.isLogin = loginResult
                     case .apple:
-                        guard let loginResult = try? await self.authUseCase!.login(authType: .apple) else { return }
+                        guard let loginResult = try? await authUseCase.login(authType: .apple) else { return }
                         self.isLogin = loginResult
                     case .google:
-                        guard let loginResult = try? await self.authUseCase!.login(authType: .google) else { return }
+                        guard let loginResult = try? await authUseCase.login(authType: .google) else { return }
                         self.isLogin = loginResult
                     }
                 }

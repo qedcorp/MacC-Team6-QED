@@ -174,7 +174,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
                 if (checkIndex >= index && linePresentType == .action) || linePresentType == .show {
                     CATransaction.begin()
                     CATransaction.setAnimationDuration(0)
-                    roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]!.value), isForce: false)
+                    roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]?.value ?? ""), isForce: false)
                     CATransaction.commit()
                 } else if linePresentType == .action {
                     CATransaction.begin()
@@ -200,7 +200,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
     private func render() {
         for member in movementsMap {
             var endPoint: CGPoint = .zero
-            var absolutePostions: [CGPoint]!
+            var absolutePostions: [CGPoint]
             absolutePostions = member.value
                 .map { bezierPath in
                     let path = bezierPathConverter.buildUIBezierPath(bezierPath).cgPath
@@ -250,7 +250,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
             for point in points {
                 if let point = point {
                     let dotView = PreviewDotView()
-                    dotView.value = UIColor.monoNormal2.getHexString()!
+                    dotView.value = UIColor.monoNormal2.getHexString() ?? ""
                     dotView.radius = 8
                     dotView.assignPosition(point)
                     answer.append(dotView)
@@ -262,12 +262,15 @@ class ObjectPlayableViewController: ObjectStageViewController {
             var newPoints = points
             _ = newPoints.popLast()
             let arrowView = PreviewArrowView()
-            let tMargin = converter.getRelativeMargin(bezierPath: arrowPath!)
+            guard let arrowPath = arrowPath else {
+                return
+            }
+            let tMargin = converter.getRelativeMargin(bezierPath: arrowPath)
             arrowView.path = converter.buildArrowHeadPath(
-                arrowPath!,
+                arrowPath,
                 tMargin: tMargin
             ).cgPath
-            let arrowPoint = converter.getEndPoint(bezierPath: arrowPath!, tMargin: tMargin)
+            let arrowPoint = converter.getEndPoint(bezierPath: arrowPath, tMargin: tMargin)
             arrowView.value = info.color
             arrowView.fillColor = UIColor.clear.cgColor
             var isNilPath = false

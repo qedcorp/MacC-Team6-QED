@@ -47,20 +47,30 @@ class MyPageViewModel: ObservableObject {
 
     func logout() {
         Task {
-            let provider = try KeyChainManager.shared.read(account: .provider)
-            if let authType = AuthProviderType(rawValue: provider) {
-                try await authUseCase.logout(authType: authType)
-                LoginViewModel.shared.logout()
+            do {
+                let provider = try KeyChainManager.shared.read(account: .provider)
+                if let authType = AuthProviderType(rawValue: provider) {
+                    try await authUseCase.logout(authType: authType)
+                    LoginViewModel.shared.logout()
+                }
+            } catch {
+                // TODO
+                print(error)
             }
         }
     }
 
     func withdraw() {
         Task {
-            let provider = try KeyChainManager.shared.read(account: .provider)
-            if let authType = AuthProviderType(rawValue: provider) {
-                try await authUseCase.withdraw(authType: authType)
-                LoginViewModel.shared.logout()
+            do {
+                let provider = try KeyChainManager.shared.read(account: .provider)
+                if let authType = AuthProviderType(rawValue: provider) {
+                    try await authUseCase.withdraw(authType: authType)
+                    LoginViewModel.shared.logout()
+                }
+            } catch {
+                // TODO
+                print(error)
             }
         }
     }

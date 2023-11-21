@@ -75,12 +75,12 @@ fileprivate extension DefaultKakaoAuthRepository {
                 Task {
                     // 우선회원가입을 한다.
                     guard let firebaseAuthResult = try? await Auth.auth().createUser(
-                        withEmail: (user?.kakaoAccount?.email)!,
+                        withEmail: user?.kakaoAccount?.email ?? "",
                         password: "\(String(describing: user?.id))"
                     ) else {
                         // 회원가입이 실패했으면 이미 기존에 있던 회원이기에 로그인을 한다.
                         guard let firebaseAuthResult = try? await Auth.auth().signIn(
-                            withEmail: (user?.kakaoAccount?.email)!,
+                            withEmail: user?.kakaoAccount?.email ?? "",
                             password: "\(String(describing: user?.id))"
                         ) else { return }
                         continuation.resume(returning: firebaseAuthResult)
