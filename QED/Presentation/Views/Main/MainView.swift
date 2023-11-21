@@ -83,7 +83,7 @@ struct MainView: View {
                     Text("내 ")
                     Text("손")
                         .font(.fodiFont(.pretendardBlack, size: fontSize))
-                    Text(" 안의")
+                    Text("안의")
                 }
                 Text("포메이션 디렉터")
                     .font(.fodiFont(.pretendardBlack, size: fontSize))

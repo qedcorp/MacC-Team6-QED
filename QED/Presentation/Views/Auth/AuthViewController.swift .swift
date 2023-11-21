@@ -23,10 +23,12 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     }
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    let sizeFactor: CGFloat
     let scrollWidth: CGFloat
     let scrollHeight: CGFloat
 
     init(authProvider: Binding<AuthProviderType>) {
+        sizeFactor = screenHeight / 844
         scrollWidth = screenWidth * 0.66
         scrollHeight = scrollWidth * 1.52
         self._authProvider = authProvider
@@ -46,20 +48,20 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     lazy var stepLabel: UILabel = {
         let object = UILabel()
         object.textColor = .white
-        object.font = UIFont(name: "Pretendard-Regular", size: 20)
+        object.font = UIFont(name: "Pretendard-Regular", size: 20 * sizeFactor)
         return object
     }()
 
     lazy var titleBoldLabel: UILabel = {
         let object = UILabel()
-        object.font = UIFont(name: "Pretendard-Bold", size: 30)
+        object.font = UIFont(name: "Pretendard-Bold", size: 30 * sizeFactor)
         object.textColor = .white
         return object
     }()
 
     lazy var titleRegularLabel: UILabel = {
         let object = UILabel()
-        object.font = UIFont(name: "Pretendard-Regular", size: 30)
+        object.font = UIFont(name: "Pretendard-Regular", size: 30 * sizeFactor)
         object.textColor = .white
         return object
     }()
@@ -77,7 +79,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         object.showsHorizontalScrollIndicator = false
         object.isPagingEnabled = true
         object.bounces = false
-        object.layer.cornerRadius = 10
+        object.layer.cornerRadius = 10 * sizeFactor
         return object
     }()
 
@@ -95,13 +97,13 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let stackView = UIStackView(arrangedSubviews: [stepLabel, titleStackView])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 8
+        stackView.spacing = 8 * sizeFactor
         return stackView
     }()
 
     lazy var loginGuideLabel: UILabel = {
         let object = UILabel()
-        object.font = .systemFont(ofSize: 15)
+        object.font = .systemFont(ofSize: 15 * sizeFactor)
         object.textColor = .white
         object.text = "SNS 계정으로 간편 가입하기"
         return object
@@ -111,7 +113,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapAppleSignInView(_:)))
         object.backgroundColor = .white
-        object.layer.cornerRadius = screenWidth * 0.075
+        object.layer.cornerRadius = screenWidth * 0.075 * sizeFactor
         object.setImage(UIImage(named: "apple_login"), for: .normal)
         object.addGestureRecognizer(gesture)
         return object
@@ -121,7 +123,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapKakaoSignInView(_:)))
         object.backgroundColor = UIColor.KakaoYellow
-        object.layer.cornerRadius = screenWidth * 0.075
+        object.layer.cornerRadius = screenWidth * 0.075 * sizeFactor
         object.setImage(UIImage(named: "kakao_login"), for: .normal)
         object.addGestureRecognizer(gesture)
         return object
@@ -131,7 +133,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let object = UIButton()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapGoogleSignInView(_:)))
         object.backgroundColor = .white
-        object.layer.cornerRadius = screenWidth * 0.075
+        object.layer.cornerRadius = screenWidth * 0.075 * sizeFactor
         object.setImage(UIImage(named: "google_login"), for: .normal)
         object.addGestureRecognizer(gesture)
         return object
@@ -141,39 +143,60 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         let stackView = UIStackView(arrangedSubviews: [appleButton, kakaoButton, googleButton])
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
-        stackView.spacing = 20
+        stackView.spacing = 20 * sizeFactor
         return stackView
     }()
 
     private func setUpUI() {
         view.backgroundColor = .black
-        view.addSubview(stepLabel)
-        view.addSubview(titleBoldLabel)
-        view.addSubview(titleRegularLabel)
-        view.addSubview(titleStackView)
-        view.addSubview(loginInfoStackView)
-        view.addSubview(scrollView)
-        view.addSubview(pageControl)
-        view.addSubview(loginGuideLabel)
-        view.addSubview(appleButton)
-        view.addSubview(kakaoButton)
-        view.addSubview(googleButton)
-        view.addSubview(loginButtonStackView)
+        [loginInfoStackView, scrollView, pageControl, loginGuideLabel, loginButtonStackView].forEach {
+            view.addSubview($0)
+        }
 
         loginInfoStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(screenHeight * 0.14)
+            $0.top.equalToSuperview().offset(screenHeight * 0.13 * sizeFactor)
             $0.left.equalToSuperview().inset(66)
         }
 
         scrollView.snp.makeConstraints {
             $0.width.equalTo(scrollWidth)
             $0.height.equalTo(scrollHeight)
-            $0.top.equalTo(loginInfoStackView.snp.bottom).offset(screenHeight * 0.03)
+            $0.top.equalTo(loginInfoStackView.snp.bottom).offset(screenHeight * 0.03 * sizeFactor)
             $0.centerX.equalToSuperview()
         }
 
-        view.layoutIfNeeded()
+        pageControl.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.bottom).offset(screenHeight * 0.02 * sizeFactor)
+            $0.centerX.equalToSuperview()
+        }
 
+        loginGuideLabel.snp.makeConstraints {
+            $0.bottom.equalTo(loginButtonStackView.snp.top).offset(-screenHeight * 0.02 * sizeFactor)
+            $0.centerX.equalToSuperview()
+        }
+
+        appleButton.snp.makeConstraints {
+            $0.width.height.equalTo(screenWidth * 0.15 * sizeFactor)
+        }
+
+        kakaoButton.snp.makeConstraints {
+            $0.width.height.equalTo(screenWidth * 0.15 * sizeFactor)
+        }
+
+        googleButton.snp.makeConstraints {
+            $0.width.height.equalTo(screenWidth * 0.15 * sizeFactor)
+        }
+
+        loginButtonStackView.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-screenHeight * 0.08 * sizeFactor)
+            $0.centerX.equalToSuperview()
+        }
+
+        setUpScrollViewItems()
+    }
+
+    private func setUpScrollViewItems() {
+        view.layoutIfNeeded()
         for page in pages {
             let image = UIImage.gifImageWithName(page.image)
             let imageView = UIImageView(image: image)
@@ -185,34 +208,6 @@ class AuthViewController: UIViewController, AuthUIProtocol {
                     .offset(scrollView.bounds.width * CGFloat(page.rawValue))
             }
         }
-
-        pageControl.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(screenHeight * 0.025)
-            $0.centerX.equalToSuperview()
-        }
-
-        loginGuideLabel.snp.makeConstraints {
-            $0.bottom.equalTo(loginButtonStackView.snp.top).offset(-screenHeight * 0.02)
-            $0.centerX.equalToSuperview()
-        }
-
-        appleButton.snp.makeConstraints {
-            $0.width.height.equalTo(screenWidth * 0.15)
-        }
-
-        kakaoButton.snp.makeConstraints {
-            $0.width.height.equalTo(screenWidth * 0.15)
-        }
-
-        googleButton.snp.makeConstraints {
-            $0.width.height.equalTo(screenWidth * 0.15)
-        }
-
-        loginButtonStackView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-screenHeight * 0.1)
-            $0.centerX.equalToSuperview()
-        }
-
     }
 
     private func setUpObjects() {
