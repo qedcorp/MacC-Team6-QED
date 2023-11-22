@@ -5,6 +5,7 @@
 //  Created by OLING on 10/28/23.
 //
 
+import CachedAsyncImage
 import SwiftUI
 
 @MainActor
@@ -104,7 +105,11 @@ struct PerformanceListCardView: View {
     }
 
     private func buildFetchMusicView() -> some View {
-        return AsyncImage(url: performance.music.albumCoverURL, transaction: .init(animation: .easeInOut)) { phase in
+        return CachedAsyncImage(
+            url: performance.music.albumCoverURL,
+            urlCache: .image,
+            transaction: .init(animation: .easeInOut)
+        ) { phase in
             switch phase {
             case .empty:
                 buildLoadingView()
