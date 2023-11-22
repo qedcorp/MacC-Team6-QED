@@ -29,6 +29,13 @@ class PresetManagingViewModel: ObservableObject {
         }
     }
 
+    func updatePreset(id: String) {
+        let preset = canvasController.getPreset(id: id)
+        Task {
+            try await presetUseCase.updatePreset(preset)
+        }
+    }
+
     func createPreset() {
         let preset = canvasController.getPreset()
         presets.insert(preset, at: 0)

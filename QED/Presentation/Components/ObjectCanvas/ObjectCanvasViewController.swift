@@ -202,6 +202,15 @@ class ObjectCanvasViewController: ObjectStageViewController {
         )
     }
 
+    func getPreset(id: String) -> Preset {
+        let positions = getRelativePositions()
+        return Preset(
+            id: id,
+            headcount: objectViews.count,
+            relativePositions: positions
+        )
+    }
+
     private func addHistory() {
         let positions = getRelativePositions()
         let history = History(relativePositions: positions)

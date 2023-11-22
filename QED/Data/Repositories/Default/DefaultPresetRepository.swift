@@ -16,6 +16,21 @@ final class DefaultPresetRepository: PresetRepository {
         self.remoteManager = remoteManager
     }
 
+    func updatePreset(_ preset: Preset) async throws -> Preset {
+        do {
+            let createResult = try await remoteManager.update(preset)
+            switch createResult {
+            case .success(let success):
+                return success
+            case .failure:
+                print("update Error")
+            }
+        } catch {
+            print("update Error")
+        }
+        return Preset(jsonString: "update Error")
+    }
+
     func createPreset(_ preset: Preset) async throws -> Preset {
         do {
             let createResult = try await remoteManager.create(preset, createType: .noneKey)

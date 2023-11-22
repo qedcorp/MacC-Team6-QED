@@ -8,6 +8,10 @@ struct LocalPresetRepository: PresetRepository {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
+    func updatePreset(_ preset: Preset) async throws -> Preset {
+        Preset(jsonString: "")
+    }
+
     func createPreset(_ preset: Preset) async throws -> Preset {
         let presets = try getPresets()
         let data = try encoder.encode([preset] + presets)

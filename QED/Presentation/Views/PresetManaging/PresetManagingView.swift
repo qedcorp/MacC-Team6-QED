@@ -4,6 +4,7 @@ import SwiftUI
 
 struct PresetManagingView: View {
     @StateObject private var viewModel = PresetManagingViewModel()
+    @State var currentPresetId: String = ""
 
     var body: some View {
         VStack {
@@ -36,7 +37,11 @@ struct PresetManagingView: View {
                         historyControllable: viewModel.objectHistoryArchiver,
                         tag: viewModel.historyTag
                     )
-                    Spacer()
+                    Rectangle().foregroundStyle(.clear).frame(height: 1)
+                    Button("Update") {
+                        viewModel.updatePreset(id: currentPresetId)
+                    }
+                    Spacer(minLength: 12)
                     Button("Generate") {
                         viewModel.createPreset()
                     }
@@ -65,6 +70,8 @@ struct PresetManagingView: View {
     private func buildObjectStageView(formable: Formable) -> some View {
         Button {
             viewModel.canvasController.copyFormable(formable)
+            guard let preset = formable as? Preset else { return }
+            currentPresetId = preset.id
         } label: {
             ObjectStageView(formable: formable)
                 .frame(width: 80, height: 60)
