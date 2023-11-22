@@ -85,14 +85,22 @@ class BezierPathConverter {
     }
     
     func buildArrowHeadPath(_ bezierPath: BezierPath, tMargin: CGFloat) -> UIBezierPath {
+        let path = buildTrianglePath()
+        let endPoint = getEndPoint(bezierPath: bezierPath, tMargin: tMargin - 0.01)
+        let beforeEndPoint = getEndPoint(bezierPath: bezierPath, tMargin: tMargin)
+        let angle = getAngleBetweenPoints(endPoint, beforeEndPoint)
+        let transform = CGAffineTransform(translationX: endPoint.x, y: endPoint.y)
+            .rotated(by: angle)
+        path.apply(transform)
+        return path
+    }
+    
+    private func buildTrianglePath() -> UIBezierPath {
         let path = UIBezierPath()
         let height: CGFloat = 8
-        let endPoint = getEndPoint(bezierPath: bezierPath, tMargin: tMargin)
-        let beforeEndPoint = getEndPoint(bezierPath: bezierPath, tMargin: tMargin + 0.01)
-        path.move(to: endPoint)
-        let angle = atan2(endPoint.y - beforeEndPoint.y, endPoint.x - beforeEndPoint.x)
-        path.addLine(to: CGPoint(x: endPoint.x - height * cos(angle - .pi / 6), y: endPoint.y - height * sin(angle - .pi / 6)))
-        path.addLine(to: CGPoint(x: endPoint.x - height * cos(angle + .pi / 6), y: endPoint.y - height * sin(angle + .pi / 6)))
+        path.move(to: .zero)
+        path.addLine(to: .init(x: height, y: -height / 2))
+        path.addLine(to: .init(x: height, y: height / 2))
         path.close()
         return path
     }
@@ -154,6 +162,13 @@ class BezierPathConverter {
     func getRelativeMargin(bezierPath: BezierPath) -> CGFloat {
         let lineLength = getLineLength(bezierPath: bezierPath)
         return pixelMargin / lineLength
+    }
+    
+    private func getAngleBetweenPoints(_ point1: CGPoint, _ point2: CGPoint) -> CGFloat {
+        let deltaX = point2.x - point1.x
+        let deltaY = point2.y - point1.y
+        let radians = atan2(deltaY, deltaX)
+        return radians
     }
     
     private func getLineLength(bezierPath: BezierPath) -> CGFloat {
