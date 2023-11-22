@@ -15,7 +15,7 @@ extension FireStoreDTO {
         @objc var DATA: String?
 
         init(ID: String = "", HEADCOUNT: String? = nil, DATA: String? = nil) {
-            self.ID = ""
+            self.ID = ID
             self.HEADCOUNT = HEADCOUNT
             self.DATA = DATA
         }
