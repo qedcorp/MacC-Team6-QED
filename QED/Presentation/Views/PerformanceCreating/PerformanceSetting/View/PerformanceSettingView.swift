@@ -172,7 +172,7 @@ struct PerformanceSettingView: View {
             .font(.headline)
             .padding(EdgeInsets(top: 13, leading: 10, bottom: 13, trailing: 10))
             .background(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: 8)
                     .foregroundStyle(viewModel.performanceTitle == ""
                                      ? Color.monoNormal1
                                      : Color.blueLight2)
@@ -390,7 +390,7 @@ struct PerformanceSettingView: View {
                     searchMusic()
                 }
                 .onAppear {
-                    viewModel.isExpanded2 = true
+                    viewModel.isExpanded1 = false
                 }
                 .submitLabel(.search)
                 .foregroundStyle(Color.monoWhite3)
