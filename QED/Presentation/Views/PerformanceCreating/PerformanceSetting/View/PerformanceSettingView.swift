@@ -167,26 +167,27 @@ struct PerformanceSettingView: View {
     var inputTitleTextField: some View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .focused($isFocused)
-            .onSubmit {
-                withAnimation {
-                    viewModel.toggleDisclosureGroup2()
-                }
-            }
-            .foregroundStyle(viewModel.performanceTitle.isEmpty
+            .foregroundStyle(Color.monoWhite3)
+            .foregroundStyle(viewModel.performanceTitle == ""
                              ? Color.monoNormal2
                              : Color.monoWhite3)
             .multilineTextAlignment(.center)
             .font(.headline)
-            .bold(!viewModel.performanceTitle.isEmpty)
             .padding(EdgeInsets(top: 13, leading: 10, bottom: 13, trailing: 10))
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(viewModel.performanceTitle.isEmpty
+                    .foregroundStyle(viewModel.performanceTitle == ""
                                      ? Color.monoNormal1
                                      : Color.blueLight2)
             )
             .padding()
             .tint(Color.blueLight2)
+            .onSubmit {
+                withAnimation {
+                    viewModel.toggleDisclosureGroup2()
+                }
+            }
+
     }
     
 
@@ -415,7 +416,7 @@ struct PerformanceSettingView: View {
         }
         .font(.title3)
         .padding(.horizontal)
-        .background(viewModel.musicSearch.isEmpty
+        .background(viewModel.musicSearch == ""
                     ? Color.monoNormal1
                     : Color.blueLight2)
         .clipShape(RoundedRectangle(cornerRadius: 10))
