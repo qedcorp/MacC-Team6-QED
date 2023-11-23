@@ -82,8 +82,8 @@ struct PerformanceSettingView: View {
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                            .foregroundStyle(Color.background1)
-                            .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
+                            .foregroundStyle(Color.darker).opacity(0.15)
+                            .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
                     )
                     .padding(.horizontal, 25)
                     .padding(.vertical, 10)
@@ -392,6 +392,7 @@ struct PerformanceSettingView: View {
                 }
                 .onAppear {
                     viewModel.isExpanded1 = false
+                    viewModel.isExpanded3 = false
                 }
                 .submitLabel(.search)
                 .foregroundStyle(Color.monoWhite3)

@@ -88,6 +88,7 @@ extension Color {
     static let Dot13 = Color(hex: "F8A98C")
     static let KakaoYellow = Color(hex: "FDE500")
     static let background1 = Color(hex: "0x76767F").opacity(0.24)
+    static let darker = Color(hex: "525256")
 }
 
 extension Gradient {
@@ -143,6 +144,7 @@ extension UIColor {
     static let Dot13 = UIColor(hex: "F8A98C")
     static let KakaoYellow = UIColor(hex: "FDE500")
     static let background1 = UIColor(hex: "0x76767F").withAlphaComponent(0.24)
+    static let darker = UIColor(hex: "525256")
 }
 
 extension CAGradientLayer {
