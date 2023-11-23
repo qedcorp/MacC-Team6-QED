@@ -91,6 +91,7 @@ class FormationSettingViewModel: ObservableObject {
         )
         performanceSettingManager = PerformanceSettingManager(
             performance: dependency.performance,
+            isAutoUpdateDisabled: dependency.isAutoUpdateDisabled,
             performanceUseCase: dependency.performanceUseCase
         )
         performanceUseCase = dependency.performanceUseCase

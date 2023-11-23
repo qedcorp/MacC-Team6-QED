@@ -5,7 +5,7 @@ import Foundation
 struct PerformanceRouter {
     let performance: Performance
 
-    func getItemPath() -> PresentType {
+    func getBranchedPath() -> PresentType {
         if performance.isCompleted {
             let manager = PerformanceSettingManager(performance: performance)
             let depepndency = PerformanceWatchingViewDependency(

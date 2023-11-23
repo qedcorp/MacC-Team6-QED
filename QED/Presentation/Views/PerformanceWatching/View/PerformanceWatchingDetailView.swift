@@ -323,7 +323,8 @@ struct PerformanceWatchingDetailView: View {
                     }
                     let dependency = FormationSettingViewDependency(
                         performance: performance,
-                        currentFormationIndex: viewModel.currentIndex
+                        currentFormationIndex: viewModel.currentIndex,
+                        isAutoUpdateDisabled: true
                     )
                     path.append(.formationSetting(dependency))
                 }

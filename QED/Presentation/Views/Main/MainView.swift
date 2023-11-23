@@ -137,7 +137,7 @@ struct MainView: View {
             HStack(spacing: 10) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     Button {
-                        let nextPath = PerformanceRouter(performance: performance).getItemPath()
+                        let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
                         path.append(nextPath)
                     } label: {
                         PerformanceListCardView(performance: performance)

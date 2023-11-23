@@ -57,7 +57,10 @@ struct FormationSettingView: View {
                             performanceSettingManager: performanceSettingManager,
                             performanceUseCase: performanceUseCase
                         )
-                        path.append(.memberSetting(dependency))
+                        Task {
+                            try await viewModel.performanceSettingManager?.requestUpdate()
+                            path.append(.memberSetting(dependency))
+                        }
                     }
                     .disabled(!viewModel.isEnabledToSave)
                 }
