@@ -171,7 +171,7 @@ class ObjectPlayableViewController: ObjectStageViewController {
         for member in memeberRoad {
             let roads = member.value
             for checkIndex in currentRoadRange {
-                if (checkIndex >= index && linePresentType == .action) || linePresentType == .show {
+                if (checkIndex < index && linePresentType == .action) || linePresentType == .show {
                     CATransaction.begin()
                     CATransaction.setAnimationDuration(0)
                     roads[checkIndex]?.setting(color: UIColor(hex: roads[checkIndex]?.value ?? ""), isForce: false)
