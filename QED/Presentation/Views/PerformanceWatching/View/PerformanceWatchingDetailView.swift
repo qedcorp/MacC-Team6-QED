@@ -315,19 +315,18 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildRightItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Text("수정")
-                .foregroundStyle(Color.blueLight3)
-                .onTapGesture {
-                    guard let performance = viewModel.performance?.entity else {
-                        return
-                    }
-                    let dependency = FormationSettingViewDependency(
-                        performance: performance,
-                        currentFormationIndex: viewModel.currentIndex,
-                        isAutoUpdateDisabled: true
-                    )
-                    path.append(.formationSetting(dependency))
+            Button("수정") {
+                guard let performance = viewModel.performance,
+                      let copiedPerformance = try? DeepCopier.copy(performance.entity) else {
+                    return
                 }
+                let dependency = FormationSettingViewDependency(
+                    performance: copiedPerformance,
+                    currentFormationIndex: viewModel.currentIndex,
+                    isAutoUpdateDisabled: true
+                )
+                path.append(.formationSetting(dependency))
+            }
         }
     }
 
