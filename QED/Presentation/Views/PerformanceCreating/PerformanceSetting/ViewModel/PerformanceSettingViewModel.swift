@@ -159,21 +159,24 @@ class PerformanceSettingViewModel: ObservableObject {
 }
 
 struct DisclosureGroupBackground: ViewModifier {
+    var isExpanded1: Bool = true
+    var isExpanded2: Bool = false
+    var isExpanded3: Bool = false
+
     func body(content: Content) -> some View {
         content
             .background(
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 8)
                     .foregroundStyle(Color.monoNormal1)
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 10)
                     .stroke(Gradient.strokeGlass2)
             )
             .padding(.horizontal, 20)
             .padding(.vertical, 3)
             .tint(.clear)
     }
-
 }
 
 struct DisclosureGroupLabelStyle: ViewModifier {

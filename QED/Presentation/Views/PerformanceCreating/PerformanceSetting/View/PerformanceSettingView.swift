@@ -126,7 +126,7 @@ struct PerformanceSettingView: View {
     func disclosureContent(for groupNum: Int) -> some View {
         switch groupNum {
         case 1:
-            AnyView(inputTitleTextField)
+            AnyView(inputTitleContent)
         case 2:
             AnyView(musicContent)
         case 3:
@@ -139,11 +139,11 @@ struct PerformanceSettingView: View {
     func disclosureLabel(for groupNum: Int) -> some View {
         switch groupNum {
         case 1:
-            viewModel.isExpanded1 ? AnyView(inputTitleLabelClosed) :  AnyView(inputTitleLabelOpen)
+            viewModel.isExpanded1 ? AnyView(inputTitleLabelOpend) :  AnyView(inputTitleLabelClosed)
         case 2:
-            viewModel.isExpanded2 ? AnyView(inputMusicLabelClosed) : AnyView(inputMusicLabelOpened)
+            viewModel.isExpanded2 ? AnyView(inputMusicLabelOpend) : AnyView(inputMusicLabelClosed)
         case 3:
-            viewModel.isExpanded3 ? AnyView(inputHeadcountlabelClosed) : AnyView(inputHeadcountlabelOpened)
+            viewModel.isExpanded3 ? AnyView(inputHeadcountlabelOpened) : AnyView(inputHeadcountlabelClosed)
         default:
             AnyView(EmptyView())
         }
@@ -164,7 +164,7 @@ struct PerformanceSettingView: View {
             }
     }
 
-    var inputTitleTextField: some View {
+    var inputTitleContent: some View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .focused($isFocused)
             .foregroundStyle(Color.monoWhite3)
@@ -188,7 +188,7 @@ struct PerformanceSettingView: View {
     }
     
 
-    var inputTitleLabelClosed: some View {
+    var inputTitleLabelOpend: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
             .onAppear {
@@ -196,7 +196,7 @@ struct PerformanceSettingView: View {
             }
     }
 
-    var inputTitleLabelOpen: some View {
+    var inputTitleLabelClosed: some View {
         HStack {
             Text("프로젝트 이름")
                 .lineLimit(1)
@@ -217,12 +217,12 @@ struct PerformanceSettingView: View {
         . disclosureGroupLabelOpend()
     }
 
-    var inputMusicLabelClosed: some View {
+    var inputMusicLabelOpend: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
     }
 
-    var inputMusicLabelOpened: some View {
+    var inputMusicLabelClosed: some View {
         HStack {
             Text("노래")
                 .foregroundStyle(Color.monoWhite2)
@@ -250,12 +250,12 @@ struct PerformanceSettingView: View {
         }
     }
 
-    var inputHeadcountlabelClosed: some View {
+    var inputHeadcountlabelOpened: some View {
         Text("인원수를 입력하세요")
             .disclosureGroupLabelStyle()
     }
 
-    var inputHeadcountlabelOpened: some View {
+    var inputHeadcountlabelClosed: some View {
         HStack {
             Text("인원 수")
                 .foregroundStyle(Color.monoWhite2)
@@ -284,6 +284,7 @@ struct PerformanceSettingView: View {
             Spacer()
             if viewModel.isSearchingMusic {
                 FodiProgressView()
+                    .padding(.bottom)
                 Spacer()
             } else if isSearchFromEmptyText {
                 emptyMusic
