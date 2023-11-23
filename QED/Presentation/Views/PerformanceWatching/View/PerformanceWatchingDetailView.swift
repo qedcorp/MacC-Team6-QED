@@ -298,6 +298,7 @@ struct PerformanceWatchingDetailView: View {
             } label: {
                 HStack {
                     Image(systemName: "chevron.left")
+                        .fontWeight(.semibold)
                     Text("홈")
                 }
                 .foregroundColor(Color.blueLight3)

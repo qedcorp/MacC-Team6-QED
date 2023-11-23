@@ -6,6 +6,7 @@ struct FormationSettingView: View {
     let dependency: FormationSettingViewDependency
     @Binding var path: [PresentType]
     @StateObject private var viewModel = FormationSettingViewModel()
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack {
@@ -44,6 +45,11 @@ struct FormationSettingView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
             .toolbar {
+                if viewModel.performanceSettingManager?.isAutoUpdateDisabled == true {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        AlertableBackButton(alert: .back, dismiss: dismiss)
+                    }
+                }
                 ToolbarItem(placement: .principal) {
                     PerformanceSettingTitleView(step: 1, title: "대형짜기")
                 }

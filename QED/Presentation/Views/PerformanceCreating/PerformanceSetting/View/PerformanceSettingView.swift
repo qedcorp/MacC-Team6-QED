@@ -13,7 +13,6 @@ struct PerformanceSettingView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isFocused: Bool
     @State private var isSearchFromEmptyText = true
-    @State private var presentAlert = false
     @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
 
@@ -552,18 +551,7 @@ struct PerformanceSettingView: View {
     }
     private var leftItem: ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                presentAlert = true
-            } label: {
-                Image(systemName: "chevron.backward")
-                    .foregroundColor(Color.blueLight3)
-            }
-            .alert("홈으로 나가기", isPresented: $presentAlert, actions: {
-                Button("아니오", role: .cancel, action: {})
-                Button("네", role: .destructive, action: { dismiss()})
-            }, message: {
-                Text("지금까지 작성한 프로젝트 내용이\n모두 삭제됩니다. 홈으로 나가시겠어요?")
-            })
+            AlertableBackButton(alert: .home, dismiss: dismiss)
         }
     }
 }

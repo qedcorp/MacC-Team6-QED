@@ -5,7 +5,7 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
-    var isAutoUpdateDisabled: Bool
+    let isAutoUpdateDisabled: Bool
     weak var relativeCoordinateConverter: RelativeCoordinateConverter?
     private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
