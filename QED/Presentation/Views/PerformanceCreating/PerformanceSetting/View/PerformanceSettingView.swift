@@ -168,9 +168,6 @@ struct PerformanceSettingView: View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .focused($isFocused)
             .foregroundStyle(Color.monoWhite3)
-            .foregroundStyle(viewModel.performanceTitle == ""
-                             ? Color.monoNormal2
-                             : Color.monoWhite3)
             .multilineTextAlignment(.center)
             .font(.headline)
             .padding(EdgeInsets(top: 13, leading: 10, bottom: 13, trailing: 10))
@@ -396,9 +393,7 @@ struct PerformanceSettingView: View {
                     viewModel.isExpanded2 = true
                 }
                 .submitLabel(.search)
-                .foregroundStyle(viewModel.musicSearch == ""
-                                 ? Color.monoNormal2
-                                 : Color.monoWhite3)
+                .foregroundStyle(Color.monoWhite3)
                 .multilineTextAlignment(.leading)
                 .padding(EdgeInsets(top: 13, leading: 7, bottom: 13, trailing: 7))
                 .tint(Color.blueLight2)
