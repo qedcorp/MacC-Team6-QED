@@ -10,20 +10,22 @@ struct FormationSettingView: View {
     var body: some View {
         ZStack {
             buildBackgroundView()
-            VStack(spacing: 22) {
+            VStack(spacing: 0) {
                 GeometryReader { geometry in
+                    let spacing: CGFloat = 21
                     VStack(spacing: 0) {
                         buildMusicHeadcountView()
+                            .padding(.bottom, spacing)
                         buildMemoButtonView()
-                        Spacer(minLength: 18)
+                        Spacer(minLength: spacing)
                         if !viewModel.isZoomed {
                             buildObjectCanvasContainerView(width: geometry.size.width)
                         }
                         Spacer()
                     }
                 }
-                .padding(.horizontal, 22)
-                VStack(spacing: 20) {
+                .padding(.horizontal, 24)
+                VStack(spacing: 0) {
                     if let viewModel = viewModel.presetContainerViewModel {
                         buildPresetContainerView(viewModel: viewModel)
                     }
@@ -80,7 +82,6 @@ struct FormationSettingView: View {
 
     private func buildMusicHeadcountView() -> some View {
         MusicHeadcountView(title: viewModel.musicTitle, headcount: viewModel.headcount)
-            .padding(.bottom, 16)
     }
 
     private func buildMemoButtonView() -> some View {
@@ -178,9 +179,9 @@ struct FormationSettingView: View {
         }
         .frame(height: 110)
         .background(
-            Image("bottom")
+            Image("bottomBackground")
                 .resizable()
-                .shadow(color: .monoBlack.opacity(0.4), radius: 3, y: -3)
+                .shadow(color: .monoBlack.opacity(0.3), radius: 2, y: -1)
         )
     }
 
@@ -208,8 +209,7 @@ struct FormationSettingView: View {
                         .frame(width: 94, height: 61)
                         .background(
                             RoundedRectangle(cornerRadius: cornerRadius)
-                                .fill(isSelected ? Color.blueLight2 : Color.monoNormal2)
-                                .blur(radius: 50)
+                                .fill(isSelected ? Color.blueLight1 : Color.build(hex: .stageBackground))
                         )
                         .overlay(
                             ZStack {
@@ -218,7 +218,7 @@ struct FormationSettingView: View {
                                         .strokeBorder(Color.blueLight3, lineWidth: 1)
                                 } else {
                                     RoundedRectangle(cornerRadius: cornerRadius)
-                                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 1)
+                                        .strokeBorder(Gradient.strokeGlass2, lineWidth: 0.5)
                                 }
                             }
                         )
@@ -320,7 +320,7 @@ struct FormationSettingView: View {
                 ZoomableView {
                     buildObjectCanvasView(
                         controller: viewModel.zoomableCanvasController,
-                        width: geometry.size.width - 44 // TRICK: Zoom 여부 상관 없이 같은 frame을 갖도록 하기 위함
+                        width: geometry.size.width - 48 // TRICK: Zoom 여부 상관 없이 같은 frame을 갖도록 하기 위함
                     )
                 }
                 buildObjectCanvasControlsView()

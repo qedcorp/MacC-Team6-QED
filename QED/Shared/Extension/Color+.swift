@@ -202,6 +202,8 @@ extension CAGradientLayer {
 // TODO: - 이런식으로 리팩토링 해주세요 to oling
 
 enum HexColorType {
+    case memoBackground
+    case stageBackground
     case modalBackground
     case unknown0
     case unknown1
@@ -209,6 +211,10 @@ enum HexColorType {
 
     var data: (String, Double) {
         switch self {
+        case .memoBackground:
+            return ("B0B0B8", 0.2)
+        case .stageBackground:
+            return ("8D8D93", 0.15)
         case .modalBackground:
             return ("000000", 0.8)
         case .unknown0:

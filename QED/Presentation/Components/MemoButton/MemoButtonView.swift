@@ -19,7 +19,7 @@ struct MemoButtonView: View {
         .frame(height: 64)
         .background(
             RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(isHighlighted ? Color.blueLight2 : Color.monoNormal1)
+                .fill(isHighlighted ? Color.blueLight2 : Color.build(hex: .memoBackground))
         )
         .overlay(
             RoundedRectangle(cornerRadius: cornerRadius)

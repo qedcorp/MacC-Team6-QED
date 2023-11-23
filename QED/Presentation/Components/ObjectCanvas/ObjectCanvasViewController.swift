@@ -66,7 +66,6 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private func setupViews() {
         GridRenderer().render(in: view)
-        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {

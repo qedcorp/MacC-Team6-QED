@@ -6,12 +6,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Stage@2x.png",
+      "filename" : "stage@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Stage@3x.png",
+      "filename" : "stage@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
