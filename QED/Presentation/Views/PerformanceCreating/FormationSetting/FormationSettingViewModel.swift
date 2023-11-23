@@ -85,6 +85,9 @@ class FormationSettingViewModel: ObservableObject {
     func setupWithDependency(_ dependency: FormationSettingViewDependency) {
         performance = PerformanceModel.build(entity: dependency.performance)
         currentFormationIndex = dependency.currentFormationIndex
+        hasMemoBeenInputted = !dependency.performance.formations
+            .compactMap { $0.memo }
+            .isEmpty
         presetContainerViewModel = PresetContainerViewModel(
             headcount: dependency.performance.headcount,
             canvasController: canvasController
