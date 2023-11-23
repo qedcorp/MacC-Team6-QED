@@ -148,7 +148,7 @@ struct MemberSettingView: View {
     private func buildMemberInfoEditingView() -> some View {
         MemberInfoEditingView(
             memberInfos: viewModel.memberInfos,
-            index: viewModel.editingMemberInfoIndex!,
+            index: viewModel.editingMemberInfoIndex ?? -1,
             onComplete: {
                 viewModel.updateEditingMemberInfo($0)
             }
