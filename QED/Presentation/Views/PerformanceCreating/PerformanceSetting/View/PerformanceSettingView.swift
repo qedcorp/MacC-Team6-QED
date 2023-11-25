@@ -533,10 +533,13 @@ struct PerformanceSettingView: View {
                                 .font(.headline)
                                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                                 .background(
-                                    RoundedRectangle(cornerRadius: 10)
+                                    RoundedRectangle(cornerRadius: 6)
                                         .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
                                                          ? Color.monoNormal1
-                                                         : Color.blueLight2)
+                                                         : isFocused
+                                                            ? Color.darker2
+                                                            : Color.blueLight2
+                                                        )
                                 )
                                 .padding(.horizontal)
                                 .padding(.vertical, 3)
