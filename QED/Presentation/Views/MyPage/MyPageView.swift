@@ -91,7 +91,7 @@ struct MyPageView: View {
     private func buildDivider() -> some View {
         Rectangle()
             .frame(height: 10)
-            .foregroundStyle(Color.monoBlack)
+            .foregroundStyle(Color.monoBlack.opacity(0.2))
     }
 
     private func buildEmailRowView() -> some View {
@@ -223,7 +223,7 @@ struct MyPageView: View {
             }
         }
         .padding(.top, -4)
-        .padding(.bottom, 73)
+        .padding(.bottom, 91)
         .padding(.horizontal, 36)
     }
 
@@ -255,7 +255,6 @@ struct MyPageView: View {
             .font(.subheadline)
             .fontWeight(.bold)
             .padding(.top, 19)
-            .padding(.bottom, 40)
     }
 
     private func buildLeftItem() -> ToolbarItem<(), some View> {
