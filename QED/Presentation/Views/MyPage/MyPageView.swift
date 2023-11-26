@@ -4,7 +4,7 @@
 //
 //  Created by chaekie on 10/18/23.
 //
-import StoreKit
+
 import SwiftUI
 
 struct MyPageView: View {
@@ -13,7 +13,6 @@ struct MyPageView: View {
     @StateObject private var viewModel = MyPageViewModel()
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
-    @Environment(\.requestReview) private var requestReview
     @State private var isTermsVisible = false
     @State private var isPersonalInfoVisble = false
     @State private var message: Message?
@@ -21,6 +20,7 @@ struct MyPageView: View {
     private let customerSupport: MyPageList = .customerSupport
     private let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
     private let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
+    private let appStoreURL = "https://apps.apple.com/kr/app/fodi/id6470155832"
     private let qedEmail = "teamqedofficial@gmail.com"
 
     var body: some View {
@@ -163,8 +163,7 @@ struct MyPageView: View {
             openURL(personalInfoURL)
         })
         case .appReview: buildChevronButton({
-//            TODO: 인앱 리뷰 기능 출시 후 확인
-            requestReview()
+            openURL(appStoreURL)
         })
         }
     }
