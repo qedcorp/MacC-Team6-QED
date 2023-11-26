@@ -284,7 +284,7 @@ struct PerformanceSettingView: View {
             Spacer()
             if viewModel.isSearchingMusic {
                 FodiProgressView()
-                    .padding(.bottom)
+                    .padding(.vertical)
                 Spacer()
             } else if isSearchFromEmptyText {
                 emptyMusic
@@ -316,8 +316,8 @@ struct PerformanceSettingView: View {
                     .image?.resizable()
                     .scaledToFill()
                     .frame(width: 90, height: 64, alignment: .leading)
-                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 15, style: .continuous).stroke(Color.clear, lineWidth: 1))
+                    .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 5, style: .continuous).stroke(Color.clear, lineWidth: 1))
                     .clipped()
             }
             .frame(maxHeight: .infinity)
@@ -412,12 +412,12 @@ struct PerformanceSettingView: View {
             }
         }
         .font(.title3)
-        .padding(.horizontal)
+        .padding(.horizontal, 10)
         .background(viewModel.musicSearch == ""
                     ? Color.monoNormal1
                     : Color.blueLight2)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding()
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(.horizontal, 10)
     }
 
     var emptyMusic: some View {
