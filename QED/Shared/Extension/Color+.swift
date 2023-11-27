@@ -112,6 +112,14 @@ extension Gradient {
     static let strokeGlass3 = LinearGradient(colors: [Color.monoWhite3.opacity(0.2), Color.monoWhite3.opacity(0)],
                                              startPoint: UnitPoint(x: 0.5, y: 0),
                                              endPoint: UnitPoint(x: 0.5, y: 1))
+
+    static let unknownGradient1 = LinearGradient(
+        stops: [
+        Gradient.Stop(color: Color(red: 0.08, green: 0.09, blue: 0.1), location: 0.00)
+        ],
+        startPoint: UnitPoint(x: 0, y: 0),
+        endPoint: UnitPoint(x: 1, y: 1)
+        )
 }
 
 extension UIColor {

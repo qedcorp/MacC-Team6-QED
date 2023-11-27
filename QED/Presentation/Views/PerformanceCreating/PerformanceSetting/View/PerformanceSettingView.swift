@@ -82,7 +82,7 @@ struct PerformanceSettingView: View {
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                            .foregroundStyle(Color.darker).opacity(0.15)
+                            .foregroundStyle(Gradient.unknownGradient1)
                             .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
                     )
                     .padding(.horizontal, 25)
