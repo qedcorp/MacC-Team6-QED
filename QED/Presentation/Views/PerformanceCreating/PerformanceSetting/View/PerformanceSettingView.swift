@@ -528,7 +528,7 @@ struct PerformanceSettingView: View {
                                 .onTapGesture {
                                     viewModel.scrollToID = 3
                                 }
-                                .foregroundStyle(Color.monoNormal2)
+                                .foregroundStyle(Color.monoWhite3)
                                 .multilineTextAlignment(.center)
                                 .font(.headline)
                                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
