@@ -242,7 +242,7 @@ struct FormationSettingView: View {
                         }
                     HStack(spacing: 3) {
                         Text("\(index + 1)")
-                            .foregroundStyle(Color.monoWhite3)
+                            .foregroundStyle(isSelected ? Color.monoBlack : Color.monoWhite3)
                             .multilineTextAlignment(.center)
                             .frame(minWidth: 13)
                             .background(
@@ -253,7 +253,7 @@ struct FormationSettingView: View {
                             .foregroundStyle(isSelected ? Color.blueLight3 : Color.monoNormal2)
                             .lineLimit(1)
                     }
-                    .font(.caption2.weight(isSelected ? .bold : .regular))
+                    .font(.caption2.weight(isSelected ? .semibold : .regular))
                     .frame(height: 13)
                     .transaction {
                         $0.animation = nil
@@ -294,7 +294,7 @@ struct FormationSettingView: View {
         .mask {
             RoundedRectangle(cornerRadius: 5)
         }
-        .offset(x: itemFrame.minX + margin, y: -36)
+        .offset(x: itemFrame.minX + margin, y: -38)
         .transition(
             .opacity
                 .combined(with: .offset(y: 16))

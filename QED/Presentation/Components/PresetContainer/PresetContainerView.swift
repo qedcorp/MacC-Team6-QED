@@ -34,7 +34,10 @@ struct PresetContainerView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHGrid(rows: rows, spacing: 12) {
                         buildObjectStageView(preset: .empty)
-                        ForEach(Array(viewModel.presets.sorted { $0.id < $1.id }.enumerated()), id: \.offset) { _, preset in
+                        ForEach(
+                            Array(viewModel.presets.sorted { $0.id < $1.id }.enumerated()),
+                            id: \.offset
+                        ) { _, preset in
                             buildObjectStageView(preset: preset)
                         }
                     }
@@ -57,7 +60,7 @@ struct PresetContainerView: View {
                 .aspectRatio(138 / 89, contentMode: .fit)
                 .background(
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(Color.build(hex: .stageBackground))
+                        .fill(Color.monoNormal1)
                         .blur(radius: 50)
                 )
                 .overlay(
