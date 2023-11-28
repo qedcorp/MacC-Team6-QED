@@ -57,6 +57,9 @@
 		3AC3251B2AFC1049002B6682 /* ToastContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */; };
 		3AD243B42B0F32510084EC06 /* DeepCopier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243B32B0F32510084EC06 /* DeepCopier.swift */; };
 		3AD243B72B0F38E70084EC06 /* AlertableBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243B62B0F38E70084EC06 /* AlertableBackButton.swift */; };
+		3AD243AD2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243AC2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift */; };
+		3AD243B02B0E9A020084EC06 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */; };
+		3AD243B22B0E9AC90084EC06 /* URLCache+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243B12B0E9AC90084EC06 /* URLCache+image.swift */; };
 		3AE701A82AE4450A00C48403 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701A62AE4450A00C48403 /* Int+.swift */; };
 		3AE701AC2AE58F7400C48403 /* MemoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AB2AE58F7400C48403 /* MemoButtonView.swift */; };
 		3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE701AE2AE59DE100C48403 /* MemoFormView.swift */; };
@@ -308,6 +311,8 @@
 		3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerViewModel.swift; sourceTree = "<group>"; };
 		3AD243B32B0F32510084EC06 /* DeepCopier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepCopier.swift; sourceTree = "<group>"; };
 		3AD243B62B0F38E70084EC06 /* AlertableBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertableBackButton.swift; sourceTree = "<group>"; };
+		3AD243AC2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowBezierPathRenderer.swift; sourceTree = "<group>"; };
+		3AD243B12B0E9AC90084EC06 /* URLCache+image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLCache+image.swift"; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE0CCCC2ADD0CE4001FE371 /* QEDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QEDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE701A62AE4450A00C48403 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -497,6 +502,7 @@
 				D460F02C2AE24EC300A5966A /* FirebaseFirestore in Frameworks */,
 				D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */,
 				D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */,
+				3AD243B02B0E9A020084EC06 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +579,7 @@
 				D460EF902AE18DF700A5966A /* TouchedViewDetector.swift */,
 				D460EF942AE18DF700A5966A /* TouchPositionConverter.swift */,
 				3A533A472AF1610D007E76F7 /* BezierPathConverter.swift */,
+				3AD243AC2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift */,
 				3AC3250A2AFA5456002B6682 /* BezierPathLayer.swift */,
 				3AC325062AF4C08A002B6682 /* GridRenderer.swift */,
 				3AC325132AFBB702002B6682 /* CaptionRenderer.swift */,
@@ -754,6 +761,7 @@
 				3AC3250C2AFA7473002B6682 /* CGPoint+Distance.swift */,
 				D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */,
 				51F6E9272B0B8DC400D6764C /* UIImage+GIF.swift */,
+				3AD243B12B0E9AC90084EC06 /* URLCache+image.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1535,6 +1543,7 @@
 				D460F02D2AE24EC300A5966A /* FirebaseFirestoreCombine-Community */,
 				D460F02F2AE24EC300A5966A /* FirebaseFirestoreSwift */,
 				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
+				3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1592,6 +1601,7 @@
 				D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -1720,6 +1730,7 @@
 				3A5329082AED3B800051A09C /* MusicModel.swift in Sources */,
 				D460EFEF2AE18DF700A5966A /* DraggingHandler.swift in Sources */,
 				D460F0102AE18DF700A5966A /* PerformanceUseCase.swift in Sources */,
+				3AD243AD2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift in Sources */,
 				D400CF912B04924300457F68 /* PresentType.swift in Sources */,
 				3A26C9842AF2716900BFE0EA /* HistoryControllableDelegate.swift in Sources */,
 				3A927F1A2AE2640A002ED7E8 /* FormationModel.swift in Sources */,
@@ -1781,6 +1792,7 @@
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
+				3AD243B22B0E9AC90084EC06 /* URLCache+image.swift in Sources */,
 				D460F0002AE18DF700A5966A /* PresetRepository.swift in Sources */,
 				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
 				3A62A1B02B0B2FC700F34C28 /* MyPageViewDependency.swift in Sources */,
@@ -2168,6 +2180,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -2211,6 +2231,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
 		D41333682ADE619700BDE1BB /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */;

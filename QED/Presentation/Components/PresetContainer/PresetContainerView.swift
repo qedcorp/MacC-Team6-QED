@@ -38,8 +38,8 @@ struct PresetContainerView: View {
                 }
             }
         }
-        .sheet(isPresented: $viewModel.isManaging) {
-            PresetManagingView()
+        .fullScreenCover(isPresented: $viewModel.isManaging) {
+                PresetManagingView()
         }
     }
 
