@@ -168,7 +168,9 @@ struct PerformanceWatchingDetailView: View {
 
             Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
-                .font(.title3.weight(.bold))
+                .font(.title3)
+                .multilineTextAlignment(.center)
+                .lineLimit(1)
         }
     }
 
