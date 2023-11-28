@@ -17,30 +17,38 @@ struct PerformanceWatchingDetailView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                if let performance = viewModel.performance {
-                    MusicHeadcountView(title: performance.music.title,
-                                       headcount: performance.headcount)
-                    .padding(.bottom, geometry.size.height * 0.15)
-                    VStack(spacing: 8) {
-                        buildMemo()
-                        if viewModel.isTransitionEditable && viewModel.currentIndex > 0 {
-                            buildMovementEditingView(
-                                controller: viewModel.movementController,
-                                width: geometry.size.width - 48
-                            )
-                            buildHistoryControlsView()
-                        } else {
-                            buildObjectPlayView()
+            ZStack {
+
+                VStack(spacing: 0) {
+                    if let performance = viewModel.performance {
+                        MusicHeadcountView(title: performance.music.title,
+                                           headcount: performance.headcount)
+                        .padding(.bottom, geometry.size.height * 0.15)
+                        VStack(spacing: 8) {
+                            buildMemo()
+                            if viewModel.isTransitionEditable && viewModel.currentIndex > 0 {
+                                buildMovementEditingView(
+                                    controller: viewModel.movementController,
+                                    width: geometry.size.width - 48
+                                )
+                                buildHistoryControlsView()
+                            } else {
+                                buildObjectPlayView()
+                            }
                         }
+                        .padding(.horizontal, 24)
+                        Rectangle().foregroundStyle(.clear)
+                        buildPlayerView(performance: performance.entity)
+                        Spacer(minLength: 60)
+                    } else {
+                        Spacer()
                     }
-                    .padding(.horizontal, 24)
-                    Spacer()
-                    buildPlayerView(performance: performance.entity)
-                } else {
-                    Spacer()
+                    buildTabBar(geometry: geometry)
                 }
-                buildTabBar(geometry: geometry)
+                if viewModel.isPresentedSheet {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                }
             }
         }
         .background {

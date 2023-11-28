@@ -50,6 +50,9 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var offset: CGFloat = 0
     @Published var selectedIndex = 0
     @Published var currentMemo = ""
+    var isPresentedSheet: Bool {
+        isSettingSheetVisible || isAllFormationVisible
+    }
 
     @Published var isTransitionEditable = false {
         didSet {
