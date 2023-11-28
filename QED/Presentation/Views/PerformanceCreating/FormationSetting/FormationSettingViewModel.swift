@@ -230,6 +230,15 @@ class FormationSettingViewModel: ObservableObject {
         formationItemFrameMap[index] = frame
     }
 
+    func resetControllingFormationIndex() {
+        guard controllingFormationIndex != nil else {
+            return
+        }
+        animate {
+            controllingFormationIndex = nil
+        }
+    }
+
     private func assignControllerToArchiverByZoomed() {
         let controller = isZoomed ? zoomableCanvasController : canvasController
         objectHistoryArchiver.delegate = controller

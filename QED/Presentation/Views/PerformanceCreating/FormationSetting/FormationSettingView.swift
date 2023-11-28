@@ -170,6 +170,12 @@ struct FormationSettingView: View {
                         .padding(.horizontal, geometry.size.width / 2 - itemWidth / 2)
                         .padding(.top, 12)
                     }
+                    .simultaneousGesture(
+                        DragGesture()
+                            .onChanged { _ in
+                                viewModel.resetControllingFormationIndex()
+                            }
+                    )
                     .onAppear {
                         animate {
                             scrollView.scrollTo(viewModel.currentFormationIndex, anchor: .center)
@@ -275,7 +281,7 @@ struct FormationSettingView: View {
             }
             Rectangle()
                 .fill(Gradient.strokeGlass2)
-                .frame(width: 1)
+                .frame(width: 0.5)
             buildFormationItemControlButton(imageName: "plus.rectangle.fill.on.rectangle.fill", title: "복제") {
                 viewModel.duplicateFormation(index: index)
             }
@@ -304,14 +310,13 @@ struct FormationSettingView: View {
         Button {
             action()
         } label: {
-            VStack(spacing: 0) {
+            VStack(spacing: 2) {
                 Image(systemName: imageName)
-                    .font(.caption)
+                    .font(.caption2)
                 Text(title)
-                    .font(.system(size: 8))
+                    .font(.system(size: 8).weight(.medium))
             }
             .foregroundStyle(Color.monoWhite3)
-            .fontWeight(.medium)
         }
         .frame(width: 44)
     }
