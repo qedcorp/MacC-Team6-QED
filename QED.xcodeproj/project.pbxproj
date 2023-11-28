@@ -55,6 +55,8 @@
 		3AC325142AFBB702002B6682 /* CaptionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325132AFBB702002B6682 /* CaptionRenderer.swift */; };
 		3AC325192AFC103A002B6682 /* ToastContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC325182AFC103A002B6682 /* ToastContainerView.swift */; };
 		3AC3251B2AFC1049002B6682 /* ToastContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */; };
+		3AD243B42B0F32510084EC06 /* DeepCopier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243B32B0F32510084EC06 /* DeepCopier.swift */; };
+		3AD243B72B0F38E70084EC06 /* AlertableBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243B62B0F38E70084EC06 /* AlertableBackButton.swift */; };
 		3AD243AD2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243AC2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift */; };
 		3AD243B02B0E9A020084EC06 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */; };
 		3AD243B22B0E9AC90084EC06 /* URLCache+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD243B12B0E9AC90084EC06 /* URLCache+image.swift */; };
@@ -307,6 +309,8 @@
 		3AC325132AFBB702002B6682 /* CaptionRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionRenderer.swift; sourceTree = "<group>"; };
 		3AC325182AFC103A002B6682 /* ToastContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerView.swift; sourceTree = "<group>"; };
 		3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastContainerViewModel.swift; sourceTree = "<group>"; };
+		3AD243B32B0F32510084EC06 /* DeepCopier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepCopier.swift; sourceTree = "<group>"; };
+		3AD243B62B0F38E70084EC06 /* AlertableBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertableBackButton.swift; sourceTree = "<group>"; };
 		3AD243AC2B0E88D90084EC06 /* ArrowBezierPathRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowBezierPathRenderer.swift; sourceTree = "<group>"; };
 		3AD243B12B0E9AC90084EC06 /* URLCache+image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLCache+image.swift"; sourceTree = "<group>"; };
 		3AE0CCBC2ADD0CE1001FE371 /* QED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QED.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -628,6 +632,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				3AD243B52B0F38CC0084EC06 /* AlertableBackButton */,
 				3AC325032AF40BDB002B6682 /* MemberInfoEditing */,
 				A9EBC2312B04AEA900B812B4 /* FodiProgress */,
 				3AC325152AFC0F3B002B6682 /* ToastContainer */,
@@ -665,6 +670,14 @@
 				3AC3251A2AFC1049002B6682 /* ToastContainerViewModel.swift */,
 			);
 			path = ToastContainer;
+			sourceTree = "<group>";
+		};
+		3AD243B52B0F38CC0084EC06 /* AlertableBackButton */ = {
+			isa = PBXGroup;
+			children = (
+				3AD243B62B0F38E70084EC06 /* AlertableBackButton.swift */,
+			);
+			path = AlertableBackButton;
 			sourceTree = "<group>";
 		};
 		3AE0CCB32ADD0CE1001FE371 = {
@@ -1243,6 +1256,7 @@
 				D42AA1282AF3FBD40053E2A8 /* PathPointCalculator */,
 				D460EF9D2AE18DF700A5966A /* PropertyWrappers */,
 				D460EFA02AE18DF700A5966A /* Errors */,
+				3AD243B32B0F32510084EC06 /* DeepCopier.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1698,6 +1712,7 @@
 				3A5329042AED17470051A09C /* PerformanceModel.swift in Sources */,
 				3A533A482AF1610D007E76F7 /* BezierPathConverter.swift in Sources */,
 				D460EFE12AE18DF700A5966A /* KeyChainAccount.swift in Sources */,
+				3AD243B42B0F32510084EC06 /* DeepCopier.swift in Sources */,
 				D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */,
 				3A00881F2B0553A400C9C643 /* PerformanceWatchingViewDependency.swift in Sources */,
 				3AE701AF2AE59DE100C48403 /* MemoFormView.swift in Sources */,
@@ -1782,6 +1797,7 @@
 				D48797732AF4C796004EFEDA /* ObjectPlayableModel.swift in Sources */,
 				3A62A1B02B0B2FC700F34C28 /* MyPageViewDependency.swift in Sources */,
 				D460EFF52AE18DF700A5966A /* ObjectStageViewController.swift in Sources */,
+				3AD243B72B0F38E70084EC06 /* AlertableBackButton.swift in Sources */,
 				D460EFFE2AE18DF700A5966A /* UserRepository.swift in Sources */,
 				3A62A1AE2B0B2F3300F34C28 /* AccountInfoViewDependency.swift in Sources */,
 				5149AFBC2AE58DD4006F0C4A /* PerformanceWatchingDetailView.swift in Sources */,

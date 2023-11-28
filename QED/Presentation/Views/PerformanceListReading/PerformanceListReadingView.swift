@@ -57,7 +57,7 @@ struct PerformanceListReadingView: View {
         return LazyVGrid(columns: columns, alignment: .center, spacing: 24) {
             ForEach(Array(performances.enumerated()), id: \.offset) { (index, performance) in
                 Button {
-                    let nextPath = PerformanceRouter(performance: performance.entity).getItemPath()
+                    let nextPath = PerformanceRouter(performance: performance.entity).getBranchedPath()
                     path.append(nextPath)
                 } label: {
                     PerformanceListCardView(
