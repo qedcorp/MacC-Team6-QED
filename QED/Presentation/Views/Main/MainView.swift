@@ -64,7 +64,8 @@ struct MainView: View {
             buildPerformanceListHeaderView()
             ZStack {
                 if viewModel.isFetchingPerformances {
-                    FodiProgressView()
+//                    FodiProgressView()
+                    ProgressView()
                 } else if viewModel.myRecentPerformances.isEmpty {
                     buildPerformanceListEmptyView()
                 } else {
