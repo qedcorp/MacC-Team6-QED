@@ -81,8 +81,8 @@ struct PerformanceSettingView: View {
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                            .foregroundStyle(Color.background1)
-                            .shadow(color: .black.opacity(0.4), radius: 1.5, x: 0, y: -3)
+                            .foregroundStyle(Gradient.unknownGradient1)
+                            .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
                     )
                     .padding(.horizontal, 25)
                     .padding(.vertical, 10)
@@ -125,7 +125,7 @@ struct PerformanceSettingView: View {
     func disclosureContent(for groupNum: Int) -> some View {
         switch groupNum {
         case 1:
-            AnyView(inputTitleTextField)
+            AnyView(inputTitleContent)
         case 2:
             AnyView(musicContent)
         case 3:
@@ -138,11 +138,11 @@ struct PerformanceSettingView: View {
     func disclosureLabel(for groupNum: Int) -> some View {
         switch groupNum {
         case 1:
-            viewModel.isExpanded1 ? AnyView(inputTitleLabelClosed) :  AnyView(inputTitleLabelOpen)
+            viewModel.isExpanded1 ? AnyView(inputTitleLabelOpend) :  AnyView(inputTitleLabelClosed)
         case 2:
-            viewModel.isExpanded2 ? AnyView(inputMusicLabelClosed) : AnyView(inputMusicLabelOpened)
+            viewModel.isExpanded2 ? AnyView(inputMusicLabelOpend) : AnyView(inputMusicLabelClosed)
         case 3:
-            viewModel.isExpanded3 ? AnyView(inputHeadcountlabelClosed) : AnyView(inputHeadcountlabelOpened)
+            viewModel.isExpanded3 ? AnyView(inputHeadcountlabelOpened) : AnyView(inputHeadcountlabelClosed)
         default:
             AnyView(EmptyView())
         }
@@ -163,33 +163,31 @@ struct PerformanceSettingView: View {
             }
     }
 
-    var inputTitleTextField: some View {
+    var inputTitleContent: some View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .focused($isFocused)
-            .onSubmit {
-                withAnimation {
-                    viewModel.toggleDisclosureGroup2()
-                }
-            }
-            .foregroundStyle(viewModel.performanceTitle.isEmpty
-                             ? Color.monoNormal2
-                             : Color.monoWhite3)
+            .foregroundStyle(Color.monoWhite3)
             .multilineTextAlignment(.center)
             .font(.headline)
-            .bold(!viewModel.performanceTitle.isEmpty)
             .padding(EdgeInsets(top: 13, leading: 10, bottom: 13, trailing: 10))
             .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(viewModel.performanceTitle.isEmpty
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundStyle(viewModel.performanceTitle == ""
                                      ? Color.monoNormal1
                                      : Color.blueLight2)
             )
             .padding()
             .tint(Color.blueLight2)
+            .onSubmit {
+                withAnimation {
+                    viewModel.toggleDisclosureGroup2()
+                }
+            }
+
     }
     
 
-    var inputTitleLabelClosed: some View {
+    var inputTitleLabelOpend: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
             .onAppear {
@@ -197,7 +195,7 @@ struct PerformanceSettingView: View {
             }
     }
 
-    var inputTitleLabelOpen: some View {
+    var inputTitleLabelClosed: some View {
         HStack {
             Text("프로젝트 이름")
                 .lineLimit(1)
@@ -218,12 +216,12 @@ struct PerformanceSettingView: View {
         . disclosureGroupLabelOpend()
     }
 
-    var inputMusicLabelClosed: some View {
+    var inputMusicLabelOpend: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
     }
 
-    var inputMusicLabelOpened: some View {
+    var inputMusicLabelClosed: some View {
         HStack {
             Text("노래")
                 .foregroundStyle(Color.monoWhite2)
@@ -251,12 +249,12 @@ struct PerformanceSettingView: View {
         }
     }
 
-    var inputHeadcountlabelClosed: some View {
+    var inputHeadcountlabelOpened: some View {
         Text("인원수를 입력하세요")
             .disclosureGroupLabelStyle()
     }
 
-    var inputHeadcountlabelOpened: some View {
+    var inputHeadcountlabelClosed: some View {
         HStack {
             Text("인원 수")
                 .foregroundStyle(Color.monoWhite2)
@@ -285,6 +283,7 @@ struct PerformanceSettingView: View {
             Spacer()
             if viewModel.isSearchingMusic {
                 FodiProgressView()
+                    .padding(.vertical)
                 Spacer()
             } else if isSearchFromEmptyText {
                 emptyMusic
@@ -316,8 +315,8 @@ struct PerformanceSettingView: View {
                     .image?.resizable()
                     .scaledToFill()
                     .frame(width: 90, height: 64, alignment: .leading)
-                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 15, style: .continuous).stroke(Color.clear, lineWidth: 1))
+                    .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 5, style: .continuous).stroke(Color.clear, lineWidth: 1))
                     .clipped()
             }
             .frame(maxHeight: .infinity)
@@ -391,12 +390,11 @@ struct PerformanceSettingView: View {
                     searchMusic()
                 }
                 .onAppear {
-                    viewModel.isExpanded2 = true
+                    viewModel.isExpanded1 = false
+                    viewModel.isExpanded3 = false
                 }
                 .submitLabel(.search)
-                .foregroundStyle(viewModel.musicSearch == ""
-                                 ? Color.monoNormal2
-                                 : Color.monoWhite3)
+                .foregroundStyle(Color.monoWhite3)
                 .multilineTextAlignment(.leading)
                 .padding(EdgeInsets(top: 13, leading: 7, bottom: 13, trailing: 7))
                 .tint(Color.blueLight2)
@@ -413,12 +411,12 @@ struct PerformanceSettingView: View {
             }
         }
         .font(.title3)
-        .padding(.horizontal)
-        .background(viewModel.musicSearch.isEmpty
+        .padding(.horizontal, 10)
+        .background(viewModel.musicSearch == ""
                     ? Color.monoNormal1
                     : Color.blueLight2)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding()
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(.horizontal, 10)
     }
 
     var emptyMusic: some View {
@@ -529,15 +527,18 @@ struct PerformanceSettingView: View {
                                 .onTapGesture {
                                     viewModel.scrollToID = 3
                                 }
-                                .foregroundStyle(Color.monoNormal2)
+                                .foregroundStyle(Color.monoWhite3)
                                 .multilineTextAlignment(.center)
                                 .font(.headline)
                                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                                 .background(
-                                    RoundedRectangle(cornerRadius: 10)
+                                    RoundedRectangle(cornerRadius: 6)
                                         .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
                                                          ? Color.monoNormal1
-                                                         : Color.blueLight2)
+                                                         : isFocused
+                                                            ? Color.darker2
+                                                            : Color.blueLight2
+                                                        )
                                 )
                                 .padding(.horizontal)
                                 .padding(.vertical, 3)
