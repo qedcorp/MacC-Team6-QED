@@ -16,7 +16,7 @@ import SnapKit
 import SwiftUI
 
 class AuthViewController: UIViewController, AuthUIProtocol {
-    @Binding var authProvider: AuthProviderType
+    let loginViewModel = LoginViewModel.shared
     private var pages = LoginPages.allCases
     private var currentIndex = 0 {
         didSet { setUpObjects() }
@@ -27,11 +27,10 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     let scrollWidth: CGFloat
     let scrollHeight: CGFloat
 
-    init(authProvider: Binding<AuthProviderType>) {
+    init() {
         sizeFactor = screenHeight / 844
         scrollWidth = screenWidth * 0.5
         scrollHeight = scrollWidth * 2.17
-        self._authProvider = authProvider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -231,17 +230,17 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     @objc
     func tapGoogleSignInView(_ sender: Any) {
-        authProvider = .google
+        loginViewModel.authProvider = .google
     }
 
     @objc
     func tapKakaoSignInView(_ sender: Any) {
-        authProvider = .kakao
+        loginViewModel.authProvider = .kakao
     }
 
     @objc
     func tapAppleSignInView(_ sender: Any) {
-        authProvider = .apple
+        loginViewModel.authProvider = .apple
     }
 }
 
