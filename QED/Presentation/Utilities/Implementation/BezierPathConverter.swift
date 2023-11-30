@@ -76,13 +76,15 @@ class BezierPathConverter {
         let x: CGFloat
         let y: CGFloat
         if let controlPoint = controlPoint {
+            let controlPoint1 = CGPoint.getMidPoint(startPoint, controlPoint)
+            let controlPoint2 = CGPoint.getMidPoint(endPoint, controlPoint)
             x = (1 - t) * (1 - t) * (1 - t) * startPoint.x +
-            3 * (1 - t) * (1 - t) * t * controlPoint.x +
-            3 * (1 - t) * t * t * controlPoint.x +
+            3 * (1 - t) * (1 - t) * t * controlPoint1.x +
+            3 * (1 - t) * t * t * controlPoint2.x +
             t * t * t * endPoint.x
             y = (1 - t) * (1 - t) * (1 - t) * startPoint.y +
-            3 * (1 - t) * (1 - t) * t * controlPoint.y +
-            3 * (1 - t) * t * t * controlPoint.y +
+            3 * (1 - t) * (1 - t) * t * controlPoint1.y +
+            3 * (1 - t) * t * t * controlPoint2.y +
             t * t * t * endPoint.y
         } else {
             x = (1 - t) * startPoint.x + t * endPoint.x
