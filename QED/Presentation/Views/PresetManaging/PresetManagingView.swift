@@ -9,14 +9,7 @@ struct PresetManagingView: View {
     var body: some View {
         VStack {
             VStack {
-                Slider(
-                    value: .init(
-                        get: { Double(viewModel.headcount) },
-                        set: { viewModel.headcount = Int($0) }
-                    ),
-                    in: 2 ... 13
-                )
-
+                Stepper("", value: $viewModel.headcount, in: 2...13)
                 Text("\(viewModel.headcount)인")
                 ObjectCanvasView(
                     controller: viewModel.canvasController,

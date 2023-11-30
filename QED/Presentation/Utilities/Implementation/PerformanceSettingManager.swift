@@ -5,6 +5,7 @@ import Foundation
 
 class PerformanceSettingManager {
     let performance: Performance
+    let isAutoUpdateDisabled: Bool
     weak var relativeCoordinateConverter: RelativeCoordinateConverter?
     private let performanceUseCase: PerformanceUseCase
     private let changingSubject = PassthroughSubject<PerformanceModel, Never>()
@@ -19,9 +20,11 @@ class PerformanceSettingManager {
 
     init(
         performance: Performance,
+        isAutoUpdateDisabled: Bool = false,
         performanceUseCase: PerformanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self)
     ) {
         self.performance = performance
+        self.isAutoUpdateDisabled = isAutoUpdateDisabled
         self.performanceUseCase = performanceUseCase
         subscribeChangingPublisher()
     }
@@ -31,19 +34,18 @@ class PerformanceSettingManager {
             .debounce(for: 3, scheduler: DispatchQueue.global(qos: .userInitiated))
             .sink { _ in
             } receiveValue: { [unowned self] _ in
+                guard !isAutoUpdateDisabled else {
+                    return
+                }
                 Task {
-                    try await performanceUseCase.updatePerformance(performance)
+                    try await requestUpdate()
                 }
             }
             .store(in: &cancellables)
     }
 
-    func updateImmediately() async throws {
-        do {
-            try await performanceUseCase.updatePerformance(performance)
-        } catch {
-            throw error
-        }
+    func requestUpdate() async throws {
+        try await performanceUseCase.updatePerformance(performance)
     }
 
     func addFormation(_ formation: Formation, index: Int) {

@@ -60,7 +60,9 @@ class KioInjection {
         }
         while !copydependencyGraph.nodes.isEmpty {
             copydependencyGraph.nodes.sort { $0.indegreeCount > $1.indegreeCount }
-            let node = copydependencyGraph.nodes.last!
+            guard let node = copydependencyGraph.nodes.last else {
+                break
+            }
             let purpose: DependencyPurpose = dic[node.value] == nil ? .release : .mock
             typeToClosure[node.value]!(purpose)
             
@@ -86,7 +88,9 @@ class KioInjection {
             stack.append(node)
         }
         while !stack.isEmpty {
-            var node = stack.popLast()!
+            guard var node = stack.popLast() else {
+                break
+            }
             for child in node.childs {
                 child.indegreeCount += 1
                 if !visit.contains(where: { $0 == child.value }) {

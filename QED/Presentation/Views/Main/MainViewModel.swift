@@ -28,11 +28,11 @@ class MainViewModel: ObservableObject {
     func fetchMyRecentPerformances() {
         isFetchingPerformances = true
         Task {
-            let performances = try await self.performanceUseCase.getMyRecentPerformances()
-            DispatchQueue.main.async { [unowned self] in
+            let performances = try await performanceUseCase.getMyRecentPerformances()
+            DispatchQueue.main.async { [weak self] in
                 animate {
-                    myPerformances = performances
-                    isFetchingPerformances = false
+                    self?.myPerformances = performances
+                    self?.isFetchingPerformances = false
                 }
             }
         }

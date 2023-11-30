@@ -51,7 +51,7 @@ final class FireStoreManager: RemoteManager {
         do {
             switch createType {
             case .noneKey:
-                try! await fireStroeDB
+                try await fireStroeDB
                     .collection(fireStoreData.collectionName)
                     .document(entityConvertable.fireStoreID)
                     .setData(dataDic)

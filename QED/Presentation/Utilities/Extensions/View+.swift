@@ -18,8 +18,10 @@ extension View {
 }
 
 struct ModalTypeView<Modal: View>: ViewModifier {
+
     var isPresented: Bool
     @ViewBuilder var modal: () -> Modal
+
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .bottom) {

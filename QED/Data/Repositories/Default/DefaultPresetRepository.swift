@@ -48,7 +48,7 @@ final class DefaultPresetRepository: PresetRepository {
 
     func readPresets(headcount: Int?) async throws -> [Preset] {
         do {
-            var readResult: Result<[Preset], Error>!
+            var readResult: Result<[Preset], Error>
             if headcount == nil {
                 readResult = try await remoteManager.reads(at: "PRESET",
                                                            readType: .all,

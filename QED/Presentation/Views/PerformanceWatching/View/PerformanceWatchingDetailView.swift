@@ -43,7 +43,7 @@ struct PerformanceWatchingDetailView: View {
                     }
                     buildTabBar(geometry: geometry)
                 }
-                Color.black.opacity(viewModel.isPresentedSheet ? 0.4 : 0).ignoresSafeArea()
+                Color.black.opacity(viewModel.isSettingSheetVisible ? 0.4 : 0).ignoresSafeArea()
             }
         }
         .background {
@@ -74,16 +74,17 @@ struct PerformanceWatchingDetailView: View {
                 }
             }
         }
-        .showModal(viewModel.isPresentedSheet) {
+        .showModal(viewModel.isSettingSheetVisible) {
             buildSettingSheetView()
         }
-        .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-            if let performance = viewModel.performance?.entity {
-                PerformanceWatchingListView(performance: performance,
+        .sheet(isPresented: $viewModel.isAllFormationVisible) {
+            ZStack {
+                PerformanceWatchingListView(performance: viewModel.performance?.entity ?? Performance(jsonString: ""),
                                             isAllFormationVisible: $viewModel.isAllFormationVisible,
                                             selecteIndex: viewModel.selectedIndex,
                                             action: viewModel.action
                 )
+                ToastContainerView()
             }
         }
     }
@@ -193,7 +194,7 @@ struct PerformanceWatchingDetailView: View {
                         viewModel.isTransitionEditable.toggle()
                         if viewModel.isTransitionEditable {
                             if viewModel.selectedIndex == 0 {
-                                viewModel.action.send(.setSelctedIndex(1))
+                                viewModel.action.send(.setSelectedIndex(1))
                             }
                             viewModel.isPlaying = false
                             viewModel.presentEditingModeToastMessage()
@@ -254,7 +255,6 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildSettingSheetView() -> some View {
-
         VStack(spacing: 14) {
             VStack(spacing: 14) {
                 HStack {
@@ -277,7 +277,9 @@ struct PerformanceWatchingDetailView: View {
             .padding(.horizontal, 24)
         }
         .background {
-            Color(hex: "212123").ignoresSafeArea(.all)
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundStyle(Color(hex: "212123"))
+                .ignoresSafeArea(.all)
         }
         .presentationDetents([.fraction(0.35)])
         .presentationDragIndicator(.visible)
@@ -307,6 +309,7 @@ struct PerformanceWatchingDetailView: View {
             } label: {
                 HStack {
                     Image(systemName: "chevron.left")
+                        .fontWeight(.semibold)
                     Text("홈")
                 }
                 .foregroundColor(Color.blueLight3)
@@ -324,18 +327,18 @@ struct PerformanceWatchingDetailView: View {
 
     private func buildRightItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Text("수정")
-                .foregroundStyle(Color.blueLight3)
-                .onTapGesture {
-                    guard let performance = viewModel.performance?.entity else {
-                        return
-                    }
-                    let dependency = FormationSettingViewDependency(
-                        performance: performance,
-                        currentFormationIndex: viewModel.currentIndex
-                    )
-                    path.append(.formationSetting(dependency))
+            Button("수정") {
+                guard let performance = viewModel.performance,
+                      let copiedPerformance = try? DeepCopier.copy(performance.entity) else {
+                    return
                 }
+                let dependency = FormationSettingViewDependency(
+                    performance: copiedPerformance,
+                    currentFormationIndex: viewModel.currentIndex,
+                    isAutoUpdateDisabled: true
+                )
+                path.append(.formationSetting(dependency))
+            }
         }
     }
 

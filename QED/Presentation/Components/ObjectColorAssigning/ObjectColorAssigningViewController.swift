@@ -26,7 +26,6 @@ class ObjectColorAssigningViewController: ObjectStageViewController {
 
     private func setupViews() {
         GridRenderer().render(in: view)
-        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
