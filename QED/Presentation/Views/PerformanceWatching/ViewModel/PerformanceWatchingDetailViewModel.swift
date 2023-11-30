@@ -152,18 +152,18 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
         action
             .sink { [unowned self] purpose in
                 switch purpose {
-                case let .getSelctedIndex(index):
+                case let .getSelectedIndex(index):
                     selectedIndex = index
                 case let .getOffset(offset):
                     self.offset = offset
                     guard let currentIndex = offsetMap[offset] else { return }
-                    action.send(.getSelctedIndex(currentIndex.index))
-                case let .setSelctedIndex(index):
+                    action.send(.getSelectedIndex(currentIndex.index))
+                case let .setSelectedIndex(index):
                     for element in offsetMap {
-                        let framInfo = element.value
-                        if framInfo == .formation(index: index) {
-                            print(element.key.lowerBound + 1)
-                            action.send(.setOffset(element.key.lowerBound + 1))
+                        let frameInfo = element.value
+                        if frameInfo == .formation(index: index) {
+                            offset = element.key.lowerBound
+                            action.send(.setOffset(offset))
                         }
                     }
                 default:
