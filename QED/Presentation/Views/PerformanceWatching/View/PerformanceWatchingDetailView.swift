@@ -43,10 +43,7 @@ struct PerformanceWatchingDetailView: View {
                     }
                     buildTabBar(geometry: geometry)
                 }
-                if viewModel.isPresentedSheet {
-                    Color.black.opacity(0.8)
-                        .ignoresSafeArea()
-                }
+                Color.black.opacity(viewModel.isPresentedSheet ? 0.4 : 0).ignoresSafeArea()
             }
         }
         .background {
@@ -77,7 +74,7 @@ struct PerformanceWatchingDetailView: View {
                 }
             }
         }
-        .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
+        .showModal(viewModel.isPresentedSheet) {
             buildSettingSheetView()
         }
         .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
@@ -209,7 +206,9 @@ struct PerformanceWatchingDetailView: View {
                 buildAllFormationButton()
                 Spacer(minLength: 20)
                 Button {
-                    viewModel.isSettingSheetVisible.toggle()
+                    withAnimation {
+                        viewModel.isSettingSheetVisible.toggle()
+                    }
                 } label: {
                     Image("setting")
                 }
@@ -257,29 +256,31 @@ struct PerformanceWatchingDetailView: View {
     private func buildSettingSheetView() -> some View {
 
         VStack(spacing: 14) {
-            HStack {
-                Text("상세설정")
-                Spacer()
-                Button {
-                    onDismissSettingSheet()
-                } label: {
-                    Image("close")
+            VStack(spacing: 14) {
+                HStack {
+                    Text("상세설정")
+                    Spacer()
+                    Button {
+                        onDismissSettingSheet()
+                    } label: {
+                        Image("close")
+                    }
                 }
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
+                buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
+                buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
+                buildSectionView(label: "점선 보기", isOn: $viewModel.isLineVisible)
             }
-            .font(.title2)
-            .fontWeight(.bold)
-            .foregroundStyle(.white)
-            buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
-            buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
-            buildSectionView(label: "점선 보기", isOn: $viewModel.isLineVisible)
+            .padding(.top, 24)
+            .padding(.horizontal, 24)
         }
-        .padding(.horizontal, 24)
-
-        .presentationDetents([.fraction(0.35)])
-        .presentationDragIndicator(.visible)
-        .presentationBackground {
+        .background {
             Color(hex: "212123").ignoresSafeArea(.all)
         }
+        .presentationDetents([.fraction(0.35)])
+        .presentationDragIndicator(.visible)
     }
 
     private func buildSectionView(label: String, isOn: Binding<Bool>) -> some View {
@@ -292,11 +293,8 @@ struct PerformanceWatchingDetailView: View {
                 Text(label)
                     .foregroundStyle(Color.monoWhite3)
                 Spacer()
-                Button {
-                    isOn.wrappedValue.toggle()
-                } label: {
-                    Image(isOn.wrappedValue ? "toggle_on" : "toggle_off")
-                }
+                Toggle("", isOn: isOn)
+                    .tint(.blueNormal)
             }
             .padding(.horizontal, 20)
         }
@@ -348,7 +346,9 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func onDismissSettingSheet() {
-        viewModel.isSettingSheetVisible = false
+        withAnimation {
+            viewModel.isSettingSheetVisible = false
+        }
     }
 
     private func onDismissAllFormationSheet() {
