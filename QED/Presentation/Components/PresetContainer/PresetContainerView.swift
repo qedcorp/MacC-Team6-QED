@@ -60,8 +60,8 @@ struct PresetContainerView: View {
                 .aspectRatio(138 / 89, contentMode: .fit)
                 .background(
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(Color.monoNormal1)
-                        .blur(radius: 50)
+                        .fill(Color.build(hex: .memoBackground))
+                        .blur(radius: 25)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
