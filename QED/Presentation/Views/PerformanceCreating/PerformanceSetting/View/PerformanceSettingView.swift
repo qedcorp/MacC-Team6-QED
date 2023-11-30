@@ -15,82 +15,75 @@ struct PerformanceSettingView: View {
     @State private var isSearchFromEmptyText = true
     @FocusState private var focusedIndex: Int?
     @Binding var path: [PresentType]
-
+    
     init(viewModel: PerformanceSettingViewModel, path: Binding<[PresentType]>) {
         self.viewModel = viewModel
         self._path = path
         viewModel.headcount = 1
     }
-
+    
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                ScrollViewReader { proxy in
-                    ScrollView(.vertical) {
-                        VStack {
-                            ForEach(1..<4, id: \.self) { groupNum in
-                                DisclosureGroup(
-                                    isExpanded: bindingForIndex(groupNum),
-                                    content: {
-                                        disclosureContent(for: groupNum)
-                                    },
-                                    label: {
-                                        disclosureLabel(for: groupNum)
-                                    }
-                                )
-                                .disclosureGroupBackground()
-                                .id(groupNum)
-                            }
-                            Rectangle()
-                                .foregroundStyle(.clear)
-                                .frame(height: 600)
+        VStack {
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        ForEach(1..<4, id: \.self) { groupNum in
+                            DisclosureGroup(
+                                isExpanded: bindingForIndex(groupNum),
+                                content: {
+                                    disclosureContent(for: groupNum)
+                                },
+                                label: {
+                                    disclosureLabel(for: groupNum)
+                                }
+                            )
+                            .disclosureGroupBackground()
+                            .id(groupNum)
                         }
                     }
-                    .onChange(of: viewModel.scrollToID) { newID in
-                        withAnimation {
-                            proxy.scrollTo(newID, anchor: .top)
-                        }
+                }
+                .onChange(of: viewModel.scrollToID) { newID in
+                    withAnimation {
+                        proxy.scrollTo(newID, anchor: .top)
                     }
-                    .onAppear {
-                            self.isFocused = true
-                    }
+                }
+                .onAppear {
+                    self.isFocused = true
+                }
+            }
+            
+            HStack(alignment: .center) {
+                Button {
+                    viewModel.scrollToID = 1
+                    viewModel.delete()
+                } label: {
+                    Text("다시입력")
+                        .underline()
+                        .foregroundStyle(Color.monoNormal2)
+                        .font(.title3)
+                        .kerning(0.35)
+                        .fontWeight(.bold)
                 }
                 
-                HStack(alignment: .center) {
-                    Button {
-                        viewModel.scrollToID = 1
-                        viewModel.delete()
-                    } label: {
-                        Text("다시입력")
-                            .underline()
-                            .foregroundStyle(Color.monoNormal2)
-                            .font(.title3)
-                            .kerning(0.35)
-                            .fontWeight(.bold)
-                    }
-
-                    Spacer()
-                    nextButton
-                        .disabled(!viewModel.isAllSet)
-
-                }
-                .padding(.bottom, 30)
-                .background(
-                    Rectangle()
-                        .frame(width: geometry.size.width, height: geometry.size.height/6.7)
-                        .foregroundStyle(Color.background1)
-                        .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
-                )
-                .padding(.horizontal, 25)
-                .padding(.vertical, 10)
+                Spacer()
+                nextButton
+                    .disabled(!viewModel.isAllSet)
             }
+            .padding(.top, 19)
+            .padding(.bottom, 47)
+            .padding(.horizontal, 24)
+            .background(
+                Rectangle()
+                    .frame(height: 110)
+                    .foregroundStyle(Color.background1)
+                    .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
+            )
         }
         .background(
             Image("background")
-                .aspectRatio(contentMode: .fill)
+                .resizable()
                 .ignoresSafeArea(.all)
         )
-        .ignoresSafeArea(.all)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem
@@ -101,9 +94,9 @@ struct PerformanceSettingView: View {
                     .foregroundStyle(Color.monoWhite3)
             }
         }
-        .padding(.top)
+        .ignoresSafeArea(.all, edges: .bottom)
     }
-
+    
     func bindingForIndex(_ groupNum: Int) -> Binding<Bool> {
         switch groupNum {
         case 1:
@@ -116,7 +109,7 @@ struct PerformanceSettingView: View {
             return .constant(false)
         }
     }
-
+    
     @ViewBuilder
     func disclosureContent(for groupNum: Int) -> some View {
         switch groupNum {
@@ -143,22 +136,22 @@ struct PerformanceSettingView: View {
             AnyView(EmptyView())
         }
     }
-
+    
     var nextButton: some View {
         Image(viewModel.isAllSet
               ? "go_able"
               : "go_disabled")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 86, height: 44)
-            .onTapGesture {
-                let dependency = PerformanceLoadingViewDependency {
-                    viewModel.getTaskForCreatePerformance()
-                }
-                path.append(.performanceLoading(dependency))
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 86, height: 44)
+        .onTapGesture {
+            let dependency = PerformanceLoadingViewDependency {
+                viewModel.getTaskForCreatePerformance()
             }
+            path.append(.performanceLoading(dependency))
+        }
     }
-
+    
     var inputTitleContent: some View {
         TextField("ex) FODI 댄스타임", text: $viewModel.performanceTitle)
             .focused($isFocused)
@@ -179,9 +172,7 @@ struct PerformanceSettingView: View {
                     viewModel.toggleDisclosureGroup2()
                 }
             }
-
     }
-    
 
     var inputTitleLabelOpend: some View {
         Text("프로젝트 제목을 입력하세요")
@@ -190,7 +181,7 @@ struct PerformanceSettingView: View {
                 viewModel.toggleDisclosureGroup1()
             }
     }
-
+    
     var inputTitleLabelClosed: some View {
         HStack {
             Text("프로젝트 이름")
@@ -198,7 +189,7 @@ struct PerformanceSettingView: View {
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
-
+            
             if viewModel.performanceTitle.isEmpty {
                 Text("입력해주세요")
                     .foregroundStyle(Color.monoWhite3)
@@ -209,21 +200,21 @@ struct PerformanceSettingView: View {
                     .font(.subheadline)
             }
         }
-        . disclosureGroupLabelOpend()
+        .disclosureGroupLabelOpend()
     }
-
+    
     var inputMusicLabelOpend: some View {
         Text("프로젝트의 노래를 알려주세요")
             .disclosureGroupLabelStyle()
     }
-
+    
     var inputMusicLabelClosed: some View {
         HStack {
             Text("노래")
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
-
+            
             if viewModel.musicTitle == "" {
                 Text("선택해주세요")
                     .foregroundStyle(Color.monoWhite3)
@@ -244,19 +235,19 @@ struct PerformanceSettingView: View {
             viewModel.toggleDisclosureGroup2()
         }
     }
-
+    
     var inputHeadcountlabelOpened: some View {
         Text("인원수를 입력하세요")
             .disclosureGroupLabelStyle()
     }
-
+    
     var inputHeadcountlabelClosed: some View {
         HStack {
             Text("인원 수")
                 .foregroundStyle(Color.monoWhite2)
                 .font(.subheadline)
             Spacer()
-
+            
             if viewModel.headcount == 1 {
                 Text("- 명")
                     .foregroundStyle(Color.monoWhite3)
@@ -272,7 +263,7 @@ struct PerformanceSettingView: View {
         }
         .disclosureGroupLabelOpend()
     }
-
+    
     var musicContent: some View {
         VStack {
             musicSearchFieldView()
@@ -302,11 +293,11 @@ struct PerformanceSettingView: View {
             isSearchFromEmptyText = true
         }
     }
-
+    
     @ViewBuilder
     func buildCell(music: Music) -> some View {
         HStack {
-            AsyncImage(url: music.albumCoverURL) { image in
+            AsyncImage(url: music.albumCoverURL, transaction: .init(animation: .easeInOut)) { image in
                 image
                     .image?.resizable()
                     .scaledToFill()
@@ -315,16 +306,17 @@ struct PerformanceSettingView: View {
                     .overlay(RoundedRectangle(cornerRadius: 5, style: .continuous).stroke(Color.clear, lineWidth: 1))
                     .clipped()
             }
+            .frame(width: 90, height: 64)
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.all)
-
+            
             VStack(alignment: .leading) {
                 Text(music.artistName)
                     .font(.caption2)
                 Text(music.title)
             }
             Spacer()
-
+            
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(
                     viewModel.selectedMusic?.id ?? "-1" == music.id
@@ -364,7 +356,7 @@ struct PerformanceSettingView: View {
         }
         .id(music.id)
     }
-
+    
     func buildSearchResultScrollView() -> some View {
         ScrollView {
             VStack {
@@ -375,7 +367,7 @@ struct PerformanceSettingView: View {
             .padding(.vertical)
         }
     }
-
+    
     func musicSearchFieldView() -> some View {
         HStack {
             TextField("가수, 노래 검색하기", text: $viewModel.musicSearch)
@@ -414,7 +406,7 @@ struct PerformanceSettingView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(.horizontal, 10)
     }
-
+    
     var emptyMusic: some View {
         Button {
             viewModel.toggleDisclosureGroup3()
@@ -424,49 +416,49 @@ struct PerformanceSettingView: View {
                 .padding()
         }
     }
-
+    
     func searchMusic() {
         viewModel.search()
         isSearchFromEmptyText = false
         isFocused = false
     }
-
+    
     var inputHeadcountContent: some View {
         VStack {
-                HStack {
-                    Button {
-                        viewModel.decrementHeadcount()
-                    } label: {
-                        Image(viewModel.headcount == 1
-                            ? "minus_off"
-                            : "minus_on"
-                        )
-                    }
-                    Spacer()
-                    inputHeadcountTextField
-                    Spacer()
-                    Button {
-                        viewModel.incrementHeadcount()
-                    } label: {
-                        Image(viewModel.headcount == 13
-                            ? "plus_off"
-                            : "plus_on"
-                        )
-                    }
+            HStack {
+                Button {
+                    viewModel.decrementHeadcount()
+                } label: {
+                    Image(viewModel.headcount == 1
+                          ? "minus_off"
+                          : "minus_on"
+                    )
                 }
-                .background(
+                Spacer()
+                inputHeadcountTextField
+                Spacer()
+                Button {
+                    viewModel.incrementHeadcount()
+                } label: {
+                    Image(viewModel.headcount == 13
+                          ? "plus_off"
+                          : "plus_on"
+                    )
+                }
+            }
+            .background(
                 RoundedRectangle(cornerRadius: 35)
                     .foregroundStyle(Color.monoNormal1)
                     .frame(width: 320)
-                )
-                .padding(.horizontal, 20)
+            )
+            .padding(.horizontal, 20)
             slider
             headcountText
             inputMemperinfoTextFiledsView
         }
         .frame(maxHeight: 360)
     }
-
+    
     var inputHeadcountTextField: some View {
         Text("\(viewModel.headcount)")
             .onAppear {
@@ -480,13 +472,13 @@ struct PerformanceSettingView: View {
             .fontWeight(.bold)
             .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
     }
-
+    
     var headcountText: some View {
         Text("이름을 입력해서 동선을 확인할 수 있어요")
             .foregroundStyle(Color.monoWhite2)
             .font(.subheadline)
     }
-
+    
     var slider: some View {
         Slider(
             value: .init(
@@ -499,7 +491,7 @@ struct PerformanceSettingView: View {
         .tint(Color.blueLight3)
         .frame(width: 320)
     }
-
+    
     var inputMemperinfoTextFiledsView: some View {
         ScrollViewReader { proxy in
             ScrollView {
