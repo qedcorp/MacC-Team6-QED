@@ -194,9 +194,8 @@ struct FormationSettingView: View {
         }
         .frame(height: 110)
         .background(
-            Image("bottomBackground")
-                .resizable()
-                .shadow(color: .monoBlack.opacity(0.3), radius: 2, y: -1)
+            Color.background1
+                .shadow(color: .monoBlack.opacity(0.4), radius: 1.5, y: -3)
         )
     }
 

@@ -100,7 +100,6 @@ struct MainView: View {
            buildPerformanceListHeaderView()
            ZStack {
                if viewModel.isFetchingPerformances {
-//                   FodiProgressView()
                    ProgressView()
                        .tint(Color.blueLight3)
                } else if viewModel.myRecentPerformances.isEmpty {
