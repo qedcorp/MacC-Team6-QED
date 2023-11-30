@@ -24,7 +24,7 @@ struct PerformanceSettingView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
+            VStack {
                 ScrollViewReader { proxy in
                     ScrollView(.vertical) {
                         VStack {
@@ -52,41 +52,37 @@ struct PerformanceSettingView: View {
                         }
                     }
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             self.isFocused = true
-                        }
                     }
                 }
-                VStack {
+                
+                HStack(alignment: .center) {
+                    Button {
+                        viewModel.scrollToID = 1
+                        viewModel.delete()
+                    } label: {
+                        Text("다시입력")
+                            .underline()
+                            .foregroundStyle(Color.monoNormal2)
+                            .font(.title3)
+                            .kerning(0.35)
+                            .fontWeight(.bold)
+                    }
+
                     Spacer()
-                    HStack(alignment: .center) {
-                        Button {
-                            viewModel.scrollToID = 1
-                            viewModel.delete()
-                        } label: {
-                            Text("다시입력")
-                                .underline()
-                                .foregroundStyle(Color.monoNormal2)
-                                .font(.title3)
-                                .kerning(0.35)
-                                .fontWeight(.bold)
-                        }
+                    nextButton
+                        .disabled(!viewModel.isAllSet)
 
-                        Spacer()
-                        nextButton
-                            .disabled(!viewModel.isAllSet)
-
-                    }
-                    .padding(.bottom, 30)
-                    .background(
-                        Rectangle()
-                            .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                            .foregroundStyle(Color.background1)
-                            .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
-                    )
-                    .padding(.horizontal, 25)
-                    .padding(.vertical, 10)
                 }
+                .padding(.bottom, 30)
+                .background(
+                    Rectangle()
+                        .frame(width: geometry.size.width, height: geometry.size.height/6.7)
+                        .foregroundStyle(Color.background1)
+                        .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
+                )
+                .padding(.horizontal, 25)
+                .padding(.vertical, 10)
             }
         }
         .background(

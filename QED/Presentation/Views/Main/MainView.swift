@@ -29,6 +29,7 @@ struct MainView: View {
                 VStack(spacing: 34) {
                     Spacer()
                     buildHeaderView()
+//                    ContentBuildView(viewModel: viewModel)
                     buildContentView()
                 }
                 .padding(.bottom, 40)
@@ -57,23 +58,6 @@ struct MainView: View {
             buildMakeFormationButtonView()
         }
         .padding(.horizontal, horizontalPadding)
-    }
-
-    private func buildContentView() -> some View {
-        VStack(spacing: 19) {
-            buildPerformanceListHeaderView()
-            ZStack {
-                if viewModel.isFetchingPerformances {
-//                    FodiProgressView()
-                    ProgressView()
-                } else if viewModel.myRecentPerformances.isEmpty {
-                    buildPerformanceListEmptyView()
-                } else {
-                    buildPerformanceListScrollView()
-                }
-            }
-            .frame(height: 198)
-        }
     }
 
     private func buildMainTitleView() -> some View {
@@ -109,6 +93,24 @@ struct MainView: View {
         } label: {
             Image("performanceSetting")
         }
+    }
+
+    private func buildContentView() -> some View {
+       VStack(spacing: 19) {
+           buildPerformanceListHeaderView()
+           ZStack {
+               if viewModel.isFetchingPerformances {
+//                   FodiProgressView()
+                   ProgressView()
+                       .tint(Color.blueLight3)
+               } else if viewModel.myRecentPerformances.isEmpty {
+                   buildPerformanceListEmptyView()
+               } else {
+                   buildPerformanceListScrollView()
+               }
+           }
+           .frame(height: 198)
+       }
     }
 
     private func buildPerformanceListHeaderView() -> some View {

@@ -73,7 +73,6 @@ struct PerformanceListCardView: View {
             }
         }
         .frame(height: cardHeight * 0.7)
-        .clipped()
     }
 
     private func buildPerformanceInfoView() -> some View {
