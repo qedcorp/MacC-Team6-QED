@@ -85,12 +85,16 @@ class FormationSettingViewModel: ObservableObject {
     func setupWithDependency(_ dependency: FormationSettingViewDependency) {
         performance = PerformanceModel.build(entity: dependency.performance)
         currentFormationIndex = dependency.currentFormationIndex
+        hasMemoBeenInputted = !dependency.performance.formations
+            .compactMap { $0.memo }
+            .isEmpty
         presetContainerViewModel = PresetContainerViewModel(
             headcount: dependency.performance.headcount,
             canvasController: canvasController
         )
         performanceSettingManager = PerformanceSettingManager(
             performance: dependency.performance,
+            isAutoUpdateDisabled: dependency.isAutoUpdateDisabled,
             performanceUseCase: dependency.performanceUseCase
         )
         performanceUseCase = dependency.performanceUseCase
@@ -224,6 +228,15 @@ class FormationSettingViewModel: ObservableObject {
 
     func updateFormationItemFrameMap(_ frame: CGRect, index: Int) {
         formationItemFrameMap[index] = frame
+    }
+
+    func resetControllingFormationIndex() {
+        guard controllingFormationIndex != nil else {
+            return
+        }
+        animate {
+            controllingFormationIndex = nil
+        }
     }
 
     private func assignControllerToArchiverByZoomed() {

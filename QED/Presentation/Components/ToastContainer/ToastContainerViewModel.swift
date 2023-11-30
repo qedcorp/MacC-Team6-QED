@@ -40,7 +40,7 @@ class ToastContainerViewModel: ObservableObject {
         }
     }
 
-    func presentMessage(_ message: String, durationMs: Int = 2000) {
+    func presentMessage(_ message: String, durationMs: Int = 1500) {
         animate {
             currentMessage = message
             remainingMs = durationMs

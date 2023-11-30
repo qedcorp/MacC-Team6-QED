@@ -59,7 +59,7 @@ class ScrollObservableCollectionViewCell: UICollectionViewCell {
             transitionFrame.path = path(in: transitionFrameWrapperView.frame).cgPath
         } else {
             formationFrame.layer.borderWidth = 2
-            formationFrame.backgroundColor = .monoNormal2
+            formationFrame.backgroundColor = .monoNormal2.withAlphaComponent(0.2)
             formationFrame.layer.borderColor = UIColor.clear.cgColor
             numberRectangle.backgroundColor = .white
             lyricsLabel.textColor = .white

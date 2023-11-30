@@ -59,7 +59,7 @@ struct MemberSettingView: View {
                         return
                     }
                     Task {
-                        try await viewModel.performanceSettingManager?.updateImmediately()
+                        try await viewModel.performanceSettingManager?.requestUpdate()
                         path = [nextPath]
                     }
                 }
