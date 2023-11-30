@@ -29,8 +29,8 @@ extension ScrollObservableView {
     enum ValuePurpose {
         case getOffset(CGFloat)
         case setOffset(CGFloat)
-        case getSelctedIndex(Int)
-        case setSelctedIndex(Int)
+        case getSelectedIndex(Int)
+        case setSelectedIndex(Int)
     }
 
     struct Constants {

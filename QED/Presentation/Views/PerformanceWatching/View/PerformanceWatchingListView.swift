@@ -74,7 +74,7 @@ struct PerformanceWatchingListView: View {
                         selectedIndex: selectedIndex
                     )
                     .onTapGesture {
-                        action.send(.setSelctedIndex(index))
+                        action.send(.setSelectedIndex(index))
                         isAllFormationVisible = false
                     }
                 }
