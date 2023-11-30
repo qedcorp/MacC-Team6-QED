@@ -57,7 +57,9 @@ class ArrowBezierPathRenderer {
         let endPoint = converter.getEndPoint(bezierPath, relativeMargin: margin)
         path.move(to: startPoint)
         if let controlPoint = bezierPath.controlPoint.map({ converter.getAbsoluteValue(of: $0) }) {
-            path.addCurve(to: endPoint, controlPoint1: controlPoint, controlPoint2: controlPoint)
+            let controlPoint1 = CGPoint.getMidPoint(startPoint, controlPoint)
+            let controlPoint2 = CGPoint.getMidPoint(endPoint, controlPoint)
+            path.addCurve(to: endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
         } else {
             path.addLine(to: endPoint)
         }

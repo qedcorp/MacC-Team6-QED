@@ -8,4 +8,10 @@ extension CGPoint {
         let deltaY = point.y - y
         return sqrt(deltaX * deltaX + deltaY * deltaY)
     }
+
+    static func getMidPoint(_ lhs: Self, _ rhs: Self) -> Self {
+        let midX = (lhs.x + rhs.x) / 2
+        let midY = (lhs.y + rhs.y) / 2
+        return CGPoint(x: midX, y: midY)
+    }
 }

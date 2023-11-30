@@ -28,6 +28,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     private lazy var draggingHandler = DraggingHandler()
 
+    private var copiedFormations: (Formation, Formation)?
     private var movementMap: MovementMap = [:]
     private var selectedMemberInfo: Member.Info?
     private var cancellables: Set<AnyCancellable> = []
@@ -39,7 +40,6 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
 
     private func setupViews() {
         GridRenderer().render(in: view)
-        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {
@@ -99,8 +99,18 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         draggingHandler.endDragging()
     }
 
+    override func copyWhenAppeared() {
+        guard let formations = copiedFormations else {
+            return
+        }
+        copy(beforeFormation: formations.0, afterFormation: formations.1)
+    }
+
     func copy(beforeFormation: Formation, afterFormation: Formation) {
-        // TODO: 깔끔하게 만들자
+        guard isViewAppeared else {
+            copiedFormations = (beforeFormation, afterFormation)
+            return
+        }
         let newMovementMap = Self.buildMovementMap(
             beforeFormation: beforeFormation,
             afterFormation: afterFormation
@@ -117,7 +127,7 @@ class ObjectMovementAssigningViewController: ObjectStageViewController {
         didChange()
     }
 
-    func copyFromHistory(_ history: History) {
+    private func copyFromHistory(_ history: History) {
         movementMap = history.movementMap
         placeBezierPathLayers()
         didChange()

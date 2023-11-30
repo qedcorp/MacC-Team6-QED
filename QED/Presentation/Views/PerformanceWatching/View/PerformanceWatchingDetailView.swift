@@ -188,7 +188,7 @@ struct PerformanceWatchingDetailView: View {
                         viewModel.isTransitionEditable.toggle()
                         if viewModel.isTransitionEditable {
                             if viewModel.selectedIndex == 0 {
-                                viewModel.action.send(.setSelctedIndex(1))
+                                viewModel.action.send(.setSelectedIndex(1))
                             }
                             viewModel.isPlaying = false
                             viewModel.presentEditingModeToastMessage()

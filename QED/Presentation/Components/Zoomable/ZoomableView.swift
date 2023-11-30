@@ -8,8 +8,7 @@ struct ZoomableView<Content: View>: View {
 
     var body: some View {
         ZStack {
-            Color.build(hex: .unknown0)
-                .background(.ultraThinMaterial)
+            Color.build(hex: .modalBackground)
                 .ignoresSafeArea()
                 .gesture(
                     DragGesture()
