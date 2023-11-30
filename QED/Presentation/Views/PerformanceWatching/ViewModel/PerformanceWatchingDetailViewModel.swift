@@ -148,6 +148,7 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             bindingPublishers()
             subscribePerformanceSettingManager()
             assignControllerToArchiverByZoomed()
+            toastContainerViewModel?.presentMessage("새로운 퍼포먼스가 추가되었어요")
         }
     }
 
