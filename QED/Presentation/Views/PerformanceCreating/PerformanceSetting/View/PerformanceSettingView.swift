@@ -69,9 +69,9 @@ struct PerformanceSettingView: View {
                 nextButton
                     .disabled(!viewModel.isAllSet)
             }
-            .padding(.bottom, 30)
-            .padding(.horizontal, 25)
-            .padding(.vertical, 10)
+            .padding(.top, 19)
+            .padding(.bottom, 47)
+            .padding(.horizontal, 24)
             .background(
                 Rectangle()
                     .frame(height: 110)
@@ -94,7 +94,7 @@ struct PerformanceSettingView: View {
                     .foregroundStyle(Color.monoWhite3)
             }
         }
-        .edgesIgnoringSafeArea(.bottom)
+        .ignoresSafeArea(.all, edges: .bottom)
     }
     
     func bindingForIndex(_ groupNum: Int) -> Binding<Bool> {
@@ -172,10 +172,8 @@ struct PerformanceSettingView: View {
                     viewModel.toggleDisclosureGroup2()
                 }
             }
-        
     }
-    
-    
+
     var inputTitleLabelOpend: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()
@@ -202,7 +200,7 @@ struct PerformanceSettingView: View {
                     .font(.subheadline)
             }
         }
-        . disclosureGroupLabelOpend()
+        .disclosureGroupLabelOpend()
     }
     
     var inputMusicLabelOpend: some View {
