@@ -134,6 +134,7 @@
 		D413336E2ADE7F2200BDE1BB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D413336D2ADE7F2200BDE1BB /* FirebaseAuth */; };
 		D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D413337D2ADE8CA800BDE1BB /* GoogleSignIn */; };
 		D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D413337F2ADE8CA800BDE1BB /* GoogleSignInSwift */; };
+		D41F1DBF2B186D69001C645C /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F1DBE2B186D69001C645C /* View+.swift */; };
 		D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */; };
 		D42AA10E2AEC014A0053E2A8 /* DefaultMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */; };
 		D42AA1132AEC118C0053E2A8 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */; };
@@ -377,6 +378,7 @@
 		D400CF942B04ADA200457F68 /* PerformanceLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLoadingView.swift; sourceTree = "<group>"; };
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D41F1DBE2B186D69001C645C /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicRepository.swift; sourceTree = "<group>"; };
 		D42AA1122AEC118C0053E2A8 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				3AC3250C2AFA7473002B6682 /* CGPoint+.swift */,
 				D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */,
 				51F6E9272B0B8DC400D6764C /* UIImage+GIF.swift */,
+				D41F1DBE2B186D69001C645C /* View+.swift */,
 				3AD243B12B0E9AC90084EC06 /* URLCache+image.swift */,
 			);
 			path = Extensions;
@@ -1684,6 +1687,7 @@
 			files = (
 				D460F04D2AE432BA00A5966A /* User+.swift in Sources */,
 				D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */,
+				D41F1DBF2B186D69001C645C /* View+.swift in Sources */,
 				A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */,
 				5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */,
 				5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */,

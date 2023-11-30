@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Property 1=Default.png",
+      "filename" : "Rectangle 1375.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "stage@2x.png",
+      "filename" : "Rectangle 1375@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "stage@3x.png",
+      "filename" : "Rectangle 1375@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
