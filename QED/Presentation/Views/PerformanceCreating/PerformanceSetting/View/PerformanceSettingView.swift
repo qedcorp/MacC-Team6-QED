@@ -81,7 +81,7 @@ struct PerformanceSettingView: View {
                     .background(
                         Rectangle()
                             .frame(width: geometry.size.width, height: geometry.size.height/6.2)
-                            .foregroundStyle(Gradient.unknownGradient1)
+                            .foregroundStyle(Color.background1)
                             .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: -1)
                     )
                     .padding(.horizontal, 25)
@@ -533,12 +533,15 @@ struct PerformanceSettingView: View {
                                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                                 .background(
                                     RoundedRectangle(cornerRadius: 6)
-                                        .foregroundStyle(viewModel.inputMemberInfo[index].isEmpty
-                                                         ? Color.monoNormal1
-                                                         : isFocused
-                                                            ? Color.darker2
-                                                            : Color.blueLight2
-                                                        )
+                                        .foregroundStyle({
+                                            if viewModel.inputMemberInfo[index].isEmpty {
+                                                return Color.monoNormal1
+                                            } else if (focusedIndex == index) {
+                                                return Color.blueLight2
+                                            } else {
+                                                return Color.darker2
+                                            }
+                                        }())
                                 )
                                 .padding(.horizontal)
                                 .padding(.vertical, 3)
