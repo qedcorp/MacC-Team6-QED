@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "state=full-1.png",
+      "filename" : "zoom_full.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "state=full.png",
+      "filename" : "zoom_full@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "zoom_state_full.png",
+      "filename" : "zoom_full@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "state=on-1.png",
+      "filename" : "forward_on.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "state=on.png",
+      "filename" : "forward_on@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "buttonforward.png",
+      "filename" : "forward_on@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

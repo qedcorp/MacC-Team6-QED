@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "state=off-1.png",
+      "filename" : "zoom_off.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "state=off.png",
+      "filename" : "zoom_off@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "zoom_state_off.png",
+      "filename" : "zoom_off@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
