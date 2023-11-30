@@ -18,7 +18,6 @@ struct PerformanceWatchingDetailView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-
                 VStack(spacing: 0) {
                     if let performance = viewModel.performance {
                         MusicHeadcountView(title: performance.music.title,
@@ -37,16 +36,15 @@ struct PerformanceWatchingDetailView: View {
                             }
                         }
                         .padding(.horizontal, 24)
-                        Rectangle().foregroundStyle(.clear)
+                        Spacer()
                         buildPlayerView(performance: performance.entity)
-                        Spacer(minLength: 60)
                     } else {
                         Spacer()
                     }
                     buildTabBar(geometry: geometry)
                 }
                 if viewModel.isPresentedSheet {
-                    Color.black.opacity(0.4)
+                    Color.black.opacity(0.8)
                         .ignoresSafeArea()
                 }
             }
@@ -222,8 +220,9 @@ struct PerformanceWatchingDetailView: View {
                 buildPlayButton()
             }
         }
+        .padding(.top, 15)
         .padding(.horizontal, 24)
-        .frame(height: geometry.size.height * 0.15)
+        .frame(height: 77)
         .background(Color.monoNormal1)
     }
 
@@ -256,29 +255,31 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildSettingSheetView() -> some View {
-        ZStack {
-            Color.monoBlack.ignoresSafeArea(.all)
-            VStack(spacing: 14) {
-                HStack {
-                    Text("상세설정")
-                    Spacer()
-                    Button {
-                        onDismissSettingSheet()
-                    } label: {
-                        Image("close")
-                    }
+
+        VStack(spacing: 14) {
+            HStack {
+                Text("상세설정")
+                Spacer()
+                Button {
+                    onDismissSettingSheet()
+                } label: {
+                    Image("close")
                 }
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundStyle(.white)
-                buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
-                buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
-                buildSectionView(label: "점선 보기", isOn: $viewModel.isLineVisible)
             }
-            .padding(.horizontal, 24)
+            .font(.title2)
+            .fontWeight(.bold)
+            .foregroundStyle(.white)
+            buildSectionView(label: "팀원 이름 보기", isOn: $viewModel.isNameVisiable)
+            buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
+            buildSectionView(label: "점선 보기", isOn: $viewModel.isLineVisible)
         }
+        .padding(.horizontal, 24)
+
         .presentationDetents([.fraction(0.35)])
         .presentationDragIndicator(.visible)
+        .presentationBackground {
+            Color(hex: "212123").ignoresSafeArea(.all)
+        }
     }
 
     private func buildSectionView(label: String, isOn: Binding<Bool>) -> some View {
