@@ -87,7 +87,7 @@ final class DIContainer {
                 if let returnValue = self.resolver.providerType  {
                     return returnValue
                 }
-                return AuthViewController(authProvider: .constant(.apple))
+                return AuthViewController()
             }
         }
         else {
@@ -95,7 +95,7 @@ final class DIContainer {
                 if let returnValue = self.resolver.providerType  {
                     return returnValue
                 }
-                return AuthViewController(authProvider: .constant(.apple))
+                return AuthViewController()
             }
         }
     }

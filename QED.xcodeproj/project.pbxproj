@@ -142,7 +142,6 @@
 		D42AA11A2AEC1B5F0053E2A8 /* TypeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */; };
 		D42AA11C2AEC1C1C0053E2A8 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */; };
 		D42AA11E2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */; };
-		D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */; };
 		D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */; };
 		D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */; };
 		D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */; };
@@ -386,7 +385,6 @@
 		D42AA1192AEC1B5F0053E2A8 /* TypeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDictionary.swift; sourceTree = "<group>"; };
 		D42AA11B2AEC1C1C0053E2A8 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		D42AA11D2AEC2CDD0053E2A8 /* TypeDirectedGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDirectedGraph.swift; sourceTree = "<group>"; };
-		D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableViewController.swift; sourceTree = "<group>"; };
 		D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableView.swift; sourceTree = "<group>"; };
 		D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToPointCalculator.swift; sourceTree = "<group>"; };
@@ -1155,7 +1153,6 @@
 			children = (
 				D460EF812AE18DF700A5966A /* AuthView.swift */,
 				D460EF822AE18DF700A5966A /* AuthViewController.swift .swift */,
-				D42AA1212AEEBA670053E2A8 /* AuthViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1828,7 +1825,6 @@
 				51908CD42B03CB1200C8F602 /* EmailController.swift in Sources */,
 				3A5328B32AEBA3A50051A09C /* UIView+Sizeable.swift in Sources */,
 				D460F0152AE18DF700A5966A /* Music.swift in Sources */,
-				D42AA1222AEEBA670053E2A8 /* AuthViewModel.swift in Sources */,
 				D460EFDA2AE18DF700A5966A /* MockUserRepository.swift in Sources */,
 				D4F19A332AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift in Sources */,
 				5186C6AC2AE40C0B002E4D3E /* PerformanceWatchingListView.swift in Sources */,
