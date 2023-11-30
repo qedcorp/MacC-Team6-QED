@@ -29,8 +29,8 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     init(authProvider: Binding<AuthProviderType>) {
         sizeFactor = screenHeight / 844
-        scrollWidth = screenWidth * 0.66
-        scrollHeight = scrollWidth * 1.52
+        scrollWidth = screenWidth * 0.5
+        scrollHeight = scrollWidth * 2.17
         self._authProvider = authProvider
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,6 +71,12 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         return stackView
     }()
 
+    lazy var loginBackgroundView: UIImageView = {
+        let object = UIImageView()
+        object.image = UIImage(named: "loginBackground")
+        return object
+    }()
+
     lazy var scrollView: UIScrollView = {
         let object = UIScrollView()
         object.contentSize = CGSize(width: scrollWidth * CGFloat(pages.count), height: scrollHeight)
@@ -79,7 +85,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         object.showsHorizontalScrollIndicator = false
         object.isPagingEnabled = true
         object.bounces = false
-        object.layer.cornerRadius = 10 * sizeFactor
+        object.layer.cornerRadius = 28 * sizeFactor
         return object
     }()
 
@@ -149,29 +155,36 @@ class AuthViewController: UIViewController, AuthUIProtocol {
 
     private func setUpUI() {
         view.backgroundColor = .black
-        [loginInfoStackView, scrollView, pageControl, loginGuideLabel, loginButtonStackView].forEach {
+        [loginInfoStackView, loginBackgroundView, scrollView, pageControl, loginGuideLabel, loginButtonStackView].forEach {
             view.addSubview($0)
         }
 
-        loginInfoStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(screenHeight * 0.13 * sizeFactor)
-            $0.left.equalToSuperview().inset(66)
+        loginBackgroundView.snp.makeConstraints {
+            $0.width.equalTo(scrollWidth * 1.06)
+            $0.height.equalTo(scrollHeight * 1.03)
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
 
         scrollView.snp.makeConstraints {
             $0.width.equalTo(scrollWidth)
             $0.height.equalTo(scrollHeight)
-            $0.top.equalTo(loginInfoStackView.snp.bottom).offset(screenHeight * 0.03 * sizeFactor)
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalTo(loginBackgroundView.snp.centerX)
+            $0.centerY.equalTo(loginBackgroundView.snp.centerY)
+        }
+
+        loginInfoStackView.snp.makeConstraints {
+            $0.bottom.equalTo(loginBackgroundView.snp.top).offset(-screenHeight * 0.04)
+            $0.left.equalToSuperview().inset(66)
         }
 
         pageControl.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(screenHeight * 0.02 * sizeFactor)
+            $0.top.equalTo(loginBackgroundView.snp.bottom).offset(screenHeight * 0.015 * sizeFactor)
             $0.centerX.equalToSuperview()
         }
 
         loginGuideLabel.snp.makeConstraints {
-            $0.bottom.equalTo(loginButtonStackView.snp.top).offset(-screenHeight * 0.02 * sizeFactor)
+            $0.top.equalTo(pageControl.snp.bottom).offset(screenHeight * 0.03 * sizeFactor)
             $0.centerX.equalToSuperview()
         }
 
@@ -188,7 +201,7 @@ class AuthViewController: UIViewController, AuthUIProtocol {
         }
 
         loginButtonStackView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-screenHeight * 0.08 * sizeFactor)
+            $0.top.equalTo(loginGuideLabel.snp.bottom).offset(screenHeight * 0.01 * sizeFactor)
             $0.centerX.equalToSuperview()
         }
 

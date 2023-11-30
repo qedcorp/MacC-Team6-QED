@@ -50,6 +50,9 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
     @Published var offset: CGFloat = 0
     @Published var selectedIndex = 0
     @Published var currentMemo = ""
+    var isPresentedSheet: Bool {
+        isSettingSheetVisible || isAllFormationVisible
+    }
 
     @Published var isTransitionEditable = false {
         didSet {
@@ -145,6 +148,9 @@ class PerformanceWatchingDetailViewModel: ObservableObject {
             bindingPublishers()
             subscribePerformanceSettingManager()
             assignControllerToArchiverByZoomed()
+            if dependency.isCreatedNewPerformance {
+                toastContainerViewModel?.presentMessage("새로운 퍼포먼스가 추가되었어요")
+            }
         }
     }
 

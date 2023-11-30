@@ -17,30 +17,33 @@ struct PerformanceWatchingDetailView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                if let performance = viewModel.performance {
-                    MusicHeadcountView(title: performance.music.title,
-                                       headcount: performance.headcount)
-                    .padding(.bottom, geometry.size.height * 0.15)
-                    VStack(spacing: 8) {
-                        buildMemo()
-                        if viewModel.isTransitionEditable && viewModel.currentIndex > 0 {
-                            buildMovementEditingView(
-                                controller: viewModel.movementController,
-                                width: geometry.size.width - 48
-                            )
-                            buildHistoryControlsView()
-                        } else {
-                            buildObjectPlayView()
+            ZStack {
+                VStack(spacing: 0) {
+                    if let performance = viewModel.performance {
+                        MusicHeadcountView(title: performance.music.title,
+                                           headcount: performance.headcount)
+                        .padding(.bottom, geometry.size.height * 0.15)
+                        VStack(spacing: 8) {
+                            buildMemo()
+                            if viewModel.isTransitionEditable && viewModel.currentIndex > 0 {
+                                buildMovementEditingView(
+                                    controller: viewModel.movementController,
+                                    width: geometry.size.width - 48
+                                )
+                                buildHistoryControlsView()
+                            } else {
+                                buildObjectPlayView()
+                            }
                         }
+                        .padding(.horizontal, 24)
+                        Spacer()
+                        buildPlayerView(performance: performance.entity)
+                    } else {
+                        Spacer()
                     }
-                    .padding(.horizontal, 24)
-                    Spacer()
-                    buildPlayerView(performance: performance.entity)
-                } else {
-                    Spacer()
+                    buildTabBar(geometry: geometry)
                 }
-                buildTabBar(geometry: geometry)
+                Color.black.opacity(viewModel.isSettingSheetVisible ? 0.4 : 0).ignoresSafeArea()
             }
         }
         .background {
@@ -71,16 +74,17 @@ struct PerformanceWatchingDetailView: View {
                 }
             }
         }
-        .sheet(isPresented: $viewModel.isSettingSheetVisible, onDismiss: onDismissSettingSheet) {
+        .showModal(viewModel.isSettingSheetVisible) {
             buildSettingSheetView()
         }
-        .sheet(isPresented: $viewModel.isAllFormationVisible, onDismiss: onDismissAllFormationSheet) {
-            if let performance = viewModel.performance?.entity {
-                PerformanceWatchingListView(performance: performance,
+        .sheet(isPresented: $viewModel.isAllFormationVisible) {
+            ZStack {
+                PerformanceWatchingListView(performance: viewModel.performance?.entity ?? Performance(jsonString: ""),
                                             isAllFormationVisible: $viewModel.isAllFormationVisible,
                                             selecteIndex: viewModel.selectedIndex,
                                             action: viewModel.action
                 )
+                ToastContainerView()
             }
         }
     }
@@ -168,7 +172,9 @@ struct PerformanceWatchingDetailView: View {
 
             Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
-                .font(.title3.weight(.bold))
+                .font(.title3)
+                .multilineTextAlignment(.center)
+                .lineLimit(1)
         }
     }
 
@@ -201,7 +207,9 @@ struct PerformanceWatchingDetailView: View {
                 buildAllFormationButton()
                 Spacer(minLength: 20)
                 Button {
-                    viewModel.isSettingSheetVisible.toggle()
+                    withAnimation {
+                        viewModel.isSettingSheetVisible.toggle()
+                    }
                 } label: {
                     Image("setting")
                 }
@@ -212,8 +220,9 @@ struct PerformanceWatchingDetailView: View {
                 buildPlayButton()
             }
         }
+        .padding(.top, 15)
         .padding(.horizontal, 24)
-        .frame(height: geometry.size.height * 0.15)
+        .frame(height: 77)
         .background(Color.monoNormal1)
     }
 
@@ -246,8 +255,7 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func buildSettingSheetView() -> some View {
-        ZStack {
-            Color.monoBlack.ignoresSafeArea(.all)
+        VStack(spacing: 14) {
             VStack(spacing: 14) {
                 HStack {
                     Text("상세설정")
@@ -265,7 +273,13 @@ struct PerformanceWatchingDetailView: View {
                 buildSectionView(label: "이전 동선 미리보기", isOn: $viewModel.isBeforeVisible)
                 buildSectionView(label: "점선 보기", isOn: $viewModel.isLineVisible)
             }
+            .padding(.top, 24)
             .padding(.horizontal, 24)
+        }
+        .background {
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundStyle(Color(hex: "212123"))
+                .ignoresSafeArea(.all)
         }
         .presentationDetents([.fraction(0.35)])
         .presentationDragIndicator(.visible)
@@ -281,11 +295,8 @@ struct PerformanceWatchingDetailView: View {
                 Text(label)
                     .foregroundStyle(Color.monoWhite3)
                 Spacer()
-                Button {
-                    isOn.wrappedValue.toggle()
-                } label: {
-                    Image(isOn.wrappedValue ? "toggle_on" : "toggle_off")
-                }
+                Toggle("", isOn: isOn)
+                    .tint(.blueNormal)
             }
             .padding(.horizontal, 20)
         }
@@ -338,7 +349,9 @@ struct PerformanceWatchingDetailView: View {
     }
 
     private func onDismissSettingSheet() {
-        viewModel.isSettingSheetVisible = false
+        withAnimation {
+            viewModel.isSettingSheetVisible = false
+        }
     }
 
     private func onDismissAllFormationSheet() {

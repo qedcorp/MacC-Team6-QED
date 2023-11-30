@@ -21,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         KakaoSDK.initSDK(appKey: "e754bd84082fb1b6473589df6c567b66")
         FirebaseApp.configure()
+
         return true
     }
 

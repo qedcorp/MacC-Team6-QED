@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Stage.png",
+      "filename" : "Property 1=no grid.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Stage@2x.png",
+      "filename" : "Property 1=no grid@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Stage@3x.png",
+      "filename" : "Property 1=no grid@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
