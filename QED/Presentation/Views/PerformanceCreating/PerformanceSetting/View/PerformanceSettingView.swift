@@ -297,7 +297,7 @@ struct PerformanceSettingView: View {
     @ViewBuilder
     func buildCell(music: Music) -> some View {
         HStack {
-            AsyncImage(url: music.albumCoverURL) { image in
+            AsyncImage(url: music.albumCoverURL, transaction: .init(animation: .easeInOut)) { image in
                 image
                     .image?.resizable()
                     .scaledToFill()
@@ -306,6 +306,7 @@ struct PerformanceSettingView: View {
                     .overlay(RoundedRectangle(cornerRadius: 5, style: .continuous).stroke(Color.clear, lineWidth: 1))
                     .clipped()
             }
+            .frame(width: 90, height: 64)
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.all)
             
