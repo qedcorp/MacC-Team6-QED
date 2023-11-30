@@ -26,7 +26,7 @@ struct PerformanceSettingView: View {
         GeometryReader { geometry in
             VStack {
                 ScrollViewReader { proxy in
-                    ScrollView(.vertical) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         VStack {
                             ForEach(1..<4, id: \.self) { groupNum in
                                 DisclosureGroup(
@@ -87,10 +87,9 @@ struct PerformanceSettingView: View {
         }
         .background(
             Image("background")
-                .aspectRatio(contentMode: .fill)
+                .resizable()
                 .ignoresSafeArea(.all)
         )
-        .ignoresSafeArea(.all)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             leftItem
@@ -101,7 +100,7 @@ struct PerformanceSettingView: View {
                     .foregroundStyle(Color.monoWhite3)
             }
         }
-        .padding(.top)
+        .edgesIgnoringSafeArea(.bottom)
     }
 
     func bindingForIndex(_ groupNum: Int) -> Binding<Bool> {

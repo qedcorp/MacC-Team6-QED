@@ -16,6 +16,7 @@ struct ContentView: View {
             }
 
             Image("splash")
+                .resizable()
                 .ignoresSafeArea(.all)
                 .opacity(isLoading ? 1 : 0)
 
