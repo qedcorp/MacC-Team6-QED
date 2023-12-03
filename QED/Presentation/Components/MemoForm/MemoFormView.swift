@@ -14,8 +14,7 @@ struct MemoFormView: View {
 
     var body: some View {
         ZStack {
-            Color.build(hex: .unknown0)
-                .background(.ultraThinMaterial)
+            Color.build(hex: .modalBackground)
                 .ignoresSafeArea()
                 .onTapGesture {
                     complete()
@@ -29,7 +28,7 @@ struct MemoFormView: View {
                 .frame(height: 64)
                 .background(
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(Color.monoNormal1)
+                        .fill(Color.build(hex: .memoBackground))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)

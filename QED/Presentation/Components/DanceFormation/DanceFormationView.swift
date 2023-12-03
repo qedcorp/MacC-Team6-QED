@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct DanceFormationView: View {
     var formation: Formation
     var index: Int
-    var selectedIndex: Int = 0
-    var isNameVisible: Bool = false
+    var selectedIndex = 0
+    var isNameVisible = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -20,20 +19,20 @@ struct DanceFormationView: View {
                 ZStack {
                     buildDanceFormationBackground()
                     buildSetCircleView(geometry: geometry)
+                    if index == selectedIndex {
+                        buildSelectedBackground()
+                    }
                 }
             }
-            .aspectRatio(163/123, contentMode: .fit)
-            .clipped()
+            .aspectRatio(163/108, contentMode: .fit)
 
             buildLyric()
         }
     }
 
     private func buildDanceFormationBackground() -> some View {
-        Rectangle()
+        RoundedRectangle(cornerRadius: 5)
             .fill(Color.monoNormal1)
-            .clipShape(RoundedRectangle(cornerRadius: 5))
-            .aspectRatio(163/123, contentMode: .fit)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .strokeBorder(
@@ -59,6 +58,11 @@ struct DanceFormationView: View {
                 .getAbsoluteValue(of: member.relativePosition)
             )
         }
+    }
+
+    private func buildSelectedBackground() -> some View {
+        RoundedRectangle(cornerRadius: 5)
+            .fill(Color.blueLight1)
     }
 
     private func buildLyric() -> some View {

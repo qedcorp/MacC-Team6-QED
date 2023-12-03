@@ -5,6 +5,7 @@
 //  Created by OLING on 10/28/23.
 //
 
+import CachedAsyncImage
 import SwiftUI
 
 @MainActor
@@ -40,6 +41,12 @@ struct PerformanceListCardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topTrailing) {
+                VStack {
+                    if performance.music.albumCoverURL != nil {
+                        Color.clear.frame(width: geometry.size.width, height: 20)
+                    }
+                    Gradient.blueGradation2
+                }
                 VStack(spacing: 0) {
                     buildMusicImageView()
                     buildPerformanceInfoView()
@@ -55,7 +62,6 @@ struct PerformanceListCardView: View {
         }
         .foregroundStyle(Color.monoWhite3)
         .aspectRatio(163 / 198, contentMode: .fit)
-        .background(Gradient.blueGradation2)
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }
 
@@ -72,7 +78,6 @@ struct PerformanceListCardView: View {
             }
         }
         .frame(height: cardHeight * 0.7)
-        .clipped()
     }
 
     private func buildPerformanceInfoView() -> some View {
@@ -104,7 +109,11 @@ struct PerformanceListCardView: View {
     }
 
     private func buildFetchMusicView() -> some View {
-        return AsyncImage(url: performance.music.albumCoverURL, transaction: .init(animation: .easeInOut)) { phase in
+        return CachedAsyncImage(
+            url: performance.music.albumCoverURL,
+            urlCache: .image,
+            transaction: .init(animation: .easeInOut)
+        ) { phase in
             switch phase {
             case .empty:
                 buildLoadingView()

@@ -33,9 +33,7 @@ class ObjectStageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isViewAppeared = true
-        if let preset = copiedFormable {
-            copyFormable(preset)
-        }
+        copyWhenAppeared()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,15 +43,20 @@ class ObjectStageViewController: UIViewController {
     }
 
     func placeObjectView(position: CGPoint, viewModel: DotObjectViewModel) {
-        let objectView = DotObjectView()
-        objectView.radius = viewModel.radius ?? objectViewRadius
-        objectView.color = viewModel.color
-        objectView.borderColor = viewModel.borderColor
-        objectView.borderWidth = viewModel.borderWidth
-        objectView.alpha = viewModel.alpha ?? 1
+        let objectView = buildObjectView(viewModel: viewModel)
         objectView.assignPosition(position)
         replaceObjectViewAtRelativePosition(objectView)
         view.addSubview(objectView)
+    }
+
+    private func buildObjectView(viewModel: DotObjectViewModel) -> DotObjectView {
+        let view = DotObjectView()
+        view.radius = viewModel.radius ?? objectViewRadius
+        view.color = viewModel.color
+        view.borderColor = viewModel.borderColor
+        view.borderWidth = viewModel.borderWidth
+        view.alpha = viewModel.alpha ?? 1
+        return view
     }
 
     func replaceObjectViewAtRelativePosition(_ view: DotObjectView) {
@@ -79,6 +82,13 @@ class ObjectStageViewController: UIViewController {
             )
             placeObjectView(position: position, viewModel: viewModel)
         }
+    }
+
+    func copyWhenAppeared() {
+        guard let formable = copiedFormable else {
+            return
+        }
+        copyFormable(formable)
     }
 
     final func getRelativePositions() -> [RelativePosition] {

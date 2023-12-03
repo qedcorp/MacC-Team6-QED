@@ -21,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         KakaoSDK.initSDK(appKey: "e754bd84082fb1b6473589df6c567b66")
         FirebaseApp.configure()
+        injectDependencies()
         return true
     }
 
@@ -31,5 +32,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             return AuthController.handleOpenUrl(url: url)
         }
         return false
+    }
+
+    private func injectDependencies() {
+        let authViewController = AuthViewController()
+        DIContainer.shared.resolver.dependencyInjection(providerType: authViewController)
     }
 }

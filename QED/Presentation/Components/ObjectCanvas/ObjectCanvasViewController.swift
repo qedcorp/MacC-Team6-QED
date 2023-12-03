@@ -66,7 +66,6 @@ class ObjectCanvasViewController: ObjectStageViewController {
 
     private func setupViews() {
         GridRenderer().render(in: view)
-        CaptionRenderer(text: "무대 앞").render(in: view)
     }
 
     override func viewDidLoad() {
@@ -197,6 +196,15 @@ class ObjectCanvasViewController: ObjectStageViewController {
         dateFormatter.dateFormat = "MMddHHmmSS"
         return Preset(
             id: dateFormatter.string(from: Date()),
+            headcount: objectViews.count,
+            relativePositions: positions
+        )
+    }
+
+    func getPreset(id: String) -> Preset {
+        let positions = getRelativePositions()
+        return Preset(
+            id: id,
             headcount: objectViews.count,
             relativePositions: positions
         )

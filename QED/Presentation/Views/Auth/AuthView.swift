@@ -13,15 +13,13 @@ struct AuthView: UIViewControllerRepresentable {
     @ObservedObject var loginViewModel: LoginViewModel
 
     func makeUIViewController(context: Context) -> AuthViewController {
-        let authViewController = AuthViewController(authProvider: $loginViewModel.temp)
-        DIContainer.shared.resolver.dependencyInjection(providerType: authViewController)
-        loginViewModel.subscribe()
-
-        return authViewController
+        // swiftlint:disable:next force_cast
+        let controller = DIContainer.shared.resolver.resolve(AuthUIProtocol.self) as! AuthViewController
+        loginViewModel.updateAuthUseCase()
+        return controller
     }
 
     func updateUIViewController(_ uiViewController: AuthViewController, context: Context) {
-
     }
 }
 
@@ -29,40 +27,34 @@ struct AuthView: UIViewControllerRepresentable {
 class LoginViewModel: ObservableObject {
     static let shared = LoginViewModel()
 
-    var bag = Set<AnyCancellable>()
-    var authUseCase: AuthUseCase?
-
-    @Published var temp: AuthProviderType = .apple
+    private var authUseCase: AuthUseCase?
+    private var bag = Set<AnyCancellable>()
+    @Published var authProvider: AuthProviderType = .apple
     @Published var isLogin: Bool = false
 
-    private init() {}
+    private init() {
+        subscribeAuthProvider()
+    }
 
-    func subscribe() {
-        authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)
-        $temp
+    private func subscribeAuthProvider() {
+        $authProvider
             .dropFirst()
-            .sink { provider in
+            .sink { [unowned self] provider in
                 Task {
-                    guard let authUseCase = self.authUseCase else {
+                    guard let loginResult = try? await authUseCase?.login(authType: provider) else {
                         return
                     }
-                    switch provider {
-                    case .kakao:
-                        guard let loginResult = try? await authUseCase.login(authType: .kakao) else { return }
-                        self.isLogin = loginResult
-                    case .apple:
-                        guard let loginResult = try? await authUseCase.login(authType: .apple) else { return }
-                        self.isLogin = loginResult
-                    case .google:
-                        guard let loginResult = try? await authUseCase.login(authType: .google) else { return }
-                        self.isLogin = loginResult
-                    }
+                    isLogin = loginResult
                 }
             }
             .store(in: &bag)
     }
 
+    func updateAuthUseCase() {
+        authUseCase = DIContainer.shared.resolver.resolve(AuthUseCase.self)
+    }
+
     func logout() {
-        self.isLogin = false
+        isLogin = false
     }
 }

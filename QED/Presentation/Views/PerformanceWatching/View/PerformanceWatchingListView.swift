@@ -29,7 +29,7 @@ struct PerformanceWatchingListView: View {
 
     var body: some View {
         ZStack {
-            Color.monoBlack.ignoresSafeArea(.all)
+            Color(hex: "212123").ignoresSafeArea(.all)
             VStack(spacing: 0) {
                 buildHeaderView()
                 buildPerformanceScrollView()
@@ -74,7 +74,7 @@ struct PerformanceWatchingListView: View {
                         selectedIndex: selectedIndex
                     )
                     .onTapGesture {
-                        action.send(.setSelctedIndex(index))
+                        action.send(.setSelectedIndex(index))
                         isAllFormationVisible = false
                     }
                 }

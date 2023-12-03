@@ -91,7 +91,7 @@ final class ScrollObservableViewController: UIViewController {
                 switch purpose {
                 case let .setOffset(offset):
                     self.setCollectionViewOffset(offset)
-                case let .setSelctedIndex(index):
+                case let .setSelectedIndex(index):
                     self.currentIndex = index
                 default:
                     break

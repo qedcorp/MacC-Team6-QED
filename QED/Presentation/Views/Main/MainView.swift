@@ -29,6 +29,7 @@ struct MainView: View {
                 VStack(spacing: 34) {
                     Spacer()
                     buildHeaderView()
+//                    ContentBuildView(viewModel: viewModel)
                     buildContentView()
                 }
                 .padding(.bottom, 40)
@@ -57,22 +58,6 @@ struct MainView: View {
             buildMakeFormationButtonView()
         }
         .padding(.horizontal, horizontalPadding)
-    }
-
-    private func buildContentView() -> some View {
-        VStack(spacing: 19) {
-            buildPerformanceListHeaderView()
-            ZStack {
-                if viewModel.isFetchingPerformances {
-                    FodiProgressView()
-                } else if viewModel.myRecentPerformances.isEmpty {
-                    buildPerformanceListEmptyView()
-                } else {
-                    buildPerformanceListScrollView()
-                }
-            }
-            .frame(height: 198)
-        }
     }
 
     private func buildMainTitleView() -> some View {
@@ -110,6 +95,23 @@ struct MainView: View {
         }
     }
 
+    private func buildContentView() -> some View {
+       VStack(spacing: 19) {
+           buildPerformanceListHeaderView()
+           ZStack {
+               if viewModel.isFetchingPerformances {
+                   ProgressView()
+                       .tint(Color.blueLight3)
+               } else if viewModel.myRecentPerformances.isEmpty {
+                   buildPerformanceListEmptyView()
+               } else {
+                   buildPerformanceListScrollView()
+               }
+           }
+           .frame(height: 198)
+       }
+    }
+
     private func buildPerformanceListHeaderView() -> some View {
         HStack {
             Text("최근 프로젝트")
@@ -137,7 +139,7 @@ struct MainView: View {
             HStack(spacing: 10) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     Button {
-                        let nextPath = PerformanceRouter(performance: performance).getItemPath()
+                        let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
                         path.append(nextPath)
                     } label: {
                         PerformanceListCardView(performance: performance)

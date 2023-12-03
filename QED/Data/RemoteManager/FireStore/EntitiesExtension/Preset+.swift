@@ -38,7 +38,7 @@ extension Preset: FireStoreEntityConvertable {
 
     var fireStoreEntity: FireStoreEntity {
         FireStoreDTO.PresetDTO(
-            ID: "",
+            ID: id,
             HEADCOUNT: "\(headcount)",
             DATA: jsonString
         )
