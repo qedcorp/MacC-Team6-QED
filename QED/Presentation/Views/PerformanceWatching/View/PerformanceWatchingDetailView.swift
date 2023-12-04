@@ -55,6 +55,7 @@ struct PerformanceWatchingDetailView: View {
             : nil
         )
         .navigationBarBackButtonHidden()
+        .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             buildLeftItem()

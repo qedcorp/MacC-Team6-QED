@@ -41,12 +41,6 @@ struct PerformanceListCardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topTrailing) {
-                VStack {
-                    if performance.music.albumCoverURL != nil {
-                        Color.clear.frame(width: geometry.size.width, height: 20)
-                    }
-                    Gradient.blueGradation2
-                }
                 VStack(spacing: 0) {
                     buildMusicImageView()
                     buildPerformanceInfoView()
@@ -62,6 +56,7 @@ struct PerformanceListCardView: View {
         }
         .foregroundStyle(Color.monoWhite3)
         .aspectRatio(163 / 198, contentMode: .fit)
+        .background(Gradient.blueGradation2)
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }
 

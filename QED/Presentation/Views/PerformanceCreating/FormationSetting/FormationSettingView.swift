@@ -45,6 +45,7 @@ struct FormationSettingView: View {
                 : nil
             )
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
             .toolbar {
                 if viewModel.performanceSettingManager?.isAutoUpdateDisabled == true {
