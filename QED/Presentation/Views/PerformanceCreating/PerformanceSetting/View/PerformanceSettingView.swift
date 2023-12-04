@@ -40,7 +40,11 @@ struct PerformanceSettingView: View {
                             .disclosureGroupBackground()
                             .id(groupNum)
                         }
+                        Rectangle()
+                            .fill(.clear)
+                            .frame(height: 400)
                     }
+                    .padding(.vertical, 20)
                 }
                 .onChange(of: viewModel.scrollToID) { newID in
                     withAnimation {

@@ -48,6 +48,7 @@ struct MemberSettingView: View {
             : nil
         )
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {
