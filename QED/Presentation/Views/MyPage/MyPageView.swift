@@ -22,6 +22,7 @@ struct MyPageView: View {
     private let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
     private let appStoreURL = "https://apps.apple.com/kr/app/fodi/id6470155832"
     private let qedEmail = "teamqedofficial@gmail.com"
+    private let feedbackURL = "https://forms.gle/1LTQh5baqV2irxq99"
 
     var body: some View {
         ZStack {
@@ -164,6 +165,9 @@ struct MyPageView: View {
         })
         case .appReview: buildChevronButton({
             openURL(appStoreURL)
+        })
+        case .appFeedback: buildChevronButton({
+            openURL(feedbackURL)
         })
         }
     }
