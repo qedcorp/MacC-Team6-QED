@@ -29,7 +29,6 @@ struct MainView: View {
                 VStack(spacing: 34) {
                     Spacer()
                     buildHeaderView()
-//                    ContentBuildView(viewModel: viewModel)
                     buildContentView()
                 }
                 .padding(.bottom, 40)
@@ -46,6 +45,9 @@ struct MainView: View {
                         viewModel.fetchMyRecentPerformances()
                     }
             }
+        }
+        .onAppear {
+
         }
         .task {
             viewModel.fetchMyRecentPerformances()
