@@ -243,6 +243,7 @@
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
 		D4BB05532B069A2E0058A658 /* CGPoint+OperationOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */; };
+		D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16762B54FBBE00D361B5 /* Mixpanel */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -498,6 +499,7 @@
 				D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */,
 				D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */,
 				D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */,
+				D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */,
 				D41333692ADE619700BDE1BB /* Alamofire in Frameworks */,
 				D460F02C2AE24EC300A5966A /* FirebaseFirestore in Frameworks */,
 				D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */,
@@ -1544,6 +1546,7 @@
 				D460F02F2AE24EC300A5966A /* FirebaseFirestoreSwift */,
 				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
 				3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */,
+				D4BC16762B54FBBE00D361B5 /* Mixpanel */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1602,6 +1605,7 @@
 				D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -2220,6 +2224,14 @@
 				minimumVersion = 2.18.0;
 			};
 		};
+		D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -2280,6 +2292,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D413336C2ADE7F2200BDE1BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D4BC16762B54FBBE00D361B5 /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
 		};
 		D4F19A2F2AF93B7A00F2F013 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
