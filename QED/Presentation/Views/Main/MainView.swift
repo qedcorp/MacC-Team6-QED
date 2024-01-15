@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
+    @State private var isSendFeedbackOn = true
+    @Environment(\.openURL) private var openURL
+    private let feedbackURL = "https://forms.gle/1LTQh5baqV2irxq99"
 
     @State private var path: [PresentType] = [] {
         didSet {
@@ -29,7 +32,6 @@ struct MainView: View {
                 VStack(spacing: 34) {
                     Spacer()
                     buildHeaderView()
-//                    ContentBuildView(viewModel: viewModel)
                     buildContentView()
                 }
                 .padding(.bottom, 40)
@@ -46,10 +48,36 @@ struct MainView: View {
                         viewModel.fetchMyRecentPerformances()
                     }
             }
+            .onAppear {
+                Task {
+                    let me = try? await viewModel.userUseCase.getMe()
+                    let launchingCount = me?.launchingCount ?? 1
+                    if launchingCount == 2 || launchingCount % 3 == 0 {
+                        isSendFeedbackOn = true
+                    }
+                }
+            }
+        }
+        .alert("개선의견 남기러가기", isPresented: $isSendFeedbackOn, actions: {
+            Button("취소", role: .cancel) { isSendFeedbackOn = false }
+            Button("확인", role: .destructive) {
+                isSendFeedbackOn = false
+                viewModel.userUseCase.resetLaunchingCount()
+                openURL(feedbackURL)
+            }
+        }) {
+            Text("누구나 FODI를 바꾸어 나갈 수 있어요! \n\n FODI를 개선하는 기회에 참여하고\n 더 쉽고 편하게 동선표를 제작해보세요:)")
         }
         .task {
             viewModel.fetchMyRecentPerformances()
         }
+    }
+
+    private func openURL(_ url: String) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        openURL(url)
     }
 
     private func buildHeaderView() -> some View {

@@ -18,10 +18,10 @@ struct TypeDirectedGraph {
     }
 
     func connect<T, U>(a: T.Type, b: U.Type) {
-        guard var parentNode = nodes
+        guard let parentNode = nodes
             .first(where: { $0.value == ObjectIdentifier(T.self) }),
-              var childNode = nodes
-            .first(where: { $0.value == ObjectIdentifier(U.self)})
+              let childNode = nodes
+            .first(where: { $0.value == ObjectIdentifier(U.self) })
         else { return }
 
         parentNode.childs.append(childNode)

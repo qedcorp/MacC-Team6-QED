@@ -14,6 +14,7 @@ enum KeyChainAccount: CaseIterable {
     case provider
     case signUpdate
     case refreshToken
+    case launchingCount
 
     // 더 필요한 Account 추가
 
