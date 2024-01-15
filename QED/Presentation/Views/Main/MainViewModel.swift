@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import Mixpanel
 
 @MainActor
 class MainViewModel: ObservableObject {
@@ -39,6 +40,10 @@ class MainViewModel: ObservableObject {
                     self?.myPerformances = performances
                     self?.isFetchingPerformances = false
                 }
+                let performanceCount = performances.filter({ $0.isCompleted }).count
+                let temp = performances.map({$0.isCompleted})
+                print("@LOG \(temp)")
+                Mixpanel.mainInstance().people.set(property: "PerformanceCount", to: performanceCount)
             }
         }
     }

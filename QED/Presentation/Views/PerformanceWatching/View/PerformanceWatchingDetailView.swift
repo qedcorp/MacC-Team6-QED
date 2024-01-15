@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  WatchingPerformanceWatchingDetailView.swift
 //  QED
 //
@@ -72,6 +72,19 @@ struct PerformanceWatchingDetailView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.viewModel.isAllFormationVisible = !true
                 }
+                MixpanelManager.shared.track(.watchPerformance(
+                    [
+                        "HowToCome": ComingPath.GeneratePerformanceYet.rawValue,
+                        "hasTabbedFixSettingBtn": "no"
+                    ]
+                ))
+            } else {
+                MixpanelManager.shared.track(.watchPerformance(
+                    [
+                        "HowToCome": ComingPath.TabPerformanceCard.rawValue,
+                        "hasTabbedFixSettingBtnf": "no"
+                    ]
+                ))
             }
         }
         .showModal(viewModel.isSettingSheetVisible) {
@@ -200,6 +213,12 @@ struct PerformanceWatchingDetailView: View {
                             viewModel.presentEditingModeToastMessage()
                         }
                     }
+                    MixpanelManager.shared.track(.watchPerformance(
+                        [
+                            "HowToCome": ComingPath.getPath(dependency.isAllFormationVisible).rawValue,
+                            "hasTabbedFixSettingBtnf": "yes"
+                        ]
+                    ))
                 } label: {
                     Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
                 }
@@ -356,5 +375,20 @@ struct PerformanceWatchingDetailView: View {
 
     private func onDismissAllFormationSheet() {
         viewModel.isAllFormationVisible = false
+    }
+}
+
+extension PerformanceWatchingDetailView {
+    enum ComingPath: String {
+        case GeneratePerformanceYet
+        case TabPerformanceCard
+
+        static func getPath(_ isAutoShowAllForamation: Bool) -> ComingPath {
+            if isAutoShowAllForamation {
+                return .GeneratePerformanceYet
+            } else {
+                return .TabPerformanceCard
+            }
+        }
     }
 }

@@ -30,6 +30,13 @@ struct PerformanceLoadingView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             if let performance = viewModel.performance {
                                 let dependency = FormationSettingViewDependency(performance: performance)
+                                MixpanelManager.shared.track(.tabFinishGenerateProjectBtn(
+                                    [
+                                        "UID": dependency.performance.fireStoreID,
+                                        "Music_Title": dependency.performance.music.title,
+                                        "HeadCount": "\(dependency.performance.headcount)"
+                                    ]
+                                ))
                                 path = [.formationSetting(dependency)]
                             }
                         }

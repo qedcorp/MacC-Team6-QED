@@ -11,10 +11,13 @@ struct ContentView: View {
         ZStack {
             if loginViewModel.isLogin || (try? KeyChainManager.shared.read(account: .id)) != nil {
                 MainView()
+                    .onAppear {
+                        MixpanelManager.shared.setUp()
+                        MixpanelManager.shared.track(.signInCompleted)
+                    }
                     .task {
                         _ = userUseCase.increaseLaunchingCount()
                     }
-
             } else {
                 AuthView(loginViewModel: loginViewModel)
                     .ignoresSafeArea()
