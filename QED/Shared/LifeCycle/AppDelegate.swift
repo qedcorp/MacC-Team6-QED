@@ -19,6 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+
         KakaoSDK.initSDK(appKey: "e754bd84082fb1b6473589df6c567b66")
         FirebaseApp.configure()
         injectDependencies()
