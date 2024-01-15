@@ -244,6 +244,8 @@
 		D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10122AE6BD8000A97CC2 /* Preset+.swift */; };
 		D4BB05532B069A2E0058A658 /* CGPoint+OperationOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */; };
 		D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16762B54FBBE00D361B5 /* Mixpanel */; };
+		D4BC167C2B550E4100D361B5 /* MixpanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167B2B550E4100D361B5 /* MixpanelManager.swift */; };
+		D4BC167E2B550FEE00D361B5 /* MixpanelAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167D2B550FEE00D361B5 /* MixpanelAccounts.swift */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -483,6 +485,8 @@
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
 		D4AF10122AE6BD8000A97CC2 /* Preset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+.swift"; sourceTree = "<group>"; };
 		D4BB05522B069A2E0058A658 /* CGPoint+OperationOverloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+OperationOverloading.swift"; sourceTree = "<group>"; };
+		D4BC167B2B550E4100D361B5 /* MixpanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixpanelManager.swift; sourceTree = "<group>"; };
+		D4BC167D2B550FEE00D361B5 /* MixpanelAccounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixpanelAccounts.swift; sourceTree = "<group>"; };
 		D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableViewController.swift; sourceTree = "<group>"; };
 		D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableView.swift; sourceTree = "<group>"; };
 		D4F19A322AF94A5600F2F013 /* ScrollObservableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollObservableCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1235,6 +1239,7 @@
 		D460EF992AE18DF700A5966A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D4BC167A2B550E3000D361B5 /* Analytics */,
 				D42AA1162AEC1AFA0053E2A8 /* DI */,
 				3AE701A52AE4450A00C48403 /* Extension */,
 				D460EF9A2AE18DF700A5966A /* LifeCycle */,
@@ -1497,6 +1502,15 @@
 				D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D4BC167A2B550E3000D361B5 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				D4BC167B2B550E4100D361B5 /* MixpanelManager.swift */,
+				D4BC167D2B550FEE00D361B5 /* MixpanelAccounts.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		D4F19A292AF8DE3300F2F013 /* ScrollObservable */ = {
@@ -1765,6 +1779,7 @@
 				D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */,
 				D460EFE22AE18DF700A5966A /* DotObjectView.swift in Sources */,
 				D42AA1152AEC121B0053E2A8 /* DefaultAuthUseCase.swift in Sources */,
+				D4BC167E2B550FEE00D361B5 /* MixpanelAccounts.swift in Sources */,
 				D460F00B2AE18DF700A5966A /* DefaultFormationUseCase.swift in Sources */,
 				3AC3251B2AFC1049002B6682 /* ToastContainerViewModel.swift in Sources */,
 				3AE701B22AE5C46000C48403 /* MultiSelectBoxView.swift in Sources */,
@@ -1840,6 +1855,7 @@
 				3AE701B82AE6594300C48403 /* PerformanceSettingTitleView.swift in Sources */,
 				D460F00A2AE18DF700A5966A /* DefaultFormationTransitionUseCase.swift in Sources */,
 				D460F0162AE18DF700A5966A /* RelativePosition.swift in Sources */,
+				D4BC167C2B550E4100D361B5 /* MixpanelManager.swift in Sources */,
 				D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */,
 				D460F03F2AE3FC8300A5966A /* FireStoreDTO+User.swift in Sources */,
 				D460EFDE2AE18DF700A5966A /* LocalPresetRepository.swift in Sources */,

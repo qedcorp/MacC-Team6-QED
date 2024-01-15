@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Mixpanel
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
@@ -29,7 +30,6 @@ struct MainView: View {
                 VStack(spacing: 34) {
                     Spacer()
                     buildHeaderView()
-//                    ContentBuildView(viewModel: viewModel)
                     buildContentView()
                 }
                 .padding(.bottom, 40)
@@ -88,6 +88,7 @@ struct MainView: View {
 
     private func buildMakeFormationButtonView() -> some View {
         Button {
+            MixpanelManager.shared.track(.tabGenerateProjectBtn)
             let dependency = PerformanceSettingViewDependency()
             path.append(.performanceSetting(dependency))
         } label: {
@@ -139,6 +140,7 @@ struct MainView: View {
             HStack(spacing: 10) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     Button {
+                        MixpanelManager.shared.track(.tabSomePerformance)
                         let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
                         path.append(nextPath)
                     } label: {
@@ -158,6 +160,7 @@ struct MainView: View {
 
     private func buildMyPageButton() -> some View {
         Button {
+            MixpanelManager.shared.track(.tabProfileBtn)
             let dependency = MyPageViewDependency()
             path.append(.myPage(dependency))
         } label: {
