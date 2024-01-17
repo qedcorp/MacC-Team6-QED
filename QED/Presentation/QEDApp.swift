@@ -3,6 +3,7 @@
 import Combine
 import FirebaseFirestore
 import SwiftUI
+import AirBridge
 
 @main
 struct QEDApp: App {

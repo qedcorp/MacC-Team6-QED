@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Mixpanel
+import AirBridge
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
@@ -38,6 +39,14 @@ struct MainView: View {
                 .padding(.bottom, 40)
                 buildMyPageButton()
                     .padding([.top, .trailing], 24)
+            }
+            .onOpenURL { url in
+                let isLoggedIn = try? KeyChainManager.shared.read(account: .id)
+                if url.scheme != "http" && url.scheme != "https" && isLoggedIn != nil {
+                    
+                    let dependency = MyPageViewDependency()
+                    path.append(.myPage(dependency))
+                }
             }
             .background(
                 buildBackgroundView()
