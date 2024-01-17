@@ -246,6 +246,7 @@
 		D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16762B54FBBE00D361B5 /* Mixpanel */; };
 		D4BC167C2B550E4100D361B5 /* MixpanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167B2B550E4100D361B5 /* MixpanelManager.swift */; };
 		D4BC167E2B550FEE00D361B5 /* MixpanelAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167D2B550FEE00D361B5 /* MixpanelAccounts.swift */; };
+		D4BC16812B57D0A700D361B5 /* AirBridge in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16802B57D0A700D361B5 /* AirBridge */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -509,6 +510,7 @@
 				D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */,
 				D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */,
 				3AD243B02B0E9A020084EC06 /* CachedAsyncImage in Frameworks */,
+				D4BC16812B57D0A700D361B5 /* AirBridge in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1561,6 +1563,7 @@
 				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
 				3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */,
 				D4BC16762B54FBBE00D361B5 /* Mixpanel */,
+				D4BC16802B57D0A700D361B5 /* AirBridge */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1620,6 +1623,7 @@
 				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+				D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -2248,6 +2252,14 @@
 				kind = branch;
 			};
 		};
+		D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ab180/airbridge-ios-sdk-deploy";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.35.0;
+			};
+		};
 		D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -2313,6 +2325,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
+		};
+		D4BC16802B57D0A700D361B5 /* AirBridge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */;
+			productName = AirBridge;
 		};
 		D4F19A2F2AF93B7A00F2F013 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
