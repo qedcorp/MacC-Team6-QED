@@ -25,13 +25,14 @@ final class DefaultUserStore: UserStore {
     @discardableResult
     func increaseLaunchingCount() -> Int {
         guard let myUser = myUser else { return 0 }
-        if myUser.launchingCount >= 0 {
-            myUser.launchingCount += 1
+        if myUser.launchingCount != nil,
+            myUser.launchingCount! >= 0 {
+            myUser.launchingCount! += 1
             try? KeyChainManager.shared.delete(account: .launchingCount)
-            try? KeyChainManager.shared.create(account: .launchingCount, data: String(myUser.launchingCount))
-            return myUser.launchingCount
+            try? KeyChainManager.shared.create(account: .launchingCount, data: String(myUser.launchingCount ?? 0))
+            return myUser.launchingCount!
         } else {
-            return myUser.launchingCount
+            return myUser.launchingCount!
         }
     }
 
@@ -39,6 +40,6 @@ final class DefaultUserStore: UserStore {
         guard let myUser = myUser else { return }
         myUser.launchingCount = -1
         try? KeyChainManager.shared.delete(account: .launchingCount)
-        try? KeyChainManager.shared.create(account: .launchingCount, data: String(myUser.launchingCount))
+        try? KeyChainManager.shared.create(account: .launchingCount, data: String(myUser.launchingCount ?? 0))
     }
 }

@@ -29,7 +29,7 @@ struct DefaultUserUseCase: UserUseCase {
     func increaseLaunchingCount() -> Int {
         userStore.increaseLaunchingCount()
         guard let user = userStore.myUser else { return 0 }
-        return user.launchingCount
+        return user.launchingCount!
     }
 
     func resetLaunchingCount() {

@@ -42,10 +42,19 @@ struct MainView: View {
             }
             .onOpenURL { url in
                 let isLoggedIn = try? KeyChainManager.shared.read(account: .id)
-                if url.scheme != "http" && url.scheme != "https" && isLoggedIn != nil {
-                    
-                    let dependency = MyPageViewDependency()
-                    path.append(.myPage(dependency))
+                if url.scheme == "fodi" && isLoggedIn != nil {
+                    let pathCompnents = url.pathComponents,
+                        funnel = pathCompnents[1],
+                        performanceId = pathCompnents[2]
+                    Task {
+                        do {
+                            let performance = try await viewModel.performanceUseCase.searchPerformance(performanceId)
+                            let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
+                            path.append(nextPath)
+                        } catch {
+                            print("@KIO error")
+                        }
+                    }
                 }
             }
             .background(

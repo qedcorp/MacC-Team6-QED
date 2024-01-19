@@ -24,10 +24,22 @@ extension Performance: FireStoreEntityConvertable {
 
     convenience init(jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8) else {
-            self.init(id: "", author: User(id: "failure"), music: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5)
+            self.init(
+                id: "",
+                author: User(
+                    id: "failure"
+                ),
+                music: Music(
+                    id: "failure",
+                    title: "failure",
+                    artistName: "failure"
+                ),
+                headcount: 5
+            )
             return
         }
         do {
+            print("@LOG \(String(data: jsonData, encoding: .utf8))")
             let performance = try JSONDecoder().decode(Performance.self, from: jsonData)
             self.init(
                 id: performance.id,
