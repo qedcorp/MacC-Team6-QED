@@ -8,8 +8,8 @@
 	</array>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:fodi.airbridge.io</string>
-		<string>applinks:fodi.deeplink.page</string>
+		<string>applinks:www.formationdirector.com</string>
+		<string>webcredentials:www.formationdirector.com</string>
 	</array>
 </dict>
 </plist>

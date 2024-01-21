@@ -95,7 +95,6 @@ final class FireStoreManager: RemoteManager {
         guard let result = try? await fireStroeDB.collection(collectionName).document(key).getDocument().data() else {
             return .failure(FireStoreError.didntFindDoucument)
         }
-        print(result)
         // 이때 날라온 데이터는 [String: Any] 타입인데 이를 먼저 fetchvalue로 DTO형태로 바꾸고
         // 이에 다시 entity를 부르면서 실제 domain의 entity로 바꾸는 작업
         let dataResult = dataDTO.fireStoreEntity.fetchValue(id: key, data: result).entity

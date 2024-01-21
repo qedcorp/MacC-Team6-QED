@@ -39,7 +39,6 @@ extension Performance: FireStoreEntityConvertable {
             return
         }
         do {
-            print("@LOG \(String(data: jsonData, encoding: .utf8))")
             let performance = try JSONDecoder().decode(Performance.self, from: jsonData)
             self.init(
                 id: performance.id,

@@ -26,9 +26,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         injectDependencies()
         AirBridge.getInstance("290e6069b75142ca9ddbf24d6661cb56", appName: "fodi", withLaunchOptions: launchOptions)
 
-//        AirBridge.deeplink()?.setDeeplinkCallback({ deeplink in
-//            NSLog("DeeplinkCallback : %@", deeplink)
-//        })
         return true
     }
 

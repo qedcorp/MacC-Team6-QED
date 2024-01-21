@@ -11,14 +11,14 @@ import AirBridge
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
-    @State private var isSendFeedbackOn = true
+    @State private var isSendFeedbackOn = false
     @Environment(\.openURL) private var openURL
     private let feedbackURL = "https://forms.gle/1LTQh5baqV2irxq99"
 
     @State private var path: [PresentType] = [] {
         didSet {
             if path == [] {
-                DispatchQueue.global().async {
+                DispatchQueue.main.async {
                     viewModel.fetchMyRecentPerformances()
                 }
                 return
@@ -42,17 +42,26 @@ struct MainView: View {
             }
             .onOpenURL { url in
                 let isLoggedIn = try? KeyChainManager.shared.read(account: .id)
-                if url.scheme == "fodi" && isLoggedIn != nil {
-                    let pathCompnents = url.pathComponents,
-                        funnel = pathCompnents[1],
-                        performanceId = pathCompnents[2]
+                print(url.getQueryParameters())
+                let performanceId = url.getQueryParameters()["pId"]
+                if let pId = performanceId,
+                   isLoggedIn != nil {
+                    path = []
                     Task {
                         do {
-                            let performance = try await viewModel.performanceUseCase.searchPerformance(performanceId)
+                            let performance = try await viewModel.performanceUseCase.searchPerformance(pId)
+
+                            if performance.id == "" { return }
+                            if !viewModel.myPerformances.contains(where: { $0.id == pId }) {
+                                _ = try await viewModel.performanceUseCase.createPerformance(performance: performance)
+                            }
                             let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
-                            path.append(nextPath)
+                            DispatchQueue.main.async {
+                                path.append(nextPath)
+                            }
+
                         } catch {
-                            print("@KIO error")
+                            print("@Search error")
                         }
                     }
                 }
@@ -68,10 +77,11 @@ struct MainView: View {
                     }
             }
             .onAppear {
+                viewModel.fetchMyRecentPerformances()
                 Task {
                     let me = try? await viewModel.userUseCase.getMe()
                     let launchingCount = me?.launchingCount ?? 1
-                    if launchingCount == 2 || launchingCount % 3 == 0 {
+                    if (launchingCount == 2 || launchingCount % 3 == 0) && launchingCount > 0 {
                         isSendFeedbackOn = true
                     }
                 }
@@ -86,9 +96,6 @@ struct MainView: View {
             }
         }) {
             Text("누구나 FODI를 바꾸어 나갈 수 있어요! \n\n FODI를 개선하는 기회에 참여하고\n 더 쉽고 편하게 동선표를 제작해보세요:)")
-        }
-        .task {
-            viewModel.fetchMyRecentPerformances()
         }
     }
 
