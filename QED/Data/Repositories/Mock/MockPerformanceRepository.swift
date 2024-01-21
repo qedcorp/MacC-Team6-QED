@@ -3,6 +3,7 @@
 import Foundation
 
 class MockPerformanceRepository: PerformanceRepository {
+
     private var performances: [Performance] = []
 
     func createPerformance(_ performance: Performance) async throws -> Performance {
@@ -25,6 +26,10 @@ class MockPerformanceRepository: PerformanceRepository {
 
     func removePerformance(_ performanceID: String) async throws -> Bool {
         return true
+    }
+
+    func searchPerformance(_ performanceID: String) async throws -> Performance {
+        return Performance(jsonString: "asdsad")
     }
 }
 

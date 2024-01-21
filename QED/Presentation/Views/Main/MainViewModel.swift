@@ -7,15 +7,21 @@
 
 import Combine
 import Foundation
+import Mixpanel
 
 @MainActor
 class MainViewModel: ObservableObject {
     let performanceUseCase: PerformanceUseCase
+    let userUseCase: UserUseCase
     @Published private(set) var isFetchingPerformances = true
     @Published private(set) var myPerformances: [Performance] = []
 
-    init(performanceUseCase: PerformanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self)) {
+    init(
+        performanceUseCase: PerformanceUseCase = DIContainer.shared.resolver.resolve(PerformanceUseCase.self),
+        userUseCase: UserUseCase = DIContainer.shared.resolver.resolve(UserUseCase.self)
+    ) {
         self.performanceUseCase = performanceUseCase
+        self.userUseCase = userUseCase
     }
 
     var myRecentPerformances: [Performance] {
@@ -34,6 +40,9 @@ class MainViewModel: ObservableObject {
                     self?.myPerformances = performances
                     self?.isFetchingPerformances = false
                 }
+                let performanceCount = performances.filter({ $0.isCompleted }).count
+                let temp = performances.map({$0.isCompleted})
+                Mixpanel.mainInstance().people.set(property: "PerformanceCount", to: performanceCount)
             }
         }
     }

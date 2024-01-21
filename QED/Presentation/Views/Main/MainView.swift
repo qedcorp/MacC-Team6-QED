@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import Mixpanel
+import AirBridge
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
+    @State private var isSendFeedbackOn = false
+    @Environment(\.openURL) private var openURL
+    private let feedbackURL = "https://forms.gle/1LTQh5baqV2irxq99"
 
     @State private var path: [PresentType] = [] {
         didSet {
             if path == [] {
-                DispatchQueue.global().async {
+                DispatchQueue.main.async {
                     viewModel.fetchMyRecentPerformances()
                 }
                 return
@@ -29,12 +34,37 @@ struct MainView: View {
                 VStack(spacing: 34) {
                     Spacer()
                     buildHeaderView()
-//                    ContentBuildView(viewModel: viewModel)
                     buildContentView()
                 }
                 .padding(.bottom, 40)
                 buildMyPageButton()
                     .padding([.top, .trailing], 24)
+            }
+            .onOpenURL { url in
+                let isLoggedIn = try? KeyChainManager.shared.read(account: .id)
+                print(url.getQueryParameters())
+                let performanceId = url.getQueryParameters()["pId"]
+                if let pId = performanceId,
+                   isLoggedIn != nil {
+                    path = []
+                    Task {
+                        do {
+                            let performance = try await viewModel.performanceUseCase.searchPerformance(pId)
+
+                            if performance.id == "" { return }
+                            if !viewModel.myPerformances.contains(where: { $0.id == pId }) {
+                                _ = try await viewModel.performanceUseCase.createPerformance(performance: performance)
+                            }
+                            let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
+                            DispatchQueue.main.async {
+                                path.append(nextPath)
+                            }
+
+                        } catch {
+                            print("@Search error")
+                        }
+                    }
+                }
             }
             .background(
                 buildBackgroundView()
@@ -46,10 +76,34 @@ struct MainView: View {
                         viewModel.fetchMyRecentPerformances()
                     }
             }
+            .onAppear {
+                viewModel.fetchMyRecentPerformances()
+                Task {
+                    let me = try? await viewModel.userUseCase.getMe()
+                    let launchingCount = me?.launchingCount ?? 1
+                    if (launchingCount == 2 || launchingCount % 3 == 0) && launchingCount > 0 {
+                        isSendFeedbackOn = true
+                    }
+                }
+            }
         }
-        .task {
-            viewModel.fetchMyRecentPerformances()
+        .alert("개선의견 남기러가기", isPresented: $isSendFeedbackOn, actions: {
+            Button("취소", role: .cancel) { isSendFeedbackOn = false }
+            Button("확인", role: .destructive) {
+                isSendFeedbackOn = false
+                viewModel.userUseCase.resetLaunchingCount()
+                openURL(feedbackURL)
+            }
+        }) {
+            Text("누구나 FODI를 바꾸어 나갈 수 있어요! \n\n FODI를 개선하는 기회에 참여하고\n 더 쉽고 편하게 동선표를 제작해보세요:)")
         }
+    }
+
+    private func openURL(_ url: String) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        openURL(url)
     }
 
     private func buildHeaderView() -> some View {
@@ -88,6 +142,7 @@ struct MainView: View {
 
     private func buildMakeFormationButtonView() -> some View {
         Button {
+            MixpanelManager.shared.track(.tabGenerateProjectBtn)
             let dependency = PerformanceSettingViewDependency()
             path.append(.performanceSetting(dependency))
         } label: {
@@ -139,6 +194,7 @@ struct MainView: View {
             HStack(spacing: 10) {
                 ForEach(viewModel.myRecentPerformances) { performance in
                     Button {
+                        MixpanelManager.shared.track(.tabSomePerformance)
                         let nextPath = PerformanceRouter(performance: performance).getBranchedPath()
                         path.append(nextPath)
                     } label: {
@@ -158,6 +214,7 @@ struct MainView: View {
 
     private func buildMyPageButton() -> some View {
         Button {
+            MixpanelManager.shared.track(.tabProfileBtn)
             let dependency = MyPageViewDependency()
             path.append(.myPage(dependency))
         } label: {

@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  WatchingPerformanceWatchingDetailView.swift
 //  QED
 //
@@ -9,12 +9,13 @@ import SwiftUI
 
 struct PerformanceWatchingDetailView: View {
     typealias PlayBarConstants = ScrollObservableView.Constants
-
+    
     let dependency: PerformanceWatchingViewDependency
+    @State var isShowingSharedAlert: Bool = false
     @Binding var path: [PresentType]
     @StateObject private var viewModel = PerformanceWatchingDetailViewModel()
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -54,12 +55,17 @@ struct PerformanceWatchingDetailView: View {
             buildZoomableMovementEditingView()
             : nil
         )
+        .overlay(
+            isShowingSharedAlert ?
+            buildSharedAlertView()
+            : nil
+        )
         .navigationBarBackButtonHidden()
-        .toolbar(viewModel.isNavigationBarHidden ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             buildLeftItem()
             buildTitleItem()
-            buildRightItem()
+            buildRightSharedItem()
+            buildRightFixItem()
         }
         .task {
             viewModel.setupWithDependency(dependency)
@@ -72,6 +78,19 @@ struct PerformanceWatchingDetailView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.viewModel.isAllFormationVisible = !true
                 }
+                MixpanelManager.shared.track(.watchPerformance(
+                    [
+                        "HowToCome": ComingPath.GeneratePerformanceYet.rawValue,
+                        "hasTabbedFixSettingBtn": "no"
+                    ]
+                ))
+            } else {
+                MixpanelManager.shared.track(.watchPerformance(
+                    [
+                        "HowToCome": ComingPath.TabPerformanceCard.rawValue,
+                        "hasTabbedFixSettingBtnf": "no"
+                    ]
+                ))
             }
         }
         .showModal(viewModel.isSettingSheetVisible) {
@@ -88,7 +107,7 @@ struct PerformanceWatchingDetailView: View {
             }
         }
     }
-
+    
     private func buildMovementEditingView(
         controller: ObjectMovementAssigningViewController,
         width: CGFloat
@@ -109,7 +128,7 @@ struct PerformanceWatchingDetailView: View {
         }
         .frame(width: width, height: height)
     }
-
+    
     private func buildZoomableMovementEditingView() -> some View {
         ZStack(alignment: .bottom) {
             GeometryReader { geometry in
@@ -124,7 +143,7 @@ struct PerformanceWatchingDetailView: View {
                 .padding()
         }
     }
-
+    
     private func buildHistoryControlsView() -> some View {
         HStack {
             HistoryControlsView(
@@ -140,7 +159,21 @@ struct PerformanceWatchingDetailView: View {
             }
         }
     }
-
+    
+    private func buildSharedAlertView() -> some View {
+        ZStack {
+            Color.build(hex: .modalBackground)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    isShowingSharedAlert = false
+                }
+            if let performance = viewModel.performance {
+                SharedAlert(pId: viewModel.performance?.id ?? "",music: performance.music)
+                    .frame(width: 342, height: 226)
+            }
+        }
+    }
+    
     private func buildObjectPlayView() -> some View {
         ZStack {
             Image(viewModel.isLineVisible ? "stage" : "stage_nongrid")
@@ -159,7 +192,7 @@ struct PerformanceWatchingDetailView: View {
         }
         .frame(height: 216)
     }
-
+    
     private func buildMemo() -> some View {
         return ZStack {
             RoundedRectangle(cornerRadius: 6)
@@ -169,7 +202,7 @@ struct PerformanceWatchingDetailView: View {
                     RoundedRectangle(cornerRadius: 5)
                         .strokeBorder(Gradient.strokeGlass3, lineWidth: 1)
                 )
-
+            
             Text(viewModel.currentMemo)
                 .foregroundStyle(Color.monoWhite3)
                 .font(.title3)
@@ -177,7 +210,7 @@ struct PerformanceWatchingDetailView: View {
                 .lineLimit(1)
         }
     }
-
+    
     private func buildPlayerView(performance: Performance) -> some View {
         ZStack {
             ScrollObservableView(performance: performance, action: viewModel.action)
@@ -185,7 +218,7 @@ struct PerformanceWatchingDetailView: View {
         }
         .padding(.bottom)
     }
-
+    
     private func buildTabBar(geometry: GeometryProxy) -> some View {
         ZStack {
             HStack {
@@ -200,6 +233,12 @@ struct PerformanceWatchingDetailView: View {
                             viewModel.presentEditingModeToastMessage()
                         }
                     }
+                    MixpanelManager.shared.track(.watchPerformance(
+                        [
+                            "HowToCome": ComingPath.getPath(dependency.isAllFormationVisible).rawValue,
+                            "hasTabbedFixSettingBtnf": "yes"
+                        ]
+                    ))
                 } label: {
                     Image(viewModel.isTransitionEditable ? "fixsetting_on" : "fixsetting_off")
                 }
@@ -225,7 +264,7 @@ struct PerformanceWatchingDetailView: View {
         .frame(height: 77)
         .background(Color.monoNormal1)
     }
-
+    
     private func buildAllFormationButton() -> some View {
         Button {
             viewModel.isAllFormationVisible = true
@@ -233,7 +272,7 @@ struct PerformanceWatchingDetailView: View {
             Image("showAllFormationButton")
         }
     }
-
+    
     private func buildPlayButton() -> some View {
         Button {
             if !viewModel.isPlaying {
@@ -243,7 +282,7 @@ struct PerformanceWatchingDetailView: View {
             Image("play_on")
         }
     }
-
+    
     private func buildPuaseButton() -> some View {
         Button {
             if viewModel.isPlaying {
@@ -253,7 +292,7 @@ struct PerformanceWatchingDetailView: View {
             Image("play_off")
         }
     }
-
+    
     private func buildSettingSheetView() -> some View {
         VStack(spacing: 14) {
             VStack(spacing: 14) {
@@ -284,7 +323,7 @@ struct PerformanceWatchingDetailView: View {
         .presentationDetents([.fraction(0.35)])
         .presentationDragIndicator(.visible)
     }
-
+    
     private func buildSectionView(label: String, isOn: Binding<Bool>) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -301,7 +340,7 @@ struct PerformanceWatchingDetailView: View {
             .padding(.horizontal, 20)
         }
     }
-
+    
     private func buildLeftItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarLeading) {
             Button {
@@ -313,19 +352,31 @@ struct PerformanceWatchingDetailView: View {
                     Text("홈")
                 }
                 .foregroundColor(Color.blueLight3)
+                .overlay(
+                    isShowingSharedAlert ?
+                    Color.build(hex: .modalBackground) :
+                    Color.clear
+                )
+
             }
         }
     }
-
+    
     private func buildTitleItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .principal) {
             Text("대형보기")
                 .foregroundStyle(.white)
                 .font(.body.weight(.bold))
+                .overlay(
+                    isShowingSharedAlert ?
+                    Color.build(hex: .modalBackground) :
+                    Color.clear
+                )
+
         }
     }
-
-    private func buildRightItem() -> ToolbarItem<(), some View> {
+    
+    private func buildRightFixItem() -> ToolbarItem<(), some View> {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button("수정") {
                 guard let performance = viewModel.performance,
@@ -339,22 +390,62 @@ struct PerformanceWatchingDetailView: View {
                 )
                 path.append(.formationSetting(dependency))
             }
+            .overlay(
+                isShowingSharedAlert ?
+                Color.build(hex: .modalBackground) :
+                Color.clear
+            )
+
         }
     }
+    
+    private func buildRightSharedItem() -> ToolbarItem<(), some View> {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                animate(.interpolatingSpring) {
+                    isShowingSharedAlert = true
+                }
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+                    .overlay(
+                        isShowingSharedAlert ?
+                        Color.build(hex: .modalBackground) :
+                        Color.clear
+                    )
 
+            }
+        }
+    }
+    
+    
     private func buildBackgroundView() -> some View {
         Image("background")
             .resizable()
             .ignoresSafeArea()
     }
-
+    
     private func onDismissSettingSheet() {
         withAnimation {
             viewModel.isSettingSheetVisible = false
         }
     }
-
+    
     private func onDismissAllFormationSheet() {
         viewModel.isAllFormationVisible = false
+    }
+}
+
+extension PerformanceWatchingDetailView {
+    enum ComingPath: String {
+        case GeneratePerformanceYet
+        case TabPerformanceCard
+        
+        static func getPath(_ isAutoShowAllForamation: Bool) -> ComingPath {
+            if isAutoShowAllForamation {
+                return .GeneratePerformanceYet
+            } else {
+                return .TabPerformanceCard
+            }
+        }
     }
 }

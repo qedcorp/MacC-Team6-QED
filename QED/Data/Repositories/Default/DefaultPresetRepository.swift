@@ -64,10 +64,9 @@ final class DefaultPresetRepository: PresetRepository {
             case .success(let success):
                 return success
             default:
-                print("1")
+                print("error")
             }
         } catch {
-            print("2")
         }
         return [Preset(jsonString: "3")]
     }

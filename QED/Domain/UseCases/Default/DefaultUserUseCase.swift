@@ -25,4 +25,15 @@ struct DefaultUserUseCase: UserUseCase {
         try KeyChainManager.shared.create(account: .name, data: nickname)
         return user
     }
+
+    func increaseLaunchingCount() -> Int {
+        userStore.increaseLaunchingCount()
+        guard let user = userStore.myUser else { return 0 }
+        return user.launchingCount!
+    }
+
+    func resetLaunchingCount() {
+        userStore.resetLaunchingCount()
+    }
+
 }

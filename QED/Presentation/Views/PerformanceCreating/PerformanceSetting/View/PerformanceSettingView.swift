@@ -173,7 +173,7 @@ struct PerformanceSettingView: View {
                 }
             }
     }
-
+    
     var inputTitleLabelOpend: some View {
         Text("프로젝트 제목을 입력하세요")
             .disclosureGroupLabelStyle()

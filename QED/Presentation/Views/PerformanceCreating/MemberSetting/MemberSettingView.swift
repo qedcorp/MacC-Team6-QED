@@ -60,6 +60,7 @@ struct MemberSettingView: View {
                     }
                     Task {
                         try await viewModel.performanceSettingManager?.requestUpdate()
+                        MixpanelManager.shared.track(.tabFinishPerformanceBtn)
                         path = [nextPath]
                     }
                 }

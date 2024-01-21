@@ -67,12 +67,21 @@ struct FormationSettingView: View {
                         )
                         Task {
                             try await viewModel.performanceSettingManager?.requestUpdate()
+                            MixpanelManager.shared.track(.tabSetMemberBtn)
                             path.append(.memberSetting(dependency))
                         }
                     }
                     .disabled(!viewModel.isEnabledToSave)
                 }
             }
+        }
+        .onAppear {
+            MixpanelManager.shared.track(.makeProject(
+                [
+                    "Exist_Lyrics": "false",
+                    "Tab_Preset_Once": "false"
+                ]
+            ))
         }
         .task {
             viewModel.setupWithDependency(dependency)
@@ -95,6 +104,12 @@ struct FormationSettingView: View {
 
     private func buildMemoButtonView() -> some View {
         Button {
+            MixpanelManager.shared.track(.makeProject(
+                [
+                    "Exist_Lyrics": "true",
+                    "Tab_Preset_Once": "false"
+                ]
+            ))
             viewModel.presentMemoForm()
         } label: {
             MemoButtonView(memo: viewModel.currentFormation?.memo, isHighlighted: !viewModel.hasMemoBeenInputted)

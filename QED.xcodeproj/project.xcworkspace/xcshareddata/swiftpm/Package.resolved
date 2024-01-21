@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "airbridge-ios-sdk-deploy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ab180/airbridge-ios-sdk-deploy",
+      "state" : {
+        "revision" : "f87a61e6166e2a95c53d24a9288a5b92ecdcc0d2",
+        "version" : "1.35.0"
+      }
+    },
+    {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
@@ -124,6 +133,15 @@
       "state" : {
         "revision" : "0706abcc6b0bd9cedfbb015ba840e4a780b5159b",
         "version" : "1.22.2"
+      }
+    },
+    {
+      "identity" : "mixpanel-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mixpanel/mixpanel-swift",
+      "state" : {
+        "branch" : "master",
+        "revision" : "488edd81fdaa8ccc4ef1ede5543d6d95ae85b3c9"
       }
     },
     {
