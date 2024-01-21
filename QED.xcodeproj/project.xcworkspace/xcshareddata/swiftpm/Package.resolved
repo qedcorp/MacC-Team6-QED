@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "airbridge-ios-sdk-deploy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ab180/airbridge-ios-sdk-deploy",
+      "state" : {
+        "revision" : "f87a61e6166e2a95c53d24a9288a5b92ecdcc0d2",
+        "version" : "1.35.0"
+      }
+    },
+    {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",

@@ -7,7 +7,7 @@ class User: Equatable, Codable {
     var email: String?
     var nickname: String?
     var isNotificationOn: Bool?
-    var launchingCount: Int
+    var launchingCount: Int?
 
     init(id: String = "",
          email: String? = nil,

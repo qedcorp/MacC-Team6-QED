@@ -145,6 +145,10 @@
 		D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */; };
 		D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */; };
 		D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */; };
+		D43CD69F2B5A5B51007F2EFD /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = D43CD69E2B5A5B51007F2EFD /* KakaoSDK */; };
+		D43CD6A22B5A700F007F2EFD /* SharedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CD6A12B5A700F007F2EFD /* SharedAlert.swift */; };
+		D43CD6A42B5A76F9007F2EFD /* KakaoSharedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CD6A32B5A76F9007F2EFD /* KakaoSharedViewController.swift */; };
+		D43CD6A72B5A774D007F2EFD /* KakaoSharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CD6A62B5A774D007F2EFD /* KakaoSharedView.swift */; };
 		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
 		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
@@ -238,6 +242,7 @@
 		D48797B42AF7D111004EFEDA /* PlayableConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B32AF7D111004EFEDA /* PlayableConstants.swift */; };
 		D48797B62AF7D218004EFEDA /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48797B52AF7D218004EFEDA /* Dictionary+.swift */; };
 		D49B04E72AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */; };
+		D49E72202B5D387B00F28607 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E721F2B5D387B00F28607 /* URL+.swift */; };
 		D4AF10082AE68DC800A97CC2 /* PlayTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */; };
 		D4AF100D2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */; };
 		D4AF10112AE6BD3F00A97CC2 /* DefaultPresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */; };
@@ -246,6 +251,7 @@
 		D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16762B54FBBE00D361B5 /* Mixpanel */; };
 		D4BC167C2B550E4100D361B5 /* MixpanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167B2B550E4100D361B5 /* MixpanelManager.swift */; };
 		D4BC167E2B550FEE00D361B5 /* MixpanelAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167D2B550FEE00D361B5 /* MixpanelAccounts.swift */; };
+		D4BC16812B57D0A700D361B5 /* AirBridge in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16802B57D0A700D361B5 /* AirBridge */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -391,6 +397,9 @@
 		D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableViewController.swift; sourceTree = "<group>"; };
 		D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPlayableView.swift; sourceTree = "<group>"; };
 		D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToPointCalculator.swift; sourceTree = "<group>"; };
+		D43CD6A12B5A700F007F2EFD /* SharedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedAlert.swift; sourceTree = "<group>"; };
+		D43CD6A32B5A76F9007F2EFD /* KakaoSharedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSharedViewController.swift; sourceTree = "<group>"; };
+		D43CD6A62B5A774D007F2EFD /* KakaoSharedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSharedView.swift; sourceTree = "<group>"; };
 		D460EE192ADEC39700A5966A /* QED.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QED.entitlements; sourceTree = "<group>"; };
 		D460EF662AE18DF700A5966A /* AuthRepository+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthRepository+.swift"; sourceTree = "<group>"; };
 		D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGoogleAuthRepository.swift; sourceTree = "<group>"; };
@@ -480,6 +489,7 @@
 		D48797B32AF7D111004EFEDA /* PlayableConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableConstants.swift; sourceTree = "<group>"; };
 		D48797B52AF7D218004EFEDA /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
 		D49B04E62AFA389A00AD38A9 /* PerformanceWatchingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceWatchingDetailViewModel.swift; sourceTree = "<group>"; };
+		D49E721F2B5D387B00F28607 /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 		D4AF10072AE68DC800A97CC2 /* PlayTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimer.swift; sourceTree = "<group>"; };
 		D4AF100C2AE6BBCA00A97CC2 /* FireStoreDTO+Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStoreDTO+Preset.swift"; sourceTree = "<group>"; };
 		D4AF10102AE6BD3F00A97CC2 /* DefaultPresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPresetRepository.swift; sourceTree = "<group>"; };
@@ -509,6 +519,8 @@
 				D460F0302AE24EC300A5966A /* FirebaseFirestoreSwift in Frameworks */,
 				D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */,
 				3AD243B02B0E9A020084EC06 /* CachedAsyncImage in Frameworks */,
+				D4BC16812B57D0A700D361B5 /* AirBridge in Frameworks */,
+				D43CD69F2B5A5B51007F2EFD /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +650,7 @@
 		3AB872512AEAA478008FF1CB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D43CD6A02B5A6FFF007F2EFD /* AlertComponent */,
 				3AD243B52B0F38CC0084EC06 /* AlertableBackButton */,
 				3AC325032AF40BDB002B6682 /* MemberInfoEditing */,
 				A9EBC2312B04AEA900B812B4 /* FodiProgress */,
@@ -656,6 +669,7 @@
 				5159A3872AEBEC1A004D304E /* DanceFormation */,
 				3AE701AA2AE58F6600C48403 /* MemoButton */,
 				3A533A392AEFAE25007E76F7 /* Zoomable */,
+				D43CD6A52B5A7701007F2EFD /* KakaoShared */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -737,6 +751,7 @@
 				3A5328B42AEBBDEC0051A09C /* Array+Safe.swift */,
 				A9DB97372AF2746400703732 /* Color+.swift */,
 				D48797B52AF7D218004EFEDA /* Dictionary+.swift */,
+				D49E721F2B5D387B00F28607 /* URL+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1040,6 +1055,23 @@
 				D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */,
 			);
 			path = PathPointCalculator;
+			sourceTree = "<group>";
+		};
+		D43CD6A02B5A6FFF007F2EFD /* AlertComponent */ = {
+			isa = PBXGroup;
+			children = (
+				D43CD6A12B5A700F007F2EFD /* SharedAlert.swift */,
+			);
+			path = AlertComponent;
+			sourceTree = "<group>";
+		};
+		D43CD6A52B5A7701007F2EFD /* KakaoShared */ = {
+			isa = PBXGroup;
+			children = (
+				D43CD6A32B5A76F9007F2EFD /* KakaoSharedViewController.swift */,
+				D43CD6A62B5A774D007F2EFD /* KakaoSharedView.swift */,
+			);
+			path = KakaoShared;
 			sourceTree = "<group>";
 		};
 		D460EF602AE18DF700A5966A /* Data */ = {
@@ -1561,6 +1593,8 @@
 				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
 				3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */,
 				D4BC16762B54FBBE00D361B5 /* Mixpanel */,
+				D4BC16802B57D0A700D361B5 /* AirBridge */,
+				D43CD69E2B5A5B51007F2EFD /* KakaoSDK */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1620,6 +1654,7 @@
 				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+				D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -1703,6 +1738,7 @@
 				D460F04D2AE432BA00A5966A /* User+.swift in Sources */,
 				D4AF10132AE6BD8000A97CC2 /* Preset+.swift in Sources */,
 				D41F1DBF2B186D69001C645C /* View+.swift in Sources */,
+				D49E72202B5D387B00F28607 /* URL+.swift in Sources */,
 				A974EA1D2AE440C600302C9D /* PerformanceSettingViewModel.swift in Sources */,
 				5136BFA12ADE7F5C00882B6B /* MainView.swift in Sources */,
 				5136BFAD2ADFB0B100882B6B /* MyPageView.swift in Sources */,
@@ -1810,6 +1846,7 @@
 				D460F03D2AE3FC6E00A5966A /* FireStoreDTO+NameSpace.swift in Sources */,
 				D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */,
 				51A26C302AEEDE1E00B718A3 /* PerformanceWatchingListViewModel.swift in Sources */,
+				D43CD6A22B5A700F007F2EFD /* SharedAlert.swift in Sources */,
 				A9DB973A2AF2751200703732 /* CustomFont.swift in Sources */,
 				D460F01B2AE18DF700A5966A /* Formation.swift in Sources */,
 				3AD243B22B0E9AC90084EC06 /* URLCache+image.swift in Sources */,
@@ -1824,8 +1861,10 @@
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */,
 				3AE701C42AE66AAA00C48403 /* ObjectColorAssigningView.swift in Sources */,
+				D43CD6A42B5A76F9007F2EFD /* KakaoSharedViewController.swift in Sources */,
 				3AC3250D2AFA7473002B6682 /* CGPoint+.swift in Sources */,
 				3AF617D02AE1961D0052FC90 /* FormationSettingView.swift in Sources */,
+				D43CD6A72B5A774D007F2EFD /* KakaoSharedView.swift in Sources */,
 				D460F0172AE18DF700A5966A /* Performance.swift in Sources */,
 				3A00881B2B05306C00C9C643 /* PerformanceLoadingViewDependency.swift in Sources */,
 				D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */,
@@ -2248,6 +2287,14 @@
 				kind = branch;
 			};
 		};
+		D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ab180/airbridge-ios-sdk-deploy";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.35.0;
+			};
+		};
 		D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -2284,6 +2331,11 @@
 			package = D413337C2ADE8CA800BDE1BB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
 		};
+		D43CD69E2B5A5B51007F2EFD /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
 		D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
@@ -2313,6 +2365,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
+		};
+		D4BC16802B57D0A700D361B5 /* AirBridge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */;
+			productName = AirBridge;
 		};
 		D4F19A2F2AF93B7A00F2F013 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
