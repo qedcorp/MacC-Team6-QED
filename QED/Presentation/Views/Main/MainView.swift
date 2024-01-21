@@ -10,7 +10,7 @@ import Mixpanel
 import AirBridge
 
 struct MainView: View {
-    
+
     @StateObject private var viewModel = MainViewModel()
     @State private var isSendFeedbackOn = false
     @Environment(\.openURL) private var openURL
