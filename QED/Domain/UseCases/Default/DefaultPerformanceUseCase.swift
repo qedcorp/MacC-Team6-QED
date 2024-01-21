@@ -3,6 +3,7 @@
 import Foundation
 
 struct DefaultPerformanceUseCase: PerformanceUseCase {
+
     let performanceRepository: PerformanceRepository
     let userStore: UserStore
 
@@ -20,5 +21,9 @@ struct DefaultPerformanceUseCase: PerformanceUseCase {
 
     func removePerformance(_ performanceID: String) async throws -> Bool {
         try await performanceRepository.removePerformance(performanceID)
+    }
+
+    func searchPerformance(_ performanceID: String) async throws -> Performance {
+        try await performanceRepository.searchPerformance(performanceID)
     }
 }

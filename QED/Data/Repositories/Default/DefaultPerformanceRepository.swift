@@ -81,4 +81,21 @@ final class DefaultPerformanceRepository: PerformanceRepository {
         }
         return false
     }
+    
+    func searchPerformance(_ performanceID: String) async throws -> Performance {
+        do {
+            let createResult = try await remoteManager.read(at: "PERFORMANCE",
+                                                            mockData: Performance(id: "", author: User(id: "failure"), music: Music(id: "failure", title: "failure", artistName: "failure"), headcount: 5),
+                                                            pk: performanceID)
+            switch createResult {
+            case .success(let success):
+                return success
+            case .failure(let error):
+                throw error
+            }
+        } catch {
+            print("Create Performance Error")
+        }
+        return Performance(jsonString: "Create Performance Error")
+    }
 }

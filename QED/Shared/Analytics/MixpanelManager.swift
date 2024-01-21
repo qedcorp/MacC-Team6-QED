@@ -10,14 +10,8 @@ import Mixpanel
 struct MixpanelManager {
 
     static let shared = MixpanelManager()
-    private let mixpanel = Mixpanel.mainInstance()
-    var me: People {
-        mixpanel.people
-    }
-
     private init() {
         Mixpanel.initialize(token: "ab825a0598ae9fcd1ec1db63e594b1d3", trackAutomaticEvents: true)
-        Mixpanel.mainInstance().loggingEnabled = true
     }
 
     func track(_ mixpanelAccount: MixpanelAccounts) {
