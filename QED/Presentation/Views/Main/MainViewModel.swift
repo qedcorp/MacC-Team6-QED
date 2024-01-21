@@ -42,7 +42,6 @@ class MainViewModel: ObservableObject {
                 }
                 let performanceCount = performances.filter({ $0.isCompleted }).count
                 let temp = performances.map({$0.isCompleted})
-                print("@LOG \(temp)")
                 Mixpanel.mainInstance().people.set(property: "PerformanceCount", to: performanceCount)
             }
         }

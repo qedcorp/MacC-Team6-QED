@@ -3,6 +3,11 @@
 import Combine
 import FirebaseFirestore
 import SwiftUI
+import AirBridge
+import KakaoSDKCommon
+import SafariServices
+import KakaoSDKTemplate
+import KakaoSDKShare
 
 @main
 struct QEDApp: App {

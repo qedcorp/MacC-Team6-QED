@@ -7,4 +7,5 @@ protocol PerformanceUseCase {
     func getMyRecentPerformances() async throws -> [Performance]
     func updatePerformance(_ performance: Performance) async throws
     func removePerformance(_ performanceID: String) async throws -> Bool
+    func searchPerformance(_ performanceID: String) async throws -> Performance
 }
