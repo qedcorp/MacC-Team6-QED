@@ -167,9 +167,14 @@ struct PerformanceWatchingDetailView: View {
                 .onTapGesture {
                     isShowingSharedAlert = false
                 }
-            if let performance = viewModel.performance {
-                SharedAlert(pId: viewModel.performance?.id ?? "",music: performance.music)
-                    .frame(width: 342, height: 226)
+            VStack {
+                Spacer(minLength: 218)
+                if let performance = viewModel.performance {
+                    SharedAlert(pId: viewModel.performance?.id ?? "",music: performance.music)
+                        .frame(width: 342, height: 226)
+                }
+                Rectangle()
+                    .foregroundStyle(.clear)
             }
         }
     }
@@ -407,6 +412,10 @@ struct PerformanceWatchingDetailView: View {
                 }
             } label: {
                 Image(systemName: "square.and.arrow.up")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 14)
+                    .offset(y: -1)
                     .overlay(
                         isShowingSharedAlert ?
                         Color.build(hex: .modalBackground) :
