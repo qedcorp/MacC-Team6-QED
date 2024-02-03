@@ -60,6 +60,7 @@ struct PerformanceListCardView: View {
                 cardHeight = geometry.size.height
             }
         }
+        .preferredColorScheme(.dark)
         .foregroundStyle(Color.monoWhite3)
         .aspectRatio(163 / 198, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: 5))
