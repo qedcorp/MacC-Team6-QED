@@ -21,7 +21,7 @@ struct MyPageView: View {
     private let termsURL = "https://www.notion.so/uimaph/FODI-178c9110f0594f919879a2a84a797600?pvs=4"
     private let personalInfoURL = "https://www.notion.so/uimaph/58256e6eb7a84e8a8fcbe46c3f1806c4?pvs=4"
     private let appStoreURL = "https://apps.apple.com/kr/app/fodi/id6470155832"
-    private let qedEmail = "fodi.official.kr@gmail.comㅎ"
+    private let qedEmail = "fodi.official.kr@gmail.com"
     private let feedbackURL = "https://forms.gle/1LTQh5baqV2irxq99"
 
     var body: some View {
