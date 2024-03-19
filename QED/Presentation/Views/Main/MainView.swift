@@ -41,6 +41,7 @@ struct MainView: View {
                     .padding([.top, .trailing], 24)
             }
             .onOpenURL { url in
+                
                 let isLoggedIn = try? KeyChainManager.shared.read(account: .id)
                 print(url.getQueryParameters())
                 let performanceId = url.getQueryParameters()["pId"]
