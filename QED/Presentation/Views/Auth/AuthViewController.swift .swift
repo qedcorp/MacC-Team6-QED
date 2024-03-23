@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 //  AuthViewController.swift
 //  QED
 //
@@ -210,14 +210,19 @@ class AuthViewController: UIViewController, AuthUIProtocol {
     private func setUpScrollViewItems() {
         view.layoutIfNeeded()
         for page in pages {
-            let image = UIImage.gifImageWithName(page.image)
-            let imageView = UIImageView(image: image)
-            scrollView.addSubview(imageView)
-            imageView.snp.makeConstraints {
-                $0.width.equalTo(scrollWidth)
-                $0.height.equalTo(scrollHeight)
-                $0.leading.equalTo(scrollView.snp.leading)
-                    .offset(scrollView.bounds.width * CGFloat(page.rawValue))
+            DispatchQueue.global().async {
+                let image = UIImage.gifImageWithURL(page.image)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    let imageView = UIImageView(image: image)
+                    self.scrollView.addSubview(imageView)
+                    imageView.snp.makeConstraints {
+                        $0.width.equalTo(self.scrollWidth)
+                        $0.height.equalTo(self.scrollHeight)
+                        $0.leading.equalTo(self.scrollView.snp.leading)
+                            .offset(self.scrollView.bounds.width * CGFloat(page.rawValue))
+                    }
+                }
             }
         }
     }
@@ -275,9 +280,9 @@ enum LoginPages: Int, CaseIterable {
 
     var image: String {
         switch self {
-        case .pageZero: return "login1"
-        case .pageFirst: return "login2"
-        case .pageSecond: return "login3"
+        case .pageZero: return "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmYzYXJzazd0aW02b2Q0NXZ3aWVuc3ZxcTNvcG0xNTRra2hoamVoNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IssZT1dw8kQqdphMim/giphy.gif"
+        case .pageFirst: return "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnc0OG96dTFuYm1leDJzbHU2ZjA0ajZpaHUzMzZ6Y3kwOXgwcnpvaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xTHG2lgJju8eLO2Uzc/giphy.gif"
+        case .pageSecond: return "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDdneGtrbWs3czR5Zm14cTBwZjJydjVmYWxzb2xrd3d6OGV3a2Z4OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vJpBo3fWXO8Xq13Lto/giphy.gif"
         }
     }
 }
