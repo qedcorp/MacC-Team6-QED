@@ -132,9 +132,6 @@
 		D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D413337D2ADE8CA800BDE1BB /* GoogleSignIn */; };
 		D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D413337F2ADE8CA800BDE1BB /* GoogleSignInSwift */; };
 		D41C83202BAEAEB1008875DA /* DIContanainerTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41C831F2BAEAEB1008875DA /* DIContanainerTemp.swift */; };
-		D41C83252BAEBC42008875DA /* login2.gif in Resources */ = {isa = PBXBuildFile; fileRef = D41C83222BAEBC41008875DA /* login2.gif */; };
-		D41C83262BAEBC42008875DA /* login3.gif in Resources */ = {isa = PBXBuildFile; fileRef = D41C83232BAEBC41008875DA /* login3.gif */; };
-		D41C83272BAEBC42008875DA /* login1.gif in Resources */ = {isa = PBXBuildFile; fileRef = D41C83242BAEBC41008875DA /* login1.gif */; };
 		D41F1DBF2B186D69001C645C /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F1DBE2B186D69001C645C /* View+.swift */; };
 		D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */; };
 		D42AA10E2AEC014A0053E2A8 /* DefaultMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */; };
@@ -385,9 +382,6 @@
 		D41333612ADE4ED900BDE1BB /* SearchMusicRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicRepositoryTests.swift; sourceTree = "<group>"; };
 		D413338A2ADEA66300BDE1BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D41C831F2BAEAEB1008875DA /* DIContanainerTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContanainerTemp.swift; sourceTree = "<group>"; };
-		D41C83222BAEBC41008875DA /* login2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login2.gif; sourceTree = "<group>"; };
-		D41C83232BAEBC41008875DA /* login3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login3.gif; sourceTree = "<group>"; };
-		D41C83242BAEBC41008875DA /* login1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login1.gif; sourceTree = "<group>"; };
 		D41F1DBE2B186D69001C645C /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		D42AA10D2AEC01490053E2A8 /* DefaultMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMusicRepository.swift; sourceTree = "<group>"; };
@@ -1015,16 +1009,6 @@
 			path = SearchMusicRepositoryTest;
 			sourceTree = "<group>";
 		};
-		D41C83212BAEBC41008875DA /* LoginGif */ = {
-			isa = PBXGroup;
-			children = (
-				D41C83222BAEBC41008875DA /* login2.gif */,
-				D41C83232BAEBC41008875DA /* login3.gif */,
-				D41C83242BAEBC41008875DA /* login1.gif */,
-			);
-			path = LoginGif;
-			sourceTree = "<group>";
-		};
 		D42AA10F2AEC04C90053E2A8 /* UIInterface */ = {
 			isa = PBXGroup;
 			children = (
@@ -1173,7 +1157,6 @@
 		D460EF792AE18DF700A5966A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D41C83212BAEBC41008875DA /* LoginGif */,
 				3A5328AC2AEAABF50051A09C /* Views */,
 				3AB872512AEAA478008FF1CB /* Components */,
 				D460EF872AE18DF700A5966A /* Models */,
@@ -1691,12 +1674,9 @@
 				A958E3122B0131C800C9FF3F /* Pretendard-Regular.otf in Resources */,
 				A958E3182B0131C800C9FF3F /* Pretendard-SemiBold.otf in Resources */,
 				A958E30F2B0131C800C9FF3F /* Pretendard-Thin.otf in Resources */,
-				D41C83272BAEBC42008875DA /* login1.gif in Resources */,
 				D460EFEC2AE18DF700A5966A /* Preview Assets.xcassets in Resources */,
-				D41C83262BAEBC42008875DA /* login3.gif in Resources */,
 				D460F0202AE18DF700A5966A /* GoogleService-Info.plist in Resources */,
 				51D03BFB2B028C5D001F05FD /* LaunchScreen.storyboard in Resources */,
-				D41C83252BAEBC42008875DA /* login2.gif in Resources */,
 				D460EFE92AE18DF700A5966A /* Assets.xcassets in Resources */,
 				A958E31B2B0131C800C9FF3F /* Pretendard-Light.otf in Resources */,
 			);
