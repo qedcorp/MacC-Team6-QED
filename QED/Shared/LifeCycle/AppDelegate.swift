@@ -23,7 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         KakaoSDK.initSDK(appKey: "e754bd84082fb1b6473589df6c567b66")
         FirebaseApp.configure()
-        injectDependencies()
+        _ = DIContainer.shared
         AirBridge.getInstance("290e6069b75142ca9ddbf24d6661cb56", appName: "fodi", withLaunchOptions: launchOptions)
 
         return true
@@ -36,10 +36,5 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             return AuthController.handleOpenUrl(url: url)
         }
         return false
-    }
-
-    private func injectDependencies() {
-        let authViewController = AuthViewController()
-        DIContainer.shared.resolver.dependencyInjection(providerType: authViewController)
     }
 }
