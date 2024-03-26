@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-import AirBridge
 import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
@@ -24,7 +23,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: "e754bd84082fb1b6473589df6c567b66")
         FirebaseApp.configure()
         _ = DIContainer.shared
-        AirBridge.getInstance("290e6069b75142ca9ddbf24d6661cb56", appName: "fodi", withLaunchOptions: launchOptions)
 
         return true
     }
