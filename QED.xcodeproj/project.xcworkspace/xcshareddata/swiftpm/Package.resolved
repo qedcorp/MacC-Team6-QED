@@ -1,5 +1,5 @@
 {
-  "originHash" : "bfffd9921426f999bca885d76ea61539a9f85e1d18cdb579b3735235326c7ccd",
+  "originHash" : "91ce460c76a5680d43d284f352ad97f68a60f18e1b8c2525860cf305a22930f9",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ab180/airbridge-ios-sdk-deploy",
       "state" : {
-        "revision" : "f87a61e6166e2a95c53d24a9288a5b92ecdcc0d2",
-        "version" : "1.35.0"
+        "revision" : "9444432afa8ce71463ef2ac2e2c7cd465be99de9",
+        "version" : "1.36.1"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
-        "version" : "5.8.0"
+        "revision" : "723fa5a6c65812aec4a0d7cc432ee198883b6e00",
+        "version" : "5.9.0"
       }
     },
     {
@@ -132,8 +132,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao/kakao-ios-sdk.git",
       "state" : {
-        "revision" : "4747117b01d8b28efbfcb004dbd122b8e1626f79",
-        "version" : "2.18.1"
+        "revision" : "b7a78bac4cb015fc3b1de34255b96421091fcf42",
+        "version" : "2.22.0"
       }
     },
     {
