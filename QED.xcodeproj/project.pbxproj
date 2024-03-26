@@ -133,6 +133,8 @@
 		D41545D62BB274E80038B2DF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D41545D52BB274E80038B2DF /* FirebaseAuth */; };
 		D41545D82BB274E80038B2DF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D41545D72BB274E80038B2DF /* FirebaseFirestore */; };
 		D41545DA2BB274E80038B2DF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D41545D92BB274E80038B2DF /* FirebaseFirestoreSwift */; };
+		D41545DD2BB277590038B2DF /* AirBridge in Frameworks */ = {isa = PBXBuildFile; productRef = D41545DC2BB277590038B2DF /* AirBridge */; };
+		D41545E02BB277820038B2DF /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = D41545DF2BB277820038B2DF /* KakaoSDK */; };
 		D41C83202BAEAEB1008875DA /* DIContanainerTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41C831F2BAEAEB1008875DA /* DIContanainerTemp.swift */; };
 		D41F1DBF2B186D69001C645C /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F1DBE2B186D69001C645C /* View+.swift */; };
 		D42AA10C2AEBBEE60053E2A8 /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA10B2AEBBEE60053E2A8 /* FireStoreError.swift */; };
@@ -145,12 +147,9 @@
 		D42AA1252AF3B4F70053E2A8 /* ObjectPlayableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1242AF3B4F70053E2A8 /* ObjectPlayableViewController.swift */; };
 		D42AA1272AF3BC210053E2A8 /* ObjectPlayableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1262AF3BC210053E2A8 /* ObjectPlayableView.swift */; };
 		D42AA12A2AF3FBE80053E2A8 /* PathToPointCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42AA1292AF3FBE80053E2A8 /* PathToPointCalculator.swift */; };
-		D43CD69F2B5A5B51007F2EFD /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = D43CD69E2B5A5B51007F2EFD /* KakaoSDK */; };
 		D43CD6A22B5A700F007F2EFD /* SharedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CD6A12B5A700F007F2EFD /* SharedAlert.swift */; };
 		D43CD6A42B5A76F9007F2EFD /* KakaoSharedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CD6A32B5A76F9007F2EFD /* KakaoSharedViewController.swift */; };
 		D43CD6A72B5A774D007F2EFD /* KakaoSharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43CD6A62B5A774D007F2EFD /* KakaoSharedView.swift */; };
-		D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */; };
-		D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = D460EE1D2ADED59F00A5966A /* KakaoSDKUser */; };
 		D460EFD62AE18DF700A5966A /* AuthRepository+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF662AE18DF700A5966A /* AuthRepository+.swift */; };
 		D460EFD72AE18DF700A5966A /* DefaultGoogleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF682AE18DF700A5966A /* DefaultGoogleAuthRepository.swift */; };
 		D460EFD82AE18DF700A5966A /* DefaultAppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460EF6A2AE18DF700A5966A /* DefaultAppleAuthRepository.swift */; };
@@ -248,7 +247,6 @@
 		D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16762B54FBBE00D361B5 /* Mixpanel */; };
 		D4BC167C2B550E4100D361B5 /* MixpanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167B2B550E4100D361B5 /* MixpanelManager.swift */; };
 		D4BC167E2B550FEE00D361B5 /* MixpanelAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC167D2B550FEE00D361B5 /* MixpanelAccounts.swift */; };
-		D4BC16812B57D0A700D361B5 /* AirBridge in Frameworks */ = {isa = PBXBuildFile; productRef = D4BC16802B57D0A700D361B5 /* AirBridge */; };
 		D4F19A2B2AF8DE5500F2F013 /* ScrollObservableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2A2AF8DE5500F2F013 /* ScrollObservableViewController.swift */; };
 		D4F19A2D2AF8DE6500F2F013 /* ScrollObservableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F19A2C2AF8DE6500F2F013 /* ScrollObservableView.swift */; };
 		D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4F19A2F2AF93B7A00F2F013 /* SnapKit */; };
@@ -502,10 +500,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D41545DD2BB277590038B2DF /* AirBridge in Frameworks */,
+				D41545E02BB277820038B2DF /* KakaoSDK in Frameworks */,
 				D41333802ADE8CA800BDE1BB /* GoogleSignInSwift in Frameworks */,
 				D413337E2ADE8CA800BDE1BB /* GoogleSignIn in Frameworks */,
-				D460EE1E2ADED59F00A5966A /* KakaoSDKUser in Frameworks */,
-				D460EE1C2ADED59F00A5966A /* KakaoSDKAuth in Frameworks */,
 				D4BC16772B54FBBE00D361B5 /* Mixpanel in Frameworks */,
 				D41545D82BB274E80038B2DF /* FirebaseFirestore in Frameworks */,
 				D41333692ADE619700BDE1BB /* Alamofire in Frameworks */,
@@ -513,8 +511,6 @@
 				D4F19A302AF93B7A00F2F013 /* SnapKit in Frameworks */,
 				D41545D62BB274E80038B2DF /* FirebaseAuth in Frameworks */,
 				3AD243B02B0E9A020084EC06 /* CachedAsyncImage in Frameworks */,
-				D4BC16812B57D0A700D361B5 /* AirBridge in Frameworks */,
-				D43CD69F2B5A5B51007F2EFD /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1575,17 +1571,15 @@
 			packageProductDependencies = (
 				D413337D2ADE8CA800BDE1BB /* GoogleSignIn */,
 				D413337F2ADE8CA800BDE1BB /* GoogleSignInSwift */,
-				D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */,
-				D460EE1D2ADED59F00A5966A /* KakaoSDKUser */,
 				D41333682ADE619700BDE1BB /* Alamofire */,
 				D4F19A2F2AF93B7A00F2F013 /* SnapKit */,
 				3AD243AF2B0E9A020084EC06 /* CachedAsyncImage */,
 				D4BC16762B54FBBE00D361B5 /* Mixpanel */,
-				D4BC16802B57D0A700D361B5 /* AirBridge */,
-				D43CD69E2B5A5B51007F2EFD /* KakaoSDK */,
 				D41545D52BB274E80038B2DF /* FirebaseAuth */,
 				D41545D72BB274E80038B2DF /* FirebaseFirestore */,
 				D41545D92BB274E80038B2DF /* FirebaseFirestoreSwift */,
+				D41545DC2BB277590038B2DF /* AirBridge */,
+				D41545DF2BB277820038B2DF /* KakaoSDK */,
 			);
 			productName = QED;
 			productReference = 3AE0CCBC2ADD0CE1001FE371 /* QED.app */;
@@ -1639,13 +1633,13 @@
 			mainGroup = 3AE0CCB32ADD0CE1001FE371;
 			packageReferences = (
 				D413337C2ADE8CA800BDE1BB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				D41333672ADE619700BDE1BB /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3AD243AE2B0E9A020084EC06 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
-				D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */,
 				D41545D42BB274E80038B2DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D41545DB2BB277590038B2DF /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */,
+				D41545DE2BB277810038B2DF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 3AE0CCBD2ADD0CE1001FE371 /* Products */;
 			projectDirPath = "";
@@ -2266,12 +2260,20 @@
 				minimumVersion = 10.23.0;
 			};
 		};
-		D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+		D41545DB2BB277590038B2DF /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ab180/airbridge-ios-sdk-deploy.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.36.1;
+			};
+		};
+		D41545DE2BB277810038B2DF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.18.0;
+				minimumVersion = 2.22.0;
 			};
 		};
 		D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
@@ -2280,14 +2282,6 @@
 			requirement = {
 				branch = master;
 				kind = branch;
-			};
-		};
-		D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ab180/airbridge-ios-sdk-deploy";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.35.0;
 			};
 		};
 		D4F19A2E2AF93B7A00F2F013 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -2336,30 +2330,20 @@
 			package = D41545D42BB274E80038B2DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		D43CD69E2B5A5B51007F2EFD /* KakaoSDK */ = {
+		D41545DC2BB277590038B2DF /* AirBridge */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			package = D41545DB2BB277590038B2DF /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */;
+			productName = AirBridge;
+		};
+		D41545DF2BB277820038B2DF /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D41545DE2BB277810038B2DF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
-		};
-		D460EE1B2ADED59F00A5966A /* KakaoSDKAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKAuth;
-		};
-		D460EE1D2ADED59F00A5966A /* KakaoSDKUser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D460EE1A2ADED59F00A5966A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKUser;
 		};
 		D4BC16762B54FBBE00D361B5 /* Mixpanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4BC16752B54FBBE00D361B5 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
-		};
-		D4BC16802B57D0A700D361B5 /* AirBridge */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BC167F2B57D0A700D361B5 /* XCRemoteSwiftPackageReference "airbridge-ios-sdk-deploy" */;
-			productName = AirBridge;
 		};
 		D4F19A2F2AF93B7A00F2F013 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
