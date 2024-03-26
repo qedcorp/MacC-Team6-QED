@@ -3,7 +3,6 @@
 import Combine
 import FirebaseFirestore
 import SwiftUI
-import AirBridge
 import KakaoSDKCommon
 import SafariServices
 import KakaoSDKTemplate

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Mixpanel
-import AirBridge
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()

@@ -41,6 +41,8 @@
 		<string>kakaolink</string>
 		<string>kakaoplus</string>
 	</array>
+	<key>MinimumOSVersion</key>
+	<string>16.4</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
